@@ -1,0 +1,35 @@
+{
+    "id": "{data_partition_id}:work-product-component--PVT:Autotest_PVT_Test",
+    "kind": "{custom_schema_authority}:wks:work-product-component--PVT:1.0.0",
+    "acl": {
+        "viewers": [
+            "{acl_viewers}"
+        ],
+        "owners": [
+            "{acl_owners}"
+        ]
+    },
+    "legal": {
+        "legaltags": [
+            "{legal_tag}"
+        ],
+        "otherRelevantDataCountries": [
+            "US"
+        ],
+        "status": "compliant"
+    },
+    "data": {
+        "Parameters": [
+            {
+                "Title": "Title",
+                "ParameterKindID": "{data_partition_id}:reference-data--ParameterKind:parameter_kind_id:"
+            }
+        ],
+        "Datasets": [],
+        "LaboratoryName": "someLabName",
+        "AnalysisDate": "2023-03-23",
+        "LabSampleIdentifier": "someIdentifier",
+        "FluidSampleID": "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
+        "PVTTests": {}
+    }
+}

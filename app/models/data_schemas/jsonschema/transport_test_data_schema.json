@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "TransportTestID": {
+      "title": "Transport Test ID",
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-TransportTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "TestNumber": {
+      "title": "Test Number",
+      "type": "string",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "FluidSampleID": {
+      "type": "string",
+      "title": "Fluid Sample ID",
+      "description": "Unique identifier of the Fluid Sample which Atmospheric Flash and Compositional Analysis is done on",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "TestTemperature": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "SaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "TransportTestSteps": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "StepNumber": {
+              "type": "string",
+              "title": "Step Number",
+              "description": "Internal step number which identifies the sequence of step in transport test measurements"
+            },
+            "StepPressure": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilViscosity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasViscosity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "TransportTestID"
+  ]
+}

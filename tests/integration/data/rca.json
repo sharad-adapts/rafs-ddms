@@ -1,0 +1,77 @@
+{
+    "columns": [
+        "RockSampleID",
+        "CoringID",
+        "WellboreID",
+        "SampleNumber",
+        "SampleDepth",
+        "Permeability",
+        "Porosity",
+        "GrainDensity",
+        "Saturation",
+        "LithologyDescription",
+        "Remarks"
+    ],
+    "index": [
+        1,
+        2
+    ],
+    "data": [
+        [
+            "opendes:master-data--RockSample:1:",
+            "opendes:master-data--Coring:1:",
+            "opendes:master-data--Wellbore:3412:",
+            "SampleNumber",
+            {
+                "Value": 346,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 56.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 89.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 1.30,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 5.65,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            "LithologyDescription",
+            "Remarks"
+        ],
+        [
+            "opendes:master-data--RockSample:2:",
+            "opendes:master-data--Coring:2:",
+            "opendes:master-data--Wellbore:3412:",
+            "SampleNumber",
+            {
+                "Value": 5.44,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 98.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 56.5,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 10.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            {
+                "Value": 7.5,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+            },
+            "LithologyDescription",
+            "Remarks"
+        ]
+    ]
+}

@@ -1,0 +1,37 @@
+{
+    "id": "{data_partition_id}:work-product-component--ConstantCompositionExpansionTest:Autotest_CCE_Test",
+    "kind": "{custom_schema_authority}:wks:work-product-component--ConstantCompositionExpansionTest:1.0.0",
+    "acl": {
+        "owners": [
+            "{acl_viewers}"
+        ],
+        "viewers": [
+            "{acl_owners}"
+        ]
+    },
+    "legal": {
+        "legaltags": [
+            "{legal_tag}"
+        ],
+        "otherRelevantDataCountries": [
+            "US"
+        ],
+        "status": "compliant"
+    },
+    "data": {
+        "Datasets": [],
+        "PVTReportID": "{data_partition_id}:work-product-component--PVT:stable:",
+        "FluidSampleID": "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
+        "AnalysisDate": "2023-03-23",
+        "LabSampleIdentifier": "20207905-20",
+        "LaboratoryName": "CoreLab",
+        "Remarks": [
+            {
+                "Remark": "Mounted",
+                "RemarkID": "Remark 1",
+                "RemarkSource": "Kentish Knock South 1 Completion Report, page 453."
+            }
+        ],
+        "DDMSDatasets": []
+    }
+}

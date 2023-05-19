@@ -1,0 +1,244 @@
+variables:
+  DDMS_NAME: rafs
+  GIT_DEPTH: 1
+  URL_PREFIX: api/rafs-ddms/v1
+
+stages:
+  - build
+  - containerize
+  - deploy
+  - integration
+
+include:
+  - project: "{{osdu}}/{{company}}-osdu/osdu-devops/{{company}}-azure-cicd-pipelines"
+    file: "azure/azure-containerize-kaniko.gitlab-ci.yml"
+  - project: "{{osdu}}/{{company}}-osdu/osdu-devops/{{company}}-azure-cicd-pipelines"
+    file: "common-pipelines/azure-helm.gitlab-ci.yml"
+  - project: "{{osdu}}/{{company}}-osdu/osdu-devops/{{company}}-azure-cicd-pipelines"
+    file: "common-pipelines/azure-variables.yml"
+  - project: "{{osdu}}/{{company}}-osdu/osdu-devops/{{company}}-azure-cicd-pipelines"
+    file: "common-pipelines/common-rules.gitlab-ci.yml"
+  - project: "{{osdu}}/{{company}}-osdu/osdu-devops/{{company}}-azure-cicd-pipelines"
+    file: azure/get-msi-kv-secrets.gitlab-ci.yml
+
+get_azure_token:
+  stage: build
+  extends:
+    - .get_azure_token
+    - .azure_variables_stable
+    - .deploy_rules
+
+.python_common_build: &python_common_build
+  image: ${AZURE_REGISTRY}.azurecr.io/${CI_PROJECT_NAME}:3.11-${CI_COMMIT_SHORT_SHA}
+  extends: [ .build_rules, .azure_variables_stable ]
+  needs:
+    - job: python_build_dependencies
+      artifacts: false
+  stage: build
+  variables:
+    CONFIG_FILE: "setup.cfg"
+
+.python_test_report:
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    reports:
+      junit: report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  after_script:
+    - coverage report
+    - coverage xml
+
+python_build_dependencies:
+  stage: .pre
+  extends: [ .kaniko_push, .azure_variables_stable, .build_rules ]
+  tags: []
+  variables:
+    DOCKERFILE_CONTEXT: $CI_PROJECT_DIR
+    DOCKERFILE_PATH: $CI_PROJECT_DIR/Dockerfile.tests
+    AZURE_ACR: $AZURE_REGISTRY.azurecr.io
+    AZURE_DOCKER_IMAGE_NAME: ${CI_PROJECT_NAME}
+    AZURE_DOCKER_IMAGE_TAG: 3.11-${CI_COMMIT_SHORT_SHA}
+    BUILD_ARG: "commit_id=$CI_COMMIT_SHORT_SHA"
+
+pylint:
+  <<: *python_common_build
+  script:
+    - pylint ${CI_PROJECT_DIR} --rcfile=${CONFIG_FILE} --errors-only
+
+flake8:
+  <<: *python_common_build
+  allow_failure: true
+  script:
+    - flake8 ${CI_PROJECT_DIR} --config=${CONFIG_FILE}
+  
+todos_report:
+  <<: *python_common_build
+  allow_failure: true
+  script:
+    - flake8 ${CI_PROJECT_DIR} --select T1
+
+pytest:
+  <<: *python_common_build
+  extends: [ .build_rules, .azure_variables_stable, .python_test_report ]
+  script:
+    - coverage run -m pytest -p no:cacheprovider --ignore=${CI_PROJECT_DIR}/tests/integration --junitxml=report.xml
+
+azure_containerize:
+  stage: containerize
+  tags: []
+  extends: [ .kaniko_push, .azure_variables_stable, .deploy_rules ]
+  needs:
+    - job: get_azure_token
+      artifacts: true
+    - job: pytest
+      artifacts: false
+  variables:
+    DOCKERFILE_CONTEXT: $CI_PROJECT_DIR
+    DOCKERFILE_PATH: $CI_PROJECT_DIR/Dockerfile.distroless
+    AZURE_ACR: $AZURE_REGISTRY.azurecr.io
+    AZURE_DOCKER_IMAGE_NAME: ${CI_PROJECT_NAME}
+    AZURE_DOCKER_IMAGE_TAG: ${CI_COMMIT_SHORT_SHA}
+  script:
+    - >-
+      /kaniko/executor
+      --cache=true
+      --cache-dir=$CI_PROJECT_DIR/kanikocache
+      --cache-repo=${AZURE_ACR}/kaniko/cache
+      --context "${DOCKERFILE_CONTEXT}"
+      --dockerfile "${DOCKERFILE_PATH}"
+      --destination "${AZURE_ACR}/${AZURE_DOCKER_IMAGE_NAME}:${AZURE_DOCKER_IMAGE_TAG}"
+      --destination "${AZURE_ACR}/${AZURE_DOCKER_IMAGE_NAME}:latest"
+      --build-arg "build_date=$CI_PIPELINE_CREATED_AT"
+      --build-arg "commit_id=$CI_COMMIT_SHORT_SHA"
+      --build-arg "commit_branch=$CI_COMMIT_REF_NAME"
+      --build-arg "commit_message=$CI_COMMIT_MESSAGE"
+      --build-arg "distroless_python_registry=${AZURE_ACR}/chainguard/python"
+
+.azure_deploy: &azure_deploy
+  variables:
+    HELM_CUSTOM_VALUES: >
+      --set configuration[0].container.image=${CI_PROJECT_NAME}
+      --set configuration[0].container.tag=${CI_COMMIT_SHORT_SHA}
+      --set standardms.configuration[0].container.image=${CI_PROJECT_NAME}
+      --set standardms.configuration[0].container.tag=${CI_COMMIT_SHORT_SHA}
+      -f ./devops/azure/values.yaml
+  after_script:
+    - |
+      if [[ "$CI_COMMIT_BRANCH" != "$CI_DEFAULT_BRANCH" ]]; then
+        export AKS_RELEASE_NAME=${CI_ENVIRONMENT_SLUG};
+      else
+        export AKS_RELEASE_NAME=${DDMS_NAME}-services;
+      fi
+      echo "[INFO] App in $AKS_RELEASE_NAME"
+    - kubectl get pods -n ddms-${DDMS_NAME} && kubectl describe pods -n ddms-${DDMS_NAME} -l "app in ($AKS_RELEASE_NAME)" | grep -A10 Events
+    - kubectl logs -n ddms-${DDMS_NAME} -l "app in ($AKS_RELEASE_NAME)"
+
+azure_deploy_review:
+  extends: [ .azure_helm_install_temp_ddms, .azure_variables_stable, .deploy_tmp_rules ]
+  environment:
+    name: dev/$CI_COMMIT_REF_SLUG
+    url: https://$CI_ENVIRONMENT_SLUG.centralus.cloudapp.azure.com/${URL_PREFIX}/docs#/
+    on_stop: azure_stop_review_deploy
+  <<: *azure_deploy
+
+azure_deploy_stable:
+  extends: [ .azure_helm_install_ddms, .azure_variables_stable, .deploy_default_rules ]
+  <<: *azure_deploy
+
+.azure_test: &azure_test
+  image: ${AZURE_REGISTRY}.azurecr.io/${CI_PROJECT_NAME}:build
+  stage: integration
+  retry: 1
+  before_script:
+    - apt update -qqq -y && apt install -qqq -y curl jq &> /dev/null
+    - !reference [.get_azure_access_token, script ]
+    - |
+      if [[ -z $CI_ENVIRONMENT_SLUG ]]; then
+        AZURE_SWAGGER_URL=https://${AZURE_DNS_NAME}/${URL_PREFIX}/docs#
+      else
+        AZURE_SWAGGER_URL=https://${CI_ENVIRONMENT_SLUG}.centralus.cloudapp.azure.com/${URL_PREFIX}/docs#
+      fi
+    - |
+      echo "[INFO] Testing swagger endpoint: ${AZURE_SWAGGER_URL}"
+      x=1; while [[ $x -le 5 ]] && [[ $(curl -k -o /dev/null -w "%{http_code}" -s -L -XGET $AZURE_SWAGGER_URL) != "200" ]] ; do
+        echo "[ERROR] Swagger 200 != $(curl -k -o /dev/null -w "%{http_code}" -s -L -XGET $AZURE_SWAGGER_URL) response, attempt:" $(( x++ ));
+        sleep 10s;
+      done
+      if [[ $(curl -k -o /dev/null -w "%{http_code}" -s -L -XGET $AZURE_SWAGGER_URL) != "200" ]] ; then echo "[ERROR] Swagger not 200 response"; exit 1; fi
+
+azure_test_review:
+  extends: [ .azure_variables_stable, .deploy_tmp_rules, .python_test_report ]
+  environment:
+    name: dev/$CI_COMMIT_REF_SLUG
+    action: verify
+  <<: *azure_test
+  script:
+    - echo "[INFO][BASE_URL] https://${CI_ENVIRONMENT_SLUG}.centralus.cloudapp.azure.com"
+    - curl -k https://${CI_ENVIRONMENT_SLUG}.centralus.cloudapp.azure.com/${URL_PREFIX}/info
+    - coverage run -m pytest -n auto --junitxml=report.xml --dist loadscope tests/integration/tests --ddms-base-url https://${CI_ENVIRONMENT_SLUG}.centralus.cloudapp.azure.com --bearer-token ${ACCESS_TOKEN}
+
+azure_test_stable:
+  extends: [ .azure_variables_stable, .deploy_default_rules, .python_test_report ]
+  <<: *azure_test
+  script:
+    - curl https://${AZURE_DNS_NAME}/${URL_PREFIX}/info
+    - coverage run -m pytest -n auto --junitxml=report.xml --dist loadscope tests/integration/tests --ddms-base-url https://${AZURE_DNS_NAME} --bearer-token ${ACCESS_TOKEN}
+
+azure_register_publish:
+  image: mcr.microsoft.com/azure-cli:2.9.1
+  extends: 
+    - .azure_variables_stable
+    - .deploy_default_rules
+  stage: integration
+  variables:
+    RAFS_URL: "https://${AZURE_DNS_NAME}"
+  before_script:
+    - !reference [.get_azure_access_token, script ]
+    - source $CI_PROJECT_DIR/docs/register/build_register_payload.bash
+    - _build_register_payload
+  script:
+    - PAYLOAD_FILE=$(find ${CI_PROJECT_DIR} -name "rafsddms_register.json" -type f)
+    - |
+      function _register_curl() {
+        echo "[INFO] Command: curl $*"
+        curl -ks --location --header "Authorization: Bearer ${ACCESS_TOKEN}" --header 'data-partition-id: opendes' --header 'Content-Type: application/json' $@ | jq .
+      }
+    - _register_curl -I -XDELETE https://${AZURE_DNS_NAME}/api/register/v1/ddms/rafs || echo ""
+    - _register_curl -XPOST https://${AZURE_DNS_NAME}/api/register/v1/ddms --data "@${PAYLOAD_FILE}"
+    # RockSampleAnalysis Register get test
+    - _register_curl https://${AZURE_DNS_NAME}/api/register/v1/ddms/rafs/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example
+
+azure_stop_review_deploy:
+  stage: .post
+  extends: [ .azure_variables_stable ]
+  image: osdumvpcr{{company}}ajlhcr.azurecr.io/infra/azure-common-utilities
+  needs: []
+  environment:
+    name: dev/$CI_COMMIT_REF_SLUG
+    action: stop
+  before_script:
+    - az login --service-principal -u $AZURE_PRINCIPAL_ID -p $AZURE_PRINCIPAL_SECRET --tenant $AZURE_TENANT_ID --query '[*].name'
+    - az aks get-credentials -g $AZURE_UNIQUE-rg -n $AZURE_UNIQUE-aks
+    - which helm || curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash -s -- --version v3.9.1
+  script:
+    - export AKS_RELEASE_NAME=${DDMS_NAME}-${CI_ENVIRONMENT_SLUG}
+    - echo "Trying to stop export $AKS_RELEASE_NAME"
+    - echo "helm uninstall -n ddms-${DDMS_NAME} $AKS_RELEASE_NAME"
+    - helm uninstall ${AKS_RELEASE_NAME} -n ddms-${DDMS_NAME} --debug
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+      when: manual
+      allow_failure: true
+
+.get_azure_access_token:
+  script:
+    - >-
+      ACCESS_TOKEN=$( 
+      curl -Ls -XPOST "https://login.microsoftonline.com/${AZURE_TENANT_ID}/oauth2/v2.0/token"
+      --data-urlencode "grant_type=refresh_token"
+      --data-urlencode "refresh_token=${AZURE_REFRESH_TOKEN}"
+      --data-urlencode "client_id=${AZURE_APP_ID}"
+      --data-urlencode "client_secret=${AZURE_APP_SECRET}" | jq -r .access_token
+      )

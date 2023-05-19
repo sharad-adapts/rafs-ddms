@@ -1,0 +1,70 @@
+# https://grafana.com/docs/grafana-cloud/quickstart/docker-compose-linux/ 
+# node exporter it is missing as not required for local - CSP will take care
+version: '3.1'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+
+services:
+  rafsddms:
+    build:
+      context: ../../../
+      dockerfile: Dockerfile.distroless
+    env_file:
+      - ../../../.env
+    ports:
+      - "8080:8080"
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--loop", "uvloop"]
+  
+  prometheus:
+    image: prom/prometheus:v2.43.0
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ./prometheus/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+        read_only: true
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    expose:
+      - 9090
+
+  # https://github.com/jeevananthank/k6/blob/master/docker-compose.yml
+  grafana:
+    image: grafana/grafana:8.5.22
+    user: "472"
+    depends_on:
+      - prometheus
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ./grafana/provisioning
+        target: /etc/grafana/provisioning
+        read_only: true
+      - grafana_data:/var/lib/grafana
+    restart: always
+
+  integration:
+    build:
+      context: ../../../
+      dockerfile: Dockerfile.tests
+    restart: "no"
+    working_dir: /
+    entrypoint: [ "bash", "-c",
+      "python -m pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url \"http://rafsddms:8080\" --bearer-token \"${ACCESS_TOKEN}\""]
+    profiles: ["integration"]
+    depends_on:
+      - rafsddms
+      - grafana

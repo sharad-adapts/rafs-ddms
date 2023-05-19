@@ -1,0 +1,157 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "InterfacialTensionTestID": {
+        "title": "Interfacial Tension Test ID",
+        "type": "string",
+        "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-InterfacialTensionTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "TestNumber": {
+        "title": "Test Number",
+        "type": "string",
+        "description": "A number for this test for purposes of e.g., tracking lab sequence."
+      },
+      "FluidSampleID": {
+        "type": "string",
+        "title": "Fluid Sample ID",
+        "description": "Unique identifier of the Fluid Sample which Atmospheric Flash and Compositional Analysis is done on",
+        "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "WettingPhase": {
+        "type": "string",
+        "description": "aqueous/oleic/vapor/total hydrocarbon",
+        "enum": [
+          "aqueous",
+          "oleic",
+          "vapor",
+          "total hydrocarbon"
+        ]
+      },
+      "nonWettingPhase": {
+        "type": "string",
+        "description": "aqueous/oleic/vapor/total hydrocarbon",
+        "enum": [
+          "aqueous",
+          "oleic",
+          "vapor",
+          "total hydrocarbon"
+        ]
+      },
+      "Surfactant": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "ComponentName": {
+                "type": "string"
+              },
+              "ComponentMassFraction": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              },
+              "ComponentMoleFraction": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "Remark": {
+        "title": "Remark",
+        "type": "string"
+      },
+      "InterfacialTensionTestSteps": {
+        "type": "array",
+        "items": [
+          {
+            "type": "object",
+            "properties": {
+              "StepNumber": {
+                "type": "string",
+                "title": "Step Number",
+                "description": "Internal step number which identifies the sequence of step in interfacial tension measurements"
+              },
+              "StepPressure": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              },
+              "StepTemperature": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              },
+              "WettingPhaseSaturation": {
+                  "type": "number"
+              },
+              "SurfactantConcentration": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              },
+              "InterfacialTension": {
+                "type": "object",
+                "properties": {
+                  "Value": {
+                    "type": "number"
+                  },
+                  "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                  }
+                }
+              },
+              "Remark": {
+                "title": "Remark",
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "required": [
+      "InterfacialTensionTestID"
+    ]
+  }
+  

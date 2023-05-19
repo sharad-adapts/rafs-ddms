@@ -1,0 +1,529 @@
+{
+  "id": "rafs-v1",
+  "name": "rafsDDMS",
+  "description": "Rock And Fluid Sample DDMS",
+  "contactEmail": "osdu-sre@{{company}}.com",
+  "interfaces": [
+    {
+      "entityType": "routinecoreanalysisdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/rocksampleanalyses/{record_id}/rca/data": {
+            "get": {
+              "tags": [
+                "rocksampleanalyses",
+                "routine-core-analysis"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_rca__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "constantcompositionexpansiondata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/ccereports/{record_id}/data": {
+            "get": {
+              "tags": [
+                "constant-composition-expansion"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_cce__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "differentialliberationdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/difflibreports/{record_id}/data": {
+            "get": {
+              "tags": [
+                "differential-liberation"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_dif-lib__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "transporttestdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/transporttests/{record_id}/data": {
+            "get": {
+              "tags": [
+                "transporttests"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_transport-test__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "multistageseparatordata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/multistageseparatortests/{record_id}/data": {
+            "get": {
+              "tags": [
+                "multi-stage-separator"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_multistageseparator__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "compositionalanalysisdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/compositionalanalysisreports/{record_id}/data": {
+            "get": {
+              "tags": [
+                "compositionalanalysisreports"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_compositionalanalysis__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "swellingdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/swellingtests/{record_id}/data": {
+            "get": {
+              "tags": [
+                "swellingtests"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_swelling__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "entityType": "constantvolumedepletiontestdata",
+      "schema": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Rock and Sample Fluid DDMS",
+          "version": "0.1.0"
+        },
+        "servers": [
+          {
+            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+          }
+        ],
+        "tags": [
+          {
+            "name": "rafs",
+            "description": "Rock And Fluid Sample DDMS",
+            "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+          }
+        ],
+        "paths": {
+          "/api/rafs-ddms/v1/constantvolumedepletiontests/{record_id}/data": {
+            "get": {
+              "tags": [
+                "constantvolumedepletiontests"
+              ],
+              "summary": "Get Bulk Data",
+              "operationId": "get_data_api_rafs_ddms_constantvolumedepletiontest__record_id__get",
+              "parameters": [
+                {
+                  "required": true,
+                  "schema": {
+                    "title": "Record Id",
+                    "type": "string"
+                  },
+                  "name": "record_id",
+                  "in": "path"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "Successful Response",
+                  "content": {
+                    "application/json": {
+                      "schema": {}
+                    }
+                  }
+                },
+                "422": {
+                  "description": "Validation Error",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/HTTPValidationError"
+                      }
+                    }
+                  }
+                }
+              },
+              "x-ddms-retrieve-entity": true
+            }
+          }
+        }
+      }
+    }
+  ]
+}

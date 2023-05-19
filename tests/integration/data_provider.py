@@ -1,0 +1,63 @@
+#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+
+import json
+import os
+from dataclasses import dataclass
+
+from tests.integration.config import CONFIG, DATA_DIR
+
+
+@dataclass
+class RecordValues(object):
+    data_partition_id: str
+    schema_authority: str
+    custom_schema_authority: str
+    acl_viewers: str
+    acl_owners: str
+    legal_tag: str
+
+
+azure_values = RecordValues(
+    data_partition_id="opendes",
+    schema_authority="osdu",
+    custom_schema_authority="rafsddms",
+    acl_viewers="data.default.viewers@opendes.contoso.com",
+    acl_owners="data.default.owners@opendes.contoso.com",
+    legal_tag="opendes-rafs-ddms-legal",
+)
+
+
+def test_data(file_name: str) -> dict:
+    data_values = None
+    if CONFIG["CLOUD_PROVIDER"] == "azure":
+        data_values = azure_values
+    with open(os.path.join(DATA_DIR, file_name)) as json_file:
+        data_str = (
+            json_file.read(
+            ).replace(
+                "{data_partition_id}", data_values.data_partition_id,
+            ).replace(
+                "{schema_authority}", data_values.schema_authority,
+            ).replace(
+                "{custom_schema_authority}", data_values.custom_schema_authority,
+            ).replace(
+                "{acl_viewers}", data_values.acl_viewers,
+            ).replace(
+                "{acl_owners}", data_values.acl_owners,
+            ).replace(
+                "{legal_tag}", data_values.legal_tag,
+            )
+        )
+        return json.loads(data_str)

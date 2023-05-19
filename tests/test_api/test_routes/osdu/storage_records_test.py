@@ -1,0 +1,1185 @@
+#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+import copy
+import re
+from contextlib import contextmanager
+from unittest.mock import call, create_autospec, patch
+
+import pytest
+from httpx import AsyncClient, HTTPStatusError
+from starlette import status
+
+from app.api.dependencies.services import (
+    get_async_search_service,
+    get_async_storage_service,
+)
+from app.main import app
+from app.services.search import SearchService
+from app.services.storage import StorageService
+from tests.test_api.api_version import API_VERSION
+from tests.test_api.test_routes import dependencies
+from tests.test_api.test_routes.osdu.storage_mock_objects import (
+    CCE_ENDPOINT_PATH,
+    CCE_RECORD,
+    COMPOSITIONALANALYSIS_ENDPOINT_PATH,
+    COMPOSITIONALANALYSIS_RECORD,
+    CORING_ENDPOINT_PATH,
+    CORING_RECORD,
+    CVD_ENDPOINT_PATH,
+    CVD_RECORD,
+    DIF_LIB_ENDPOINT_PATH,
+    DL_RECORD,
+    EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE,
+    EXPECTED_200_CREATED_RESPONSE,
+    EXPECTED_200_VERSIONS_RESPONSE,
+    EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT,
+    EXPECTED_404_RESPONSE,
+    EXPECTED_422_NO_KIND_REASON,
+    EXPECTED_422_TYPER_ERROR_LIST,
+    EXPECTED_422_WRONG_PATTERN,
+    INTERFACIAL_TENSION_ENDPOINT_PATH,
+    INTERFACIAL_TENSION_RECORD,
+    MSS_ENDPOINT_PATH,
+    MULTISTAGESEPARATOR_RECORD,
+    OSDU_GENERIC_RECORD,
+    PVT_ENDPOINT_PATH,
+    PVT_QUERY_STORAGE_SERVICE_200_RESPONSE,
+    PVT_RECORD,
+    PVT_STORAGE_SERVICE_200_RESPONSE,
+    ROCKSAMPLE_ENDPOINT_PATH,
+    ROCKSAMPLE_RECORD,
+    ROCKSAMPLEANALYSIS_ENDPOINT_PATH,
+    ROCKSAMPLEANALYSIS_RECORD,
+    STO_ENDPOINT_PATH,
+    STO_RECORD,
+    STORAGE_SERVICE_200_RESPONSE,
+    STORAGE_SERVICE_200_VERSIONS_RESPONSE,
+    SWELLING_ENDPOINT_PATH,
+    SWELLING_RECORD,
+    TEST_CCE_ID,
+    TEST_COMPOSITIONALANALYSIS_ID,
+    TEST_CORING_ID,
+    TEST_CVD_ID,
+    TEST_DL_ID,
+    TEST_HEADERS,
+    TEST_HEADERS_NO_AUTH,
+    TEST_INTERFACIAL_TENSION_ID,
+    TEST_MSS_ID,
+    TEST_PVT_ID,
+    TEST_ROCKSAMPLE_ID,
+    TEST_ROCKSAMPLEANALYSIS_ID,
+    TEST_SERVER,
+    TEST_STO_ID,
+    TEST_SWELLING_ID,
+    TEST_TRANSPORT_ID,
+    TEST_WATERANALYSIS_ID,
+    TEST_WRONG_ID,
+    TRANSPORT_ENDPOINT_PATH,
+    TRANSPORT_RECORD,
+    WATERANALYSIS_ENDPOINT_PATH,
+    WATERANALYSIS_RECORD,
+    build_storage_service_response_200,
+)
+
+storage_record_service_mock = create_autospec(StorageService, spec_set=True, instance=True)
+search_service_mock = create_autospec(SearchService, spec_set=True, instance=True)
+
+
+async def mock_get_search_service():
+    yield search_service_mock
+
+
+async def query_records_mock(_):
+    record_data = PVT_RECORD.dict(exclude_none=True)
+    return {
+        "records": [
+            record_data,
+        ],
+        "invalidRecords": [],
+        "retryRecords": [],
+    }
+
+
+async def mock_get_async_storage_service():
+    yield storage_record_service_mock
+
+
+@contextmanager
+def storage_override():
+    overrides = {
+        get_async_storage_service: mock_get_async_storage_service,
+        get_async_search_service: mock_get_search_service,
+    }
+    with dependencies.DependencyOverrider(app, overrides) as mock_dependencies:
+        yield mock_dependencies
+
+
+@pytest.fixture
+def with_patched_storage_raises_404(storage_method):
+    """Patch storage to raise 404."""
+    class Response(object):
+        status_code = status.HTTP_404_NOT_FOUND
+        content = b"test reason"
+        text = "test txt"
+
+    with patch.object(
+        storage_record_service_mock,
+        storage_method,
+        side_effect=HTTPStatusError("test", response=Response(), request=None),
+    ):
+        yield
+
+
+def get_record_wpc_references(record):
+    record = record.json(exclude_none=True)
+    # @TODO support for versions and more types when validations are for every reference
+    search_ids = re.findall(r"[\w\-\.]+:work-product-component--[\w]+:[\w\-\.\:\%]+:", record)
+    return [{"id": search_id[:-1]} for search_id in search_ids]
+
+
+@pytest.fixture
+def with_patched_storage_created_200(storage_method, osdu_record):
+    """Patch storage to 200 created."""
+    with patch.object(
+        storage_record_service_mock,
+        storage_method,
+        return_value=STORAGE_SERVICE_200_RESPONSE,
+    ):
+        with patch.object(
+            search_service_mock,
+            "find_records",
+            return_value={"results": get_record_wpc_references(osdu_record)},
+        ):
+            yield
+
+
+@pytest.fixture
+def with_patched_storage_pvt_link_200(created_responses: list, get_response: dict):
+    """Patch storage to 200 created."""
+    with patch.object(
+        storage_record_service_mock,
+        "upsert_records",
+        side_effect=created_responses,
+    ):
+        with patch.object(storage_record_service_mock, "get_record", return_value=get_response):
+            yield
+
+
+@pytest.fixture
+def with_patched_search_storage_raises_40x(storage_method, api_status_code):
+    """Patch storage to raise 40x."""
+    class Response(object):
+        status_code = api_status_code
+        content = b"test reason"
+        text = "test txt"
+
+    with patch.object(
+        storage_record_service_mock,
+        storage_method,
+        side_effect=HTTPStatusError("test", response=Response(), request=None),
+    ):
+        with patch.object(
+            search_service_mock,
+            "find_records",
+            side_effect=HTTPStatusError("test", response=Response(), request=None),
+        ):
+            yield
+
+
+@pytest.fixture
+def with_patched_storage_get_success_200(storage_method, osdu_record):
+    """Patch storage to 200 success."""
+    with patch.object(storage_record_service_mock, storage_method, return_value=osdu_record):
+        yield
+
+
+@pytest.fixture
+def with_patched_storage_get_versions_success_200(storage_method):
+    """Patch storage to 200 success."""
+    with patch.object(
+        storage_record_service_mock,
+        storage_method,
+        return_value=STORAGE_SERVICE_200_VERSIONS_RESPONSE,
+    ):
+        yield
+
+
+@pytest.fixture
+def with_patched_storage_query_pvt_200():
+    """Patch storage to return pvt record."""
+    with patch.object(
+        storage_record_service_mock,
+        "query_records",
+        return_value=PVT_QUERY_STORAGE_SERVICE_200_RESPONSE,
+    ):
+        yield
+
+
+@pytest.fixture
+def with_patched_storage_query_pvt_invalid_200():
+    """Patch storage to return invalid pvt record."""
+    record = copy.deepcopy(PVT_QUERY_STORAGE_SERVICE_200_RESPONSE["records"][0])
+    invalid_pvt_tests_value = [test_id for test_id in record["data"]["PVTTests"].values()]
+    record["data"]["PVTTests"] = invalid_pvt_tests_value
+    return_value = {
+        "records": [
+            record,
+        ],
+        "invalidRecords": [],
+        "retryRecords": [],
+    }
+    with patch.object(
+        storage_record_service_mock,
+        "query_records",
+        return_value=return_value,
+    ):
+        yield
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,record_id", [
+        ("get_record", "rocksamples", TEST_ROCKSAMPLE_ID),
+        ("get_record", "coringreports", TEST_CORING_ID),
+        ("get_record", "pvtreports", TEST_PVT_ID),
+        ("get_record", "rocksampleanalyses", TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record", "ccereports", TEST_CCE_ID),
+        ("get_record", "difflibreports", TEST_DL_ID),
+        ("get_record", "transporttests", TEST_TRANSPORT_ID),
+        ("get_record", "compositionalanalysisreports", TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record", "multistageseparatortests", TEST_MSS_ID),
+        ("get_record", "swellingtests", TEST_SWELLING_ID),
+        ("get_record", "constantvolumedepletiontests", TEST_CVD_ID),
+        ("get_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
+        ("get_record", "stocktankoilanalysisreports", TEST_STO_ID),
+        ("get_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}",
+                headers=TEST_HEADERS,
+            )
+    assert all((response.json().get(k) == v for k, v in EXPECTED_404_RESPONSE.items()))
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,record_id", [
+        ("get_record", "rocksamples", TEST_ROCKSAMPLE_ID),
+        ("get_record", "coringreports", TEST_CORING_ID),
+        ("get_record", "pvtreports", TEST_PVT_ID),
+        ("get_record", "rocksampleanalyses", TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record", "ccereports", TEST_CCE_ID),
+        ("get_record", "difflibreports", TEST_DL_ID),
+        ("get_record", "transporttests", TEST_TRANSPORT_ID),
+        ("get_record", "compositionalanalysisreports", TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record", "multistageseparatortests", TEST_MSS_ID),
+        ("get_record", "swellingtests", TEST_SWELLING_ID),
+        ("get_record", "constantvolumedepletiontests", TEST_CVD_ID),
+        ("get_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
+        ("get_record", "stocktankoilanalysisreports", TEST_STO_ID),
+        ("get_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}/versions/version_id",
+                headers=TEST_HEADERS,
+            )
+
+    assert response.json() == EXPECTED_404_RESPONSE
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,record_id", [
+        ("get_record_versions", "rocksamples", TEST_ROCKSAMPLE_ID),
+        ("get_record_versions", "coringreports", TEST_CORING_ID),
+        ("get_record_versions", "pvtreports", TEST_PVT_ID),
+        ("get_record_versions", "rocksampleanalyses", TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record_versions", "ccereports", TEST_CCE_ID),
+        ("get_record_versions", "difflibreports", TEST_DL_ID),
+        ("get_record_versions", "transporttests", TEST_TRANSPORT_ID),
+        ("get_record_versions", "compositionalanalysisreports", TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record_versions", "multistageseparatortests", TEST_MSS_ID),
+        ("get_record_versions", "swellingtests", TEST_SWELLING_ID),
+        ("get_record_versions", "constantvolumedepletiontests", TEST_CVD_ID),
+        ("get_record_versions", "wateranalysisreports", TEST_WATERANALYSIS_ID),
+        ("get_record_versions", "stocktankoilanalysisreports", TEST_STO_ID),
+        ("get_record_versions", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_versions_not_found(
+    storage_method, path, record_id,
+    with_patched_storage_raises_404,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}/versions",
+                headers=TEST_HEADERS,
+            )
+
+    assert response.json() == EXPECTED_404_RESPONSE
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,record_id", [
+        ("soft_delete_record", "rocksamples", TEST_ROCKSAMPLE_ID),
+        ("soft_delete_record", "coringreports", TEST_CORING_ID),
+        ("soft_delete_record", "pvtreports", TEST_PVT_ID),
+        ("soft_delete_record", "rocksampleanalyses", TEST_ROCKSAMPLEANALYSIS_ID),
+        ("soft_delete_record", "ccereports", TEST_CCE_ID),
+        ("soft_delete_record", "difflibreports", TEST_DL_ID),
+        ("soft_delete_record", "transporttests", TEST_TRANSPORT_ID),
+        ("soft_delete_record", "compositionalanalysisreports", TEST_COMPOSITIONALANALYSIS_ID),
+        ("soft_delete_record", "multistageseparatortests", TEST_MSS_ID),
+        ("soft_delete_record", "swellingtests", TEST_SWELLING_ID),
+        ("soft_delete_record", "constantvolumedepletiontests", TEST_CVD_ID),
+        ("soft_delete_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
+        ("soft_delete_record", "stocktankoilanalysisreports", TEST_STO_ID),
+        ("soft_delete_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_delete_record_not_found(
+    storage_method, path, record_id,
+    with_patched_storage_raises_404,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.delete(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}",
+                headers=TEST_HEADERS,
+            )
+
+    assert response.json() == EXPECTED_404_RESPONSE
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path", [
+        ("rocksamples"),
+        ("coringreports"),
+        ("pvtreports"),
+        ("rocksampleanalyses"),
+        ("ccereports"),
+        ("difflibreports"),
+        ("transporttests"),
+        ("compositionalanalysisreports"),
+        ("multistageseparatortests"),
+        ("swellingtests"),
+        ("constantvolumedepletiontests"),
+        ("wateranalysisreports"),
+        ("stocktankoilanalysisreports"),
+        ("interfacialtensiontests"),
+    ],
+)
+async def test_post_record_no_kind(path):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[OSDU_GENERIC_RECORD.dict()],
+            )
+
+    response_json = response.json()
+    assert response_json["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert EXPECTED_422_NO_KIND_REASON in response.json()["reason"]
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path", [
+        ("rocksamples"),
+        ("coringreports"),
+        ("pvtreports"),
+        ("rocksampleanalyses"),
+        ("ccereports"),
+        ("difflibreports"),
+        ("transporttests"),
+        ("compositionalanalysisreports"),
+        ("multistageseparatortests"),
+        ("swellingtests"),
+        ("constantvolumedepletiontests"),
+        ("wateranalysisreports"),
+        ("stocktankoilanalysisreports"),
+        ("interfacialtensiontests"),
+    ],
+)
+async def test_post_record_invalid_payload_type(path):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(f"/api/os-rafs-ddms/{API_VERSION}/{path}", headers=TEST_HEADERS, json={})
+
+    assert response.json()["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.json()["errors"][0] == EXPECTED_422_TYPER_ERROR_LIST
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record,field",
+    [
+        ("rocksamples", ROCKSAMPLE_RECORD, "WellboreID"),
+        ("coringreports", CORING_RECORD, "WellboreID"),
+        ("pvtreports", PVT_RECORD, "FluidSampleID"),
+        ("rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD, "WellboreID"),
+        ("ccereports", CCE_RECORD, "FluidSampleID"),
+        ("difflibreports", DL_RECORD, "FluidSampleID"),
+        ("transporttests", TRANSPORT_RECORD, "FluidSampleID"),
+        ("compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD, "FluidSampleID"),
+        ("multistageseparatortests", MULTISTAGESEPARATOR_RECORD, "FluidSampleID"),
+        ("swellingtests", SWELLING_RECORD, "FluidSampleID"),
+        ("constantvolumedepletiontests", CVD_RECORD, "FluidSampleID"),
+        ("wateranalysisreports", WATERANALYSIS_RECORD, "FluidSampleID"),
+        ("stocktankoilanalysisreports", STO_RECORD, "FluidSampleID"),
+        ("interfacialtensiontests", INTERFACIAL_TENSION_RECORD, "FluidSampleID"),
+    ],
+)
+async def test_post_record_invalid_field_type(path, osdu_record, field):
+    osdu_record_wrong_field_type = osdu_record.dict()
+    osdu_record_wrong_field_type.update({"data": {field: "wrong_pattern"}})
+
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record_wrong_field_type],
+            )
+
+    assert response.json()["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert field in response.json()["reason"]
+    assert all([s in response.json()["reason"] for s in EXPECTED_422_WRONG_PATTERN])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,osdu_record",
+    [
+        ("upsert_records", "rocksamples", ROCKSAMPLE_RECORD),
+        ("upsert_records", "coringreports", CORING_RECORD),
+        ("upsert_records", "pvtreports", PVT_RECORD),
+        ("upsert_records", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+    ],
+)
+async def test_post_record_success(
+    storage_method, path, osdu_record,
+    with_patched_storage_created_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == EXPECTED_200_CREATED_RESPONSE
+    storage_record_service_mock.upsert_records.assert_called_once_with(
+        [osdu_record.dict(exclude_none=True)],
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record",
+    [
+        (
+            "ccereports",
+            CCE_RECORD,
+        ),
+    ],
+)
+async def test_post_record_with_invalid_pvt_parent(
+    path,
+    osdu_record,
+    with_patched_storage_query_pvt_invalid_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    result_json = response.json()
+    assert result_json == EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record,created_responses,get_response",
+    [
+        (
+            "ccereports",
+            CCE_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_CCE_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_CCE_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "difflibreports",
+            DL_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_DL_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_DL_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "transporttests",
+            TRANSPORT_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_TRANSPORT_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_TRANSPORT_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "compositionalanalysisreports",
+            COMPOSITIONALANALYSIS_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_COMPOSITIONALANALYSIS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_COMPOSITIONALANALYSIS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "swellingtests",
+            SWELLING_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_SWELLING_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_SWELLING_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "multistageseparatortests",
+            MULTISTAGESEPARATOR_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_MSS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_MSS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "constantvolumedepletiontests",
+            CVD_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_CVD_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_CVD_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "wateranalysisreports",
+            WATERANALYSIS_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_WATERANALYSIS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_WATERANALYSIS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "stocktankoilanalysisreports",
+            STO_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_STO_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_STO_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "interfacialtensiontests",
+            INTERFACIAL_TENSION_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_INTERFACIAL_TENSION_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_INTERFACIAL_TENSION_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+    ],
+)
+async def test_post_record_success_update_pvt_parent(
+    path,
+    osdu_record,
+    created_responses,
+    get_response,
+    with_patched_storage_pvt_link_200,
+    with_patched_storage_query_pvt_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+            result_json = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert result_json["recordCount"] == EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE["recordCount"]
+    assert set(result_json["recordIdVersions"]) == {f"{osdu_record.id}:1", f"{osdu_record.data.PVTReportID}1"}
+    assert result_json["skippedRecordCount"] == EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE["skippedRecordCount"]
+    assert storage_record_service_mock.upsert_records.call_args_list[0] == call([osdu_record.dict(exclude_none=True)])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,osdu_record,record_id",
+    [
+        ("get_record", "rocksamples", ROCKSAMPLE_RECORD, TEST_ROCKSAMPLE_ID),
+        ("get_record", "coringreports", CORING_RECORD, TEST_CORING_ID),
+        ("get_record", "pvtreports", PVT_RECORD, TEST_PVT_ID),
+        ("get_record", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD, TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record", "ccereports", CCE_RECORD, TEST_CCE_ID),
+        ("get_record", "difflibreports", DL_RECORD, TEST_DL_ID),
+        ("get_record", "transporttests", TRANSPORT_RECORD, TEST_TRANSPORT_ID),
+        ("get_record", "compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD, TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record", "multistageseparatortests", MULTISTAGESEPARATOR_RECORD, TEST_MSS_ID),
+        ("get_record", "swellingtests", SWELLING_RECORD, TEST_SWELLING_ID),
+        ("get_record", "constantvolumedepletiontests", CVD_RECORD, TEST_CVD_ID),
+        ("get_record", "wateranalysisreports", WATERANALYSIS_RECORD, TEST_WATERANALYSIS_ID),
+        ("get_record", "stocktankoilanalysisreports", STO_RECORD, TEST_STO_ID),
+        ("get_record", "interfacialtensiontests", INTERFACIAL_TENSION_RECORD, TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_success(
+    storage_method, path, osdu_record, record_id,
+    with_patched_storage_get_success_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}", headers=TEST_HEADERS)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == osdu_record.dict()
+    storage_record_service_mock.get_record.assert_called_once_with(record_id)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,osdu_record,record_id",
+    [
+        ("get_record", "rocksamples", ROCKSAMPLE_RECORD, TEST_ROCKSAMPLE_ID),
+        ("get_record", "coringreports", CORING_RECORD, TEST_CORING_ID),
+        ("get_record", "pvtreports", PVT_RECORD, TEST_PVT_ID),
+        ("get_record", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD, TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record", "ccereports", CCE_RECORD, TEST_CCE_ID),
+        ("get_record", "difflibreports", DL_RECORD, TEST_DL_ID),
+        ("get_record", "transporttests", TRANSPORT_RECORD, TEST_TRANSPORT_ID),
+        ("get_record", "compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD, TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record", "multistageseparatortests", MULTISTAGESEPARATOR_RECORD, TEST_MSS_ID),
+        ("get_record", "swellingtests", SWELLING_RECORD, TEST_SWELLING_ID),
+        ("get_record", "constantvolumedepletiontests", CVD_RECORD, TEST_CVD_ID),
+        ("get_record", "wateranalysisreports", WATERANALYSIS_RECORD, TEST_WATERANALYSIS_ID),
+        ("get_record", "stocktankoilanalysisreports", STO_RECORD, TEST_STO_ID),
+        ("get_record", "interfacialtensiontests", INTERFACIAL_TENSION_RECORD, TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_version_success(
+    storage_method, path, osdu_record, record_id,
+    with_patched_storage_get_success_200,
+):
+    with storage_override():
+        test_version = "1"
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}/versions/{test_version}", headers=TEST_HEADERS,
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == osdu_record.dict()
+    storage_record_service_mock.get_record.assert_called_once_with(record_id, test_version)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,record_id", [
+        ("get_record_versions", "rocksamples", TEST_ROCKSAMPLE_ID),
+        ("get_record_versions", "coringreports", TEST_CORING_ID),
+        ("get_record_versions", "pvtreports", TEST_PVT_ID),
+        ("get_record_versions", "rocksampleanalyses", TEST_ROCKSAMPLEANALYSIS_ID),
+        ("get_record_versions", "ccereports", TEST_CCE_ID),
+        ("get_record_versions", "difflibreports", TEST_DL_ID),
+        ("get_record_versions", "transporttests", TEST_TRANSPORT_ID),
+        ("get_record_versions", "compositionalanalysisreports", TEST_COMPOSITIONALANALYSIS_ID),
+        ("get_record_versions", "multistageseparatortests", TEST_MSS_ID),
+        ("get_record_versions", "swellingtests", TEST_SWELLING_ID),
+        ("get_record_versions", "constantvolumedepletiontests", TEST_CVD_ID),
+        ("get_record_versions", "wateranalysisreports", TEST_WATERANALYSIS_ID),
+        ("get_record_versions", "stocktankoilanalysisreports", TEST_STO_ID),
+        ("get_record_versions", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+    ],
+)
+async def test_get_record_versions_success(
+    storage_method, path, record_id,
+    with_patched_storage_get_versions_success_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(f"/api/os-rafs-ddms/{API_VERSION}/{path}/{record_id}/versions", headers=TEST_HEADERS)
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == EXPECTED_200_VERSIONS_RESPONSE
+    storage_record_service_mock.get_record_versions.assert_called_once_with(record_id)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,api_status_code,path", [
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksampleanalyses/{TEST_ROCKSAMPLEANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"ccereports/{TEST_CCE_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"difflibreports/{TEST_DL_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"transporttests/{TEST_TRANSPORT_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"compositionalanalysisreports/{TEST_COMPOSITIONALANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"multistageseparatortests/{TEST_MSS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"swellingtests/{TEST_SWELLING_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"constantvolumedepletiontests/{TEST_CVD_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"wateranalysisreports/{TEST_WATERANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/version_id"),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"rocksampleanalyses/{TEST_ROCKSAMPLEANALYSIS_ID}/versions/version_id",
+        ),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"ccereports/{TEST_CCE_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"difflibreports/{TEST_DL_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"transporttests/{TEST_TRANSPORT_ID}/versions/version_id"),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"compositionalanalysisreports/{TEST_COMPOSITIONALANALYSIS_ID}/versions/version_id",
+        ),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"multistageseparatortests/{TEST_MSS_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"swellingtests/{TEST_SWELLING_ID}/versions/version_id"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"constantvolumedepletiontests/{TEST_CVD_ID}/versions/version_id"),
+        (
+            "get_record",
+            status.HTTP_401_UNAUTHORIZED,
+            f"wateranalysisreports/{TEST_WATERANALYSIS_ID}/versions/version_id",
+        ),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}/versions/version_id"),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}/versions/version_id",
+        ),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"rocksampleanalyses/{TEST_ROCKSAMPLEANALYSIS_ID}/versions",
+        ),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"ccereports/{TEST_CCE_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"difflibreports/{TEST_DL_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"transporttests/{TEST_TRANSPORT_ID}/versions"),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"compositionalanalysisreports/{TEST_COMPOSITIONALANALYSIS_ID}/versions",
+        ),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"multistageseparatortests/{TEST_MSS_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"swellingtests/{TEST_SWELLING_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"constantvolumedepletiontests/{TEST_CVD_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"wateranalysisreports/{TEST_WATERANALYSIS_ID}/versions"),
+        ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}/versions"),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}/versions",
+        ),
+    ],
+)
+async def test_get_record_auth_errors_from_storage(
+    storage_method, api_status_code, path,
+    with_patched_search_storage_raises_40x,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(f"/api/os-rafs-ddms/{API_VERSION}/{path}", headers=TEST_HEADERS)
+
+    assert response.status_code == api_status_code
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path", [
+        ("rocksamples/record_id"),
+        ("coringreports/record_id"),
+        ("pvtreports/record_id"),
+        ("rocksampleanalyses/record_id"),
+        ("ccereports/record_id"),
+        ("difflibreports/record_id"),
+        ("transporttests/record_id"),
+        ("compositionalanalysisreports/record_id"),
+        ("multistageseparatortests/record_id"),
+        ("swellingtests/record_id"),
+        ("constantvolumedepletiontests/record_id"),
+        ("wateranalysisreports/record_id"),
+        ("stocktankoilanalysisreports/record_id"),
+        ("interfacialtensiontests/record_id"),
+        ("rocksamples/record_id/versions/version_id"),
+        ("coringreports/record_id/versions/version_id"),
+        ("pvtreports/record_id/versions/version_id"),
+        ("rocksampleanalyses/record_id/versions/version_id"),
+        ("ccereports/record_id/versions/version_id"),
+        ("difflibreports/record_id/versions/version_id"),
+        ("transporttests/record_id/versions/version_id"),
+        ("compositionalanalysisreports/record_id/versions/version_id"),
+        ("multistageseparatortests/record_id/versions/version_id"),
+        ("swellingtests/record_id/versions/version_id"),
+        ("constantvolumedepletiontests/record_id/versions/version_id"),
+        ("wateranalysisreports/record_id/versions/version_id"),
+        ("stocktankoilanalysisreports/record_id/versions/version_id"),
+        ("interfacialtensiontests/record_id/versions/version_id"),
+        ("rocksamples/record_id/versions"),
+        ("coringreports/record_id/versions"),
+        ("pvtreports/record_id/versions"),
+        ("rocksampleanalyses/record_id/versions"),
+        ("ccereports/record_id/versions"),
+        ("difflibreports/record_id/versions"),
+        ("transporttests/record_id/versions"),
+        ("compositionalanalysisreports/record_id/versions"),
+        ("multistageseparatortests/record_id/versions"),
+        ("swellingtests/record_id/versions"),
+        ("constantvolumedepletiontests/record_id/versions"),
+        ("wateranalysisreports/record_id/versions"),
+        ("stocktankoilanalysisreports/record_id/versions"),
+        ("interfacialtensiontests/record_id/versions"),
+    ],
+)
+async def test_get_record_auth_errors(
+    path,
+):
+    async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+        response = await client.get(f"/api/os-rafs-ddms/{API_VERSION}/{path}", headers=TEST_HEADERS_NO_AUTH)
+
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,api_status_code,path", [
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"rocksampleanalyses/{TEST_ROCKSAMPLEANALYSIS_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"ccereports/{TEST_CCE_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"difflibreports/{TEST_DL_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"transporttests/{TEST_TRANSPORT_ID}"),
+        (
+            "soft_delete_record",
+            status.HTTP_401_UNAUTHORIZED,
+            f"compositionalanalysisreports/{TEST_COMPOSITIONALANALYSIS_ID}",
+        ),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"multistageseparatortests/{TEST_MSS_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"swellingtests/{TEST_SWELLING_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"constantvolumedepletiontests/{TEST_CVD_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"wateranalysisreports/{TEST_WATERANALYSIS_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}"),
+    ],
+)
+async def test_delete_record_auth_errors_from_storage(
+    storage_method, api_status_code, path,
+    with_patched_search_storage_raises_40x,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.delete(f"/api/os-rafs-ddms/{API_VERSION}/{path}", headers=TEST_HEADERS)
+
+    assert response.status_code == api_status_code
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path", [
+        ("rocksamples/record_id"),
+        ("coringreports/record_id"),
+        ("pvtreports/record_id"),
+        ("rocksampleanalyses/record_id"),
+        ("ccereports/record_id"),
+        ("difflibreports/record_id"),
+        ("transporttests/record_id"),
+        ("compositionalanalysisreports/record_id"),
+        ("multistageseparatortests/record_id"),
+        ("swellingtests/record_id"),
+        ("constantvolumedepletiontests/record_id"),
+        ("wateranalysisreports/record_id"),
+        ("stocktankoilanalysisreports/record_id"),
+        ("interfacialtensiontests/record_id"),
+    ],
+)
+async def test_delete_record_auth_errors(
+    path,
+):
+    async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+        response = await client.delete(f"/api/os-rafs-ddms/{API_VERSION}/{path}", headers=TEST_HEADERS_NO_AUTH)
+
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,api_status_code,path,osdu_record",
+    [
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "rocksamples", ROCKSAMPLE_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "coringreports", CORING_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "pvtreports", PVT_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "ccereports", CCE_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "difflibreports", DL_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "transporttests", TRANSPORT_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "constantvolumedepletiontests", CVD_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "multistageseparatortests", MULTISTAGESEPARATOR_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "swellingtests", SWELLING_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "constantvolumedepletiontests", CVD_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "wateranalysisreports", WATERANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "stocktankoilanalysisreports", STO_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "interfacialtensiontests", INTERFACIAL_TENSION_RECORD),
+    ],
+)
+async def test_post_record_auth_errors_from_storage(
+    storage_method, api_status_code, path, osdu_record,
+    with_patched_search_storage_raises_40x,
+    with_patched_storage_query_pvt_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == api_status_code
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record",
+    [
+        ("rocksamples", ROCKSAMPLE_RECORD),
+        ("coringreports", CORING_RECORD),
+        ("pvtreports", PVT_RECORD),
+        ("rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+        ("ccereports", CCE_RECORD),
+        ("difflibreports", DL_RECORD),
+        ("transporttests", TRANSPORT_RECORD),
+        ("compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD),
+        ("multistageseparatortests", MULTISTAGESEPARATOR_RECORD),
+        ("swellingtests", SWELLING_RECORD),
+        ("constantvolumedepletiontests", CVD_RECORD),
+        ("wateranalysisreports", WATERANALYSIS_RECORD),
+        ("stocktankoilanalysisreports", STO_RECORD),
+        ("interfacialtensiontests", INTERFACIAL_TENSION_RECORD),
+    ],
+)
+async def test_post_record_auth_errors(
+    path, osdu_record,
+):
+    async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+        response = await client.post(
+            f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+            headers=TEST_HEADERS_NO_AUTH,
+            json=[osdu_record.dict(exclude_none=True)],
+        )
+
+    assert response.status_code == status.HTTP_403_FORBIDDEN
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "endpoint,record_id", [
+        (CORING_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (CORING_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (CORING_ENDPOINT_PATH, TEST_CCE_ID),
+        (CORING_ENDPOINT_PATH, TEST_DL_ID),
+        (CORING_ENDPOINT_PATH, TEST_TRANSPORT_ID),
+        (CORING_ENDPOINT_PATH, TEST_COMPOSITIONALANALYSIS_ID),
+        (PVT_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (PVT_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_CORING_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_CCE_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_DL_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_TRANSPORT_ID),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, TEST_CORING_ID),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, TEST_CCE_ID),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, TEST_DL_ID),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, TEST_TRANSPORT_ID),
+        (CCE_ENDPOINT_PATH, TEST_CORING_ID),
+        (CCE_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (CCE_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (DIF_LIB_ENDPOINT_PATH, TEST_CORING_ID),
+        (DIF_LIB_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (DIF_LIB_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (TRANSPORT_ENDPOINT_PATH, TEST_CORING_ID),
+        (TRANSPORT_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (TRANSPORT_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (COMPOSITIONALANALYSIS_ENDPOINT_PATH, TEST_CORING_ID),
+        (COMPOSITIONALANALYSIS_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (COMPOSITIONALANALYSIS_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (MSS_ENDPOINT_PATH, TEST_CORING_ID),
+        (MSS_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (MSS_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (SWELLING_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (WATERANALYSIS_ENDPOINT_PATH, TEST_COMPOSITIONALANALYSIS_ID),
+        (STO_ENDPOINT_PATH, TEST_CORING_ID),
+        (STO_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (STO_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_CORING_ID),
+        (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+    ],
+)
+async def test_get_record_wrong_kind(endpoint, record_id):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"{endpoint}/{record_id}",
+                headers=TEST_HEADERS,
+            )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "endpoint,manifest", [
+        (CORING_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (PVT_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (ROCKSAMPLE_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (ROCKSAMPLEANALYSIS_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (DIF_LIB_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (COMPOSITIONALANALYSIS_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (MSS_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (SWELLING_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (CVD_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (WATERANALYSIS_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (STO_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (INTERFACIAL_TENSION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+    ],
+)
+async def test_post_record_wrong_kind(endpoint, manifest):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                endpoint,
+                headers=TEST_HEADERS,
+                json=[manifest],
+            )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "endpoint,record_id", [
+        (CORING_ENDPOINT_PATH, TEST_WRONG_ID),
+        (PVT_ENDPOINT_PATH, TEST_WRONG_ID),
+        (ROCKSAMPLE_ENDPOINT_PATH, TEST_WRONG_ID),
+        (CCE_ENDPOINT_PATH, TEST_WRONG_ID),
+        (DIF_LIB_ENDPOINT_PATH, TEST_WRONG_ID),
+        (TRANSPORT_ENDPOINT_PATH, TEST_WRONG_ID),
+        (COMPOSITIONALANALYSIS_ENDPOINT_PATH, TEST_WRONG_ID),
+        (MSS_ENDPOINT_PATH, TEST_WRONG_ID),
+        (SWELLING_ENDPOINT_PATH, TEST_WRONG_ID),
+        (CVD_ENDPOINT_PATH, TEST_WRONG_ID),
+        (WATERANALYSIS_ENDPOINT_PATH, TEST_WRONG_ID),
+        (STO_ENDPOINT_PATH, TEST_WRONG_ID),
+        (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_WRONG_ID),
+    ],
+)
+async def test_delete_record_wrong_kind(endpoint, record_id):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.delete(
+                f"{endpoint}/{record_id}",
+                headers=TEST_HEADERS,
+            )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY

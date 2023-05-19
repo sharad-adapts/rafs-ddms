@@ -1,0 +1,2847 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "Rock and Fluid Sample DDMS",
+        "description": "OSDU Rock and Fluid Sample DDMS",
+        "version": "0.1.0"
+    },
+    "servers": [
+        {
+            "url": "/api/rafs-ddms/v1"
+        }
+    ],
+    "paths": {
+        "/metrics": {
+            "get": {
+                "summary": "Metrics",
+                "description": "Endpoint that serves Prometheus metrics.",
+                "operationId": "metrics_metrics_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/info": {
+            "get": {
+                "tags": [
+                    "info"
+                ],
+                "summary": "Get Info",
+                "operationId": "get_info_info_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InfoResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/rocksampleanalyses/{record_id}/rca/data": {
+            "get": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Get Data",
+                "description": "Get the bulk data for a given `RockSampleAnalysis` object by record id. <br><br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>    The  `columns_filter`, `rows_filter`, and  `columns_aggregation`         query parameters can be used to manage data in response.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_data_rocksampleanalysis__record_id__rca_data_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "routine-core-analysis"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,PropertyY,PropertyZ",
+                        "name": "columns_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Rows Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,gt,4000",
+                        "name": "rows_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Aggregation",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,avg",
+                        "name": "columns_aggregation",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Post Data",
+                "description": "Upload the bulk data for a given `RockSampleAnalysis` object by record id.<br>    It creates a new version of the record. <br>    The previous meta-data with bulk data is available by their `versions`. <br> <br>    Use the `Content-Type` request header to specify payload format         (`application/json` and `application/parquet` are supported).<br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_data_rocksampleanalysis__record_id__rca_data_post",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "routine-core-analysis"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksampleanalyses/{record_id}/rca/source": {
+            "get": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Get Source Data",
+                "description": "Get the source report file for a given `RockSampleAnalysis` object by record id.<br><br>    Datasets identifiers from the `Datasets` record's property are used as source file references.    If the record relates to multiple reports, the reports' source files will be zipped.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_source_data_rocksampleanalysis__record_id__rca_source_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksampleanalyses/{record_id}": {
+            "get": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `RockSampleAnalysis` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_rocksampleanalysis__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `RockSampleAnalysis` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_rocksampleanalysis__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksampleanalyses/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `RockSampleAnalysis` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_rocksampleanalysis__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksampleanalyses/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `RockSampleAnalysis` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_rocksampleanalysis__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--RockSampleAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksampleanalyses": {
+            "post": {
+                "tags": [
+                    "rocksampleanalyses",
+                    "rocksampleanalyses"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `RockSampleAnalysis` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_rocksampleanalysis_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/coringreports/{record_id}": {
+            "get": {
+                "tags": [
+                    "coringreports",
+                    "coringreports"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `Coring` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_coring__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--Coring:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "coringreports",
+                    "coringreports"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `Coring` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_coring__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--Coring:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/coringreports/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "coringreports",
+                    "coringreports"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `Coring` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_coring__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--Coring:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/coringreports/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "coringreports",
+                    "coringreports"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `Coring` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_coring__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--Coring:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/coringreports": {
+            "post": {
+                "tags": [
+                    "coringreports",
+                    "coringreports"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `Coring` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_coring_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksamples/{record_id}": {
+            "get": {
+                "tags": [
+                    "rocksamples",
+                    "rocksamples"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `RockSample` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_rocksample__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--RockSample:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "rocksamples",
+                    "rocksamples"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `RockSample` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_rocksample__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--RockSample:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksamples/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "rocksamples",
+                    "rocksamples"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `RockSample` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_rocksample__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--RockSample:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksamples/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "rocksamples",
+                    "rocksamples"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `RockSample` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_rocksample__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:master-data--RockSample:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/rocksamples": {
+            "post": {
+                "tags": [
+                    "rocksamples",
+                    "rocksamples"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `RockSample` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_rocksample_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/pvtreports/{record_id}": {
+            "get": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `PVT` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_pvt__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--PVT:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `PVT` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_pvt__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--PVT:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/pvtreports/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `PVT` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_pvt__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--PVT:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/pvtreports/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `PVT` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_pvt__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--PVT:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/pvtreports": {
+            "post": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `PVT` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_pvt_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/pvtreports/{record_id}/source": {
+            "get": {
+                "tags": [
+                    "pvtreports",
+                    "pvtreports"
+                ],
+                "summary": "Get Source Data",
+                "operationId": "get_source_data_pvt__record_id__source_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--PVT:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports/{record_id}/data": {
+            "get": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Get Data",
+                "description": "Get the bulk data for a given `ConstantCompositionExpansionTest` object by record id. <br><br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>    The  `columns_filter`, `rows_filter`, and  `columns_aggregation`         query parameters can be used to manage data in response.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_data_cce__record_id__data_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "constant-composition-expansion"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,PropertyY,PropertyZ",
+                        "name": "columns_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Rows Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,gt,4000",
+                        "name": "rows_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Aggregation",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,avg",
+                        "name": "columns_aggregation",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Post Data",
+                "description": "Upload the bulk data for a given `ConstantCompositionExpansionTest` object by record id.<br>    It creates a new version of the record. <br>    The previous meta-data with bulk data is available by their `versions`. <br> <br>    Use the `Content-Type` request header to specify payload format         (`application/json` and `application/parquet` are supported).<br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_data_cce__record_id__data_post",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "constant-composition-expansion"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports/{record_id}/source": {
+            "get": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Get Source Data",
+                "description": "Get the source report file for a given `ConstantCompositionExpansionTest` object by record id.<br><br>    Datasets identifiers from the `Datasets` record's property are used as source file references.    If the record relates to multiple reports, the reports' source files will be zipped.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_source_data_cce__record_id__source_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports/{record_id}": {
+            "get": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `ConstantCompositionExpansionTest` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_cce__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `ConstantCompositionExpansionTest` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_cce__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `ConstantCompositionExpansionTest` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_cce__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `ConstantCompositionExpansionTest` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_cce__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantCompositionExpansionTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/ccereports": {
+            "post": {
+                "tags": [
+                    "ccereports",
+                    "ccereports"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `ConstantCompositionExpansionTest` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_cce_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports/{record_id}/data": {
+            "get": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Get Data",
+                "description": "Get the bulk data for a given `DifferentialLiberationTest` object by record id. <br><br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>    The  `columns_filter`, `rows_filter`, and  `columns_aggregation`         query parameters can be used to manage data in response.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_data_dif_lib__record_id__data_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "differential-liberation"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,PropertyY,PropertyZ",
+                        "name": "columns_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Rows Filter",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,gt,4000",
+                        "name": "rows_filter",
+                        "in": "query"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Columns Aggregation",
+                            "type": "string"
+                        },
+                        "example": "PropertyX,avg",
+                        "name": "columns_aggregation",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Post Data",
+                "description": "Upload the bulk data for a given `DifferentialLiberationTest` object by record id.<br>    It creates a new version of the record. <br>    The previous meta-data with bulk data is available by their `versions`. <br> <br>    Use the `Content-Type` request header to specify payload format         (`application/json` and `application/parquet` are supported).<br>    Use the `Accept` request header to specify response format         (`application/json` and `application/parquet` are supported).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_data_dif_lib__record_id__data_post",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Bulk Dataset Prefix",
+                            "default": "differential-liberation"
+                        },
+                        "name": "bulk_dataset_prefix",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports/{record_id}/source": {
+            "get": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Get Source Data",
+                "description": "Get the source report file for a given `DifferentialLiberationTest` object by record id.<br><br>    Datasets identifiers from the `Datasets` record's property are used as source file references.    If the record relates to multiple reports, the reports' source files will be zipped.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_source_data_dif_lib__record_id__source_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "required": false,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "query"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports/{record_id}": {
+            "get": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `DifferentialLiberationTest` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_dif_lib__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `DifferentialLiberationTest` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_dif_lib__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `DifferentialLiberationTest` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_dif_lib__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `DifferentialLiberationTest` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_dif_lib__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "string"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/difflibreports": {
+            "post": {
+                "tags": [
+                    "difflibreports",
+                    "difflibreports"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `DifferentialLiberationTest` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_dif_lib_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Acl": {
+                "title": "Acl",
+                "required": [
+                    "viewers",
+                    "owners"
+                ],
+                "type": "object",
+                "properties": {
+                    "viewers": {
+                        "title": "Viewers",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "owners": {
+                        "title": "Owners",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "HTTPValidationError": {
+                "title": "HTTPValidationError",
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "app_name": "Errors"
+                    }
+                }
+            },
+            "InfoResponse": {
+                "title": "InfoResponse",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "title": "Name",
+                        "type": "string"
+                    },
+                    "version": {
+                        "title": "Version",
+                        "type": "string"
+                    },
+                    "build_time": {
+                        "title": "Build Time",
+                        "type": "string"
+                    },
+                    "branch": {
+                        "title": "Branch",
+                        "type": "string"
+                    },
+                    "commit_id": {
+                        "title": "Commit Id",
+                        "type": "string"
+                    },
+                    "commit_message": {
+                        "title": "Commit Message",
+                        "type": "string"
+                    }
+                }
+            },
+            "Legal": {
+                "title": "Legal",
+                "required": [
+                    "legaltags",
+                    "otherRelevantDataCountries",
+                    "status"
+                ],
+                "type": "object",
+                "properties": {
+                    "legaltags": {
+                        "title": "Legaltags",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "otherRelevantDataCountries": {
+                        "title": "Otherrelevantdatacountries",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "status": {
+                        "title": "Status",
+                        "type": "string"
+                    }
+                }
+            },
+            "OsduStorageRecord": {
+                "title": "OsduStorageRecord",
+                "required": [
+                    "id",
+                    "kind",
+                    "acl",
+                    "legal",
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "string"
+                    },
+                    "kind": {
+                        "title": "Kind",
+                        "type": "string"
+                    },
+                    "acl": {
+                        "$ref": "#/components/schemas/Acl"
+                    },
+                    "legal": {
+                        "$ref": "#/components/schemas/Legal"
+                    },
+                    "data": {
+                        "title": "Data",
+                        "type": "object"
+                    },
+                    "meta": {
+                        "title": "Meta",
+                        "type": "array",
+                        "items": {}
+                    },
+                    "ancestry": {
+                        "title": "Ancestry",
+                        "type": "object"
+                    },
+                    "tags": {
+                        "title": "Tags",
+                        "type": "object"
+                    },
+                    "version": {
+                        "title": "Version",
+                        "type": "integer"
+                    }
+                }
+            },
+            "StorageUpsertResponse": {
+                "title": "StorageUpsertResponse",
+                "required": [
+                    "record_count",
+                    "record_id_versions",
+                    "skipped_record_count"
+                ],
+                "type": "object",
+                "properties": {
+                    "record_count": {
+                        "title": "Record Count",
+                        "type": "integer"
+                    },
+                    "record_id_versions": {
+                        "title": "Record Id Versions",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "skipped_record_count": {
+                        "title": "Skipped Record Count",
+                        "type": "integer"
+                    }
+                }
+            },
+            "ValidationError": {
+                "title": "ValidationError",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "type": "object",
+                "properties": {
+                    "loc": {
+                        "type": "array",
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "app_name": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "app_name": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "app_name": "Error Type"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "HTTPBearer": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

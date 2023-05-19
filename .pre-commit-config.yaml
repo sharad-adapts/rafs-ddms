@@ -1,0 +1,104 @@
+repos:
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-merge-conflict
+      - id: end-of-file-fixer
+      - id: detect-private-key
+      - id: debug-statements
+      - id: trailing-whitespace
+        files: "(app)|(tests)|(client)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+# Formatters
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/pre-commit/mirrors-autopep8
+    rev: v2.0.1
+    hooks:
+      - id: autopep8
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.0.1
+    hooks:
+      - id: autoflake
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.6.0
+    hooks:
+      - id: docformatter
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/asottile/add-trailing-comma
+    rev: v2.4.0
+    hooks:
+      - id: add-trailing-comma
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/myint/unify
+    rev: v0.5
+    hooks:
+      - id: unify
+        args: [
+          -r,
+          --in-place,
+          --quote="
+        ]
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+# Linters
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        additional_dependencies: [
+          darglint==1.8.1,
+          flake8-async==22.11.14,
+          flake8-bandit==3.0.0,
+          flake8-blind-except==0.2.1,
+          flake8-broken-line==0.5.0,
+          flake8-bugbear==22.12.6,
+          flake8-commas==2.1.0,
+          flake8-comprehensions==3.10.1,
+          flake8-debugger==4.1.2,
+          flake8-docstrings==1.7.0,
+          flake8-eradicate==1.4.0,
+          flake8-isort==4.2.0,
+          flake8-polyfill==1.0.2,
+          flake8-quotes==3.3.2,
+          flake8-rst-docstrings==0.2.7,
+          flake8-string-format==0.3.0,
+          mccabe==0.6.1,
+          pep8-naming==0.13.2,
+          pycodestyle==2.8.0,
+          pydocstyle==6.3.0,
+          pyflakes==2.4.0,
+          wemake_python_styleguide==0.17.0,
+        ]
+        args: [--config=setup.cfg]
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/PyCQA/pylint
+    rev: v2.16.2
+    hooks:
+      - id: pylint
+        args: [
+          --rcfile=setup.cfg,
+          --errors-only
+        ]
+        exclude: "(app/models/domain)|(app/models/data_schemas)"
+
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.18.0
+    hooks:
+      - id: gitlint
+        exclude: "(app/models/domain)|(app/models/data_schemas)"

@@ -1,0 +1,102 @@
+{
+  "ConstantVolumeDepletionTestID": "opendes:work-product-component-ConstantVolumeDepletionTest:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+  "FluidSampleID": "opendes:master-data-FluidSample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+  "TestNumber": "LBA1578",
+  "VaporProperties": [
+    {
+      "StepNumber": 1,
+      "StepPressure": {
+        "Value": 5000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "GasDensity": {
+        "Value": 0.504,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3:"
+      },
+      "GasPhaseZFactor": 1.692,
+      "TwoPhaseZFactor": 1.692,
+      "GasMoleWeight": {
+        "Value": 39.73,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mole:"
+      },
+      "GasViscosity": {
+        "Value": 0.108,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
+      },
+      "GasFVF": {
+        "Value": 605,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Bg:"
+      }
+    }
+  ],
+  "LiquidProperties": [
+    {
+      "StepNumber": 1,
+      "StepPressure": {
+        "Value": 5000,
+        "UnitOfMeasure": "psi"
+      },
+      "MolesDisplaced": {
+        "Value": 0.0008,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+      },
+      "ReservoirFluidDisplaced": {
+        "Value": 0.0008,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%:"
+      },
+      "ReservoirLiquidVolume": {
+        "Value": 0.0008,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%:"
+      },
+      "SaturationLiquidVolume": {
+        "Value": 0.0008,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+      },
+      "AbsoluteLiquidVolume": {
+        "Value": 0.0008,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%:"
+      }
+    }
+  ],
+  "FluidComposition": [
+    {
+      "ComponentName": "C12+",
+      "StepPressure": {
+        "Value": 5000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "RelativeMoleWeight": {
+        "Value": 74.68,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+      },
+      "LiquidFraction": {
+        "Value": 74.68,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+      }
+    }
+  ],
+  "CalculatedTotalProperties": [
+    {
+      "StepNumber": 1,
+      "StepPressure": {
+        "Value": 5000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "MoleWeight": {
+        "Value": 26.99,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+      },
+      "GasGravity": 1.372,
+      "ZFactor": 1.413,
+      "ComponentMoleWeight": [
+        {
+          "ComponentName": "C10+",
+          "MoleWeight": {
+            "Value": 247.01,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]:"
+          }
+        }
+      ]
+    }
+  ]
+}

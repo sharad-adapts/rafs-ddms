@@ -1,0 +1,59 @@
+{
+    "columns": [
+        "InterfacialTensionTestID",
+        "FluidSampleID",
+        "TestNumber",
+        "WettingPhase",
+        "nonWettingPhase",
+        "Surfactant",
+        "Remark",
+        "InterfacialTensionTestSteps"
+    ],
+    "index": [0],
+    "data": [
+        [
+            "opendes:work-product-component--InterfacialTensionTest:test:1",
+            "opendes:master-data--FluidSample:fluid_sample_test:",
+            "RFL 202002580",
+            "oleic",
+            "oleic",
+            [
+                {
+                    "ComponentName": "CH3(CH2)11OSO3Na",
+                    "ComponentMassFraction": {
+                        "Value": 15,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
+                    },
+                    "ComponentMoleFraction": {
+                        "Value": 15,
+                        "UnotOfMeasure": "opendes:reference-data--UnitOfMeasure:pct"
+                    }
+                }
+            ],
+            "Test was successfully executed this monday on sample #2475",
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 1500,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia"
+                    },
+                    "StepTemperature": {
+                        "Value": 150,
+                        "UnitOfMeasure":"opendes:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WettingPhaseSaturation": 150,
+                    "SurfactantConcentration": {
+                        "Value":195,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm"
+                    },
+                    "InterfacialTension": {
+                        "Value": 1,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf/ft"
+                    },
+                    "Remark": "There were problems in observing the results of this step, we try again in step 2"
+                }
+            ]
+        ]
+    ]
+}

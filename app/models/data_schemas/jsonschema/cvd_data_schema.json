@@ -1,0 +1,302 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "ConstantVolumeDepletionTestID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component--ConstantVolumeDepletionTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "FluidSampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data--FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "TestNumber": {
+      "type": "string"
+    },
+    "VaporProperties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StepNumber": {
+            "type": "string"
+          },
+          "StepPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "GasDensity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "GasPhaseZFactor": {
+            "type": "number"
+          },
+          "TwoPhaseZFactor": {
+            "type": "number"
+          },
+          "GasMoleWeight": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "GasViscosity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "GasFVF": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number",
+                "minimum": 0
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "Remarks": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "LiquidProperties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StepNumber": {
+            "type": "string"
+          },
+          "StepPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "MolesDisplaced": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "ReservoirFluidDisplaced": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "ReservoirLiquidVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "SaturationLiquidVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "AbsoluteLiquidVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "Remarks": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FluidComposition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ComponentName": {
+            "type": "string"
+          },
+          "StepPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "RelativeMoleWeight": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "LiquidFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "CalculatedTotalProperties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StepNumber": {
+            "type": "number"
+          },
+          "StepPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "MoleWeight": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "GasGravity": {
+            "type": "number"
+          },
+          "ZFactor": {
+            "type": "number"
+          },
+          "ComponentMoleWeight": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ComponentName": {
+                  "type": "string"
+                },
+                "MoleWeight": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "Remarks": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "ConstantVolumeDepletionTestID"
+  ]
+}

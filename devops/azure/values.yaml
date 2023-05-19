@@ -1,0 +1,61 @@
+# Using https://community.opengroup.org/osdu/platform/deployment-and-operations/helm-charts-azure/-/tree/master/osdu-ddms/standard-ddms for simplicity
+## helm template "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -f values.yaml
+## helm upgrade "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -f values.yaml
+
+deployment:
+  replicaCount: 1
+
+azure:
+  keyvault:
+    secrets:
+    - key: redis-host
+      obj: redis-hostname
+    - key: redis-pass
+      obj: redis-password
+
+configuration:
+  - service: rafs-ddms
+    container:
+      image: rafs-ddms
+      containerPort: 8080
+    path: /api/rafs-ddms
+    podAnnotations:
+      prometheus.io/path: /api/rafs-ddms/v1/metrics
+      prometheus.io/port: "8080"
+      prometheus.io/scrape: "true"
+    probe:
+      readiness:
+        path: /api/rafs-ddms/v1/healthz # make the API version as a variable
+      liveness:
+        path: /api/rafs-ddms/v1/healthz
+    auth:
+      disable:
+        - "/api/rafs-ddms/v1/info"
+        - "/api/rafs-ddms/v1/docs*"
+        - "/api/rafs-ddms/v1/openapi.json"
+    config:
+      CLOUD_PROVIDER: "azure"
+      SERVICE_NAME: "rafs-ddms"
+      OPENAPI_PREFIX: "/api/rafs-ddms"
+      SERVICE_HOST_STORAGE: "http://storage.osdu-azure/api/storage/v2"
+      SERVICE_HOST_SEARCH: "http://search.osdu-azure/api/search/v2"
+      SERVICE_HOST_PARTITION: "http://partition.osdu-azure/api/partition/v1"
+      SERVICE_HOST_DATASET: "http://dataset.osdu-azure/api/dataset/v1"
+      USE_PARTITION_SERVICE: "disabled"
+      CACHE_ENABLE: "True"
+      CACHE_BACKEND: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
+      REDIS_DATABASE: "13"
+      REDIS_SSL: "True"
+      REDIS_PORT: "6380"
+
+    secrets:
+    - name: REDIS_HOSTNAME
+      key: redis-host
+    - name: REDIS_PASSWORD
+      key: redis-pass
+    request:
+      cpu: 0.2
+      memory: 1Gi
+    limit:
+      cpu: 2
+      memory: 4Gi

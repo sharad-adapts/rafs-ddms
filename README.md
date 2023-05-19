@@ -1,92 +1,265 @@
-# rafs-ddms-services
+# Rock and Fluid Sample (RAFS) DDMS
 
+## Introduction
 
+Rock and Fluid Sample Domain Data Management Services (RAFS DDMS) Open Subsurface Data Universe (OSDU) is a microservices-based project that comprises OSDU software ecosystem, written in Python that provides an API for Rock and Fluid Sample related data.
 
-## Getting started
+[[_TOC_]]
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Project structure
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+    app
+    ├── api              - web related stuff.
+    │   ├── dependencies - dependencies for routes definition.
+    │   ├── errors       - definition of error handlers.
+    │   └── routes       - web routes.
+    ├── core             - application configuration, startup events, logging.
+    ├── db               - db related stuff.
+    ├── models           - pydantic models for this application.
+    │   ├── domain       - main models that are related to the rock and fluid samples domain
+    │   └── schemas      - schemas for using in web routes (request, responses bodies).
+    ├── resources        - any useful blob/file or constants
+    ├── services         - logic that is not just crud related.
+    └── main.py          - FastAPI application creation and configuration.
 
-## Add your files
+## Project Tutorial
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Instructions and payload examples are presented on [the tutorial page](./docs/tutorial/readme.md).
+
+## API Specs
+
+Compiled REST API documentation is presented in the [openapi.json](./docs/spec/openapi.json) file.
+
+## OSDU Well Known Schemas Disclaimer
+
+Note regarding OSDU Well Known Schema interaction: Currently (April 2023), OSDU Data Definitions "Fluid Samples" and "Samples & Petrophysics" Project teams are re-working the data model for both rock and fluid samples in a way that there will be a unified way to handle both. That means that today there are no FluidSample, FluidSampleAnalysis, or FluidSampleAcquisition schemas published by OSDU Data Definitions, which can be used by the DDMS. Similarly, it is likely that RockSample, RockSampleAnalysis, and Coring schemas will be changed by the Forum or even be deprecated and replaced in the near future. In light of this: 1) With regard to PVT, the RAFS DDMS currently uses custom WPC and Master schemas 2) With regard to RCA, the DDMS does have relationship to the existing rock-related schemas mentioned above. In both cases, the DDMS will need to be updated when the revised OSDU Data Definitions data model is published. 
+
+## Project Startup
+### Configuration
+
+The settings module can read environment variables as long as they are declared as fields of the
+Settings class (see app/core/settings/base.py).
+
+Or they can be provided in a .env or prod.env files
+
+#### Python Version
+RAFS DDMS runs in **Python 3.11**.  <br/>
+> **NOTE:** The pip install will not currently work on Windows.  Requires a Linux machine (or Container).
+
+#### Local settings
+
+Add an .env with:
 
 ```
-cd existing_repo
-git remote add origin https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services.git
-git branch -M main
-git push -uf origin main
+APP_ENV="dev"
+OPENAPI_PREFIX="/api/os-rafs-ddms"  # optional
+CLOUD_PROVIDER="azure"
+API_BASE_URL="osdu_endpoint"
+SERVICE_HOST_DATASET="${API_BASE_URL}/api/dataset/v1"
+SERVICE_HOST_STORAGE="${API_BASE_URL}/api/storage/v2"
+# Optionally add any other env var (BUILD_DATE, etc.)
 ```
 
-## Integrate with your tools
+#### Cache settings
 
-- [ ] [Set up project integrations](https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/settings/integrations)
+It is needed to add the following variables to .env to set up cache layer:
+```
+CACHE_ENABLE=True
+CACHE_BACKEND="app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
+```
 
-## Collaborate with your team
+The `CACHE_ENABLE` variable can enable or disable cache for all app.
+Besides, to disable caching in a request just use "Cache-Control" in a request header as "no-store" or "no-cache".
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The `CACHE_BACKEND` variable is a path to your backend,
+which is used to initialize FastAPICache like [here](https://github.com/long2ice/fastapi-cache#quick-start).
 
-## Test and Deploy
+You can use already prepared backends like:
+ * `app.core.helpers.cache.backends.redis_cache.RedisCacheBackend`
+ * `app.core.helpers.cache.backends.inmemory_cache.InMemoryCacheBackend`
+  
+Also, you can customize and use your own one.
+Customized backend is supposed to be based on [BaseCacheBackend class](/app/core/helpers/cache/backends/base_cache.py).
 
-Use the built-in continuous integration in GitLab.
+To set up custom backend you maybe need to add optional variables to .env. For example for RedisCacheBackend we use:
+```
+REDIS_HOSTNAME=xxxxxx.redis.cache.windows.net
+REDIS_PASSWORD=<redis-key>
+REDIS_DATABASE=13
+REDIS_SSL=True
+REDIS_PORT=6380
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+By default `ttl = 60` sec is used. It is possible to set another ttl through the `CACHE_DEFAULT_TTL` variable.
+Also, it is possible to set ttl manually for a specific request directly at the place where @cache is used.
 
-***
+### Run with Docker
 
-# Editing this README
+Docker-compose it is meant to be used for local development/testing, not for production, be aware that docker-compose uses higher privileges for development and testing purposes, we wouldn't recommend to use the [docker-compose](./docker-compose.yml) file for production, only for developers to be able to add changes and test them in local as well as unit/integration tests to avoid having to install all the dependencies.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+#### Docker Flavor Versions (docker-compose)
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+* [app - Dockerfile](./Dockerfile) it is the default image to run in [docker-compose](./docker-compose.yml), it is a balanced docker production ready dockerfile which can be used to deploy application as well as to develop in your local.
+* [tests - Dockerfile_test](./Dockerfile_test) Dockerfile definition which contains and install all dependencies needed for unit/integration tests.
+* [Distroless - Dockerfile.distroless](./Dockerfile.distroless) Lean docker file (best approach for production systems due lack of unneeded binaries and libraries), this approach will be ideal to address security cve's and to have lean version of rafs-ddms.
+  * Distroless build around ~400MB, you can test it `docker-compose --profile distroless up distroless`
 
-## Name
-Choose a self-explaining name for your project.
+#### Run App
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+**WARN** Docker-compose it is meant to be used for local development/testing, not for production.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+```shell
+if [ -z $UID ]; then export UID=$(id -u); fi
+export GID=$(id -g)
+docker-compose up app
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#### Run with Dockerfile
+```
+export BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+export COMMIT_ID=$(git rev-parse HEAD)
+export COMMIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+export COMMIT_MESSAGE=$(git log -1 --pretty=%B)
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+docker build -f "./Dockerfile" \
+    --build-arg build_date="$BUILD_DATE" \
+    --build-arg commit_id="$COMMIT_ID" \
+    --build-arg commit_branch="$COMMIT_BRANCH" \
+    --build-arg commit_message="$COMMIT_MESSAGE" . \
+    -t rafs-ddms:latest
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+docker run rafs-ddms:latest
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Run with Uvicorn
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+```
+uvicorn app.main:app --port LOCAL_PORT
+```
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+To see the OpenAPI page, follow the link:
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+`http://127.0.0.1:<LOCAL_PORT>/<OPENAPI_PREFIX>/docs`
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+Use the `OPENAPI_PREFIX` value used for project settings.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+## Testing
+
+### Run Tests
+
+**WARN** Docker-compose it is meant to be used for local development/testing, not for production.
+
+Unit tests
+
+```shell
+docker-compose run tests
+```
+
+### Run Integration Tests
+
+Using Docker [env substitution from shell](https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-from-the-shell) capabilities.
+
+```shell
+# Export needed envs for testing
+# Internal hostname in docker-compose (app)
+# Alternatively you can choose to test in remote env
+export DDMS_BASE_URL=http://app:8080  # Alternatively for distroless profile http://distroless:8088
+export ACCESS_TOKEN=<access_token>
+# Run test
+docker-compose --profile integration run integration
+
+# (Optional) Cleanup
+docker-compose down
+```
+
+### Run Postman Tests
+
+[The following collection](https://community.opengroup.org/osdu/platform/testing) can be used to test RAFS DDMS with Postman.
+
+## Contribution
+
+### Manage package dependencies
+
+If new dependencies were added a new `requirements.txt` file must be generated by:
+
+1. Add new dependencies to requirements.in
+2. Run to generate a new requirements.txt file
+
+```shell
+pip install pip-tools 
+pip-compile requirements.in
+```
+
+### Manage package dependencies - Tests
+
+Testing dependencies are separated from the production dependencies.
+
+1. Add new dependencies to `requirements-tests.in`
+2. Run to generate a new requirements.txt file
+
+```shell
+pip install pip-tools 
+pip-compile requirements.in requirements-tests.in -o requirements-tests.txt -v
+pip install -r requirements-tests.txt
+```
+
+### Code Style Check
+There is a list of linters and formatters which are used in this project for code style check.
+Mostly it is [flake8](https://flake8.pycqa.org/en/latest/)
+with [wemake-python-styleguide extension](https://wemake-python-styleguide.readthedocs.io/en/latest/index.html).
+
+Full list of checkers can be found in [pre-commit config](.pre-commit-config.yaml) file. Configuration for
+checkers is in [setup.cfg](setup.cfg) file.
+
+#### Pre-commit Hooks Installation
+
+Pre-commit hooks are supposed to be installed locally.
+
+All requirements for development, tests and pre-commit checks can be installed to your python environment:
+
+```shell
+pip-compile requirements.in requirements-tests.in -o requirements-tests.txt -v
+pip install -r requirements-tests.txt
+```
+
+pre-commit tool should be used inside this environment.
+
+Steps after requirements installation:
+
+```shell
+pre-commit install
+pre-commit install --hook-type commit-msg
+```
+Second step is needed for correct gitlint work.
+
+#### Pre-commit Hooks Run
+Command to run pre-commit manually for all files:
+
+```shell
+pre-commit run --all-files
+```
+
+In other cases, all checks run automatically on commit.
+
+## Deployment
+
+* [Main deployment page](./devops/)
+
+### Azure
+
+* [Azure Deployment Instructions - Standard DDMS](./devops/azure/)
 
 ## License
-For open source projects, say how it is licensed.
+Copyright 2023 ExxonMobil Technology and Engineering Company
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License a
+    http://www.apache.org/licenses/LICENSE-2.
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or lied.
+See the License for the specific language governing permissions and
+limitations under the License.

@@ -1,0 +1,25 @@
+ARG python_version=3.11
+FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim
+
+ENV PYTHONUNBUFFERED 1
+
+COPY requirements-tests.in ./
+COPY requirements.in ./
+RUN apt update && apt install -y build-essential cmake ca-certificates lsb-release wget \
+      && wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb -O /tmp/apache-arrow.deb \
+      && apt -y install /tmp/apache-arrow.deb && apt update \
+      && apt install -y -V libarrow-dev
+RUN pip install --upgrade pip && pip install pip-tools && \
+      pip-compile requirements.in requirements-tests.in -o requirements-tests.txt -v && \
+      pip install -r requirements-tests.txt
+
+
+ENV PYTHONPATH=./
+
+COPY ./app /app
+COPY ./tests /tests
+COPY ./client /client
+
+WORKDIR ./tests
+
+CMD pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url ${DDMS_BASE_URL} --bearer-token ${ACCESS_TOKEN}

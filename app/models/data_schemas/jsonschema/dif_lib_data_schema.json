@@ -1,0 +1,529 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "DifferentialLiberationTestID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-DifferentialLiberationTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "FluidSampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "TestNumber": {
+      "type": "string"
+    },
+    "TestTemperature": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "ResidualOilDensity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "ResidualAPIGravity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "SaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "ReservoirPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        }
+      }
+    },
+    "TestName": {
+      "type": "string"
+    },
+    "DifferentialLiberationTestSteps": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "StepNumber": {
+              "type": "string"
+            },
+            "StepPressure": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "StepTemperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilDensity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilFormationVolumeFactor": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilCompressibility": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilViscosity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasMolecularWeight": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasGravity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasDensity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasFormationVolumeFactor": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "GasZFactor": {
+              "type": "number"
+            },
+            "GasViscosity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "TotalFormationVolumeFactor": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "SolutionGasOilRatioMeasured": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "SolutionGasOilRatioCorrected": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "CumulativeStockTankGasOilRatio": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "OilFormationVolumeFactorCorrected": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "ResidualAPIGravity": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "FluidCondition": {
+              "type": "string"
+            },
+            "PhasesPresent": {
+              "type": "string"
+            },
+            "VaporCompositionalAnalysis": {
+              "type": "object",
+              "properties": {
+                "StepNumber": {
+                  "type": "string"
+                },
+                "StepPressure": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "StepTemperature": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "GasGravity": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "Remark": {
+                  "type": "string"
+                },
+                "VaporComposition": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "ComponentFormula": {
+                          "type": "string"
+                        },
+                        "ComponentName": {
+                          "type": "string"
+                        },
+                        "RelativeMolarWeight": {
+                          "type": "object",
+                          "properties": {
+                            "Value": {
+                              "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "LiquidCompositionalAnalysis": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "ComponentFormula": {
+                      "type": "string"
+                    },
+                    "ComponentName": {
+                      "type": "string"
+                    },
+                    "FlashedLiquidRelativeMolarWeight": {
+                      "type": "object",
+                      "properties": {
+                        "Value": {
+                          "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                          "type": "string",
+                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                      }
+                    },
+                    "FlashedLiquidRelativeMass": {
+                      "type": "object",
+                      "properties": {
+                        "Value": {
+                          "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                          "type": "string",
+                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                      }
+                    },
+                    "FlashedGasRelativeMolarWeight": {
+                      "type": "object",
+                      "properties": {
+                        "Value": {
+                          "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                          "type": "string",
+                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "CalculatedProperties": {
+              "type": "object",
+              "properties": {
+                "AvgMoleWeight": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "ResidueDensity": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "ResidueAPI": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "Remark": {
+                  "type": "string"
+                },
+                "LiquidCalculatedProperties": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "ComponentFormula": {
+                          "type": "string"
+                        },
+                        "FlashedLiquidRelativeMolarWeight": {
+                          "type": "object",
+                          "properties": {
+                            "Value": {
+                              "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                          }
+                        },
+                        "FlashedLiquidRelativeMass": {
+                          "type": "object",
+                          "properties": {
+                            "Value": {
+                              "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                          }
+                        },
+                        "FlashedLiquidDensity": {
+                          "type": "object",
+                          "properties": {
+                            "Value": {
+                              "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "DifferentialLiberationTestID"
+  ]
+}

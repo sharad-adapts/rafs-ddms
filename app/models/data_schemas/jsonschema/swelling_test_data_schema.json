@@ -1,0 +1,211 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "SwellingTestID": {
+      "title": "Swelling Test ID",
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SwellingTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "FluidSampleID": {
+      "type": "string",
+      "title": "Fluid Sample ID",
+      "description": "Unique identifier of the Fluid Sample which Atmospheric Flash and Compositional Analysis is done on",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
+    "TestNumber": {
+      "title": "Test Number",
+      "type": "string",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "TestTemperature": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+        }
+      }
+    },
+    "SaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+        }
+      }
+    },
+    "DensityAtSaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+        }
+      }
+    },
+    "SwellingTestSteps": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "StepNumber": {
+              "type": "string",
+              "title": "Step Number",
+              "description": "Internal step number which identifies the sequence of step in swelling measurements"
+            },
+            "SaturationPressure": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "GasPhaseType": {
+              "type": "string",
+              "description": "Pb/Pd/2-Ph",
+              "enum": [
+                "Pb",
+                "Pd",
+                "2-Ph"
+              ]
+            },
+            "RelativeVolume": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "Density": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "GasOilRatio": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "CumulativeMethaneToOriginalFluidMolePCT": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "CumulativeMethaneOfTotalFluidMolePCT": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "InjectionGasProperties": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "ComponentName": {
+              "type": "string",
+              "title": "Component Name"
+            },
+            "ComponentFormula": {
+              "type": "string",
+              "title": "Component Name"
+            },
+            "MoleWeight": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "TargetMolePct": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            },
+            "AchieveMolePct": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "required": [
+    "SwellingTestID"
+  ]
+}
