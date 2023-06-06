@@ -20,7 +20,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:transport-test-123:test-version"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:transport-test-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/transporttestdata/partition:work-product-component--TransportTest:transport_test/{TEST_DATASET_RECORD_ID}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{

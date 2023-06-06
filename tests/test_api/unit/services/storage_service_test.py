@@ -12,12 +12,16 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import json
 from unittest.mock import MagicMock
 
 import httpx
 import pytest
+from httpx import HTTPStatusError
+from starlette import status
 
 from app.core.config import get_app_settings
+from app.exceptions.exceptions import OsduApiException
 from app.models.schemas.user import User
 from app.services.osdu_clients.storage_client import StorageServiceApiClient
 from app.services.storage import StorageService
@@ -51,6 +55,27 @@ def mock_get_response(mock_record_client, storage_service):
     mock_record_client.client = MagicMock(spec=httpx.AsyncClient)
     mock_record_client.get_latest_record.return_value = response_json
     mock_record_client.get_specific_record.return_value = response_json
+    storage_service.storage_client = mock_record_client
+    yield
+
+
+@pytest.fixture
+def mock_get_500_wrong_version_response(mock_record_client, storage_service):
+    json_response = {
+        "code": status.HTTP_500_INTERNAL_SERVER_ERROR,
+        "reason": "Unknown error happened while restoring the blob",
+        "message": "Corrupt data",
+    }
+
+    class Response(object):
+        status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
+        text = json.dumps(json_response)
+        def json(_): return json_response
+
+    mock_record_client.client = MagicMock(spec=httpx.AsyncClient)
+    mock_record_client.get_specific_record.side_effect = HTTPStatusError(
+        message="", request=object(), response=Response(),
+    )
     storage_service.storage_client = mock_record_client
     yield
 
@@ -127,3 +152,16 @@ async def test_soft_delete_record(storage_service, mock_record_client, mock_user
     assert await storage_service.soft_delete_record(record_id) is None
 
     mock_record_client.soft_delete_record.assert_called_once_with(record_id)
+
+
+@pytest.mark.asyncio
+async def test_get_specific_record_raises_404(storage_service, mock_record_client, mock_user, mock_get_500_wrong_version_response):
+    record_id = "test-id"
+    version = 1
+
+    with pytest.raises(OsduApiException) as exc:
+        await storage_service.get_record(record_id, version)
+
+    assert exc.value.status_code == status.HTTP_404_NOT_FOUND
+    assert exc.value.detail.get("message") == f"The version '{version}' can't be found for record {record_id}"
+    assert exc.value.detail.get("reason") == "Version not found"

@@ -24,7 +24,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = f"opendes:dataset--File.Generic:{BULK_DATASET_PREFIX}-123:test-version"
+TEST_DATASET_RECORD_ID = f"opendes:dataset--File.Generic:{BULK_DATASET_PREFIX}-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/slimtubetestdata/{TEST_SLIMTUBETEST_ID}/{TEST_DATASET_RECORD_ID}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{

@@ -22,7 +22,7 @@ def generate_test_dataset_record_id(
     entity_type=TEST_ENTITY_TYPE,
     entity_id=TEST_ENTITY_ID,
 ):
-    return f"{data_partition_id}:dataset--File.Generic:{entity_type}-{entity_id}:test-version"
+    return f"{data_partition_id}:dataset--File.Generic:{entity_type}-{entity_id}:1234"
 
 
 TEST_RECORD_ID = generate_test_id()

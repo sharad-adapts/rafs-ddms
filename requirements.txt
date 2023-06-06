@@ -144,7 +144,7 @@ starlette==0.27.0
     #   fastapi-versionizer
 tenacity==6.2.0
     # via -r requirements.in
-typing-extensions==4.6.1
+typing-extensions==4.6.3
     # via
     #   azure-core
     #   azure-storage-blob

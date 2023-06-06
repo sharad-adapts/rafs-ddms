@@ -22,7 +22,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:constant-composition-expansion-123:test-version"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:constant-composition-expansion-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/constantcompositionexpansiondata/partition:work-product-component--ConstantCompositionExpansionTest:cce-test/{TEST_DATASET_RECORD_ID}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
