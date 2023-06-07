@@ -151,3 +151,21 @@ Supported aggregations depends on column type but in general:
 ```
 [avg, count, max, min, sum]
 ```
+8. Column aggregation and row filtering support ```ColumnName.FieldName``` syntax to work over nested fields.
+
+For example todo a row filtering and aggregation over a column named ```Permeability``` which has the following object as value
+```
+{
+  Value: 1000.0,
+  UnitOfMeasure: "osdu:reference-data--UnitOfMeasure:mD
+}
+```
+The rows_filter parameter would be
+```
+rows_filter=Permeability.Value,lt,1000
+```
+
+And the colums_aggregation parameter would be:
+```
+columns_aggregation=Permeability.Value,avg
+```

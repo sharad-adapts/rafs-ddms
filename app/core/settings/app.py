@@ -53,6 +53,8 @@ class AppSettings(BaseAppSettings):
 
     cache_backend: str = ""
 
+    storage_query_limit: int = 100
+
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {

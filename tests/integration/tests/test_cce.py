@@ -231,23 +231,6 @@ def test_post_measurements_non_existent_id(api):
     )
 
 
-@pytest.mark.xfail(reason="XOMROCK-548")
-@pytest.mark.dependency(depends=["test_post_cce"])
-def test_post_measurements_with_empty_body(api):
-    error = api.cce.post_measurements(
-        DATA_STORE["cce_record_id"],
-        {"columns": [], "index": [], "data": []},
-        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
-    )
-
-    assert error["reason"] == "Data validation failed."
-    assert error["errors"] == {
-        "Mandatory parameters missing": [
-            "id",
-        ],
-    }
-
-
 @pytest.mark.xfail(reason="XOMROCK-746")
 @pytest.mark.dependency(depends=["test_post_cce"])
 def test_post_measurements_validation_failed(api):
@@ -271,7 +254,7 @@ def test_post_measurements_validation_failed(api):
 
 
 @pytest.mark.smoke
-@pytest.mark.dependency(depends=["test_post_cce"])
+@pytest.mark.dependency(depends=["test_post_measurements"])
 def test_get_measurements_as_json(api):
     cce_data = api.cce.get_measurements(DATA_STORE["cce_record_id"], DATA_STORE["cce_dataset_id"])
 
@@ -280,6 +263,25 @@ def test_get_measurements_as_json(api):
     assert "columns" in cce_data and cce_data["columns"]
     assert "index" in cce_data and cce_data["index"]
     assert "data" in cce_data and cce_data["data"]
+
+
+# Should be after test_get_measurements_as_json, as it will overwritte with empty data and get_measurements_as_json will fail
+# Alternatively, we can use different record-id for empty dataset tests
+@pytest.mark.xfail(reason="XOMROCK-548")
+@pytest.mark.dependency(depends=["test_get_measurements_as_json"])
+def test_post_measurements_with_empty_body(api):
+    error = api.cce.post_measurements(
+        DATA_STORE["cce_record_id"],
+        {"columns": [], "index": [], "data": []},
+        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
+    )
+
+    assert error["reason"] == "Data validation failed."
+    assert error["errors"] == {
+        "Mandatory parameters missing": [
+            "id",
+        ],
+    }
 
 
 @pytest.mark.smoke

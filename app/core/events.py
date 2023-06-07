@@ -18,6 +18,7 @@ from fastapi import FastAPI
 from loguru import logger
 
 from app.core.helpers.cache_helper import clear_cache, init_cache
+from app.core.helpers.pandas_conf import init_pandas
 from app.core.settings.app import AppSettings
 
 
@@ -28,6 +29,7 @@ def create_start_app_handler(
 
     async def start_app() -> None:
         await init_cache(settings)
+        await init_pandas()
 
     return start_app
 

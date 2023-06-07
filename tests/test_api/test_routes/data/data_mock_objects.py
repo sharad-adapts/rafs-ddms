@@ -12,12 +12,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import copy
 import json
 from typing import List, Optional
 
 import numpy
 import pandas as pd
 
+from app.api.routes.utils.query import find_osdu_ids_from_string
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
@@ -233,14 +235,14 @@ TEST_WRONG_COLUMNS_FILTERS_REASONS = [
     r"^Invalid columns: {''}. Select one of .+$",
 ]
 TEST_WRONG_ROWS_FILTERS_REASONS = [
-    r"^Bad rows_filter expression. Correct form 'ColumnName,operator,value'$",
-    r"^For filter select one of {.+}$",
+    r"^Bad rows_filter expression. Correct form 'ColumnName\[\.FieldName\],operator,value'$",
+    r"^For filter column select one of {.+}$",
     r"^Invalid comparison operator not in: .+$",
     r"^(.*[\n]*)+ wrong_pattern$",
 ]
 TEST_WRONG_AGGREGATION_REASONS = [
-    r"^Bad aggregation expression. Correct form 'ColumnName,operator'$",
-    r"^For aggregation select one of {.+}$",
+    r"^Bad aggregation expression. Correct form 'ColumnName\[\.FieldName\],operator'$",
+    r"^For aggregation column select one of {.+}$",
     r"^Invalid aggregation operator not in: {.+}$",
 ]
 
@@ -323,6 +325,12 @@ SEARCH_RESPONSE = {
     "totalCount": 9,
 }
 
+QUERY_RECORDS_RESPONSE = {
+    "records": [],
+    "invalidRecords": ["partition:entity-type:entity-id"],
+    "retryRecords": [],
+}
+
 
 class SearchService:
     def __init__(self, search_response=SEARCH_RESPONSE):
@@ -333,14 +341,18 @@ class SearchService:
 
 
 class StorageService:
-    def __init__(self, record_data: dict):
+    def __init__(self, record_data: dict, query_records_response=None):
         self.record_data = record_data
+        self.query_records_response = query_records_response
 
     async def get_record(self, record_id: str, version: Optional[str] = None) -> Optional[dict]:
         return self.record_data
 
     async def upsert_records(self, records: List[dict]) -> Optional[dict]:
         return self.record_data
+
+    async def query_records(self, records_list: List[str]) -> Optional[dict]:
+        return self.query_records_response
 
 
 def build_mock_get_dataset_service(
@@ -354,16 +366,21 @@ def build_mock_get_dataset_service(
     return mock_get_dataset_service
 
 
-def build_mock_get_search_service():
-    async def mock_get_search_service():
-        return SearchService()
+def build_mock_get_storage_service(record_data: dict, data_payload=None):
+    data_string = None
+    if isinstance(data_payload, pd.DataFrame):
+        data_string = data_payload.to_string()
+    elif isinstance(data_payload, dict):
+        data_string = json.dumps(data_payload)
 
-    return mock_get_search_service
+    query_records_response = copy.deepcopy(QUERY_RECORDS_RESPONSE)
+    if data_string:
+        ids_to_check = find_osdu_ids_from_string(data_string)
+        query_records_response["results"] = [{"id": id_} for id_ in ids_to_check]
+        query_records_response["invalidRecords"] = []
 
-
-def build_mock_get_storage_service(record_data: dict):
     async def mock_get_storage_service():
-        return StorageService(record_data)
+        return StorageService(record_data, query_records_response)
 
     return mock_get_storage_service
 

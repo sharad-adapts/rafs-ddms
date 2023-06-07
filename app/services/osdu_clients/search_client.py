@@ -21,6 +21,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
+from app.services.osdu_clients.conf import TIMEOUT
 
 
 class SearchServicePaths(NamedTuple):
@@ -53,7 +54,7 @@ class SearchServiceApiClient(object):
         :return: query result
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(SearchServicePaths.QUERY, json=query, headers=self.headers)
             response.raise_for_status()
             return response.json()
@@ -66,7 +67,7 @@ class SearchServiceApiClient(object):
         :return: query with cursor result
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(SearchServicePaths.CURSOR_QUERY, json=query, headers=self.headers)
             response.raise_for_status()
             return response.json()

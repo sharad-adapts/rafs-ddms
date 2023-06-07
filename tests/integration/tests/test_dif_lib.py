@@ -206,23 +206,6 @@ def test_post_measurements_non_existent_df_id(api):
     )
 
 
-@pytest.mark.xfail(reason="XOMROCK-548")
-@pytest.mark.dependency(depends=["test_post_dif_lib"])
-def test_post_measurements_with_empty_body(api):
-    error = api.dif_lib.post_measurements(
-        DATA_STORE["df_record_id"],
-        {"columns": [], "index": [], "data": []},
-        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
-    )
-
-    assert error["reason"] == "Data validation failed."
-    assert error["errors"] == {
-        "Mandatory parameters missing": [
-            "DifferentialLiberationTestID",
-        ],
-    }
-
-
 @pytest.mark.xfail(reason="XOMROCK-746")
 @pytest.mark.dependency(depends=["test_post_dif_lib"])
 def test_post_measurements_validation_failed(api):
@@ -246,7 +229,7 @@ def test_post_measurements_validation_failed(api):
 
 
 @pytest.mark.smoke
-@pytest.mark.dependency(depends=["test_post_dif_lib"])
+@pytest.mark.dependency(depends=["test_post_measurements"])
 def test_get_measurements_as_json(api):
     dif_lib_data = api.dif_lib.get_measurements(DATA_STORE["df_record_id"], DATA_STORE["dif_lib_dataset_id"])
 
@@ -255,6 +238,23 @@ def test_get_measurements_as_json(api):
     assert "columns" in dif_lib_data and dif_lib_data["columns"]
     assert "index" in dif_lib_data and dif_lib_data["index"]
     assert "data" in dif_lib_data and dif_lib_data["data"]
+
+
+@pytest.mark.xfail(reason="XOMROCK-548")
+@pytest.mark.dependency(depends=["test_get_measurements_as_json"])
+def test_post_measurements_with_empty_body(api):
+    error = api.dif_lib.post_measurements(
+        DATA_STORE["df_record_id"],
+        {"columns": [], "index": [], "data": []},
+        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
+    )
+
+    assert error["reason"] == "Data validation failed."
+    assert error["errors"] == {
+        "Mandatory parameters missing": [
+            "DifferentialLiberationTestID",
+        ],
+    }
 
 
 @pytest.mark.smoke

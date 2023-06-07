@@ -16,14 +16,19 @@ from dataclasses import dataclass
 
 import pandas as pd
 import pandera as pa
+from loguru import logger
 
-from app.services.search import SearchService
+from app.api.routes.utils.query import divide_chunks, find_osdu_ids_from_string
+from app.core.config import get_app_settings
+from app.services.storage import StorageService
+
+settings = get_app_settings()
 
 
 @dataclass
 class DataValidator:
     data_schema: pa.DataFrameSchema
-    search_service: SearchService
+    storage_service: StorageService
 
     async def validate(self, df: pd.DataFrame) -> dict:
         """Validate dataframe.
@@ -38,8 +43,10 @@ class DataValidator:
             return schema_errors
 
         data_integrity_errors = await self._validate_integrity(df)
-        if data_integrity_errors.get("missing_records"):
-            return data_integrity_errors
+        if data_integrity_errors:
+            return {
+                "missing_records": list(data_integrity_errors),
+            }
 
         return {}
 
@@ -77,67 +84,37 @@ class DataValidator:
 
         return errors
 
-    async def _validate_integrity(self, df: pd.DataFrame) -> dict:
-        """Validate data integrity.
+    async def _find_missing_records(self, ids_to_check: list) -> set:
+        """From a list of ids find if there is any record missing in storage.
+
+        :param ids_to_check: list of ids to check
+        :type ids_to_check: list
+        :return: returns the set of missing (invalid) record ids
+        :rtype: set
+        """
+        logger.debug(f"The list of ids to check exist on storage: {ids_to_check}")
+        storage_response = await self.storage_service.query_records(ids_to_check)
+        return set(storage_response["invalidRecords"])
+
+    async def _validate_integrity(self, df: pd.DataFrame) -> set:
+        """Validate data referential integrity.
 
         :param df: dataframe
         :type df: pd.DataFrame
         :return: missing records
-        :rtype: dict
+        :rtype: list
         """
-        fields_with_ids = [
-            "RockSampleID",
-            "CoringID",
-            "WellboreID",
-            "SampleType",
-            "SampleDepth.UnitOfMeasure",
-            "NetConfiningStress.UnitOfMeasure",
-            "NetOverburdenPressure.UnitOfMeasure",
-            "ConfiningStress.UnitOfMeasure",
-            "Permeability.UnitOfMeasure",
-            "Permeability.Type",
-            "Porosity.UnitOfMeasure",
-            "Porosity.Type",
-            "GrainDensity.UnitOfMeasure",
-            "GrainDensity.Type",
-            "Saturation.Method",
-        ]
-
-        df = df.reset_index()
+        df_string = df.to_string()
+        ids_to_check = find_osdu_ids_from_string(df_string)
 
         missing_records = set()
-        records_found = set()
-        ids_to_check = set()
-        # Max number of IDs to check. Current limit on the amount of records in response is 1000
-        limit = 1000
+        for ids_to_check_batch in divide_chunks(list(ids_to_check), settings.storage_query_limit):
+            missing_records.update(await self._find_missing_records(ids_to_check=ids_to_check_batch))
 
-        async def _check_records_exist():
-            query = 'id: "{ids}"'.format(ids='" OR id: "'.join(ids_to_check))
+        # @TODO remove once FluidSample master-data schema is created
+        invalid_records = set()
+        for record in missing_records:
+            if "master-data--FluidSample" in record:
+                invalid_records.add(record)
 
-            search_response = await self.search_service.find_records(query=query, limit=limit)
-            searhc_results = search_response.get("results", set())
-            results_ids = {record["id"] for record in searhc_results}
-            missing_ids = list(ids_to_check - set(results_ids))
-
-            if missing_ids:
-                missing_records.update(missing_ids)
-
-            ids_to_check.clear()
-
-        # TODO Parallel the requests
-        for _, row in df.iterrows():
-            if len(ids_to_check) < (limit - len(fields_with_ids)):
-                # Collect ids to check existence in storage. Remove ":" in the end of id for search servcice.
-                ids_to_check.update(
-                    {
-                        row[field][:-1] for field in fields_with_ids
-                        if row.get(field) and row[field] not in missing_records & records_found
-                    },
-                )
-            else:
-                await _check_records_exist()
-
-        if ids_to_check:
-            await _check_records_exist()
-
-        return {"missing_records": list(missing_records)}
+        return missing_records - invalid_records

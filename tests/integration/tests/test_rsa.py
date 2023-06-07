@@ -261,26 +261,6 @@ def test_post_rca_data_validation_failed(api):
 @pytest.mark.xfail(reason="XOMROCK-548")
 @pytest.mark.smoke
 @pytest.mark.dependency(depends=["test_post_rsa_record"])
-def test_post_rca_data_with_empty_body(api):
-    error = api.rsa.post_rca_data(
-        DATA_STORE["rsa_record_id"],
-        {"columns": [], "index": [], "data": []},
-        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
-    )
-
-    assert error["reason"] == "Data validation failed."
-    assert error["errors"] == {
-        "Mandatory parameters missing": [
-            "RockSampleID",
-            "SampleNumber",
-            "SampleDepth",
-        ],
-    }
-
-
-@pytest.mark.xfail(reason="XOMROCK-548")
-@pytest.mark.smoke
-@pytest.mark.dependency(depends=["test_post_rsa_record"])
 def test_post_rca_without_mandatory_field_parquet(api):
     headers = {"Content-Type": "application/x-parquet"}
     with open(os.path.join(DATA_DIR, "missing_attributes_rca.parquet"), "rb") as parquet_file:
@@ -317,7 +297,7 @@ def test_get_rca_record_as_parquet(api):
 
 
 @pytest.mark.smoke
-@pytest.mark.dependency(depends=["test_post_rsa_record"])
+@pytest.mark.dependency(depends=["test_post_rca_data"])
 def test_get_rca_record_as_json(api):
     rca_data = api.rsa.get_rca_data(DATA_STORE["rsa_record_id"], DATA_STORE["rca_dataset_id"])
 
@@ -469,6 +449,7 @@ def test_get_rca_record_non_existent_rsa_id(api):
 
 
 @pytest.mark.smoke
+@pytest.mark.dependency(depends=["test_post_rsa_record"])
 def test_get_rca_record_non_existent_rca_id(api):
     timestamp = int(time.time())
     full_id = DATA_STORE["rsa_record_id"]
@@ -479,6 +460,26 @@ def test_get_rca_record_non_existent_rca_id(api):
         allowed_codes=[status.HTTP_404_NOT_FOUND],
     )
     assert dataset_id in error["message"]
+
+
+@pytest.mark.xfail(reason="XOMROCK-548")
+@pytest.mark.smoke
+@pytest.mark.dependency(depends=["test_get_rca_record_as_json"])
+def test_post_rca_data_with_empty_body(api):
+    error = api.rsa.post_rca_data(
+        DATA_STORE["rsa_record_id"],
+        {"columns": [], "index": [], "data": []},
+        allowed_codes=[status.HTTP_422_UNPROCESSABLE_ENTITY],
+    )
+
+    assert error["reason"] == "Data validation failed."
+    assert error["errors"] == {
+        "Mandatory parameters missing": [
+            "RockSampleID",
+            "SampleNumber",
+            "SampleDepth",
+        ],
+    }
 
 
 @pytest.mark.smoke

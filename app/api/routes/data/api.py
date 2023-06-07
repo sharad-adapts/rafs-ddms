@@ -29,7 +29,6 @@ from app.api.dependencies.records import get_data_file_sources
 from app.api.dependencies.request import validate_bulkdata_content_type
 from app.api.dependencies.services import (
     get_async_dataset_service,
-    get_async_search_service,
     get_async_storage_service,
 )
 from app.api.dependencies.validation import get_data_model, validate_filters
@@ -42,6 +41,7 @@ from app.api.routes.utils.records import (
     get_id_version,
     update_dataset_id,
 )
+from app.bulk_data_validation.data_validation import DataValidator
 from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
@@ -50,11 +50,10 @@ from app.core.settings.app import AppSettings
 from app.db.in_memory_db import apply_filters
 from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
-from app.rca_validation.data_validation import DataValidator
 from app.resources.filters import SQLFilterValidator
 from app.resources.mime_types import CustomMimeTypes
 from app.resources.source_renderer import FileSourceRenderer
-from app.services import dataset, search, storage
+from app.services import dataset, storage
 
 
 class BaseDataView:
@@ -128,6 +127,7 @@ class BaseDataView:
         dataset_id, _ = get_id_version(dataset_id)
 
         if dataset_id_exist(record["data"].get("DDMSDatasets", []), dataset_id):
+            logger.debug(f"Retrieving dataset: {dataset_id}")
             parquet_bytes = await dataset_service.download_file(dataset_id)
 
             if not parquet_bytes:
@@ -136,6 +136,7 @@ class BaseDataView:
                 )
 
             df = apply_filters(parquet_bytes, sql_filter)
+            logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
 
             if mime_type == CustomMimeTypes.PARQUET:
                 df.astype(str)
@@ -153,14 +154,13 @@ class BaseDataView:
 
         return response
 
-    async def post_data(
+    async def post_data(  # noqa: WPS213
         self,
         request: Request,
         record_id: str,
         settings: AppSettings = Depends(get_app_settings),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
-        search_service: search.SearchService = Depends(get_async_search_service),
         model: BaseModel = Depends(get_data_model),
     ) -> dict:
         """Post record data.
@@ -173,8 +173,6 @@ class BaseDataView:
         :type storage_service: storage.StorageService
         :param dataset_service: dataset service
         :type dataset_service: dataset.DatasetService
-        :param search_service: search service
-        :type search_service: search.SearchService
         :param model: pydantic model for validation
         :type model: BaseModel
         :raises exceptions.InvalidDatasetException: if data impossible to read
@@ -187,7 +185,7 @@ class BaseDataView:
         data_partition_id = request.headers["data-partition-id"]
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
         data_schema = build_data_schema(model)
-        data_validator = DataValidator(data_schema, search_service)
+        data_validator = DataValidator(data_schema, storage_service)
 
         error_case_to_message = {
             "column_in_schema": "Invalid parameters",
@@ -202,7 +200,8 @@ class BaseDataView:
         try:
             if mime_type == CustomMimeTypes.PARQUET:
                 parquet_file = await request.body()
-                df = pd.read_parquet(io.BytesIO(parquet_file), engine="pyarrow")
+                logger.debug(pd.get_option("io.parquet.engine"))
+                df = pd.read_parquet(io.BytesIO(parquet_file))
 
                 # workaround to pass pandera validation
                 # TODO remove when migration to pyarrow validation is done
@@ -236,7 +235,8 @@ class BaseDataView:
         if not parquet_file:
             try:
                 df.astype(str)
-                parquet_file = df.to_parquet()
+                logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
+                parquet_file = df.to_parquet(index=False)
             except Exception as exc:  # noqa: B902
                 logger.error(f"Parquet conversion error: {exc}")
                 raise exceptions.InvalidDatasetException(detail=f"Parquet conversion error: {exc}")
@@ -272,6 +272,7 @@ class BaseDataView:
             ddms_datasets.append(ddms_urn)
             record_data["DDMSDatasets"] = ddms_datasets
 
+        logger.debug(f"Dataset Id: {dataset_record_id}")
         storage_response = await storage_service.upsert_records([record])
         logger.info(f"Updated record: {storage_response}")
 

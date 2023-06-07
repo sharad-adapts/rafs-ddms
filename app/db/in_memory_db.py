@@ -36,7 +36,7 @@ def apply_filters(
     parquet_bytes: bytes,
     sql_filter: SQLFilterValidator,
 ) -> pd.DataFrame:
-    """_summary_
+    """Apply filters to parquet data and return a filtered pandas.DataFrame.
 
     :param bytes parquet_bytes: parquet as read from blob storage
     :param SQLFilter filter: sql filter validator
