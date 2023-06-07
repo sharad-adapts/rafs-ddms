@@ -15,18 +15,16 @@
 from typing import Optional
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class DifLibPaths(object):
-    COMMON_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST = f"{COMMON_PART}/difflibreports"
-    POST_DATA = f"{COMMON_PART}/difflibreports/{{record_id}}/data"
-    GET_DATA = f"{COMMON_PART}/difflibreports/{{record_id}}/data/{{dif_lib_dataset_id}}"
-    GET = f"{COMMON_PART}/difflibreports/{{record_id}}"
-    GET_VERSIONS = f"{COMMON_PART}/difflibreports/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_PART}/difflibreports/{{record_id}}/versions/{{version}}"
-    DELETE = f"{COMMON_PART}/difflibreports/{{record_id}}"
+    POST = "/difflibreports"
+    POST_DATA = "/difflibreports/{record_id}/data"
+    GET_DATA = "/difflibreports/{record_id}/data/{dif_lib_dataset_id}"
+    GET = "/difflibreports/{record_id}"
+    GET_VERSIONS = "/difflibreports/{record_id}/versions"
+    GET_VERSION = "/difflibreports/{record_id}/versions/{version}"
+    DELETE = "/difflibreports/{record_id}"
 
 
 class DifLibCore(APIClient):

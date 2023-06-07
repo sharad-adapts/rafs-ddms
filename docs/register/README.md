@@ -74,7 +74,7 @@ x-xss-protection: 1; mode=block
 access-control-max-age: 3600
 access-control-allow-headers: access-control-allow-origin, origin, content-type, accept, authorization, data-partition-id, correlation-id, appkey
 correlation-id: 2158bdd8-d098-44d4-9b78-33410b967979
-location: https://stable-{{osdu}}.centralus.cloudapp.azure.com/api/rafs-ddms/v1/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example
+location: //https://<osdu-instance-fqdn>/api/rafs-ddms/v1/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example
 content-length: 0
 date: Wed, 22 Feb 2023 00:07:30 GMT
 x-envoy-upstream-service-time: 119

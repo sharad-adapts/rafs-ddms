@@ -17,7 +17,7 @@ import re
 from collections import defaultdict
 from typing import List, Tuple
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Request
 from pydantic.error_wrappers import ValidationError
 from pydantic.main import BaseModel
 from starlette import status
@@ -139,6 +139,7 @@ class StorageRecordViewWithLinking(BaseStorageRecordView):
 
     async def post_records(
         self,
+        request: Request,
         request_records: List[dict],
         storage_service: StorageService = Depends(get_async_storage_service),
     ) -> StorageUpsertResponse:
@@ -167,7 +168,7 @@ class StorageRecordViewWithLinking(BaseStorageRecordView):
             parent_id_child_id_map = {}
 
             for parent_id, child_records in parent_id_child_record_map.items():
-                storage_response = await super().post_records(child_records, storage_service)
+                storage_response = await super().post_records(request, child_records, storage_service)
 
                 record_count += storage_response.recordCount
                 skipped_record_count += storage_response.skippedRecordCount

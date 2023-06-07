@@ -24,6 +24,9 @@ from app.models.data_schemas.water_analysis_data_model import Model as WaterAnal
 from app.models.data_schemas.sto_data_model import Model as StockTankOilAnalysisModel
 from app.models.data_schemas.swelling_test_data_model import Model as SwellingTestModel
 from app.models.data_schemas.interfacial_tension_data_model import Model as InterfacialTensionModel
+from app.models.data_schemas.mcm_data_model import Model as MCMModel
+from app.models.data_schemas.vle_data_model import Model as VLEModel
+from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
 from app.resources.paths import CommonRelativePaths
 
 from .MDCoring100 import Coring
@@ -35,11 +38,14 @@ from .WPCDifLib100 import DifferentialLiberationTest
 from .WPCMSS100 import MultiStageSeparatorTest
 from .WPCPVT100 import PVT
 from .WPCRockSampleAnalysis110 import RockSampleAnalysis
+from .WPCSlimTubeTest100 import SlimTubeTest
 from .WPCTransportTest100 import TransportTest
 from .WPCSwellingTest100 import SwellingTest
 from .WPCWaterAnalysis100 import WaterAnalysisTest
 from .WPCSTO100 import StockTankOilAnalysisTest
-from .WPCInterfacialTension import InterfacialTensionTest
+from .WPCInterfacialTension100 import InterfacialTensionTest
+from .WPCVLE100 import VaporLiquidEquilibriumTest
+from .WPCMCM100 import MultipleContactMiscibilityTest
 
 settings = get_app_settings()
 
@@ -59,6 +65,9 @@ CVD_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--Cons
 WATER_ANALYSYS_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--WaterAnalysisTest:1.0.0"
 STO_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--StockTankOilAnalysisTest:1.0.0"
 INTERFACIAL_TENSION_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--InterfacialTensionTest:1.0.0"
+VLE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--VaporLiquidEquilibriumTest:1.0.0"
+MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--MultipleContactMiscibilityTest:1.0.0"
+SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
 
 
 IMPLEMENTED_MODELS = {
@@ -76,6 +85,9 @@ IMPLEMENTED_MODELS = {
     WATER_ANALYSYS_KIND: WaterAnalysisTest,
     STO_KIND: StockTankOilAnalysisTest,
     INTERFACIAL_TENSION_KIND: InterfacialTensionTest,
+    VLE_KIND: VaporLiquidEquilibriumTest,
+    MCM_KIND: MultipleContactMiscibilityTest,
+    SLIMTUBETEST_KIND: SlimTubeTest,
 }
 
 PATH_TO_DATA_MODEL = {
@@ -90,4 +102,7 @@ PATH_TO_DATA_MODEL = {
     CommonRelativePaths.WATER_ANALYSIS: WaterAnalysis,
     CommonRelativePaths.INTERFACIAL_TENSION: InterfacialTensionModel,
     CommonRelativePaths.STO_ANALYSIS: StockTankOilAnalysisModel,
+    CommonRelativePaths.VLE: VLEModel,
+    CommonRelativePaths.MCM: MCMModel,
+    CommonRelativePaths.SLIMTUBETEST: SlimTubeModel,
 }

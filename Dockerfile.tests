@@ -1,20 +1,19 @@
 ARG python_version=3.11
 FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim
 
+RUN apt update && apt install -y build-essential
+COPY requirements.txt /app/requirements.txt
+RUN pip install --upgrade pip \
+      && pip install --no-cache-dir -r /app/requirements.txt
+
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONPATH=./
 
 COPY requirements-tests.in ./
 COPY requirements.in ./
-RUN apt update && apt install -y build-essential cmake ca-certificates lsb-release wget \
-      && wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb -O /tmp/apache-arrow.deb \
-      && apt -y install /tmp/apache-arrow.deb && apt update \
-      && apt install -y -V libarrow-dev
 RUN pip install --upgrade pip && pip install pip-tools && \
       pip-compile requirements.in requirements-tests.in -o requirements-tests.txt -v && \
       pip install -r requirements-tests.txt
-
-
-ENV PYTHONPATH=./
 
 COPY ./app /app
 COPY ./tests /tests
@@ -22,4 +21,4 @@ COPY ./client /client
 
 WORKDIR ./tests
 
-CMD pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url ${DDMS_BASE_URL} --bearer-token ${ACCESS_TOKEN}
+CMD pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url ${DDMS_BASE_URL} --url-prefix {URL_PREFIX} --partition {PARTITION} --bearer-token ${ACCESS_TOKEN}

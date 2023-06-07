@@ -35,10 +35,14 @@ from app.models.domain.osdu.WPCConstantVolumeDepletionTest100 import (
 )
 from app.models.domain.osdu.WPCDifLib100 import Data as DifLibData
 from app.models.domain.osdu.WPCDifLib100 import DifferentialLiberationTest
-from app.models.domain.osdu.WPCInterfacialTension import (
+from app.models.domain.osdu.WPCInterfacialTension100 import (
     Data as InterfacialTensionData,
 )
-from app.models.domain.osdu.WPCInterfacialTension import InterfacialTensionTest
+from app.models.domain.osdu.WPCInterfacialTension100 import (
+    InterfacialTensionTest,
+)
+from app.models.domain.osdu.WPCMCM100 import Data as MCMData
+from app.models.domain.osdu.WPCMCM100 import MultipleContactMiscibilityTest
 from app.models.domain.osdu.WPCMSS100 import Data as MSSData
 from app.models.domain.osdu.WPCMSS100 import MultiStageSeparatorTest
 from app.models.domain.osdu.WPCPVT100 import PVT
@@ -48,12 +52,16 @@ from app.models.domain.osdu.WPCRockSampleAnalysis110 import (
     Data as RockSampleAnalysisData,
 )
 from app.models.domain.osdu.WPCRockSampleAnalysis110 import RockSampleAnalysis
+from app.models.domain.osdu.WPCSlimTubeTest100 import Data as SlimTubeTestData
+from app.models.domain.osdu.WPCSlimTubeTest100 import SlimTubeTest
 from app.models.domain.osdu.WPCSTO100 import Data as STOData
 from app.models.domain.osdu.WPCSTO100 import StockTankOilAnalysisTest
 from app.models.domain.osdu.WPCSwellingTest100 import Data as SwellingData
 from app.models.domain.osdu.WPCSwellingTest100 import SwellingTest
 from app.models.domain.osdu.WPCTransportTest100 import Data as TransportTestData
 from app.models.domain.osdu.WPCTransportTest100 import TransportTest
+from app.models.domain.osdu.WPCVLE100 import Data as VLEData
+from app.models.domain.osdu.WPCVLE100 import VaporLiquidEquilibriumTest
 from app.models.domain.osdu.WPCWaterAnalysis100 import Data as WaterAnalysisData
 from app.models.domain.osdu.WPCWaterAnalysis100 import WaterAnalysisTest
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
@@ -65,7 +73,10 @@ TEST_HEADERS = {
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
 }
-TEST_HEADERS_NO_AUTH = {"data-partition-id": "opendes"}
+TEST_HEADERS_NO_AUTH = {
+    "data-partition-id": "opendes",
+    "content-type": "application/json",
+}
 SCHEMA_AUTHORITY = os.getenv("SCHEMA_AUTHORITY", "osdu")
 CUSTOM_SCHEMA_AUTHORITY = os.getenv("CUSTOM_SCHEMA_AUTHORITY", "rafsddms")
 PARTITION = "partition"
@@ -117,6 +128,15 @@ STO_ID = "sto_test"
 INTERFACIAL_TENSION_TYPE = "work-product-component--InterfacialTensionTest"
 INTERFACIAL_TENSION_VERSION = "1.0.0"
 INTERFACIAL_TENSION_ID = "intefacialtension_test"
+VLE_TYPE = "work-product-component--VaporLiquidEquilibriumTest"
+VLE_VERSION = "1.0.0"
+VLE_ID = "vle_test"
+MCM_TYPE = "work-product-component--MultipleContactMiscibilityTest"
+MCM_VERSION = "1.0.0"
+MCM_ID = "mcm_test"
+SLIMTUBETEST_TYPE = "work-product-component--SlimTubeTest"
+SLIMTUBETEST_VERSION = "1.0.0"
+SLIMTUBETEST_ID = "slimtubetest_test"
 FILE_GENERIC_TYPE = "dataset--File.Generic"
 TEST_DATASET_UID = "1"
 
@@ -149,6 +169,12 @@ TEST_STO_ID = f"{PARTITION}:{STO_TYPE}:{STO_ID}"
 TEST_STO_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{STO_TYPE}:{STO_VERSION}"
 TEST_INTERFACIAL_TENSION_ID = f"{PARTITION}:{INTERFACIAL_TENSION_TYPE}:{INTERFACIAL_TENSION_ID}"
 TEST_INTERFACIAL_TENSION_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{INTERFACIAL_TENSION_TYPE}:{INTERFACIAL_TENSION_VERSION}"
+TEST_VLE_ID = f"{PARTITION}:{VLE_TYPE}:{VLE_ID}"
+TEST_VLE_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{VLE_TYPE}:{VLE_VERSION}"
+TEST_MCM_ID = f"{PARTITION}:{MCM_TYPE}:{MCM_ID}"
+TEST_MCM_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{MCM_TYPE}:{MCM_VERSION}"
+TEST_SLIMTUBETEST_ID = f"{PARTITION}:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_ID}"
+TEST_SLIMTUBETEST_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_VERSION}"
 TEST_FLUIDSAMPLE_ID = f"{PARTITION}:{FLUIDSAMPLE_TYPE}:{FLUIDSAMPLE_ID}"
 TEST_ACL = Acl(viewers=["viewers@domain.com"], owners=["owners@domain.com"])
 TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], status="compliant")
@@ -335,6 +361,45 @@ INTERFACIAL_TENSION_RECORD = InterfacialTensionTest(
     ),
 )
 
+VLE_RECORD = VaporLiquidEquilibriumTest(
+    id=TEST_VLE_ID,
+    kind=TEST_VLE_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=VLEData(
+        PVTReportID=f"{TEST_PVT_ID}:",
+        FluidSampleID=f"{TEST_FLUIDSAMPLE_ID}:",
+        LabSampleIdentifier="20207905-20",
+        LaboratoryName="CoreLab",
+    ),
+)
+
+MCM_RECORD = MultipleContactMiscibilityTest(
+    id=TEST_MCM_ID,
+    kind=TEST_MCM_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=MCMData(
+        PVTReportID=f"{TEST_PVT_ID}:",
+        FluidSampleID=f"{TEST_FLUIDSAMPLE_ID}:",
+        LabSampleIdentifier="20207905-20",
+        LaboratoryName="CoreLab",
+    ),
+)
+
+SLIMTUBETEST_RECORD = SlimTubeTest(
+    id=TEST_SLIMTUBETEST_ID,
+    kind=TEST_SLIMTUBETEST_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=SlimTubeTestData(
+        PVTReportID=f"{TEST_PVT_ID}:",
+        FluidSampleID=f"{TEST_FLUIDSAMPLE_ID}:",
+        LabSampleIdentifier="20207905-20",
+        LaboratoryName="CoreLab",
+    ),
+)
+
 
 def build_storage_service_response_200(
     record_count: int = 1,
@@ -416,6 +481,9 @@ SWELLING_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/swellingtests"
 CVD_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/constantvolumedepletiontests"
 STO_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/stocktankoilanalysisreports"
 INTERFACIAL_TENSION_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/interfacialtensiontests"
+VLE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/vaporliquidequilibriumtests"
+MCM_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/multiplecontactmiscibilitytests"
+SLIMTUBETEST_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/slimtubetests"
 RCA_DATA_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/data"
 RCA_SOURCE_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/source"
 CCE_DATA_ENDPOINT_PATH = f"{CCE_ENDPOINT_PATH}/{TEST_CCE_ID}/data"
@@ -426,6 +494,8 @@ TRANSPORT_DATA_ENDPOINT_PATH = f"{TRANSPORT_ENDPOINT_PATH}/{TEST_TRANSPORT_ID}/d
 TRANSPORT_SOURCE_ENDPOINT_PATH = f"{TRANSPORT_ENDPOINT_PATH}/{TEST_TRANSPORT_ID}/source"
 COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH = f"{COMPOSITIONALANALYSIS_ENDPOINT_PATH}/{TEST_COMPOSITIONALANALYSIS_ID}/data"
 COMPOSITIONALANALYSIS_SOURCE_ENDPOINT_PATH = f"{COMPOSITIONALANALYSIS_ENDPOINT_PATH}/{TEST_COMPOSITIONALANALYSIS_ID}/source"
+MCM_DATA_ENDPOINT_PATH = f"{MCM_ENDPOINT_PATH}/{TEST_MCM_ID}/data"
+MCM_SOURCE_ENDPOINT_PATH = f"{MCM_ENDPOINT_PATH}/{TEST_MCM_ID}/source"
 MSS_DATA_ENDPOINT_PATH = f"{MSS_ENDPOINT_PATH}/{TEST_MSS_ID}/data"
 MSS_SOURCE_ENDPOINT_PATH = f"{MSS_ENDPOINT_PATH}/{TEST_MSS_ID}/source"
 SWELLING_DATA_ENDPOINT_PATH = f"{SWELLING_ENDPOINT_PATH}/{TEST_SWELLING_ID}/data"
@@ -439,6 +509,10 @@ WATERANALYSIS_DATA_ENDPOINT_PATH = f"{WATERANALYSIS_ENDPOINT_PATH}/{TEST_WATERAN
 WATERANALYSIS_SOURCE_ENDPOINT_PATH = f"{WATERANALYSIS_ENDPOINT_PATH}/{TEST_WATERANALYSIS_ID}/source"
 INTERFACIAL_TENSION_DATA_ENDPOINT_PATH = f"{INTERFACIAL_TENSION_ENDPOINT_PATH}/{TEST_INTERFACIAL_TENSION_ID}/data"
 INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH = f"{INTERFACIAL_TENSION_ENDPOINT_PATH}/{TEST_INTERFACIAL_TENSION_ID}/source"
+VLE_DATA_ENDPOINT_PATH = f"{VLE_ENDPOINT_PATH}/{TEST_VLE_ID}/data"
+VLE_SOURCE_ENDPOINT_PATH = f"{VLE_ENDPOINT_PATH}/{TEST_VLE_ID}/source"
+SLIMTUBE_DATA_ENDPOINT_PATH = f"{SLIMTUBETEST_ENDPOINT_PATH}/{TEST_SLIMTUBETEST_ID}/data"
+SLIMTUBE_SOURCE_ENDPOINT_PATH = f"{SLIMTUBETEST_ENDPOINT_PATH}/{TEST_SLIMTUBETEST_ID}/source"
 
 
 class BulkDatasetId(NamedTuple):
@@ -446,6 +520,7 @@ class BulkDatasetId(NamedTuple):
     CCE = f"{PARTITION}:{FILE_GENERIC_TYPE}:constant-composition-expansion-{TEST_DATASET_UID}"
     DIF_LIB = f"{PARTITION}:{FILE_GENERIC_TYPE}:differential-liberation-{TEST_DATASET_UID}"
     TRANSPORT = f"{PARTITION}:{FILE_GENERIC_TYPE}:transport-test-{TEST_DATASET_UID}"
+    MCM = f"{PARTITION}:{FILE_GENERIC_TYPE}:multiple-contact-miscibility-{TEST_DATASET_UID}"
     MSS = f"{PARTITION}:{FILE_GENERIC_TYPE}:multi-stage-separator-{TEST_DATASET_UID}"
     CA = f"{PARTITION}:{FILE_GENERIC_TYPE}:compositionalanalysis-{TEST_DATASET_UID}"
     SWELLING = f"{PARTITION}:{FILE_GENERIC_TYPE}:swelling-{TEST_DATASET_UID}"
@@ -453,3 +528,5 @@ class BulkDatasetId(NamedTuple):
     STO = f"{PARTITION}:{FILE_GENERIC_TYPE}:stoanalysis-{TEST_DATASET_UID}"
     WA = f"{PARTITION}:{FILE_GENERIC_TYPE}:wateranalysis-{TEST_DATASET_UID}"
     IT = f"{PARTITION}:{FILE_GENERIC_TYPE}:interfacialtension-{TEST_DATASET_UID}"
+    VLE = f"{PARTITION}:{FILE_GENERIC_TYPE}:vaporliquidequilibriumtest-{TEST_DATASET_UID}"
+    SLIMTUBE = f"{PARTITION}:{FILE_GENERIC_TYPE}:slimtube-test-{TEST_DATASET_UID}"

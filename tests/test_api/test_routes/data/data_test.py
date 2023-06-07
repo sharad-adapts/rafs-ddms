@@ -49,7 +49,6 @@ from tests.test_api.test_routes.data.data_mock_objects import (
     SINGLE_DATASET_DATASET_SIDE_EFFECT,
     SINGLE_DATASET_STORAGE_SIDE_EFFECT,
     TEST_DATA,
-    TEST_DATASET_RECORD_ID,
     TEST_HEADERS_JSON,
     TEST_HEADERS_NO_AUTH,
     TEST_HEADERS_PARQUET,
@@ -66,6 +65,7 @@ from tests.test_api.test_routes.dif_lib import dif_lib_mock_objects
 from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
 )
+from tests.test_api.test_routes.mcm import mcm_mock_objects
 from tests.test_api.test_routes.multistageseparator import mss_test_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CCE_DATA_ENDPOINT_PATH,
@@ -78,27 +78,35 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     DIF_LIB_SOURCE_ENDPOINT_PATH,
     INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
     INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH,
+    MCM_DATA_ENDPOINT_PATH,
+    MCM_SOURCE_ENDPOINT_PATH,
     MSS_DATA_ENDPOINT_PATH,
     MSS_SOURCE_ENDPOINT_PATH,
     OSDU_GENERIC_RECORD,
     PVT_SOURCE_ENDPOINT_PATH,
     RCA_DATA_ENDPOINT_PATH,
     RCA_SOURCE_ENDPOINT_PATH,
+    SLIMTUBE_DATA_ENDPOINT_PATH,
+    SLIMTUBE_SOURCE_ENDPOINT_PATH,
     STO_DATA_ENDPOINT_PATH,
     STO_SOURCE_ENDPOINT_PATH,
     SWELLING_DATA_ENDPOINT_PATH,
     SWELLING_SOURCE_ENDPOINT_PATH,
     TRANSPORT_DATA_ENDPOINT_PATH,
     TRANSPORT_SOURCE_ENDPOINT_PATH,
+    VLE_DATA_ENDPOINT_PATH,
+    VLE_SOURCE_ENDPOINT_PATH,
     WATERANALYSIS_DATA_ENDPOINT_PATH,
     WATERANALYSIS_SOURCE_ENDPOINT_PATH,
     BulkDatasetId,
 )
+from tests.test_api.test_routes.slimtubetest import slimtubetest_mock_objects
 from tests.test_api.test_routes.sto_test import sto_mock_objects
 from tests.test_api.test_routes.swelling_test import swelling_test_mock_objects
 from tests.test_api.test_routes.transport_test import (
     transport_test_mock_objects,
 )
+from tests.test_api.test_routes.vle import vle_mock_objects
 from tests.test_api.test_routes.water_analysis import (
     water_analysis_mock_objects,
 )
@@ -179,6 +187,9 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (STO_DATA_ENDPOINT_PATH, BulkDatasetId.STO),
         (WATERANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.WA),
         (INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, BulkDatasetId.IT),
+        (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
+        (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
+        (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
     ],
 )
 @pytest.mark.asyncio
@@ -192,6 +203,73 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
     expected = {"message": f"{dataset_id} does not exist in current record.", "reason": "Not found."}
+    assert response.json() == expected
+
+
+@pytest.mark.parametrize(
+    "data_endpoint_path,dataset_id", [
+        (RCA_DATA_ENDPOINT_PATH, BulkDatasetId.RCA),
+        (CCE_DATA_ENDPOINT_PATH, BulkDatasetId.CCE),
+        (DIF_LIB_DATA_ENDPOINT_PATH, BulkDatasetId.DIF_LIB),
+        (TRANSPORT_DATA_ENDPOINT_PATH, BulkDatasetId.TRANSPORT),
+        (MSS_DATA_ENDPOINT_PATH, BulkDatasetId.MSS),
+        (COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.CA),
+        (SWELLING_DATA_ENDPOINT_PATH, BulkDatasetId.SWELLING),
+        (CVD_DATA_ENDPOINT_PATH, BulkDatasetId.CVD),
+        (STO_DATA_ENDPOINT_PATH, BulkDatasetId.STO),
+        (WATERANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.WA),
+        (INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, BulkDatasetId.IT),
+        (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
+        (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
+        (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
+    ],
+)
+@pytest.mark.asyncio
+async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, with_patched_storage_get_success_200):
+    with get_overrides():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"{data_endpoint_path}/{dataset_id}",
+                headers=None,
+            )
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    expected = {"code": status.HTTP_400_BAD_REQUEST, "reason": "Content-Type header is required, but was not provided"}
+    assert response.json() == expected
+
+
+@pytest.mark.parametrize(
+    "data_endpoint_path,dataset_id", [
+        (RCA_DATA_ENDPOINT_PATH, BulkDatasetId.RCA),
+        (CCE_DATA_ENDPOINT_PATH, BulkDatasetId.CCE),
+        (DIF_LIB_DATA_ENDPOINT_PATH, BulkDatasetId.DIF_LIB),
+        (TRANSPORT_DATA_ENDPOINT_PATH, BulkDatasetId.TRANSPORT),
+        (MSS_DATA_ENDPOINT_PATH, BulkDatasetId.MSS),
+        (COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.CA),
+        (SWELLING_DATA_ENDPOINT_PATH, BulkDatasetId.SWELLING),
+        (CVD_DATA_ENDPOINT_PATH, BulkDatasetId.CVD),
+        (STO_DATA_ENDPOINT_PATH, BulkDatasetId.STO),
+        (WATERANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.WA),
+        (INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, BulkDatasetId.IT),
+        (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
+        (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
+        (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
+    ],
+)
+@pytest.mark.asyncio
+async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id, with_patched_storage_get_success_200):
+    with get_overrides():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"{data_endpoint_path}/{dataset_id}",
+                headers={"Content-Type": "wrong-type"},
+            )
+
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+    expected = {
+        "code": status.HTTP_400_BAD_REQUEST,
+        "reason": "The provided content-type is not supported. Please provide one of the next supported content types: ['application/json', 'application/x-parquet']",
+    }
     assert response.json() == expected
 
 
@@ -251,6 +329,21 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (
             INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
                 interfacialtension_test_mock_objects.RECORD_DATA,
+            ], "download_file", [build_get_test_data("x-parquet")],
+        ),
+        (
+            VLE_DATA_ENDPOINT_PATH, vle_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                vle_mock_objects.RECORD_DATA,
+            ], "download_file", [build_get_test_data("x-parquet")],
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH, mcm_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                mcm_mock_objects.RECORD_DATA,
+            ], "download_file", [build_get_test_data("x-parquet")],
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH, slimtubetest_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                slimtubetest_mock_objects.RECORD_DATA,
             ], "download_file", [build_get_test_data("x-parquet")],
         ),
     ],
@@ -680,6 +773,126 @@ async def test_get_content_parquet_data(
             interfacialtension_test_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -798,6 +1011,33 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             interfacialtension_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [vle_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", vle_mock_objects.TEST_DATA)],
+            vle_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [mcm_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", mcm_mock_objects.TEST_DATA)],
+            mcm_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [slimtubetest_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
+            slimtubetest_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -886,6 +1126,33 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", interfacialtension_test_mock_objects.TEST_DATA)],
             interfacialtension_test_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [vle_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", vle_mock_objects.TEST_DATA)],
+            vle_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [mcm_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", mcm_mock_objects.TEST_DATA)],
+            mcm_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [slimtubetest_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
+            slimtubetest_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -977,6 +1244,33 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             [build_get_test_data("x-parquet", interfacialtension_test_mock_objects.TEST_DATA)],
             interfacialtension_test_mock_objects.TEST_FILTERED_DATA,
         ),
+        (
+            f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+            vle_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [vle_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", vle_mock_objects.TEST_DATA)],
+            vle_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+            mcm_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [mcm_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", mcm_mock_objects.TEST_DATA)],
+            mcm_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+            slimtubetest_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [slimtubetest_mock_objects.RECORD_DATA],
+            "download_file",
+            [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
+            slimtubetest_mock_objects.TEST_FILTERED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -997,8 +1291,7 @@ async def test_get_data_json_data(
                 headers=TEST_HEADERS_JSON,
                 params=params,
             )
-    from loguru import logger
-    logger.info(response.json())
+
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["index"] == returned_data["index"]
     assert set(response.json()["columns"]) == set(returned_data["columns"])
@@ -1085,6 +1378,27 @@ async def test_get_data_json_data(
             interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID,
             interfacialtension_test_mock_objects.TEST_DDMS_URN,
         ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.RECORD_DATA,
+            vle_mock_objects.TEST_DATA,
+            vle_mock_objects.TEST_DATASET_RECORD_ID,
+            vle_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.RECORD_DATA,
+            mcm_mock_objects.TEST_DATA,
+            mcm_mock_objects.TEST_DATASET_RECORD_ID,
+            mcm_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.RECORD_DATA,
+            slimtubetest_mock_objects.TEST_DATA,
+            slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
+            slimtubetest_mock_objects.TEST_DDMS_URN,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1100,6 +1414,129 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
     assert response.status_code == status.HTTP_200_OK
     body = response.json()
     assert body["ddms_urn"] == test_ddms_urn
+    assert test_ddms_urn in record_data["data"]["DDMSDatasets"]
+
+
+@pytest.mark.parametrize(
+    "data_endpoint_path,record_data,test_data,test_dataset_record_id,test_ddms_urn",
+    [
+        (
+            RCA_DATA_ENDPOINT_PATH,
+            data_mock_objects.RECORD_DATA,
+            TEST_DATA,
+            data_mock_objects.TEST_DATASET_RECORD_ID,
+            data_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            CCE_DATA_ENDPOINT_PATH,
+            cce_mock_objects.RECORD_DATA,
+            cce_mock_objects.TEST_DATA,
+            cce_mock_objects.TEST_DATASET_RECORD_ID,
+            cce_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            DIF_LIB_DATA_ENDPOINT_PATH,
+            dif_lib_mock_objects.RECORD_DATA,
+            dif_lib_mock_objects.TEST_DATA,
+            dif_lib_mock_objects.TEST_DATASET_RECORD_ID,
+            dif_lib_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            TRANSPORT_DATA_ENDPOINT_PATH,
+            transport_test_mock_objects.RECORD_DATA,
+            transport_test_mock_objects.TEST_DATA,
+            transport_test_mock_objects.TEST_DATASET_RECORD_ID,
+            transport_test_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            MSS_DATA_ENDPOINT_PATH,
+            mss_test_mock_objects.RECORD_DATA,
+            mss_test_mock_objects.TEST_DATA,
+            mss_test_mock_objects.TEST_DATASET_RECORD_ID,
+            mss_test_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH,
+            compositionalanalysis_mock_objects.RECORD_DATA,
+            compositionalanalysis_mock_objects.TEST_DATA,
+            compositionalanalysis_mock_objects.TEST_DATASET_RECORD_ID,
+            compositionalanalysis_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            SWELLING_DATA_ENDPOINT_PATH,
+            swelling_test_mock_objects.RECORD_DATA,
+            swelling_test_mock_objects.TEST_DATA,
+            swelling_test_mock_objects.TEST_DATASET_RECORD_ID,
+            swelling_test_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            CVD_DATA_ENDPOINT_PATH,
+            cvd_mock_objects.RECORD_DATA,
+            cvd_mock_objects.TEST_DATA,
+            cvd_mock_objects.TEST_DATASET_RECORD_ID,
+            cvd_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            STO_DATA_ENDPOINT_PATH,
+            sto_mock_objects.RECORD_DATA,
+            sto_mock_objects.TEST_DATA,
+            sto_mock_objects.TEST_DATASET_RECORD_ID,
+            sto_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            WATERANALYSIS_DATA_ENDPOINT_PATH,
+            water_analysis_mock_objects.RECORD_DATA,
+            water_analysis_mock_objects.TEST_DATA,
+            water_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            water_analysis_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
+            interfacialtension_test_mock_objects.RECORD_DATA,
+            interfacialtension_test_mock_objects.TEST_DATA,
+            interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID,
+            interfacialtension_test_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.RECORD_DATA,
+            vle_mock_objects.TEST_DATA,
+            vle_mock_objects.TEST_DATASET_RECORD_ID,
+            vle_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.RECORD_DATA,
+            mcm_mock_objects.TEST_DATA,
+            mcm_mock_objects.TEST_DATASET_RECORD_ID,
+            mcm_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.RECORD_DATA,
+            slimtubetest_mock_objects.TEST_DATA,
+            slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
+            slimtubetest_mock_objects.TEST_DDMS_URN,
+        ),
+    ],
+)
+@pytest.mark.asyncio
+async def test_post_data_json_no_ddmsdatasets_field(
+        data_endpoint_path, record_data, test_data, test_dataset_record_id, test_ddms_urn,
+):
+    del record_data["data"]["DDMSDatasets"]
+    with post_overrides(record_data, test_dataset_record_id):
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                data_endpoint_path,
+                headers=TEST_HEADERS_JSON,
+                content=json.dumps(test_data),
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    body = response.json()
+    assert body["ddms_urn"] == test_ddms_urn
+    assert test_ddms_urn in record_data["data"]["DDMSDatasets"]
 
 
 @pytest.mark.parametrize(
@@ -1159,6 +1596,21 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
             interfacialtension_test_mock_objects.RECORD_DATA,
             interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.RECORD_DATA,
+            vle_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.RECORD_DATA,
+            mcm_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.RECORD_DATA,
+            slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -1255,6 +1707,27 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID,
             interfacialtension_test_mock_objects.TEST_DDMS_URN,
         ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.RECORD_DATA,
+            vle_mock_objects.TEST_DATA,
+            vle_mock_objects.TEST_DATASET_RECORD_ID,
+            vle_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.RECORD_DATA,
+            mcm_mock_objects.TEST_DATA,
+            mcm_mock_objects.TEST_DATASET_RECORD_ID,
+            mcm_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.RECORD_DATA,
+            slimtubetest_mock_objects.TEST_DATA,
+            slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
+            slimtubetest_mock_objects.TEST_DDMS_URN,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1268,9 +1741,11 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
                 headers=TEST_HEADERS_PARQUET,
                 content=dataframe.to_parquet(),
             )
-        body = response.json()
 
+    assert response.status_code == status.HTTP_200_OK
+    body = response.json()
     assert body["ddms_urn"] == test_ddms_urn
+    assert test_ddms_urn in record_data["data"]["DDMSDatasets"]
 
 
 @pytest.mark.parametrize(
@@ -1353,6 +1828,27 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID,
             interfacialtension_test_mock_objects.TEST_DDMS_URN,
         ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.RECORD_DATA,
+            vle_mock_objects.TEST_DATA,
+            vle_mock_objects.TEST_DATASET_RECORD_ID,
+            vle_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.RECORD_DATA,
+            mcm_mock_objects.TEST_DATA,
+            mcm_mock_objects.TEST_DATASET_RECORD_ID,
+            mcm_mock_objects.TEST_DDMS_URN,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.RECORD_DATA,
+            slimtubetest_mock_objects.TEST_DATA,
+            slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
+            slimtubetest_mock_objects.TEST_DDMS_URN,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1382,6 +1878,9 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (STO_DATA_ENDPOINT_PATH, sto_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (WATERANALYSIS_DATA_ENDPOINT_PATH, water_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, interfacialtension_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (VLE_DATA_ENDPOINT_PATH, vle_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (MCM_DATA_ENDPOINT_PATH, mcm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (SLIMTUBE_DATA_ENDPOINT_PATH, slimtubetest_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -1453,6 +1952,21 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             interfacialtension_test_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             interfacialtension_test_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            VLE_DATA_ENDPOINT_PATH,
+            vle_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            vle_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
+            MCM_DATA_ENDPOINT_PATH,
+            mcm_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            mcm_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
+            SLIMTUBE_DATA_ENDPOINT_PATH,
+            slimtubetest_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            slimtubetest_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1483,6 +1997,9 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{STO_DATA_ENDPOINT_PATH}/{sto_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{WATERANALYSIS_DATA_ENDPOINT_PATH}/{water_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{INTERFACIAL_TENSION_DATA_ENDPOINT_PATH}/{interfacialtension_test_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -1509,6 +2026,9 @@ async def test_rca_get_403(data_endpoint_path):
         STO_DATA_ENDPOINT_PATH,
         WATERANALYSIS_DATA_ENDPOINT_PATH,
         INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
+        VLE_DATA_ENDPOINT_PATH,
+        MCM_DATA_ENDPOINT_PATH,
+        SLIMTUBE_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -1563,6 +2083,9 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         STO_DATA_ENDPOINT_PATH,
         WATERANALYSIS_DATA_ENDPOINT_PATH,
         INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
+        VLE_DATA_ENDPOINT_PATH,
+        MCM_DATA_ENDPOINT_PATH,
+        SLIMTUBE_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -1834,6 +2357,69 @@ async def test_invalid_data_with_nan(path):
         ),
         (
             INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            VLE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            VLE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            VLE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            MCM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            MCM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            MCM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            SLIMTUBE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            SLIMTUBE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            SLIMTUBE_SOURCE_ENDPOINT_PATH,
             "get_record",
             NO_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",

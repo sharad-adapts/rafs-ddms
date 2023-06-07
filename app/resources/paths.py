@@ -30,3 +30,6 @@ class CommonRelativePaths(NamedTuple):
     WATER_ANALYSIS = "/wateranalysisreports/"
     STO_ANALYSIS = "/stocktankoilanalysisreports/"
     INTERFACIAL_TENSION = "/interfacialtensiontests/"
+    VLE = "/vaporliquidequilibriumtests/"
+    MCM = "/multiplecontactmiscibilitytests/"
+    SLIMTUBETEST = "/slimtubetests/"

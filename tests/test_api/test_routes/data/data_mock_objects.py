@@ -43,7 +43,10 @@ TEST_HEADERS_PARQUET = {
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
 }
-TEST_HEADERS_NO_AUTH = {"data-partition-id": "opendes"}
+TEST_HEADERS_NO_AUTH = {
+    "data-partition-id": "opendes",
+    "content-type": "application/json",
+}
 TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "Remarks,count",
 }

@@ -28,7 +28,7 @@ async def init_mimetypes():
     Workaround since distroless image lacks some types so we need to add
     them.
     """
-    mimetypes.add_type(type=CustomMimeTypes.XLXS.type, ext=CustomMimeTypes.XLXS.extension)
+    mimetypes.add_type(type=CustomMimeTypes.XLSX.type, ext=CustomMimeTypes.XLSX.extension)
 
 
 async def get_mime_type(dataset_record: dict) -> Optional[str]:

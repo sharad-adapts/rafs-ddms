@@ -32,14 +32,17 @@ from app.models.domain.osdu.base import (
     DIF_LIB_KIND,
     IMPLEMENTED_MODELS,
     INTERFACIAL_TENSION_KIND,
+    MCM_KIND,
     MSS_KIND,
     PATH_TO_DATA_MODEL,
     PVT_KIND,
     ROCKSAMPLE_KIND,
     ROCKSAMPLEANALYSIS_KIND,
+    SLIMTUBETEST_KIND,
     STO_KIND,
     SWELLING_KIND,
     TRANSPORT_TEST_KIND,
+    VLE_KIND,
     WATER_ANALYSYS_KIND,
 )
 from app.models.schemas.osdu_storage import OsduStorageRecord
@@ -215,6 +218,18 @@ async def validate_interfacialtension_records_payload(records_list: List[OsduSto
     return await validate_records_payload(records_list, INTERFACIAL_TENSION_KIND)
 
 
+async def validate_vle_records_payload(records_list: List[OsduStorageRecord]):
+    return await validate_records_payload(records_list, VLE_KIND)
+
+
+async def validate_mcm_records_payload(records_list: List[OsduStorageRecord]):
+    return await validate_records_payload(records_list, MCM_KIND)
+
+
+async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRecord]):
+    return await validate_records_payload(records_list, SLIMTUBETEST_KIND)
+
+
 async def get_data_model(request: Request) -> Model:
     """Get the model based on the request path.
 
@@ -236,6 +251,9 @@ async def get_data_model(request: Request) -> Model:
         CommonRelativePaths.STO_ANALYSIS,
         CommonRelativePaths.INTERFACIAL_TENSION,
         CommonRelativePaths.WATER_ANALYSIS,
+        CommonRelativePaths.VLE,
+        CommonRelativePaths.MCM,
+        CommonRelativePaths.SLIMTUBETEST,
     )
     for path in common_relative_paths:
         if path in str(request.url.path):

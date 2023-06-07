@@ -1,28 +1,22 @@
 # docker build -t rafsdistroless -f Dockerfile.distroless .
 # https://gealber.com/recipe-distroless-container-fastapi
 ARG python_version=3.11
-ARG distroless_python_registry=cgr.dev/chainguard/python
-
 FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim AS build-env
-ARG python_version
+
+RUN apt update && apt install -y build-essential
 COPY requirements.txt /app/requirements.txt
-RUN apt update && apt install -y build-essential cmake ca-certificates lsb-release wget \
-      && wget https://apache.jfrog.io/artifactory/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-apt-source-latest-$(lsb_release --codename --short).deb -O /tmp/apache-arrow.deb \
-      && apt -y install /tmp/apache-arrow.deb && apt update \
-      && apt install -y -V libarrow-dev \
-      && pip install --upgrade pip \
-      && pip install --no-cache-dir -r /app/requirements.txt \
-      && apt remove -y --purge build-essential cmake lsb-release wget libarrow-dev
+RUN pip install --upgrade pip \
+      && pip install --no-cache-dir -r /app/requirements.txt
 
 COPY ./app /app/
 WORKDIR /app
-RUN cp $(which uvicorn) .
+RUN cp -v $(which uvicorn) .
 
 # Google Distroless uses python 3.9 we are choosing to go with cgr.dev (gcr.io/distroless/python3:nonroot uses python 3.9)
 # cgr.dev/chainguard/python:3.X can use either 3.10 -> 3.11 : https://github.com/chainguard-images/images/tree/main/images/python
 # For permissions https://github.com/alexdmoss/distroless-python/blob/main/distroless.Dockerfile#L38
 # Gunicorn distroless approach https://github.com/alexdmoss/distroless-python/tree/main/tests/gunicorn
-FROM ${distroless_python_registry}:${python_version}
+FROM cgr.dev/chainguard/python:${python_version}
 ARG python_version
 ARG user_id=1001
 

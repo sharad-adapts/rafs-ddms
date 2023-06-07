@@ -15,16 +15,14 @@
 from typing import Optional
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class RockSampleCorePaths(object):
-    COMMON_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST_RS = f"{COMMON_PART}/rocksamples"
-    GET_RS = f"{COMMON_PART}/rocksamples/{{record_id}}"
-    GET_VERSIONS = f"{COMMON_PART}/rocksamples/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_PART}/rocksamples/{{record_id}}/versions/{{version}}"
-    DELETE_RS = f"{COMMON_PART}/rocksamples/{{record_id}}"
+    POST_RS = "/rocksamples"
+    GET_RS = "/rocksamples/{record_id}"
+    GET_VERSIONS = "/rocksamples/{record_id}/versions"
+    GET_VERSION = "/rocksamples/{record_id}/versions/{version}"
+    DELETE_RS = "/rocksamples/{record_id}"
 
 
 class RockSampleCore(APIClient):
