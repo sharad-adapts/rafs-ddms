@@ -14,10 +14,11 @@
 
 from typing import List
 
-from fastapi import APIRouter, Depends, Path, Response
+from fastapi import APIRouter, Depends, Path, Request, Response
 from fastapi_cache.decorator import cache
 from starlette import status
 
+from app.api.dependencies.request import validate_json_content_type
 from app.api.dependencies.services import get_async_storage_service
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.core.helpers.cache.key_builder import key_builder_using_token
@@ -99,11 +100,14 @@ class BaseStorageRecordView:
 
     async def post_records(
         self,
+        request: Request,
         request_records: List[dict],
         storage_service: storage.StorageService = Depends(get_async_storage_service),
     ) -> StorageUpsertResponse:
         """Post records.
 
+        :param request: request
+        :type request: Request
         :param request_records: request records
         :type request_records: List[dict]
         :param storage_service: storage service
@@ -238,7 +242,10 @@ class BaseStorageRecordView:
             description=APIDescriptionHelper.append_manage_roles(
                 f"Create or update `{self._record_type}` record(s).",
             ),
-            dependencies=[Depends(validate_request_records)],
+            dependencies=[
+                Depends(validate_request_records),
+                Depends(validate_json_content_type),
+            ],
         )
 
     def _prepare_soft_delete_record_route(self) -> None:

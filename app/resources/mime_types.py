@@ -98,7 +98,7 @@ class CustomMimeTypes:
         alternative_types=[],
     )
 
-    XLXS = MimeType(
+    XLSX = MimeType(
         type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         extension=".xlsx",
         alternative_types=[],

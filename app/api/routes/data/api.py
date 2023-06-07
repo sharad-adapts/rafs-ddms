@@ -26,6 +26,7 @@ from pydantic import BaseModel
 from starlette import status
 
 from app.api.dependencies.records import get_data_file_sources
+from app.api.dependencies.request import validate_bulkdata_content_type
 from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_search_service,
@@ -70,15 +71,17 @@ class BaseDataView:
         self._bulk_dataset_prefix = bulk_dataset_prefix
         self._record_type = record_type
         self._specific_route_type = specific_route_type
-        self.description_template_roles = APIDescriptionHelper.append_joined_roles(
-            "Get the (`latest version`) bulk data for a given `{record_type}` object by record id. <br><br>\
+        self.description_template_roles = APIDescriptionHelper.append_manage_roles(
+            "Upload the bulk data for a given `{record_type}` object by record id.<br>\
+            It creates a new version of the record. <br>\
+            The previous meta-data with bulk data is available by their `versions`. <br> <br>\
+            Use the `Content-Type` request header to specify payload format \
+                (`application/json` and `application/parquet` are supported).<br>\
             Use the `Accept` request header to specify response format \
-                (`application/json` and `application/parquet` are supported).<br><br>\
-            The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
-                query parameters can be used to manage data in response.",
+                (`application/json` and `application/parquet` are supported).",
         )
         self.description_template_get_data = APIDescriptionHelper.append_joined_roles(
-            "Get the bulk data for a given `{record_type}` object by record id. <br><br>\
+            "Get the (`latest version`) bulk data for a given `{record_type}` object by record id. <br><br>\
             Use the `Accept` request header to specify response format \
                 (`application/json` and `application/parquet` are supported).<br><br>\
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
@@ -266,7 +269,8 @@ class BaseDataView:
                 wpc_id=record_id,
                 dataset_id=dataset_record_id,
             )
-            record_data["DDMSDatasets"] = [ddms_urn]
+            ddms_datasets.append(ddms_urn)
+            record_data["DDMSDatasets"] = ddms_datasets
 
         storage_response = await storage_service.upsert_records([record])
         logger.info(f"Updated record: {storage_response}")
@@ -342,6 +346,7 @@ class BaseDataView:
             dependencies=[
                 Depends(validate_record_id),
                 Depends(validate_dataset_id),
+                Depends(validate_bulkdata_content_type),
             ],
         )
 
@@ -363,7 +368,10 @@ class BaseDataView:
             methods=["POST"],
             status_code=status.HTTP_200_OK,
             description=self.description_template_roles.format(record_type=self._record_type),
-            dependencies=[Depends(validate_record_id)],
+            dependencies=[
+                Depends(validate_record_id),
+                Depends(validate_bulkdata_content_type),
+            ],
         )
 
     def _prepare_get_source_data_route(self) -> None:

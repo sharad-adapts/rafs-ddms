@@ -15,16 +15,14 @@
 from typing import Optional
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class CoringCorePaths(object):
-    COMMON_CORING_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST_CORING = f"{COMMON_CORING_PART}/coringreports"
-    GET_CORING = f"{COMMON_CORING_PART}/coringreports/{{record_id}}"
-    GET_VERSIONS = f"{COMMON_CORING_PART}/coringreports/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_CORING_PART}/coringreports/{{record_id}}/versions/{{version}}"
-    DELETE_CORING = f"{COMMON_CORING_PART}/coringreports/{{record_id}}"
+    POST_CORING = "/coringreports"
+    GET_CORING = "/coringreports/{record_id}"
+    GET_VERSIONS = "/coringreports/{record_id}/versions"
+    GET_VERSION = "/coringreports/{record_id}/versions/{version}"
+    DELETE_CORING = "/coringreports/{record_id}"
 
 
 class CoringCore(APIClient):

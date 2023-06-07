@@ -29,7 +29,7 @@ function _build_register_payload() {
                 {
                     "name": "rafs",
                     "description": "Rock And Fluid Sample DDMS",
-                    "openspec": "https://gitbud.{{company}}.com/{{osdu}}/{{company}}-osdu/osdu-rafsddms/-/blob/main/docs/spec/openapi.json"
+                    "openspec": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/docs/spec/openapi.json"
                 }
             ],
              "paths": ${PATHS_OUT}              
@@ -43,7 +43,7 @@ EOF
   # Join all interfaces in one single file
   jq -r -s '[.[0],.[1],.[2]]' $(for ii in ${ENTITIES[@]}; do echo "${TEMP_DIR}/${ii}.json"; done | xargs) > ${TEMP_DIR}/interfaces.json
   # Build the final payload
-  jq -s '{ "id": "rafs", "name": "rafsDDMS","description": "Rock And Fluid Sample DDMS","contactEmail": "osdu-sre@{{company}}.com", "interfaces": .[0]}' ${TEMP_DIR}/interfaces.json > ${TEMP_DIR}/rafsddms_register.json
+  jq -s '{ "id": "rafs", "name": "rafsDDMS","description": "Rock And Fluid Sample DDMS","contactEmail": "osdu-sre@osdu.com", "interfaces": .[0]}' ${TEMP_DIR}/interfaces.json > ${TEMP_DIR}/rafsddms_register.json
   # Substitute the RAFS_URL
   sed -i "s;{{OSDU_URL}};$RAFS_URL;g" ${TEMP_DIR}/rafsddms_register.json
 

@@ -24,13 +24,20 @@ from app.api.routes.cvd import api as cvd_api
 from app.api.routes.dif_lib import api as dif_lib_api
 from app.api.routes.interfacialtension import api as interfacialtension_api
 from app.api.routes.master_data import coring_api, rocksample_api
+from app.api.routes.mcm import api as mcm_api
 from app.api.routes.multistageseparator import api as mss_api
 from app.api.routes.pvt import api as pvt_api
 from app.api.routes.rocksampleanalysis import api as rocksampleanalysis_api
+from app.api.routes.slimtubetest import api as slimtubetest_api
 from app.api.routes.sto import api as sto_api
 from app.api.routes.swelling import api as swelling_api
 from app.api.routes.transport_test import api as transport_test_api
+from app.api.routes.vle import api as vle_api
 from app.api.routes.wateranalysis import api as wateranalysis_api
+
+COMMON_DEPENDENCIES = [
+    Depends(require_data_partition_id),
+]
 
 router = APIRouter()
 router.include_router(info.router, tags=["info"])
@@ -38,46 +45,61 @@ router.include_router(healthz.router, tags=["healthz"])
 router.include_router(
     rocksampleanalysis_api.router,
     tags=["rocksampleanalyses"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
-router.include_router(coring_api.router, tags=["coringreports"], dependencies=[Depends(require_data_partition_id)])
-router.include_router(rocksample_api.router, tags=["rocksamples"], dependencies=[Depends(require_data_partition_id)])
-router.include_router(pvt_api.router, tags=["pvtreports"], dependencies=[Depends(require_data_partition_id)])
-router.include_router(cce_api.router, tags=["ccereports"], dependencies=[Depends(require_data_partition_id)])
-router.include_router(dif_lib_api.router, tags=["difflibreports"], dependencies=[Depends(require_data_partition_id)])
+router.include_router(coring_api.router, tags=["coringreports"], dependencies=COMMON_DEPENDENCIES)
+router.include_router(rocksample_api.router, tags=["rocksamples"], dependencies=COMMON_DEPENDENCIES)
+router.include_router(pvt_api.router, tags=["pvtreports"], dependencies=COMMON_DEPENDENCIES)
+router.include_router(cce_api.router, tags=["ccereports"], dependencies=COMMON_DEPENDENCIES)
+router.include_router(dif_lib_api.router, tags=["difflibreports"], dependencies=COMMON_DEPENDENCIES)
 router.include_router(
     transport_test_api.router,
     tags=["transporttests"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     compositionalanalysis_api.router,
     tags=["compositionalanalysisreports"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     mss_api.router,
     tags=["multistageseparatortests"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
-router.include_router(swelling_api.router, tags=["swellingtests"], dependencies=[Depends(require_data_partition_id)])
+router.include_router(swelling_api.router, tags=["swellingtests"], dependencies=COMMON_DEPENDENCIES)
 router.include_router(
     cvd_api.router,
     tags=["constantvolumedepletiontests"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     wateranalysis_api.router,
     tags=["wateranalysisreports"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     sto_api.router,
     tags=["stocktankoilanalysisreports"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     interfacialtension_api.router,
     tags=["interfacialtensiontests"],
-    dependencies=[Depends(require_data_partition_id)],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    vle_api.router,
+    tags=["vaporliquidequilibriumtests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    mcm_api.router,
+    tags=["multiplecontactmiscibilitytests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    slimtubetest_api.router,
+    tags=["slimtubetests"],
+    dependencies=COMMON_DEPENDENCIES,
 )

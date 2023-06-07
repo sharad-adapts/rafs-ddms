@@ -14,7 +14,7 @@
 
 from typing import List, Optional
 
-from fastapi import Depends, Path
+from fastapi import Depends, Path, Request
 from starlette import status
 
 from app.api.dependencies.records import (
@@ -22,6 +22,7 @@ from app.api.dependencies.records import (
     get_async_storage_service,
     get_data_file_sources,
 )
+from app.api.dependencies.request import validate_json_content_type
 from app.api.dependencies.validation import validate_pvt_records_payload
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
@@ -33,11 +34,14 @@ from app.services import dataset, storage
 class PVTView(BaseStorageRecordView):
     async def post_records(
         self,
+        request: Request,
         request_records: List[dict] = Depends(validate_pvt_records_payload),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
     ) -> StorageUpsertResponse:
         """Post records for PVT with special records validation.
 
+        :param request: request
+        :type request: Request
         :param request_records: request records
         :type request_records: List[dict]
         :param storage_service: storage service
@@ -46,6 +50,7 @@ class PVTView(BaseStorageRecordView):
         :rtype: StorageUpsertResponse
         """
         return await super().post_records(
+            request,
             request_records,
             storage_service,
         )
@@ -98,4 +103,5 @@ class PVTView(BaseStorageRecordView):
             description=APIDescriptionHelper.append_manage_roles(
                 f"Create or update `{self._record_type}` record(s).",
             ),
+            dependencies=[Depends(validate_json_content_type)],
         )

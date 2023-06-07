@@ -39,6 +39,12 @@ class Separator(NamedTuple):
     COMMA = ","
 
 
+class FilterIndex(NamedTuple):
+    COLUMN = 0
+    OPERATOR = 1
+    COMP_VALUE = 2
+
+
 @dataclass
 class SQLFilterValidator:
     """Validation of query paramenters.
@@ -97,38 +103,42 @@ class SQLFilterValidator:
         rows_filter_list = self.raw_rows_filter.split(Separator.COMMA)
         if len(rows_filter_list) != Predicate.N_ELEMENTS:
             raise RuntimeError("Bad rows_filter expression. Correct form 'ColumnName,operator,value'")
-        if rows_filter_list[0].split(Separator.DOT)[0] not in self.all_valid_columns:
+        if self._handle_dotted_column(rows_filter_list[FilterIndex.COLUMN]) not in self.all_valid_columns:
             raise RuntimeError(f"For filter select one of {self.all_valid_columns}")
 
-        valid_column = self._handle_dotted_column(rows_filter_list[0])
-        valid_operator = self._validate_comparison_operator(rows_filter_list[1])
-        valid_value = self._handle_str_value(self._validate_column_value(valid_column, rows_filter_list[2]))
+        valid_column = rows_filter_list[FilterIndex.COLUMN]
+        valid_operator = self._validate_comparison_operator(rows_filter_list[FilterIndex.OPERATOR])
+        valid_value = self._handle_str_value(
+            self._validate_column_value(
+                valid_column, rows_filter_list[FilterIndex.COMP_VALUE],
+            ),
+        )
         return f"{valid_column} {valid_operator} {valid_value}"
 
     def _validate_columns_aggregation(self) -> str:
         columns_aggregation_list = self.raw_columns_aggregation.split(Separator.COMMA)
         if len(columns_aggregation_list) != Aggregation.N_ELEMENTS:
             raise RuntimeError("Bad aggregation expression. Correct form 'ColumnName,operator'")
-        if columns_aggregation_list[0] not in self.all_valid_columns:
+        if self._handle_dotted_column(columns_aggregation_list[FilterIndex.COLUMN]) not in self.all_valid_columns:
             raise RuntimeError(f"For aggregation select one of {self.all_valid_columns}")
 
-        valid_column = self._handle_dotted_column(columns_aggregation_list[0])
-        valid_operator = self._validate_aggregation_operator(columns_aggregation_list[1])
+        valid_column = columns_aggregation_list[FilterIndex.COLUMN]
+        valid_operator = self._validate_aggregation_operator(columns_aggregation_list[FilterIndex.OPERATOR])
         return f"{valid_operator}({valid_column})"
 
     def _validate_columns_filter(self) -> str:
         raw_columns_filter_set = set(self.raw_columns_filter.split(Separator.COMMA))
         valid_columns = self.all_valid_columns.intersection(raw_columns_filter_set)
-        columns_filter = Separator.COMMA.join(map(self._handle_dotted_column, valid_columns))
         invalid_columns = raw_columns_filter_set.difference(valid_columns)
         if invalid_columns:
             raise RuntimeError(f"Invalid columns: {invalid_columns}. Select one of {self.all_valid_columns}")
-        return columns_filter
+        # @TODO handle dotted column
+        return Separator.COMMA.join(valid_columns)
 
     def _handle_dotted_column(self, column: str) -> str:
         if Separator.DOT in column:
-            #  TODO to be completed with above jsonschema validation
-            logger.info(f"DOT in column: {column}")
+            column = column.split(Separator.DOT)[FilterIndex.COLUMN]
+            logger.debug(f"DOT in column: {column}")
         return column
 
     def _handle_str_value(self, comp_value: Any) -> str:

@@ -37,13 +37,13 @@ class Data(Field0, Field0_1, Field0_2):
         None,
         description='URI link to the measurements which were carried out within this multi-stage-separator test.',
         example=[
-            'https://<vhostname>.stable-{{osdu}}.centralus.cloudapp.azure.com/api/rafs ddms/v1/CCE/get_CCE_data_record_id/45'
+            'https://<vhostname>.<osdu-instance-fqdn>/api/rafs ddms/v1/CCE/get_CCE_data_record_id/45'
         ],
         title='WaterAnalysisTest DDMSDatasets',
     )
     PVTReportID: constr(
         regex=r'^[\w\-\.]+:work-product-component\-\-PVT:[\w\-\.\:\%]+:[0-9]*$'
-    ) = Field(..., description='PVT Report identifier.', title='PVT  Report ID')
+    ) = Field(..., description='PVT Report identifier.', title='PVT Report ID')
     LaboratoryName: Optional[str] = Field(
         None,
         description='Name or branch of the laboratory performing the analysis.',
@@ -58,7 +58,7 @@ class Data(Field0, Field0_1, Field0_2):
     )
     AnalysisDate: Optional[date] = Field(
         None,
-        description='The date the batch of WaterAnalysisTest test was performed.',
+        description='The date that the Water Analysis was performed.',
         title='Analysis Date',
     )
     LabSampleIdentifier: Optional[str] = Field(
@@ -71,7 +71,7 @@ class Data(Field0, Field0_1, Field0_2):
         constr(regex=r'^[\w\-\.]+:master-data\-\-FluidSample:[\w\-\.\:\%]+:[0-9]*$')
     ] = Field(
         None,
-        description='Unique ID of the FLuid Which was analyzed on CCE.',
+        description='Unique ID of the Fluid analyzed by Water Analysis.',
         title='Fluid Sample ID',
     )
     ExtensionProperties: Optional[Dict[str, Any]] = None
@@ -144,11 +144,13 @@ class WaterAnalysisTest(BaseModel):
         example='some-user@some-company-cloud.com',
         title='Resource Object Creation User Reference',
     )
-    id: constr(
-        regex=r'^[\w\-\.]+:work-product-component\-\-WaterAnalysisTest:[\w\-\.\:\%]+$'
-    ) = Field(
-        ...,
+    id: Optional[
+        constr(
+            regex=r'^[\w\-\.]+:work-product-component\-\-WaterAnalysisTest:[\w\-\.\:\%]+$'
+        )
+    ] = Field(
+        None,
         description='Previously called ResourceID or SRN which identifies this OSDU resource object without version.',
         example='namespace:work-product-component--WaterAnalysisTest:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8',
-        title='Entity ID',
+        title='WaterAnalysisTest',
     )

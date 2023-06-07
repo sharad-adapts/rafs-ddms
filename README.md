@@ -34,6 +34,10 @@ Compiled REST API documentation is presented in the [openapi.json](./docs/spec/o
 
 Note regarding OSDU Well Known Schema interaction: Currently (April 2023), OSDU Data Definitions "Fluid Samples" and "Samples & Petrophysics" Project teams are re-working the data model for both rock and fluid samples in a way that there will be a unified way to handle both. That means that today there are no FluidSample, FluidSampleAnalysis, or FluidSampleAcquisition schemas published by OSDU Data Definitions, which can be used by the DDMS. Similarly, it is likely that RockSample, RockSampleAnalysis, and Coring schemas will be changed by the Forum or even be deprecated and replaced in the near future. In light of this: 1) With regard to PVT, the RAFS DDMS currently uses custom WPC and Master schemas 2) With regard to RCA, the DDMS does have relationship to the existing rock-related schemas mentioned above. In both cases, the DDMS will need to be updated when the revised OSDU Data Definitions data model is published. 
 
+**NB**: Before the custom schemas are marked as the official well-known schemas, the next custom schemas must be registered during the deployment of the service.
+
+[RAFS DDMS custom schemas](./deployments/README.md).
+
 ## Project Startup
 ### Configuration
 
@@ -145,7 +149,7 @@ Use the `OPENAPI_PREFIX` value used for project settings.
 
 ## Testing
 
-### Run Tests
+### Run Unit Tests
 
 **WARN** Docker-compose it is meant to be used for local development/testing, not for production.
 
@@ -153,6 +157,8 @@ Unit tests
 
 ```shell
 docker-compose run tests
+docker-compose run --rm tests flake8 / --config=/setup.cfg
+docker-compose run --rm tests flake8 /app --select T1
 ```
 
 ### Run Integration Tests
@@ -160,13 +166,16 @@ docker-compose run tests
 Using Docker [env substitution from shell](https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-from-the-shell) capabilities.
 
 ```shell
+# Start docker-compose 
+docker-compose --profile distroless up distroless
 # Export needed envs for testing
 # Internal hostname in docker-compose (app)
 # Alternatively you can choose to test in remote env
-export DDMS_BASE_URL=http://app:8080  # Alternatively for distroless profile http://distroless:8088
+export DDMS_BASE_URL=http://distroless:8088
 export ACCESS_TOKEN=<access_token>
+export PARTITION=<partition>
 # Run test
-docker-compose --profile integration run integration
+docker-compose --profile integration run --rm integration
 
 # (Optional) Cleanup
 docker-compose down

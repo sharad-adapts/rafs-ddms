@@ -17,19 +17,17 @@ from typing import Optional, Union
 from requests import Response
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class RSACorePaths(object):
-    COMMON_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST_RSA = f"{COMMON_PART}/rocksampleanalyses"
-    GET_RSA = f"{COMMON_PART}/rocksampleanalyses/{{record_id}}"
-    POST_RCA = f"{COMMON_PART}/rocksampleanalyses/{{rsa_record_id}}/rca/data"
-    GET_RCA = f"{COMMON_PART}/rocksampleanalyses/{{rsa_record_id}}/rca/data/{{rca_dataset_id}}"
-    GET_VERSIONS = f"{COMMON_PART}/rocksampleanalyses/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_PART}/rocksampleanalyses/{{record_id}}/versions/{{version}}"
-    DELETE_RSA = f"{COMMON_PART}/rocksampleanalyses/{{record_id}}"
-    GET_FILE_DOWNLOAD = f"{COMMON_PART}/rocksampleanalyses/{{record_id}}/rca/source"
+    POST_RSA = "/rocksampleanalyses"
+    GET_RSA = "/rocksampleanalyses/{record_id}"
+    POST_RCA = "/rocksampleanalyses/{rsa_record_id}/rca/data"
+    GET_RCA = "/rocksampleanalyses/{rsa_record_id}/rca/data/{rca_dataset_id}"
+    GET_VERSIONS = "/rocksampleanalyses/{record_id}/versions"
+    GET_VERSION = "/rocksampleanalyses/{record_id}/versions/{version}"
+    DELETE_RSA = "/rocksampleanalyses/{record_id}"
+    GET_FILE_DOWNLOAD = "/rocksampleanalyses/{record_id}/rca/source"
 
 
 class RSACore(APIClient):

@@ -4,7 +4,6 @@ services:
   app:
     build: .
     restart: on-failure
-    user: $UID:$GID
     ports:
       - "8080:8080"
     # Env file can be setup here or in command line docker-compose --env-file <>
@@ -12,9 +11,6 @@ services:
       - .env
     volumes:
       - ./app/:/app/app
-      # Only for linux/wsl based systems if not user user: root, better to avoid having *.pyc as root.
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
     entrypoint: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
 
   tests:
@@ -22,28 +18,22 @@ services:
       context: .
       dockerfile: Dockerfile.tests
     image: osdu-rafsddms_tests
-    user: $UID:$GID
     restart: "no"
     volumes:
       - ./tests/:/tests
       - ./client/:/client
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
-    entrypoint: [ "bash", "-c",
-      "python -m pytest -p no:cacheprovider --ignore=integration"]
+    entrypoint: [ "bash", "-c"]
+    command: ["python -m pytest -p no:cacheprovider --ignore=integration"]
 
   integration:
     image: osdu-rafsddms_tests
     restart: "no"
-    user: $UID:$GID
     volumes:
       - ./tests/:/tests
       - ./client/:/client
-      - /etc/passwd:/etc/passwd:ro
-      - /etc/group:/etc/group:ro
     working_dir: /
     entrypoint: [ "bash", "-c",
-      "python -m pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --bearer-token \"${ACCESS_TOKEN}\""]
+      "pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
     profiles: ["integration"]
     depends_on:
       - app
@@ -58,4 +48,4 @@ services:
     profiles: ["distroless"]
     ports:
       - "8088:8088"
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8088", "--workers", "4", "--loop", "uvloop"]
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8088", "--loop", "uvloop"]

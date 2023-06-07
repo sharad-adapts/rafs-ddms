@@ -14,7 +14,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -80,7 +80,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -145,7 +145,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -210,7 +210,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -275,7 +275,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -340,7 +340,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -405,7 +405,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [
@@ -470,7 +470,7 @@
         },
         "servers": [
           {
-            "url": "https://stable-{{osdu}}.centralus.cloudapp.azure.com"
+            "url": "https://<osdu-instance-fqdn>"
           }
         ],
         "tags": [

@@ -35,7 +35,7 @@ class Legal(BaseModel):
 
 
 class OsduStorageRecord(BaseModel):
-    id: str
+    id: Optional[str] = None
     kind: str
     acl: Acl
     legal: Legal

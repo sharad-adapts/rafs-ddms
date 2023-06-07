@@ -50,6 +50,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     EXPECTED_422_WRONG_PATTERN,
     INTERFACIAL_TENSION_ENDPOINT_PATH,
     INTERFACIAL_TENSION_RECORD,
+    MCM_ENDPOINT_PATH,
+    MCM_RECORD,
     MSS_ENDPOINT_PATH,
     MULTISTAGESEPARATOR_RECORD,
     OSDU_GENERIC_RECORD,
@@ -61,6 +63,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     ROCKSAMPLE_RECORD,
     ROCKSAMPLEANALYSIS_ENDPOINT_PATH,
     ROCKSAMPLEANALYSIS_RECORD,
+    SLIMTUBETEST_ENDPOINT_PATH,
+    SLIMTUBETEST_RECORD,
     STO_ENDPOINT_PATH,
     STO_RECORD,
     STORAGE_SERVICE_200_RESPONSE,
@@ -75,18 +79,23 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     TEST_HEADERS,
     TEST_HEADERS_NO_AUTH,
     TEST_INTERFACIAL_TENSION_ID,
+    TEST_MCM_ID,
     TEST_MSS_ID,
     TEST_PVT_ID,
     TEST_ROCKSAMPLE_ID,
     TEST_ROCKSAMPLEANALYSIS_ID,
     TEST_SERVER,
+    TEST_SLIMTUBETEST_ID,
     TEST_STO_ID,
     TEST_SWELLING_ID,
     TEST_TRANSPORT_ID,
+    TEST_VLE_ID,
     TEST_WATERANALYSIS_ID,
     TEST_WRONG_ID,
     TRANSPORT_ENDPOINT_PATH,
     TRANSPORT_RECORD,
+    VLE_ENDPOINT_PATH,
+    VLE_RECORD,
     WATERANALYSIS_ENDPOINT_PATH,
     WATERANALYSIS_RECORD,
     build_storage_service_response_200,
@@ -264,6 +273,9 @@ def with_patched_storage_query_pvt_invalid_200():
         ("get_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
         ("get_record", "stocktankoilanalysisreports", TEST_STO_ID),
         ("get_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+        ("get_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
+        ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
+        ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -294,6 +306,9 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
         ("get_record", "stocktankoilanalysisreports", TEST_STO_ID),
         ("get_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+        ("get_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
+        ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
+        ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -325,6 +340,9 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "wateranalysisreports", TEST_WATERANALYSIS_ID),
         ("get_record_versions", "stocktankoilanalysisreports", TEST_STO_ID),
         ("get_record_versions", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+        ("get_record_versions", "vaporliquidequilibriumtests", TEST_VLE_ID),
+        ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
+        ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -359,6 +377,9 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "wateranalysisreports", TEST_WATERANALYSIS_ID),
         ("soft_delete_record", "stocktankoilanalysisreports", TEST_STO_ID),
         ("soft_delete_record", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+        ("soft_delete_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
+        ("soft_delete_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
+        ("soft_delete_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -393,6 +414,9 @@ async def test_delete_record_not_found(
         ("wateranalysisreports"),
         ("stocktankoilanalysisreports"),
         ("interfacialtensiontests"),
+        ("vaporliquidequilibriumtests"),
+        ("multiplecontactmiscibilitytests"),
+        ("slimtubetests"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -426,6 +450,9 @@ async def test_post_record_no_kind(path):
         ("wateranalysisreports"),
         ("stocktankoilanalysisreports"),
         ("interfacialtensiontests"),
+        ("vaporliquidequilibriumtests"),
+        ("multiplecontactmiscibilitytests"),
+        ("slimtubetests"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -455,6 +482,9 @@ async def test_post_record_invalid_payload_type(path):
         ("wateranalysisreports", WATERANALYSIS_RECORD, "FluidSampleID"),
         ("stocktankoilanalysisreports", STO_RECORD, "FluidSampleID"),
         ("interfacialtensiontests", INTERFACIAL_TENSION_RECORD, "FluidSampleID"),
+        ("vaporliquidequilibriumtests", VLE_RECORD, "FluidSampleID"),
+        ("multiplecontactmiscibilitytests", MCM_RECORD, "FluidSampleID"),
+        ("slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -510,6 +540,54 @@ async def test_post_record_success(
         (
             "ccereports",
             CCE_RECORD,
+        ),
+        (
+            "difflibreports",
+            DL_RECORD,
+        ),
+        (
+            "transporttests",
+            TRANSPORT_RECORD,
+        ),
+        (
+            "compositionalanalysisreports",
+            COMPOSITIONALANALYSIS_RECORD,
+        ),
+        (
+            "multistageseparatortests",
+            MULTISTAGESEPARATOR_RECORD,
+        ),
+        (
+            "swellingtests",
+            SWELLING_RECORD,
+        ),
+        (
+            "constantvolumedepletiontests",
+            CVD_RECORD,
+        ),
+        (
+            "wateranalysisreports",
+            WATERANALYSIS_RECORD,
+        ),
+        (
+            "stocktankoilanalysisreports",
+            STO_RECORD,
+        ),
+        (
+            "interfacialtensiontests",
+            INTERFACIAL_TENSION_RECORD,
+        ),
+        (
+            "vaporliquidequilibriumtests",
+            VLE_RECORD,
+        ),
+        (
+            "multiplecontactmiscibilitytests",
+            MCM_RECORD,
+        ),
+        (
+            "slimtubetests",
+            SLIMTUBETEST_RECORD,
         ),
     ],
 )
@@ -675,6 +753,48 @@ async def test_post_record_with_invalid_pvt_parent(
             ],
             PVT_RECORD.dict(exclude_none=True),
         ),
+        (
+            "vaporliquidequilibriumtests",
+            VLE_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_VLE_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_VLE_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "multiplecontactmiscibilitytests",
+            MCM_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_MCM_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_MCM_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "slimtubetests",
+            SLIMTUBETEST_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_SLIMTUBETEST_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_SLIMTUBETEST_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
     ],
 )
 async def test_post_record_success_update_pvt_parent(
@@ -703,6 +823,255 @@ async def test_post_record_success_update_pvt_parent(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
+    "storage_method,path,osdu_record",
+    [
+        ("upsert_records", "rocksamples", ROCKSAMPLE_RECORD),
+        ("upsert_records", "coringreports", CORING_RECORD),
+        ("upsert_records", "pvtreports", PVT_RECORD),
+        ("upsert_records", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+    ],
+)
+async def test_post_record_no_id(
+    storage_method,
+    path,
+    osdu_record,
+    with_patched_storage_created_200,
+):
+    osdu_record_json = osdu_record.dict(
+        exclude={"id"},
+        exclude_none=True,
+    )
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record_json],
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == EXPECTED_200_CREATED_RESPONSE
+    storage_record_service_mock.upsert_records.assert_called_once_with([osdu_record_json])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record,created_responses,get_response",
+    [
+        (
+            "ccereports",
+            CCE_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_CCE_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_CCE_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "difflibreports",
+            DL_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_DL_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_DL_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "transporttests",
+            TRANSPORT_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_TRANSPORT_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_TRANSPORT_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "compositionalanalysisreports",
+            COMPOSITIONALANALYSIS_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_COMPOSITIONALANALYSIS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_COMPOSITIONALANALYSIS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "swellingtests",
+            SWELLING_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_SWELLING_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_SWELLING_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "multistageseparatortests",
+            MULTISTAGESEPARATOR_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_MSS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_MSS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "constantvolumedepletiontests",
+            CVD_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_CVD_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_CVD_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "wateranalysisreports",
+            WATERANALYSIS_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_WATERANALYSIS_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_WATERANALYSIS_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "stocktankoilanalysisreports",
+            STO_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_STO_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_STO_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "interfacialtensiontests",
+            INTERFACIAL_TENSION_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_INTERFACIAL_TENSION_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_INTERFACIAL_TENSION_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "vaporliquidequilibriumtests",
+            VLE_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_VLE_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_VLE_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "multiplecontactmiscibilitytests",
+            MCM_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_MCM_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_MCM_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+        (
+            "slimtubetests",
+            SLIMTUBETEST_RECORD,
+            [
+                build_storage_service_response_200(
+                    record_count=1,
+                    record_ids=[TEST_SLIMTUBETEST_ID],
+                    skipped_record_ids=[],
+                    record_id_versions=[f"{TEST_SLIMTUBETEST_ID}:1"],
+                ),
+                PVT_STORAGE_SERVICE_200_RESPONSE,
+            ],
+            PVT_RECORD.dict(exclude_none=True),
+        ),
+    ],
+)
+async def test_post_record_with_linking_no_id(
+    path,
+    osdu_record,
+    created_responses,
+    get_response,
+    with_patched_storage_pvt_link_200,
+    with_patched_storage_query_pvt_200,
+):
+    osdu_record_json = osdu_record.dict(
+        exclude={"id"},
+        exclude_none=True,
+    )
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record_json],
+            )
+            result_json = response.json()
+
+    assert response.status_code == status.HTTP_200_OK
+    assert result_json["recordCount"] == EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE["recordCount"]
+    assert set(result_json["recordIdVersions"]) == {f"{osdu_record.id}:1", f"{osdu_record.data.PVTReportID}1"}
+    assert result_json["skippedRecordCount"] == EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE["skippedRecordCount"]
+    assert storage_record_service_mock.upsert_records.call_args_list[0] == call([osdu_record_json])
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
     "storage_method,path,osdu_record,record_id",
     [
         ("get_record", "rocksamples", ROCKSAMPLE_RECORD, TEST_ROCKSAMPLE_ID),
@@ -719,6 +1088,9 @@ async def test_post_record_success_update_pvt_parent(
         ("get_record", "wateranalysisreports", WATERANALYSIS_RECORD, TEST_WATERANALYSIS_ID),
         ("get_record", "stocktankoilanalysisreports", STO_RECORD, TEST_STO_ID),
         ("get_record", "interfacialtensiontests", INTERFACIAL_TENSION_RECORD, TEST_INTERFACIAL_TENSION_ID),
+        ("get_record", "vaporliquidequilibriumtests", VLE_RECORD, TEST_VLE_ID),
+        ("get_record", "multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
+        ("get_record", "slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_success(
@@ -752,6 +1124,9 @@ async def test_get_record_success(
         ("get_record", "wateranalysisreports", WATERANALYSIS_RECORD, TEST_WATERANALYSIS_ID),
         ("get_record", "stocktankoilanalysisreports", STO_RECORD, TEST_STO_ID),
         ("get_record", "interfacialtensiontests", INTERFACIAL_TENSION_RECORD, TEST_INTERFACIAL_TENSION_ID),
+        ("get_record", "vaporliquidequilibriumtests", VLE_RECORD, TEST_VLE_ID),
+        ("get_record", "multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
+        ("get_record", "slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_version_success(
@@ -787,6 +1162,9 @@ async def test_get_record_version_success(
         ("get_record_versions", "wateranalysisreports", TEST_WATERANALYSIS_ID),
         ("get_record_versions", "stocktankoilanalysisreports", TEST_STO_ID),
         ("get_record_versions", "interfacialtensiontests", TEST_INTERFACIAL_TENSION_ID),
+        ("get_record_versions", "vaporliquidequilibriumtests", TEST_VLE_ID),
+        ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
+        ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -819,6 +1197,9 @@ async def test_get_record_versions_success(
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"wateranalysisreports/{TEST_WATERANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"vaporliquidequilibriumtests/{TEST_VLE_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"multiplecontactmiscibilitytests/{TEST_MCM_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"slimtubetests/{TEST_SLIMTUBETEST_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/version_id"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/version_id"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/version_id"),
@@ -846,6 +1227,18 @@ async def test_get_record_versions_success(
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}/versions/version_id",
         ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"vaporliquidequilibriumtests/{TEST_VLE_ID}/versions/version_id",
+        ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"multiplecontactmiscibilitytests/{TEST_MCM_ID}/versions/version_id",
+        ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"slimtubetests/{TEST_SLIMTUBETEST_ID}/versions/version_id",
+        ),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
@@ -868,6 +1261,18 @@ async def test_get_record_versions_success(
         (
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}/versions",
+        ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"vaporliquidequilibriumtests/{TEST_VLE_ID}/versions",
+        ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"multiplecontactmiscibilitytests/{TEST_MCM_ID}/versions",
+        ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"slimtubetests/{TEST_SLIMTUBETEST_ID}/versions",
         ),
     ],
 )
@@ -899,6 +1304,9 @@ async def test_get_record_auth_errors_from_storage(
         ("wateranalysisreports/record_id"),
         ("stocktankoilanalysisreports/record_id"),
         ("interfacialtensiontests/record_id"),
+        ("vaporliquidequilibriumtests/record_id"),
+        ("multiplecontactmiscibilitytests/record_id"),
+        ("slimtubetests/record_id"),
         ("rocksamples/record_id/versions/version_id"),
         ("coringreports/record_id/versions/version_id"),
         ("pvtreports/record_id/versions/version_id"),
@@ -913,6 +1321,9 @@ async def test_get_record_auth_errors_from_storage(
         ("wateranalysisreports/record_id/versions/version_id"),
         ("stocktankoilanalysisreports/record_id/versions/version_id"),
         ("interfacialtensiontests/record_id/versions/version_id"),
+        ("vaporliquidequilibriumtests/record_id/versions/version_id"),
+        ("multiplecontactmiscibilitytests/record_id/versions/version_id"),
+        ("slimtubetests/record_id/versions/version_id"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -927,6 +1338,9 @@ async def test_get_record_auth_errors_from_storage(
         ("wateranalysisreports/record_id/versions"),
         ("stocktankoilanalysisreports/record_id/versions"),
         ("interfacialtensiontests/record_id/versions"),
+        ("vaporliquidequilibriumtests/record_id/versions"),
+        ("multiplecontactmiscibilitytests/record_id/versions"),
+        ("slimtubetests/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -959,6 +1373,9 @@ async def test_get_record_auth_errors(
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"wateranalysisreports/{TEST_WATERANALYSIS_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"stocktankoilanalysisreports/{TEST_STO_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"interfacialtensiontests/{TEST_INTERFACIAL_TENSION_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"vaporliquidequilibriumtests/{TEST_VLE_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"multiplecontactmiscibilitytests/{TEST_MCM_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"slimtubetests/{TEST_SLIMTUBETEST_ID}"),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -989,6 +1406,9 @@ async def test_delete_record_auth_errors_from_storage(
         ("wateranalysisreports/record_id"),
         ("stocktankoilanalysisreports/record_id"),
         ("interfacialtensiontests/record_id"),
+        ("vaporliquidequilibriumtests/record_id"),
+        ("multiplecontactmiscibilitytests/record_id"),
+        ("slimtubetests/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1019,6 +1439,9 @@ async def test_delete_record_auth_errors(
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "wateranalysisreports", WATERANALYSIS_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "stocktankoilanalysisreports", STO_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "interfacialtensiontests", INTERFACIAL_TENSION_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "vaporliquidequilibriumtests", VLE_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "multiplecontactmiscibilitytests", MCM_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "slimtubetests", SLIMTUBETEST_RECORD),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
@@ -1055,6 +1478,9 @@ async def test_post_record_auth_errors_from_storage(
         ("wateranalysisreports", WATERANALYSIS_RECORD),
         ("stocktankoilanalysisreports", STO_RECORD),
         ("interfacialtensiontests", INTERFACIAL_TENSION_RECORD),
+        ("vaporliquidequilibriumtests", VLE_RECORD),
+        ("multiplecontactmiscibilitytests", MCM_RECORD),
+        ("slimtubetests", SLIMTUBETEST_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1114,6 +1540,13 @@ async def test_post_record_auth_errors(
         (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_CORING_ID),
         (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
         (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (VLE_ENDPOINT_PATH, TEST_CORING_ID),
+        (VLE_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (VLE_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (MCM_ENDPOINT_PATH, TEST_PVT_ID),
+        (SLIMTUBETEST_ENDPOINT_PATH, TEST_CORING_ID),
+        (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1142,6 +1575,9 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (WATERANALYSIS_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (STO_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (INTERFACIAL_TENSION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (VLE_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (MCM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (SLIMTUBETEST_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1172,6 +1608,9 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (WATERANALYSIS_ENDPOINT_PATH, TEST_WRONG_ID),
         (STO_ENDPOINT_PATH, TEST_WRONG_ID),
         (INTERFACIAL_TENSION_ENDPOINT_PATH, TEST_WRONG_ID),
+        (VLE_ENDPOINT_PATH, TEST_WRONG_ID),
+        (MCM_ENDPOINT_PATH, TEST_WRONG_ID),
+        (SLIMTUBETEST_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):

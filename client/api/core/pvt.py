@@ -17,17 +17,15 @@ from typing import Optional
 from requests import Response
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class PVTPaths(object):
-    COMMON_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST = f"{COMMON_PART}/pvtreports"
-    GET = f"{COMMON_PART}/pvtreports/{{record_id}}"
-    GET_VERSIONS = f"{COMMON_PART}/pvtreports/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_PART}/pvtreports/{{record_id}}/versions/{{version}}"
-    DELETE = f"{COMMON_PART}/pvtreports/{{record_id}}"
-    GET_FILE_DOWNLOAD = f"{COMMON_PART}/pvtreports/{{record_id}}/source"
+    POST = "/pvtreports"
+    GET = "/pvtreports/{record_id}"
+    GET_VERSIONS = "/pvtreports/{record_id}/versions"
+    GET_VERSION = "/pvtreports/{record_id}/versions/{version}"
+    DELETE = "/pvtreports/{record_id}"
+    GET_FILE_DOWNLOAD = "/pvtreports/{record_id}/source"
 
 
 class PVTCore(APIClient):

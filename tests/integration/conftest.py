@@ -25,6 +25,8 @@ def pytest_addoption(parser: pytest.Parser):
     parser.addoption("--cloud-provider", type=str, default="azure", help="OneOf [az]")
     parser.addoption("--bearer-token", type=str, help="The bearer token for auth")
     parser.addoption("--ddms-base-url", type=str, help="The DDMS base URL")
+    parser.addoption("--url-prefix", type=str, help="URL prefix")
+    parser.addoption("--partition", type=str, help="Data partition")
 
 
 def pytest_configure(config: pytest.Config):
@@ -32,12 +34,14 @@ def pytest_configure(config: pytest.Config):
     CONFIG["CLOUD_PROVIDER"] = config.getoption("--cloud-provider")
     CONFIG["TOKEN"] = config.getoption("--bearer-token")
     CONFIG["DDMS_BASE_URL"] = config.getoption("--ddms-base-url")
+    CONFIG["URL_PREFIX"] = config.getoption("--url-prefix")
+    CONFIG["DATA_PARTITION"] = config.getoption("--partition")
 
 
 @pytest.fixture(scope="session")
 def api():
     """A fixture to provide api worker."""
-    return ApiWorker(CONFIG["DDMS_BASE_URL"], CONFIG["TOKEN"])
+    return ApiWorker(CONFIG["DDMS_BASE_URL"], CONFIG["URL_PREFIX"], CONFIG["DATA_PARTITION"], CONFIG["TOKEN"])
 
 
 @pytest.fixture(scope="session")

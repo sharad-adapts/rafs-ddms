@@ -1,0 +1,242 @@
+{
+  "SlimTubeTestID": "opendes:work-product-component--SlimTubeTest:slimtbe_text:",
+  "FluidSampleID": "opendes:master-data--FluidSample:fluid_sample_test:",
+  "TestNumber": "SlimTube_123",
+  "TestTemperature": {
+    "Value": 155,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+  },
+  "Remark": "Test was successfully executed",
+  "PackedColumnProperties": [
+    {
+      "ColumnLength": {
+        "Value": 12.19,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
+      },
+      "ColumnDiameter": {
+        "Value": 0.46,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
+      },
+      "PackingMaterial": "Ottawa Sand",
+      "ColumnPorosity": {
+        "Value": 36.2,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pct:"
+      },
+      "ColumnTotalPoreVolume": {
+        "Value": 71.66,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
+      },
+      "ColumnPermeability": {
+        "Value": 7552,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
+      }
+    }
+  ],
+  "CoreFlooding": [
+    {
+      "DisplacementPressure": {
+        "Value": 621.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bar:"
+      },
+      "PoreVolumeInjected": {
+        "Value": 1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pore:"
+      },
+      "CumulativeOilRecovery": {
+        "Value": 96.12,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol%:"
+      },
+      "MaterialBalance": {
+        "Value": 100.65,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wt%:"
+      },
+      "AsphaltanceContentOfResidualOil": {
+        "Value": 0.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wt%:"
+      }
+    }
+  ],
+  "MinimumMiscibilityPressure": {
+    "Value": 524.8,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bar:"
+  },
+  "PackedColumnDisplacement": [
+    {
+      "IncrementNumber": "1",
+      "PoresInjected": {
+        "Value": 0.09,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pore%2Fvol:"
+      },
+      "CumulativeOilRecoveryVolume": {
+        "Value": 8.3,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol%:"
+      },
+      "CumulativeOilRecoveryWeight": {
+        "Value": 8.28,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wt%:"
+      },
+      "GasOilRatio": {
+        "Value": 320.6,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:sm3%2Fm3:"
+      },
+      "GasGravity": {
+        "Value": 0.773,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:air:"
+      },
+      "OilDensity": {
+        "Value": 0.8673,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+      }
+    }
+  ],
+  "MaterialBalanceData": [
+    {
+      "MaterialInjected": "Reservoir Fluid",
+      "MaterialInjectedWeight": {
+        "Value": 45.0548,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+      },
+      "MaterialRecovered": "Displaced Oil",
+      "MaterialRecoveredWeight": {
+        "Value": 32.8864,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+      },
+      "MaterialRecoveredCumulativeWeight": {
+        "Value": 98.89,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wt%:"
+      }
+    }
+  ],
+  "VaporCompositionalAnalysis": [
+    {
+      "IncrementNumberSampled": "9",
+      "PoreVolumeInjected": {
+        "Value": 0.87,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pore:"
+      },
+      "VaporComposition": [
+        {
+          "ComponentFormula": "CO2",
+          "VaporRelativeMole": {
+            "Value": 0.036,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mole:"
+          }
+        }
+      ]
+    }
+  ],
+  "LiquidCompositionalAnalysis": [
+    {
+      "ComponentFormula": "C2",
+      "LiquidRelativeMolarWeight": {
+        "Value": 0.043,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mole:"
+      },
+      "FlashedLiquidRelativeMass": {
+        "Value": 0.005,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wt%:"
+      }
+    }
+  ],
+  "CalculatedProperties": [
+    {
+      "AvgMoleWeight": {
+        "Value": 258,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
+      },
+      "ResidueDensity": {
+        "Value": 0.8686,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+      },
+      "ResidueAPI": {
+        "Value": 31.2,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
+      },
+      "ResidueCalculatedProperties": [
+        {
+          "ComponentFormula": "C7+",
+          "ResidueRelativeMolarWeight": {
+            "Value": 93.573,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mole:"
+          },
+          "ResidueMolecularWeight": {
+            "Value": 270,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
+          },
+          "ResidueDensity": {
+            "Value": 0.8816,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+          }
+        },
+        {
+          "ComponentFormula": "C10+",
+          "ResidueRelativeMolarWeight": {
+            "Value": 70.687,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mole:"
+          },
+          "ResidueMolecularWeight": {
+            "Value": 323,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
+          },
+          "ResidueDensity": {
+            "Value": 0.9007,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+          }
+        }
+      ]
+    }
+  ],
+  "SlimTubeTestSteps": [
+    {
+      "StepNumber": "1",
+      "StepAveragePressure": {
+        "Value": 1500,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+      },
+      "Remark": "Only 1 step was needed"
+    }
+  ],
+  "SlimTubeTestVolumeStep": [
+    {
+      "StepNumber": "1",
+      "DifferentialPressure": {
+        "Value": 1600,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+      },
+      "RunTime": "1h 05m",
+      "InjectionVolumeAtPumpTemperature": {
+        "Value": 0.006,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol%:"
+      },
+      "InjectionVolumeAtTestTemperature": {
+        "Value": 0.009,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol%"
+      },
+      "InjectedPoreVolumeFraction": {
+        "Value": 0.007,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol/vol"
+      },
+      "DarcyVelocity": {
+        "Value": 3,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m/s"
+      },
+      "CumulativeOilProductionPercOOIP": {
+        "Value": 55,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol/vol"
+      },
+      "CumulativeOilProductionSTO": {
+        "Value": 0.45,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3"
+      },
+      "IncrementalProducedGOR": {
+        "Value": 0.123,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol/vol"
+      },
+      "CumulativeProducedGOR": {
+        "Value": 8.28,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol/vol"
+      },
+      "Remark": "Volume was successfully measured"
+    }
+  ]
+}

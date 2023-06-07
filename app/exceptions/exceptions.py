@@ -30,6 +30,10 @@ class InvalidBodyException(BadRequestException):
     pass
 
 
+class InvalidHeaderException(BadRequestException):
+    pass
+
+
 class InvalidJSONException(InvalidBodyException):
     pass
 

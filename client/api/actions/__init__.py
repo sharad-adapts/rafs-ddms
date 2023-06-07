@@ -23,10 +23,10 @@ from client.api.actions.rock_sample_analysis import RSAAction
 class ApiWorker(object):
     """Class combine all api actions in one place."""
 
-    def __init__(self, host: str, token: str) -> None:
-        self.rsa = RSAAction(host, token)
-        self.rs = RockSampleAction(host, token)
-        self.coring = CoringAction(host, token)
-        self.pvt = PVTAction(host, token)
-        self.cce = CCEAction(host, token)
-        self.dif_lib = DifLibAction(host, token)
+    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str) -> None:
+        self.rsa = RSAAction(host, url_prefix, data_partition, token)
+        self.rs = RockSampleAction(host, url_prefix, data_partition, token)
+        self.coring = CoringAction(host, url_prefix, data_partition, token)
+        self.pvt = PVTAction(host, url_prefix, data_partition, token)
+        self.cce = CCEAction(host, url_prefix, data_partition, token)
+        self.dif_lib = DifLibAction(host, url_prefix, data_partition, token)

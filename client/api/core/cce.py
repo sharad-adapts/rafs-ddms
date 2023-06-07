@@ -15,19 +15,17 @@
 from typing import Optional
 
 from client.api_client import APIClient
-from tests.test_api.api_version import API_VERSION
 
 
 class CCEPaths(object):
-    COMMON_PART = f"/api/rafs-ddms/{API_VERSION}"
-    POST = f"{COMMON_PART}/ccereports"
-    GET = f"{COMMON_PART}/ccereports/{{record_id}}"
-    GET_VERSIONS = f"{COMMON_PART}/ccereports/{{record_id}}/versions"
-    GET_VERSION = f"{COMMON_PART}/ccereports/{{record_id}}/versions/{{version}}"
-    DELETE = f"{COMMON_PART}/ccereports/{{record_id}}"
-    GET_FILE_DOWNLOAD = f"{COMMON_PART}/ccereports/{{record_id}}/source"
-    POST_DATA = f"{COMMON_PART}/ccereports/{{record_id}}/data"
-    GET_DATA = f"{COMMON_PART}/ccereports/{{record_id}}/data/{{cce_dataset_id}}"
+    POST = "/ccereports"
+    GET = "/ccereports/{record_id}"
+    GET_VERSIONS = "/ccereports/{record_id}/versions"
+    GET_VERSION = "/ccereports/{record_id}/versions/{version}"
+    DELETE = "/ccereports/{record_id}"
+    GET_FILE_DOWNLOAD = "/ccereports/{record_id}/source"
+    POST_DATA = "/ccereports/{record_id}/data"
+    GET_DATA = "/ccereports/{record_id}/data/{cce_dataset_id}"
 
 
 class CCECore(APIClient):
