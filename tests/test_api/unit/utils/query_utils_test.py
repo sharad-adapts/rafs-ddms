@@ -12,6 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import json
+
+import pandas as pd
+
 from app.api.routes.utils.query import divide_chunks, find_osdu_ids_from_string
 
 
@@ -26,9 +30,9 @@ def test_divide_chunks():
 
 
 def test_find_osdu_ids_from_string():
-    master_data_ids = "partition:master-data--MDEntityA:md_entity_a: partition:master-data--MDEntityB:md_entity_b:"
-    reference_data_ids = "partition:reference-data--RefEntityA:ref_entity_a: partition:master-data--RefEntityB:ref_entity_b:"
-    work_product_component_ids = "[partition:work-product-component--WPCEntityA:wpc_entity_a:,partition:work-product-component--WPCEntityB:wpc_entity_b:]"
+    master_data_ids = "'partition:master-data--MDEntityA:md_entity_a:' 'partition:master-data--MDEntityB:md_entity_b:'"
+    reference_data_ids = " partition:reference-data--RefEntityA:ref_entity_a: partition:master-data--RefEntityB:ref_entity_b "
+    work_product_component_ids = "\"partition:work-product-component--WPCEntityA:wpc_entity_a:\" \"partition:work-product-component--WPCEntityB:wpc_entity_b:\""
 
     input_string = f"This is a sample string with OSDU IDs: {master_data_ids}, {reference_data_ids}, {work_product_component_ids}."
     expected_ids = {
@@ -38,7 +42,41 @@ def test_find_osdu_ids_from_string():
         "partition:master-data--RefEntityB:ref_entity_b",
         "partition:work-product-component--WPCEntityA:wpc_entity_a",
         "partition:work-product-component--WPCEntityB:wpc_entity_b",
-
     }
     result = find_osdu_ids_from_string(input_string)
     assert result == expected_ids
+
+
+JSON_VALUE = {
+    "a": "opendes:reference-data--UnitOfMeasure:mg/L",
+    "b": "opendes:reference-data--UnitOfMeasure:mg/5655656",
+    "c": "opendes:reference-data--UnitOfMeasure:WrongID51",
+    "d": "opendes:reference-data--UnitOfMeasure:mg/L2:1234",
+    "e": "opendes:reference-data--UnitOfMeasure:mg/56556562:",
+    "f": "opendes:reference-data--UnitOfMeasure:WrongID52:",
+    "g": "opendes:reference-data--UnitOfMeasure:WrongID53:1234",
+}
+
+EXPECTED_IDS_FROM_JSON = {
+    "opendes:reference-data--UnitOfMeasure:mg/L",
+    "opendes:reference-data--UnitOfMeasure:mg/5655656",
+    "opendes:reference-data--UnitOfMeasure:WrongID51",
+    "opendes:reference-data--UnitOfMeasure:mg/L2",
+    "opendes:reference-data--UnitOfMeasure:mg/56556562",
+    "opendes:reference-data--UnitOfMeasure:WrongID52",
+    "opendes:reference-data--UnitOfMeasure:WrongID53",
+}
+
+
+def test_find_osdu_ids_from_json_string():
+    json_string = json.dumps(JSON_VALUE)
+    result = find_osdu_ids_from_string(json_string)
+    assert result == EXPECTED_IDS_FROM_JSON
+
+
+def test_find_osdu_ids_from_df_string():
+    from loguru import logger
+    df_string = pd.json_normalize([JSON_VALUE], max_level=0).to_string()
+    logger.error(df_string)
+    result = find_osdu_ids_from_string(df_string)
+    assert result == EXPECTED_IDS_FROM_JSON
