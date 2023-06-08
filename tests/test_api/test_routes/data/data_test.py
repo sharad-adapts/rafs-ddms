@@ -45,6 +45,7 @@ from tests.test_api.test_routes.data.data_mock_objects import (
     MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
     NO_DATASETS_DATASET_SIDE_EFFECT,
     NO_DATASETS_STORAGE_SIDE_EFFECT,
+    ORIENT_SPLIT_400_PAYLOADS,
     SINGLE_DATASET_DATASET_SIDE_EFFECT,
     SINGLE_DATASET_STORAGE_SIDE_EFFECT,
     TEST_DATA,
@@ -2095,6 +2096,43 @@ async def test_invalid_data_with_nan(path):
     body = response.json()
     assert ["code", "reason", "errors"] == list(body.keys())
     assert body["reason"] == "Data validation failed."
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,payloads",
+    [
+        (RCA_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (CCE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (DIF_LIB_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (TRANSPORT_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (MSS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (SWELLING_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (CVD_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (STO_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (WATERANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (INTERFACIAL_TENSION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (VLE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (MCM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (SLIMTUBE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+    ],
+)
+async def test_invalid_data_json_payload(path, payloads):
+    for payload in payloads:
+        with post_overrides():
+            async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+                response = await client.post(
+                    path,
+                    headers=TEST_HEADERS_JSON,
+                    content=json.dumps(payload),
+                )
+
+        assert response.status_code == status.HTTP_400_BAD_REQUEST
+        body = response.json()
+
+        assert ["code", "reason"] == list(body.keys())
+        assert body["reason"].startswith("Data error:")
 
 
 # Download Source section #

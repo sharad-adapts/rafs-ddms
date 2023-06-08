@@ -31,7 +31,11 @@ from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_storage_service,
 )
-from app.api.dependencies.validation import get_data_model, validate_filters
+from app.api.dependencies.validation import (
+    get_data_model,
+    get_validated_bulk_data_json,
+    validate_filters,
+)
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import (
@@ -207,8 +211,7 @@ class BaseDataView:
                 # TODO remove when migration to pyarrow validation is done
                 df = pd.read_json(io.StringIO(df.to_json(orient="split")), orient="split")
             else:
-                body = await request.body()
-                df = pd.read_json(body.decode("utf-8"), orient="split")
+                df = pd.read_json(await get_validated_bulk_data_json(request), orient="split")
 
         except (ValueError, pyarrow.lib.ArrowException) as v_exc:
             raise exceptions.InvalidDatasetException(detail=f"Data error: {v_exc}")

@@ -393,6 +393,32 @@ INVALID_DATA_WITH_NAN = {
         0,
     ],
     "data": [
-        numpy.NaN,
+        [numpy.NaN],
     ],
 }
+
+INVALID_DATA_EMPTY = {
+    "columns": [
+    ],
+    "index": [
+    ],
+    "data": [
+    ],
+}
+
+INVALID_DATA_INCONSISTENT = {
+    "columns": [
+        "some_column",
+    ],
+    "index": [
+        0,
+        1,
+    ],
+    "data": [
+        [
+            "column_value",
+        ],
+    ],
+}
+
+ORIENT_SPLIT_400_PAYLOADS = [{}, [{}], INVALID_DATA_INCONSISTENT, INVALID_DATA_EMPTY]

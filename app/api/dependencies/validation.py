@@ -12,7 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
+import json
 from typing import Iterable, List, Optional, TypeVar
 
 from fastapi import Depends, HTTPException, Query, Request
@@ -23,7 +23,10 @@ from starlette import status
 
 from app.api.dependencies.services import get_async_search_service
 from app.api.routes.utils.records import get_id_version
-from app.exceptions.exceptions import RecordValidationException
+from app.exceptions.exceptions import (
+    InvalidDatasetException,
+    RecordValidationException,
+)
 from app.models.domain.osdu.base import (
     CCE_KIND,
     COMPOSITIONAL_ANALYSIS_KIND,
@@ -46,6 +49,7 @@ from app.models.domain.osdu.base import (
     WATER_ANALYSYS_KIND,
 )
 from app.models.schemas.osdu_storage import OsduStorageRecord
+from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.filters import SQLFilterValidator
 from app.resources.paths import CommonRelativePaths
 from app.services.search import SearchService
@@ -306,3 +310,24 @@ async def validate_filters(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
 
     return sql_filter
+
+
+async def get_validated_bulk_data_json(request: Request) -> str:
+    """Validates incoming json bulk data in orient=split format.
+
+    :param request: the incoming request object
+    :type request: Request
+    :raises InvalidDatasetException: if data and index are inconsistent
+    :raises ValidationError: if orientsplit frame can't be build from request body
+    :return: validated json data
+    :rtype: str
+    """
+    body = await request.body()
+    bulk_data = OrientSplit.parse_obj(json.loads(body.decode("utf-8")))
+
+    index_length = len(bulk_data.index)
+    data_length = len(bulk_data.data)
+    if index_length != data_length:
+        detail = f"Data error: 'index' lenght: {index_length} != 'data' lenght: {data_length}"
+        raise InvalidDatasetException(detail=detail)
+    return bulk_data.json()
