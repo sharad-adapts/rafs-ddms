@@ -26,11 +26,27 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 
 TEST_SERVER = "http://testserver"
 TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:routine-core-analysis-123:1234"
+TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN = f"urn://rafs-v1/routinecoreanalysisdata/partition:work-product-component--RockSampleAnalysis:rocksampleanalysis_test/{TEST_DATASET_RECORD_ID}"
+TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v1/routinecoreanalysisdata/partition:work-product-component--RockSampleAnalysis:rocksampleanalysis_test/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
             "DDMSDatasets": [TEST_DDMS_URN],
+        },
+    },
+}
+RECORD_DATA_WITH_SCHEMA_VERSION = {
+    **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
+        "data": {
+            "DDMSDatasets": [TEST_DDMS_URN_WITH_VERSION],
+        },
+    },
+}
+RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
+    **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
+        "data": {
+            "DDMSDatasets": [f"{TEST_DDMS_URN}/2.0.0"],
         },
     },
 }
@@ -39,15 +55,30 @@ TEST_HEADERS_JSON = {
     "content-type": "application/json",
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
+}
+TEST_HEADERS_WITHOUT_SCHEMA_VERSION = {
+    "content-type": "application/json",
+    "data-partition-id": "opendes",
+    "Authorization": "Bearer token",
+    "Accept": f"*/*",
+}
+TEST_HEADERS_IMPROPER_SCHEMA_VERSION = {
+    "content-type": "application/json",
+    "data-partition-id": "opendes",
+    "Authorization": "Bearer token",
+    "Accept": f"*/*; version=a.a.a",
 }
 TEST_HEADERS_PARQUET = {
     "content-type": "application/x-parquet",
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
 }
 TEST_HEADERS_NO_AUTH = {
     "data-partition-id": "opendes",
     "content-type": "application/json",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
 }
 TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "Remarks,count",

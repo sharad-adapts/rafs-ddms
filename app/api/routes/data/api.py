@@ -13,8 +13,9 @@
 #  limitations under the License.
 
 import io
+import re
 import uuid
-from typing import Optional
+from typing import List, Optional
 
 import pandas as pd
 import pyarrow
@@ -41,6 +42,7 @@ from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import (
     dataset_id_exist,
     find_dataset_id,
+    find_schema_versions_for_dataset_id,
     generate_dataset_urn,
     get_id_version,
     update_dataset_id,
@@ -128,10 +130,15 @@ class BaseDataView:
         record = await storage_service.get_record(record_id)
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
 
-        dataset_id, _ = get_id_version(dataset_id)
+        content_schema_version = self._retrieve_schema_version(request)
+        logger.debug(f"Client schema version: {content_schema_version}")
 
-        if dataset_id_exist(record["data"].get("DDMSDatasets", []), dataset_id):
+        dataset_id, _ = get_id_version(dataset_id)
+        ddms_datasets = record["data"].get("DDMSDatasets", [])
+
+        if dataset_id_exist(ddms_datasets, dataset_id):
             logger.debug(f"Retrieving dataset: {dataset_id}")
+            self._check_content_schema_version(content_schema_version, ddms_datasets, dataset_id)
             parquet_bytes = await dataset_service.download_file(dataset_id)
 
             if not parquet_bytes:
@@ -195,6 +202,9 @@ class BaseDataView:
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
         data_schema = build_data_schema(model)
         data_validator = DataValidator(data_schema, storage_service)
+
+        content_schema_version = self._retrieve_schema_version(request)
+        logger.debug(f"Client schema version: {content_schema_version}")
 
         error_case_to_message = {
             "column_in_schema": "Invalid parameters",
@@ -321,6 +331,54 @@ class BaseDataView:
         renderer = FileSourceRenderer(data_file_sources)
 
         return await renderer.render_source_data()
+
+    def _retrieve_schema_version(self, request: Request) -> str:
+        """Retrieve schema version from header.
+
+        :param request: request
+        :type request: Request
+        :raises exceptions.InvalidHeaderException: if schema version hasn't been provided or schema format is invalid
+        :return: schema version
+        :rtype: str
+        """
+        accept_header = request.headers["Accept"]
+        accept_header = accept_header.lower().strip()
+        version_regex = r"version=(\d+\.\d+\.\d+)"
+        version = re.search(version_regex, accept_header)
+        try:
+            schema_version = version.groups()[0]
+        except AttributeError:
+            error_title = "Schema version hasn't been provided or schema format is invalid."
+            example_detail = "Example: --header 'Accept: */*;version=1.0.0'"
+            error_details = f"Check, if schema version is provided in 'Accept' header. {example_detail}"
+            reason = f"{error_title} {error_details}"
+            logger.debug(reason)
+            raise exceptions.InvalidHeaderException(detail=reason)
+        return schema_version
+
+    def _check_content_schema_version(
+        self,
+        content_schema_version: str,
+        ddms_datasets: List[str],
+        dataset_id: str,
+    ) -> None:
+        """Check if proper schema version requested.
+
+        :param content_schema_version: client schema version
+        :type content_schema_version: str
+        :param ddms_datasets: DDMS Datasets
+        :type ddms_datasets: List[str]
+        :param dataset_id: dataset id
+        :type dataset_id: str
+        :raises exceptions.InvalidHeaderException: if client schema version is improper
+        """
+        schema_versions = find_schema_versions_for_dataset_id(ddms_datasets, dataset_id)
+        if content_schema_version not in schema_versions:
+            error_title = "Invalid schema version has been provided."
+            error_details = f"Schema version {content_schema_version} is not one of proper versions: {schema_versions}"
+            reason = f"{error_title} {error_details}"
+            logger.debug(reason)
+            raise exceptions.InvalidHeaderException(detail=reason)
 
     def _prepare_api_routes(self) -> None:
         """Prepare and add api routes."""
