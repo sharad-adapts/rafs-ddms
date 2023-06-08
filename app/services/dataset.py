@@ -15,6 +15,8 @@
 import sys
 from typing import Optional
 
+from loguru import logger
+
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
 from app.providers.dependencies.blob_loader import get_blob_loader
@@ -31,6 +33,7 @@ class DatasetService(IDatasetService):
             settings.service_host_dataset, data_partition_id=data_partition_id, bearer_token=user.access_token,
         )
         self.blob_loader = get_blob_loader(settings)
+        self.name = "DatasetService"
 
     async def download_file(self, dataset_id: str) -> Optional[bytes]:
         """Download file.
@@ -43,7 +46,13 @@ class DatasetService(IDatasetService):
         retrieval_instruction = await self.dataset_client.get_retrieval_instructions(dataset_id)
         if retrieval_instruction.get("datasets"):
             signed_url = retrieval_instruction["datasets"][0]["retrievalProperties"]["signedUrl"]
-            return await self.blob_loader.download_blob(signed_url)
+            blob = await self.blob_loader.download_blob(signed_url)
+            logger.debug(f"{self.name}: blob has been downloaded for: {dataset_id}")
+            return blob
+        else:
+            logger.debug(
+                f"{self.name}: blob hasn't been downloaded due to improper retrieval instructions for: {dataset_id}.",
+            )
 
     async def upload_file(
         self, blob_file: bytes, dataset_id: str, parent_record: dict,

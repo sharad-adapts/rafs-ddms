@@ -131,8 +131,10 @@ class BaseDataView:
             parquet_bytes = await dataset_service.download_file(dataset_id)
 
             if not parquet_bytes:
+                reason = f"{dataset_id} exist in record but without content."
+                logger.debug(reason)
                 raise exceptions.UnprocessableContentException(
-                    detail=f"{dataset_id} exist in record but without content.",
+                    detail=reason,
                 )
 
             df = apply_filters(parquet_bytes, sql_filter)
@@ -181,6 +183,9 @@ class BaseDataView:
         :return: upserted records ids
         :rtype: dict
         """
+        api_version = get_api_version_from_url(request.url.path)
+        logger.info(f"Post data for api version: {api_version}")
+
         record = await storage_service.get_record(record_id)
         data_partition_id = request.headers["data-partition-id"]
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
@@ -211,7 +216,11 @@ class BaseDataView:
                 df = pd.read_json(body.decode("utf-8"), orient="split")
 
         except (ValueError, pyarrow.lib.ArrowException) as v_exc:
-            raise exceptions.InvalidDatasetException(detail=f"Data error: {v_exc}")
+            reason = f"Data error: {v_exc}"
+            logger.debug(reason)
+            raise exceptions.InvalidDatasetException(detail=reason)
+
+        logger.info(f"Data has been read from {mime_type} format")
 
         errors = await data_validator.validate(df)
 
@@ -228,9 +237,9 @@ class BaseDataView:
             if unknown_errors:
                 errors_desc.update({"Unknown errors": unknown_errors})
 
-            errors_detail = "Data validation failed."
-            logger.error(f"{errors_detail} {errors_desc}")
-            raise exceptions.DataValidationException(errors=errors_desc, detail=errors_detail)
+            reason = "Data validation failed."
+            logger.debug(f"{reason} {errors_desc}")
+            raise exceptions.DataValidationException(errors=errors_desc, detail=reason)
 
         if not parquet_file:
             try:
@@ -238,10 +247,10 @@ class BaseDataView:
                 logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
                 parquet_file = df.to_parquet(index=False)
             except Exception as exc:  # noqa: B902
-                logger.error(f"Parquet conversion error: {exc}")
-                raise exceptions.InvalidDatasetException(detail=f"Parquet conversion error: {exc}")
+                reason = f"Parquet conversion error: {exc}"
+                logger.debug(reason)
+                raise exceptions.InvalidDatasetException(detail=reason)
 
-        api_version = get_api_version_from_url(request.url.path)
         # Removing hyphens "-" as they are not supported in register service
         entity_type = self._bulk_dataset_prefix.replace("-", "")
         record_data = record["data"]
@@ -258,6 +267,7 @@ class BaseDataView:
                 dataset_id=dataset_record_id,
             )
             update_dataset_id(record_data["DDMSDatasets"], ddms_urn, self._bulk_dataset_prefix)
+            logger.info(f"File uploaded for existent dataset: {existent_dataset_id}")
         else:
             new_dataset_id = f"{data_partition_id}:dataset--File.Generic:{self._bulk_dataset_prefix}-{uuid.uuid4()}"
             dataset_record_id = await dataset_service.upload_file(parquet_file, new_dataset_id, record)
@@ -271,6 +281,7 @@ class BaseDataView:
             )
             ddms_datasets.append(ddms_urn)
             record_data["DDMSDatasets"] = ddms_datasets
+            logger.info(f"File uploaded for new dataset: {new_dataset_id}")
 
         logger.debug(f"Dataset Id: {dataset_record_id}")
         storage_response = await storage_service.upsert_records([record])

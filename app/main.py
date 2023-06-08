@@ -79,7 +79,7 @@ def get_application() -> FastAPI:
     )
     application.add_event_handler(
         "shutdown",
-        create_stop_app_handler(application),
+        create_stop_app_handler(application, settings),
     )
 
     application.include_router(api_router, prefix="")

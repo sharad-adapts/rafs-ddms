@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 from fastapi_cache.backends.redis import RedisBackend
+from loguru import logger
 from redis.asyncio.client import Redis
 from redis.exceptions import AuthenticationError, ConnectionError, ResponseError
 
@@ -49,6 +50,7 @@ class RedisCacheBackend(BaseCacheBackend):
           ResponseError: for wrong db
         """
         try:
+            logger.debug(f"Redis client settings: {settings}")
             await redis_client.ping()
         except (AuthenticationError, ConnectionError, ResponseError):
             raise CacheBackendError("Redis client can't be init. Redis host, port, password or db are wrong")

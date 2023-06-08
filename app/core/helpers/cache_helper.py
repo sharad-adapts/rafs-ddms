@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 from fastapi_cache import FastAPICache
+from loguru import logger
 
 from app.core.helpers.cache.backend_builder import BackendBuilder
 from app.core.settings.app import AppSettings
@@ -24,19 +25,35 @@ async def init_cache(settings: AppSettings) -> None:
     :param AppSettings settings: app settings
     """
     backend = None
+    cache_backend = settings.cache_backend
+    prefix = settings.openapi_prefix
+    cache_enable = settings.cache_enable
 
-    if settings.cache_enable:
+    if cache_enable:
         backend_builder = BackendBuilder(
-            cache_backend_path=settings.cache_backend,
+            cache_backend_path=cache_backend,
         )
         backend = await backend_builder.build_backend()
+        logger.debug("Fastapi cache enabled")
+    else:
+        logger.debug("Fastapi cache disabled")
 
     FastAPICache.init(
         backend,
-        prefix=settings.openapi_prefix,
-        enable=settings.cache_enable,
+        prefix=prefix,
+        enable=cache_enable,
+    )
+    logger.debug(
+        f"Fastapi cache initialized with settings: backend={cache_backend}, prefix={prefix}, enable={cache_enable}",
     )
 
 
-async def clear_cache() -> None:
-    await FastAPICache.clear()
+async def clear_cache(settings: AppSettings) -> None:
+    """Clear cache if cache enabled.
+
+    :param settings: app settings
+    :type settings: AppSettings
+    """
+    if settings.cache_enable:
+        await FastAPICache.clear()
+        logger.debug("Fastapi cache cleared")

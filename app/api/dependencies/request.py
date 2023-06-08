@@ -15,6 +15,7 @@
 from typing import List
 
 from fastapi import Header, HTTPException, Request
+from loguru import logger
 from starlette import status
 
 from app.exceptions import exceptions
@@ -27,9 +28,11 @@ async def get_data_partition_id(request: Request):
     # could be replaced by require_data_partition_id
     data_partition_id = request.headers.get("data-partition-id")
     if not data_partition_id:
+        reason = "No data-partition-id in headers"
+        logger.debug(reason)
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="No data-partition-id in headers",
+            detail=reason,
         )
     return data_partition_id
 
@@ -57,11 +60,14 @@ def validate_content_type(request: Request, supported_types: List[str]) -> None:
     try:
         content_type = request.headers[CONTENT_TYPE]
     except KeyError:
-        raise exceptions.InvalidHeaderException(detail="Content-Type header is required, but was not provided")
+        reason = "Content-Type header is required, but was not provided"
+        logger.debug(reason)
+        raise exceptions.InvalidHeaderException(detail=reason)
 
     if content_type not in supported_types:
         supported_content_types = f"Please provide one of the next supported content types: {supported_types}"
         reason = f"The provided content-type is not supported. {supported_content_types}"
+        logger.debug(reason)
         raise exceptions.InvalidHeaderException(detail=reason)
 
 

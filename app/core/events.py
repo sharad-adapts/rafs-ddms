@@ -28,15 +28,19 @@ def create_start_app_handler(
 ) -> Callable:  # type: ignore
 
     async def start_app() -> None:
+        logger.debug(f"App started with settings: {settings}")
         await init_cache(settings)
         await init_pandas()
 
     return start_app
 
 
-def create_stop_app_handler(app: FastAPI) -> Callable:  # type: ignore
+def create_stop_app_handler(
+    app: FastAPI,
+    settings: AppSettings,
+) -> Callable:  # type: ignore
     @logger.catch
     async def stop_app() -> None:
-        await clear_cache()
+        await clear_cache(settings)
 
     return stop_app

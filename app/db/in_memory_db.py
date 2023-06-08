@@ -18,6 +18,7 @@ import duckdb
 import pandas as pd
 import pyarrow as pa
 from fastapi import HTTPException
+from loguru import logger
 from pyarrow import parquet as pq
 
 from app.resources.filters import SQLFilterValidator
@@ -54,6 +55,7 @@ def apply_filters(
                 projected_rel = filtered_rel.project(sql_filter.valid_columns_filter)
                 df = projected_rel.df()
         except duckdb.BinderException as err:
+            logger.debug(f"Duckdb connection error: {err}")
             raise HTTPException(status_code=422, detail=str(err))
 
         return df

@@ -1,10 +1,10 @@
 #  Copyright 2023 ExxonMobil Technology and Engineering Company
 #
 import copy
-import logging
 import time
 
 import pytest
+from loguru import logger
 from starlette import status
 
 from tests.integration.config import PVT_FILE
@@ -21,5 +21,5 @@ def create_pvt(api, tests_data):
 
     yield json_obj_copy
 
-    logging.info(f"Deleting a PVT record with ID {json_obj_copy['id']}")
+    logger.info(f"Deleting a PVT record with ID {json_obj_copy['id']}")
     api.pvt.soft_delete_record(json_obj_copy["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])

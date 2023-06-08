@@ -15,6 +15,7 @@
 from typing import List, NamedTuple
 
 import httpx
+from loguru import logger
 
 from app.resources.common_headers import (
     AUTHORIZATION,
@@ -41,6 +42,7 @@ class DatasetServiceApiClient(object):
             DATA_PARTITION_ID: data_partition_id,
             AUTHORIZATION: f"Bearer {bearer_token}",
         }
+        self.name = "DatasetService"
 
     def add_headers(self, headers: dict) -> None:
         """Add headers.
@@ -63,6 +65,7 @@ class DatasetServiceApiClient(object):
             response = await client.post(
                 DatasetServicePaths.STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
             )
+            logger.debug(f"{self.name}: storage instructions response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -79,6 +82,7 @@ class DatasetServiceApiClient(object):
             response = await client.get(
                 DatasetServicePaths.GET_STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
             )
+            logger.debug(f"{self.name}: get storage instructions response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -100,6 +104,7 @@ class DatasetServiceApiClient(object):
                 headers=self.headers,
                 json=request_body,
             )
+            logger.debug(f"{self.name}: retrieval instructions response: {response}")
             response.raise_for_status()
         return response.json()
 
@@ -119,6 +124,7 @@ class DatasetServiceApiClient(object):
                 headers=self.headers,
                 params=q_params,
             )
+            logger.debug(f"{self.name}: get retrieval instructions response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -135,6 +141,7 @@ class DatasetServiceApiClient(object):
                 "datasetRegistries": dataset_registries,
             }
             response = await client.put(DatasetServicePaths.REGISTER_DATASET, headers=self.headers, json=request_body)
+            logger.debug(f"{self.name}: put dataset registry response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -152,6 +159,7 @@ class DatasetServiceApiClient(object):
             response = await client.get(
                 DatasetServicePaths.GET_DATASET_REGISTRY, headers=self.headers, params=q_params,
             )
+            logger.debug(f"{self.name}: get dataset registry response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -171,5 +179,6 @@ class DatasetServiceApiClient(object):
             response = await client.post(
                 DatasetServicePaths.GET_DATASET_REGISTRY, headers=self.headers, json=request_body,
             )
+            logger.debug(f"{self.name}: get dataset registries response: {response}")
             response.raise_for_status()
             return response.json()

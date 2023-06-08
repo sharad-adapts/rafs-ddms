@@ -16,8 +16,6 @@ import mimetypes
 from typing import Optional
 from urllib.parse import unquote
 
-from loguru import logger
-
 from app.api.routes.utils.records import RecordKeys, get_id_part
 from app.resources.mime_types import CustomMimeTypes
 
@@ -54,5 +52,4 @@ async def get_mime_type(dataset_record: dict) -> Optional[str]:
     file_name = dataset_record["data"].get(RecordKeys.FILE_NAME, "") or file_source_info.get(RecordKeys.FILE_NAME, "")
     guessed_mime_type = mimetypes.guess_type(file_name)[0] or mimetypes.guess_type(dataset_record["id"])[0]
 
-    logger.debug(mimetype_id, guessed_mime_type)
     return get_id_part(mimetype_id) if mimetype_id else guessed_mime_type or CustomMimeTypes.BIN.type

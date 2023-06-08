@@ -14,8 +14,6 @@
 
 from abc import ABC, abstractmethod
 
-from loguru import logger
-
 from app.core.settings.app import AppSettings
 
 
@@ -31,7 +29,6 @@ class IBlobLoader(ABC):
 
 
 def get_blob_loader(settings: AppSettings) -> IBlobLoader:
-    logger.info(settings.cloud_provider)
     match settings.cloud_provider:
         case "azure":
             from app.providers.dependencies.az.blob_loader import BlobLoader
