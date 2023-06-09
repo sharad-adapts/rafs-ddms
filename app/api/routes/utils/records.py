@@ -117,7 +117,14 @@ def update_dataset_id(ddms_datasets: List[str], ddms_urn: str, prefix: str) -> L
             return ddms_datasets
 
 
-def generate_dataset_urn(ddms_id: str, api_version: str, entity_type: str, wpc_id: str, dataset_id: str) -> str:
+def generate_dataset_urn(
+    ddms_id: str,
+    api_version: str,
+    entity_type: str,
+    wpc_id: str,
+    dataset_id: str,
+    content_schema_version: Optional[str] = "1.0.0",
+) -> str:
     """Generate dataset urn.
 
     :param ddms_id: ddms is
@@ -130,10 +137,12 @@ def generate_dataset_urn(ddms_id: str, api_version: str, entity_type: str, wpc_i
     :type wpc_id: str
     :param dataset_id: dataset id
     :type dataset_id: str
+    :param content_schema_version: content-schema-version
+    :type content_schema_version: str
     :return: dataset urn
     :rtype: str
     """
-    return f"urn://{ddms_id}-{api_version}/{entity_type}/{wpc_id}/{dataset_id}"
+    return f"urn://{ddms_id}-{api_version}/{entity_type}/{wpc_id}/{dataset_id}/{content_schema_version}"
 
 
 def dataset_id_exist(ddms_datasets: List[str], dataset_id: str) -> bool:

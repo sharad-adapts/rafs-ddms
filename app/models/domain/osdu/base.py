@@ -90,8 +90,8 @@ IMPLEMENTED_MODELS = {
     SLIMTUBETEST_KIND: SlimTubeTest,
 }
 
-PATH_TO_DATA_MODEL = {
-    CommonRelativePaths.ROCKSAMPLEANALYSIS: RCAModel,
+PATH_TO_DATA_MODEL_1_0_0 = {
+    CommonRelativePaths.ROUTINECOREANALYSIS: RCAModel,
     CommonRelativePaths.CCE: CCEModel,
     CommonRelativePaths.DIF_LIB: DLModel,
     CommonRelativePaths.TRANSPORT_TEST: TransportTestModel,
@@ -106,3 +106,11 @@ PATH_TO_DATA_MODEL = {
     CommonRelativePaths.MCM: MCMModel,
     CommonRelativePaths.SLIMTUBETEST: SlimTubeModel,
 }
+
+VERSION_TO_MODEL_PATHS = {
+    "1": {
+        "0": {
+            "0": PATH_TO_DATA_MODEL_1_0_0
+            }
+        }
+    }

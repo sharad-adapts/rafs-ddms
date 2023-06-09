@@ -19,7 +19,7 @@ class CommonRelativePaths(NamedTuple):
     # TODO convert this to regex instead.
     CORING = "/coringreports/"
     ROCKSAMPLE = "/rocksamples/"
-    ROCKSAMPLEANALYSIS = "/rocksampleanalyses/"
+    ROUTINECOREANALYSIS = "/rocksampleanalyses/"
     CCE = "/ccereports/"
     DIF_LIB = "/difflibreports/"
     TRANSPORT_TEST = "/transporttests/"

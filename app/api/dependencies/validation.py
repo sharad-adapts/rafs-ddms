@@ -21,12 +21,15 @@ from pydantic import BaseModel
 from pydantic.error_wrappers import ValidationError
 from starlette import status
 
+from app.api.dependencies.request import get_content_schema_version
 from app.api.dependencies.services import get_async_search_service
 from app.api.routes.utils.records import get_id_version
 from app.exceptions.exceptions import (
+    BadRequestException,
     InvalidDatasetException,
     RecordValidationException,
 )
+from app.models.data_schemas.base import PATH_TO_DATA_MODEL_VERSIONS
 from app.models.domain.osdu.base import (
     CCE_KIND,
     COMPOSITIONAL_ANALYSIS_KIND,
@@ -37,7 +40,6 @@ from app.models.domain.osdu.base import (
     INTERFACIAL_TENSION_KIND,
     MCM_KIND,
     MSS_KIND,
-    PATH_TO_DATA_MODEL,
     PVT_KIND,
     ROCKSAMPLE_KIND,
     ROCKSAMPLEANALYSIS_KIND,
@@ -238,18 +240,23 @@ async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRe
     return await validate_records_payload(records_list, SLIMTUBETEST_KIND)
 
 
-async def get_data_model(request: Request) -> Model:
+async def get_data_model(request: Request, content_schema_version: str = Depends(get_content_schema_version)) -> Model:
     """Get the model based on the request path.
 
     :param request: request object
     :type request: Request
-    :return: The corresponding data model
+    :param content_schema_version: version obtained from header, defaults to Depends(retrieve_schema_version)
+    :type content_schema_version: str, optional
+    :raises BadRequestException: if model is not implemented for given version
+    :raises HTTPException: if model is not implemented neither for path nor version
+    :return: The corresponding data model according to path and version
     :rtype: Model
     """
     model = None
+
     common_relative_paths = (
         CommonRelativePaths.CCE,
-        CommonRelativePaths.ROCKSAMPLEANALYSIS,
+        CommonRelativePaths.ROUTINECOREANALYSIS,
         CommonRelativePaths.DIF_LIB,
         CommonRelativePaths.TRANSPORT_TEST,
         CommonRelativePaths.MSS,
@@ -263,15 +270,25 @@ async def get_data_model(request: Request) -> Model:
         CommonRelativePaths.MCM,
         CommonRelativePaths.SLIMTUBETEST,
     )
+
     for path in common_relative_paths:
         if path in str(request.url.path):
-            model = PATH_TO_DATA_MODEL.get(path)
+            version_models = PATH_TO_DATA_MODEL_VERSIONS.get(path)
             break
 
-    if not model:
+    if not version_models:
         reason = "Unimplemented model."
         logger.debug(reason)
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=reason)
+
+    model = version_models.get(content_schema_version)
+    if not model:
+        available_versions = set(version_models.keys())
+        error_title = "There is no model for given version."
+        error_details = f"Schema version {content_schema_version} is not one of proper versions: {available_versions}"
+        reason = f"{error_title} {error_details}"
+        logger.debug(reason)
+        raise BadRequestException(detail=reason)
 
     return model
 

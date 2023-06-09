@@ -29,5 +29,5 @@ class CommonHelper(object):
     @staticmethod
     def get_dataset_id_from_ddms_urn(ddms_urn):
         """Gets the dataset_id part from full urn."""
-        full_id = ddms_urn.split("/")[-1]
+        full_id = ddms_urn.split("/")[-2]
         return ":".join(full_id.split(":")[:-1])

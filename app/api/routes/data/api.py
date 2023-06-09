@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 import io
-import re
 import uuid
 from typing import List, Optional
 
@@ -27,7 +26,10 @@ from pydantic import BaseModel
 from starlette import status
 
 from app.api.dependencies.records import get_data_file_sources
-from app.api.dependencies.request import validate_bulkdata_content_type
+from app.api.dependencies.request import (
+    get_content_schema_version,
+    validate_bulkdata_content_type,
+)
 from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_storage_service,
@@ -109,6 +111,7 @@ class BaseDataView:
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         sql_filter: SQLFilterValidator = Depends(validate_filters),
+        content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
         """Get record data.
 
@@ -129,9 +132,6 @@ class BaseDataView:
         """
         record = await storage_service.get_record(record_id)
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
-
-        content_schema_version = self._retrieve_schema_version(request)
-        logger.debug(f"Client schema version: {content_schema_version}")
 
         dataset_id, _ = get_id_version(dataset_id)
         ddms_datasets = record["data"].get("DDMSDatasets", [])
@@ -175,6 +175,7 @@ class BaseDataView:
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         model: BaseModel = Depends(get_data_model),
+        content_schema_version: str = Depends(get_content_schema_version),
     ) -> dict:
         """Post record data.
 
@@ -202,9 +203,6 @@ class BaseDataView:
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
         data_schema = build_data_schema(model)
         data_validator = DataValidator(data_schema, storage_service)
-
-        content_schema_version = self._retrieve_schema_version(request)
-        logger.debug(f"Client schema version: {content_schema_version}")
 
         error_case_to_message = {
             "column_in_schema": "Invalid parameters",
@@ -278,6 +276,7 @@ class BaseDataView:
                 entity_type=f"{entity_type}data",
                 wpc_id=record_id,
                 dataset_id=dataset_record_id,
+                content_schema_version=content_schema_version,
             )
             update_dataset_id(record_data["DDMSDatasets"], ddms_urn, self._bulk_dataset_prefix)
             logger.info(f"File uploaded for existent dataset: {existent_dataset_id}")
@@ -291,6 +290,7 @@ class BaseDataView:
                 entity_type=f"{entity_type}data",
                 wpc_id=record_id,
                 dataset_id=dataset_record_id,
+                content_schema_version=content_schema_version,
             )
             ddms_datasets.append(ddms_urn)
             record_data["DDMSDatasets"] = ddms_datasets
@@ -331,30 +331,6 @@ class BaseDataView:
         renderer = FileSourceRenderer(data_file_sources)
 
         return await renderer.render_source_data()
-
-    def _retrieve_schema_version(self, request: Request) -> str:
-        """Retrieve schema version from header.
-
-        :param request: request
-        :type request: Request
-        :raises exceptions.InvalidHeaderException: if schema version hasn't been provided or schema format is invalid
-        :return: schema version
-        :rtype: str
-        """
-        accept_header = request.headers["Accept"]
-        accept_header = accept_header.lower().strip()
-        version_regex = r"version=(\d+\.\d+\.\d+)"
-        version = re.search(version_regex, accept_header)
-        try:
-            schema_version = version.groups()[0]
-        except AttributeError:
-            error_title = "Schema version hasn't been provided or schema format is invalid."
-            example_detail = "Example: --header 'Accept: */*;version=1.0.0'"
-            error_details = f"Check, if schema version is provided in 'Accept' header. {example_detail}"
-            reason = f"{error_title} {error_details}"
-            logger.debug(reason)
-            raise exceptions.InvalidHeaderException(detail=reason)
-        return schema_version
 
     def _check_content_schema_version(
         self,
