@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import re
 from dataclasses import dataclass
 from typing import Any, NamedTuple, Optional, Set
 
@@ -43,6 +44,12 @@ class FilterIndex(NamedTuple):
     COLUMN = 0
     OPERATOR = 1
     COMP_VALUE = 2
+
+
+class DottedColumn(NamedTuple):
+    COLUMN_INDEX = 0
+    FIELD_INDEX = 1
+    N_ELEMENTS = 2
 
 
 @dataclass
@@ -102,11 +109,9 @@ class SQLFilterValidator:
     def _validate_rows_filter(self) -> str:
         rows_filter_list = self.raw_rows_filter.split(Separator.COMMA)
         if len(rows_filter_list) != Predicate.N_ELEMENTS:
-            raise RuntimeError("Bad rows_filter expression. Correct form 'ColumnName,operator,value'")
-        if self._handle_dotted_column(rows_filter_list[FilterIndex.COLUMN]) not in self.all_valid_columns:
-            raise RuntimeError(f"For filter select one of {self.all_valid_columns}")
+            raise RuntimeError("Bad rows_filter expression. Correct form 'ColumnName[.FieldName],operator,value'")
 
-        valid_column = rows_filter_list[FilterIndex.COLUMN]
+        valid_column = self._validate_column(rows_filter_list[FilterIndex.COLUMN], "filter")
         valid_operator = self._validate_comparison_operator(rows_filter_list[FilterIndex.OPERATOR])
         valid_value = self._handle_str_value(
             self._validate_column_value(
@@ -118,27 +123,30 @@ class SQLFilterValidator:
     def _validate_columns_aggregation(self) -> str:
         columns_aggregation_list = self.raw_columns_aggregation.split(Separator.COMMA)
         if len(columns_aggregation_list) != Aggregation.N_ELEMENTS:
-            raise RuntimeError("Bad aggregation expression. Correct form 'ColumnName,operator'")
-        if self._handle_dotted_column(columns_aggregation_list[FilterIndex.COLUMN]) not in self.all_valid_columns:
-            raise RuntimeError(f"For aggregation select one of {self.all_valid_columns}")
+            raise RuntimeError("Bad aggregation expression. Correct form 'ColumnName[.FieldName],operator'")
 
-        valid_column = columns_aggregation_list[FilterIndex.COLUMN]
+        valid_column = self._validate_column(columns_aggregation_list[FilterIndex.COLUMN], "aggregation")
         valid_operator = self._validate_aggregation_operator(columns_aggregation_list[FilterIndex.OPERATOR])
         return f"{valid_operator}({valid_column})"
 
     def _validate_columns_filter(self) -> str:
-        raw_columns_filter_set = set(self.raw_columns_filter.split(Separator.COMMA))
-        valid_columns = self.all_valid_columns.intersection(raw_columns_filter_set)
-        invalid_columns = raw_columns_filter_set.difference(valid_columns)
+        raw_columns_filter = self.raw_columns_filter.split(Separator.COMMA)
+        valid_columns = [raw_column for raw_column in raw_columns_filter if raw_column in self.all_valid_columns]
+        invalid_columns = set(raw_columns_filter) - set(valid_columns)
         if invalid_columns:
             raise RuntimeError(f"Invalid columns: {invalid_columns}. Select one of {self.all_valid_columns}")
-        # @TODO handle dotted column
         return Separator.COMMA.join(valid_columns)
 
-    def _handle_dotted_column(self, column: str) -> str:
+    def _validate_column(self, column: str, operation: str) -> str:
         if Separator.DOT in column:
-            column = column.split(Separator.DOT)[FilterIndex.COLUMN]
             logger.debug(f"DOT in column: {column}")
+            dot_cols = column.split(Separator.DOT)
+            if len(dot_cols) != DottedColumn.N_ELEMENTS or not re.match(r"\w+", dot_cols[DottedColumn.FIELD_INDEX]):
+                raise RuntimeError("Wrong Column or Field name syntax: correct form: {ColumnName.FieldName}")
+            if dot_cols[DottedColumn.COLUMN_INDEX] not in self.all_valid_columns:
+                raise RuntimeError(f"For {operation} select one of {self.all_valid_columns}")
+        elif column not in self.all_valid_columns:
+            raise RuntimeError(f"For {operation} column select one of {self.all_valid_columns}")
         return column
 
     def _handle_str_value(self, comp_value: Any) -> str:

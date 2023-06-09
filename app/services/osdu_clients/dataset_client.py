@@ -21,6 +21,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
+from app.services.osdu_clients.conf import TIMEOUT
 
 
 class DatasetServicePaths(NamedTuple):
@@ -57,7 +58,7 @@ class DatasetServiceApiClient(object):
         :return: instructions with unsigned and signed URL for the uploading file
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             q_params = {"kindSubType": kind_subtype}
             response = await client.post(
                 DatasetServicePaths.STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
@@ -73,7 +74,7 @@ class DatasetServiceApiClient(object):
         :return: instructions with unsigned and signed URL for the uploading file
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             q_params = {"kindSubType": kind_subtype}
             response = await client.get(
                 DatasetServicePaths.GET_STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
@@ -89,7 +90,7 @@ class DatasetServiceApiClient(object):
         :return: instructions with unsigned and signed URL to download the dataset file sources
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             request_body = {
                 "datasetRegistryIds": dataset_ids,
             }
@@ -110,7 +111,7 @@ class DatasetServiceApiClient(object):
         :return: instructions with unsigned and signed URL to download the dataset file source
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             q_params = {"id": dataset_id}
 
             response = await client.get(
@@ -129,7 +130,7 @@ class DatasetServiceApiClient(object):
         :return: response
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             request_body = {
                 "datasetRegistries": dataset_registries,
             }
@@ -145,7 +146,7 @@ class DatasetServiceApiClient(object):
         :return: the dataset registry
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             q_params = {"id": dataset_id}
 
             response = await client.get(
@@ -162,7 +163,7 @@ class DatasetServiceApiClient(object):
         :return: the dataset registries
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             request_body = {
                 "datasetRegistryIds": dataset_ids,
             }

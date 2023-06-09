@@ -21,6 +21,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
+from app.services.osdu_clients.conf import TIMEOUT
 
 
 class StorageServicePaths(NamedTuple):
@@ -53,7 +54,7 @@ class StorageServiceApiClient(object):
         :return: created or updated records ids
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.put(StorageServicePaths.RECORDS, json=records, headers=self.headers)
             response.raise_for_status()
             return response.json()
@@ -66,7 +67,7 @@ class StorageServiceApiClient(object):
         :return: record
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/{record_id}", headers=self.headers)
             response.raise_for_status()
             return response.json()
@@ -81,7 +82,7 @@ class StorageServiceApiClient(object):
         :return: versioned record
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/{record_id}/{version}", headers=self.headers)
             response.raise_for_status()
             return response.json()
@@ -94,7 +95,7 @@ class StorageServiceApiClient(object):
         :return: record versions
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/versions/{record_id}", headers=self.headers)
             response.raise_for_status()
             return response.json()
@@ -105,7 +106,7 @@ class StorageServiceApiClient(object):
         :param record_id: record id
         :type record_id: str
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(f"{StorageServicePaths.RECORDS}/{record_id}:delete", headers=self.headers)
             response.raise_for_status()
 
@@ -117,7 +118,7 @@ class StorageServiceApiClient(object):
         :return: deleted record id
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.delete(f"{StorageServicePaths.RECORDS}/{record_id}", headers=self.headers)
             response.raise_for_status()
 
@@ -129,7 +130,7 @@ class StorageServiceApiClient(object):
         :return: records details
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers) as client:
+        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             query_records_request = {"records": records}
             response = await client.post(
                 f"{StorageServicePaths.QUERY}", json=query_records_request, headers=self.headers,

@@ -259,4 +259,4 @@ In other cases, all checks run automatically on commit.
 * [Azure Deployment Instructions - Standard DDMS](./devops/azure/)
 
 ## License
-Licensed under Apache License Version 2.0; details can be found in [LICENSE](./LICENSE). 
+Licensed under Apache License Version 2.0; details can be found in [LICENSE](./LICENSE).

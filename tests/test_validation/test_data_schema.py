@@ -15,8 +15,8 @@
 import pandas as pd
 import pytest
 
-from app.rca_validation.data_validation import DataValidator
-from tests.test_api.test_routes.data.data_mock_objects import SearchService
+from app.bulk_data_validation.data_validation import DataValidator
+from tests.test_api.test_routes.data.data_mock_objects import StorageService
 from tests.test_validation.test_data import (
     CORRECT_TEST_BULK_DATA,
     INCORRECT_TEST_BULK_DATA,
@@ -26,8 +26,8 @@ from tests.test_validation.test_data import (
 
 @pytest.mark.asyncio
 async def test_data_validator_success():
-    mock_get_search_service = SearchService()
-    data_validator = DataValidator(TEST_SCHEMA, mock_get_search_service)
+    mock_storage_service = StorageService(record_data=None)
+    data_validator = DataValidator(TEST_SCHEMA, mock_storage_service)
     test_df = pd.read_json(CORRECT_TEST_BULK_DATA, orient="split")
 
     errors = await data_validator.validate(test_df)
@@ -36,8 +36,8 @@ async def test_data_validator_success():
 
 @pytest.mark.asyncio
 async def test_data_validator_fail():
-    mock_get_search_service = SearchService()
-    data_validator = DataValidator(TEST_SCHEMA, mock_get_search_service)
+    mock_storage_service = StorageService(record_data=None)
+    data_validator = DataValidator(TEST_SCHEMA, mock_storage_service)
     test_df = pd.read_json(INCORRECT_TEST_BULK_DATA, orient="split")
 
     errors = await data_validator.validate(test_df)

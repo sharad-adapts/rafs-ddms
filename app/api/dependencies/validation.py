@@ -274,11 +274,11 @@ async def validate_filters(
     ),
     rows_filter: Optional[str] = Query(
         default=None,
-        example="PropertyX,gt,4000",
+        example="PropertyX[.PropertyXFieldA],gt,4000",
     ),
     columns_aggregation: Optional[str] = Query(
         default=None,
-        example="PropertyX,avg",
+        example="PropertyX[.PropertyXFieldA],avg",
     ),
 ) -> SQLFilterValidator:
     """Validates query parameters used for dataframe filtering.

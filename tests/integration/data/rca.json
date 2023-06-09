@@ -24,23 +24,23 @@
             "SampleNumber",
             {
                 "Value": 346,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
             },
             {
                 "Value": 56.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
             },
             {
                 "Value": 89.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
             },
             {
                 "Value": 1.30,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
             },
             {
                 "Value": 5.65,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
             },
             "LithologyDescription",
             "Remarks"
@@ -52,23 +52,23 @@
             "SampleNumber",
             {
                 "Value": 5.44,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
             },
             {
                 "Value": 98.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
             },
             {
                 "Value": 56.5,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
             },
             {
                 "Value": 10.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
             },
             {
                 "Value": 7.5,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
             },
             "LithologyDescription",
             "Remarks"

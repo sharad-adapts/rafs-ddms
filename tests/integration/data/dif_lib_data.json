@@ -61,7 +61,7 @@
                     },
                     "OilCompressibility": {
                         "Value": 250,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
                     },
                     "OilViscosity": {
                         "Value": 0.05,
@@ -69,7 +69,7 @@
                     },
                     "GasMolecularWeight": {
                         "Value": 50,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mole:"
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
                     },
                     "GasGravity": {
                         "Value": 0.849,
@@ -135,7 +135,7 @@
                                 "ComponentName": "Methane",
                                 "RelativeMolarWeight": {
                                     "Value": 5,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                                 }
                             },
                             {
@@ -143,7 +143,7 @@
                                 "ComponentName": "Hexane",
                                 "RelativeMolarWeight": {
                                     "Value": 10,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                                 }
                             }
                         ]
@@ -154,15 +154,15 @@
                             "ComponentName": "Methane",
                             "FlashedLiquidRelativeMolarWeight": {
                                 "Value": 5,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                             },
                             "FlashedLiquidRelativeMass": {
                                 "Value": 0.8,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mass:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                             },
                             "FlashedGasRelativeMolarWeight": {
                                 "Value": 5,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                             }
                         },
                         {
@@ -170,22 +170,22 @@
                             "ComponentName": "Hexane",
                             "FlashedLiquidRelativeMolarWeight": {
                                 "Value": 5,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                             },
                             "FlashedLiquidRelativeMass": {
                                 "Value": 0.8,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mass:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                             },
                             "FlashedGasRelativeMolarWeight": {
                                 "Value": 5,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                             }
                         }
                     ],
                     "CalculatedProperties": {
                         "AvgMoleWeight": {
                             "Value": 1,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mole:"
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
                         },
                         "ResidueDensity": {
                             "Value": 1500,
@@ -201,11 +201,11 @@
                                 "ComponentFormula": "C7+",
                                 "FlashedLiquidRelativeMolarWeight": {
                                     "Value": 5,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                                 },
                                 "FlashedLiquidRelativeMass": {
                                     "Value": 0.8,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mass:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                                 },
                                 "FlashedLiquidDensity": {
                                     "Value": 5,
@@ -216,11 +216,11 @@
                                 "ComponentFormula": "C36+",
                                 "FlashedLiquidRelativeMolarWeight": {
                                     "Value": 5,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%molar:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                                 },
                                 "FlashedLiquidRelativeMass": {
                                     "Value": 0.8,
-                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%mass:"
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                                 },
                                 "FlashedLiquidDensity": {
                                     "Value": 5,

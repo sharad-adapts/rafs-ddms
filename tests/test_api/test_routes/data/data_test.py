@@ -26,7 +26,6 @@ from starlette import status
 
 from app.api.dependencies.services import (
     get_async_dataset_service,
-    get_async_search_service,
     get_async_storage_service,
 )
 from app.main import app
@@ -58,7 +57,6 @@ from tests.test_api.test_routes.data.data_mock_objects import (
     TEST_WRONG_ROWS_FILTERS_REASONS,
     build_get_test_data,
     build_mock_get_dataset_service,
-    build_mock_get_search_service,
     build_mock_get_storage_service,
 )
 from tests.test_api.test_routes.dif_lib import dif_lib_mock_objects
@@ -161,14 +159,12 @@ def with_patched_services_success(storage_method, osdu_records, dataset_method, 
 
 
 @contextmanager
-def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TEST_DATASET_RECORD_ID):
-    mock_get_storage_service = build_mock_get_storage_service(record_data)
+def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TEST_DATASET_RECORD_ID, data_payload=None):
+    mock_get_storage_service = build_mock_get_storage_service(record_data, data_payload)
     mock_get_dataset_service = build_mock_get_dataset_service(test_dataset_record_id=test_dataset_record_id)
-    mock_get_search_service = build_mock_get_search_service()
     overrides = {
         get_async_storage_service: mock_get_storage_service,
         get_async_dataset_service: mock_get_dataset_service,
-        get_async_search_service: mock_get_search_service,
     }
     with dependencies.DependencyOverrider(app, overrides) as mock_dependencies:
         yield mock_dependencies
@@ -364,11 +360,9 @@ async def test_get_content_parquet_data(
                 f"{data_endpoint_path}/{dataset_id}",
                 headers=TEST_HEADERS_PARQUET,
             )
-
+    arrow_table = pq.read_table(pa.BufferReader(build_get_test_data("x-parquet")))
     assert response.status_code == status.HTTP_200_OK
-    assert pq.read_table(pa.BufferReader(response.content)).equals(
-        pq.read_table(pa.BufferReader(build_get_test_data("x-parquet"))),
-    )
+    assert pq.read_table(pa.BufferReader(response.content)).equals(arrow_table)
 
 
 @pytest.mark.parametrize(
@@ -1403,7 +1397,7 @@ async def test_get_data_json_data(
 )
 @pytest.mark.asyncio
 async def test_post_data_json(data_endpoint_path, record_data, test_data, test_dataset_record_id, test_ddms_urn):
-    with post_overrides(record_data, test_dataset_record_id):
+    with post_overrides(record_data, test_dataset_record_id, test_data):
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 data_endpoint_path,
@@ -1525,7 +1519,7 @@ async def test_post_data_json_no_ddmsdatasets_field(
         data_endpoint_path, record_data, test_data, test_dataset_record_id, test_ddms_urn,
 ):
     del record_data["data"]["DDMSDatasets"]
-    with post_overrides(record_data, test_dataset_record_id):
+    with post_overrides(record_data, test_dataset_record_id, test_data):
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 data_endpoint_path,
@@ -1734,7 +1728,7 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
 async def test_post_data_parquet(data_endpoint_path, record_data, test_data, test_dataset_record_id, test_ddms_urn):
     dataframe = pd.DataFrame(test_data["data"], columns=test_data["columns"])
 
-    with post_overrides(record_data, test_dataset_record_id):
+    with post_overrides(record_data, test_dataset_record_id, dataframe):
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 data_endpoint_path,
@@ -1853,7 +1847,7 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
 )
 @pytest.mark.asyncio
 async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data, test_dataset_record_id, test_ddms_urn):
-    with post_overrides(record_data, test_dataset_record_id):
+    with post_overrides(record_data, test_dataset_record_id, test_data):
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 data_endpoint_path,
@@ -1861,7 +1855,8 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
                 content=json.dumps(test_data),
             )
             body = response.json()
-
+    from loguru import logger
+    logger.error(body)
     assert body["ddms_urn"] == test_ddms_urn
 
 
@@ -2042,7 +2037,6 @@ async def test_rca_post_403(data_endpoint_path):
     assert response.status_code == status.HTTP_403_FORBIDDEN
 
 
-# TODO fix search validation
 @pytest.mark.parametrize(
     "data_endpoint_path,integrity_error_dataframe_data", [
         (RCA_DATA_ENDPOINT_PATH, data_mock_objects.INTEGRITY_ERROR_DATAFRAME_DATA),
