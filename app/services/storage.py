@@ -14,9 +14,12 @@
 
 from typing import List, Optional
 
+from httpx import HTTPStatusError
+
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
 from app.services.base import IStorageService
+from app.services.error_handlers import handle_get_version_osdu_api_error
 from app.services.osdu_clients.storage_client import StorageServiceApiClient
 
 
@@ -27,18 +30,21 @@ class StorageService(IStorageService):
             settings.service_host_storage, data_partition_id=data_partition_id, bearer_token=user.access_token,
         )
 
-    async def get_record(self, record_id: str, version: Optional[str] = None) -> dict:
+    async def get_record(self, record_id: str, version: Optional[int] = None) -> dict:
         """Get last record or versioned record if version is not none.
 
         :param record_id: record id
         :type record_id: str
         :param version: version, defaults to None
-        :type version: Optional[str], optional
+        :type version: Optional[int], optional
         :return: record json
         :rtype: dict
         """
-        if version:
-            response = await self.storage_client.get_specific_record(record_id, version)
+        if version is not None:
+            try:
+                response = await self.storage_client.get_specific_record(record_id, version)
+            except HTTPStatusError as exc:
+                handle_get_version_osdu_api_error(exc, record_id, version)
         else:
             response = await self.storage_client.get_latest_record(record_id)
         return response

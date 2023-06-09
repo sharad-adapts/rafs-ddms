@@ -27,6 +27,7 @@ from app.api.errors.http_error import http_error_handler
 from app.api.errors.invalid_body_error import invalid_body_error_handler
 from app.api.errors.invalid_header_error import invalid_header_error_handler
 from app.api.errors.osdu_api_error import (
+    osdu_api_custom_exc_handler,
     osdu_api_http_error_handler,
     osdu_api_httpx_error_handler,
 )
@@ -38,6 +39,7 @@ from app.exceptions.exceptions import (
     DataValidationException,
     InvalidBodyException,
     InvalidHeaderException,
+    OsduApiException,
 )
 from app.providers.helpers.metric import init_metric
 
@@ -49,6 +51,7 @@ EXCEPTIONS_AND_HANDLERS = (
     (InvalidBodyException, invalid_body_error_handler),
     (InvalidHeaderException, invalid_header_error_handler),
     (DataValidationException, data_validation_http_error_handler),
+    (OsduApiException, osdu_api_custom_exc_handler),
 )
 
 

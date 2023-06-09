@@ -81,14 +81,14 @@ class BaseStorageRecordView:
     @cache(expire=CACHE_DEFAULT_TTL, key_builder=key_builder_using_token)
     async def get_record_specific_version(
         self,
-        version: str,
+        version: int,
         record_id,
         storage_service: storage.StorageService = Depends(get_async_storage_service),
     ) -> dict:
         """Get specific record.
 
         :param version: version
-        :type version: str
+        :type version: int
         :param record_id: record id
         :type record_id: str
         :param storage_service: storage service

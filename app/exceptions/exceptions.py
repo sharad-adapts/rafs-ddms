@@ -64,3 +64,7 @@ class DataValidationException(UnprocessableContentException):
     ) -> None:
         super().__init__(detail=detail, headers=headers)
         self.errors = errors
+
+
+class OsduApiException(HTTPException):
+    pass

@@ -72,13 +72,13 @@ class StorageServiceApiClient(object):
             response.raise_for_status()
             return response.json()
 
-    async def get_specific_record(self, record_id: str, version: str) -> dict:
+    async def get_specific_record(self, record_id: str, version: int) -> dict:
         """Get record by version.
 
         :param record_id: record id
         :type record_id: str
         :param version: record version
-        :type version: str
+        :type version: int
         :return: versioned record
         :rtype: dict
         """

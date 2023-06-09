@@ -19,6 +19,7 @@ from requests.exceptions import HTTPError
 from starlette.requests import Request
 from starlette.responses import JSONResponse
 
+from app.exceptions.exceptions import OsduApiException
 from app.models.schemas.errors import OsduApiErrorResponse
 
 
@@ -67,4 +68,15 @@ async def osdu_api_httpx_error_handler(_: Request, exc: HTTPStatusError) -> JSON
     return JSONResponse(
         format_exc(exc),
         status_code=exc.response.status_code,
+    )
+
+
+async def osdu_api_custom_exc_handler(_: Request, exc: OsduApiException) -> JSONResponse:
+    return JSONResponse(
+        OsduApiErrorResponse.construct(
+            code=exc.status_code,
+            reason=exc.detail.get("reason"),
+            message=exc.detail.get("message"),
+        ).dict(),
+        status_code=exc.status_code,
     )

@@ -16,6 +16,8 @@ from typing import List, NamedTuple, Optional, Tuple
 
 from loguru import logger
 
+from app.exceptions.exceptions import UnprocessableContentException
+
 
 class RecordKeys(NamedTuple):
     MIMETYPE_ID = "EncodingFormatTypeID"
@@ -46,7 +48,7 @@ def get_id_part(full_record_id: str) -> str:
     return id_parts[ID_PART_INDEX]
 
 
-def get_id_version(full_record_id: str) -> Tuple[str, Optional[str]]:
+def get_id_version(full_record_id: str) -> Tuple[str, Optional[int]]:
     """Separately get id and version part from record id.
 
     :param full_record_id: full record id
@@ -65,6 +67,14 @@ def get_id_version(full_record_id: str) -> Tuple[str, Optional[str]]:
             ":".join(splitted_id[:VERSION_SPLIT_INDEX]),
             ":".join(splitted_id[VERSION_SPLIT_INDEX:]),
         )  # noqa: WPS221
+    try:
+        if version:
+            version = int(version)
+        else:
+            version = None
+    except ValueError:
+        raise UnprocessableContentException(detail=f"Record id version '{version}' should be numeric")
+
     return record_id, version
 
 
