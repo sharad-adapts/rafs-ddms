@@ -97,7 +97,7 @@ def validate_json_content_type(request: Request) -> None:
 
 
 async def get_content_schema_version(request: Request) -> str:
-    """Get content-schema-version from header.
+    """Get content schema version from header.
 
     :param request: request
     :type request: Request
@@ -107,15 +107,15 @@ async def get_content_schema_version(request: Request) -> str:
     """
     accept_header = request.headers[ACCEPT]
     accept_header = accept_header.lower().strip()
-    version_regex = r"content-schema-version=(\d+\.\d+\.\d+)"
+    version_regex = r"version=(\d+\.\d+\.\d+)"
     version = re.search(version_regex, accept_header)
     try:
         content_schema_version = version.groups()[0]
     except AttributeError:
-        error_title = "content-schema-version hasn't been provided or schema format is invalid."
-        example_detail = "Example: --header 'Accept: */*;content-schema-version=1.0.0'"
-        error_details = f"Check, if schema version is provided in 'Accept' header. {example_detail}"
+        error_title = "No schema version specified or invalid schema format."
+        example_detail = "Example: --header 'Accept: */*;version=1.0.0'"
+        error_details = f"Check if the schema version is specified in the 'Accept' header. {example_detail}"
         reason = f"{error_title} {error_details}"
         raise exceptions.InvalidHeaderException(detail=reason)
-    logger.debug(f"content-schema-version: {content_schema_version}")
+    logger.debug(f"Schema version: {content_schema_version}")
     return content_schema_version

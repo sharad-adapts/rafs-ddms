@@ -82,15 +82,15 @@ class BaseDataView:
             "Upload the bulk data for a given `{record_type}` object by record id.<br>\
             It creates a new version of the record. <br>\
             The previous meta-data with bulk data is available by their `versions`. <br> <br>\
-            Use the `Content-Type` request header to specify payload format \
+            Use the `Content-Type` request header to specify payload and response formats \
                 (`application/json` and `application/parquet` are supported).<br>\
-            Use the `Accept` request header to specify response format \
-                (`application/json` and `application/parquet` are supported).",
+            Use the `Accept` request header to specify content schema version \
+                (example header `Accept: */*;version=1.0.0` is supported).",
         )
         self.description_template_get_data = APIDescriptionHelper.append_joined_roles(
             "Get the (`latest version`) bulk data for a given `{record_type}` object by record id. <br><br>\
-            Use the `Accept` request header to specify response format \
-                (`application/json` and `application/parquet` are supported).<br><br>\
+            Use the `Accept` request header to specify content schema version \
+                (example header `Accept: */*;version=1.0.0` is supported).<br><br>\
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
                 query parameters can be used to manage data in response.",
         )

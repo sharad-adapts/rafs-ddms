@@ -1429,7 +1429,7 @@ async def test_get_data_json_data_no_content_schema_version(
             )
     expected_error = {
         "code": status.HTTP_400_BAD_REQUEST,
-        "reason": "content-schema-version hasn't been provided or schema format is invalid. Check, if schema version is provided in 'Accept' header. Example: --header 'Accept: */*;content-schema-version=1.0.0'",
+        "reason": "No schema version specified or invalid schema format. Check if the schema version is specified in the 'Accept' header. Example: --header 'Accept: */*;version=1.0.0'",
     }
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -1570,7 +1570,7 @@ async def test_get_data_json_data_improper_schema_version(
             )
     expected_error = {
         "code": status.HTTP_400_BAD_REQUEST,
-        "reason": "content-schema-version hasn't been provided or schema format is invalid. Check, if schema version is provided in 'Accept' header. Example: --header 'Accept: */*;content-schema-version=1.0.0'",
+        "reason": "No schema version specified or invalid schema format. Check if the schema version is specified in the 'Accept' header. Example: --header 'Accept: */*;version=1.0.0'",
     }
 
     assert response.status_code == status.HTTP_400_BAD_REQUEST
@@ -2281,8 +2281,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
                 content=json.dumps(test_data),
             )
             body = response.json()
-    from loguru import logger
-    logger.error(body)
+
     assert body["ddms_urn"] == test_ddms_urn
 
 

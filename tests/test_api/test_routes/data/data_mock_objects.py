@@ -55,7 +55,7 @@ TEST_HEADERS_JSON = {
     "content-type": "application/json",
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
-    "Accept": f"*/*;content-schema-version={TEST_SCHEMA_VERSION}",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
 }
 TEST_HEADERS_WITHOUT_SCHEMA_VERSION = {
     "content-type": "application/json",
@@ -73,12 +73,12 @@ TEST_HEADERS_PARQUET = {
     "content-type": "application/x-parquet",
     "data-partition-id": "opendes",
     "Authorization": "Bearer token",
-    "Accept": f"*/*;content-schema-version={TEST_SCHEMA_VERSION}",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
 }
 TEST_HEADERS_NO_AUTH = {
     "data-partition-id": "opendes",
     "content-type": "application/json",
-    "Accept": f"*/*;content-schema-version={TEST_SCHEMA_VERSION}",
+    "Accept": f"*/*;version={TEST_SCHEMA_VERSION}",
 }
 TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "Remarks,count",

@@ -123,7 +123,7 @@ def generate_dataset_urn(
     entity_type: str,
     wpc_id: str,
     dataset_id: str,
-    content_schema_version: Optional[str] = "1.0.0",
+    content_schema_version: str,
 ) -> str:
     """Generate dataset urn.
 
@@ -137,7 +137,7 @@ def generate_dataset_urn(
     :type wpc_id: str
     :param dataset_id: dataset id
     :type dataset_id: str
-    :param content_schema_version: content-schema-version
+    :param content_schema_version: schema version
     :type content_schema_version: str
     :return: dataset urn
     :rtype: str
