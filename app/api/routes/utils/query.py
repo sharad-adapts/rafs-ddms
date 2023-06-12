@@ -43,6 +43,9 @@ def find_osdu_ids_from_string(input_string: str) -> set:
     """
     ids_set = set()
     for osdu_regex in ALL_OSDU_REGEXES:
-        found_ids = {get_id_version(id_)[FULLID_ID_INDEX] for id_ in re.findall(osdu_regex, input_string)}
+        found_ids = {
+            get_id_version(id_.strip("\"\' "))[FULLID_ID_INDEX]
+            for id_ in re.findall(osdu_regex, f" {input_string} ")
+        }
         ids_set.update(found_ids)
     return ids_set

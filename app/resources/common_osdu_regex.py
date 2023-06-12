@@ -13,8 +13,8 @@
 #  limitations under the License.
 
 
-REFERENCE_DATA = r"[\w\-\.]+:reference-data\-\-[\w]+:[\w\-\.\:\%]+:[0-9]*"
-MASTER_DATA = r"[\w\-\.]+:master-data\-\-[\w]+:[\w\-\.\:\%]+:[0-9]*"
-WORK_PRODUCT_COMPONENT = r"[\w\-\.]+:work-product-component\-\-[\w]+:[\w\-\.\:\%]+:[0-9]*"
+REFERENCE_DATA = r"[\"\'\s]{1}[^\s\'\"]+:reference-data\-\-[^\s\'\"]+:[^\s\'\"]+[:]*[^\s\'\"]*[\"\'\s]{1}"
+MASTER_DATA = r"[\"\'\s]{1}[^\s\'\"]+:master-data\-\-[^\s\'\"]+:[^\s\'\"]+[:]*[^\s\'\"]*[\"\'\s]{1}"
+WPC = r"[\"\'\s]{1}[^\s\'\"]+:work-product-component\-\-[^\s\'\"]+:[^\s\'\"]+[:]*[^\s\'\"]*[\"\'\s]{1}"
 
-ALL_OSDU_REGEXES = [REFERENCE_DATA, MASTER_DATA, WORK_PRODUCT_COMPONENT]
+ALL_OSDU_REGEXES = [REFERENCE_DATA, MASTER_DATA, WPC]
