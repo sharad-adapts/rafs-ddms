@@ -114,9 +114,11 @@ async def validate_referential_integrity(
 
     missing_ids = all_test_ids.difference(ids_found)
     if missing_ids:
+        reason = f"Records not found: {missing_ids}"
+        logger.debug(reason)
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=f"Records not found: {missing_ids}",
+            detail=reason,
         )
 
 
@@ -155,9 +157,11 @@ async def validate_records_payload(records_list: List[OsduStorageRecord], kind: 
         validated.append(record_dict)
 
     if skipped:
-        logger.error(skipped)
-        raise RecordValidationException(detail=f"{skipped}")
+        reason = f"Validation failed for {kind}. Skipped records {skipped}"
+        logger.debug(reason)
+        raise RecordValidationException(detail=reason)
 
+    logger.debug(f"Records successfully validated for {kind}")
     return validated
 
 
@@ -239,7 +243,7 @@ async def get_data_model(request: Request) -> Model:
 
     :param request: request object
     :type request: Request
-    :return: The  corresponding data model
+    :return: The corresponding data model
     :rtype: Model
     """
     model = None
@@ -265,7 +269,9 @@ async def get_data_model(request: Request) -> Model:
             break
 
     if not model:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Unimplemented model.")
+        reason = "Unimplemented model."
+        logger.debug(reason)
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=reason)
 
     return model
 
@@ -306,9 +312,10 @@ async def validate_filters(
             sql_filter.valid_rows_filter,
         ])
     except RuntimeError as exc:
-        logger.error(str(exc))
+        logger.debug(f"Query parameters are invalid: {exc}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
 
+    logger.debug("Query parameters are valid.")
     return sql_filter
 
 

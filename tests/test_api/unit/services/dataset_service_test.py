@@ -47,7 +47,6 @@ class TestDatasetService:
     @pytest.fixture
     def mock_settings(self):
         settings = get_app_settings()
-        logger.info(settings)
         return settings
 
     @pytest.fixture

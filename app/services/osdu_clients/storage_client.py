@@ -15,6 +15,7 @@
 from typing import List, NamedTuple
 
 import httpx
+from loguru import logger
 
 from app.resources.common_headers import (
     AUTHORIZATION,
@@ -37,6 +38,7 @@ class StorageServiceApiClient(object):
             DATA_PARTITION_ID: data_partition_id,
             AUTHORIZATION: f"Bearer {bearer_token}",
         }
+        self.name = "StorageService"
 
     def add_headers(self, headers: dict) -> None:
         """Add headers.
@@ -56,6 +58,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.put(StorageServicePaths.RECORDS, json=records, headers=self.headers)
+            logger.debug(f"{self.name}: upsert records response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -69,6 +72,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/{record_id}", headers=self.headers)
+            logger.debug(f"{self.name}: get latest version of record response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -84,6 +88,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/{record_id}/{version}", headers=self.headers)
+            logger.debug(f"{self.name}: get specific record response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -97,6 +102,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.get(f"{StorageServicePaths.RECORDS}/versions/{record_id}", headers=self.headers)
+            logger.debug(f"{self.name}: get record versions response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -108,6 +114,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(f"{StorageServicePaths.RECORDS}/{record_id}:delete", headers=self.headers)
+            logger.debug(f"{self.name}: soft delete record response: {response}")
             response.raise_for_status()
 
     async def delete_record(self, record_id: str) -> None:
@@ -120,6 +127,7 @@ class StorageServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.delete(f"{StorageServicePaths.RECORDS}/{record_id}", headers=self.headers)
+            logger.debug(f"{self.name}: delete record response: {response}")
             response.raise_for_status()
 
     async def query_records(self, records: List[str]) -> dict:
@@ -135,5 +143,6 @@ class StorageServiceApiClient(object):
             response = await client.post(
                 f"{StorageServicePaths.QUERY}", json=query_records_request, headers=self.headers,
             )
+            logger.debug(f"{self.name}: query records response: {response}")
             response.raise_for_status()
             return response.json()

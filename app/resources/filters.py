@@ -150,7 +150,6 @@ class SQLFilterValidator:
         return column
 
     def _handle_str_value(self, comp_value: Any) -> str:
-        logger.debug(type(comp_value))
         new_value = comp_value
         if isinstance(comp_value, str):
             new_value = f"'{comp_value}'"

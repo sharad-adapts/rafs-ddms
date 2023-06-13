@@ -15,6 +15,7 @@
 from typing import NamedTuple
 
 import httpx
+from loguru import logger
 
 from app.resources.common_headers import (
     AUTHORIZATION,
@@ -37,6 +38,7 @@ class SearchServiceApiClient(object):
             DATA_PARTITION_ID: data_partition_id,
             AUTHORIZATION: f"Bearer {bearer_token}",
         }
+        self.name = "SearchService"
 
     def add_headers(self, headers: dict) -> None:
         """Add headers.
@@ -56,6 +58,7 @@ class SearchServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(SearchServicePaths.QUERY, json=query, headers=self.headers)
+            logger.debug(f"{self.name}: query response: {response}")
             response.raise_for_status()
             return response.json()
 
@@ -69,5 +72,6 @@ class SearchServiceApiClient(object):
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
             response = await client.post(SearchServicePaths.CURSOR_QUERY, json=query, headers=self.headers)
+            logger.debug(f"{self.name}: query with cursor response: {response}")
             response.raise_for_status()
             return response.json()

@@ -12,12 +12,12 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-import logging
 import re
 from collections import defaultdict
 from typing import List, Tuple
 
 from fastapi import APIRouter, Depends, HTTPException, Request
+from loguru import logger
 from pydantic.error_wrappers import ValidationError
 from pydantic.main import BaseModel
 from starlette import status
@@ -59,14 +59,17 @@ async def get_parent_records(
 
     query_parent_records = await storage_service.query_records(list(parent_id_child_record_map.keys()))
     if query_parent_records["invalidRecords"]:
-        raise RecordValidationException(
-            detail=f"Parent records {query_parent_records['invalidRecords']} not found.",
-        )
+        reason = f"Parent records {query_parent_records['invalidRecords']} not found."
+        logger.debug(reason)
+        raise RecordValidationException(detail=reason)
+
     parent_records = query_parent_records["records"]
+    logger.info(f"Parent records have been found: {parent_records}")
 
     for parent_record in parent_records:
         try:
             parent_model.validate(parent_record)
+            logger.info(f"Parent record {parent_record} is valid.")
         except ValidationError as val_error:
             details = []
             for error in val_error.errors():
@@ -74,10 +77,14 @@ async def get_parent_records(
                 error_msg = error["msg"]
                 error_detail = f"{error_field}: {error_msg}"
                 details.append(error_detail)
+            reason = f"Parent record is invalid. {details}"
+            logger.debug(reason)
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Parent record is invalid. {details}",
+                detail=reason,
             )
+
+    logger.debug(f"Map parent_id-child_record: {parent_id_child_record_map}")
     return parent_id_child_record_map, parent_records
 
 
@@ -188,7 +195,7 @@ class StorageRecordViewWithLinking(BaseStorageRecordView):
                 skipped_record_count += len(parent_records_storage_response.get("skipperRecordIds", []))
 
             except (KeyError, AttributeError) as exc:
-                logging.warning(f"Failed to update PVT records: {exc}")
+                logger.warning(f"Failed to update PVT records: {exc}")
         else:
             storage_response = await super().post_records(request_records, storage_service)
             record_count += storage_response.recordCount
