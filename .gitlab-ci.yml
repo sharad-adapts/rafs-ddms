@@ -24,14 +24,23 @@ include:
   # AZURE provider
   - local: "/devops/azure/azure.gitlab-ci.yml"
 
-.python_common_build: &python_common_build
-  image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
+compile-and-unit-test:
+  image: mcr.microsoft.com/mirror/docker/library/python:3.11-slim
   variables:
-    CONFIG_FILE: "setup.cfg"
+    PIP_CMD: pip
+    PIP_REQUIREMENTS: >
+      requirements.txt
+    PYTEST_COV: app
+    PYTEST_DIR: ./tests
+    PYTEST_OPTIONS: >
+      -p no:cacheprovider
+      --ignore=${CI_PROJECT_DIR}/tests/integration
+    PIP_REQUIREMENTS_TOOLING_ONLY: >-
+      requirements-tests.in
 
-# Faster builds for cicd and python tests dependencies
-rafs-pre-build:
-  stage: .pre
+# RAFS Specific jobs for quality check
+build_rafs_tests:
+  stage: build
   image: docker:24.0.1-cli
   tags: ["osdu-medium"]
   extends:
@@ -48,18 +57,15 @@ rafs-pre-build:
   after_script:
     - docker buildx rm
 
-compile-and-unit-test:
+rafs_code_quality_check:
   image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
+  stage: scan
+  extends:
+    - .skipForTriggeringMergeRequests
   variables:
     CONFIG_FILE: "setup.cfg"
-    PIP_CMD: pip
-    PIP_REQUIREMENTS: requirements-tests.txt
-    PYTEST_OPTIONS: "-p no:cacheprovider --ignore=${CI_PROJECT_DIR}/tests/integration"
-    PYTEST_DIR: ./tests
-  before_script:
-    - pip-compile requirements.in requirements-tests.in -o python-pip-tests-output.txt
+  script:
     - pylint ${CI_PROJECT_DIR} --rcfile=${CONFIG_FILE} --errors-only
+    # Flake8 hands indefinately within venv
     - flake8 ${CI_PROJECT_DIR} --config=${CONFIG_FILE}
     - flake8 ${CI_PROJECT_DIR} --select T1
-    # Getting stuck behavior with python ci-cd common lib gets stuck in flake8 tests on venv
-    # - !reference [.python, before_script]

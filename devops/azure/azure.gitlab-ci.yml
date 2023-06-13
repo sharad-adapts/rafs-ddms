@@ -22,7 +22,8 @@ azure_containerize:
   variables:
     SHA_IMAGE: ${CI_PROJECT_NAME}-${CI_COMMIT_REF_SLUG}:${CI_COMMIT_SHA}
   before_script:
-    - !reference [rafs-pre-build, before_script]
+    - apk add git && docker buildx create --use
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker login ${AZURE_REGISTRY}.azurecr.io --username $AZURE_PRINCIPAL_ID --password $AZURE_PRINCIPAL_SECRET
   script:
     - >
@@ -72,13 +73,43 @@ azure_test_py:
   stage: integration
   image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
   needs: ["azure_deploy"]
+  variables:
+    PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+    PARTITION: opendes
   extends:
     - .python_test_report
+  before_script:
+    - apt update -qqq -y && apt install -qqq -y curl jq &> /dev/null
+    - !reference [.get_azure_access_token, script ]
   script:
-    - coverage run -m pytest -n auto --junitxml=report.xml --dist loadscope tests/integration/tests --ddms-base-url https://${AZURE_DNS_NAME} --bearer-token ${ACCESS_TOKEN}
+    - >-
+      coverage run -m pytest -n auto --junitxml=report.xml --dist loadscope tests/integration/tests
+      --ddms-base-url https://${AZURE_DNS_NAME}
+      --url-prefix ${URL_PREFIX}
+      --bearer-token ${ACCESS_TOKEN}
+      --partition ${PARTITION}
   only:
     variables:
       - $AZURE == '1' && $AZURE_SKIP_DEPLOY != 'true' && $AZURE_TEST_TYPE == 'python'
   except:
     variables:
       - $AZURE_SKIP_TEST == 'true'
+  cache:
+    key:
+      files:
+        - requirements-test.in
+      prefix: pipcache
+    paths:
+      - .cache
+
+.get_azure_access_token:
+  script:
+    - >-
+      ACCESS_TOKEN=$( 
+      curl -Ls -XPOST "https://login.microsoftonline.com/${AZURE_TENANT_ID}/oauth2/v2.0/token"
+      --data-urlencode "grant_type=refresh_token"
+      --data-urlencode "refresh_token=${AZURE_REFRESH_TOKEN}"
+      --data-urlencode "client_id=${AZURE_APP_ID}"
+      --data-urlencode "client_secret=${AZURE_APP_SECRET}" | jq -r .access_token
+      )
+    - echo ${ACCESS_TOKEN} | head -c 10
