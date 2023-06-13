@@ -33,14 +33,17 @@ configuration:
         - "/api/rafs-ddms/v1/info"
         - "/api/rafs-ddms/v1/docs*"
         - "/api/rafs-ddms/v1/openapi.json"
+    # This config specifically for environments with core services installed in osdu ns
+    # Such as GLAB or SLB managed instances
+    # For official azure values, refer to helm-charts-azure values
     config:
       CLOUD_PROVIDER: "azure"
       SERVICE_NAME: "rafs-ddms"
       OPENAPI_PREFIX: "/api/rafs-ddms"
-      SERVICE_HOST_STORAGE: "http://storage.osdu-azure/api/storage/v2"
-      SERVICE_HOST_SEARCH: "http://search.osdu-azure/api/search/v2"
-      SERVICE_HOST_PARTITION: "http://partition.osdu-azure/api/partition/v1"
-      SERVICE_HOST_DATASET: "http://dataset.osdu-azure/api/dataset/v1"
+      SERVICE_HOST_STORAGE: "http://storage.osdu/api/storage/v2"
+      SERVICE_HOST_SEARCH: "http://search.osdu/api/search/v2"
+      SERVICE_HOST_PARTITION: "http://partition.osdu/api/partition/v1"
+      SERVICE_HOST_DATASET: "http://dataset.osdu/api/dataset/v1"
       USE_PARTITION_SERVICE: "disabled"
       CACHE_ENABLE: "True"
       CACHE_BACKEND: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
