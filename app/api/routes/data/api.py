@@ -14,7 +14,7 @@
 
 import io
 import uuid
-from typing import Optional
+from typing import List, Optional
 
 import pandas as pd
 import pyarrow
@@ -26,7 +26,10 @@ from pydantic import BaseModel
 from starlette import status
 
 from app.api.dependencies.records import get_data_file_sources
-from app.api.dependencies.request import validate_bulkdata_content_type
+from app.api.dependencies.request import (
+    get_content_schema_version,
+    validate_bulkdata_content_type,
+)
 from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_storage_service,
@@ -41,6 +44,7 @@ from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import (
     dataset_id_exist,
     find_dataset_id,
+    find_schema_versions_for_dataset_id,
     generate_dataset_urn,
     get_id_version,
     update_dataset_id,
@@ -78,15 +82,15 @@ class BaseDataView:
             "Upload the bulk data for a given `{record_type}` object by record id.<br>\
             It creates a new version of the record. <br>\
             The previous meta-data with bulk data is available by their `versions`. <br> <br>\
-            Use the `Content-Type` request header to specify payload format \
+            Use the `Content-Type` request header to specify payload and response formats \
                 (`application/json` and `application/parquet` are supported).<br>\
-            Use the `Accept` request header to specify response format \
-                (`application/json` and `application/parquet` are supported).",
+            Use the `Accept` request header to specify content schema version \
+                (example header `Accept: */*;version=1.0.0` is supported).",
         )
         self.description_template_get_data = APIDescriptionHelper.append_joined_roles(
             "Get the (`latest version`) bulk data for a given `{record_type}` object by record id. <br><br>\
-            Use the `Accept` request header to specify response format \
-                (`application/json` and `application/parquet` are supported).<br><br>\
+            Use the `Accept` request header to specify content schema version \
+                (example header `Accept: */*;version=1.0.0` is supported).<br><br>\
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
                 query parameters can be used to manage data in response.",
         )
@@ -107,6 +111,7 @@ class BaseDataView:
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         sql_filter: SQLFilterValidator = Depends(validate_filters),
+        content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
         """Get record data.
 
@@ -129,9 +134,11 @@ class BaseDataView:
         mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
 
         dataset_id, _ = get_id_version(dataset_id)
+        ddms_datasets = record["data"].get("DDMSDatasets", [])
 
-        if dataset_id_exist(record["data"].get("DDMSDatasets", []), dataset_id):
+        if dataset_id_exist(ddms_datasets, dataset_id):
             logger.debug(f"Retrieving dataset: {dataset_id}")
+            self._check_content_schema_version(content_schema_version, ddms_datasets, dataset_id)
             parquet_bytes = await dataset_service.download_file(dataset_id)
 
             if not parquet_bytes:
@@ -168,6 +175,7 @@ class BaseDataView:
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         model: BaseModel = Depends(get_data_model),
+        content_schema_version: str = Depends(get_content_schema_version),
     ) -> dict:
         """Post record data.
 
@@ -268,6 +276,7 @@ class BaseDataView:
                 entity_type=f"{entity_type}data",
                 wpc_id=record_id,
                 dataset_id=dataset_record_id,
+                content_schema_version=content_schema_version,
             )
             update_dataset_id(record_data["DDMSDatasets"], ddms_urn, self._bulk_dataset_prefix)
             logger.info(f"File uploaded for existent dataset: {existent_dataset_id}")
@@ -281,6 +290,7 @@ class BaseDataView:
                 entity_type=f"{entity_type}data",
                 wpc_id=record_id,
                 dataset_id=dataset_record_id,
+                content_schema_version=content_schema_version,
             )
             ddms_datasets.append(ddms_urn)
             record_data["DDMSDatasets"] = ddms_datasets
@@ -321,6 +331,30 @@ class BaseDataView:
         renderer = FileSourceRenderer(data_file_sources)
 
         return await renderer.render_source_data()
+
+    def _check_content_schema_version(
+        self,
+        content_schema_version: str,
+        ddms_datasets: List[str],
+        dataset_id: str,
+    ) -> None:
+        """Check if proper schema version requested.
+
+        :param content_schema_version: client schema version
+        :type content_schema_version: str
+        :param ddms_datasets: DDMS Datasets
+        :type ddms_datasets: List[str]
+        :param dataset_id: dataset id
+        :type dataset_id: str
+        :raises exceptions.InvalidHeaderException: if client schema version is improper
+        """
+        schema_versions = find_schema_versions_for_dataset_id(ddms_datasets, dataset_id)
+        if content_schema_version not in schema_versions:
+            error_title = "Invalid schema version has been provided."
+            error_details = f"Schema version {content_schema_version} is not one of proper versions: {schema_versions}"
+            reason = f"{error_title} {error_details}"
+            logger.debug(reason)
+            raise exceptions.InvalidHeaderException(detail=reason)
 
     def _prepare_api_routes(self) -> None:
         """Prepare and add api routes."""

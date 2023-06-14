@@ -14,6 +14,11 @@
 
 import copy
 
+from app.api.routes.utils.records import (
+    DATASET_ID_INDEX,
+    VERSION_SPLIT_INDEX_COLON_IN_ID,
+)
+
 
 class CommonHelper(object):
     """Methods to work with all test."""
@@ -29,5 +34,5 @@ class CommonHelper(object):
     @staticmethod
     def get_dataset_id_from_ddms_urn(ddms_urn):
         """Gets the dataset_id part from full urn."""
-        full_id = ddms_urn.split("/")[-1]
-        return ":".join(full_id.split(":")[:-1])
+        full_id = ddms_urn.split("/")[DATASET_ID_INDEX]
+        return ":".join(full_id.split(":")[VERSION_SPLIT_INDEX_COLON_IN_ID])

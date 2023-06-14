@@ -17,7 +17,6 @@ import re
 import pytest
 from pydantic.main import BaseModel
 
-from app.models.domain.osdu.base import PATH_TO_DATA_MODEL
 from app.resources.filters import SQLFilterValidator
 
 

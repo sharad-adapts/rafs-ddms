@@ -23,7 +23,8 @@ TEST_ENTITY_TYPE = "routine-core-analysis"
 TEST_ENTITY_ID = "123"
 TEST_WPC_TYPE_2 = "ConstantCompositionExpansion"
 TEST_ENTITY_TYPE_2 = "constant-composition-expansion"
-INVALID_URN = "invalid_urn"
+INVALID_URN = "urn://invalid_urn"
+TEST_SCHEMA_VERSION = "1.0.0"
 
 
 def generate_test_id(
@@ -53,8 +54,9 @@ def generate_test_ddms_urn(
     entity_type=f"{TEST_ENTITY_TYPE}data",
     wpc_id=TEST_RECORD_ID,
     dataset_id=TEST_DATASET_RECORD_ID,
+    content_schema_version=TEST_SCHEMA_VERSION,
 ):
-    return generate_dataset_urn(ddms_id, api_version, entity_type, wpc_id, dataset_id)
+    return generate_dataset_urn(ddms_id, api_version, entity_type, wpc_id, dataset_id, content_schema_version)
 
 
 TEST_DDMS_DATASET_URN = generate_test_ddms_urn()

@@ -31,7 +31,8 @@ ID_PART_INDEX = 2
 ENTITY_TYPE_INDEX = 2
 VERSION_SPLIT_INDEX = 3
 VERSION_SPLIT_INDEX_COLON_IN_ID = -1
-DATASET_ID_INDEX = -1
+SCHEMA_VERSION_INDEX = -1
+DATASET_ID_INDEX = -2
 FULLID_ID_INDEX = 0
 FULLID_VERSION_INDEX = 1
 
@@ -116,7 +117,14 @@ def update_dataset_id(ddms_datasets: List[str], ddms_urn: str, prefix: str) -> L
             return ddms_datasets
 
 
-def generate_dataset_urn(ddms_id: str, api_version: str, entity_type: str, wpc_id: str, dataset_id: str) -> str:
+def generate_dataset_urn(
+    ddms_id: str,
+    api_version: str,
+    entity_type: str,
+    wpc_id: str,
+    dataset_id: str,
+    content_schema_version: str,
+) -> str:
     """Generate dataset urn.
 
     :param ddms_id: ddms is
@@ -129,10 +137,12 @@ def generate_dataset_urn(ddms_id: str, api_version: str, entity_type: str, wpc_i
     :type wpc_id: str
     :param dataset_id: dataset id
     :type dataset_id: str
+    :param content_schema_version: schema version
+    :type content_schema_version: str
     :return: dataset urn
     :rtype: str
     """
-    return f"urn://{ddms_id}-{api_version}/{entity_type}/{wpc_id}/{dataset_id}"
+    return f"urn://{ddms_id}-{api_version}/{entity_type}/{wpc_id}/{dataset_id}/{content_schema_version}"
 
 
 def dataset_id_exist(ddms_datasets: List[str], dataset_id: str) -> bool:
@@ -151,3 +161,23 @@ def dataset_id_exist(ddms_datasets: List[str], dataset_id: str) -> bool:
         if dataset_id == ddms_dataset_id:
             return True
     return False
+
+
+def find_schema_versions_for_dataset_id(ddms_datasets: List[str], dataset_id: str) -> set:
+    """Find schema versions for dataset id.
+
+    :param ddms_datasets: ddms datasets list
+    :type ddms_datasets: List[str]
+    :param dataset_id: dataset id
+    :type dataset_id: str
+    :return: set of schema versions
+    :rtype: set
+    """
+    schema_versions = []
+    for ddms_dataset in ddms_datasets:
+        urn_parts = ddms_dataset.split("/")
+        full_dataset_id = urn_parts[DATASET_ID_INDEX]
+        ddms_dataset_id, _ = get_id_version(full_dataset_id)
+        if dataset_id == ddms_dataset_id:
+            schema_versions.append(urn_parts[SCHEMA_VERSION_INDEX])
+    return set(schema_versions)

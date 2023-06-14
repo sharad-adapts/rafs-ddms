@@ -58,6 +58,7 @@ class APIClient(object):
             "Content-Type": "application/json",
             "data-partition-id": self.data_partition,
             "Cache-Control": "no-store",
+            "Accept": "*/*;version=1.0.0",
         }
 
         if kwargs and kwargs.get("headers"):

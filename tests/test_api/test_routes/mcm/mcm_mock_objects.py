@@ -25,10 +25,26 @@ ddms_dataset_prefix = BULK_DATASET_PREFIX.replace("-", "")
 
 TEST_DATASET_RECORD_ID = f"opendes:dataset--File.Generic:{BULK_DATASET_PREFIX}-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/{ddms_dataset_prefix}data/partition:work-product-component--{RECORD_TYPE}:mcm_test/{TEST_DATASET_RECORD_ID}"
+TEST_SCHEMA_VERSION = "1.0.0"
+TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v1/{ddms_dataset_prefix}data/partition:work-product-component--{RECORD_TYPE}:mcm_test/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
             "DDMSDatasets": [TEST_DDMS_URN],
+        },
+    },
+}
+RECORD_DATA_WITH_SCHEMA_VERSION = {
+    **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
+        "data": {
+            "DDMSDatasets": [TEST_DDMS_URN_WITH_VERSION],
+        },
+    },
+}
+RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
+    **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
+        "data": {
+            "DDMSDatasets": [f"{TEST_DDMS_URN}/2.0.0"],
         },
     },
 }

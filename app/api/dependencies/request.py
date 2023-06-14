@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import re
 from typing import List
 
 from fastapi import Header, HTTPException, Request
@@ -19,7 +20,7 @@ from loguru import logger
 from starlette import status
 
 from app.exceptions import exceptions
-from app.resources.common_headers import CONTENT_TYPE
+from app.resources.common_headers import ACCEPT, CONTENT_TYPE
 from app.resources.mime_types import CustomMimeTypes
 
 
@@ -93,3 +94,28 @@ def validate_json_content_type(request: Request) -> None:
     """
     supported_types = [CustomMimeTypes.JSON.type]
     validate_content_type(request=request, supported_types=supported_types)
+
+
+async def get_content_schema_version(request: Request) -> str:
+    """Get content schema version from header.
+
+    :param request: request
+    :type request: Request
+    :raises exceptions.InvalidHeaderException: if schema version hasn't been provided or schema format is invalid
+    :return: schema version
+    :rtype: str
+    """
+    accept_header = request.headers[ACCEPT]
+    accept_header = accept_header.lower().strip()
+    version_regex = r"version=(\d+\.\d+\.\d+)"
+    version = re.search(version_regex, accept_header)
+    try:
+        content_schema_version = version.groups()[0]
+    except AttributeError:
+        error_title = "No schema version specified or invalid schema format."
+        example_detail = "Example: --header 'Accept: */*;version=1.0.0'"
+        error_details = f"Check if the schema version is specified in the 'Accept' header. {example_detail}"
+        reason = f"{error_title} {error_details}"
+        raise exceptions.InvalidHeaderException(detail=reason)
+    logger.debug(f"Schema version: {content_schema_version}")
+    return content_schema_version
