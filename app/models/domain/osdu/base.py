@@ -31,6 +31,7 @@ from .WPCSTO100 import StockTankOilAnalysisTest
 from .WPCInterfacialTension100 import InterfacialTensionTest
 from .WPCVLE100 import VaporLiquidEquilibriumTest
 from .WPCMCM100 import MultipleContactMiscibilityTest
+from .WPCSamplesAnalysesReport100 import SamplesAnalysesReport
 
 settings = get_app_settings()
 
@@ -54,6 +55,8 @@ VLE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--Vapo
 MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--MultipleContactMiscibilityTest:1.0.0"
 SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
 
+SAMPLES_ANALYSES_REPORT_KIND = f"{settings.xom_schema_authority}:{settings.xom_source}:work-product-component--SamplesAnalysesReport:1.0.0"
+
 IMPLEMENTED_MODELS = {
     CORING_KIND: Coring,
     ROCKSAMPLE_KIND: RockSample,
@@ -72,4 +75,5 @@ IMPLEMENTED_MODELS = {
     VLE_KIND: VaporLiquidEquilibriumTest,
     MCM_KIND: MultipleContactMiscibilityTest,
     SLIMTUBETEST_KIND: SlimTubeTest,
+    SAMPLES_ANALYSES_REPORT_KIND: SamplesAnalysesReport,
 }

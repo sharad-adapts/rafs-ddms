@@ -28,6 +28,9 @@ from app.api.routes.mcm import api as mcm_api
 from app.api.routes.multistageseparator import api as mss_api
 from app.api.routes.pvt import api as pvt_api
 from app.api.routes.rocksampleanalysis import api as rocksampleanalysis_api
+from app.api.routes.samplesanalysesreport import (
+    api as samples_analyses_report_api,
+)
 from app.api.routes.slimtubetest import api as slimtubetest_api
 from app.api.routes.sto import api as sto_api
 from app.api.routes.swelling import api as swelling_api
@@ -101,5 +104,10 @@ router.include_router(
 router.include_router(
     slimtubetest_api.router,
     tags=["slimtubetests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    samples_analyses_report_api.router,
+    tags=["samplesanalysesreport"],
     dependencies=COMMON_DEPENDENCIES,
 )

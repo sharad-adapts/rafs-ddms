@@ -41,6 +41,10 @@ class BaseAppSettings(BaseSettings):
 
     custom_schema_authority: str = "rafsddms"
 
+    xom_schema_authority: str = "exxonmobil"
+
+    xom_source: str = "rafsddms"
+
     request_timeout: float = 15.0  # request timeout in seconds
 
     class Config:
