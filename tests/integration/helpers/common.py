@@ -13,26 +13,65 @@
 #  limitations under the License.
 
 import copy
+import secrets
+import string
 
-from app.api.routes.utils.records import (
-    DATASET_ID_INDEX,
-    VERSION_SPLIT_INDEX_COLON_IN_ID,
-)
+from app.api.routes.utils.records import DATASET_ID_INDEX
+from tests.integration.config import DataTypes
 
 
 class CommonHelper(object):
     """Methods to work with all test."""
 
+    def __init__(self, api):
+        self.api = api
+
     @staticmethod
-    def create_data_copies(original_data, num_copies):
+    def extract_only_created_tests_ids(record_id_versions: list) -> list:
+        """Extract only tests from created records without updated/created PVT
+        id."""
+        return [el for el in record_id_versions if DataTypes.PVT.upper() not in el]
+
+    @staticmethod
+    def generate_random_record_id(length: int = 10) -> str:
+        """Generates a random sequence for record_id with a specified
+        length."""
+        characters = string.ascii_letters + string.digits  # Include both uppercase and lowercase letters, as well as digits
+        random_id = f"autotest_{''.join(secrets.choice(characters) for _ in range(length))}"
+        return random_id
+
+    def create_data_copies(self, original_data, num_copies) -> list:
         """Creates data copies of data objects with generated id."""
         copies = [copy.deepcopy(original_data) for _ in range(num_copies)]
         for copy_index, copy_data in enumerate(copies):
-            copy_data["id"] = f"{copy_data['id']}_Autotest_{copy_index}"
+            copy_data["id"] = f"{copy_data['id']}_{self.generate_random_record_id()}"
         return copies
 
     @staticmethod
-    def get_dataset_id_from_ddms_urn(ddms_urn):
+    def get_dataset_id_from_ddms_urn(ddms_urn: str) -> str:
         """Gets the dataset_id part from full urn."""
         full_id = ddms_urn.split("/")[DATASET_ID_INDEX]
-        return ":".join(full_id.split(":")[VERSION_SPLIT_INDEX_COLON_IN_ID])
+        return full_id.rsplit(":", 1)[0]
+
+    @staticmethod
+    def parse_full_record_id(record_urn: str) -> dict:
+        """Parse a full record ID from a given URN and extract its components.
+
+        :param record_urn: The URN representing the full record ID.
+
+        :return: A dictionary containing the parsed components of the full record ID.
+                 The dictionary has the following keys:
+                    - "partition_id" (str): The partition ID of the record.
+                    - "record_type" (str): The type of the record.
+                    - "record_id" (str): The ID of the record.
+                    - "version" (int): The version of the record.
+                    - "record_without_version" (str): Parts without version
+        """
+        full_id = record_urn.split(":")
+        return {
+            "partition_id": full_id[0],
+            "record_type": full_id[1],
+            "record_id": full_id[2],
+            "version": int(full_id[3]),
+            "record_without_version": ":".join(full_id[:3]),
+        }

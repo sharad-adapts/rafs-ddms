@@ -1,0 +1,61 @@
+{
+    "columns": [
+        "InterfacialTensionTestID",
+        "FluidSampleID",
+        "TestNumber",
+        "WettingPhase",
+        "nonWettingPhase",
+        "Surfactant",
+        "Remark",
+        "InterfacialTensionTestSteps"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--InterfacialTensionTest:WrongID7:",
+            "{data_partition_id}:master-data--FluidSample:1:",
+            "1",
+            "oleic",
+            "oleic",
+            [
+                {
+                    "ComponentName": "CH3(CH2)11OSO3Na",
+                    "ComponentMassFraction": {
+                        "Value": 15,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID1"
+                    },
+                    "ComponentMoleFraction": {
+                        "Value": 15,
+                        "UnotOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID2"
+                    }
+                }
+            ],
+            "Test was successfully executed this monday on sample #2475",
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 1500,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID3"
+                    },
+                    "StepTemperature": {
+                        "Value": 150,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID4"
+                    },
+                    "WettingPhaseSaturation": 150,
+                    "SurfactantConcentration": {
+                        "Value": 195,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5"
+                    },
+                    "InterfacialTension": {
+                        "Value": 1,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID6"
+                    },
+                    "Remark": "There were problems in observing the results of this step, we try again in step 2"
+                }
+            ]
+        ]
+    ]
+}

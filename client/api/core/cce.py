@@ -11,10 +11,12 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
+from collections import defaultdict
 from typing import Optional
 
+from client.api.core.api_source import APIResource
 from client.api_client import APIClient
+from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class CCEPaths(object):
@@ -23,68 +25,54 @@ class CCEPaths(object):
     GET_VERSIONS = "/ccereports/{record_id}/versions"
     GET_VERSION = "/ccereports/{record_id}/versions/{version}"
     DELETE = "/ccereports/{record_id}"
-    GET_FILE_DOWNLOAD = "/ccereports/{record_id}/source"
     POST_DATA = "/ccereports/{record_id}/data"
-    GET_DATA = "/ccereports/{record_id}/data/{cce_dataset_id}"
+    GET_DATA = "/ccereports/{record_id}/data/{dataset_id}"
 
 
-class CCECore(APIClient):
+class CCECore(APIResource, APIClient):
     """API CCE methods."""
 
-    def post_cce_data(self, body: list, **kwargs) -> dict:
-        """
-        :param body: cce data
-        :return: created cce record
-        """
-        return self.post(path=CCEPaths.POST, json=body, **kwargs).json()
+    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
+        super().__init__(host, url_prefix, data_partition, token, CCEPaths)
 
-    def get_cce_data(
-        self, record_id: str, version: Optional[str] = None, **kwargs,
+    def post_measurements(
+        self,
+        record_id: str,
+        body: dict,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        **kwargs,
     ) -> dict:
         """
-        :param record_id: cce record id
-        :param version: cce version
-        :return: cce data
-        """
-        params_dict = {"version": version}
-        return self.get(
-            path=CCEPaths.GET.format(record_id=record_id),
-            params=params_dict,
-            **kwargs,
-        ).json()
-
-    def get_record_versions(self, record_id: str, **kwargs) -> dict:
-        return self.get(
-            path=CCEPaths.GET_VERSIONS.format(record_id=record_id), **kwargs,
-        ).json()
-
-    def get_version_of_the_record(self, record_id: str, version: int, **kwargs) -> dict:
-        return self.get(
-            path=CCEPaths.GET_VERSION.format(record_id=record_id, version=version), **kwargs,
-        ).json()
-
-    def soft_delete_record(self, record_id: str, **kwargs) -> None:
-        self.delete(
-            path=CCEPaths.DELETE.format(record_id=record_id), **kwargs,
-        )
-
-    def post_measurements(self, record_id: str, body: dict, **kwargs) -> dict:
-        """
         :param record_id: created record_id
-        :param body: cce measurements data
-        :return: created cce data
+        :param body: measurements data
+        :param schema_version_header: version of the dataset schema
+        :return: created data
         """
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
         return self.post(
             path=CCEPaths.POST_DATA.format(record_id=record_id), json=body, **kwargs,
         ).json()
 
-    def get_measurements(self, record_id: str, dataset_id, **kwargs) -> dict:
+    def get_measurements(
+        self,
+        record_id: str,
+        dataset_id,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        **kwargs,
+    ) -> dict:
         """
         :param record_id: created record id
         :param dataset_id: created dataset id
-        :param kwargs:
-        :return: cce measurements data
+        :param schema_version_header: version of the dataset schema
+        :return: measurements data
         """
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
         return self.get(
-            path=CCEPaths.GET_DATA.format(record_id=record_id, cce_dataset_id=dataset_id), **kwargs,
+            path=CCEPaths.GET_DATA.format(record_id=record_id, dataset_id=dataset_id), **kwargs,
         ).json()

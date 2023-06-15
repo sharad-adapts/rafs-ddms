@@ -1,0 +1,44 @@
+{
+        "id": "{data_partition_id}:work-product-component--ConstantVolumeDepletionTest:{record_id}",
+        "kind": "{custom_schema_authority}:wks:work-product-component--ConstantVolumeDepletionTest:{schema_version}",
+        "acl": {
+            "owners": [
+                "data.default.owners@{data_partition_id}.contoso.com"
+            ],
+            "viewers": [
+                "data.default.viewers@{data_partition_id}.contoso.com"
+            ]
+        },
+        "legal": {
+            "legaltags": [
+                "{data_partition_id}-public-usa-dataset-7643990"
+            ],
+            "otherRelevantDataCountries": [
+                "US"
+            ],
+            "status": "compliant"
+        },
+        "tags": {
+            "tag1": "CCE Report for PVT",
+            "tag2": "CCE Report for PVT"
+        },
+        "meta": [],
+        "data": {
+            "Datasets": [
+                "{data_partition_id}:dataset--File.Generic:dataset_test:"
+            ],
+            "PVTReportID": "{data_partition_id}:work-product-component--PVT:stable:",
+            "FluidSampleID": "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
+            "AnalysisDate": "2023-03-23",
+            "LabSampleIdentifier": "20207905-20",
+            "LaboratoryName": "Lab",
+            "Remarks": [
+                {
+                    "Remark": "Mounted",
+                    "RemarkID": "Remark 1",
+                    "RemarkSource": "RemarkSource"
+                }
+            ],
+            "DDMSDatasets": []
+        }
+}

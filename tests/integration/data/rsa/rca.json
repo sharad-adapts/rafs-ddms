@@ -1,0 +1,77 @@
+{
+    "columns": [
+        "RockSampleID",
+        "CoringID",
+        "WellboreID",
+        "SampleNumber",
+        "SampleDepth",
+        "Permeability",
+        "Porosity",
+        "GrainDensity",
+        "Saturation",
+        "LithologyDescription",
+        "Remarks"
+    ],
+    "index": [
+        1,
+        2
+    ],
+    "data": [
+        [
+            "{data_partition_id}:master-data--RockSample:1:",
+            "{data_partition_id}:master-data--Coring:1:",
+            "{data_partition_id}:master-data--Wellbore:3412:",
+            "SampleNumber",
+            {
+                "Value": 346,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:m:"
+            },
+            {
+                "Value": 1,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:mD:"
+            },
+            {
+                "Value": 89.0,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+            },
+            {
+                "Value": 1.30,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+            },
+            {
+                "Value": 5.65,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+            },
+            "LithologyDescription",
+            "Remarks"
+        ],
+        [
+            "{data_partition_id}:master-data--RockSample:2:",
+            "{data_partition_id}:master-data--Coring:2:",
+            "{data_partition_id}:master-data--Wellbore:3412:",
+            "SampleNumber",
+            {
+                "Value": 5.44,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:m:"
+            },
+            {
+                "Value": 1,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:mD:"
+            },
+            {
+                "Value": 56.5,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+            },
+            {
+                "Value": 10.0,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+            },
+            {
+                "Value": 7.5,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+            },
+            "LithologyDescription",
+            "Remarks"
+        ]
+    ]
+}

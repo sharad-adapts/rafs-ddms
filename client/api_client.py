@@ -12,13 +12,13 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from logging import getLogger
 from os import linesep
 from time import sleep
 from typing import List
 from urllib.parse import urljoin
 
 import requests
+from loguru import logger
 from starlette import status
 
 
@@ -40,7 +40,6 @@ class APIClient(object):
         self.url_prefix = url_prefix
         self.data_partition = data_partition
         self.token = token
-        self.log = getLogger(__name__)
         self.url: str
 
     def post(self, path: str, **kwargs) -> requests.Response:
@@ -58,19 +57,19 @@ class APIClient(object):
             "Content-Type": "application/json",
             "data-partition-id": self.data_partition,
             "Cache-Control": "no-store",
-            "Accept": "*/*;version=1.0.0",
         }
 
-        if kwargs and kwargs.get("headers"):
+        if kwargs.get("headers") is not None:
             headers.update(kwargs.get("headers"))
             kwargs.pop("headers")
 
         return headers
 
-    def _log_response(self, method, path, response):
-        self.log.info(f"{linesep}{linesep}============ RESPONSE =============== {linesep}")
+    @staticmethod
+    def _log_response(method, path, response):
+        logger.info(f"{linesep}{linesep}============ RESPONSE =============== {linesep}")
         log_msg = f"{method.upper()} {path} - {response.status_code}"
-        self.log.info(log_msg)
+        logger.info(log_msg)
 
     @staticmethod
     def _handle_error_response(response, allowed_codes):
@@ -126,9 +125,9 @@ class APIClient(object):
             kwargs.pop("allowed_codes")
         self.url = urljoin(self.host, f"{self.url_prefix}{path}")
         for retry_attempt in range(retry_attempts + 1):
-            self.log.info(f"Sending {method.upper()} request to {path}")
+            logger.info(f"Sending {method.upper()} request to {path}")
             request_body = kwargs.get("json", kwargs.get("body", ""))
-            self.log.debug(f"{method.upper()} request body: {request_body}")
+            logger.debug(f"{method.upper()} request body: {request_body}")
             try:
                 response = self._base_request(
                     path=path,
@@ -142,5 +141,5 @@ class APIClient(object):
             else:
                 return response
 
-        self.log.error(f"{method.upper()} request error: {path}")
+        logger.error(f"{method.upper()} request error: {path}")
         raise APIException("API retry attempts limit reached.")

@@ -1,0 +1,301 @@
+{
+    "columns": [
+        "WaterAnalysisTestID",
+        "FluidSampleID",
+        "TestNumber",
+        "TestMethod",
+        "Remark",
+        "WaterAnalysisTestSteps",
+        "WaterSampleComponent"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--WaterAnalysisTest:wat_test:",
+            "{data_partition_id}:master-data--FluidSample:1:",
+            "17. Water Analysis",
+            "Firstly, sample cylinder opening pressures were measured upon sample bottle receipt followed by 24 hours of thermal restoration at reservoir temperature and 15,000 psia",
+            "Depth: 5070 m MD",
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 15000,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "StepTemperature": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "DissolvedCO2": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "DissolvedH2S": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "DissolvedO2": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "pH": 23,
+                    "Resistivity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "ASTM 1125/EPA 120.1"
+                    },
+                    "Turbidity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterViscosity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:cP"
+                    },
+                    "SolutionGasWaterRatio": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterViscousCompressibility": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterDensity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterSpecificHeat": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterFormationVolumeFactor": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterHeatCapacity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterIsothermalCompressibility": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterThermalConductivity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterDensityChangeWithPressure": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterThermalExpansion": {
+                        "Value": 136,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterDensityChangeWithTemperature": {
+                        "Value": 125,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:kg"
+                    },
+                    "WaterEnthalpy": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterEntropy": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "WaterSpecificVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "LiquidGravity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "SalinityPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalDissolvedSolidsPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalSuspendedSolidsPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalHardnessPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalAlkalinityPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalSedimentSolidsPerMass": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "SalinityPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ppm"
+                    },
+                    "TotalDissolvedSolidsPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ppm"
+                    },
+                    "TotalSuspendedSolidsPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ppm"
+                    },
+                    "TotalHardnessPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalAlkalinityPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "TotalSedimentSolidsPerVolume": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ppm"
+                    },
+                    "SpecificGravity": {
+                        "Value": 1.019,
+                        "Method": "Modified ASTM 4052"
+                    },
+                    "Density": {
+                        "Value": 1.0179,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "Modified ASTM 4052"
+                    },
+                    "ObservedPh": {
+                        "Value": 8.08,
+                        "Method": "EPA 150.1"
+                    },
+                    "PhTemperature": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "Some PhTemperature method"
+                    },
+                    "Conductivity": {
+                        "Value": 26.95,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "ASTM 1125/EPA 120.1"
+                    },
+                    "TSS": {
+                        "Value": 2168,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "ASTM 5907/EPA 160.2"
+                    },
+                    "Remark": "Test is complete without further adjustments needed"
+                }
+            ],
+            [
+                {
+                    "TestMethod": "Combination of Rice and ASTM 5907/EPA 160.2",
+                    "TotalAlkalinity": {
+                        "Value": 243,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                        "Method": "N/A"
+                    },
+                    "TotalDissolvedSoils": [
+                        {
+                            "CalculatedDissolvedSoils": {
+                                "Value": 243,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                                "Method": "N/A"
+                            },
+                            "EvaporatedDissolvedSoils": {
+                                "Value": 243,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                                "Method": "N/A"
+                            }
+                        }
+                    ],
+                    "Anions": [
+                        {
+                            "ComponentName": "C032-",
+                            "Value": 11,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "Rice"
+                        },
+                        {
+                            "ComponentName": "HCO3",
+                            "Value": 427,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "Rice"
+                        }
+                    ],
+                    "Cations": [
+                        {
+                            "ComponentName": "Na+",
+                            "Value": 89,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        },
+                        {
+                            "ComponentName": "K+",
+                            "Value": 112,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        }
+                    ],
+                    "DissolvedMetals": [
+                        {
+                            "ComponentName": "Fe",
+                            "Value": 0.198,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        },
+                        {
+                            "ComponentName": "Sr2+",
+                            "Value": 18.1,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        }
+                    ],
+                    "OrganicAcids": [
+                        {
+                            "ComponentName": "Fe",
+                            "Value": 0.198,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        },
+                        {
+                            "ComponentName": "Sr2+",
+                            "Value": 18.1,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF",
+                            "Method": "N/A"
+                        }
+                    ],
+                    "IonDifference": {
+                        "Value": 0.22,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "MolarConcentration": {
+                        "Value": 0.1,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "VolumeConcentration": {
+                        "Value": 0.853,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "MassConcentration": {
+                        "Value": 0.176,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "EquivalentConcentration": {
+                        "Value": 0.095,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF"
+                    },
+                    "ConcentrationRelativeToDetectableLimits": "BDL",
+                    "Remarks": "That's the full water analysis"
+                }
+            ]
+        ]
+    ]
+}

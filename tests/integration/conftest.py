@@ -14,7 +14,7 @@
 
 import pytest
 
-from client.api.actions import ApiWorker
+from client.api.core import ApiWorker
 from tests.integration.config import CONFIG
 from tests.integration.data_provider import test_data
 from tests.integration.helpers import HelperManager
@@ -25,8 +25,9 @@ def pytest_addoption(parser: pytest.Parser):
     parser.addoption("--cloud-provider", type=str, default="azure", help="OneOf [az]")
     parser.addoption("--bearer-token", type=str, help="The bearer token for auth")
     parser.addoption("--ddms-base-url", type=str, help="The DDMS base URL")
-    parser.addoption("--url-prefix", type=str, help="URL prefix")
+
     parser.addoption("--partition", type=str, help="Data partition")
+    parser.addoption("--url-prefix", type=str, help="URL prefix")
 
 
 def pytest_configure(config: pytest.Config):
@@ -45,12 +46,12 @@ def api():
 
 
 @pytest.fixture(scope="session")
-def helper():
+def helper(api):
     """A fixture to provide helper."""
-    return HelperManager()
+    return HelperManager(api)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def tests_data():
     """A fixture to provide dataset to the rock sample analysis tests."""
     yield test_data
