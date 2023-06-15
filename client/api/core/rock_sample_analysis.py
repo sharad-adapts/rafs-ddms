@@ -11,54 +11,44 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
+from collections import defaultdict
 from typing import Optional, Union
 
 from requests import Response
 
+from client.api.core.api_source import APIResource
 from client.api_client import APIClient
+from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class RSACorePaths(object):
-    POST_RSA = "/rocksampleanalyses"
-    GET_RSA = "/rocksampleanalyses/{record_id}"
-    POST_RCA = "/rocksampleanalyses/{rsa_record_id}/rca/data"
-    GET_RCA = "/rocksampleanalyses/{rsa_record_id}/rca/data/{rca_dataset_id}"
+    POST = "/rocksampleanalyses"
+    GET = "/rocksampleanalyses/{record_id}"
+    POST_DATA = "/rocksampleanalyses/{record_id}/rca/data"
+    GET_DATA = "/rocksampleanalyses/{record_id}/rca/data/{dataset_id}"
     GET_VERSIONS = "/rocksampleanalyses/{record_id}/versions"
     GET_VERSION = "/rocksampleanalyses/{record_id}/versions/{version}"
-    DELETE_RSA = "/rocksampleanalyses/{record_id}"
+    DELETE = "/rocksampleanalyses/{record_id}"
     GET_FILE_DOWNLOAD = "/rocksampleanalyses/{record_id}/rca/source"
 
 
-class RSACore(APIClient):
+class RSACore(APIResource, APIClient):
     """API RSA methods."""
 
-    def post_rsa_data(self, body: list, **kwargs) -> dict:
-        """
-        :param body: rsa data
-        :return: created rsa
-        """
-        return self.post(path=RSACorePaths.POST_RSA, json=body, **kwargs).json()
+    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
+        super().__init__(host, url_prefix, data_partition, token, RSACorePaths)
 
-    def get_rsa_data(
-        self, record_id: str, version: Optional[str] = None, **kwargs,
+    def post_measurements(
+        self,
+        record_id: str,
+        body: dict,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        **kwargs,
     ) -> dict:
         """
-        :param record_id: rsa record id
-        :param version: rsa version
-        :return: rsa data
-        """
-        params_dict = {"version": version}
-        return self.get(
-            path=RSACorePaths.GET_RSA.format(record_id=record_id),
-            params=params_dict,
-            **kwargs,
-        ).json()
-
-    def post_rca_data(self, rsa_record_id: str, body: dict, **kwargs) -> dict:
-        """
-        :param rsa_record_id: rsa_record_id from post_rsa
+        :param record_id: record_id from post_rsa
         :param body: rca data
+        :param schema_version_header: version of the dataset schema
         :return: created rca data
         """
         body_kwarg = (
@@ -66,16 +56,23 @@ class RSACore(APIClient):
             if isinstance(body, bytes) or body == "{}"  # noqa: P103
             else {"json": body}
         )
+
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
+
         return self.post(
-            path=RSACorePaths.POST_RCA.format(rsa_record_id=rsa_record_id),
+            path=RSACorePaths.POST_DATA.format(record_id=record_id),
             **body_kwarg,
             **kwargs,
         ).json()
 
-    def get_rca_data(
+    def get_measurements(
         self,
-        rsa_record_id: str,
-        rca_dataset_id: str,
+        record_id: str,
+        dataset_id: str,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
         columns_filter: Optional[str] = None,
         rows_filter: Optional[str] = None,
         columns_aggregation: Optional[str] = None,
@@ -83,8 +80,9 @@ class RSACore(APIClient):
         **kwargs,
     ) -> Union[bytes, dict]:
         """
-        :param rsa_record_id: created record id
-        :param rca_dataset_id: created dataset id
+        :param record_id: created record id
+        :param dataset_id: created dataset id
+        :param schema_version_header: version of the dataset schema
         :param columns_filter: SampleDepth, Porosity, Lithology
         :param rows_filter: ex SampleDepth,lt,3900
                             lt - less than
@@ -103,10 +101,16 @@ class RSACore(APIClient):
             "columns_aggregation": columns_aggregation,
             "version": version,
         }
+
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
+
         response = self.get(
-            path=RSACorePaths.GET_RCA.format(
-                rsa_record_id=rsa_record_id,
-                rca_dataset_id=rca_dataset_id,
+            path=RSACorePaths.GET_DATA.format(
+                record_id=record_id,
+                dataset_id=dataset_id,
             ),
             params=params_dict,
             **kwargs,
@@ -118,20 +122,11 @@ class RSACore(APIClient):
             return response.json()
         raise RuntimeError("Unknown content-type")
 
-    def get_record_versions(self, record_id: str, **kwargs) -> dict:
-        return self.get(
-            path=RSACorePaths.GET_VERSIONS.format(record_id=record_id),
-            **kwargs,
-        ).json()
+    def get_file(self, record_id: str, **kwargs) -> Response:
+        """Get the file associated with a record.
 
-    def get_version_of_the_record(self, record_id: str, version: int, **kwargs) -> dict:
-        return self.get(
-            path=RSACorePaths.GET_VERSION.format(record_id=record_id, version=version),
-            **kwargs,
-        ).json()
-
-    def soft_delete_record(self, record_id: str, **kwargs) -> None:
-        self.delete(path=RSACorePaths.DELETE_RSA.format(record_id=record_id), **kwargs)
-
-    def get_rca_file(self, record_id: str, **kwargs) -> Response:
+        :param record_id: The ID of the record to retrieve the file for.
+        :param kwargs: Additional keyword arguments.
+        :return: The response object containing the file download.
+        """
         return self.get(path=RSACorePaths.GET_FILE_DOWNLOAD.format(record_id=record_id), **kwargs)

@@ -83,7 +83,7 @@ azure_test_py:
     - !reference [.get_azure_access_token, script ]
   script:
     - >-
-      coverage run -m pytest -n auto --junitxml=report.xml --dist loadscope tests/integration/tests
+      coverage run -m pytest -n auto --junitxml=report.xml tests/integration/tests
       --ddms-base-url https://${AZURE_DNS_NAME}
       --url-prefix ${URL_PREFIX}
       --bearer-token ${ACCESS_TOKEN}

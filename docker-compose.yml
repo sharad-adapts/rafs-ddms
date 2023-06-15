@@ -33,7 +33,7 @@ services:
       - ./client/:/client
     working_dir: /
     entrypoint: [ "bash", "-c",
-      "pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
+      "pytest -n auto ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
     profiles: ["integration"]
     depends_on:
       - app

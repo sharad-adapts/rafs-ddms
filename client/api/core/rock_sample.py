@@ -11,55 +11,19 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from typing import Optional
-
-from client.api_client import APIClient
+from client.api.core.api_source import APIResource
 
 
 class RockSampleCorePaths(object):
-    POST_RS = "/rocksamples"
-    GET_RS = "/rocksamples/{record_id}"
+    POST = "/rocksamples"
+    GET = "/rocksamples/{record_id}"
     GET_VERSIONS = "/rocksamples/{record_id}/versions"
     GET_VERSION = "/rocksamples/{record_id}/versions/{version}"
-    DELETE_RS = "/rocksamples/{record_id}"
+    DELETE = "/rocksamples/{record_id}"
 
 
-class RockSampleCore(APIClient):
+class RockSampleCore(APIResource):
     """API Rock Sample methods."""
 
-    def post_rs_data(self, body: list, **kwargs) -> dict:
-        """
-        :param body: rock sample data
-        :return: created rock sample
-        """
-        return self.post(path=RockSampleCorePaths.POST_RS, json=body, **kwargs).json()
-
-    def get_rs_data(
-        self, record_id: str, version: Optional[str] = None, **kwargs,
-    ) -> dict:
-        """
-        :param record_id: rock sample record id
-        :param version: rock sample version
-        :return: rock sample data
-        """
-        params_dict = {"version": version}
-        return self.get(
-            path=RockSampleCorePaths.GET_RS.format(record_id=record_id),
-            params=params_dict,
-            **kwargs,
-        ).json()
-
-    def get_record_versions(self, record_id: str, **kwargs) -> dict:
-        return self.get(
-            path=RockSampleCorePaths.GET_VERSIONS.format(record_id=record_id), **kwargs,
-        ).json()
-
-    def get_version_of_the_record(self, record_id: str, version: int, **kwargs) -> dict:
-        return self.get(
-            path=RockSampleCorePaths.GET_VERSION.format(record_id=record_id, version=version),
-            **kwargs,
-        ).json()
-
-    def soft_delete_record(self, record_id: str, **kwargs) -> None:
-        self.delete(path=RockSampleCorePaths.DELETE_RS.format(record_id=record_id), **kwargs)
+    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
+        super().__init__(host, url_prefix, data_partition, token, RockSampleCorePaths)

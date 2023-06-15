@@ -12,10 +12,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import Optional
-
 from requests import Response
 
+from client.api.core.api_source import APIResource
 from client.api_client import APIClient
 
 
@@ -28,45 +27,11 @@ class PVTPaths(object):
     GET_FILE_DOWNLOAD = "/pvtreports/{record_id}/source"
 
 
-class PVTCore(APIClient):
+class PVTCore(APIResource, APIClient):
     """API PVT methods."""
 
-    def post_pvt_data(self, body: list, **kwargs) -> dict:
-        """
-        :param body: pvt data
-        :return: created pvt record
-        """
-        return self.post(path=PVTPaths.POST, json=body, **kwargs).json()
+    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
+        super().__init__(host, url_prefix, data_partition, token, PVTPaths)
 
-    def get_pvt_data(
-        self, record_id: str, version: Optional[str] = None, **kwargs,
-    ) -> dict:
-        """
-        :param record_id: pvt record id
-        :param version: pvt version
-        :return: pvt data
-        """
-        params_dict = {"version": version}
-        return self.get(
-            path=PVTPaths.GET.format(record_id=record_id),
-            params=params_dict,
-            **kwargs,
-        ).json()
-
-    def get_record_versions(self, record_id: str, **kwargs) -> dict:
-        return self.get(
-            path=PVTPaths.GET_VERSIONS.format(record_id=record_id), **kwargs,
-        ).json()
-
-    def get_version_of_the_record(self, record_id: str, version: int, **kwargs) -> dict:
-        return self.get(
-            path=PVTPaths.GET_VERSION.format(record_id=record_id, version=version), **kwargs,
-        ).json()
-
-    def soft_delete_record(self, record_id: str, **kwargs) -> None:
-        self.delete(
-            path=PVTPaths.DELETE.format(record_id=record_id), **kwargs,
-        )
-
-    def get_pvt_file(self, record_id: str, **kwargs) -> Response:
+    def get_file(self, record_id: str, **kwargs) -> Response:
         return self.get(path=PVTPaths.GET_FILE_DOWNLOAD.format(record_id=record_id), **kwargs)

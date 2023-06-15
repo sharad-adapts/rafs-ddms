@@ -16,7 +16,8 @@ import json
 import os
 from dataclasses import dataclass
 
-from tests.integration.config import CONFIG, DATA_DIR
+from tests.integration.config import CONFIG, DATA_DIR, SCHEMA_VERSION
+from tests.integration.helpers import CommonHelper
 
 
 @dataclass
@@ -46,6 +47,10 @@ def test_data(file_name: str) -> dict:
     with open(os.path.join(DATA_DIR, file_name)) as json_file:
         data_str = (
             json_file.read(
+            ).replace(
+                "{record_id}", f"{CommonHelper.generate_random_record_id()}",
+            ).replace(
+                "{schema_version}", SCHEMA_VERSION,
             ).replace(
                 "{data_partition_id}", data_values.data_partition_id,
             ).replace(

@@ -1,6 +1,6 @@
 {
-    "id": "{data_partition_id}:master-data--Coring:KKS1-Core-1",
-    "kind": "{schema_authority}:wks:master-data--Coring:1.0.0",
+    "id": "{data_partition_id}:master-data--Coring:{record_id}",
+    "kind": "{schema_authority}:wks:master-data--Coring:{schema_version}",
     "meta": [
       {
         "kind": "Unit",
@@ -88,22 +88,22 @@
         {
           "RemarkID": "1",
           "Remark": "Core difficult to start.  Initial dip with stick indicated that top of core was 1.32 m from top of barrel 1 - Core GR was started from that point. Subsequent measurement showed that the top of the core was actually 5.8 m from the top of barrel 1 - therefore the first 4.48 m (5.8 - 1.32 m) of core GR should be dicarded.  Subsequent inspection of the core indicated that the annulus of the core deteriotated towards the base.  The core catcher was removed - core appeared to be jammed.  The core was removed and packed into a PVC pipe.  Note some junk (from the shoe) was subsequently found on the top of core 2.  This junk probably was the cause of the poor start to core 1 and to the poor recovery.",
-          "RemarkSource": "Kentish Knock South 1 Completion Report, Comments"
+          "RemarkSource": "RemarkSource"
         },
         {
           "RemarkID": "2",
           "Remark": "1. 2415.1 m SANDSTONE:   100%  very light grey, friable, predominantly very fine minor fine grained quartz, sub-angular, moderate sphericity, well sorted, weak siliceous cement, trace pyritic cement, trace dark grey claystone lithics, trace carbonaceous detritus,  trace mica (muscovite and trace biotite?), trace chlorite, good visual porosity.",
-          "RemarkSource": "Kentish Knock South 1 Completion Report, Lithology/Shows"
+          "RemarkSource": "RemarkSource"
         },
         {
           "RemarkID": "3",
           "Remark": "2. 2424.2 m SANDSTONE:   100%  very light grey, friable, predominantly very fine minor fine grained quartz, sub-angular to angular, moderate sphericity, well sorted, weak siliceous cement, trace dark grey claystone lithics, trace carbonaceous detritus,  trace mica (muscovite and trace biotite?), trace chlorite, good visual porosity.",
-          "RemarkSource": "Kentish Knock South 1 Completion Report, Lithology/Shows"
+          "RemarkSource": "RemarkSource"
         },
         {
           "RemarkID": "4",
           "Remark": "3. 2425.2 m SANDSTONE:   100%  very light grey, friable, predominantly very fine minor fine grained quartz, sub-angular to angular, moderate sphericity, well sorted, weak siliceous cement, trace carbonaceous detritus, trace chlorite, good visual porosity.",
-          "RemarkSource": "Kentish Knock South 1 Completion Report, Lithology/Shows"
+          "RemarkSource": "RemarkSource"
         }
       ],
       "PreferredDepthShiftsID": "{data_partition_id}:work-product-component--WellLog:WellLog-911bb71f-06ab-4deb-8e68-b8c9229dc76b:",

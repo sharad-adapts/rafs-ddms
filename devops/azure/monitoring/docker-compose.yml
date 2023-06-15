@@ -63,7 +63,7 @@ services:
     restart: "no"
     working_dir: /
     entrypoint: [ "bash", "-c",
-      "python -m pytest -n auto --dist loadscope ./tests/integration/tests --ddms-base-url \"http://rafsddms:8080\" --bearer-token \"${ACCESS_TOKEN}\""]
+      "python -m pytest -n auto ./tests/integration/tests --ddms-base-url \"http://rafsddms:8080\" --bearer-token \"${ACCESS_TOKEN}\""]
     profiles: ["integration"]
     depends_on:
       - rafsddms

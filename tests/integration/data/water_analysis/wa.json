@@ -1,0 +1,31 @@
+{
+        "id": "{data_partition_id}:work-product-component--WaterAnalysisTest:{record_id}",
+        "kind": "{custom_schema_authority}:wks:work-product-component--WaterAnalysisTest:{schema_version}",
+        "acl": {
+            "viewers": [
+                "data.default.viewers@{data_partition_id}.contoso.com"
+            ],
+            "owners": [
+                "data.default.owners@{data_partition_id}.contoso.com"
+            ]
+        },
+        "legal": {
+            "legaltags": [
+                "{data_partition_id}-rafs-ddms-legal"
+            ],
+            "otherRelevantDataCountries": [
+                "US"
+            ],
+            "status": "compliant"
+        },
+        "data": {
+            "PVTReportID": "{data_partition_id}:work-product-component--PVT:stable:",
+            "FluidSampleID": "{data_partition_id}:master-data--FluidSample:20207905:",
+            "AnalysisDate": "2015-12-29",
+            "LabSampleIdentifier": "20207905-20",
+            "LaboratoryName": "Lab",
+            "DDMSDatasets": [],
+            "Datasets": [],
+            "Parameters": []
+        }
+    }

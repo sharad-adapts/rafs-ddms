@@ -1,6 +1,6 @@
 {
-    "id": "{data_partition_id}:master-data--RockSample:KKS1-Core1-Sample-10A",
-    "kind": "{schema_authority}:wks:master-data--RockSample:1.0.0",
+    "id": "{data_partition_id}:master-data--RockSample:{record_id}",
+    "kind": "{schema_authority}:wks:master-data--RockSample:{schema_version}",
     "meta": [
       {
         "kind": "Unit",
@@ -87,7 +87,7 @@
         "VerticalMeasurementDescription": "Same vertical reference as wellbore ZDP, Measured Depth, Drillers Depth."
       },
       "LabSampleIdentifier": "10A",
-      "DataSource": "Kentish Knock South 1 Completion Report",
+      "DataSource": "DataSource",
       "SampleTypeID": "{data_partition_id}:reference-data--RockSampleType:PLUG:",
       "TopDepth": 2423.26,
       "BottomDepth": 2423.26,
@@ -109,7 +109,7 @@
         {
           "RemarkID": "1",
           "Remark": "No remark",
-          "RemarkSource": "Kentish Knock South 1 Completion Report"
+          "RemarkSource": "RemarkSource"
         }
       ],
       "ExtensionProperties": {}

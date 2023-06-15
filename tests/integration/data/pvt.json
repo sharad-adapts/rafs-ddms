@@ -1,6 +1,6 @@
 {
-    "id": "{data_partition_id}:work-product-component--PVT:Autotest_PVT_Test",
-    "kind": "{custom_schema_authority}:wks:work-product-component--PVT:1.0.0",
+    "id": "{data_partition_id}:work-product-component--PVT:{record_id}",
+    "kind": "{custom_schema_authority}:wks:work-product-component--PVT:{schema_version}",
     "acl": {
         "viewers": [
             "{acl_viewers}"

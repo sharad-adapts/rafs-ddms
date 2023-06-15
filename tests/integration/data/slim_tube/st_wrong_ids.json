@@ -1,0 +1,251 @@
+{
+    "columns": [
+        "SlimTubeTestID",
+        "FluidSampleID",
+        "TestNumber",
+        "TestTemperature",
+        "Remark",
+        "PackedColumnProperties",
+        "CoreFlooding",
+        "MinimumMiscibilityPressure",
+        "PackedColumnDisplacement",
+        "MaterialBalanceData",
+        "VaporCompositionalAnalysis",
+        "LiquidCompositionalAnalysis",
+        "CalculatedProperties",
+        "SlimTubeTestSteps",
+        "SlimTubeTestVolumeStep"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--SlimTubeTest:WrongID42:",
+            "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
+            "SlimTube_123",
+            {
+                "Value": 155,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID1:"
+            },
+            "Test was successfully executed",
+            [
+                {
+                    "ColumnLength": {
+                        "Value": 12.19,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID2:"
+                    },
+                    "ColumnDiameter": {
+                        "Value": 0.46,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID3:"
+                    },
+                    "PackingMaterial": "Ottawa Sand",
+                    "ColomnPorosity": {
+                        "Value": 36.2,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID4:"
+                    },
+                    "ColumnTotalPoreVolume": {
+                        "Value": 71.66,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5:"
+                    },
+                    "ColumnPermeability": {
+                        "Value": 7552,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID6:"
+                    }
+                }
+            ],
+            [
+                {
+                    "DisplacementPressure": {
+                        "Value": 621.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID7:"
+                    },
+                    "PoreVolumeInjected": {
+                        "Value": 1,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID8:"
+                    },
+                    "CumulativeOilRecovery": {
+                        "Value": 96.12,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID9:"
+                    },
+                    "MaterialBalance": {
+                        "Value": 100.65,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID10:"
+                    },
+                    "AsphaltanceContentOfResidualOil": {
+                        "Value": 0.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID11:"
+                    }
+                }
+            ],
+            {
+                "Value": 524.8,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID12:"
+            },
+            [
+                {
+                    "IncrementNumber": "1",
+                    "PoresInjected": {
+                        "Value": 0.09,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID13:"
+                    },
+                    "CumulativeOilRecoveryVolume": {
+                        "Value": 8.3,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID14:"
+                    },
+                    "CumulativeOilRecoveryWeight": {
+                        "Value": 8.28,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID15:"
+                    },
+                    "GasOilRatio": {
+                        "Value": 320.6,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID16:"
+                    },
+                    "GasGravity": {
+                        "Value": 0.773,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID17:"
+                    },
+                    "OilDensity": {
+                        "Value": 0.8673,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID18:"
+                    }
+                }
+            ],
+            [
+                {
+                    "MaterialInjected": "Reservoir Fluid",
+                    "MaterialInjectedWeight": {
+                        "Value": 45.0548,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID19:"
+                    },
+                    "MaterialRecovered": "Displaced Oil",
+                    "MaterialRecoveredWeight": {
+                        "Value": 32.8864,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID20:"
+                    },
+                    "MaterialRecoveredCumulativeWeight": {
+                        "Value": 98.89,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID21:"
+                    }
+                }
+            ],
+            [
+                {
+                    "IncrementNumberSampled": "9",
+                    "PoreVolumeInjected": {
+                        "Value": 0.87,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID22:"
+                    },
+                    "VaporComposition": [
+                        {
+                            "ComponentFormula": "CO2",
+                            "VaporRelativeMole": {
+                                "Value": 0.036,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID23:"
+                            }
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "ComponentFormula": "C2",
+                    "LiquidRelativeMolarWeight": {
+                        "Value": 0.043,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID24:"
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "Value": 0.005,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID25:"
+                    }
+                }
+            ],
+            [
+                {
+                    "AvgMoleWeight": {
+                        "Value": 258,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID26:"
+                    },
+                    "ResidueDensity": {
+                        "Value": 0.8686,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID27:"
+                    },
+                    "ResidueAPI": {
+                        "Value": 31.2,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID28:"
+                    },
+                    "ResidueCalculatedProperties": [
+                        {
+                            "ComponentFormula": "C7+",
+                            "ResidueRelativeMolarWeight": {
+                                "Value": 93.573,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID29:"
+                            },
+                            "ResidueMolecularWeight": {
+                                "Value": 270,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID30:"
+                            },
+                            "ResidueDensity": {
+                                "Value": 0.8816,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID31:"
+                            }
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "StepNumber": "1",
+                    "StepAveragePressure": {
+                        "Value": 1500,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID32:"
+                    },
+                    "Remark": "Only 1 step was needed"
+                }
+            ],
+            [
+                {
+                    "StepNumber": "1",
+                    "DifferentialPressure": {
+                        "Value": 1600,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID33:"
+                    },
+                    "RunTime": "1h 05m",
+                    "InjectionVolumeAtPumpTemperature": {
+                        "Value": 0.006,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID34:"
+                    },
+                    "InjectionVolumeAtTestTemperature": {
+                        "Value": 0.009,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID35"
+                    },
+                    "InjectedPoreVolumeFraction": {
+                        "Value": 0.007,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID36"
+                    },
+                    "DarcyVelocity": {
+                        "Value": 3,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID37"
+                    },
+                    "CumulativeOilProductionPercOOIP": {
+                        "Value": 55,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID38"
+                    },
+                    "CumulativeOilProductionSTO": {
+                        "Value": 0.45,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID39"
+                    },
+                    "IncrementalProducedGOR": {
+                        "Value": 0.123,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID40"
+                    },
+                    "CumulativeProducedGOR": {
+                        "Value": 8.28,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID41"
+                    },
+                    "Remark": "Volume was successfully measured"
+                }
+            ]
+        ]
+    ]
+}

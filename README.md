@@ -171,15 +171,62 @@ docker-compose --profile distroless up distroless
 # Export needed envs for testing
 # Internal hostname in docker-compose (app)
 # Alternatively you can choose to test in remote env
-export DDMS_BASE_URL=http://distroless:8088
+export DDMS_BASE_URL=<ddms_base_url>
 export ACCESS_TOKEN=<access_token>
 export PARTITION=<partition>
+export URL_PREFIX=<url_prefix>
 # Run test
 docker-compose --profile integration run --rm integration
 
 # (Optional) Cleanup
 docker-compose down
 ```
+
+### Local running
+1. Install virtual env if needed
+   ```
+    python -m venv integration_env
+    source integration_env/bin/activate
+   ```
+2. Install requests
+    ```
+    pip install -r requirements.txt
+    pip install -r requirements-tests.in
+    ````
+
+3. 
+- Run via Terminal:
+    ```
+    pytest -n auto tests/integration/tests --ddms-base-url {DDMS_BASE_URL} --url-prefix {URL_PREFIX} --partition {PARTITION} --bearer-token {TOKEN}
+    ```
+- Run/Debug via PyCharm:
+  1. Open "Run/Debug Configurations" in the upper right corner.
+  2. Click "Edit configuration templates..." in the bottom left corner of the opened window.
+  3. Find and expand "Python tests", click "pytest"
+  4. Choose "Working directory" as root directory of the project
+  5. Fill "Additional Arguments" with -n auto  
+     ```
+     -n auto --ddms-base-url={DDMS_BASE_URL} --url-prefix={URL_PREFIX} --partition={PARTITION} --bearer-token={token}
+     ```
+  6. Apply and OK
+  7. Use the green arrow next to the test name to run or debug it.
+
+### Integration tests structure
+
+    app
+    ├── client
+    │   ├── api_client.py               - Client module for making API requests.
+    │   └── core                        - Core module containing endpoints and core functionalities.
+    └── tests
+        └── integration
+            ├── data                    - Test data used in integration tests.
+            ├── helpers                 - Directory containing reusable functions for routine automation.
+            ├── tests                   - Directory with integration tests.
+            │   └── conftest.py         - Specific test fixtures  shared across different types of tests.
+            ├── conftest.py             - Main infrastructure fixtures.
+            ├── config.py               - Configuration file with constants and data file paths.
+            └── data_provider.py        - Data class to create the final data source for tests.
+
 
 ### Run Postman Tests
 

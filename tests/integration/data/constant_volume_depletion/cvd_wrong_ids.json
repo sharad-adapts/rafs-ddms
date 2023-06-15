@@ -1,0 +1,120 @@
+{
+    "columns": [
+        "ConstantVolumeDepletionTestID",
+        "TestNumber",
+        "FluidSampleID",
+        "VaporProperties",
+        "LiquidProperties",
+        "FluidComposition",
+        "CalculatedTotalProperties"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--ConstantVolumeDepletionTest:WrongID18:",
+            "1",
+            "{data_partition_id}:master-data--FluidSample:1:",
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 5000,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID1:"
+                    },
+                    "GasDensity": {
+                        "Value": 0.504,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID2:"
+                    },
+                    "GasPhaseZFactor": 1.692,
+                    "TwoPhaseZFactor": 1.692,
+                    "GasMoleWeight": {
+                        "Value": 39.73,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID3:"
+                    },
+                    "GasViscosity": {
+                        "Value": 0.108,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID4:"
+                    },
+                    "GasFVF": {
+                        "Value": 605,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5:"
+                    },
+                    "Remark": "Remark"
+                }
+            ],
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 5000,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID6:"
+                    },
+                    "MolesDisplaced": {
+                        "Value": 0.0008,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID7:"
+                    },
+                    "ReservoirFluidDisplaced": {
+                        "Value": 0.0008,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID8:"
+                    },
+                    "ReservoirLiquidVolume": {
+                        "Value": 0.0008,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID9:"
+                    },
+                    "SaturationLiquidVolume": {
+                        "Value": 0.0008,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID10:"
+                    },
+                    "AbsoluteLiquidVolume": {
+                        "Value": 0.0008,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID11:"
+                    },
+                    "Remark": "Remark"
+                }
+            ],
+            [
+                {
+                    "ComponentName": "C12+",
+                    "StepPressure": {
+                        "Value": 5000,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID12:"
+                    },
+                    "RelativeMoleWeight": {
+                        "Value": 74.68,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID13:"
+                    },
+                    "LiquidFraction": {
+                        "Value": 74.68,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID14:"
+                    }
+                }
+            ],
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 5000,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID15:"
+                    },
+                    "MoleWeight": {
+                        "Value": 26.99,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID16:"
+                    },
+                    "GasGravity": 1.372,
+                    "ZFactor": 1.413,
+                    "ComponentMoleWeight": [
+                        {
+                            "ComponentName": "C10+",
+                            "MoleWeight": {
+                                "Value": 247.01,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID17:"
+                            }
+                        }
+                    ]
+                }
+            ]
+        ]
+    ]
+}
