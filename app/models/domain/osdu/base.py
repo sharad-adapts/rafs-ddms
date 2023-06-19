@@ -55,7 +55,7 @@ VLE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--Vapo
 MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--MultipleContactMiscibilityTest:1.0.0"
 SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
 
-SAMPLES_ANALYSES_REPORT_KIND = f"{settings.xom_schema_authority}:{settings.xom_source}:work-product-component--SamplesAnalysesReport:1.0.0"
+SAMPLES_ANALYSES_REPORT_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
 
 IMPLEMENTED_MODELS = {
     CORING_KIND: Coring,

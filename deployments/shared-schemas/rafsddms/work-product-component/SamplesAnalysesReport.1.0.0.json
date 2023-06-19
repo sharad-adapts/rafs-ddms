@@ -1,13 +1,13 @@
 {
   "schemaInfo": {
     "schemaIdentity": {
-      "authority": "{{xom_schema_authority}}",
-      "source": "{{xom_source}}",
+      "authority": "{{rafsddms-schema-authority}}",
+      "source": "wks",
       "entityType": "work-product-component--SamplesAnalysesReport",
       "schemaVersionMajor": 1,
       "schemaVersionMinor": 0,
       "schemaVersionPatch": 0,
-      "id": "{{xom_schema_authority}}:{{xom_source}}:work-product-component--SamplesAnalysesReport:1.0.0"
+      "id": "{{rafsddms-schema-authority}}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
     },
     "createdBy": "ExxonMobil",
     "scope": "SHARED",
@@ -16,7 +16,7 @@
   "schema": {
     "x-osdu-license": "Copyright 2023, ExxonMobil Technology and Engineering Company \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "x-osdu-schema-source": "{{xom_schema_authority}}:{{xom_source}}:work-product-component--SamplesAnalysesReport:1.0.0",
+    "x-osdu-schema-source": "{{rafsddms-schema-authority}}:wks:work-product-component--SamplesAnalysesReport:1.0.0",
     "title": "SamplesAnalysesReport",
     "description": "Attributes needed to find and retrieve a delivered report containing rock and/or fluid sample analysis data. Often this report contains more than one data frame of analysis data and/or more than one Analysis Family. Examples of this could include end-of-well reports, well completion reports, regional multi-well studies, or SCAL reports. This report can be decomposed into analysis sets via the SamplesAnalysis work-product-component. In other cases, this report contains part of a dataset which could then be aggregated into a SamplesAnalysis work-product-component.",
     "type": "object",
@@ -32,8 +32,8 @@
         "description": "The schema identification for the OSDU resource object following the pattern {Namespace}:{Source}:{Type}:{VersionMajor}.{VersionMinor}.{VersionPatch}. The versioning scheme follows the semantic versioning, https://semver.org/.",
         "title": "Entity Kind",
         "type": "string",
-        "pattern": "^{{xom_schema_authority}}:{{xom_source}}:[\\w\\-\\.]+:[0-9]+.[0-9]+.[0-9]+$",
-        "example": "{{xom_schema_authority}}:{{xom_source}}:work-product-component--SamplesAnalysesReport:1.0.0"
+        "pattern": "^{{rafsddms-schema-authority}}:wks:[\\w\\-\\.]+:[0-9]+.[0-9]+.[0-9]+$",
+        "example": "{{rafsddms-schema-authority}}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
       },
       "version": {
         "description": "The version number of this OSDU resource; set by the framework.",

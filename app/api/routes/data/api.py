@@ -14,7 +14,7 @@
 
 import io
 import uuid
-from typing import List, Optional
+from typing import List
 
 import pandas as pd
 import pyarrow
@@ -25,7 +25,6 @@ from loguru import logger
 from pydantic import BaseModel
 from starlette import status
 
-from app.api.dependencies.records import get_data_file_sources
 from app.api.dependencies.request import (
     get_content_schema_version,
     validate_bulkdata_content_type,
@@ -39,6 +38,7 @@ from app.api.dependencies.validation import (
     get_validated_bulk_data_json,
     validate_filters,
 )
+from app.api.routes.osdu.wpc_dataset_source import WPCDatasetSourceView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import (
@@ -60,7 +60,6 @@ from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
 from app.resources.filters import SQLFilterValidator
 from app.resources.mime_types import CustomMimeTypes
-from app.resources.source_renderer import FileSourceRenderer
 from app.services import dataset, storage
 
 
@@ -101,6 +100,7 @@ class BaseDataView:
         )
         self.bulk_dataset_regex = r"[\w\-\.]+:dataset--File.Generic:{bulk_dataset_prefix}[\w\-\d\.]+:?[\w\-\.\:\%]*"
         self._prepare_api_routes()
+        self._wpc_dataset_source_view = WPCDatasetSourceView(router, id_regex_str, specific_route_type)
 
     @cache(expire=CACHE_DEFAULT_TTL, coder=ResponseCoder, key_builder=key_builder_using_token)
     async def get_data(
@@ -302,36 +302,6 @@ class BaseDataView:
 
         return {"ddms_urn": ddms_urn}
 
-    async def get_source_data(
-        self,
-        record_id: str,
-        storage_service: storage.StorageService = Depends(get_async_storage_service),
-        dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
-        version: Optional[str] = None,
-    ) -> Response:
-        """Get source data.
-
-        :param record_id: record if
-        :type record_id: str
-        :param storage_service: storage service
-        :type storage_service: storage.StorageService
-        :param dataset_service: dataset service
-        :type dataset_service: dataset.DatasetService
-        :param version: version, defaults to None
-        :type version: Optional[str]
-        :return: source data
-        :rtype: Response
-        """
-        data_file_sources = await get_data_file_sources(
-            record_id,
-            storage_service,
-            dataset_service,
-            version,
-        )
-        renderer = FileSourceRenderer(data_file_sources)
-
-        return await renderer.render_source_data()
-
     def _check_content_schema_version(
         self,
         content_schema_version: str,
@@ -360,7 +330,6 @@ class BaseDataView:
         """Prepare and add api routes."""
         self._prepare_get_data_route()
         self._prepare_post_data_route()
-        self._prepare_get_source_data_route()
 
     def _prepare_get_data_route(self) -> None:
         """Add api route for get_data."""
@@ -421,25 +390,4 @@ class BaseDataView:
                 Depends(validate_record_id),
                 Depends(validate_bulkdata_content_type),
             ],
-        )
-
-    def _prepare_get_source_data_route(self) -> None:
-        """Add api route for get_source_data."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
-            """Validate if record id matches regex.
-
-            :param record_id: record id
-            :type record_id: str
-            :return: record id
-            :rtype: str
-            """
-            return record_id
-
-        self._router.add_api_route(
-            path="/{record_id}/%ssource" % self._specific_route_type,
-            endpoint=self.get_source_data,
-            methods=["GET"],
-            status_code=status.HTTP_200_OK,
-            description=self.description_template_get_source.format(record_type=self._record_type),
-            dependencies=[Depends(validate_record_id)],
         )
