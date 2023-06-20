@@ -52,6 +52,12 @@ from app.models.domain.osdu.WPCRockSampleAnalysis110 import (
     Data as RockSampleAnalysisData,
 )
 from app.models.domain.osdu.WPCRockSampleAnalysis110 import RockSampleAnalysis
+from app.models.domain.osdu.WPCSamplesAnalysesReport100 import (
+    Data as SamplesAnalysesReportData,
+)
+from app.models.domain.osdu.WPCSamplesAnalysesReport100 import (
+    SamplesAnalysesReport,
+)
 from app.models.domain.osdu.WPCSlimTubeTest100 import Data as SlimTubeTestData
 from app.models.domain.osdu.WPCSlimTubeTest100 import SlimTubeTest
 from app.models.domain.osdu.WPCSTO100 import Data as STOData
@@ -137,6 +143,9 @@ MCM_ID = "mcm_test"
 SLIMTUBETEST_TYPE = "work-product-component--SlimTubeTest"
 SLIMTUBETEST_VERSION = "1.0.0"
 SLIMTUBETEST_ID = "slimtubetest_test"
+SAMPLESANALYSESREPORT_TYPE = "work-product-component--SamplesAnalysesReport"
+SAMPLESANALYSESREPORT_VERSION = "1.0.0"
+SAMPLESANALYSESREPORT_ID = "samplesanalysesreport_test_id"
 FILE_GENERIC_TYPE = "dataset--File.Generic"
 TEST_DATASET_UID = "1"
 
@@ -175,6 +184,8 @@ TEST_MCM_ID = f"{PARTITION}:{MCM_TYPE}:{MCM_ID}"
 TEST_MCM_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{MCM_TYPE}:{MCM_VERSION}"
 TEST_SLIMTUBETEST_ID = f"{PARTITION}:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_ID}"
 TEST_SLIMTUBETEST_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_VERSION}"
+TEST_SAMPLESANALYSESREPORT_ID = f"{PARTITION}:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_ID}"
+TEST_SAMPLESANALYSESREPORT_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_VERSION}"
 TEST_FLUIDSAMPLE_ID = f"{PARTITION}:{FLUIDSAMPLE_TYPE}:{FLUIDSAMPLE_ID}"
 TEST_ACL = Acl(viewers=["viewers@domain.com"], owners=["owners@domain.com"])
 TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], status="compliant")
@@ -400,6 +411,19 @@ SLIMTUBETEST_RECORD = SlimTubeTest(
     ),
 )
 
+SAMPLESANALYSESREPORT_RECORD = SamplesAnalysesReport(
+    id=TEST_SAMPLESANALYSESREPORT_ID,
+    kind=TEST_SAMPLESANALYSESREPORT_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=SamplesAnalysesReportData(
+        SampleIDs=[f"{PARTITION}:master-data--Sample:sample_test_id:"],
+        ReportSampleIdentifiers=["45H", "49H"],
+        SampleAnalysisTypeIDs=["CapillaryPressureGasOil", "CentrifugeDrainageGasOil"],
+        SamplesAnalysisCategoryTagIDs=["SCAL"],
+    ),
+)
+
 
 def build_storage_service_response_200(
     record_count: int = 1,
@@ -484,6 +508,7 @@ INTERFACIAL_TENSION_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/interfacia
 VLE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/vaporliquidequilibriumtests"
 MCM_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/multiplecontactmiscibilitytests"
 SLIMTUBETEST_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/slimtubetests"
+SAMPLESANALYSES_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/samplesanalysesreport"
 RCA_DATA_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/data"
 RCA_SOURCE_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/source"
 CCE_DATA_ENDPOINT_PATH = f"{CCE_ENDPOINT_PATH}/{TEST_CCE_ID}/data"

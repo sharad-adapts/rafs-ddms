@@ -20,6 +20,7 @@ from app.exceptions.exceptions import UnprocessableContentException
 
 EXPECTED_RECORD_ID = "partition:entity_type:record_id"
 
+
 def test_get_id_version_with_full_id_():
     record_id, version = get_id_version("partition:entity_type:record_id:1234")
 

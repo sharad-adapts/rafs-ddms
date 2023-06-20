@@ -29,6 +29,7 @@ from app.services.search import SearchService
 from app.services.storage import StorageService
 from tests.test_api.api_version import API_VERSION
 from tests.test_api.test_routes import dependencies
+from tests.test_api.test_routes.osdu import storage_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CCE_ENDPOINT_PATH,
     CCE_RECORD,
@@ -276,6 +277,7 @@ def with_patched_storage_query_pvt_invalid_200():
         ("get_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
         ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
+        ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -309,6 +311,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
         ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
+        ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -343,6 +346,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "vaporliquidequilibriumtests", TEST_VLE_ID),
         ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
+        ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -380,6 +384,7 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "vaporliquidequilibriumtests", TEST_VLE_ID),
         ("soft_delete_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("soft_delete_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
+        ("soft_delete_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -417,6 +422,7 @@ async def test_delete_record_not_found(
         ("vaporliquidequilibriumtests"),
         ("multiplecontactmiscibilitytests"),
         ("slimtubetests"),
+        ("samplesanalysesreport"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -453,6 +459,7 @@ async def test_post_record_no_kind(path):
         ("vaporliquidequilibriumtests"),
         ("multiplecontactmiscibilitytests"),
         ("slimtubetests"),
+        ("samplesanalysesreport"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -485,6 +492,7 @@ async def test_post_record_invalid_payload_type(path):
         ("vaporliquidequilibriumtests", VLE_RECORD, "FluidSampleID"),
         ("multiplecontactmiscibilitytests", MCM_RECORD, "FluidSampleID"),
         ("slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
+        ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD, "DocumentTypeID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -512,6 +520,7 @@ async def test_post_record_invalid_field_type(path, osdu_record, field):
         ("upsert_records", "coringreports", CORING_RECORD),
         ("upsert_records", "pvtreports", PVT_RECORD),
         ("upsert_records", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+        ("upsert_records", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
     ],
 )
 async def test_post_record_success(
@@ -829,6 +838,7 @@ async def test_post_record_success_update_pvt_parent(
         ("upsert_records", "coringreports", CORING_RECORD),
         ("upsert_records", "pvtreports", PVT_RECORD),
         ("upsert_records", "rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
+        ("upsert_records", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
     ],
 )
 async def test_post_record_no_id(
@@ -1091,6 +1101,10 @@ async def test_post_record_with_linking_no_id(
         ("get_record", "vaporliquidequilibriumtests", VLE_RECORD, TEST_VLE_ID),
         ("get_record", "multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
         ("get_record", "slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
+        (
+            "get_record", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
+        ),
     ],
 )
 async def test_get_record_success(
@@ -1127,6 +1141,10 @@ async def test_get_record_success(
         ("get_record", "vaporliquidequilibriumtests", VLE_RECORD, TEST_VLE_ID),
         ("get_record", "multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
         ("get_record", "slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
+        (
+            "get_record", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
+        ),
     ],
 )
 async def test_get_record_version_success(
@@ -1165,6 +1183,7 @@ async def test_get_record_version_success(
         ("get_record_versions", "vaporliquidequilibriumtests", TEST_VLE_ID),
         ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
+        ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -1200,6 +1219,10 @@ async def test_get_record_versions_success(
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"vaporliquidequilibriumtests/{TEST_VLE_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"multiplecontactmiscibilitytests/{TEST_MCM_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"slimtubetests/{TEST_SLIMTUBETEST_ID}"),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
+        ),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/1234"),
@@ -1239,6 +1262,10 @@ async def test_get_record_versions_success(
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"slimtubetests/{TEST_SLIMTUBETEST_ID}/versions/1234",
         ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}/versions/1234",
+        ),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
@@ -1274,6 +1301,10 @@ async def test_get_record_versions_success(
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"slimtubetests/{TEST_SLIMTUBETEST_ID}/versions",
         ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}/versions",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
@@ -1307,6 +1338,7 @@ async def test_get_record_auth_errors_from_storage(
         ("vaporliquidequilibriumtests/record_id"),
         ("multiplecontactmiscibilitytests/record_id"),
         ("slimtubetests/record_id"),
+        ("samplesanalysesreport/record_id"),
         ("rocksamples/record_id/versions/1234"),
         ("coringreports/record_id/versions/1234"),
         ("pvtreports/record_id/versions/1234"),
@@ -1324,6 +1356,7 @@ async def test_get_record_auth_errors_from_storage(
         ("vaporliquidequilibriumtests/record_id/versions/1234"),
         ("multiplecontactmiscibilitytests/record_id/versions/1234"),
         ("slimtubetests/record_id/versions/1234"),
+        ("samplesanalysesreport/record_id/versions/1234"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -1341,6 +1374,7 @@ async def test_get_record_auth_errors_from_storage(
         ("vaporliquidequilibriumtests/record_id/versions"),
         ("multiplecontactmiscibilitytests/record_id/versions"),
         ("slimtubetests/record_id/versions"),
+        ("samplesanalysesreport/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -1376,6 +1410,10 @@ async def test_get_record_auth_errors(
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"vaporliquidequilibriumtests/{TEST_VLE_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"multiplecontactmiscibilitytests/{TEST_MCM_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"slimtubetests/{TEST_SLIMTUBETEST_ID}"),
+        (
+            "soft_delete_record", status.HTTP_401_UNAUTHORIZED,
+            f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
+        ),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -1409,6 +1447,7 @@ async def test_delete_record_auth_errors_from_storage(
         ("vaporliquidequilibriumtests/record_id"),
         ("multiplecontactmiscibilitytests/record_id"),
         ("slimtubetests/record_id"),
+        ("samplesanalysesreport/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1442,6 +1481,10 @@ async def test_delete_record_auth_errors(
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "vaporliquidequilibriumtests", VLE_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "multiplecontactmiscibilitytests", MCM_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "slimtubetests", SLIMTUBETEST_RECORD),
+        (
+            "upsert_records", status.HTTP_401_UNAUTHORIZED, "samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+        ),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
@@ -1481,6 +1524,7 @@ async def test_post_record_auth_errors_from_storage(
         ("vaporliquidequilibriumtests", VLE_RECORD),
         ("multiplecontactmiscibilitytests", MCM_RECORD),
         ("slimtubetests", SLIMTUBETEST_RECORD),
+        ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1547,6 +1591,7 @@ async def test_post_record_auth_errors(
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_CORING_ID),
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, TEST_CORING_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1578,6 +1623,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (VLE_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (MCM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (SLIMTUBETEST_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1611,6 +1657,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (VLE_ENDPOINT_PATH, TEST_WRONG_ID),
         (MCM_ENDPOINT_PATH, TEST_WRONG_ID),
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_WRONG_ID),
+        (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):
