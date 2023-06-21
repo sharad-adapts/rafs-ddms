@@ -100,7 +100,7 @@
                     "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                   }
                 }
-              },
+              }
             }
           }
         }
