@@ -26,6 +26,7 @@ from client.api.core.multiple_contact_miscibility import (
 from client.api.core.pvt import PVTCore
 from client.api.core.rock_sample import RockSampleCore
 from client.api.core.rock_sample_analysis import RSACore
+from client.api.core.samples_analyses_report import SamplesAnalysesReportCore
 from client.api.core.slim_tube import SlimTubeCore
 from client.api.core.stock_tank_oil_analysis import StockTankOilAnalysisCore
 from client.api.core.swelling_test import SwellingTestCore
@@ -55,3 +56,4 @@ class ApiWorker(object):
         self.vle = VaporLiquidEquilibriumCore(host, url_prefix, data_partition, token)
         self.slim_tube = SlimTubeCore(host, url_prefix, data_partition, token)
         self.mcm = MultipleContactMiscibilityCore(host, url_prefix, data_partition, token)
+        self.sar = SamplesAnalysesReportCore(host, url_prefix, data_partition, token)

@@ -29,7 +29,7 @@ class RSACorePaths(object):
     GET_VERSIONS = "/rocksampleanalyses/{record_id}/versions"
     GET_VERSION = "/rocksampleanalyses/{record_id}/versions/{version}"
     DELETE = "/rocksampleanalyses/{record_id}"
-    GET_FILE_DOWNLOAD = "/rocksampleanalyses/{record_id}/rca/source"
+    GET_SOURCE_FILE = "/rocksampleanalyses/{record_id}/rca/source"
 
 
 class RSACore(APIResource, APIClient):
@@ -122,11 +122,11 @@ class RSACore(APIResource, APIClient):
             return response.json()
         raise RuntimeError("Unknown content-type")
 
-    def get_file(self, record_id: str, **kwargs) -> Response:
+    def get_source_file(self, record_id: str, **kwargs) -> Response:
         """Get the file associated with a record.
 
         :param record_id: The ID of the record to retrieve the file for.
         :param kwargs: Additional keyword arguments.
         :return: The response object containing the file download.
         """
-        return self.get(path=RSACorePaths.GET_FILE_DOWNLOAD.format(record_id=record_id), **kwargs)
+        return self.get(path=RSACorePaths.GET_SOURCE_FILE.format(record_id=record_id), **kwargs)

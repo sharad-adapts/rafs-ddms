@@ -26,7 +26,7 @@ class CVDPaths(object):
     GET_VERSIONS = "/constantvolumedepletiontests/{record_id}/versions"
     GET_VERSION = "/constantvolumedepletiontests/{record_id}/versions/{version}"
     DELETE = "/constantvolumedepletiontests/{record_id}"
-    GET_FILE_DOWNLOAD = "/constantvolumedepletiontests/{record_id}/source"
+    GET_SOURCE_FILE = "/constantvolumedepletiontests/{record_id}/source"
     POST_DATA = "/constantvolumedepletiontests/{record_id}/data"
     GET_DATA = "/constantvolumedepletiontests/{record_id}/data/{dataset_id}"
 

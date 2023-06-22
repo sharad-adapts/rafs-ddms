@@ -25,7 +25,7 @@ class STPaths(object):
     GET_VERSIONS = "/swellingtests/{record_id}/versions"
     GET_VERSION = "/swellingtests/{record_id}/versions/{version}"
     DELETE = "/swellingtests/{record_id}"
-    GET_FILE_DOWNLOAD = "/swellingtests/{record_id}/source"
+    GET_SOURCE_FILE = "/swellingtests/{record_id}/source"
     POST_DATA = "/swellingtests/{record_id}/data"
     GET_DATA = "/swellingtests/{record_id}/data/{dataset_id}"
 

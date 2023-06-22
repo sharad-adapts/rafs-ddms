@@ -25,7 +25,7 @@ class VLEPaths(object):
     GET_VERSIONS = "/vaporliquidequilibriumtests/{record_id}/versions"
     GET_VERSION = "/vaporliquidequilibriumtests/{record_id}/versions/{version}"
     DELETE = "/vaporliquidequilibriumtests/{record_id}"
-    GET_FILE_DOWNLOAD = "/vaporliquidequilibriumtests/{record_id}/source"
+    GET_SOURCE_FILE = "/vaporliquidequilibriumtests/{record_id}/source"
     POST_DATA = "/vaporliquidequilibriumtests/{record_id}/data"
     GET_DATA = "/vaporliquidequilibriumtests/{record_id}/data/{dataset_id}"
 

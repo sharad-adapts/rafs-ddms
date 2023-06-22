@@ -37,6 +37,7 @@ class DataFiles(NamedTuple):
     RCA_MANDATORY_ATTRIBUTES_PARQUET = "rsa/missing_attributes_rca.parquet"
     RS = "rocksample.json"
     CORING = "coring.json"
+    SAR = "samples_analyses_report/sar.json"
 
     PVT = "pvt.json"
 
@@ -87,7 +88,10 @@ class DataTemplates(NamedTuple):
     ID_CORING = f"opendes:master-data--Coring:"
     ID_RS = "opendes:master-data--RockSample:"
     ID_RSA = "opendes:work-product-component--RockSampleAnalysis:"
+    ID_SAR = "opendes:work-product-component--SamplesAnalysesReport:"
     ID_PVT = "opendes:work-product-component--PVT:"
+
+    # PVT tests
     ID_CCE = "opendes:work-product-component--ConstantCompositionExpansionTest:"
     ID_DIF_LIB = "opendes:work-product-component--DifferentialLiberationTest:"
     ID_CA = "opendes:work-product-component--CompositionalAnalysisTest:"
@@ -121,3 +125,22 @@ class DataTypes(NamedTuple):
     TT = "tt"
     VLE = "vle"
     WA = "wa"
+    SAR = "sar"
+
+
+class DatasetPrefix:
+    RCA = "routine-core-analysis"
+    DIF_LIB = "differential-liberation"
+    CCE = "constant-composition-expansion"
+    CA = "compositionalanalysis"
+    CVD = "constantvolumedepletiontest"
+    IT = "interfacialtension"
+    MSS = "multi-stage-separator"
+    MCM = "multiple-contact-miscibility"
+    SLIM_TUBE = "slimtube-test"
+    STOA = "stoanalysis"
+    ST = "swelling"
+    TT = "transport-test"
+    VLE = "vaporliquidequilibriumtest"
+    WA = "wateranalysis"
+    SAR = "sar"
