@@ -12,7 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import copy
-import re
 from contextlib import contextmanager
 from unittest.mock import call, create_autospec, patch
 
@@ -20,17 +19,14 @@ import pytest
 from httpx import AsyncClient, HTTPStatusError
 from starlette import status
 
-from app.api.dependencies.services import (
-    get_async_search_service,
-    get_async_storage_service,
-)
+from app.api.dependencies.services import get_async_storage_service
 from app.main import app
-from app.services.search import SearchService
 from app.services.storage import StorageService
 from tests.test_api.api_version import API_VERSION
 from tests.test_api.test_routes import dependencies
 from tests.test_api.test_routes.osdu import storage_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
+    CAP_PRESSURE_ENDPOINT_PATH,
     CCE_ENDPOINT_PATH,
     CCE_RECORD,
     COMPOSITIONALANALYSIS_ENDPOINT_PATH,
@@ -47,6 +43,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT,
     EXPECTED_404_RESPONSE,
     EXPECTED_422_NO_KIND_REASON,
+    EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT,
     EXPECTED_422_TYPER_ERROR_LIST,
     EXPECTED_422_WRONG_PATTERN,
     INTERFACIAL_TENSION_ENDPOINT_PATH,
@@ -64,6 +61,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     ROCKSAMPLE_RECORD,
     ROCKSAMPLEANALYSIS_ENDPOINT_PATH,
     ROCKSAMPLEANALYSIS_RECORD,
+    SAMPLESANALYSIS_RECORD,
+    SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
     SLIMTUBETEST_ENDPOINT_PATH,
     SLIMTUBETEST_RECORD,
     STO_ENDPOINT_PATH,
@@ -85,6 +84,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     TEST_PVT_ID,
     TEST_ROCKSAMPLE_ID,
     TEST_ROCKSAMPLEANALYSIS_ID,
+    TEST_SAMPLESANALYSESREPORT_ID,
+    TEST_SAMPLESANALYSIS_ID,
     TEST_SERVER,
     TEST_SLIMTUBETEST_ID,
     TEST_STO_ID,
@@ -103,11 +104,6 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 )
 
 storage_record_service_mock = create_autospec(StorageService, spec_set=True, instance=True)
-search_service_mock = create_autospec(SearchService, spec_set=True, instance=True)
-
-
-async def mock_get_search_service():
-    yield search_service_mock
 
 
 async def query_records_mock(_):
@@ -129,7 +125,6 @@ async def mock_get_async_storage_service():
 def storage_override():
     overrides = {
         get_async_storage_service: mock_get_async_storage_service,
-        get_async_search_service: mock_get_search_service,
     }
     with dependencies.DependencyOverrider(app, overrides) as mock_dependencies:
         yield mock_dependencies
@@ -151,13 +146,6 @@ def with_patched_storage_raises_404(storage_method):
         yield
 
 
-def get_record_wpc_references(record):
-    record = record.json(exclude_none=True)
-    # @TODO support for versions and more types when validations are for every reference
-    search_ids = re.findall(r"[\w\-\.]+:work-product-component--[\w]+:[\w\-\.\:\%]+:", record)
-    return [{"id": search_id[:-1]} for search_id in search_ids]
-
-
 @pytest.fixture
 def with_patched_storage_created_200(storage_method, osdu_record):
     """Patch storage to 200 created."""
@@ -167,9 +155,13 @@ def with_patched_storage_created_200(storage_method, osdu_record):
         return_value=STORAGE_SERVICE_200_RESPONSE,
     ):
         with patch.object(
-            search_service_mock,
-            "find_records",
-            return_value={"results": get_record_wpc_references(osdu_record)},
+            storage_record_service_mock,
+            "query_records",
+            return_value={
+                "records": [OSDU_GENERIC_RECORD.dict()],
+                "invalidRecords": [],
+                "retryRecords": [],
+            },
         ):
             yield
 
@@ -187,7 +179,7 @@ def with_patched_storage_pvt_link_200(created_responses: list, get_response: dic
 
 
 @pytest.fixture
-def with_patched_search_storage_raises_40x(storage_method, api_status_code):
+def with_patched_storage_raises_40x(storage_method, api_status_code):
     """Patch storage to raise 40x."""
     class Response(object):
         status_code = api_status_code
@@ -200,8 +192,8 @@ def with_patched_search_storage_raises_40x(storage_method, api_status_code):
         side_effect=HTTPStatusError("test", response=Response(), request=None),
     ):
         with patch.object(
-            search_service_mock,
-            "find_records",
+            storage_record_service_mock,
+            "query_records",
             side_effect=HTTPStatusError("test", response=Response(), request=None),
         ):
             yield
@@ -257,6 +249,38 @@ def with_patched_storage_query_pvt_invalid_200():
         yield
 
 
+@pytest.fixture()
+def with_patched_storage_samplesanalysis_missing_parent():
+    """Patch storage to return missing SamplesAnalysesReport record ID."""
+    return_value = {
+        "records": [],
+        "invalidRecords": [TEST_SAMPLESANALYSESREPORT_ID],
+        "retryRecords": [],
+    }
+    with patch.object(
+        storage_record_service_mock,
+        "query_records",
+        return_value=return_value,
+    ):
+        yield
+
+
+@pytest.fixture()
+def with_patched_storage_samplesanalysis_existing_parent():
+    """Patch storage to return existing SamplesAnalysesReport record ID."""
+    return_value = {
+        "records": [SAMPLESANALYSIS_RECORD],
+        "invalidRecords": [],
+        "retryRecords": [],
+    }
+    with patch.object(
+        storage_record_service_mock,
+        "query_records",
+        return_value=return_value,
+    ):
+        yield
+
+
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "storage_method,path,record_id", [
@@ -278,6 +302,7 @@ def with_patched_storage_query_pvt_invalid_200():
         ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
+        ("get_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -312,6 +337,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
+        ("get_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -347,6 +373,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
+        ("get_record_versions", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -385,6 +412,7 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("soft_delete_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("soft_delete_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
+        ("soft_delete_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -423,6 +451,7 @@ async def test_delete_record_not_found(
         ("multiplecontactmiscibilitytests"),
         ("slimtubetests"),
         ("samplesanalysesreport"),
+        ("capillarypressuretests"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -460,6 +489,7 @@ async def test_post_record_no_kind(path):
         ("multiplecontactmiscibilitytests"),
         ("slimtubetests"),
         ("samplesanalysesreport"),
+        ("capillarypressuretests"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -493,6 +523,7 @@ async def test_post_record_invalid_payload_type(path):
         ("multiplecontactmiscibilitytests", MCM_RECORD, "FluidSampleID"),
         ("slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
         ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD, "DocumentTypeID"),
+        ("capillarypressuretests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -832,6 +863,72 @@ async def test_post_record_success_update_pvt_parent(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
+    "path,osdu_record",
+    [
+        (
+            "capillarypressuretests",
+            SAMPLESANALYSIS_RECORD,
+        ),
+    ],
+)
+async def test_post_samplesanalysis_with_missing_parent(
+    path,
+    osdu_record,
+    with_patched_storage_samplesanalysis_missing_parent,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    result_json = response.json()
+    assert result_json == EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,osdu_record",
+    [
+        (
+            "upsert_records",
+            "capillarypressuretests",
+            SAMPLESANALYSIS_RECORD,
+        ),
+        (
+            "upsert_records",
+            "capillarypressuretests",
+            SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
+        ),
+    ],
+)
+async def test_post_samplesanalysis_success(
+    storage_method,
+    path,
+    osdu_record,
+    with_patched_storage_created_200,
+    with_patched_storage_samplesanalysis_existing_parent,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{API_VERSION}/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == EXPECTED_200_CREATED_RESPONSE
+    storage_record_service_mock.upsert_records.assert_called_once_with(
+        [osdu_record.dict(exclude_none=True)],
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
     "storage_method,path,osdu_record",
     [
         ("upsert_records", "rocksamples", ROCKSAMPLE_RECORD),
@@ -1105,6 +1202,7 @@ async def test_post_record_with_linking_no_id(
             "get_record", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
+        ("get_record", "capillarypressuretests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_success(
@@ -1145,6 +1243,7 @@ async def test_get_record_success(
             "get_record", "samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
+        ("get_record", "capillarypressuretests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_success(
@@ -1184,6 +1283,7 @@ async def test_get_record_version_success(
         ("get_record_versions", "multiplecontactmiscibilitytests", TEST_MCM_ID),
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
+        ("get_record_versions", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -1223,6 +1323,7 @@ async def test_get_record_versions_success(
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
         ),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/1234"),
@@ -1266,6 +1367,10 @@ async def test_get_record_versions_success(
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}/versions/1234",
         ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
+        ),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
@@ -1305,11 +1410,15 @@ async def test_get_record_versions_success(
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}/versions",
         ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}/versions",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
     storage_method, api_status_code, path,
-    with_patched_search_storage_raises_40x,
+    with_patched_storage_raises_40x,
 ):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
@@ -1339,6 +1448,7 @@ async def test_get_record_auth_errors_from_storage(
         ("multiplecontactmiscibilitytests/record_id"),
         ("slimtubetests/record_id"),
         ("samplesanalysesreport/record_id"),
+        ("capillarypressuretests/record_id"),
         ("rocksamples/record_id/versions/1234"),
         ("coringreports/record_id/versions/1234"),
         ("pvtreports/record_id/versions/1234"),
@@ -1357,6 +1467,7 @@ async def test_get_record_auth_errors_from_storage(
         ("multiplecontactmiscibilitytests/record_id/versions/1234"),
         ("slimtubetests/record_id/versions/1234"),
         ("samplesanalysesreport/record_id/versions/1234"),
+        ("capillarypressuretests/record_id/versions/1234"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -1375,6 +1486,7 @@ async def test_get_record_auth_errors_from_storage(
         ("multiplecontactmiscibilitytests/record_id/versions"),
         ("slimtubetests/record_id/versions"),
         ("samplesanalysesreport/record_id/versions"),
+        ("capillarypressuretests/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -1414,11 +1526,12 @@ async def test_get_record_auth_errors(
             "soft_delete_record", status.HTTP_401_UNAUTHORIZED,
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
         ),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}"),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
     storage_method, api_status_code, path,
-    with_patched_search_storage_raises_40x,
+    with_patched_storage_raises_40x,
 ):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
@@ -1448,6 +1561,7 @@ async def test_delete_record_auth_errors_from_storage(
         ("multiplecontactmiscibilitytests/record_id"),
         ("slimtubetests/record_id"),
         ("samplesanalysesreport/record_id"),
+        ("capillarypressuretests/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1485,11 +1599,12 @@ async def test_delete_record_auth_errors(
             "upsert_records", status.HTTP_401_UNAUTHORIZED, "samplesanalysesreport",
             storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
         ),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "capillarypressuretests", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
     storage_method, api_status_code, path, osdu_record,
-    with_patched_search_storage_raises_40x,
+    with_patched_storage_raises_40x,
     with_patched_storage_query_pvt_200,
 ):
     with storage_override():
@@ -1525,6 +1640,7 @@ async def test_post_record_auth_errors_from_storage(
         ("multiplecontactmiscibilitytests", MCM_RECORD),
         ("slimtubetests", SLIMTUBETEST_RECORD),
         ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
+        ("capillarypressuretests", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1592,6 +1708,9 @@ async def test_post_record_auth_errors(
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, TEST_CORING_ID),
+        (CAP_PRESSURE_ENDPOINT_PATH, TEST_CORING_ID),
+        (CAP_PRESSURE_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
+        (CAP_PRESSURE_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1624,6 +1743,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (MCM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (SLIMTUBETEST_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (CAP_PRESSURE_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1658,6 +1778,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (MCM_ENDPOINT_PATH, TEST_WRONG_ID),
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_WRONG_ID),
         (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, TEST_WRONG_ID),
+        (CAP_PRESSURE_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):
