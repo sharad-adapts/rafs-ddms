@@ -32,11 +32,6 @@ from .osdu_wks_AbstractWorkProductComponent_1.field_1 import Field0
 
 
 class Data(Field0):
-    BottomDepth: Optional[float] = Field(
-        None,
-        description='The last depth index from the analysis result.',
-        title='Bottom Depth',
-    )
     AvailableSampleAnalysisProperties: Optional[List] = Field(
         None,
         description='A list of populated properties that are available in the dataset for this instance of a Sample Analysis.',
@@ -76,11 +71,6 @@ class Data(Field0):
         description='Identifies the report from which this analysis was extracted or multiple reports from which this analysis was recontructed.',
         title='ParentSamplesAnalysesReports',
     )
-    TopDepth: Optional[float] = Field(
-        None,
-        description='The first depth index from the analysis result.',
-        title='Top Depth',
-    )
     DatePublished: Optional[datetime] = Field(
         None,
         description='The UTC date time and date that the results of the analysis containing observed measurements or calculations was published.',
@@ -95,11 +85,6 @@ class Data(Field0):
         None,
         description='An array containing operational or quality comments pertaining to the sample analysis represented by this work product component.',
         title='Remarks',
-    )
-    VerticalMeasurement: Optional[field_0.Field0] = Field(
-        None,
-        description='References an entry in the VerticalMeasurements array for the Wellbore identified by WellboreID, or a standalone vertical reference which defines the vertical reference datum for all measured depths of the RockSample record. If this is not populated, the VerticalMeasurement is derived from the Coring.',
-        title='Vertical Measurement',
     )
     FluidSamplesAnalysis: Optional[Dict[str, Any]] = Field(
         None,

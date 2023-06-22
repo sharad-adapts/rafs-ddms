@@ -119,28 +119,11 @@
                                 "title": "ReportSampleIdentifiers",
                                 "description": "The names or identifiers of the analyzed samples in this report or document. These names or identifiers are often assigned by the laboratory. This list can be used to assist in locating the appropriate OSDU Sample records or to find the dataset in the parent report."
                             },
-                            "VerticalMeasurement": {
-                                "$ref": "{{schema-authority}}:wks:AbstractFacilityVerticalMeasurement:1.0.0",
-                                "title": "Vertical Measurement",
-                                "description": "References an entry in the VerticalMeasurements array for the Wellbore identified by WellboreID, or a standalone vertical reference which defines the vertical reference datum for all measured depths of the RockSample record. If this is not populated, the VerticalMeasurement is derived from the Coring."
-                            },
                             "AnalysisDate": {
                                 "type": "string",
                                 "title": "Analysis Date",
                                 "description": "The date the batch of sample analysis was performed.",
                                 "format": "date"
-                            },
-                            "TopDepth": {
-                                "type": "number",
-                                "title": "Top Depth",
-                                "description": "The first depth index from the analysis result.",
-                                "x-osdu-frame-of-reference": "UOM:length"
-                            },
-                            "BottomDepth": {
-                                "type": "number",
-                                "title": "Bottom Depth",
-                                "description": "The last depth index from the analysis result.",
-                                "x-osdu-frame-of-reference": "UOM:length"
                             },
                             "DepthShiftsID": {
                                 "type": "string",
