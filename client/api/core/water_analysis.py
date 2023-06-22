@@ -25,7 +25,7 @@ class WAPaths(object):
     GET_VERSIONS = "/wateranalysisreports/{record_id}/versions"
     GET_VERSION = "/wateranalysisreports/{record_id}/versions/{version}"
     DELETE = "/wateranalysisreports/{record_id}"
-    GET_FILE_DOWNLOAD = "/wateranalysisreports/{record_id}/source"
+    GET_SOURCE_FILE = "/wateranalysisreports/{record_id}/source"
     POST_DATA = "/wateranalysisreports/{record_id}/data"
     GET_DATA = "/wateranalysisreports/{record_id}/data/{dataset_id}"
 

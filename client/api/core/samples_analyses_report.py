@@ -12,26 +12,21 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from requests import Response
-
 from client.api.core.api_source import APIResource
 from client.api_client import APIClient
 
 
-class PVTPaths(object):
-    POST = "/pvtreports"
-    GET = "/pvtreports/{record_id}"
-    GET_VERSIONS = "/pvtreports/{record_id}/versions"
-    GET_VERSION = "/pvtreports/{record_id}/versions/{version}"
-    DELETE = "/pvtreports/{record_id}"
-    GET_SOURCE_FILE = "/pvtreports/{record_id}/source"
+class SARPaths(object):
+    POST = "/samplesanalysesreport"
+    GET = "/samplesanalysesreport/{record_id}"
+    GET_VERSIONS = "/samplesanalysesreport/{record_id}/versions"
+    GET_VERSION = "/samplesanalysesreport/{record_id}/versions/{version}"
+    DELETE = "/samplesanalysesreport/{record_id}"
+    GET_SOURCE_FILE = "/samplesanalysesreport/{record_id}/source"
 
 
-class PVTCore(APIResource, APIClient):
-    """API PVT methods."""
+class SamplesAnalysesReportCore(APIResource, APIClient):
+    """API Samples Analyses Report methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, PVTPaths)
-
-    def get_source_file(self, record_id: str, **kwargs) -> Response:
-        return self.get(path=PVTPaths.GET_SOURCE_FILE.format(record_id=record_id), **kwargs)
+        super().__init__(host, url_prefix, data_partition, token, SARPaths)

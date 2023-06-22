@@ -25,7 +25,7 @@ class TTPaths(object):
     GET_VERSIONS = "/transporttests/{record_id}/versions"
     GET_VERSION = "/transporttests/{record_id}/versions/{version}"
     DELETE = "/transporttests/{record_id}"
-    GET_FILE_DOWNLOAD = "/transporttests/{record_id}/source"
+    GET_SOURCE_FILE = "/transporttests/{record_id}/source"
     POST_DATA = "/transporttests/{record_id}/data"
     GET_DATA = "/transporttests/{record_id}/data/{dataset_id}"
 

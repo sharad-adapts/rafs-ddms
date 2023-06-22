@@ -25,7 +25,7 @@ class CAPaths(object):
     GET_VERSIONS = "/compositionalanalysisreports/{record_id}/versions"
     GET_VERSION = "/compositionalanalysisreports/{record_id}/versions/{version}"
     DELETE = "/compositionalanalysisreports/{record_id}"
-    GET_FILE_DOWNLOAD = "/compositionalanalysisreports/{record_id}/source"
+    GET_SOURCE_FILE = "/compositionalanalysisreports/{record_id}/source"
     POST_DATA = "/compositionalanalysisreports/{record_id}/data"
     GET_DATA = "/compositionalanalysisreports/{record_id}/data/{dataset_id}"
 
