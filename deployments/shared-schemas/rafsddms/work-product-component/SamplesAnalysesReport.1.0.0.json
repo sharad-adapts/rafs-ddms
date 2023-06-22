@@ -9,7 +9,7 @@
       "schemaVersionPatch": 0,
       "id": "{{rafsddms-schema-authority}}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
     },
-    "createdBy": "ExxonMobil",
+    "createdBy": "RAFS DDMS Development Team",
     "scope": "SHARED",
     "status": "DEVELOPMENT"
   },

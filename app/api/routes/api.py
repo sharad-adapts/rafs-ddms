@@ -16,6 +16,7 @@ from fastapi import APIRouter, Depends
 
 from app.api.dependencies.request import require_data_partition_id
 from app.api.routes import healthz, info
+from app.api.routes.cappressure import api as cappressure_api
 from app.api.routes.cce import api as cce_api
 from app.api.routes.compositionalanalysis import (
     api as compositionalanalysis_api,
@@ -109,5 +110,10 @@ router.include_router(
 router.include_router(
     samples_analyses_report_api.router,
     tags=["samplesanalysesreport"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    cappressure_api.router,
+    tags=["capillarypressuretests"],
     dependencies=COMMON_DEPENDENCIES,
 )

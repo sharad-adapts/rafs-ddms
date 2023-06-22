@@ -23,6 +23,7 @@ from .WPCDifLib100 import DifferentialLiberationTest
 from .WPCMSS100 import MultiStageSeparatorTest
 from .WPCPVT100 import PVT
 from .WPCRockSampleAnalysis110 import RockSampleAnalysis
+from .WPCSamplesAnalysis100 import SamplesAnalysis
 from .WPCSlimTubeTest100 import SlimTubeTest
 from .WPCTransportTest100 import TransportTest
 from .WPCSwellingTest100 import SwellingTest
@@ -54,6 +55,7 @@ INTERFACIAL_TENSION_KIND = f"{settings.custom_schema_authority}:wks:work-product
 VLE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--VaporLiquidEquilibriumTest:1.0.0"
 MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--MultipleContactMiscibilityTest:1.0.0"
 SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
+SAMPLESANALYSIS_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysis:1.0.0"
 
 SAMPLES_ANALYSES_REPORT_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
 
@@ -76,4 +78,5 @@ IMPLEMENTED_MODELS = {
     MCM_KIND: MultipleContactMiscibilityTest,
     SLIMTUBETEST_KIND: SlimTubeTest,
     SAMPLES_ANALYSES_REPORT_KIND: SamplesAnalysesReport,
+    SAMPLESANALYSIS_KIND: SamplesAnalysis,
 }

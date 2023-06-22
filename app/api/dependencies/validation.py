@@ -22,7 +22,7 @@ from pydantic.error_wrappers import ValidationError
 from starlette import status
 
 from app.api.dependencies.request import get_content_schema_version
-from app.api.dependencies.services import get_async_search_service
+from app.api.dependencies.services import get_async_storage_service
 from app.api.routes.utils.records import get_id_version
 from app.exceptions.exceptions import (
     BadRequestException,
@@ -44,6 +44,7 @@ from app.models.domain.osdu.base import (
     ROCKSAMPLE_KIND,
     ROCKSAMPLEANALYSIS_KIND,
     SAMPLES_ANALYSES_REPORT_KIND,
+    SAMPLESANALYSIS_KIND,
     SLIMTUBETEST_KIND,
     STO_KIND,
     SWELLING_KIND,
@@ -55,7 +56,9 @@ from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.filters import SQLFilterValidator
 from app.resources.paths import CommonRelativePaths
-from app.services.search import SearchService
+from app.services.storage import StorageService
+
+SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
 
 Model = TypeVar("Model", bound=BaseModel)
 
@@ -95,34 +98,30 @@ async def get_all_ids_from_records(
 async def validate_referential_integrity(
     records: List[dict],
     fields: List[str],
-    search_service: SearchService,
+    storage_service: StorageService,
 ):
     """Performs referential integrity validation.
 
     :param List[dict] records: list of records to validate
     :param List[str] fields: list of fields to validate
-    :param SearchService search_service: the search service instance
+    :param StorageService storage_service: the storage service instance
     :raises HTTPException: Status 422 if any of the references is not found.
     """
     all_test_ids = await get_all_ids_from_records(records, fields)
 
     all_test_ids = {get_id_version(test_id)[0] for test_id in all_test_ids}
 
-    search_response = {}
     if all_test_ids:
-        query = 'id: "{ids}"'.format(ids='" OR id: "'.join(all_test_ids))
-        search_response = await search_service.find_records(query=query, limit=len(all_test_ids))
-
-    ids_found = {record_found["id"] for record_found in search_response.get("results", [])}
-
-    missing_ids = all_test_ids.difference(ids_found)
-    if missing_ids:
-        reason = f"Records not found: {missing_ids}"
-        logger.debug(reason)
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail=reason,
-        )
+        logger.debug(f"The list of ids to check exist on storage: {all_test_ids}")
+        storage_response = await storage_service.query_records(list(all_test_ids))
+        missing_ids = storage_response["invalidRecords"]
+        if missing_ids:
+            reason = f"Records not found: {missing_ids}"
+            logger.debug(reason)
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                detail=reason,
+            )
 
 
 def validate_record(record: dict, kind: str):
@@ -182,10 +181,10 @@ async def validate_rocksampleanalysis_records_payload(records_list: List[OsduSto
 
 async def validate_pvt_records_payload(
     records_list: List[OsduStorageRecord],
-    search_service: SearchService = Depends(get_async_search_service),
+    storage_service: StorageService = Depends(get_async_storage_service),
 ):
     records = await validate_records_payload(records_list, PVT_KIND)
-    await validate_referential_integrity(records, ["PVTTests"], search_service)
+    await validate_referential_integrity(records, ["PVTTests"], storage_service)
     return records
 
 
@@ -243,6 +242,15 @@ async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRe
 
 async def validate_samples_analyses_report_payload(records_list: List[OsduStorageRecord]):
     return await validate_records_payload(records_list, SAMPLES_ANALYSES_REPORT_KIND)
+
+
+async def validate_samplesanalysis_records_payload(
+    records_list: List[OsduStorageRecord],
+    storage_service: StorageService = Depends(get_async_storage_service),
+):
+    records = await validate_records_payload(records_list, SAMPLESANALYSIS_KIND)
+    await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
+    return records
 
 
 async def get_data_model(request: Request, content_schema_version: str = Depends(get_content_schema_version)) -> Model:

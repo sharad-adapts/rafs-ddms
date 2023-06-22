@@ -11,7 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
+import copy
 import os
 from typing import NamedTuple
 
@@ -58,6 +58,10 @@ from app.models.domain.osdu.WPCSamplesAnalysesReport100 import (
 from app.models.domain.osdu.WPCSamplesAnalysesReport100 import (
     SamplesAnalysesReport,
 )
+from app.models.domain.osdu.WPCSamplesAnalysis100 import (
+    Data as SamplesAnalysisData,
+)
+from app.models.domain.osdu.WPCSamplesAnalysis100 import SamplesAnalysis
 from app.models.domain.osdu.WPCSlimTubeTest100 import Data as SlimTubeTestData
 from app.models.domain.osdu.WPCSlimTubeTest100 import SlimTubeTest
 from app.models.domain.osdu.WPCSTO100 import Data as STOData
@@ -146,6 +150,9 @@ SLIMTUBETEST_ID = "slimtubetest_test"
 SAMPLESANALYSESREPORT_TYPE = "work-product-component--SamplesAnalysesReport"
 SAMPLESANALYSESREPORT_VERSION = "1.0.0"
 SAMPLESANALYSESREPORT_ID = "samplesanalysesreport_test_id"
+SAMPLESANALYSIS_TYPE = "work-product-component--SamplesAnalysis"
+SAMPLESANALYSIS_VERSION = "1.0.0"
+SAMPLESANALYSIS_ID = "samplesanalysis_test"
 FILE_GENERIC_TYPE = "dataset--File.Generic"
 TEST_DATASET_UID = "1"
 
@@ -186,6 +193,8 @@ TEST_SLIMTUBETEST_ID = f"{PARTITION}:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_ID}"
 TEST_SLIMTUBETEST_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_VERSION}"
 TEST_SAMPLESANALYSESREPORT_ID = f"{PARTITION}:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_ID}"
 TEST_SAMPLESANALYSESREPORT_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_VERSION}"
+TEST_SAMPLESANALYSIS_ID = f"{PARTITION}:{SAMPLESANALYSIS_TYPE}:{SAMPLESANALYSIS_ID}"
+TEST_SAMPLESANALYSIS_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSIS_TYPE}:{SAMPLESANALYSIS_VERSION}"
 TEST_FLUIDSAMPLE_ID = f"{PARTITION}:{FLUIDSAMPLE_TYPE}:{FLUIDSAMPLE_ID}"
 TEST_ACL = Acl(viewers=["viewers@domain.com"], owners=["owners@domain.com"])
 TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], status="compliant")
@@ -424,6 +433,19 @@ SAMPLESANALYSESREPORT_RECORD = SamplesAnalysesReport(
     ),
 )
 
+SAMPLESANALYSIS_RECORD = SamplesAnalysis(
+    id=TEST_SAMPLESANALYSIS_ID,
+    kind=TEST_SAMPLESANALYSIS_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=SamplesAnalysisData(
+        ParentSamplesAnalysesReports=[f"{TEST_SAMPLESANALYSESREPORT_ID}:"],
+    ),
+)
+
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT = copy.deepcopy(SAMPLESANALYSIS_RECORD)
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT.data.ParentSamplesAnalysesReports = []
+
 
 def build_storage_service_response_200(
     record_count: int = 1,
@@ -489,6 +511,9 @@ EXPECTED_200_VERSIONS_RESPONSE = STORAGE_SERVICE_200_VERSIONS_RESPONSE
 EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT = {
     "code": 400, "reason": "Parent record is invalid. ['data.PVTTests: value is not a valid dict']",
 }
+EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT = {
+    "code": 422, "reason": f"Records not found: ['{TEST_SAMPLESANALYSESREPORT_ID}']",
+}
 
 
 CORING_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/coringreports"
@@ -509,6 +534,7 @@ VLE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/vaporliquidequilibriumtest
 MCM_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/multiplecontactmiscibilitytests"
 SLIMTUBETEST_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/slimtubetests"
 SAMPLESANALYSES_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/samplesanalysesreport"
+CAP_PRESSURE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/capillarypressuretests"
 RCA_DATA_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/data"
 RCA_SOURCE_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/source"
 CCE_DATA_ENDPOINT_PATH = f"{CCE_ENDPOINT_PATH}/{TEST_CCE_ID}/data"

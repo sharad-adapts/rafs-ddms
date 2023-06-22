@@ -21,7 +21,7 @@ from app.api.dependencies.validation import (
     get_all_ids_from_records,
     validate_referential_integrity,
 )
-from tests.test_api.test_routes.data.data_mock_objects import SearchService
+from tests.test_api.test_routes.data.data_mock_objects import StorageService
 from tests.test_validation.test_data import (
     EXPECTED_IDS_LIST,
     TEST_IDS_FIELDS,
@@ -37,26 +37,27 @@ async def test_get_all_ids_from_records():
 
 @pytest.mark.asyncio
 async def test_validate_referential_integrity(mocker):
-    mock_get_search_service = SearchService({})
+    mock_get_storage_service = StorageService(None, query_records_response={"invalidRecords": [EXPECTED_IDS_LIST]})
     with pytest.raises(HTTPException) as exc_info:
         await validate_referential_integrity(
             [TEST_RECORD],
             TEST_IDS_FIELDS,
-            mock_get_search_service,
+            mock_get_storage_service,
         )
 
     assert exc_info.value.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
-    pattern = r"\{(.*?)\}"
+    from loguru import logger
+    logger.error(exc_info.value.detail)
+    pattern = r"'(.*?)'"
     matches = re.findall(pattern, exc_info.value.detail)
-    data_str = matches[0].replace("'", "")
-    id_set = set(data_str.split(", "))
+    id_set = {match.replace("'", "") for match in matches}
     assert id_set == set(EXPECTED_IDS_LIST)
 
-    mock_get_search_service = SearchService(EXPECTED_IDS_LIST)
+    mock_get_storage_service = StorageService(None, query_records_response={"invalidRecords": []})
     get_all_ids_from_records = mocker.patch("app.api.dependencies.validation.get_all_ids_from_records")
     await validate_referential_integrity(
-        [TEST_RECORD], TEST_IDS_FIELDS, mock_get_search_service,
+        [TEST_RECORD], TEST_IDS_FIELDS, mock_get_storage_service,
     )
 
     get_all_ids_from_records.assert_called_once_with([TEST_RECORD], TEST_IDS_FIELDS)
