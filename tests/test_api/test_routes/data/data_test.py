@@ -87,6 +87,9 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     PVT_SOURCE_ENDPOINT_PATH,
     RCA_DATA_ENDPOINT_PATH,
     RCA_SOURCE_ENDPOINT_PATH,
+    RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+    RELATIVE_PERMEABILITY_ENDPOINT_PATH,
+    RELATIVE_PERMEABILITY_SOURCE_ENDPOINT_PATH,
     SLIMTUBE_DATA_ENDPOINT_PATH,
     SLIMTUBE_SOURCE_ENDPOINT_PATH,
     STO_DATA_ENDPOINT_PATH,
@@ -100,6 +103,9 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     WATERANALYSIS_DATA_ENDPOINT_PATH,
     WATERANALYSIS_SOURCE_ENDPOINT_PATH,
     BulkDatasetId,
+)
+from tests.test_api.test_routes.relative_permeability import (
+    relative_permeability_mock_objects,
 )
 from tests.test_api.test_routes.slimtubetest import slimtubetest_mock_objects
 from tests.test_api.test_routes.sto_test import sto_mock_objects
@@ -189,6 +195,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
+        (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -221,6 +228,7 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
+        (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -253,6 +261,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (VLE_DATA_ENDPOINT_PATH, BulkDatasetId.VLE),
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
+        (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -345,6 +354,11 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
                 slimtubetest_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ], "download_file", [build_get_test_data("x-parquet")],
         ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, relative_permeability_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ], "download_file", [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -363,7 +377,7 @@ async def test_get_content_parquet_data(
                 f"{data_endpoint_path}/{dataset_id}",
                 headers=TEST_HEADERS_PARQUET,
             )
-    arrow_table = pq.read_table(pa.BufferReader(build_get_test_data("x-parquet")))
+    arrow_table = pq.read_table(pa.BufferReader(blobs[0]))
     assert response.status_code == status.HTTP_200_OK
     assert pq.read_table(pa.BufferReader(response.content)).equals(arrow_table)
 
@@ -890,6 +904,46 @@ async def test_get_content_parquet_data(
             slimtubetest_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1035,6 +1089,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             slimtubetest_mock_objects.TEST_DATA,
         ),
         (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1152,6 +1215,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             slimtubetest_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_FILTERS,
             "get_record",
@@ -1267,6 +1339,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
             slimtubetest_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            relative_permeability_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -1409,6 +1490,14 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
             slimtubetest_mock_objects.TEST_DATA,
         ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1549,6 +1638,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
             slimtubetest_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -1691,6 +1788,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", slimtubetest_mock_objects.TEST_DATA)],
             slimtubetest_mock_objects.TEST_DATA,
         ),
+        (
+            f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [relative_permeability_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+            relative_permeability_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1819,6 +1924,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
             slimtubetest_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            relative_permeability_mock_objects.TEST_DATA,
+            relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
+            relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1938,6 +2050,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
             slimtubetest_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            relative_permeability_mock_objects.TEST_DATA,
+            relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
+            relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2031,6 +2150,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             SLIMTUBE_DATA_ENDPOINT_PATH,
             slimtubetest_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -2147,6 +2271,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             slimtubetest_mock_objects.TEST_DATA,
             slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
             slimtubetest_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            relative_permeability_mock_objects.TEST_DATA,
+            relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
+            relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -2269,6 +2400,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             slimtubetest_mock_objects.TEST_DATASET_RECORD_ID,
             slimtubetest_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            relative_permeability_mock_objects.TEST_DATA,
+            relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
+            relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2301,6 +2439,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (VLE_DATA_ENDPOINT_PATH, vle_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (MCM_DATA_ENDPOINT_PATH, mcm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (SLIMTUBE_DATA_ENDPOINT_PATH, slimtubetest_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, relative_permeability_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -2387,6 +2526,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             slimtubetest_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             slimtubetest_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+            relative_permeability_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            relative_permeability_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2399,7 +2543,10 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
                 content=json.dumps(incorrect_dataframe_data),
             )
 
+    from loguru import logger
+
     body = response.json()
+    logger.error(body)
     assert ["code", "reason"] == list(body.keys())
     assert body["reason"] == error_reason
 
@@ -2420,6 +2567,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{VLE_DATA_ENDPOINT_PATH}/{vle_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -2449,6 +2597,7 @@ async def test_rca_get_403(data_endpoint_path):
         VLE_DATA_ENDPOINT_PATH,
         MCM_DATA_ENDPOINT_PATH,
         SLIMTUBE_DATA_ENDPOINT_PATH,
+        RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -2505,6 +2654,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         VLE_DATA_ENDPOINT_PATH,
         MCM_DATA_ENDPOINT_PATH,
         SLIMTUBE_DATA_ENDPOINT_PATH,
+        RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -2540,6 +2690,7 @@ async def test_invalid_data_with_nan(path):
         (VLE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (MCM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (SLIMTUBE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
@@ -2876,6 +3027,27 @@ async def test_invalid_data_json_payload(path, payloads):
         ),
         (
             SLIMTUBE_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            RELATIVE_PERMEABILITY_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            RELATIVE_PERMEABILITY_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            RELATIVE_PERMEABILITY_SOURCE_ENDPOINT_PATH,
             "get_record",
             NO_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",
