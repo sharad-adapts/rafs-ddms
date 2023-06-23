@@ -13,7 +13,7 @@
     },
     "ReservoirPressure": {
         "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
     },
     "ConstantCompositionExpansionTestSteps": [
         {
@@ -45,11 +45,11 @@
           },
           "SaturationPressureLiquidVolume": {
               "Value": 1.0,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:",
+              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
           },
           "IndicatedPressureLiquidVolume": {
               "Value": 1.0,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:",
+              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
           },
           "RelativeVolumeRatio": {
             "Value": 0.8825,
