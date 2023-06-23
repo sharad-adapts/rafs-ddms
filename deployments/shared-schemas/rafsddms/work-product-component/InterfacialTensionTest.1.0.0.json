@@ -8,6 +8,8 @@
             "schemaVersionMinor": 0,
             "schemaVersionPatch": 0
         },
+        "createdBy": "RAFS DDMS Development Team",
+        "scope": "SHARED",
         "status": "DEVELOPMENT"
     },
     "schema": {
