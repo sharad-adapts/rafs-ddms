@@ -72,7 +72,7 @@ class Data(Field0):
             regex=r'^[\w\-\.]+:work-product-component\-\-SamplesAnalysesReport:[\w\-\.\:\%]+:[0-9]*$'
         )
     ]] = Field(
-        ...,
+        None,
         description='Identifies the report from which this analysis was extracted or multiple reports from which this analysis was recontructed.',
         title='ParentSamplesAnalysesReports',
     )

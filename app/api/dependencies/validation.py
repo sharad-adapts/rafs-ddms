@@ -116,7 +116,9 @@ async def validate_referential_integrity(
         storage_response = await storage_service.query_records(list(all_test_ids))
         missing_ids = storage_response["invalidRecords"]
         if missing_ids:
-            reason = f"Records not found: {missing_ids}"
+            error_title = "Request can't be processed due to missing referenced records."
+            error_details = f"Fields checked: {fields}. Records not found: {missing_ids}"
+            reason = f"{error_title} {error_details}"
             logger.debug(reason)
             raise HTTPException(
                 status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,

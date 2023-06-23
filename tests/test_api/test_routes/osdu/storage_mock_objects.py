@@ -515,6 +515,13 @@ EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT = {
     "code": 422, "reason": f"Records not found: ['{TEST_SAMPLESANALYSESREPORT_ID}']",
 }
 
+ERROR_TITLE = "Request can't be processed due to missing referenced records."
+ERROR_DETAILS = f"Fields checked: ['ParentSamplesAnalysesReports']. Records not found: ['{TEST_SAMPLESANALYSESREPORT_ID}']"
+EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT = {
+    "code": 422,
+    "reason": f"{ERROR_TITLE} {ERROR_DETAILS}",
+}
+
 
 CORING_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/coringreports"
 ROCKSAMPLE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/rocksamples"
@@ -535,6 +542,7 @@ MCM_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/multiplecontactmiscibility
 SLIMTUBETEST_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/slimtubetests"
 SAMPLESANALYSES_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/samplesanalysesreport"
 CAP_PRESSURE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/capillarypressuretests"
+RELATIVE_PERMEABILITY_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/relativepermeabilitytests"
 RCA_DATA_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/data"
 RCA_SOURCE_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/source"
 CCE_DATA_ENDPOINT_PATH = f"{CCE_ENDPOINT_PATH}/{TEST_CCE_ID}/data"
