@@ -57,6 +57,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     PVT_QUERY_STORAGE_SERVICE_200_RESPONSE,
     PVT_RECORD,
     PVT_STORAGE_SERVICE_200_RESPONSE,
+    RELATIVE_PERMEABILITY_ENDPOINT_PATH,
     ROCKSAMPLE_ENDPOINT_PATH,
     ROCKSAMPLE_RECORD,
     ROCKSAMPLEANALYSIS_ENDPOINT_PATH,
@@ -303,6 +304,7 @@ def with_patched_storage_samplesanalysis_existing_parent():
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -338,6 +340,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -374,6 +377,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record_versions", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -413,6 +417,8 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("soft_delete_record", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("soft_delete_record", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
+        ("soft_delete_record", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
+
     ],
 )
 async def test_delete_record_not_found(
@@ -452,6 +458,7 @@ async def test_delete_record_not_found(
         ("slimtubetests"),
         ("samplesanalysesreport"),
         ("capillarypressuretests"),
+        ("relativepermeabilitytests"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -490,6 +497,7 @@ async def test_post_record_no_kind(path):
         ("slimtubetests"),
         ("samplesanalysesreport"),
         ("capillarypressuretests"),
+        ("relativepermeabilitytests"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -524,6 +532,7 @@ async def test_post_record_invalid_payload_type(path):
         ("slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
         ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD, "DocumentTypeID"),
         ("capillarypressuretests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
+        ("relativepermeabilitytests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -869,6 +878,10 @@ async def test_post_record_success_update_pvt_parent(
             "capillarypressuretests",
             SAMPLESANALYSIS_RECORD,
         ),
+        (
+            "relativepermeabilitytests",
+            SAMPLESANALYSIS_RECORD,
+        ),
     ],
 )
 async def test_post_samplesanalysis_with_missing_parent(
@@ -901,6 +914,16 @@ async def test_post_samplesanalysis_with_missing_parent(
         (
             "upsert_records",
             "capillarypressuretests",
+            SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
+        ),
+        (
+            "upsert_records",
+            "relativepermeabilitytests",
+            SAMPLESANALYSIS_RECORD,
+        ),
+        (
+            "upsert_records",
+            "relativepermeabilitytests",
             SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
         ),
     ],
@@ -1203,6 +1226,7 @@ async def test_post_record_with_linking_no_id(
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record", "capillarypressuretests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "relativepermeabilitytests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_success(
@@ -1244,6 +1268,7 @@ async def test_get_record_success(
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record", "capillarypressuretests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "relativepermeabilitytests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_success(
@@ -1284,6 +1309,7 @@ async def test_get_record_version_success(
         ("get_record_versions", "slimtubetests", TEST_SLIMTUBETEST_ID),
         ("get_record_versions", "samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record_versions", "capillarypressuretests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -1324,6 +1350,7 @@ async def test_get_record_versions_success(
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
         ),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"relativepermeabilitytests/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/1234"),
@@ -1371,6 +1398,10 @@ async def test_get_record_versions_success(
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
         ),
+        (
+            "get_record", status.HTTP_401_UNAUTHORIZED,
+            f"relativepermeabilitytests/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
+        ),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
@@ -1414,6 +1445,10 @@ async def test_get_record_versions_success(
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}/versions",
         ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"relativepermeabilitytests/{TEST_SAMPLESANALYSIS_ID}/versions",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
@@ -1449,6 +1484,7 @@ async def test_get_record_auth_errors_from_storage(
         ("slimtubetests/record_id"),
         ("samplesanalysesreport/record_id"),
         ("capillarypressuretests/record_id"),
+        ("relativepermeabilitytests/record_id"),
         ("rocksamples/record_id/versions/1234"),
         ("coringreports/record_id/versions/1234"),
         ("pvtreports/record_id/versions/1234"),
@@ -1468,6 +1504,7 @@ async def test_get_record_auth_errors_from_storage(
         ("slimtubetests/record_id/versions/1234"),
         ("samplesanalysesreport/record_id/versions/1234"),
         ("capillarypressuretests/record_id/versions/1234"),
+        ("relativepermeabilitytests/record_id/versions/1234"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -1487,6 +1524,7 @@ async def test_get_record_auth_errors_from_storage(
         ("slimtubetests/record_id/versions"),
         ("samplesanalysesreport/record_id/versions"),
         ("capillarypressuretests/record_id/versions"),
+        ("relativepermeabilitytests/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -1527,6 +1565,7 @@ async def test_get_record_auth_errors(
             f"samplesanalysesreport/{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}",
         ),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"capillarypressuretests/{TEST_SAMPLESANALYSIS_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"relativepermeabilitytests/{TEST_SAMPLESANALYSIS_ID}"),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -1562,6 +1601,7 @@ async def test_delete_record_auth_errors_from_storage(
         ("slimtubetests/record_id"),
         ("samplesanalysesreport/record_id"),
         ("capillarypressuretests/record_id"),
+        ("relativepermeabilitytests/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1600,6 +1640,7 @@ async def test_delete_record_auth_errors(
             storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
         ),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "capillarypressuretests", SAMPLESANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "relativepermeabilitytests", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
@@ -1641,6 +1682,7 @@ async def test_post_record_auth_errors_from_storage(
         ("slimtubetests", SLIMTUBETEST_RECORD),
         ("samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
         ("capillarypressuretests", SAMPLESANALYSIS_RECORD),
+        ("relativepermeabilitytests", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1711,6 +1753,7 @@ async def test_post_record_auth_errors(
         (CAP_PRESSURE_ENDPOINT_PATH, TEST_CORING_ID),
         (CAP_PRESSURE_ENDPOINT_PATH, TEST_ROCKSAMPLE_ID),
         (CAP_PRESSURE_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1744,6 +1787,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (SLIMTUBETEST_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (CAP_PRESSURE_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (RELATIVE_PERMEABILITY_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1779,6 +1823,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (SLIMTUBETEST_ENDPOINT_PATH, TEST_WRONG_ID),
         (storage_mock_objects.SAMPLESANALYSES_ENDPOINT_PATH, TEST_WRONG_ID),
         (CAP_PRESSURE_ENDPOINT_PATH, TEST_WRONG_ID),
+        (RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):

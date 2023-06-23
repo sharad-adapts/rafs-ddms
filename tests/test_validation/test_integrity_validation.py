@@ -11,7 +11,6 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-import re
 
 import pytest
 from fastapi import HTTPException
@@ -47,12 +46,10 @@ async def test_validate_referential_integrity(mocker):
 
     assert exc_info.value.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
-    from loguru import logger
-    logger.error(exc_info.value.detail)
-    pattern = r"'(.*?)'"
-    matches = re.findall(pattern, exc_info.value.detail)
-    id_set = {match.replace("'", "") for match in matches}
-    assert id_set == set(EXPECTED_IDS_LIST)
+    error_title = "Request can't be processed due to missing referenced records."
+    error_details = f"Fields checked: {TEST_IDS_FIELDS}. Records not found: [{EXPECTED_IDS_LIST}]"
+    expected_response_detail = f"{error_title} {error_details}"
+    assert exc_info.value.detail == expected_response_detail
 
     mock_get_storage_service = StorageService(None, query_records_response={"invalidRecords": []})
     get_all_ids_from_records = mocker.patch("app.api.dependencies.validation.get_all_ids_from_records")

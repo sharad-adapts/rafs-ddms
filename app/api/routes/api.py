@@ -28,6 +28,7 @@ from app.api.routes.master_data import coring_api, rocksample_api
 from app.api.routes.mcm import api as mcm_api
 from app.api.routes.multistageseparator import api as mss_api
 from app.api.routes.pvt import api as pvt_api
+from app.api.routes.relativepermeability import api as relative_permeability_api
 from app.api.routes.rocksampleanalysis import api as rocksampleanalysis_api
 from app.api.routes.samplesanalysesreport import (
     api as samples_analyses_report_api,
@@ -115,5 +116,10 @@ router.include_router(
 router.include_router(
     cappressure_api.router,
     tags=["capillarypressuretests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    relative_permeability_api.router,
+    tags=["relativepermeabilitytests"],
     dependencies=COMMON_DEPENDENCIES,
 )
