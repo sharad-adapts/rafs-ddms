@@ -26,6 +26,7 @@ from app.models.data_schemas.sto_data_model import Model as StockTankOilAnalysis
 from app.models.data_schemas.swelling_test_data_model import Model as SwellingTestModel
 from app.models.data_schemas.interfacial_tension_data_model import Model as InterfacialTensionModel
 from app.models.data_schemas.mcm_data_model import Model as MCMModel
+from app.models.data_schemas.relative_permeability_data_model import Model as RelativePermeabilityModel
 from app.models.data_schemas.vle_data_model import Model as VLEModel
 from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
 from app.resources.paths import CommonRelativePaths
@@ -75,6 +76,9 @@ MCM_ANALYSIS_MODELS = {
 SLIMTUBETEST_MODELS = {
     ContentShemaVersion.V_1_0_0: SlimTubeModel
 }
+RELATIVE_PERMEABILITY_MODELS = {
+    ContentShemaVersion.V_1_0_0: RelativePermeabilityModel
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -90,4 +94,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.VLE: VLE_MODELS,
     CommonRelativePaths.MCM: MCM_ANALYSIS_MODELS,
     CommonRelativePaths.SLIMTUBETEST: SLIMTUBETEST_MODELS,
+    CommonRelativePaths.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
 }

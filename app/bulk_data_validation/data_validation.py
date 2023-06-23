@@ -111,10 +111,12 @@ class DataValidator:
         for ids_to_check_batch in divide_chunks(list(ids_to_check), settings.storage_query_limit):
             missing_records.update(await self._find_missing_records(ids_to_check=ids_to_check_batch))
 
-        # @TODO remove once FluidSample master-data schema is created
+        # @TODO remove once Sample and/or FluidSample master-data schema is created
         invalid_records = set()
+        skip_records = ["master-data--FluidSample", "master-data--Sample"]
         for record in missing_records:
-            if "master-data--FluidSample" in record:
-                invalid_records.add(record)
+            for skip_record in skip_records:
+                if skip_record in record:
+                    invalid_records.add(record)
 
         return missing_records - invalid_records

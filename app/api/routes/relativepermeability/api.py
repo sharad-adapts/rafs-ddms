@@ -14,15 +14,27 @@
 
 from fastapi import APIRouter
 
-from app.api.routes.samplesanalysis.api import SamplesAnalysisRecordView
+from app.api.routes.data.api import BaseDataView
+from app.api.routes.samplesanalysis.api import (
+    SAMPLESANALYSIS_ID_REGEX_STR,
+    SamplesAnalysisRecordView,
+)
 
 RECORD_TYPE = "RelativePermeability"
+BULK_DATASET_PREFIX = "relative-permeability"
 
 router = APIRouter()
 rel_perm_router = APIRouter()
 
 SamplesAnalysisRecordView(
     router=rel_perm_router,
+    record_type=RECORD_TYPE,
+)
+
+BaseDataView(
+    router=rel_perm_router,
+    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
+    bulk_dataset_prefix=BULK_DATASET_PREFIX,
     record_type=RECORD_TYPE,
 )
 

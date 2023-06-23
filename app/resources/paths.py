@@ -33,3 +33,4 @@ class CommonRelativePaths(NamedTuple):
     VLE = "/vaporliquidequilibriumtests/"
     MCM = "/multiplecontactmiscibilitytests/"
     SLIMTUBETEST = "/slimtubetests/"
+    RELATIVE_PERMEABILITY = "/relativepermeabilitytests/"

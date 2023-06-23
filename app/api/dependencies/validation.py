@@ -284,6 +284,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.VLE,
         CommonRelativePaths.MCM,
         CommonRelativePaths.SLIMTUBETEST,
+        CommonRelativePaths.RELATIVE_PERMEABILITY,
     )
 
     for path in common_relative_paths:
