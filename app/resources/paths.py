@@ -34,3 +34,4 @@ class CommonRelativePaths(NamedTuple):
     MCM = "/multiplecontactmiscibilitytests/"
     SLIMTUBETEST = "/slimtubetests/"
     RELATIVE_PERMEABILITY = "/relativepermeabilitytests/"
+    CAP_PRESSURE = "/capillarypressuretests/"

@@ -33,6 +33,7 @@ from app.resources.common_headers import CONTENT_TYPE
 from app.resources.mime_types import CustomMimeTypes
 from app.services import dataset, storage
 from tests.test_api.test_routes import dependencies
+from tests.test_api.test_routes.cappressure import cappressure_mock_objects
 from tests.test_api.test_routes.cce import cce_mock_objects
 from tests.test_api.test_routes.compositionalanalysis import (
     compositionalanalysis_mock_objects,
@@ -69,6 +70,7 @@ from tests.test_api.test_routes.interfacialtension import (
 from tests.test_api.test_routes.mcm import mcm_mock_objects
 from tests.test_api.test_routes.multistageseparator import mss_test_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
+    CAP_PRESSURE_DATA_ENDPOINT_PATH,
     CCE_DATA_ENDPOINT_PATH,
     CCE_SOURCE_ENDPOINT_PATH,
     COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH,
@@ -196,6 +198,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
         (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
+        (CAP_PRESSURE_DATA_ENDPOINT_PATH, BulkDatasetId.CAP_PRESSURE),
     ],
 )
 @pytest.mark.asyncio
@@ -229,6 +232,7 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
         (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
+        (CAP_PRESSURE_DATA_ENDPOINT_PATH, BulkDatasetId.CAP_PRESSURE),
     ],
 )
 @pytest.mark.asyncio
@@ -262,6 +266,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (MCM_DATA_ENDPOINT_PATH, BulkDatasetId.MCM),
         (SLIMTUBE_DATA_ENDPOINT_PATH, BulkDatasetId.SLIMTUBE),
         (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, BulkDatasetId.RELATIVE_PERMEABILITY),
+        (CAP_PRESSURE_DATA_ENDPOINT_PATH, BulkDatasetId.CAP_PRESSURE),
     ],
 )
 @pytest.mark.asyncio
@@ -358,6 +363,11 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, relative_permeability_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
                 relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ], "download_file", [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
+        ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH, cappressure_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ], "download_file", [build_get_test_data("x-parquet")],
         ),
     ],
 )
@@ -944,6 +954,46 @@ async def test_get_content_parquet_data(
             relative_permeability_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1349,6 +1399,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
             relative_permeability_mock_objects.TEST_FILTERED_DATA,
         ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            cappressure_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", cappressure_mock_objects.TEST_DATA)],
+            cappressure_mock_objects.TEST_FILTERED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1497,6 +1556,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
             relative_permeability_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", cappressure_mock_objects.TEST_DATA)],
+            cappressure_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -1647,6 +1714,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
             relative_permeability_mock_objects.TEST_DATA,
         ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", cappressure_mock_objects.TEST_DATA)],
+            cappressure_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1796,6 +1871,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", relative_permeability_mock_objects.TEST_DATA)],
             relative_permeability_mock_objects.TEST_DATA,
         ),
+        (
+            f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [cappressure_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", cappressure_mock_objects.TEST_DATA)],
+            cappressure_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1931,6 +2014,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
             relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            cappressure_mock_objects.TEST_DATA,
+            cappressure_mock_objects.TEST_DATASET_RECORD_ID,
+            cappressure_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2057,6 +2147,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
             relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            cappressure_mock_objects.TEST_DATA,
+            cappressure_mock_objects.TEST_DATASET_RECORD_ID,
+            cappressure_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2155,6 +2252,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
             relative_permeability_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            cappressure_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -2278,6 +2380,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             relative_permeability_mock_objects.TEST_DATA,
             relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
             relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            cappressure_mock_objects.TEST_DATA,
+            cappressure_mock_objects.TEST_DATASET_RECORD_ID,
+            cappressure_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -2407,6 +2516,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             relative_permeability_mock_objects.TEST_DATASET_RECORD_ID,
             relative_permeability_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            cappressure_mock_objects.TEST_DATA,
+            cappressure_mock_objects.TEST_DATASET_RECORD_ID,
+            cappressure_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2440,6 +2556,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (MCM_DATA_ENDPOINT_PATH, mcm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (SLIMTUBE_DATA_ENDPOINT_PATH, slimtubetest_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, relative_permeability_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (CAP_PRESSURE_DATA_ENDPOINT_PATH, cappressure_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -2531,6 +2648,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             relative_permeability_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             relative_permeability_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            CAP_PRESSURE_DATA_ENDPOINT_PATH,
+            cappressure_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            cappressure_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2568,6 +2690,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{MCM_DATA_ENDPOINT_PATH}/{mcm_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{SLIMTUBE_DATA_ENDPOINT_PATH}/{slimtubetest_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH}/{relative_permeability_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -2598,6 +2721,7 @@ async def test_rca_get_403(data_endpoint_path):
         MCM_DATA_ENDPOINT_PATH,
         SLIMTUBE_DATA_ENDPOINT_PATH,
         RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+        CAP_PRESSURE_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -2655,6 +2779,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         MCM_DATA_ENDPOINT_PATH,
         SLIMTUBE_DATA_ENDPOINT_PATH,
         RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH,
+        CAP_PRESSURE_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -2691,6 +2816,7 @@ async def test_invalid_data_with_nan(path):
         (MCM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (SLIMTUBE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (RELATIVE_PERMEABILITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (CAP_PRESSURE_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

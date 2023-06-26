@@ -14,16 +14,28 @@
 
 from fastapi import APIRouter
 
-from app.api.routes.samplesanalysis.api import SamplesAnalysisRecordView
+from app.api.routes.data.api import BaseDataView
+from app.api.routes.samplesanalysis.api import (
+    SAMPLESANALYSIS_ID_REGEX_STR,
+    SamplesAnalysisRecordView,
+)
 
 RECORD_TYPE = "CapPressure"
+BULK_DATASET_PREFIX = "capillary-pressure"
 
 router = APIRouter()
-cap_router = APIRouter()
+cap_pressure_router = APIRouter()
 
-SamplesAnalysisRecordView(
-    router=cap_router,
+BaseDataView(
+    router=cap_pressure_router,
+    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
+    bulk_dataset_prefix=BULK_DATASET_PREFIX,
     record_type=RECORD_TYPE,
 )
 
-router.include_router(cap_router, tags=["capillarypressuretests"], prefix="/capillarypressuretests")
+SamplesAnalysisRecordView(
+    router=cap_pressure_router,
+    record_type=RECORD_TYPE,
+)
+
+router.include_router(cap_pressure_router, tags=["capillarypressuretests"], prefix="/capillarypressuretests")
