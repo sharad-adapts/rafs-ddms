@@ -21,7 +21,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Any, Dict, List, Optional
 
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, Extra, Field, constr
 
 from .osdu_wks_AbstractAccessControlList_1 import field_0 as field_0_1
 from .osdu_wks_AbstractLegalParentList_1 import field_0
@@ -47,10 +47,10 @@ class Remark(BaseModel):
 
 
 class Data(Field0):
-    PVTReportID: Optional[
-        constr(regex=r'^[\w\-\.]+:work-product-component\-\-PVT:[\w\-\.\:\%]+:[0-9]*$')
-    ] = Field(
-        None,
+    PVTReportID: constr(
+        regex=r'^[\w\-\.]+:work-product-component\-\-PVT:[\w\-\.\:\%]+:[0-9]*$'
+    ) = Field(
+        ...,
         description='Unique PVT identifier linked to this Interfacial Tension Test.',
         title='PVT Report ID',
     )
@@ -90,6 +90,9 @@ class Data(Field0):
 
 
 class InterfacialTensionTest(BaseModel):
+    class Config:
+        extra = Extra.forbid
+
     ancestry: Optional[field_0.Field0] = Field(
         None,
         description='The links to data, which constitute the inputs, from which this record instance is derived.',
