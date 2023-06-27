@@ -21,7 +21,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from typing import Dict, List, Optional
 
-from pydantic import BaseModel, Field, constr
+from pydantic import BaseModel, Extra, Field, constr
 
 from .osdu_wks_AbstractAccessControlList_1 import field_0 as field_0_1
 from .osdu_wks_AbstractLegalParentList_1 import field_0
@@ -88,6 +88,9 @@ class Data(Field0):
 
 
 class SlimTubeTest(BaseModel):
+    class Config:
+        extra = Extra.forbid
+
     ancestry: Optional[field_0.Field0] = Field(
         None,
         description='The links to data, which constitute the inputs, from which this record instance is derived.',
