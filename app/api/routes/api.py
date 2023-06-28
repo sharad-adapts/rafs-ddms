@@ -23,6 +23,7 @@ from app.api.routes.compositionalanalysis import (
 )
 from app.api.routes.cvd import api as cvd_api
 from app.api.routes.dif_lib import api as dif_lib_api
+from app.api.routes.fractionation import api as fractionation_api
 from app.api.routes.interfacialtension import api as interfacialtension_api
 from app.api.routes.master_data import coring_api, rocksample_api
 from app.api.routes.mcm import api as mcm_api
@@ -121,5 +122,10 @@ router.include_router(
 router.include_router(
     relative_permeability_api.router,
     tags=["relativepermeabilitytests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    fractionation_api.router,
+    tags=["fractionationtests"],
     dependencies=COMMON_DEPENDENCIES,
 )
