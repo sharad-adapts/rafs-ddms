@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "DifferentialLiberationTestID": {
@@ -297,230 +297,230 @@
             },
             "PhasesPresent": {
               "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "VaporCompositionalAnalysis": {
+      "type": "object",
+      "properties": {
+        "StepNumber": {
+          "type": "string"
+        },
+        "StepPressure": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
             },
-            "VaporCompositionalAnalysis": {
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "StepTemperature": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "GasGravity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "VaporComposition": {
+          "type": "array",
+          "items": [
+            {
               "type": "object",
               "properties": {
-                "StepNumber": {
+                "ComponentFormula": {
                   "type": "string"
                 },
-                "StepPressure": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
-                },
-                "StepTemperature": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
-                },
-                "GasGravity": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
-                },
-                "Remark": {
+                "ComponentName": {
                   "type": "string"
                 },
-                "VaporComposition": {
-                  "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "ComponentFormula": {
-                          "type": "string"
-                        },
-                        "ComponentName": {
-                          "type": "string"
-                        },
-                        "RelativeMolarWeight": {
-                          "type": "object",
-                          "properties": {
-                            "Value": {
-                              "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                              "type": "string",
-                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                          }
-                        }
-                      }
+                "RelativeMolarWeight": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     }
-                  ]
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "LiquidCompositionalAnalysis": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "ComponentFormula": {
+              "type": "string"
+            },
+            "ComponentName": {
+              "type": "string"
+            },
+            "FlashedLiquidRelativeMolarWeight": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 }
               }
             },
-            "LiquidCompositionalAnalysis": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "ComponentFormula": {
-                      "type": "string"
-                    },
-                    "ComponentName": {
-                      "type": "string"
-                    },
-                    "FlashedLiquidRelativeMolarWeight": {
-                      "type": "object",
-                      "properties": {
-                        "Value": {
-                          "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                      }
-                    },
-                    "FlashedLiquidRelativeMass": {
-                      "type": "object",
-                      "properties": {
-                        "Value": {
-                          "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                      }
-                    },
-                    "FlashedGasRelativeMolarWeight": {
-                      "type": "object",
-                      "properties": {
-                        "Value": {
-                          "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                      }
-                    }
-                  }
-                }
-              ]
-            },
-            "CalculatedProperties": {
+            "FlashedLiquidRelativeMass": {
               "type": "object",
               "properties": {
-                "AvgMoleWeight": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
+                "Value": {
+                  "type": "number"
                 },
-                "ResidueDensity": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+              }
+            },
+            "FlashedGasRelativeMolarWeight": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
                 },
-                "ResidueAPI": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  }
-                },
-                "Remark": {
-                  "type": "string"
-                },
-                "LiquidCalculatedProperties": {
-                  "type": "array",
-                  "items": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "ComponentFormula": {
-                          "type": "string"
-                        },
-                        "FlashedLiquidRelativeMolarWeight": {
-                          "type": "object",
-                          "properties": {
-                            "Value": {
-                              "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                              "type": "string",
-                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                          }
-                        },
-                        "FlashedLiquidRelativeMass": {
-                          "type": "object",
-                          "properties": {
-                            "Value": {
-                              "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                              "type": "string",
-                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                          }
-                        },
-                        "FlashedLiquidDensity": {
-                          "type": "object",
-                          "properties": {
-                            "Value": {
-                              "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                              "type": "string",
-                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ]
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 }
               }
             }
           }
         }
       ]
+    },
+    "CalculatedProperties": {
+      "type": "object",
+      "properties": {
+        "AvgMoleWeight": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "ResidueDensity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "ResidueAPI": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          }
+        },
+        "Remark": {
+          "type": "string"
+        },
+        "LiquidCalculatedProperties": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "ComponentFormula": {
+                  "type": "string"
+                },
+                "FlashedLiquidRelativeMolarWeight": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "FlashedLiquidRelativeMass": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                },
+                "FlashedLiquidDensity": {
+                  "type": "object",
+                  "properties": {
+                    "Value": {
+                      "type": "number"
+                    },
+                    "UnitOfMeasure": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   },
   "required": [
