@@ -13,10 +13,14 @@
 #  limitations under the License.
 
 import copy
+import json
+import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:compositionalanalysis-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/compositionalanalysisdata/partition:work-product-component--CompositionalAnalysisTest:compositionalanalysis_test/{TEST_DATASET_RECORD_ID}"
@@ -51,185 +55,8 @@ TEST_PARAMS_FILTERS = {
     "rows_filter": "CompositionalAnalysisTestID,eq,opendes:work-product-component--CompositionalAnalysisTest:1:",
 }
 
-TEST_DATA = {
-    "columns": [
-        "CompositionalAnalysisTestID",
-        "TestNumber",
-        "FluidSampleID",
-        "CompositionalAnalysis",
-        "CalculatedProperties",
-        "GasCompositionalCalculations",
-        "OilCompositionalCalculations",
-    ],
-    "index": [0],
-    "data": [
-        [
-            "opendes:work-product-component--CompositionalAnalysisTest:1:",
-            "1",
-            "opendes:master-data--FluidSample:1:",
-            {
-                "СomponentFormula": "C1",
-                "ComponentName": "Methane",
-                "FlashedLiquidRelativeMolarWeight": {
-                    "Value": 16.04,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure: %[molar]",
-                },
-                "FlashedLiquidRelativeMass": {
-                    "Value": 16.04,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure: %[mass]",
-                },
-                "FlashedGasRelativeMolarWeight": {
-                    "Value": 16.04,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure: %[molar]",
-                },
-                "OverallFluidRelativeMolarWeight": {
-                    "Value": 16.04,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure: %[molar]",
-                },
-                "OverallFluidRelativeMass": {
-                    "Value": 16.04,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure: %[mass]",
-                },
-            },
-            {
-                "AvgFlashedFluidMoleWeight": {
-                    "Value": 25.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                },
-                "AvgFlashedGasMoleWeight": {
-                    "Value": 35.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
-                },
-                "AvgFlashedOverallFluidMoleWeight": {
-                    "Value": 38.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
-                },
-                "FlashedLiquidDensity": {
-                    "Value": 15.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "FlashedGasDensity": {
-                    "Value": 25.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "OverallFluidDensity": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "FlashedLiquidRealRelativeDensity": {
-                    "Value": 0.08,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "FlashedGasRealRelativeDensity": {
-                    "Value": 0.25,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "OverallFluidRealRelativeDensity": {
-                    "Value": 0.63,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3",
-                },
-                "FlashedLiquidGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf/bbl",
-                },
-                "FlashedGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf/bbl",
-                },
-                "OverallLiquidGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf/bbl",
-                },
-                "FlashedLiquidMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "FlashedGasMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "OverallLiquidMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "FlashedLiquidMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "FlashedGasMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "OverallLiquidMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%",
-                },
-                "SampleCalculatedProperties": [{
-                    "ComponentFormula": "C10H22",
-                    "ComponentName": "Decane",
-                    "FlashedLiquidRelativeMolarWeight": {
-                        "Value": 142.48,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "FlashedLiquidMolecularWeight": {
-                        "Value": 64.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "FlashedLiquidDensity": {
-                        "Value": 142.48,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[density]",
-                    },
-                    "FlashedGasMolecularWeight": {
-                        "Value": 142.48,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "FlashedGasRelativeMolarWeight": {
-                        "Value": 55.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "FlashedGasDensity": {
-                        "Value": 0.085,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[density]",
-                    },
-                    "OverallFluidMolecularWeight": {
-                        "Value": 75.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "OverallFluidRelativeWeight": {
-                        "Value": 71.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                    "OverallFluidDensity": {
-                        "Value": 0.0854,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mole]",
-                    },
-                }],
-            },
-            [{
-                "ComponentName": "Hydrogen",
-                "MoleWeight": {
-                    "Value": 2.016,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/mol:",
-                },
-                "Density": {
-                    "Value": 0.8006,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3:",
-                },
-            }],
-            [{
-                "ComponentName": "Hydrogen",
-                "MoleWeight": {
-                    "Value": 2.016,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/mol:",
-                },
-                "Density": {
-                    "Value": 0.8006,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3:",
-                },
-            }],
-        ],
-    ],
-}
+with open(f"{dir_path}/compositional_analysis_orient_split.json") as fp:
+    TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
