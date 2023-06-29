@@ -29,6 +29,7 @@ from app.api.routes.interfacialtension import api as interfacialtension_api
 from app.api.routes.master_data import coring_api, rocksample_api
 from app.api.routes.mcm import api as mcm_api
 from app.api.routes.multistageseparator import api as mss_api
+from app.api.routes.physchem import api as physchem_api
 from app.api.routes.pvt import api as pvt_api
 from app.api.routes.relativepermeability import api as relative_permeability_api
 from app.api.routes.rocksampleanalysis import api as rocksampleanalysis_api
@@ -133,5 +134,10 @@ router.include_router(
 router.include_router(
     extraction_api.router,
     tags=["extractiontests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    physchem_api.router,
+    tags=["physicalchemistrytests"],
     dependencies=COMMON_DEPENDENCIES,
 )
