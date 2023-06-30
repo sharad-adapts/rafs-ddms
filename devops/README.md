@@ -2,10 +2,10 @@
 
 ## [Cloud Agnostic] Build image
 
-**WARN** It is recommended to use the [distroless](../../Dockerfile.distroless) image for production systems, which it is more secure and lighter than develop and test images.
+**WARNING:** It is recommended to use the [Dockerfile](../../Dockerfile) image for production systems.  The [Dockerfile.tests](../../Dockerfile.tests) image, contains extra dependencies needed for testing purposes and is not intended for production use.
 
 ```shell
-docker build --file ./Dockerfile.distroless -t rafsddms:latest .
+docker build --file ./Dockerfile -t rafsddms:latest .
 ```
 
 ## Cloud specific

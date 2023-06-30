@@ -1,17 +1,16 @@
 version: '3'
 
 services:
-  app:
-    build: .
+  rafs:
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: on-failure
-    ports:
-      - "8080:8080"
-    # Env file can be setup here or in command line docker-compose --env-file <>
     env_file:
       - .env
-    volumes:
-      - ./app/:/app/app
-    entrypoint: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
+    ports:
+      - "8080:8080"
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
 
   tests:
     build:
@@ -34,18 +33,7 @@ services:
     working_dir: /
     entrypoint: [ "bash", "-c",
       "pytest -n auto ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
-    profiles: ["integration"]
+    profiles: ["tests"]
     depends_on:
-      - app
+      - rafs
       - tests
-
-  distroless:
-    build:
-      context: .
-      dockerfile: Dockerfile.distroless
-    env_file:
-      - .env
-    profiles: ["distroless"]
-    ports:
-      - "8088:8088"
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8088", "--loop", "uvloop"]

@@ -29,7 +29,7 @@ azure_containerize:
     - >
       docker buildx build --push -t ${CI_REGISTRY_IMAGE}/${SHA_IMAGE}
       -t ${AZURE_REGISTRY}.azurecr.io/$SHA_IMAGE
-      -f Dockerfile.distroless
+      -f Dockerfile
       --cache-to type=registry,ref=${CI_REGISTRY_IMAGE}:build-cache
       --cache-from type=registry,ref=${CI_REGISTRY_IMAGE}:build-cache .
   after_script:
