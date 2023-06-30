@@ -172,11 +172,7 @@ def test_pvt_report_id_not_found(api, tests_data, case, record_id, data_file_nam
         (DataFiles.DIF_LIB, DataTypes.DIF_LIB),
         (DataFiles.CA, DataTypes.CA),
         (DataFiles.CVD, DataTypes.CVD),
-        pytest.param(
-            DataFiles.IT, DataTypes.IT, marks=[
-                pytest.mark.xfail(reason="issues/53"),
-            ],
-        ),
+        (DataFiles.IT, DataTypes.IT),
         (DataFiles.MSS, DataTypes.MSS),
         (DataFiles.MCM, DataTypes.MCM),
         (DataFiles.SLIM_TUBE, DataTypes.SLIM_TUBE),

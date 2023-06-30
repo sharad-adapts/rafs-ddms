@@ -69,7 +69,7 @@ azure_swagger_test:
     AZURE_SWAGGER_PATH: api/rafs-ddms/v1/docs#/
 
 azure_test_py:
-  tags: ["osdu-small"]
+  tags: ["osdu-large"]
   stage: integration
   image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
   needs: ["azure_deploy"]
