@@ -100,22 +100,34 @@ Also, it is possible to set ttl manually for a specific request directly at the 
 ### Run with Docker
 
 Docker-compose it is meant to be used for local development/testing, not for production, be aware that docker-compose uses higher privileges for development and testing purposes, we wouldn't recommend to use the [docker-compose](./docker-compose.yml) file for production, only for developers to be able to add changes and test them in local as well as unit/integration tests to avoid having to install all the dependencies.
+We are using a distroless image as the default production docker image for an improved security experience.
 
 #### Docker Flavor Versions (docker-compose)
 
-* [app - Dockerfile](./Dockerfile) it is the default image to run in [docker-compose](./docker-compose.yml), it is a balanced docker production ready dockerfile which can be used to deploy application as well as to develop in your local.
-* [tests - Dockerfile_test](./Dockerfile_test) Dockerfile definition which contains and install all dependencies needed for unit/integration tests.
-* [Distroless - Dockerfile.distroless](./Dockerfile.distroless) Lean docker file (best approach for production systems due lack of unneeded binaries and libraries), this approach will be ideal to address security cve's and to have lean version of rafs-ddms.
+* [Distroless - Dockerfile](./Dockerfile) is the default image to run with [docker-compose](./docker-compose.yml).  It is a balanced, production ready dockerfile which can be used to deploy an application as well as to develop on your local machine. It is a lean dockerfile (which is a best approach for production systems due lack of unneeded binaries and libraries) and this approach will be ideal to address security CVEs and to have lean version of RAFS DDMS.
   * Distroless build around ~400MB, you can test it `docker-compose --profile distroless up distroless`
+* [tests - Dockerfile_test](./Dockerfile.tests) Dockerfile definition which contains and install all dependencies needed for unit/integration tests.
 
-#### Run App
+#### Quickly run docker-compose
 
-**WARN** Docker-compose it is meant to be used for local development/testing, not for production.
+**WARNING** Docker-compose it is meant to be used for quick development/testing, not for production.
 
 ```shell
-if [ -z $UID ]; then export UID=$(id -u); fi
-export GID=$(id -g)
-docker-compose up app
+OSDU_ENDPOINT=https://<osdu>.<fqdn>
+cat > .env <<EOF
+SERVICE_NAME=rafs-ddms
+OPENAPI_PREFIX=/api/rafs-ddms
+SERVICE_HOST_STORAGE=${OSDU_ENDPOINT}/api/storage/v2
+SERVICE_HOST_SEARCH=${OSDU_ENDPOINT}/api/search/v2
+SERVICE_HOST_PARTITION=${OSDU_ENDPOINT}/api/partition/v1
+SERVICE_HOST_DATASET=${OSDU_ENDPOINT}/api/dataset/v1
+CACHE_ENABLE=False
+EOF
+
+docker-compose up rafs
+
+# Simple test
+curl localhost:8080/api/rafs-ddms/v1/info
 ```
 
 #### Run with Dockerfile
@@ -151,7 +163,7 @@ Use the `OPENAPI_PREFIX` value used for project settings.
 
 ### Run Unit Tests
 
-**WARN** Docker-compose it is meant to be used for local development/testing, not for production.
+**WARNING:** It is recommended to use the [Dockerfile](./Dockerfile) image for production systems.  The [Dockerfile.tests](./Dockerfile.tests) image, contains extra dependencies needed for testing purposes and is not intended for production use.
 
 Unit tests
 
@@ -161,22 +173,23 @@ docker-compose run --rm tests flake8 / --config=/setup.cfg
 docker-compose run --rm tests flake8 /app --select T1
 ```
 
-### Run Integration Tests
+### Run Local Integration Tests
 
 Using Docker [env substitution from shell](https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-from-the-shell) capabilities.
 
 ```shell
 # Start docker-compose 
-docker-compose --profile distroless up distroless
+docker-compose up rafs
 # Export needed envs for testing
 # Internal hostname in docker-compose (app)
 # Alternatively you can choose to test in remote env
-export DDMS_BASE_URL=<ddms_base_url>
+export DDMS_BASE_URL=http://rafs:8080
 export ACCESS_TOKEN=<access_token>
 export PARTITION=<partition>
-export URL_PREFIX=<url_prefix>
+export URL_PREFIX=api/rafs-ddms/v1
 # Run test
-docker-compose --profile integration run --rm integration
+docker-compose build tests
+docker-compose --profile tests run --rm integration
 
 # (Optional) Cleanup
 docker-compose down

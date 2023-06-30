@@ -10,7 +10,7 @@ services:
   rafsddms:
     build:
       context: ../../../
-      dockerfile: Dockerfile.distroless
+      dockerfile: Dockerfile
     env_file:
       - ../../../.env
     ports:
