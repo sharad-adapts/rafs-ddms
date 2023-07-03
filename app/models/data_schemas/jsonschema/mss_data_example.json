@@ -49,13 +49,29 @@
         "Value": 22,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
       },
-      "FormationVolumeFactorBofb": {
+      "OilFormationVolumeFactor": {
         "Value": 22,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf%2Fbbl:"
       },
       "SeparationVolumeFactor": {
         "Value": 35,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf%2Fbbl:"
+      },
+      "GasFormationVolumeFactor": {
+        "Value": 12.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cf%2Fscf:"
+      },
+      "SaturationPressureCumulativeGasOilRatio": {
+        "Value": 1.34,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf%2Fstb:"
+      },
+      "IndicatedPressureCumulativeGasOilRatio": {
+        "Value": 1.42,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf%2Fstb:"
+      },
+      "GasZFactor": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:none:"
       },
       "OilFormationVolumeFactorCorrected": {
         "Value": 1,

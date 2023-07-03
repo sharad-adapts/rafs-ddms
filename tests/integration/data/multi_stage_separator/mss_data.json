@@ -67,13 +67,29 @@
                         "Value": 22,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:dAPI:"
                     },
-                    "FormationVolumeFactorBofb": {
+                    "OilFormationVolumeFactor": {
                         "Value": 22,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
                     },
                     "SeparationVolumeFactor": {
                         "Value": 35,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                    "GasFormationVolumeFactor": {
+                        "Value": 12.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                        "SaturationPressureCumulativeGasOilRatio": {
+                        "Value": 1.34,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                        "IndicatedPressureCumulativeGasOilRatio": {
+                        "Value": 1.42,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                    "GasZFactor": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:Euc:"
                     },
                     "OilFormationVolumeFactorCorrected": {
                         "Value": 1,
