@@ -55,10 +55,10 @@ from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
 from app.core.settings.app import AppSettings
-from app.db.in_memory_db import apply_filters
+from app.dataframe.parquet_filter import apply_filters
 from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
-from app.resources.filters import SQLFilterValidator
+from app.resources.filters import DataFrameFilterValidator
 from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset, storage
 
@@ -110,7 +110,7 @@ class BaseDataView:
         dataset_id: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
-        sql_filter: SQLFilterValidator = Depends(validate_filters),
+        sql_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
         """Get record data.

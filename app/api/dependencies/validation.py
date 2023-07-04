@@ -54,7 +54,8 @@ from app.models.domain.osdu.base import (
 )
 from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
-from app.resources.filters import SQLFilterValidator
+from app.resources.errors import FilterValidationError
+from app.resources.filters import DataFrameFilterValidator
 from app.resources.paths import CommonRelativePaths
 from app.services.storage import StorageService
 
@@ -327,7 +328,7 @@ async def validate_filters(
         default=None,
         example="PropertyX[.PropertyXFieldA],avg",
     ),
-) -> SQLFilterValidator:
+) -> DataFrameFilterValidator:
     """Validates query parameters used for dataframe filtering.
 
     :param BaseModel model: pydantic model
@@ -336,7 +337,7 @@ async def validate_filters(
     :param Optional[str] columns_aggregation: comma separated aggregation, defaults to None
     :return SQLFilter: filter object with validations
     """
-    sql_filter = SQLFilterValidator(
+    sql_filter = DataFrameFilterValidator(
         model=model,
         raw_columns_filter=columns_filter,
         raw_rows_filter=rows_filter,
@@ -348,7 +349,7 @@ async def validate_filters(
             sql_filter.valid_columns_filter,
             sql_filter.valid_rows_filter,
         ])
-    except RuntimeError as exc:
+    except FilterValidationError as exc:
         logger.debug(f"Query parameters are invalid: {exc}")
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc))
 

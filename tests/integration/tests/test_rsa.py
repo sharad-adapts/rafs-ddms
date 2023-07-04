@@ -32,7 +32,7 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
             [["opendes:master-data--Coring:2:"]],
         ),  # not equal
         pytest.param(
-            "SampleDepth,gt,10", [[{
+            "SampleDepth.Value,gt,10", [[{
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:",
                 "Value": 346.0,
             }]],
@@ -92,34 +92,19 @@ def test_measurements_filters_positive(
 @pytest.mark.parametrize(
     "column, operator, expected_result", [
         ("SampleDepth", "count", [[2]]),
-        (
-            "SampleDepth", "min", [[
-                {
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:",
-                    "Value": 5.44,
-                },
-            ]],
-        ),
+        ("SampleDepth.Value", "min", [[5.44]]),
         ("Permeability.Value", "min", [[1]]),
         ("Porosity.Value", "max", [[89.0]]),
-        pytest.param(
-            "GrainDensity.Value", "sum", [[11.3]], marks=[
-                pytest.mark.xfail(reason="XOMROCK-563"),
-            ],
-        ),
-        pytest.param(
-            "SampleDepth", "avg", [[175.72]], marks=[
-                pytest.mark.xfail(reason="XOMROCK-563"),
-            ],
-        ),
+        ("GrainDensity.Value", "sum", [[11.3]]),
+        ("SampleDepth.Value", "mean", [[175.72]]),
     ],
     ids=[
-        "SampleDepth_avg",
         "SampleDepth_count",
+        "SampleDepth_min",
         "Permeability_min",
         "Porosity_max",
         "GrainDensity_sum",
-        "SampleDepth_avg",
+        "SampleDepth_mean",
     ],
 )
 @pytest.mark.parametrize(
@@ -188,8 +173,8 @@ def test_measurements_aggregation_positive(
         (
             None,
             ["SampleDepth.WrongFieldName,gt,"],
-            "Binder Error: Could not find key \"wrongfieldname\" in struct\n\nCandidate Entries: \"Value\"",
-            status.HTTP_422_UNPROCESSABLE_ENTITY,
+            "'WrongFieldName' is not defined in the SampleDepth schema:",
+            status.HTTP_400_BAD_REQUEST,
         ),
     ],
     ids=[
@@ -256,7 +241,7 @@ def test_filters_syntax_error(
         ),
         (
             ["SampleDepth.WrongFieldName,max"],
-            "Binder Error: Could not find key \"wrongfieldname\" in struct\n\nCandidate Entries: \"Value\"",
+            "Processing filter exception (<class 'KeyError'>): 'WrongFieldName'",
             status.HTTP_422_UNPROCESSABLE_ENTITY,
         ),
     ],

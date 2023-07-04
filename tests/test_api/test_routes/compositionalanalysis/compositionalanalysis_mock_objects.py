@@ -60,10 +60,10 @@ with open(f"{dir_path}/compositional_analysis_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"CompositionalAnalysisTestID\")",
+        "CompositionalAnalysisTestID",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

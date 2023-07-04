@@ -99,10 +99,10 @@ TEST_DATA = {
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"TestNumber\")",
+        "TestNumber",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

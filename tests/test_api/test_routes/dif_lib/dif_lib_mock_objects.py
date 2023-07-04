@@ -60,10 +60,10 @@ with open(f"{dir_path}/dif_lib_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"TestNumber\")",
+        "TestNumber",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

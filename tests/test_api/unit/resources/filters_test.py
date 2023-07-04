@@ -17,78 +17,120 @@ import re
 import pytest
 from pydantic.main import BaseModel
 
-from app.resources.filters import SQLFilterValidator
+from app.resources.errors import FilterValidationError
+from app.resources.filters import (
+    ColumnsAggregation,
+    ColumnsFilter,
+    DataFrameFilterValidator,
+    RowsFilter,
+)
 
 
 class NestedModel(BaseModel):
     nested_field: str
 
 
+class Field3(NestedModel):
+    ...
+
+
 class MockModel(BaseModel):
-    field1: str
-    field2: int
-    field3: NestedModel
+    Field1: str
+    Field2: int
+    Field3: NestedModel
+
+
+class MockModelSameNestedName(BaseModel):
+    Field1: str
+    Field2: int
+    Field3: Field3
 
 
 def test_valid_columns_filter():
-    validator = SQLFilterValidator(MockModel, raw_columns_filter="field1,field2")
-    assert validator.valid_columns_filter == "field1,field2"
+    expected_columns_filter = ColumnsFilter(["Field1", "Field2"])
+    validator = DataFrameFilterValidator(MockModel, raw_columns_filter="Field1,Field2")
+    assert validator.valid_columns_filter == expected_columns_filter
 
 
-@pytest.mark.parametrize("raw_columns_filter", ["field1,field4", "field2,"])
+@pytest.mark.parametrize("raw_columns_filter", ["Field1,field4", "Field2,"])
 def test_valid_columns_filter_invalid_columns(raw_columns_filter):
-    validator = SQLFilterValidator(MockModel, raw_columns_filter=raw_columns_filter)
-    with pytest.raises(RuntimeError) as exc_info:
+    validator = DataFrameFilterValidator(MockModel, raw_columns_filter=raw_columns_filter)
+    with pytest.raises(FilterValidationError) as exc_info:
         validator.valid_columns_filter
     assert re.match(r"Invalid columns: {'.*'}. Select one of {.+}", str(exc_info.value))
 
 
-def test_valid_rows_filter():
-    validator = SQLFilterValidator(MockModel, raw_rows_filter="field1,eq,value1")
-    assert validator.valid_rows_filter == "field1 = 'value1'"
+@pytest.mark.parametrize("operator_name,operator_value", [("eq", "="), ("gt", ">"), ("lt", "<"), ("neq", "!="), ("lte", "<="), ("gte", ">=")])
+def test_valid_rows_filter(operator_name, operator_value):
+    expected_rows_filter = RowsFilter("Field1", operator_value, "value1")
+    validator = DataFrameFilterValidator(MockModel, raw_rows_filter=f"Field1,{operator_name},value1")
+    assert validator.valid_rows_filter == expected_rows_filter
 
-    nested_validator = SQLFilterValidator(MockModel, raw_rows_filter="field3.nested_field,eq,value1")
-    assert nested_validator.valid_rows_filter == "field3.nested_field = 'value1'"
+
+@pytest.mark.parametrize("operator_name,operator_value", [("eq", "="), ("gt", ">"), ("lt", "<"), ("neq", "!="), ("lte", "<="), ("gte", ">=")])
+def test_valid_rows_filter_with_nested_field(operator_name, operator_value):
+    expected_rows_filter = RowsFilter("Field3", operator_value, "value1", "nested_field")
+    nested_validator = DataFrameFilterValidator(
+        MockModelSameNestedName, raw_rows_filter=f"Field3.nested_field,{operator_name},value1",
+    )
+    assert nested_validator.valid_rows_filter == expected_rows_filter
+
+
+@pytest.mark.parametrize("operator_name,operator_value", [("eq", "="), ("gt", ">"), ("lt", "<"), ("neq", "!="), ("lte", "<="), ("gte", ">=")])
+def test_valid_rows_filter_with_nested_field_different_name(operator_name, operator_value):
+    expected_rows_filter = RowsFilter("Field3", operator_value, "value1", "nested_field")
+    nested_validator = DataFrameFilterValidator(
+        MockModel, raw_rows_filter=f"Field3.nested_field,{operator_name},value1",
+    )
+    assert nested_validator.valid_rows_filter == expected_rows_filter
 
 
 def test_valid_rows_filter_invalid_format():
-    validator = SQLFilterValidator(MockModel, raw_rows_filter="field1,eq")
-    with pytest.raises(RuntimeError) as exc_info:
+    validator = DataFrameFilterValidator(MockModel, raw_rows_filter="Field1,eq")
+    with pytest.raises(FilterValidationError) as exc_info:
         validator.valid_rows_filter
     assert str(exc_info.value) == "Bad rows_filter expression. Correct form 'ColumnName[.FieldName],operator,value'"
 
 
-def test_valid_columns_aggregation():
-    validator = SQLFilterValidator(MockModel, raw_columns_aggregation="field1,avg")
-    assert validator.valid_columns_aggregation == "avg(field1)"
+@pytest.mark.parametrize("aggregation_func", ["mean", "count", "max", "min", "sum", "describe"])
+def test_valid_columns_aggregation(aggregation_func):
+    expected_columns_aggregation = ColumnsAggregation("Field1", aggregation_func)
+    validator = DataFrameFilterValidator(MockModel, raw_columns_aggregation=f"Field1,{aggregation_func}")
+    assert validator.valid_columns_aggregation == expected_columns_aggregation
 
-    nested_validator = SQLFilterValidator(MockModel, raw_columns_aggregation="field3.nested_field,count")
-    assert nested_validator.valid_columns_aggregation == "count(field3.nested_field)"
+
+@pytest.mark.parametrize("aggregation_func", ["mean", "count", "max", "min", "sum", "describe"])
+def test_valid_columns_aggregation_with_nested_field(aggregation_func):
+    expected_columns_aggregation = ColumnsAggregation("Field3", aggregation_func, "nested_field")
+    nested_validator = DataFrameFilterValidator(
+        MockModel, raw_columns_aggregation=f"Field3.nested_field,{aggregation_func}",
+    )
+    assert nested_validator.valid_columns_aggregation == expected_columns_aggregation
 
 
 def test_valid_columns_aggregation_invalid_format():
-    validator = SQLFilterValidator(MockModel, raw_columns_aggregation="field1")
-    with pytest.raises(RuntimeError) as exc_info:
+    validator = DataFrameFilterValidator(MockModel, raw_columns_aggregation="Field1")
+    with pytest.raises(FilterValidationError) as exc_info:
         validator.valid_columns_aggregation
     assert str(exc_info.value) == "Bad aggregation expression. Correct form 'ColumnName[.FieldName],operator'"
 
 
 def test_valid_columns_aggregation_invalid_operator():
-    validator = SQLFilterValidator(MockModel, raw_columns_aggregation="field1,average")
-    with pytest.raises(RuntimeError) as exc_info:
+    validator = DataFrameFilterValidator(MockModel, raw_columns_aggregation="Field1,average")
+    with pytest.raises(FilterValidationError) as exc_info:
         validator.valid_columns_aggregation
     assert re.match(r"Invalid aggregation operator not in: {.+}", str(exc_info.value))
 
 
 def test_invalid_aggregatiom_dotted_colums():
-    nested_aggregation_validator = SQLFilterValidator(
-        MockModel, raw_columns_aggregation="field3.,avg", raw_rows_filter="field3.,eq,test",
+    nested_aggregation_validator = DataFrameFilterValidator(
+        MockModel, raw_columns_aggregation="Field3.,mean", raw_rows_filter="Field3.,eq,test",
     )
 
-    with pytest.raises(RuntimeError) as exc_info:
+    with pytest.raises(FilterValidationError) as exc_info:
         nested_aggregation_validator.valid_columns_aggregation
     assert str(exc_info.value) == "Wrong Column or Field name syntax: correct form: {ColumnName.FieldName}"
 
-    with pytest.raises(RuntimeError) as exc_info:
+    with pytest.raises(FilterValidationError) as exc_info:
         nested_aggregation_validator.valid_rows_filter
     assert str(exc_info.value) == "Wrong Column or Field name syntax: correct form: {ColumnName.FieldName}"

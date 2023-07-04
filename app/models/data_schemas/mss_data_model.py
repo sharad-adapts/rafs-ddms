@@ -209,7 +209,7 @@ class MultiStageSeparatorTestDatum(BaseModel):
     StepTemperature: Optional[StepTemperature] = None
     OilDensity: Optional[OilDensity] = None
     GasGravity: Optional[GasGravity] = None
-    FormationVolumeFactorBofb: Optional[FormationVolumeFactorBofb] = None
+    OilFormationVolumeFactor: Optional[OilFormationVolumeFactor] = None
     SeparationVolumeFactor: Optional[SeparationVolumeFactor] = None
     OilFormationVolumeFactorCorrected: Optional[
         OilFormationVolumeFactorCorrected
