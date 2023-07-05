@@ -31,6 +31,7 @@ from app.models.data_schemas.vle_data_model import Model as VLEModel
 from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
 from app.models.data_schemas.cap_pressure_data_model import Model as CapPressureModel
 from app.models.data_schemas.fractionation_data_model import Model as FractionationModel
+from app.models.data_schemas.extraction_data_model import Model as ExtractionModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -86,7 +87,10 @@ CAP_PRESSURE_MODELS = {
 }
 FRACTIONATION_MODELS = {
     ContentShemaVersion.V_1_0_0: FractionationModel
-} 
+}
+EXTRACTION_MODELS = {
+    ContentShemaVersion.V_1_0_0: ExtractionModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -105,4 +109,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
     CommonRelativePaths.CAP_PRESSURE: CAP_PRESSURE_MODELS,
     CommonRelativePaths.FRACTIONATION: FRACTIONATION_MODELS,
+    CommonRelativePaths.EXTRACTION: EXTRACTION_MODELS,
 }
