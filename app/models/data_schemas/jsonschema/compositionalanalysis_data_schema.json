@@ -19,87 +19,87 @@
       "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
     "CompositionalAnalysis": {
-      "name": "Compositional analysis taken under specific conditions",
-      "type": "object",
-      "properties": {
-        "ComponentFormula": {
-          "type": "array",
-          "items": {
+      "title": "Compositional Analysis",
+      "description": "Compositional analysis taken under specific conditions.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ComponentFormula": {
+            "type": "string",
+            "description": "The chemical composition of the component."
+          },
+          "ComponentName": {
+            "type": "string",
+            "description": "The name of the liquid component."
+          },
+          "FlashedLiquidRelativeMass": {
             "type": "object",
+            "description": "The relative mass of the component in the flashed liquid.",
+            "x-osdu-frame-of-reference": "UOM:%[mass]",
             "properties": {
-              "ComponentName": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
                 "type": "string",
-                "description": "The name of the liquid component."
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "FlashedGasRelativeMass":  {
+            "type": "object",
+            "description": "The relative mass of the component in the flashed gas.",
+            "x-osdu-frame-of-reference": "UOM:%[mass]",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "FlashedLiquidRelativeMass": {
-                "type": "object",
-                "description": "The relative mass of the component in the flashed liquid.",
-                "x-osdu-frame-of-reference": "UOM:%[mass]",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                  }
-                }
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "FlashedLiquidRelativeMolarWeight": {
+            "type": "object",
+            "description": "The relative molar weight of the component in the flashed liquid.",
+            "x-osdu-frame-of-reference": "UOM:%[molar]",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "FlashedGasRelativeMass":  {
-                "type": "object",
-                "description": "The relative mass of the component in the flashed gas.",
-                "x-osdu-frame-of-reference": "UOM:%[mass]",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                  }
-                }
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "OverallFluidRelativeMass": {
+            "type": "object",
+            "description": "The relative mass of the component in the overall liquid.",
+            "x-osdu-frame-of-reference": "UOM:%[mass]",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "FlashedLiquidRelativeMolarWeight": {
-                "type": "object",
-                "description": "The relative molar weight of the component in the flashed liquid.",
-                "x-osdu-frame-of-reference": "UOM:%[molar]",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                  }
-                }
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "OverallFluidRelativeMolarWeight": {
+            "type": "object",
+            "description": "The relative molar weight of the component in the overall liquid.",
+            "x-osdu-frame-of-reference": "UOM:%[molar]",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "OverallFluidRelativeMass": {
-                "type": "object",
-                "description": "The relative mass of the component in the flashed liquid.",
-                "x-osdu-frame-of-reference": "UOM:%[mass]",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                  }
-                }
-              },
-              "OverallFluidRelativeMolarWeight": {
-                "type": "object",
-                "description": "The relative mass of the component in the flashed liquid.",
-                "x-osdu-frame-of-reference": "UOM:%[mass]",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                  }
-                }
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
               }
             }
           }
