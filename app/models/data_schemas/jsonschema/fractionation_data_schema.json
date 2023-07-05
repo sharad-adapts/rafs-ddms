@@ -1,0 +1,406 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "SamplesAnalysisID": {
+        "type": "string",
+        "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "SampleID": {
+        "type": "string",
+        "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "FractionationSum": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AsphaltenePctOfExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AlkanesPctOfWholeExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AromaticsPctofWholeExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NSOPctOfWholeExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NonElutedPctOfWholeExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightAlkanes": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightAromatics": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightResins": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightAsphaltenes": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "RecoveryPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NonHydrocarbonsPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightOfHydrocarbons": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightOfNonHydrocarbons": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NonHydrocarbonsToHydrocarbonsRatio": {
+        "type": "number"
+      },
+      "NonHydrocarbonsEOM": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "OilWeightInitial": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "OilWeightAfterTopping": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "ToppingLossPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "WeightOfLoadedAmount": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "RecoveryWeight": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "LossPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "LossWeight": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "SaturateNormalizedPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AromaticNormalizedPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NSONormalizedPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AsphalteneNormalizedPct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NaphthenesPctOfTotalExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "NParaffinsPctOfTotalExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "VolumePctOfAromaticFraction": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AsphalteneC5Pct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "AsphalteneC7Pct": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      },
+      "IparaffinsPctOfTotalExtract": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          },
+          "UnitOfMeasure": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          }
+        }
+      }
+    },
+    "required": [
+      "SamplesAnalysisID",
+      "SampleID"
+    ]
+  }
+  

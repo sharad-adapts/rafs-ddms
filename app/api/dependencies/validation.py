@@ -286,6 +286,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.SLIMTUBETEST,
         CommonRelativePaths.RELATIVE_PERMEABILITY,
         CommonRelativePaths.CAP_PRESSURE,
+        CommonRelativePaths.FRACTIONATION,
     )
 
     for path in common_relative_paths:
