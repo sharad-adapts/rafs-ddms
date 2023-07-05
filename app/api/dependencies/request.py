@@ -21,7 +21,7 @@ from starlette import status
 
 from app.exceptions import exceptions
 from app.resources.common_headers import ACCEPT, CONTENT_TYPE
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 
 
 async def get_data_partition_id(request: Request):
@@ -80,7 +80,7 @@ def validate_bulkdata_content_type(request: Request) -> None:
     :raises exceptions.InvalidHeaderException: if content type was not provided
     :raises exceptions.InvalidHeaderException: if content type is not supported
     """
-    supported_types = [CustomMimeTypes.JSON.type, CustomMimeTypes.PARQUET.type]
+    supported_types = [SupportedMimeTypes.JSON.mime_type, SupportedMimeTypes.PARQUET.mime_type]
     validate_content_type(request=request, supported_types=supported_types)
 
 
@@ -92,7 +92,7 @@ def validate_json_content_type(request: Request) -> None:
     :raises exceptions.InvalidHeaderException: if content type was not provided
     :raises exceptions.InvalidHeaderException: if content type is not supported
     """
-    supported_types = [CustomMimeTypes.JSON.type]
+    supported_types = [SupportedMimeTypes.JSON.mime_type]
     validate_content_type(request=request, supported_types=supported_types)
 
 

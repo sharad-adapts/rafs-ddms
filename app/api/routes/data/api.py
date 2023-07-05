@@ -59,7 +59,7 @@ from app.db.in_memory_db import apply_filters
 from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
 from app.resources.filters import SQLFilterValidator
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset, storage
 
 
@@ -131,7 +131,7 @@ class BaseDataView:
         :rtype: Response
         """
         record = await storage_service.get_record(record_id)
-        mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
+        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
 
         dataset_id, _ = get_id_version(dataset_id)
         ddms_datasets = record["data"].get("DDMSDatasets", [])
@@ -151,13 +151,13 @@ class BaseDataView:
             df = apply_filters(parquet_bytes, sql_filter)
             logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
 
-            if mime_type == CustomMimeTypes.PARQUET:
+            if mime_type == SupportedMimeTypes.PARQUET:
                 df.astype(str)
-                response = Response(content=df.to_parquet(), media_type=CustomMimeTypes.PARQUET.type)
+                response = Response(content=df.to_parquet(), media_type=SupportedMimeTypes.PARQUET.mime_type)
             else:
                 response = Response(
                     content=df.to_json(orient="split"),
-                    media_type=CustomMimeTypes.JSON.type,
+                    media_type=SupportedMimeTypes.JSON.mime_type,
                 )
         else:
             response = JSONResponse(
@@ -200,7 +200,7 @@ class BaseDataView:
 
         record = await storage_service.get_record(record_id)
         data_partition_id = request.headers["data-partition-id"]
-        mime_type = CustomMimeTypes.from_str(request.headers["content-type"])
+        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
         data_schema = build_data_schema(model)
         data_validator = DataValidator(data_schema, storage_service)
 
@@ -215,7 +215,7 @@ class BaseDataView:
         parquet_file = None
 
         try:
-            if mime_type == CustomMimeTypes.PARQUET:
+            if mime_type == SupportedMimeTypes.PARQUET:
                 parquet_file = await request.body()
                 logger.debug(pd.get_option("io.parquet.engine"))
                 df = pd.read_parquet(io.BytesIO(parquet_file))

@@ -16,7 +16,7 @@ import pytest
 from starlette import status
 
 from app.resources.common_headers import CONTENT_TYPE
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 from tests.integration.config import (
     UPLOADED_FILES,
     DataFiles,
@@ -36,7 +36,7 @@ def test_get_source_zip_file(api, create_record, data_file_name, api_path, id_te
     record_data, _ = create_record(api_path, data_file_name, id_template, UPLOADED_FILES)
 
     response = getattr(api, api_path).get_source_file(record_data["id"])
-    assert response.headers[CONTENT_TYPE] == CustomMimeTypes.ZIP.type
+    assert response.headers[CONTENT_TYPE] == SupportedMimeTypes.ZIP.mime_type
     assert "attachment;filename=datasets.zip" in response.headers["Content-Disposition"]
 
 
