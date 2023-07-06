@@ -6,6 +6,13 @@
       "type": "string",
       "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-MultiStageSeparatorTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
+    "FluidSampleID":
+      {
+        "type": "string",
+        "title": "Fluid Sample ID",
+        "description": "Unique identifier of the Fluid Sample which analysis is done on",
+        "pattern": "^[\\w\\-\\.]+:master-data--FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]$"
+      },
     "TestNumber": {
       "type": "string"
     },

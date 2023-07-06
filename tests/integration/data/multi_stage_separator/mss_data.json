@@ -1,6 +1,7 @@
 {
     "columns": [
         "MultiStageSeparatorTestID",
+        "FluidSampleID",
         "TestNumber",
         "ReservoirTemperature",
         "SaturationPressure",
@@ -18,6 +19,7 @@
     "data": [
         [
             "{data_partition_id}:work-product-component--MultiStageSeparatorTest:Test:",
+            "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
             "752156",
             {
                 "Value": 75,

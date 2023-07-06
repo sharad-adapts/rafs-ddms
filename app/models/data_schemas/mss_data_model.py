@@ -20,7 +20,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from pydantic import BaseModel, constr
+from pydantic import BaseModel, Field, constr
 
 
 class ReservoirTemperature(BaseModel):
@@ -364,6 +364,13 @@ class MultiStageSeparatorTestDatum(BaseModel):
 class Model(BaseModel):
     MultiStageSeparatorTestID: constr(
         regex=r"^[\w\-\.]+:work-product-component\-\-MultiStageSeparatorTest:[\w\-\.\:\%]+:[0-9]*$",
+    )
+    FluidSampleID: Optional[
+        constr(regex=r"^[\w\-\.]+:master-data\-\-FluidSample:[\w\-\.\:\%]+:[0-9]*$")
+    ] = Field(
+        None,
+        description="Unique identifier of the Fluid Sample which analysis is done on",
+        title="Fluid Sample ID",
     )
     TestNumber: Optional[str] = None
     ReservoirTemperature: Optional[ReservoirTemperature] = None
