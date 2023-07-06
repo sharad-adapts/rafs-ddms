@@ -1,6 +1,7 @@
 {
   "columns": [
     "MultiStageSeparatorTestID",
+    "FluidSampleID",
     "TestNumber",
     "ReservoirTemperature",
     "SaturationPressure",
@@ -18,6 +19,7 @@
   "data": [
     [
       "opendes:work-product-component--MultiStageSeparatorTest:mss_test:",
+      "opendes:master-data--FluidSample:20207905-20:",
       "752156",
       {
         "Value": 75,

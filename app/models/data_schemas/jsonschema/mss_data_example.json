@@ -1,5 +1,6 @@
 {
   "MultiStageSeparatorTestID": "opendes:work-product-component--MultiStageSeparatorTest:mss_test:",
+  "FluidSampleID": "opendes:master-data--FluidSample:20207905-20:",
   "TestNumber": "752156",
   "ReservoirTemperature": {
     "Value": 75,
