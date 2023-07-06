@@ -11,7 +11,10 @@
         "SeparatorTestGasOilRatio",
         "OverallGasGravity",
         "Remark",
-        "MultiStageSeparatorTestData"
+        "MultiStageSeparatorTestData",
+        "VaporCompositionalAnalysis",
+        "LiquidCompositionalAnalysis",
+        "CalculatedProperties"
     ],
     "index": [
         0
@@ -106,135 +109,135 @@
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
                     },
                     "FluidCondition": "reservoir condition",
-                    "PhasesPresent": "oil",
-                    "VaporCompositionalAnalysis": {
-                        "StepNumber": "1",
-                        "StepPressure": {
-                            "Value": 1500,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
-                        },
-                        "StepTemperature": {
-                            "Value": 150,
+                    "PhasesPresent": "oil"
+                }
+            ],
+            {
+                "StepNumber": "1",
+                "StepPressure": {
+                    "Value": 1500,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                },
+                "StepTemperature": {
+                    "Value": 150,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                },
+                "VaporComposition": [
+                    {
+                        "ComponentFormula": "C2",
+                        "ComponentName": "Methane",
+                        "RelativeMolarWeight": {
+                            "Value": 5,
                             "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                        },
-                        "VaporComposition": [
-                            {
-                                "ComponentFormula": "C2",
-                                "ComponentName": "Methane",
-                                "RelativeMolarWeight": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                }
-                            },
-                            {
-                                "ComponentFormula": "C7",
-                                "ComponentName": "Hexane",
-                                "RelativeMolarWeight": {
-                                    "Value": 10,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                }
-                            }
-                        ]
-                    },
-                    "LiquidCompositionalAnalysis": [
-                        {
-                            "ComponentFormula": "C2",
-                            "ComponentName": "Methane",
-                            "FlashedLiquidRelativeMolarWeight": {
-                                "Value": 5,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedLiquidRelativeMass": {
-                                "Value": 0.8,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedGasRelativeMass": {
-                                "Value": 0.8,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedGasRelativeMolarWeight": {
-                                "Value": 5,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            }
-                        },
-                        {
-                            "ComponentFormula": "C7",
-                            "ComponentName": "Hexane",
-                            "FlashedLiquidRelativeMolarWeight": {
-                                "Value": 5,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedLiquidRelativeMass": {
-                                "Value": 0.8,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedGasRelativeMass": {
-                                "Value": 0.8,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            },
-                            "FlashedGasRelativeMolarWeight": {
-                                "Value": 5,
-                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                            }
                         }
-                    ],
-                    "CalculatedProperties": {
-                        "AvgMoleWeight": {
-                            "Value": 0,
+                    },
+                    {
+                        "ComponentFormula": "C7",
+                        "ComponentName": "Hexane",
+                        "RelativeMolarWeight": {
+                            "Value": 10,
                             "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                        },
-                        "ResidueDensity": {
-                            "Value": 0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:0"
-                        },
-                        "ResidueAPI": {
-                            "Value": 0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                        },
-                        "Remark": "Remark",
-                        "LiquidCalculatedProperties": [
-                            {
-                                "ComponentFormula": "C7+",
-                                "FlashedLiquidRelativeMolarWeight": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidRelativeMolecularWeight": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidRelativeMass": {
-                                    "Value": 0.8,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidDensity": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
-                                }
-                            },
-                            {
-                                "ComponentFormula": "C36+",
-                                "FlashedLiquidRelativeMolarWeight": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidRelativeMolecularWeight": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidRelativeMass": {
-                                    "Value": 0.8,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                                },
-                                "FlashedLiquidDensity": {
-                                    "Value": 5,
-                                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
-                                }
-                            }
-                        ]
+                        }
+                    }
+                ]
+            },
+            [
+                {
+                    "ComponentFormula": "C2",
+                    "ComponentName": "Methane",
+                    "FlashedLiquidRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedGasRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedGasRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    }
+                },
+                {
+                    "ComponentFormula": "C7",
+                    "ComponentName": "Hexane",
+                    "FlashedLiquidRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedGasRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "FlashedGasRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
                     }
                 }
-            ]
+            ],
+            {
+                "AvgMoleWeight": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                },
+                "ResidueDensity": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:0"
+                },
+                "ResidueAPI": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                },
+                "Remark": "Remark",
+                "LiquidCalculatedProperties": [
+                    {
+                        "ComponentFormula": "C7+",
+                        "FlashedLiquidRelativeMolarWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidRelativeMolecularWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidRelativeMass": {
+                            "Value": 0.8,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidDensity": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                        }
+                    },
+                    {
+                        "ComponentFormula": "C36+",
+                        "FlashedLiquidRelativeMolarWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidRelativeMolecularWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidRelativeMass": {
+                            "Value": 0.8,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        },
+                        "FlashedLiquidDensity": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                        }
+                    }
+                ]
+            }
         ]
     ]
 }
