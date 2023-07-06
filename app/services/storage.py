@@ -14,13 +14,23 @@
 
 from typing import List, Optional
 
-from httpx import HTTPStatusError
+from starlette import status
 
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
 from app.services.base import IStorageService
-from app.services.error_handlers import handle_get_version_osdu_api_error
+from app.services.error_handlers import handle_core_services_http_status_error
 from app.services.osdu_clients.storage_client import StorageServiceApiClient
+
+STORAGE_SERVICE_GENERIC_EXCEPTION_DETAIL = "Storage service API request failed."
+
+
+def build_storage_service_exception_detail(method: str = ""):
+    """Build the exception detail using the provided failed method."""
+    return (
+        f"Failed to {method} record using the Storage service API."
+        if method else STORAGE_SERVICE_GENERIC_EXCEPTION_DETAIL
+    )
 
 
 class StorageService(IStorageService):
@@ -30,6 +40,14 @@ class StorageService(IStorageService):
             settings.service_host_storage, data_partition_id=data_partition_id, bearer_token=user.access_token,
         )
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+            status.HTTP_404_NOT_FOUND,
+        ],
+        detail=build_storage_service_exception_detail("retrieve"),
+    )
     async def get_record(self, record_id: str, version: Optional[int] = None) -> dict:
         """Get last record or versioned record if version is not none.
 
@@ -41,14 +59,19 @@ class StorageService(IStorageService):
         :rtype: dict
         """
         if version is not None:
-            try:
-                response = await self.storage_client.get_specific_record(record_id, version)
-            except HTTPStatusError as exc:
-                handle_get_version_osdu_api_error(exc, record_id, version)
+            response = await self.storage_client.get_specific_record(record_id, version)
         else:
             response = await self.storage_client.get_latest_record(record_id)
         return response
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+            status.HTTP_404_NOT_FOUND,
+        ],
+        detail=build_storage_service_exception_detail("retrieve versions of"),
+    )
     async def get_record_versions(self, record_id: str) -> dict:
         """Get record versions.
 
@@ -59,6 +82,14 @@ class StorageService(IStorageService):
         """
         return await self.storage_client.get_record_versions(record_id)
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+            status.HTTP_404_NOT_FOUND,
+        ],
+        detail=build_storage_service_exception_detail("delete"),
+    )
     async def soft_delete_record(self, record_id: str) -> None:
         """Make record unavailable without admin rights.
 
@@ -67,6 +98,15 @@ class StorageService(IStorageService):
         """
         await self.storage_client.soft_delete_record(record_id)
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_400_BAD_REQUEST,
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+            status.HTTP_404_NOT_FOUND,
+        ],
+        detail=build_storage_service_exception_detail("upsert"),
+    )
     async def upsert_records(self, records: List[dict]) -> dict:
         """Upsert records.
 
@@ -77,6 +117,13 @@ class StorageService(IStorageService):
         """
         return await self.storage_client.create_update_records(records)
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+        ],
+        detail=build_storage_service_exception_detail("query"),
+    )
     async def query_records(self, record_ids: list[str]) -> dict:
         """Query records by ids.
 
