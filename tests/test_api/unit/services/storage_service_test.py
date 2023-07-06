@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import json
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 import httpx
 import pytest
@@ -24,7 +24,10 @@ from app.core.config import get_app_settings
 from app.exceptions.exceptions import OsduApiException
 from app.models.schemas.user import User
 from app.services.osdu_clients.storage_client import StorageServiceApiClient
-from app.services.storage import StorageService
+from app.services.storage import (
+    StorageService,
+    build_storage_service_exception_detail,
+)
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
@@ -60,24 +63,16 @@ def mock_get_response(mock_record_client, storage_service):
 
 
 @pytest.fixture
-def mock_get_500_wrong_version_response(mock_record_client, storage_service):
-    json_response = {
-        "code": status.HTTP_500_INTERNAL_SERVER_ERROR,
-        "reason": "Unknown error happened while restoring the blob",
-        "message": "Corrupt data",
-    }
-
+def with_patched_storage_client_error(storage_service, storage_method, response_code, response_json=""):
+    """Patch storage client to throw an error."""
     class Response(object):
-        status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-        text = json.dumps(json_response)
-        def json(_): return json_response
+        status_code = response_code
+        text = json.dumps(response_json)
+        def json(_): return response_json
 
-    mock_record_client.client = MagicMock(spec=httpx.AsyncClient)
-    mock_record_client.get_specific_record.side_effect = HTTPStatusError(
-        message="", request=object(), response=Response(),
-    )
-    storage_service.storage_client = mock_record_client
-    yield
+    error = HTTPStatusError(message="", request=object(), response=Response())
+    with patch.object(storage_service.storage_client, storage_method, side_effect=error):
+        yield
 
 
 @pytest.mark.asyncio
@@ -154,14 +149,123 @@ async def test_soft_delete_record(storage_service, mock_record_client, mock_user
     mock_record_client.soft_delete_record.assert_called_once_with(record_id)
 
 
+@pytest.mark.parametrize(
+    "storage_method,response_code", [
+        ("get_latest_record", status.HTTP_400_BAD_REQUEST),
+        ("get_latest_record", status.HTTP_429_TOO_MANY_REQUESTS),
+        ("get_latest_record", status.HTTP_500_INTERNAL_SERVER_ERROR),
+    ],
+)
 @pytest.mark.asyncio
-async def test_get_specific_record_raises_404(storage_service, mock_record_client, mock_user, mock_get_500_wrong_version_response):
+async def test_error_handler_get_record(
+    storage_method,
+    response_code,
+    storage_service,
+    mock_record_client,
+    mock_user,
+    with_patched_storage_client_error,
+):
+    record_id = "test-id"
+
+    with pytest.raises(OsduApiException) as exc:
+        await storage_service.get_record(record_id)
+
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == build_storage_service_exception_detail("retrieve")
+
+
+@pytest.mark.parametrize(
+    "storage_method,response_code", [
+        ("get_specific_record", status.HTTP_400_BAD_REQUEST),
+        ("get_specific_record", status.HTTP_429_TOO_MANY_REQUESTS),
+        ("get_specific_record", status.HTTP_500_INTERNAL_SERVER_ERROR),
+    ],
+)
+@pytest.mark.asyncio
+async def test_error_handler_get_record_version(
+    storage_method,
+    response_code,
+    storage_service,
+    mock_record_client,
+    mock_user,
+    with_patched_storage_client_error,
+):
     record_id = "test-id"
     version = 1
 
     with pytest.raises(OsduApiException) as exc:
         await storage_service.get_record(record_id, version)
 
-    assert exc.value.status_code == status.HTTP_404_NOT_FOUND
-    assert exc.value.detail.get("message") == f"The version '{version}' can't be found for record {record_id}"
-    assert exc.value.detail.get("reason") == "Version not found"
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == build_storage_service_exception_detail("retrieve")
+
+
+@pytest.mark.parametrize(
+    "storage_method,response_code", [
+        ("soft_delete_record", status.HTTP_400_BAD_REQUEST),
+        ("soft_delete_record", status.HTTP_429_TOO_MANY_REQUESTS),
+        ("soft_delete_record", status.HTTP_500_INTERNAL_SERVER_ERROR),
+    ],
+)
+@pytest.mark.asyncio
+async def test_error_handler_soft_delete_record(
+        storage_method,
+        response_code,
+        storage_service,
+        mock_record_client,
+        mock_user,
+        with_patched_storage_client_error,
+):
+    record_id = "test-id"
+
+    with pytest.raises(OsduApiException) as exc:
+        await storage_service.soft_delete_record(record_id)
+
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == build_storage_service_exception_detail("delete")
+
+
+@pytest.mark.parametrize(
+    "storage_method,response_code", [
+        ("create_update_records", status.HTTP_429_TOO_MANY_REQUESTS),
+        ("create_update_records", status.HTTP_500_INTERNAL_SERVER_ERROR),
+    ],
+)
+@pytest.mark.asyncio
+async def test_error_handler_upsert_records(
+        storage_method,
+        response_code,
+        storage_service,
+        mock_record_client,
+        mock_user,
+        with_patched_storage_client_error,
+):
+    with pytest.raises(OsduApiException) as exc:
+        await storage_service.upsert_records([])
+
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == build_storage_service_exception_detail("upsert")
+
+
+@pytest.mark.parametrize(
+    "storage_method,response_code", [
+        ("query_records", status.HTTP_400_BAD_REQUEST),
+        ("query_records", status.HTTP_404_NOT_FOUND),
+        ("query_records", status.HTTP_429_TOO_MANY_REQUESTS),
+        ("query_records", status.HTTP_500_INTERNAL_SERVER_ERROR),
+    ],
+)
+@pytest.mark.asyncio
+async def test_error_handler_query_records(
+        storage_method,
+        response_code,
+        storage_service,
+        mock_record_client,
+        mock_user,
+        with_patched_storage_client_error,
+):
+    with pytest.raises(OsduApiException) as exc:
+        await storage_service.query_records([])
+
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == build_storage_service_exception_detail("query")

@@ -72,11 +72,18 @@ async def osdu_api_httpx_error_handler(_: Request, exc: HTTPStatusError) -> JSON
 
 
 async def osdu_api_custom_exc_handler(_: Request, exc: OsduApiException) -> JSONResponse:
+    if isinstance(exc.detail, dict):
+        error_kwargs = {
+            "code": exc.status_code,
+            "reason": exc.detail.get("reason"),
+            "message": exc.detail.get("message"),
+        }
+    else:
+        error_kwargs = {
+            "code": exc.status_code,
+            "reason": exc.detail,
+        }
     return JSONResponse(
-        OsduApiErrorResponse.construct(
-            code=exc.status_code,
-            reason=exc.detail.get("reason"),
-            message=exc.detail.get("message"),
-        ).dict(),
+        OsduApiErrorResponse.construct(**error_kwargs).dict(),
         status_code=exc.status_code,
     )

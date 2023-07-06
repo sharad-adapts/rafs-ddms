@@ -12,36 +12,38 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import functools
+
 from httpx import HTTPStatusError
+from loguru import logger
 from starlette import status
 
 from app.exceptions.exceptions import OsduApiException
 
+OSDU_API_ERROR_DETAIL = "OSDU service API request failed."
 
-def handle_get_version_osdu_api_error(status_error: HTTPStatusError, record_id: str, version: int):
-    """Custom handler to catch and reword the error related to a wrong version.
 
-    :param status_error: httpx status error
-    :type status_error: HTTPStatusError
-    :param record_id: the record id
-    :type record_id: str
-    :param version: the version
-    :type version: int
-    :raises OsduApiException: when error from storage is related to version
-    :raises status_error.response.raise_for_status: if another unrelated exception is passed is re raised
+def handle_core_services_http_status_error(expected_codes: list[int], detail: str = OSDU_API_ERROR_DETAIL):
+    """Decorator to catch errors from osdu services, log them, and raise
+    generic service exceptions if unexpected error received.
+
+    :param expected_codes: list of expected error codes
+    :type expected_codes: list
+    :param detail: error details
+    :type detail: str
+    :raises OsduApiException: when error from OSDU service has unexpected status code
+    :raises status_error.response.raise_for_status: if status code is expected
     """
-    try:
-        json_response = status_error.response.json()
-    except ValueError:
-        status_error.response.raise_for_status()
-
-    is_reason_related = json_response["reason"] == "Unknown error happened while restoring the blob"
-    is_message_related = json_response["message"] == "Corrupt data"
-    is_version_related = is_message_related and is_reason_related
-    if status_error.response.status_code == status.HTTP_500_INTERNAL_SERVER_ERROR and is_version_related:
-        new_error_from_storage_api = {
-            "reason": "Version not found",
-            "message": f"The version '{version}' can't be found for record {record_id}",
-        }
-        raise OsduApiException(status_code=status.HTTP_404_NOT_FOUND, detail=new_error_from_storage_api)
-    raise status_error.response.raise_for_status()
+    def decorator(func):
+        @functools.wraps(func)
+        async def wrapper(*args, **kwargs):
+            try:
+                return await func(*args, **kwargs)
+            except HTTPStatusError as status_error:
+                logger.error(status_error.response.text)
+                if status_error.response.status_code not in expected_codes:
+                    raise OsduApiException(status_code=status.HTTP_424_FAILED_DEPENDENCY, detail=detail)
+                else:
+                    status_error.response.raise_for_status()
+        return wrapper
+    return decorator
