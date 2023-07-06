@@ -12,110 +12,47 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-# Copyright 2021 Schlumberger
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-from typing import Generator, List, NamedTuple
+from dataclasses import dataclass
 
 
-class MimeType(NamedTuple):
-    """Expected always lower case."""
+@dataclass
+class MimeType:
+    mime_type: str
+    file_extension: str
+    alternative_types: list = None
 
-    type: str
-    extension: str
-    alternative_types: List[str] = []
+    def is_match(self, mime_type):
+        return mime_type == self.mime_type or mime_type in self.alternative_types
 
-    def match(self, str_value: str) -> bool:
-        if not str_value:
-            return False
-        normalized_value = str_value.lower()
-        return any(
-            normalized_value == a_type
-            for a_type in [self.type] + self.alternative_types
-        ) or normalized_value.replace(
-            ".",
-            "",
-        ) == self.extension.replace(".", "")
+    def is_extension_match(self, extension):
+        return extension == self.file_extension
 
 
-class CustomMimeTypes:
-    """
-    define mime types used in the application
-    Note: May be use https://docs.python.org/3/library/mimetypes.html
-    mimetypes.add_type('application/x-parquet', '.parquet')
-    """
+class SupportedMimeTypes:
+    PARQUET = MimeType("application/x-parquet", ".parquet", ["application/parquet"])
+    JSON = MimeType("application/json", ".json")
+    ZIP = MimeType("application/zip", ".zip", ["application/x-zip-compressed"])
+    BIN = MimeType("application/octet-stream", ".bin")
+    XLSX = MimeType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ".xlsx")
 
-    PARQUET = MimeType(
-        type="application/x-parquet",
-        extension=".parquet",
-        alternative_types=["application/parquet"],
-    )  # because https://tools.ietf.org/html/rfc6838#section-3.4
-
-    FEATHER = MimeType(
-        type="application/x-feather",
-        extension=".feather",
-        alternative_types=["application/feather"],
-    )
-
-    JSON = MimeType(type="application/json", extension=".json")
-
-    MSGPACK = MimeType(
-        type="application/x-msgpack",
-        extension=".msgpack",
-        alternative_types=[
-            "application/msgpack",
-            "application/messagepack",
-            "application/x-messagepack",
-            "application/vnd.messagepack",
-            "application/vnd.msgpack",
-        ],
-    )
-
-    ZIP = MimeType(
-        type="application/zip",
-        extension=".zip",
-        alternative_types=[
-            "application/x-zip-compressed",
-            "multipart/x-zip",
-            "application/zip-compressed",
-        ],
-    )
-
-    BIN = MimeType(
-        type="application/octet-stream",
-        extension=".bin",
-        alternative_types=[],
-    )
-
-    XLSX = MimeType(
-        type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        extension=".xlsx",
-        alternative_types=[],
-    )
+    mime_types = [
+        PARQUET,
+        JSON,
+        ZIP,
+        BIN,
+        XLSX,
+    ]
 
     @classmethod
-    def types(cls) -> Generator[MimeType, None, None]:
-        """Enumerate all type."""
-        for _, mime_type in cls.__dict__.items():
-            if isinstance(mime_type, MimeType):
-                yield mime_type
-
-    @classmethod
-    def from_str(cls, content_type: str) -> MimeType:
-        for mime_type in cls.types():
-            if mime_type.match(content_type):
+    def find_by_extension(cls, extension):
+        for mime_type in cls.mime_types:
+            if mime_type.is_extension_match(extension):
                 return mime_type
-        raise ValueError(f"{content_type} does not match any supported mime types")
+        return None
 
-    # TODO add guess_type(path_like) method ?
+    @classmethod
+    def find_by_mime_type(cls, mime_type):
+        for mime_type_obj in cls.mime_types:
+            if mime_type_obj.is_match(mime_type):
+                return mime_type_obj
+        return None

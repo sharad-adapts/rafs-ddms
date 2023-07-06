@@ -30,7 +30,7 @@ from app.api.dependencies.services import (
 )
 from app.main import app
 from app.resources.common_headers import CONTENT_TYPE
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset, storage
 from tests.test_api.test_routes import dependencies
 from tests.test_api.test_routes.cappressure import cappressure_mock_objects
@@ -3515,7 +3515,7 @@ async def test_get_file_source_success(
 
     if len(blobs) > 1:
         assert response.status_code == status.HTTP_200_OK
-        assert response.headers[CONTENT_TYPE] == CustomMimeTypes.ZIP.type
+        assert response.headers[CONTENT_TYPE] == SupportedMimeTypes.ZIP.mime_type
     elif len(blobs) == 1:
         assert response.status_code == status.HTTP_200_OK
         assert response.headers[CONTENT_TYPE] == "application/pdf"

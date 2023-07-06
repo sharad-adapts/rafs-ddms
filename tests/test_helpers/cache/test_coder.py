@@ -7,12 +7,12 @@ from fastapi_cache.coder import JsonCoder, PickleCoder
 from starlette.responses import Response
 
 from app.core.helpers.cache.coder import ResponseCoder
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 
 
 @pytest.mark.parametrize(
     "media_type,coder", [
-        (CustomMimeTypes.JSON.type, JsonCoder),
+        (SupportedMimeTypes.JSON.mime_type, JsonCoder),
         ("application/any", PickleCoder),
     ],
 )
@@ -37,7 +37,7 @@ def test_response_coder_encode(media_type, coder):
         (
             {
                 "encoded_content": '"content"',
-                "media_type": CustomMimeTypes.JSON.type,
+                "media_type": SupportedMimeTypes.JSON.mime_type,
             },
             JsonCoder,
         ),

@@ -18,7 +18,7 @@ from typing import Any
 from fastapi import Response
 from fastapi_cache.coder import Coder, JsonCoder, PickleCoder
 
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 
 
 class ResponseCoder(Coder):
@@ -26,7 +26,7 @@ class ResponseCoder(Coder):
     def encode(cls, response: Response) -> str:
         """Encode to keep value in storage."""
         media_type = response.media_type
-        if media_type == CustomMimeTypes.JSON.type:
+        if media_type == SupportedMimeTypes.JSON.mime_type:
             coder = JsonCoder
         else:
             coder = PickleCoder
@@ -42,7 +42,7 @@ class ResponseCoder(Coder):
         value_to_decode = json.loads(value_to_decode)
         media_type = value_to_decode.get("media_type")
         encoded_content = value_to_decode.get("encoded_content")
-        if media_type == CustomMimeTypes.JSON.type:
+        if media_type == SupportedMimeTypes.JSON.mime_type:
             coder = JsonCoder
         else:
             coder = PickleCoder

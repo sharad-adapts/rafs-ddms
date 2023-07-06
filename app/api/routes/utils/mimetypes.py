@@ -17,7 +17,7 @@ from typing import Optional
 from urllib.parse import unquote
 
 from app.api.routes.utils.records import RecordKeys, get_id_part
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 
 
 async def init_mimetypes():
@@ -26,7 +26,7 @@ async def init_mimetypes():
     Workaround since distroless image lacks some types so we need to add
     them.
     """
-    mimetypes.add_type(type=CustomMimeTypes.XLSX.type, ext=CustomMimeTypes.XLSX.extension)
+    mimetypes.add_type(type=SupportedMimeTypes.XLSX.mime_type, ext=SupportedMimeTypes.XLSX.file_extension)
 
 
 async def get_mime_type(dataset_record: dict) -> Optional[str]:
@@ -52,4 +52,4 @@ async def get_mime_type(dataset_record: dict) -> Optional[str]:
     file_name = dataset_record["data"].get(RecordKeys.FILE_NAME, "") or file_source_info.get(RecordKeys.FILE_NAME, "")
     guessed_mime_type = mimetypes.guess_type(file_name)[0] or mimetypes.guess_type(dataset_record["id"])[0]
 
-    return get_id_part(mimetype_id) if mimetype_id else guessed_mime_type or CustomMimeTypes.BIN.type
+    return get_id_part(mimetype_id) if mimetype_id else guessed_mime_type or SupportedMimeTypes.BIN.mime_type

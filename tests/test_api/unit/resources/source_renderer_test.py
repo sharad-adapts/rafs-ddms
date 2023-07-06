@@ -19,7 +19,7 @@ from unittest import mock
 import pytest
 from fastapi.responses import JSONResponse, StreamingResponse
 
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 from app.resources.source_renderer import DatasetSourceFile, FileSourceRenderer
 
 
@@ -38,7 +38,7 @@ class TestFileSourceRenderer:
             assert isinstance(response, StreamingResponse)
             assert response.media_type == "application/zip"
             assert response.headers.get("Content-Disposition") == "attachment;filename=datasets.zip"
-            assert response.headers["Content-Type"] == CustomMimeTypes.ZIP.type
+            assert response.headers["Content-Type"] == SupportedMimeTypes.ZIP.mime_type
 
     @pytest.mark.asyncio
     async def test_render_source_data_with_single_file(self):

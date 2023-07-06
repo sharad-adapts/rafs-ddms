@@ -21,7 +21,7 @@ from fastapi import Response, status
 from fastapi.responses import JSONResponse, StreamingResponse
 
 from app.resources import common_headers
-from app.resources.mime_types import CustomMimeTypes
+from app.resources.mime_types import SupportedMimeTypes
 
 
 class DatasetSourceFile(NamedTuple):
@@ -63,10 +63,10 @@ class FileSourceRenderer:
                     f"{dsf.dataset_id}{guessed_extension}",
                     dsf.content,
                 )
-        extension = CustomMimeTypes.ZIP.extension
+        extension = SupportedMimeTypes.ZIP.file_extension
         return StreamingResponse(
             iter([response_file.getvalue()]),
-            media_type=CustomMimeTypes.ZIP.type,
+            media_type=SupportedMimeTypes.ZIP.mime_type,
             headers={
                 f"{common_headers.CONTENT_DISPOSITION}":
                 f"{common_headers.ATTACHMENT};filename=datasets{extension}",
