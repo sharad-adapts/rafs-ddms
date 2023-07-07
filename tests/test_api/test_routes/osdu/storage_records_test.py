@@ -55,7 +55,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     MSS_ENDPOINT_PATH,
     MULTISTAGESEPARATOR_RECORD,
     OSDU_GENERIC_RECORD,
-    PHYSCHEM_ENDPOINT_PATH,
+    PHYS_CHEM_ENDPOINT_PATH,
     PVT_ENDPOINT_PATH,
     PVT_QUERY_STORAGE_SERVICE_200_RESPONSE,
     PVT_RECORD,
@@ -1870,7 +1870,7 @@ async def test_post_record_auth_errors(
         (RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (FRACTIONATION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (EXTRACTION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
-        (PHYSCHEM_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (PHYS_CHEM_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1907,7 +1907,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (RELATIVE_PERMEABILITY_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (FRACTIONATION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (EXTRACTION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
-        (PHYSCHEM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (PHYS_CHEM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1946,7 +1946,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_WRONG_ID),
         (FRACTIONATION_ENDPOINT_PATH, TEST_WRONG_ID),
         (EXTRACTION_ENDPOINT_PATH, TEST_WRONG_ID),
-        (PHYSCHEM_ENDPOINT_PATH, TEST_WRONG_ID),
+        (PHYS_CHEM_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):

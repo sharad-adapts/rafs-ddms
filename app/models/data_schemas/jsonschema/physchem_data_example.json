@@ -1,0 +1,300 @@
+{
+  "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+  "SamplesID": "osdu:master-data--Samples:dd76cf6c-226f-5636-ad1b-1ca0f8249c787845c8",
+  "ApiGravity": {
+    "Value": 32.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI",
+    "Qualifier": "Measured"
+  },
+  "ApiGravityRemarks": "No specific notes or comments available.",
+  "VolatileContentOfOil": {
+    "Value": 1.8,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]"
+  },
+  "PourPoint": {
+    "Value": -15,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC",
+    "Qualifier": "Below zero"
+  },
+  "WaxContent": {
+    "Value": 0.9,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
+    "Qualifier": "Low"
+  },
+  "WaterContent": {
+    "Value": 0.05,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
+    "Qualifier": "Trace"
+  },
+  "SulphurContent": {
+    "Value": 1.2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
+    "Qualifier": "Standard analysis"
+  },
+  "NickelContent": {
+    "Value": 10,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Standard analysis"
+  },
+  "VanadiumContent": {
+    "Value": 5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Standard analysis"
+  },
+  "CloudPointMethod": "ASTM D2500",
+  "CloudPoint": {
+    "Value": -5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+  },
+  "CloudPointUnits": {
+    "Value": "opendes:reference-data--UnitOfMeasure:degC"
+  },
+  "PourPointMethod": "ASTM D97",
+  "MeltingPointMethod": {
+    "Value": "ASTM D127"
+  },
+  "MeltingPoint": {
+    "Value": 35,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+  },
+  "GasOilRatio": {
+    "Value": 1200,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ft3/bbl"
+  },
+  "ReservoirTemperature": {
+    "Value": 75,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF"
+  },
+  "IronContent": {
+    "Value": 15,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Greater than"
+  },
+  "SodiumContent": {
+    "Value": 3,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Less than"
+  },
+  "NickelVanadiumRatio": 2.5,
+  "AsphalteneContent": {
+    "Value": 0.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]"
+  },
+  "SpecificGravityAnalysisMethod": {
+    "Value": 0.85,
+    "AnalysisMethod": "ASTM D4052",
+    "Qualifier": "Greater than"
+  },
+  "TotalAcidNumber": {
+    "Value": 1.8,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg/g"
+  },
+  "ViscosityAnalysisMethod": "ASTM D445",
+  "SulphurContentAnalysisMethod": "ASTM D4294",
+  "NitrogenConcentrationAnalysisMethod": "ASTM D4629",
+  "NitrogenConcentration": {
+    "Value": 0.02,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]",
+    "Qualifier": "Less than"
+  },
+  "CarbonConcentration": {
+    "Value": 85,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]"
+  },
+  "HydrogenConcentration": {
+    "Value": 12,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]"
+  },
+  "OxygenConcentration": {
+    "Value": 0.2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%[mass]"
+  },
+  "NickelVanadiumRatioAsPercentage": {
+    "Value": 5.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+  },
+  "VanadiumNickelRatio": 1.8,
+  "VanadiumNickelRatioAsPercentage": {
+    "Value": 2.7,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+  },
+  "ViscosityMeasurements": [
+    {
+      "Viscosity": {
+        "Value": 50,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cSt"
+      },
+      "TemperatureOfViscosityMeasurement": {
+        "Value": 111,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+      }
+    },
+    {
+      "Viscosity": {
+        "Value": 111,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cSt"
+      },
+      "TemperatureOfViscosityMeasurement": {
+        "Value": 15,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+      }
+    }
+  ],
+  "SilverConcentration": {
+    "Value": 0.2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "AluminiumConcentration": {
+    "Value": 2.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "BoronConcentration": {
+    "Value": 0.1,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "BariumConcentration": {
+    "Value": 0.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "CalciumConcentration": {
+    "Value": 100,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Less than"
+  },
+  "CadmiumConcentration": {
+    "Value": 0.02,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "ChromiumConcentration": {
+    "Value": 1,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Greater than"
+  },
+  "CopperConcentration": {
+    "Value": 5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Less than"
+  },
+  "PotassiumConcentration": {
+    "Value": 10,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "LithiumConcentration": {
+    "Value": 0.05,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "MagnesiumConcentration": {
+    "Value": 20,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "ManganeseConcentration": {
+    "Value": 2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Greater than"
+  },
+  "MolybdenumConcentration": {
+    "Value": 0.1,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Greater than"
+  },
+  "PhosphorusConcentration": {
+    "Value": 100,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "LeadConcentration": {
+    "Value": 0.1,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Less than"
+  },
+  "SiliconConcentration": {
+    "Value": 50,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "TinConcentration": {
+    "Value": 0.05,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "TitaniumConcentration": {
+    "Value": 0.2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "ZincConcentration": {
+    "Value": 10,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]",
+    "Qualifier": "Greater than"
+  },
+  "MeasuredAverageMolarWeight": {
+    "Value": 250,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/mole"
+  },
+  "MeasuredDensityAt60F": {
+    "Value": 0.85,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3"
+  },
+  "PercentOfMudContamination": {
+    "Value": 2.5,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+  },
+  "SampleDensityAt60DegreesCelsius": {
+    "Value": 0.82,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3"
+  },
+  "SampleDensityAt15DegreesCelsius": {
+    "Value": 0.85,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3"
+  },
+  "MolecularWeight": {
+    "Value": 200,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/mole"
+  },
+  "WaterSediment": {
+    "Value": 0.05,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+  },
+  "MercaptanSulphurConcentration": {
+    "Value": 1.2,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "BasicNitrogenConcentration": {
+    "Value": 0.03,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  },
+  "ColourStabilityFlag": "red",
+  "PenetrationPoint": {
+    "Value": 30,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m"
+  },
+  "SofteningPoint": {
+    "Value": 80,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC",
+    "Qualifier": "Greater than"
+  },
+  "SmokePoint": {
+    "Value": 200,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+  },
+  "FreezePoint": {
+    "Value": -10,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC",
+    "Qualifier": "Less than"
+  },
+  "CetaneIndex": 45,
+  "RefractiveIndexAt70DegreesCelsius": 1.4,
+  "DieselFuelRating": "Premium",
+  "AnilineLubricantMiscibility": {
+    "Value": -25,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC"
+  },
+  "TotalMercury": {
+    "Value": 0.01,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ug/g"
+  },
+  "FilteredMercuryConcentration": {
+    "Value": 0.005,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ug/g"
+  },
+  "SaltConcentration": {
+    "Value": 100,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm[mass]"
+  }
+}

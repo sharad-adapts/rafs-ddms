@@ -14,9 +14,14 @@
 
 from fastapi import APIRouter
 
-from app.api.routes.samplesanalysis.api import SamplesAnalysisRecordView
+from app.api.routes.data.api import BaseDataView
+from app.api.routes.samplesanalysis.api import (
+    SAMPLESANALYSIS_ID_REGEX_STR,
+    SamplesAnalysisRecordView,
+)
 
 RECORD_TYPE = "PhysChem"
+BULK_DATASET_PREFIX = "physical-chemistry"
 
 router = APIRouter()
 physchem_router = APIRouter()
@@ -26,5 +31,11 @@ SamplesAnalysisRecordView(
     record_type=RECORD_TYPE,
 )
 
+BaseDataView(
+    router=physchem_router,
+    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
+    bulk_dataset_prefix=BULK_DATASET_PREFIX,
+    record_type=RECORD_TYPE,
+)
 
 router.include_router(physchem_router, tags=["physicalchemistrytests"], prefix="/physicalchemistrytests")
