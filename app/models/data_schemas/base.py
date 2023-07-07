@@ -32,6 +32,7 @@ from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
 from app.models.data_schemas.cap_pressure_data_model import Model as CapPressureModel
 from app.models.data_schemas.fractionation_data_model import Model as FractionationModel
 from app.models.data_schemas.extraction_data_model import Model as ExtractionModel
+from app.models.data_schemas.physchem_data_model import Model as PhysChemModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -91,6 +92,9 @@ FRACTIONATION_MODELS = {
 EXTRACTION_MODELS = {
     ContentShemaVersion.V_1_0_0: ExtractionModel,
 }
+PHYS_CHEM_MODELS = {
+    ContentShemaVersion.V_1_0_0: PhysChemModel
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -110,4 +114,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.CAP_PRESSURE: CAP_PRESSURE_MODELS,
     CommonRelativePaths.FRACTIONATION: FRACTIONATION_MODELS,
     CommonRelativePaths.EXTRACTION: EXTRACTION_MODELS,
+    CommonRelativePaths.PHYS_CHEM: PHYS_CHEM_MODELS,
 }

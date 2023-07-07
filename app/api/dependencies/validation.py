@@ -288,6 +288,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.CAP_PRESSURE,
         CommonRelativePaths.FRACTIONATION,
         CommonRelativePaths.EXTRACTION,
+        CommonRelativePaths.PHYS_CHEM,
     )
 
     for path in common_relative_paths:

@@ -37,3 +37,4 @@ class CommonRelativePaths(NamedTuple):
     CAP_PRESSURE = "/capillarypressuretests/"
     FRACTIONATION = "/fractionationtests/"
     EXTRACTION = "/extractiontests/"
+    PHYS_CHEM = "/physicalchemistrytests/"
