@@ -3,6 +3,8 @@
         "CompositionalAnalysisTestID",
         "TestNumber",
         "FluidSampleID",
+        "FlashPressure",
+        "FlashTemperature",
         "CompositionalAnalysis",
         "CalculatedProperties",
         "GasCompositionalCalculations",
@@ -16,171 +18,168 @@
             "{data_partition_id}:work-product-component--CompositionalAnalysisTest:Test:",
             "1",
             "{data_partition_id}:master-data--FluidSample:1:",
+            {
+                "Value": 2,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+            },
+            {
+                "Value": 10,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+            },
             [
                 {
                     "ComponentFormula": "C1",
                     "ComponentName": "Methane",
-                    "FlashedLiquidRelativeMolarWeight": {
+                    "FlashedLiquidRelativeMole": {
                         "Value": 16.04,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D"
+                    },
+                    "FlashedGasRelativeMass": {
+                        "Value": 16.04,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                     },
                     "FlashedLiquidRelativeMass": {
                         "Value": 16.04,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                     },
-                    "FlashedGasRelativeMolarWeight": {
+                    "FlashedGasRelativeMole": {
                         "Value": 16.04,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                     },
-                    "OverallFluidRelativeMolarWeight": {
+                    "OverallFluidRelativeMole": {
                         "Value": 16.04,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                     },
                     "OverallFluidRelativeMass": {
                         "Value": 16.04,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                     }
                 }
             ],
             {
-                "AvgFlashedFluidMoleWeight": {
-                    "Value": 25.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "AvgFlashedLiquidMolecularWeight": {
+                    "Value": 25,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                 },
-                "AvgFlashedGasMoleWeight": {
-                    "Value": 35.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "AvgFlashedGasMolecularWeight": {
+                    "Value": 35,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                 },
-                "AvgFlashedOverallFluidMoleWeight": {
-                    "Value": 38.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "AvgFlashedOverallFluidMolecularWeight": {
+                    "Value": 38,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                 },
                 "FlashedLiquidDensity": {
-                    "Value": 15.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 15,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                 },
                 "FlashedGasDensity": {
-                    "Value": 25.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 25,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                 },
-                "OverallFluidDensity": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "FlashedOverallFluidDensity": {
+                    "Value": 50,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                 },
                 "FlashedLiquidRealRelativeDensity": {
-                    "Value": 0.08,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 50,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:unitless:"
                 },
                 "FlashedGasRealRelativeDensity": {
-                    "Value": 0.25,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 50,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:unitless:"
                 },
                 "OverallFluidRealRelativeDensity": {
-                    "Value": 0.63,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 50,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:unitless:"
                 },
-                "FlashedLiquidGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                },
-                "FlashedGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                },
-                "OverallLiquidGasOilRatio": {
-                    "Value": 50.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "OverallFluidGasOilRatio": {
+                    "Value": 50,
+                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
                 },
                 "FlashedLiquidMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                 },
                 "FlashedGasMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                 },
-                "OverallLiquidMoleFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "OverallFluidMoleFraction": {
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                 },
                 "FlashedLiquidMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                 },
                 "FlashedGasMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                 },
-                "OverallLiquidMassFraction": {
-                    "Value": 33.0,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                "OverallFluidMassFraction": {
+                    "Value": 33,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
                 },
                 "SampleCalculatedProperties": [
                     {
                         "ComponentFormula": "C10H22",
                         "ComponentName": "Decane",
-                        "FlashedLiquidRelativeMolarWeight": {
-                            "Value": 142.48,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                        },
-                        "FlashedLiquidMolecularWeight": {
-                            "Value": 64.0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
-                        },
-                        "FlashedLiquidDensity": {
-                            "Value": 142.48,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "FlashedLiquidRelativeMole": {
+                            "Value": 64,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                         },
                         "FlashedGasMolecularWeight": {
                             "Value": 142.48,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                         },
-                        "FlashedGasRelativeMolarWeight": {
-                            "Value": 55.0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "FlashedLiquidDensity": {
+                            "Value": 142.48,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3"
                         },
-                        "FlashedGasDensity": {
-                            "Value": 0.085,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "FlashedGasRelativeMole": {
+                            "Value": 55,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                         },
                         "OverallFluidMolecularWeight": {
-                            "Value": 75.0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                            "Value": 75,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                         },
-                        "OverallFluidRelativeWeight": {
-                            "Value": 71.0,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "OverallFluidRelativeMole": {
+                            "Value": 71,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
                         },
                         "OverallFluidDensity": {
                             "Value": 0.0854,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                         }
                     }
+
                 ]
             },
             [
                 {
                     "ComponentName": "Hydrogen",
-                    "MoleWeight": {
+                    "MolecularWeight": {
                         "Value": 2.016,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                     },
                     "Density": {
                         "Value": 0.8006,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                     }
                 }
             ],
             [
                 {
                     "ComponentName": "Hydrogen",
-                    "MoleWeight": {
+                    "MolecularWeight": {
                         "Value": 2.016,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fmol:"
                     },
                     "Density": {
                         "Value": 0.8006,
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
                     }
                 }
             ]
