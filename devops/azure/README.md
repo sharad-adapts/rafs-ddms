@@ -2,11 +2,11 @@
 
 ## Build image
 
-**WARN** It is recommended to use the [distroless](../../Dockerfile.distroless) image for production systems, which it is more secure and lighter than develop and test images.
+**WARN** It is recommended to use the [distroless](../../Dockerfile) image for production systems, which it is more secure and lighter than develop and test images.
 
 ```shell
 az login
-az acr build --registry <acr-name> --file ./Dockerfile.distroless -t rafsddms:latest .
+az acr build --registry <acr-name> --file ./Dockerfile -t rafsddms:latest .
 ```
 
 ## Community installation
