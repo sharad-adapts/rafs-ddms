@@ -14,25 +14,22 @@
 
 import re
 from dataclasses import dataclass
-from typing import Any, NamedTuple, Optional, Set
+from typing import Any, List, NamedTuple, Optional, Set, Tuple
 
 from loguru import logger
 from pydantic.main import BaseModel
 
+from app.resources.errors import FilterValidationError
+
 
 class Aggregation(NamedTuple):
-    COMPARISON = {"lt": "<", "gt": ">", "lte": "<=", "gte": ">=", "eq": "=", "neq": "!="}
-    OPERATORS = {"avg", "count", "max", "min", "sum"}
+    FUNCTIONS = {"mean", "count", "max", "min", "sum", "describe"}
     N_ELEMENTS = 2
 
 
 class Predicate(NamedTuple):
     OPERATORS = {"lt": "<", "gt": ">", "lte": "<=", "gte": ">=", "eq": "=", "neq": "!="}
     N_ELEMENTS = 3
-
-
-class Projection(NamedTuple):
-    STAR = "*"
 
 
 class Separator(NamedTuple):
@@ -52,11 +49,28 @@ class DottedColumn(NamedTuple):
     N_ELEMENTS = 2
 
 
+class RowsFilter(NamedTuple):
+    column: str
+    operator: str
+    comp_value: Any
+    field: Optional[str] = None
+
+
+class ColumnsFilter(NamedTuple):
+    colums: List[str]
+
+
+class ColumnsAggregation(NamedTuple):
+    column: str
+    function: str
+    field: Optional[str] = None
+
+
 @dataclass
-class SQLFilterValidator:
+class DataFrameFilterValidator:
     """Validation of query paramenters.
 
-    :raises RuntimeError: If any validation error occurs
+    :raises FilterValidationError: If any validation error occurs
     :raises NotImplementedError: For not implemented features
     """
     model: BaseModel
@@ -69,88 +83,129 @@ class SQLFilterValidator:
         return set(self.model.__fields__.keys())
 
     @property
-    def valid_columns_filter(self) -> str:
-        columns_filter = Projection.STAR
+    def valid_columns_filter(self) -> Optional[ColumnsFilter]:
+        columns_filter = None
         if self.raw_columns_filter:
             columns_filter = self._validate_columns_filter()
         return columns_filter
 
     @property
-    def valid_rows_filter(self) -> str:
+    def valid_rows_filter(self) -> Optional[RowsFilter]:
         rows_filter = None
         if self.raw_rows_filter:
             rows_filter = self._validate_rows_filter()
         return rows_filter
 
     @property
-    def valid_columns_aggregation(self) -> str:
+    def valid_columns_aggregation(self) -> Optional[ColumnsAggregation]:
         columns_aggregation = None
         if self.raw_columns_aggregation:
             columns_aggregation = self._validate_columns_aggregation()
         return columns_aggregation
 
-    def _validate_column_value(self, column: str, comp_value: Any) -> Any:
-        logger.debug(f"TODO validate column: {column}")
-        #  TODO swith to jsonschema validation since pydantic does not allow a clean per field validation
-        return comp_value
+    def _validate_column_value(self, column: str, comp_value: str, field: Optional[str] = None) -> Any:
+        val_type = self._get_type_from_schema(column, field)
+        try:
+            match val_type:
+                case "integer":
+                    return int(comp_value)
+                case "number":
+                    return float(comp_value)
+                case "boolean":
+                    return comp_value.lower() == "true"
+                case "string":
+                    return str(comp_value)
+                case _:
+                    raise FilterValidationError(f"Filter not supported on {val_type}")
+        except ValueError as exc:
+            raise FilterValidationError(exc)
 
-    def _validate_aggregation_operator(self, operator: str) -> str:
-        if operator not in Aggregation.OPERATORS:
-            raise RuntimeError(f"Invalid aggregation operator not in: {Aggregation.OPERATORS}")
-        return operator
+    def _validate_aggregation_func(self, agg_func: str) -> str:
+        if agg_func not in Aggregation.FUNCTIONS:
+            raise FilterValidationError(f"Invalid aggregation operator not in: {Aggregation.FUNCTIONS}")
+        return agg_func
 
     def _validate_comparison_operator(self, operator: str) -> str:
         operator = Predicate.OPERATORS.get(operator)
         if not operator:
             possible_operators = Predicate.OPERATORS.keys()
-            raise RuntimeError(f"Invalid comparison operator not in: {possible_operators}")
+            raise FilterValidationError(f"Invalid comparison operator not in: {possible_operators}")
         return operator
 
-    def _validate_rows_filter(self) -> str:
+    def _validate_rows_filter(self) -> RowsFilter:
         rows_filter_list = self.raw_rows_filter.split(Separator.COMMA)
         if len(rows_filter_list) != Predicate.N_ELEMENTS:
-            raise RuntimeError("Bad rows_filter expression. Correct form 'ColumnName[.FieldName],operator,value'")
+            raise FilterValidationError(
+                "Bad rows_filter expression. Correct form 'ColumnName[.FieldName],operator,value'",
+            )
 
-        valid_column = self._validate_column(rows_filter_list[FilterIndex.COLUMN], "filter")
+        valid_column, valid_field = self._validate_column(rows_filter_list[FilterIndex.COLUMN], "filter")
         valid_operator = self._validate_comparison_operator(rows_filter_list[FilterIndex.OPERATOR])
-        valid_value = self._handle_str_value(
-            self._validate_column_value(
-                valid_column, rows_filter_list[FilterIndex.COMP_VALUE],
-            ),
+        valid_value = self._validate_column_value(
+            valid_column, rows_filter_list[FilterIndex.COMP_VALUE], valid_field,
         )
-        return f"{valid_column} {valid_operator} {valid_value}"
+        return RowsFilter(column=valid_column, operator=valid_operator, comp_value=valid_value, field=valid_field)
 
-    def _validate_columns_aggregation(self) -> str:
+    def _validate_columns_aggregation(self) -> ColumnsAggregation:
         columns_aggregation_list = self.raw_columns_aggregation.split(Separator.COMMA)
         if len(columns_aggregation_list) != Aggregation.N_ELEMENTS:
-            raise RuntimeError("Bad aggregation expression. Correct form 'ColumnName[.FieldName],operator'")
+            raise FilterValidationError("Bad aggregation expression. Correct form 'ColumnName[.FieldName],operator'")
 
-        valid_column = self._validate_column(columns_aggregation_list[FilterIndex.COLUMN], "aggregation")
-        valid_operator = self._validate_aggregation_operator(columns_aggregation_list[FilterIndex.OPERATOR])
-        return f"{valid_operator}({valid_column})"
+        valid_column, valid_field = self._validate_column(columns_aggregation_list[FilterIndex.COLUMN], "aggregation")
+        valid_func = self._validate_aggregation_func(columns_aggregation_list[FilterIndex.OPERATOR])
+        return ColumnsAggregation(column=valid_column, function=valid_func, field=valid_field)
 
-    def _validate_columns_filter(self) -> str:
+    def _validate_columns_filter(self) -> ColumnsFilter:
         raw_columns_filter = self.raw_columns_filter.split(Separator.COMMA)
         valid_columns = [raw_column for raw_column in raw_columns_filter if raw_column in self.all_valid_columns]
         invalid_columns = set(raw_columns_filter) - set(valid_columns)
         if invalid_columns:
-            raise RuntimeError(f"Invalid columns: {invalid_columns}. Select one of {self.all_valid_columns}")
-        return Separator.COMMA.join(valid_columns)
+            raise FilterValidationError(f"Invalid columns: {invalid_columns}. Select one of {self.all_valid_columns}")
+        return ColumnsFilter(colums=valid_columns)
 
-    def _validate_column(self, column: str, operation: str) -> str:
-        if Separator.DOT in column:
-            logger.debug(f"DOT in column: {column}")
-            dot_cols = column.split(Separator.DOT)
-            if len(dot_cols) != DottedColumn.N_ELEMENTS or not re.match(r"\w+", dot_cols[DottedColumn.FIELD_INDEX]):
-                raise RuntimeError("Wrong Column or Field name syntax: correct form: {ColumnName.FieldName}")
-            if dot_cols[DottedColumn.COLUMN_INDEX] not in self.all_valid_columns:
-                raise RuntimeError(f"For {operation} select one of {self.all_valid_columns}")
-        elif column not in self.all_valid_columns:
-            raise RuntimeError(f"For {operation} column select one of {self.all_valid_columns}")
-        return column
+    def _validate_column(self, full_column_name: str, operation: str) -> Tuple[str, str]:
+        column_name, field_name = full_column_name, None
+        if Separator.DOT in full_column_name:
+            logger.debug(f"DOT in column: {full_column_name}")
+            dot_cols = full_column_name.split(Separator.DOT)
+            column_name = dot_cols[DottedColumn.COLUMN_INDEX]
+            field_name = dot_cols[DottedColumn.FIELD_INDEX]
+            if len(dot_cols) != DottedColumn.N_ELEMENTS or not re.match(r"\w+", field_name):
+                raise FilterValidationError("Wrong Column or Field name syntax: correct form: {ColumnName.FieldName}")
+            if column_name not in self.all_valid_columns:
+                raise FilterValidationError(f"For {operation} select one of {self.all_valid_columns}")
+        elif full_column_name not in self.all_valid_columns:
+            raise FilterValidationError(f"For {operation} column select one of {self.all_valid_columns}")
 
-    def _handle_str_value(self, comp_value: Any) -> str:
-        new_value = comp_value
-        if isinstance(comp_value, str):
-            new_value = f"'{comp_value}'"
-        return new_value
+        return column_name, field_name
+
+    def _get_type_from_schema(self, column: str, field: Optional[str] = None) -> str:
+        column_definition = self._get_column_definition_from_schema(column)
+        value_type = column_definition.get("type")
+
+        if field:
+            props = column_definition.get("properties", {})
+            value_type = props.get(field, {}).get("type")
+            if not value_type:
+                error_msg = f"'{field}' is not defined in the {column} schema: {props}."
+                logger.debug(error_msg)
+                raise FilterValidationError(error_msg)
+        return value_type
+
+    def _get_column_definition_from_schema(self, column: str) -> dict:
+        schema = self.model.schema()
+
+        schema_column_by_def = schema.get("definitions", {}).get(column, {})
+        schema_column_by_prop = schema.get("properties", {}).get(column, {})
+
+        if schema_column_by_def.get("type"):
+            column_definition = schema_column_by_def
+        elif schema_column_by_prop.get("type"):
+            column_definition = schema_column_by_prop
+        else:
+            # verify if the property has a different definition name
+            def_name_index = -1
+            def_name = schema_column_by_prop.get("$ref", "").split("/")[def_name_index]
+            column_definition = schema.get("definitions", {}).get(def_name, {})
+
+        return column_definition

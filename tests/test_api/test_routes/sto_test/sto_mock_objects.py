@@ -223,10 +223,10 @@ TEST_DATA = {
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"StockTankOilAnalysisTestID\")",
+        "StockTankOilAnalysisTestID",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

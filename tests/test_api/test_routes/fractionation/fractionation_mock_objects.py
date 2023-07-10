@@ -61,10 +61,10 @@ with open(f"{dir_path}/fractionation_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "sum(\"FractionationSum\".\"Value\")",
+        "FractionationSum",
     ],
     "index": [
-        0,
+        "sum",
     ],
     "data": [
         [

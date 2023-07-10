@@ -170,10 +170,10 @@ TEST_DATA = {
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"ConstantVolumeDepletionTestID\")",
+        "ConstantVolumeDepletionTestID",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

@@ -61,10 +61,10 @@ with open(f"{dir_path}/extraction_test_data_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "sum(\"WeightOfRockExtracted\".\"Value\")",
+        "WeightOfRockExtracted",
     ],
     "index": [
-        0,
+        "sum",
     ],
     "data": [
         [

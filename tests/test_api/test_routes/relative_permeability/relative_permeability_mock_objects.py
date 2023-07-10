@@ -49,7 +49,7 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "Porosity.Value,avg",
+    "columns_aggregation": "Porosity.Value,mean",
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleDepth,TestTemperature",
@@ -61,10 +61,10 @@ with open(f"{dir_path}/relative_permeability_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "avg(\"Porosity\".\"Value\")",
+        "Porosity",
     ],
     "index": [
-        0,
+        "mean",
     ],
     "data": [
         [
@@ -80,7 +80,7 @@ TEST_FILTERED_DATA = {
         "TestTemperature",
     ],
     "index": [
-        0,
+        1,
     ],
     "data": [
         [

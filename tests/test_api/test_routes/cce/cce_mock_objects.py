@@ -148,10 +148,10 @@ TEST_DATA = {
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "count(\"ConstantCompositionExpansionTestSteps\")",
+        "ConstantCompositionExpansionTestSteps",
     ],
     "index": [
-        0,
+        "count",
     ],
     "data": [
         [

@@ -3059,10 +3059,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
                 content=json.dumps(incorrect_dataframe_data),
             )
 
-    from loguru import logger
-
     body = response.json()
-    logger.error(body)
     assert ["code", "reason"] == list(body.keys())
     assert body["reason"] == error_reason
 

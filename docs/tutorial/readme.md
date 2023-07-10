@@ -140,7 +140,7 @@ Response will only contain the project columns that comply with the row conditio
 
 7. Example with aggregation over a column (current implementation allows only one column aggregation)
 ```
-curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data?columns_filter=Porosity&columns_aggregation=Porosity,avg' \
+curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data?columns_filter=Porosity&columns_aggregation=Porosity,mean' \
 --header 'data-partition-id: opendes' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer token'
@@ -149,7 +149,7 @@ Apply the column filter over the column you want to do the aggregation and then 
 
 Supported aggregations depends on column type but in general:
 ```
-[avg, count, max, min, sum]
+[mean, count, max, min, sum, describe]
 ```
 8. Column aggregation and row filtering support ```ColumnName.FieldName``` syntax to work over nested fields.
 
@@ -167,5 +167,5 @@ rows_filter=Permeability.Value,lt,1000
 
 And the colums_aggregation parameter would be:
 ```
-columns_aggregation=Permeability.Value,avg
+columns_aggregation=Permeability.Value,mean
 ```
