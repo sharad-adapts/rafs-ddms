@@ -37,6 +37,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CVD_RECORD,
     DIF_LIB_ENDPOINT_PATH,
     DL_RECORD,
+    ELECTRICAL_PROPERTIES_ENDPOINT_PATH,
     EXPECTED_200_CREATED_PVT_UPDATED_RESPONSE,
     EXPECTED_200_CREATED_RESPONSE,
     EXPECTED_200_VERSIONS_RESPONSE,
@@ -311,6 +312,7 @@ def with_patched_storage_samplesanalysis_existing_parent():
         ("get_record", "fractionationtests", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "extractiontests", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "physicalchemistrytests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -350,6 +352,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "fractionationtests", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "extractiontests", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "physicalchemistrytests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -390,6 +393,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "fractionationtests", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "extractiontests", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "physicalchemistrytests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -433,6 +437,7 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "fractionationtests", TEST_SAMPLESANALYSIS_ID),
         ("soft_delete_record", "extractiontests", TEST_SAMPLESANALYSIS_ID),
         ("soft_delete_record", "physicalchemistrytests", TEST_SAMPLESANALYSIS_ID),
+        ("soft_delete_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -476,6 +481,7 @@ async def test_delete_record_not_found(
         ("fractionationtests"),
         ("extractiontests"),
         ("physicalchemistrytests"),
+        ("electricalproperties"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -518,6 +524,7 @@ async def test_post_record_no_kind(path):
         ("fractionationtests"),
         ("extractiontests"),
         ("physicalchemistrytests"),
+        ("electricalproperties"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -556,6 +563,7 @@ async def test_post_record_invalid_payload_type(path):
         ("fractionationtests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
         ("extractiontests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
         ("physicalchemistrytests", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
+        ("electricalproperties", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -917,6 +925,10 @@ async def test_post_record_success_update_pvt_parent(
             "physicalchemistrytests",
             SAMPLESANALYSIS_RECORD,
         ),
+        (
+            "electricalproperties",
+            SAMPLESANALYSIS_RECORD,
+        ),
     ],
 )
 async def test_post_samplesanalysis_with_missing_parent(
@@ -989,6 +1001,11 @@ async def test_post_samplesanalysis_with_missing_parent(
         (
             "upsert_records",
             "extractiontests",
+            SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
+        ),
+        (
+            "upsert_records",
+            "electricalproperties",
             SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
         ),
     ],
@@ -1295,6 +1312,7 @@ async def test_post_record_with_linking_no_id(
         ("get_record", "fractionationtests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "extractiontests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "physicalchemistrytests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "electricalproperties", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_success(
@@ -1340,6 +1358,7 @@ async def test_get_record_success(
         ("get_record", "fractionationtests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "extractiontests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "physicalchemistrytests", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "electricalproperties", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_success(
@@ -1383,6 +1402,7 @@ async def test_get_record_version_success(
         ("get_record_versions", "relativepermeabilitytests", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "fractionationtests", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "physicalchemistrytests", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -1427,6 +1447,7 @@ async def test_get_record_versions_success(
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"fractionationtests/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"extractiontests/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"physicalchemistrytests/{TEST_SAMPLESANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"electricalproperties/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/1234"),
@@ -1484,6 +1505,7 @@ async def test_get_record_versions_success(
             f"extractiontests/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
         ),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"physicalchemistrytests/{TEST_SAMPLESANALYSIS_ID}/versions/1234"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"electricalproperties/{TEST_SAMPLESANALYSIS_ID}/versions/1234"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions"),
@@ -1543,6 +1565,10 @@ async def test_get_record_versions_success(
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"physicalchemistrytests/{TEST_SAMPLESANALYSIS_ID}/versions",
         ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"electricalproperties/{TEST_SAMPLESANALYSIS_ID}/versions",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
@@ -1582,6 +1608,7 @@ async def test_get_record_auth_errors_from_storage(
         ("fractionationtests/record_id"),
         ("extractiontests/record_id"),
         ("physicalchemistrytests/record_id"),
+        ("electricalproperties/record_id"),
         ("rocksamples/record_id/versions/1234"),
         ("coringreports/record_id/versions/1234"),
         ("pvtreports/record_id/versions/1234"),
@@ -1605,6 +1632,7 @@ async def test_get_record_auth_errors_from_storage(
         ("fractionationtests/record_id/versions/1234"),
         ("extractiontests/record_id/versions/1234"),
         ("physicalchemistrytests/record_id/versions/1234"),
+        ("electricalproperties/record_id/versions/1234"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -1628,6 +1656,7 @@ async def test_get_record_auth_errors_from_storage(
         ("fractionationtests/record_id/versions"),
         ("extractiontests/record_id/versions"),
         ("physicalchemistrytests/record_id/versions"),
+        ("electricalproperties/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -1672,6 +1701,7 @@ async def test_get_record_auth_errors(
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"fractionationtests/{TEST_SAMPLESANALYSIS_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"extractiontests/{TEST_SAMPLESANALYSIS_ID}"),
         ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"physicalchemistrytests/{TEST_SAMPLESANALYSIS_ID}"),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"electricalproperties/{TEST_SAMPLESANALYSIS_ID}"),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -1711,6 +1741,7 @@ async def test_delete_record_auth_errors_from_storage(
         ("fractionationtests/record_id"),
         ("extractiontests/record_id"),
         ("physicalchemistrytests/record_id"),
+        ("electricalproperties/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1752,6 +1783,7 @@ async def test_delete_record_auth_errors(
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "relativepermeabilitytests", SAMPLESANALYSIS_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "fractionationtests", SAMPLESANALYSIS_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "physicalchemistrytests", SAMPLESANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "electricalproperties", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
@@ -1797,6 +1829,7 @@ async def test_post_record_auth_errors_from_storage(
         ("fractionationtests", SAMPLESANALYSIS_RECORD),
         ("extractiontests", SAMPLESANALYSIS_RECORD),
         ("physicalchemistrytests", SAMPLESANALYSIS_RECORD),
+        ("electricalproperties", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1871,6 +1904,7 @@ async def test_post_record_auth_errors(
         (FRACTIONATION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (EXTRACTION_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (PHYS_CHEM_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -1908,6 +1942,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (FRACTIONATION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (EXTRACTION_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (PHYS_CHEM_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -1947,6 +1982,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (FRACTIONATION_ENDPOINT_PATH, TEST_WRONG_ID),
         (EXTRACTION_ENDPOINT_PATH, TEST_WRONG_ID),
         (PHYS_CHEM_ENDPOINT_PATH, TEST_WRONG_ID),
+        (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):

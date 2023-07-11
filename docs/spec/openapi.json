@@ -11711,6 +11711,318 @@
                     }
                 ]
             }
+        },
+        "/electricalproperties/{record_id}": {
+            "get": {
+                "tags": [
+                    "electricalproperties",
+                    "electricalproperties"
+                ],
+                "summary": "Get Record",
+                "description": "Get the latest version of `ElectricalProperties` object by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_electricalproperties__record_id__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--SamplesAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get Record Electricalproperties  Record Id  Get",
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "electricalproperties",
+                    "electricalproperties"
+                ],
+                "summary": "Soft Delete Record",
+                "description": "Delete the `ElectricalProperties` object by record id.<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "soft_delete_record_electricalproperties__record_id__delete",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--SamplesAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful Response"
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/electricalproperties/{record_id}/versions": {
+            "get": {
+                "tags": [
+                    "electricalproperties",
+                    "electricalproperties"
+                ],
+                "summary": "Get Record Versions",
+                "description": "Get a list of `ElectricalProperties` object versions by record id.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_versions_electricalproperties__record_id__versions_get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--SamplesAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get Record Versions Electricalproperties  Record Id  Versions Get",
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/electricalproperties/{record_id}/versions/{version}": {
+            "get": {
+                "tags": [
+                    "electricalproperties",
+                    "electricalproperties"
+                ],
+                "summary": "Get Record Specific Version",
+                "description": "Get the given version of `ElectricalProperties` object.<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "get_record_specific_version_electricalproperties__record_id__versions__version__get",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Version",
+                            "type": "integer"
+                        },
+                        "name": "version",
+                        "in": "path"
+                    },
+                    {
+                        "required": true,
+                        "schema": {
+                            "title": "Record Id",
+                            "pattern": "^[\\w\\-\\.]+:work-product-component--SamplesAnalysis:[\\w\\-\\.\\:\\%]+$",
+                            "type": "string"
+                        },
+                        "name": "record_id",
+                        "in": "path"
+                    },
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "title": "Response Get Record Specific Version Electricalproperties  Record Id  Versions  Version  Get",
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
+        },
+        "/electricalproperties": {
+            "post": {
+                "tags": [
+                    "electricalproperties",
+                    "electricalproperties"
+                ],
+                "summary": "Post Records",
+                "description": "Create or update `ElectricalProperties` record(s).<br><br>        Required roles: `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+                "operationId": "post_records_electricalproperties_post",
+                "parameters": [
+                    {
+                        "description": "Specifies the proper data partition id",
+                        "required": true,
+                        "schema": {
+                            "title": "data-partition-id",
+                            "description": "Specifies the proper data partition id"
+                        },
+                        "example": "opendes",
+                        "name": "data-partition-id",
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "title": "Records List",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/OsduStorageRecord"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/StorageUpsertResponse"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
