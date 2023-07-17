@@ -5,6 +5,10 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        commit_branch: "Local"
+        commit_message: "Local Development"
+        release_version: "0.0.0-local"
     restart: on-failure
     env_file:
       - .env

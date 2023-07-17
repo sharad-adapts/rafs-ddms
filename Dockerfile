@@ -30,10 +30,12 @@ ARG build_date
 ARG commit_id
 ARG commit_branch
 ARG commit_message
+ARG release_version
 ENV BUILD_DATE $build_date
 ENV COMMIT_ID $commit_id
 ENV COMMIT_BRANCH $commit_branch
 ENV COMMIT_MESSAGE=$commit_message
+ENV RELEASE_VERSION=$release_version
 
 ENV PYTHONPATH=/usr/local/lib/python${python_version}/site-packages
 ENV PYTHONUNBUFFERED 1

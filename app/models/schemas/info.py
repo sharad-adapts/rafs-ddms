@@ -17,8 +17,9 @@ from pydantic import BaseModel
 
 class InfoResponse(BaseModel):
     name: str = None
-    version: str = None
+    api_version: str = None
     build_time: str = None
     branch: str = None
     commit_id: str = None
     commit_message: str = None
+    release_version: str = None
