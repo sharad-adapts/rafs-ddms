@@ -43,5 +43,7 @@ class BaseAppSettings(BaseSettings):
 
     request_timeout: float = 15.0  # request timeout in seconds
 
+    release_version: str = None  # Not the same as version (api version)
+
     class Config:
         env_file = ".env"
