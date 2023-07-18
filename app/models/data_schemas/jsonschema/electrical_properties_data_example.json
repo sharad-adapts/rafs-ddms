@@ -1,0 +1,14 @@
+{
+    "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysisID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+    "SamplesID": "osdu:master-data--Samples:4b",
+    "BrineConcentration": {
+        "Value": 22000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm"
+    },
+    "FormationFactor": 6.87,
+    "AdjustedFormationFactor": 7.27,
+    "CementationExponent": 1.72,
+    "AdjustedCemetationExponent": 1.78,
+    "SaturationExponent": 2.03,
+    "AdjustedSaturationExponent": 2.32
+}
