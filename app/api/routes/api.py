@@ -23,6 +23,7 @@ from app.api.routes.compositionalanalysis import (
 )
 from app.api.routes.cvd import api as cvd_api
 from app.api.routes.dif_lib import api as dif_lib_api
+from app.api.routes.electricalproperties import api as electricalproperties_api
 from app.api.routes.extraction import api as extraction_api
 from app.api.routes.fractionation import api as fractionation_api
 from app.api.routes.interfacialtension import api as interfacialtension_api
@@ -139,5 +140,10 @@ router.include_router(
 router.include_router(
     physchem_api.router,
     tags=["physicalchemistrytests"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    electricalproperties_api.router,
+    tags=["electricalproperties"],
     dependencies=COMMON_DEPENDENCIES,
 )
