@@ -44,6 +44,9 @@ from app.api.routes.swelling import api as swelling_api
 from app.api.routes.transport_test import api as transport_test_api
 from app.api.routes.vle import api as vle_api
 from app.api.routes.wateranalysis import api as wateranalysis_api
+from app.api.routes.watergasrelativepermeability import (
+    api as watergasrelativepermeability_api,
+)
 
 COMMON_DEPENDENCIES = [
     Depends(require_data_partition_id),
@@ -151,5 +154,10 @@ router.include_router(
 router.include_router(
     rockcompressibility_api.router,
     tags=["rockcompressibilities"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    watergasrelativepermeability_api.router,
+    tags=["watergasrelativepermeabilities"],
     dependencies=COMMON_DEPENDENCIES,
 )
