@@ -33,6 +33,7 @@ from app.api.routes.multistageseparator import api as mss_api
 from app.api.routes.physchem import api as physchem_api
 from app.api.routes.pvt import api as pvt_api
 from app.api.routes.relativepermeability import api as relative_permeability_api
+from app.api.routes.rockcompressibility import api as rockcompressibility_api
 from app.api.routes.rocksampleanalysis import api as rocksampleanalysis_api
 from app.api.routes.samplesanalysesreport import (
     api as samples_analyses_report_api,
@@ -145,5 +146,10 @@ router.include_router(
 router.include_router(
     electricalproperties_api.router,
     tags=["electricalproperties"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    rockcompressibility_api.router,
+    tags=["rockcompressibilities"],
     dependencies=COMMON_DEPENDENCIES,
 )
