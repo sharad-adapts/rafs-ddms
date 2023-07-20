@@ -293,6 +293,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.WATER_GAS_RELATIVE_PERMEABILITY,
         CommonRelativePaths.ROCK_COMPRESSIBILITY,
         CommonRelativePaths.ELECTRICAL_PROPERTIES,
+        CommonRelativePaths.FORMATION_RESISTIVITY_INDEX,
     )
 
     for path in common_relative_paths:

@@ -68,6 +68,9 @@ from tests.test_api.test_routes.electricalproperties import (
     electricalproperties_mock_objects,
 )
 from tests.test_api.test_routes.extraction import extraction_mock_objects
+from tests.test_api.test_routes.formationresistivityindex import (
+    formationresistivityindex_mock_objects,
+)
 from tests.test_api.test_routes.fractionation import fractionation_mock_objects
 from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
@@ -88,6 +91,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
     EXTRACTION_DATA_ENDPOINT_PATH,
     EXTRACTION_SOURCE_ENDPOINT_PATH,
+    FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+    FORMATION_RESISTIVITY_INDEX_SOURCE_ENDPOINT_PATH,
     FRACTIONATION_DATA_ENDPOINT_PATH,
     FRACTIONATION_SOURCE_ENDPOINT_PATH,
     INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
@@ -227,6 +232,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
     ],
 )
 @pytest.mark.asyncio
@@ -267,6 +273,7 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
     ],
 )
 @pytest.mark.asyncio
@@ -307,6 +314,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
     ],
 )
 @pytest.mark.asyncio
@@ -441,6 +449,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             "get_record",
             [
                 electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet")],
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
             [build_get_test_data("x-parquet")],
@@ -1310,6 +1328,46 @@ async def test_get_content_parquet_data(
             rock_compressibility_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1471,6 +1529,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", fractionation_mock_objects.TEST_DATA)],
             fractionation_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
+            formationresistivityindex_mock_objects.TEST_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1805,6 +1872,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             [build_get_test_data("x-parquet", water_gas_rel_perm_mock_objects.TEST_DATA)],
             water_gas_rel_perm_mock_objects.TEST_FILTERED_DATA,
         ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            formationresistivityindex_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
+            formationresistivityindex_mock_objects.TEST_FILTERED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2009,6 +2085,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
             electricalproperties_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
+            formationresistivityindex_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2215,6 +2299,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
             electricalproperties_mock_objects.TEST_DATA,
         ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
+            formationresistivityindex_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2420,6 +2512,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
             electricalproperties_mock_objects.TEST_DATA,
         ),
+        (
+            f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [formationresistivityindex_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
+            formationresistivityindex_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2604,6 +2704,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            formationresistivityindex_mock_objects.TEST_DATA,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+            formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2779,6 +2886,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            formationresistivityindex_mock_objects.TEST_DATA,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+            formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2912,6 +3026,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
             electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3084,6 +3203,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             electricalproperties_mock_objects.TEST_DATA,
             electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            formationresistivityindex_mock_objects.TEST_DATA,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+            formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3262,6 +3388,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            formationresistivityindex_mock_objects.TEST_DATA,
+            formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+            formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3302,6 +3435,10 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, water_gas_rel_perm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, rock_compressibility_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, electricalproperties_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.INCORRECT_SCHEMA_TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3428,6 +3565,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             electricalproperties_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             electricalproperties_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+            formationresistivityindex_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            formationresistivityindex_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3469,6 +3611,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH}/{rock_compressibility_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3506,6 +3649,7 @@ async def test_rca_get_403(data_endpoint_path):
         WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
+        FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -3570,6 +3714,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
+        FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3613,6 +3758,7 @@ async def test_invalid_data_with_nan(path):
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
@@ -4075,6 +4221,27 @@ async def test_invalid_data_json_payload(path, payloads):
         ),
         (
             ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            FORMATION_RESISTIVITY_INDEX_SOURCE_ENDPOINT_PATH,
             "get_record",
             NO_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",

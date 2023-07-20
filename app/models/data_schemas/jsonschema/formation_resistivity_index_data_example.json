@@ -1,0 +1,22 @@
+{
+    "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysisID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+    "SamplesID": "osdu:master-data--Samples:6b",
+    "BrineSaturation": {
+        "Value": 0.797,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
+    },
+    "ResistivityIndex": 1.73,
+    "AdjustedResistivityIndex": 1.77,
+    "SaturationExponent": 2.42,
+    "CorrectedSaturationExponent": 2.53,
+    "FormationFactorAtNetOverburdenPressure": 6.87,
+    "AdjustedFormationFactorAtNetOverburnedPressure": 7.27,
+    "BrineSalinity": {
+        "Value": 22000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm"
+    },
+    "QuantityOfOilInTheVolume": {
+        "Value": 0.113,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mL%2FmL"
+    }
+}

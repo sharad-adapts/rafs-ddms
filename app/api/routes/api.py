@@ -25,6 +25,9 @@ from app.api.routes.cvd import api as cvd_api
 from app.api.routes.dif_lib import api as dif_lib_api
 from app.api.routes.electricalproperties import api as electricalproperties_api
 from app.api.routes.extraction import api as extraction_api
+from app.api.routes.formationresistivityindex import (
+    api as formationresistivityindex_api,
+)
 from app.api.routes.fractionation import api as fractionation_api
 from app.api.routes.interfacialtension import api as interfacialtension_api
 from app.api.routes.master_data import coring_api, rocksample_api
@@ -159,5 +162,10 @@ router.include_router(
 router.include_router(
     watergasrelativepermeability_api.router,
     tags=["watergasrelativepermeabilities"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+router.include_router(
+    formationresistivityindex_api.router,
+    tags=["formationresistivityindexes"],
     dependencies=COMMON_DEPENDENCIES,
 )
