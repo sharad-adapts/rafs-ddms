@@ -33,6 +33,7 @@ from app.models.data_schemas.cap_pressure_data_model import Model as CapPressure
 from app.models.data_schemas.fractionation_data_model import Model as FractionationModel
 from app.models.data_schemas.extraction_data_model import Model as ExtractionModel
 from app.models.data_schemas.physchem_data_model import Model as PhysChemModel
+from app.models.data_schemas.water_gas_relative_permeability_data_model import Model as WaterGasRelativePermeabilityModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -95,6 +96,9 @@ EXTRACTION_MODELS = {
 PHYS_CHEM_MODELS = {
     ContentShemaVersion.V_1_0_0: PhysChemModel
 }
+WATER_GAS_RELATIVE_PERMEABILITY_MODELS = {
+    ContentShemaVersion.V_1_0_0: WaterGasRelativePermeabilityModel
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -115,4 +119,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.FRACTIONATION: FRACTIONATION_MODELS,
     CommonRelativePaths.EXTRACTION: EXTRACTION_MODELS,
     CommonRelativePaths.PHYS_CHEM: PHYS_CHEM_MODELS,
+    CommonRelativePaths.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
 }
