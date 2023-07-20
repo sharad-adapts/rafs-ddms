@@ -39,3 +39,4 @@ class CommonRelativePaths(NamedTuple):
     EXTRACTION = "/extractiontests/"
     PHYS_CHEM = "/physicalchemistrytests/"
     WATER_GAS_RELATIVE_PERMEABILITY = "/watergasrelativepermeabilities/"
+    ROCK_COMPRESSIBILITY = "/rockcompressibilities/"
