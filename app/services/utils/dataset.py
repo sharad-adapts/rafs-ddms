@@ -24,9 +24,12 @@ def create_default_dataset_record(
     parent_record: dict,
     schema_authority: str = "osdu",
 ):
-    existent_common_resources = set(parent_record["data"].keys()).intersection(
-        set(CommonResources.schema()["properties"]),
-    )
+    common_resources = {
+        key
+        for key, properties in CommonResources.schema()["properties"].items()
+        if properties.get("copy_to_dataset_record")
+    }
+    existent_common_resources = set(parent_record["data"].keys()).intersection(common_resources)
     record_data = {key: parent_record["data"][key] for key in existent_common_resources}
     record_data.update({
         "DatasetProperties": {
