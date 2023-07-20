@@ -30,6 +30,7 @@ class Field0(BaseModel):
         None,
         description='The name of the home [cloud environment] region for this OSDU resource object.',
         title='Resource Home Region ID',
+        copy_to_dataset_record=True,
     )
     ResourceHostRegionIDs: Optional[
         List[
@@ -41,6 +42,7 @@ class Field0(BaseModel):
         None,
         description='The name of the host [cloud environment] region(s) for this OSDU resource object.',
         title='Resource Host Region ID',
+        copy_to_dataset_record=True,
     )
     ResourceLifecycleStatus: Optional[
         constr(
@@ -59,6 +61,7 @@ class Field0(BaseModel):
         None,
         description='Classifies the security level of the resource.',
         title='Resource Security Classification',
+        copy_to_dataset_record=True,
     )
     ResourceCurationStatus: Optional[
         constr(
