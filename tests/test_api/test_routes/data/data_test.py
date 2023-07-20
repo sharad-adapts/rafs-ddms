@@ -109,6 +109,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     TRANSPORT_SOURCE_ENDPOINT_PATH,
     VLE_DATA_ENDPOINT_PATH,
     VLE_SOURCE_ENDPOINT_PATH,
+    WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+    WATER_GAS_REL_PERM_SOURCE_ENDPOINT_PATH,
     WATERANALYSIS_DATA_ENDPOINT_PATH,
     WATERANALYSIS_SOURCE_ENDPOINT_PATH,
     BulkDatasetId,
@@ -126,6 +128,9 @@ from tests.test_api.test_routes.transport_test import (
 from tests.test_api.test_routes.vle import vle_mock_objects
 from tests.test_api.test_routes.water_analysis import (
     water_analysis_mock_objects,
+)
+from tests.test_api.test_routes.water_gas_rel_perm import (
+    water_gas_rel_perm_mock_objects,
 )
 
 async_storage_record_service_mock = create_autospec(storage.StorageService, spec_set=True, instance=True)
@@ -210,6 +215,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (FRACTIONATION_DATA_ENDPOINT_PATH, BulkDatasetId.FRACTIONATION),
         (EXTRACTION_DATA_ENDPOINT_PATH, BulkDatasetId.EXTRACTION),
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
+        (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -247,6 +253,7 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (FRACTIONATION_DATA_ENDPOINT_PATH, BulkDatasetId.FRACTIONATION),
         (EXTRACTION_DATA_ENDPOINT_PATH, BulkDatasetId.EXTRACTION),
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
+        (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -284,6 +291,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (FRACTIONATION_DATA_ENDPOINT_PATH, BulkDatasetId.FRACTIONATION),
         (EXTRACTION_DATA_ENDPOINT_PATH, BulkDatasetId.EXTRACTION),
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
+        (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
     ],
 )
 @pytest.mark.asyncio
@@ -399,6 +407,12 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
         (
             PHYS_CHEM_DATA_ENDPOINT_PATH, physchem_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
                 physchem_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ], "download_file", [build_get_test_data("x-parquet")],
+        ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID, "get_record", [
+                water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ], "download_file", [build_get_test_data("x-parquet")],
         ),
     ],
@@ -1105,7 +1119,8 @@ async def test_get_content_parquet_data(
             f"{EXTRACTION_DATA_ENDPOINT_PATH}/{extraction_mock_objects.TEST_DATASET_RECORD_ID}",
             extraction_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
-        ), (
+        ),
+        (
             f"{PHYS_CHEM_DATA_ENDPOINT_PATH}/{physchem_mock_objects.TEST_DATASET_RECORD_ID}",
             physchem_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
             TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
@@ -1143,6 +1158,46 @@ async def test_get_content_parquet_data(
         (
             f"{PHYS_CHEM_DATA_ENDPOINT_PATH}/{physchem_mock_objects.TEST_DATASET_RECORD_ID}",
             physchem_mock_objects.TEST_WRONG_AGGREGATION[2],
+            TEST_WRONG_AGGREGATION_REASONS[2],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            TEST_WRONG_ROWS_FILTERS_REASONS[0],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            TEST_WRONG_ROWS_FILTERS_REASONS[1],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            TEST_WRONG_ROWS_FILTERS_REASONS[2],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_AGGREGATION[0],
+            TEST_WRONG_AGGREGATION_REASONS[0],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_AGGREGATION[1],
+            TEST_WRONG_AGGREGATION_REASONS[1],
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
     ],
@@ -1613,6 +1668,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             [build_get_test_data("x-parquet", physchem_mock_objects.TEST_DATA)],
             physchem_mock_objects.TEST_FILTERED_DATA,
         ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_gas_rel_perm_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_gas_rel_perm_mock_objects.TEST_DATA)],
+            water_gas_rel_perm_mock_objects.TEST_FILTERED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1793,6 +1857,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", physchem_mock_objects.TEST_DATA)],
             physchem_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_gas_rel_perm_mock_objects.TEST_DATA)],
+            water_gas_rel_perm_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -1975,6 +2047,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", physchem_mock_objects.TEST_DATA)],
             physchem_mock_objects.TEST_DATA,
         ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_gas_rel_perm_mock_objects.TEST_DATA)],
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2156,6 +2236,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", physchem_mock_objects.TEST_DATA)],
             physchem_mock_objects.TEST_DATA,
         ),
+        (
+            f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_gas_rel_perm_mock_objects.TEST_DATA)],
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2319,6 +2407,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             physchem_mock_objects.TEST_DATASET_RECORD_ID,
             physchem_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID,
+            water_gas_rel_perm_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2473,6 +2568,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             physchem_mock_objects.TEST_DATASET_RECORD_ID,
             physchem_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID,
+            water_gas_rel_perm_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2591,6 +2693,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             PHYS_CHEM_DATA_ENDPOINT_PATH,
             physchem_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             physchem_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -2742,6 +2849,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             physchem_mock_objects.TEST_DATA,
             physchem_mock_objects.TEST_DATASET_RECORD_ID,
             physchem_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID,
+            water_gas_rel_perm_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -2899,6 +3013,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             physchem_mock_objects.TEST_DATASET_RECORD_ID,
             physchem_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_gas_rel_perm_mock_objects.TEST_DATA,
+            water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID,
+            water_gas_rel_perm_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2936,6 +3057,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (FRACTIONATION_DATA_ENDPOINT_PATH, fractionation_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (EXTRACTION_DATA_ENDPOINT_PATH, extraction_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (PHYS_CHEM_DATA_ENDPOINT_PATH, physchem_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, water_gas_rel_perm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -3047,6 +3169,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             physchem_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             physchem_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
+            water_gas_rel_perm_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            water_gas_rel_perm_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3085,6 +3212,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{FRACTIONATION_DATA_ENDPOINT_PATH}/{fractionation_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{EXTRACTION_DATA_ENDPOINT_PATH}/{extraction_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{PHYS_CHEM_DATA_ENDPOINT_PATH}/{physchem_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3119,6 +3247,7 @@ async def test_rca_get_403(data_endpoint_path):
         FRACTIONATION_DATA_ENDPOINT_PATH,
         EXTRACTION_DATA_ENDPOINT_PATH,
         PHYS_CHEM_DATA_ENDPOINT_PATH,
+        WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -3180,6 +3309,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         FRACTIONATION_DATA_ENDPOINT_PATH,
         EXTRACTION_DATA_ENDPOINT_PATH,
         PHYS_CHEM_DATA_ENDPOINT_PATH,
+        WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3220,6 +3350,7 @@ async def test_invalid_data_with_nan(path):
         (FRACTIONATION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (EXTRACTION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (PHYS_CHEM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
@@ -3640,6 +3771,27 @@ async def test_invalid_data_json_payload(path, payloads):
         ),
         (
             PHYS_CHEM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            NO_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            NO_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            WATER_GAS_REL_PERM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
+            "download_file",
+            MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
+        ),
+        (
+            WATER_GAS_REL_PERM_SOURCE_ENDPOINT_PATH,
+            "get_record",
+            SINGLE_DATASET_STORAGE_SIDE_EFFECT,
+            "download_file",
+            SINGLE_DATASET_DATASET_SIDE_EFFECT,
+        ),
+        (
+            WATER_GAS_REL_PERM_SOURCE_ENDPOINT_PATH,
             "get_record",
             NO_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",
