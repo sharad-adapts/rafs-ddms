@@ -48,6 +48,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     EXPECTED_422_TYPER_ERROR_LIST,
     EXPECTED_422_WRONG_PATTERN,
     EXTRACTION_ENDPOINT_PATH,
+    FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH,
     FRACTIONATION_ENDPOINT_PATH,
     INTERFACIAL_TENSION_ENDPOINT_PATH,
     INTERFACIAL_TENSION_RECORD,
@@ -317,6 +318,7 @@ def with_patched_storage_samplesanalysis_existing_parent():
         ("get_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "rockcompressibilities", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "watergasrelativepermeabilities", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -359,6 +361,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "rockcompressibilities", TEST_SAMPLESANALYSIS_ID),
         ("get_record", "watergasrelativepermeabilities", TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -402,6 +405,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
         ("get_record_versions", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "rockcompressibilities", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "watergasrelativepermeabilities", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -448,6 +452,7 @@ async def test_get_record_versions_not_found(
         ("soft_delete_record", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
         ("soft_delete_record", "rockcompressibilities", TEST_SAMPLESANALYSIS_ID),
         ("soft_delete_record", "watergasrelativepermeabilities", TEST_SAMPLESANALYSIS_ID),
+        ("soft_delete_record", "formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -494,6 +499,7 @@ async def test_delete_record_not_found(
         ("electricalproperties"),
         ("rockcompressibilities"),
         ("watergasrelativepermeabilities"),
+        ("formationresistivityindexes"),
     ],
 )
 async def test_post_record_no_kind(path):
@@ -539,6 +545,7 @@ async def test_post_record_no_kind(path):
         ("electricalproperties"),
         ("rockcompressibilities"),
         ("watergasrelativepermeabilities"),
+        ("formationresistivityindexes"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -580,6 +587,7 @@ async def test_post_record_invalid_payload_type(path):
         ("electricalproperties", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
         ("rockcompressibilities", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
         ("watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
+        ("formationresistivityindexes", SAMPLESANALYSIS_RECORD, "DepthShiftsID"),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -953,6 +961,10 @@ async def test_post_record_success_update_pvt_parent(
             "watergasrelativepermeabilities",
             SAMPLESANALYSIS_RECORD,
         ),
+        (
+            "formationresistivityindexes",
+            SAMPLESANALYSIS_RECORD,
+        ),
     ],
 )
 async def test_post_samplesanalysis_with_missing_parent(
@@ -1050,6 +1062,16 @@ async def test_post_samplesanalysis_with_missing_parent(
         (
             "upsert_records",
             "watergasrelativepermeabilities",
+            SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
+        ),
+        (
+            "upsert_records",
+            "formationresistivityindexes",
+            SAMPLESANALYSIS_RECORD,
+        ),
+        (
+            "upsert_records",
+            "formationresistivityindexes",
             SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
         ),
     ],
@@ -1359,6 +1381,7 @@ async def test_post_record_with_linking_no_id(
         ("get_record", "electricalproperties", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "rockcompressibilities", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "formationresistivityindexes", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_success(
@@ -1407,6 +1430,7 @@ async def test_get_record_success(
         ("get_record", "electricalproperties", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "rockcompressibilities", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
         ("get_record", "watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
+        ("get_record", "formationresistivityindexes", SAMPLESANALYSIS_RECORD, TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_version_success(
@@ -1453,6 +1477,7 @@ async def test_get_record_version_success(
         ("get_record_versions", "electricalproperties", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "rockcompressibilities", TEST_SAMPLESANALYSIS_ID),
         ("get_record_versions", "watergasrelativepermeabilities", TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", "formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
     ],
 )
 async def test_get_record_versions_success(
@@ -1500,6 +1525,7 @@ async def test_get_record_versions_success(
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"electricalproperties/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rockcompressibilities/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"watergasrelativepermeabilities/{TEST_SAMPLESANALYSIS_ID}"),
+        ("get_record", status.HTTP_401_UNAUTHORIZED, f"formationresistivityindexes/{TEST_SAMPLESANALYSIS_ID}"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions/1234"),
         ("get_record", status.HTTP_401_UNAUTHORIZED, f"pvtreports/{TEST_PVT_ID}/versions/1234"),
@@ -1562,6 +1588,11 @@ async def test_get_record_versions_success(
         (
             "get_record", status.HTTP_401_UNAUTHORIZED,
             f"watergasrelativepermeabilities/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
+        ),
+        (
+            "get_record",
+            status.HTTP_401_UNAUTHORIZED,
+            f"formationresistivityindexes/{TEST_SAMPLESANALYSIS_ID}/versions/1234",
         ),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"rocksamples/{TEST_ROCKSAMPLE_ID}/versions"),
         ("get_record_versions", status.HTTP_401_UNAUTHORIZED, f"coringreports/{TEST_CORING_ID}/versions"),
@@ -1634,6 +1665,10 @@ async def test_get_record_versions_success(
             "get_record_versions", status.HTTP_401_UNAUTHORIZED,
             f"watergasrelativepermeabilities/{TEST_SAMPLESANALYSIS_ID}/versions",
         ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"formationresistivityindexes/{TEST_SAMPLESANALYSIS_ID}/versions",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
@@ -1676,6 +1711,7 @@ async def test_get_record_auth_errors_from_storage(
         ("electricalproperties/record_id"),
         ("rockcompressibilities/record_id"),
         ("watergasrelativepermeabilities/record_id"),
+        ("formationresistivityindexes/record_id"),
         ("rocksamples/record_id/versions/1234"),
         ("coringreports/record_id/versions/1234"),
         ("pvtreports/record_id/versions/1234"),
@@ -1702,6 +1738,7 @@ async def test_get_record_auth_errors_from_storage(
         ("electricalproperties/record_id/versions/1234"),
         ("rockcompressibilities/record_id/versions/1234"),
         ("watergasrelativepermeabilities/record_id/versions/1234"),
+        ("formationresistivityindexes/record_id/versions/1234"),
         ("rocksamples/record_id/versions"),
         ("coringreports/record_id/versions"),
         ("pvtreports/record_id/versions"),
@@ -1728,6 +1765,7 @@ async def test_get_record_auth_errors_from_storage(
         ("electricalproperties/record_id/versions"),
         ("rockcompressibilities/record_id/versions"),
         ("watergasrelativepermeabilities/record_id/versions"),
+        ("formationresistivityindexes/record_id/versions"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -1778,6 +1816,7 @@ async def test_get_record_auth_errors(
             "soft_delete_record", status.HTTP_401_UNAUTHORIZED,
             f"watergasrelativepermeabilities/{TEST_SAMPLESANALYSIS_ID}",
         ),
+        ("soft_delete_record", status.HTTP_401_UNAUTHORIZED, f"formationresistivityindexes/{TEST_SAMPLESANALYSIS_ID}"),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -1820,6 +1859,7 @@ async def test_delete_record_auth_errors_from_storage(
         ("electricalproperties/record_id"),
         ("rockcompressibilities/record_id"),
         ("watergasrelativepermeabilities/record_id"),
+        ("formationresistivityindexes/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -1864,6 +1904,7 @@ async def test_delete_record_auth_errors(
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "electricalproperties", SAMPLESANALYSIS_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "rockcompressibilities", SAMPLESANALYSIS_RECORD),
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, "watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD),
+        ("upsert_records", status.HTTP_401_UNAUTHORIZED, "formationresistivityindexes", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors_from_storage(
@@ -1912,6 +1953,7 @@ async def test_post_record_auth_errors_from_storage(
         ("electricalproperties", SAMPLESANALYSIS_RECORD),
         ("rockcompressibilities", SAMPLESANALYSIS_RECORD),
         ("watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD),
+        ("formationresistivityindexes", SAMPLESANALYSIS_RECORD),
     ],
 )
 async def test_post_record_auth_errors(
@@ -1989,6 +2031,7 @@ async def test_post_record_auth_errors(
         (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (ROCK_COMPRESSIBILITY_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (WATER_GAS_RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
+        (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
 async def test_get_record_wrong_kind(endpoint, record_id):
@@ -2029,6 +2072,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (ROCK_COMPRESSIBILITY_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (WATER_GAS_RELATIVE_PERMEABILITY_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
+        (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -2071,6 +2115,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (ELECTRICAL_PROPERTIES_ENDPOINT_PATH, TEST_WRONG_ID),
         (ROCK_COMPRESSIBILITY_ENDPOINT_PATH, TEST_WRONG_ID),
         (WATER_GAS_RELATIVE_PERMEABILITY_ENDPOINT_PATH, TEST_WRONG_ID),
+        (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, TEST_WRONG_ID),
     ],
 )
 async def test_delete_record_wrong_kind(endpoint, record_id):

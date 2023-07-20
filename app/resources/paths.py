@@ -41,3 +41,4 @@ class CommonRelativePaths(NamedTuple):
     WATER_GAS_RELATIVE_PERMEABILITY = "/watergasrelativepermeabilities/"
     ROCK_COMPRESSIBILITY = "/rockcompressibilities/"
     ELECTRICAL_PROPERTIES = "/electricalproperties/"
+    FORMATION_RESISTIVITY_INDEX = "/formationresistivityindexes/"
