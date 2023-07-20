@@ -14,15 +14,27 @@
 
 from fastapi import APIRouter
 
-from app.api.routes.samplesanalysis.api import SamplesAnalysisRecordView
+from app.api.routes.data.api import BaseDataView
+from app.api.routes.samplesanalysis.api import (
+    SAMPLESANALYSIS_ID_REGEX_STR,
+    SamplesAnalysisRecordView,
+)
 
 RECORD_TYPE = "ElectricalProperties"
+BULK_DATASET_PREFIX = "electricalproperties"
 
 router = APIRouter()
 electrical_properties_router = APIRouter()
 
 SamplesAnalysisRecordView(
     router=electrical_properties_router,
+    record_type=RECORD_TYPE,
+)
+
+BaseDataView(
+    router=electrical_properties_router,
+    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
+    bulk_dataset_prefix=BULK_DATASET_PREFIX,
     record_type=RECORD_TYPE,
 )
 

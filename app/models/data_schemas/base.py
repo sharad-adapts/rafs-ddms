@@ -35,6 +35,7 @@ from app.models.data_schemas.extraction_data_model import Model as ExtractionMod
 from app.models.data_schemas.physchem_data_model import Model as PhysChemModel
 from app.models.data_schemas.water_gas_relative_permeability_data_model import Model as WaterGasRelativePermeabilityModel
 from app.models.data_schemas.rock_compressibility_data_model import Model as RockCompressibilityModel
+from app.models.data_schemas.electrical_properties_data_model import Model as ElectricalPropertiesModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -103,6 +104,9 @@ WATER_GAS_RELATIVE_PERMEABILITY_MODELS = {
 ROCK_COMPRESSIBILITY_MODELS = {
     ContentShemaVersion.V_1_0_0: RockCompressibilityModel
 }
+ELECTRICAL_PROPERTIES_MODELS = {
+    ContentShemaVersion.V_1_0_0: ElectricalPropertiesModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -125,4 +129,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.PHYS_CHEM: PHYS_CHEM_MODELS,
     CommonRelativePaths.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
     CommonRelativePaths.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
+    CommonRelativePaths.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
 }
