@@ -19,7 +19,7 @@
           "status": "compliant"
       },
       "data": {
-          "PVTReportID": "{data_partition_id}:work-product-component--PVT:stable:",
+          "PVTReportID": "{pvt_record_id}:",
           "FluidSampleID": "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
           "AnalysisDate": "2012-12-15",
           "LabSampleIdentifier": "20207905-20",

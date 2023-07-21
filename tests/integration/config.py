@@ -27,6 +27,7 @@ PARQUET_HEADERS = {"Content-Type": "application/x-parquet"}
 ACCEPT_HEADERS = "*/*;version={version}"
 
 DATA_DIR = Path("tests", "integration", "data")
+TEST_DATA_STORE = {}
 
 
 class DataFiles(NamedTuple):

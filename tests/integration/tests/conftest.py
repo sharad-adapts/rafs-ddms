@@ -11,30 +11,33 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-
 import copy
 
 import pytest
 from loguru import logger
 from starlette import status
 
-from tests.integration.config import DataFiles, DataTemplates, DataTypes
+from tests.integration.config import (
+    TEST_DATA_STORE,
+    DataFiles,
+    DataTemplates,
+    DataTypes,
+)
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 def create_pvt(api, helper, tests_data):
     """Fixture to create a pvt record with a random unique id and delete it
     after test."""
     record_data = copy.deepcopy(tests_data(DataFiles.PVT))
     record_data["id"] = f"{DataTemplates.ID_PVT}{helper.generate_random_record_id()}"
     getattr(api, DataTypes.PVT).post_record([record_data])
+    TEST_DATA_STORE["pvt_record_id"] = record_data["id"]
 
     yield record_data
 
     if record_data:
-        logger.info(f"Deleting a PVT record with ID {record_data['id']}")
-        getattr(api, DataTypes.PVT).soft_delete_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
+        api.storage.purge_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
 
 
 @pytest.fixture
@@ -84,10 +87,7 @@ def create_record(api, helper, tests_data):
     yield _create_record
 
     if _to_delete:
-        logger.info(f"Deleting a record with ID {record_data['id']}")
-        getattr(api, _api_path).soft_delete_record(
-            record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT],
-        )
+        api.storage.purge_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
 
 
 @pytest.fixture
@@ -98,7 +98,4 @@ def delete_record(api, helper):
     yield container
 
     for record_id in container["record_id"]:
-        logger.info(f"Deleting a record with ID {container['record_id']}")
-        getattr(api, container["api_path"]).soft_delete_record(
-            record_id, allowed_codes=[status.HTTP_204_NO_CONTENT],
-        )
+        api.storage.purge_record(record_id, allowed_codes=[status.HTTP_204_NO_CONTENT])

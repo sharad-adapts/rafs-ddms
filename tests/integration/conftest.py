@@ -14,7 +14,7 @@
 
 import pytest
 
-from client.api.core import ApiWorker
+from client.api import ApiWorker
 from tests.integration.config import CONFIG
 from tests.integration.data_provider import test_data
 from tests.integration.helpers import HelperManager
