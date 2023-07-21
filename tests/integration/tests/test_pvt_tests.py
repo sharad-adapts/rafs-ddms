@@ -21,7 +21,7 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
 
 
 @pytest.mark.parametrize(
-    "data_file_name, api_path, test_record_id", [
+    "data_file_name, api_path, test_type_id", [
         (DataFiles.CCE, DataTypes.CCE, "ConstantCompositionExpansionTestID"),
         (DataFiles.DIF_LIB, DataTypes.DIF_LIB, "DifferentialLiberationTestID"),
         (DataFiles.CA, DataTypes.CA, "CompositionalAnalysisTestID"),
@@ -38,10 +38,11 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
     ],
 )
 @pytest.mark.smoke
-def test_post_test_record(api, create_pvt, helper, tests_data, data_file_name, api_path, delete_record, test_record_id):
+def test_post_test_record(api, create_record, helper, tests_data, data_file_name, api_path, delete_record, test_type_id):
+    pvt_record_data, _ = create_record(DataTypes.PVT, DataFiles.PVT, DataTemplates.ID_PVT)
     test_data = tests_data(data_file_name)
 
-    test_data["data"]["PVTReportID"] = f"{create_pvt['id']}:"
+    test_data["data"]["PVTReportID"] = f"{pvt_record_data['id']}:"
 
     full_record_id = [
         el for el in getattr(api, api_path).post_record([test_data])["recordIdVersions"] if
@@ -52,8 +53,8 @@ def test_post_test_record(api, create_pvt, helper, tests_data, data_file_name, a
     assert full_record_id.startswith(test_data["id"])
 
     # check that Test has been linked to the PVT record after creation
-    pvt_report = getattr(api, DataTypes.PVT).get_record(create_pvt["id"])
-    assert pvt_report["data"]["PVTTests"][test_record_id][0] == f"{record_id}:"
+    pvt_report = getattr(api, DataTypes.PVT).get_record(pvt_record_data["id"])
+    assert pvt_report["data"]["PVTTests"][test_type_id][0] == f"{record_id}:"
 
     delete_record["record_id"].append(test_data["id"])
     delete_record["api_path"] = api_path

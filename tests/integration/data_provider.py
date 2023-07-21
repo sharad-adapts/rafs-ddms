@@ -16,7 +16,12 @@ import json
 import os
 from dataclasses import dataclass
 
-from tests.integration.config import CONFIG, DATA_DIR, SCHEMA_VERSION
+from tests.integration.config import (
+    CONFIG,
+    DATA_DIR,
+    SCHEMA_VERSION,
+    TEST_DATA_STORE,
+)
 from tests.integration.helpers import CommonHelper
 
 
@@ -49,6 +54,8 @@ def test_data(file_name: str) -> dict:
             json_file.read(
             ).replace(
                 "{record_id}", f"{CommonHelper.generate_random_record_id()}",
+            ).replace(
+                "{pvt_record_id}", TEST_DATA_STORE.get("pvt_record_id", ""),
             ).replace(
                 "{schema_version}", SCHEMA_VERSION,
             ).replace(
