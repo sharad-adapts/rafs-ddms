@@ -23,8 +23,6 @@ from app.api.routes.samplesanalysesreport.endpoints import (
 
 SAR_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysesReport:[\w\-\.\:\%]+$"
 
-router = APIRouter()
-
 sar_record_router = APIRouter()
 
 SamplesAnalysesReportView(
@@ -33,6 +31,3 @@ SamplesAnalysesReportView(
     validate_records_payload=validate_samples_analyses_report_payload,
     record_type="SamplesAnalysesReport",
 )
-
-
-router.include_router(sar_record_router, tags=["samplesanalysesreport"], prefix="/samplesanalysesreport")

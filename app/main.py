@@ -14,7 +14,6 @@
 
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
-from fastapi_versionizer.versionizer import versionize
 from httpx import HTTPStatusError
 from requests.exceptions import HTTPError
 from starlette.exceptions import HTTPException
@@ -33,6 +32,8 @@ from app.api.errors.osdu_api_error import (
 )
 from app.api.errors.validation_error import http422_error_handler
 from app.api.routes.api import router as api_router
+from app.api.routes.v1.api import router as api_router_v1
+from app.api.routes.v2.api import router as api_router_v2
 from app.core.config import get_app_settings
 from app.core.events import create_start_app_handler, create_stop_app_handler
 from app.exceptions.exceptions import (
@@ -85,26 +86,12 @@ def get_application() -> FastAPI:
         create_stop_app_handler(application, settings),
     )
 
-    application.include_router(api_router, prefix="")
+    application.include_router(api_router, prefix=f"{settings.openapi_prefix}")
+    application.include_router(api_router_v1, prefix=f"{settings.openapi_prefix}/v1")
+    application.include_router(api_router_v2, prefix=f"{settings.openapi_prefix}/v2")
 
     for exception, error_handler in EXCEPTIONS_AND_HANDLERS:
         application.add_exception_handler(exception, error_handler)
-
-    versions = versionize(  # noqa: F841
-        app=application,
-        default_version=(application.version.split(".")[1], application.version.split(".")[2]),
-        prefix_format=f"{settings.openapi_prefix}/v{{major}}",
-        docs_url="/docs",
-    )
-
-    # Handlers need to be added for all versions
-    # https://github.com/DeanWay/fastapi-versioning/issues/30
-    for sub_app in application.routes:
-        if hasattr(sub_app.app, "add_exception_handler"):
-            for exception, error_handler in EXCEPTIONS_AND_HANDLERS:  # noqa: WPS440
-                sub_app.app.add_exception_handler(
-                    exception, error_handler,
-                )
 
     return application
 

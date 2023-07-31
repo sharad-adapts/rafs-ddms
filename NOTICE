@@ -68,7 +68,7 @@ The following software have components provided under the terms of this license:
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
-- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.30.0/)
+- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.31.0/)
 - uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.23.1/, https://www.uvicorn.org/)
 
 ========================================================================
@@ -104,8 +104,7 @@ The following software have components provided under the terms of this license:
 - azure-storage-blob (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob)
 - cffi
 - charset-normalizer (from https://github.com/Ousret/charset_normalizer)
-- fastapi (from https://pypi.org/project/fastapi/0.100.0/, https://pypi.org/project/fastapi/0.86.0/)
-- fastapi-versionizer (from https://github.com/alexschimpf/fastapi-versionizer)
+- fastapi (from https://pypi.org/project/fastapi/0.100.1/, https://pypi.org/project/fastapi/0.86.0/)
 - h11
 - loguru (from https://github.com/Delgan/loguru)
 - mypy-extensions (from https://github.com/python/mypy_extensions)
@@ -115,13 +114,13 @@ The following software have components provided under the terms of this license:
 - pendulum (from https://pendulum.eustace.io)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
 - pyarrow (from https://arrow.apache.org/)
-- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.0.3/)
+- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.1.1/)
 - pytz (from http://pythonhosted.org/pytz)
 - redis (from https://github.com/redis/redis-py)
 - six (from http://pypi.python.org/pypi/six/, https://github.com/benjaminp/six)
 - sniffio (from https://github.com/python-trio/sniffio)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.3/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.4/)
 
 ========================================================================
 MPL-2.0
@@ -154,7 +153,7 @@ The following software have components provided under the terms of this license:
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - typing-extensions (from https://pypi.org/project/typing-extensions/4.4.0/, https://pypi.org/project/typing-extensions/4.7.1/)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.3/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.4/)
 
 ========================================================================
 SunPro

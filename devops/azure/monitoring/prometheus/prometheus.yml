@@ -4,7 +4,7 @@ global:
 
 scrape_configs:
   - job_name: rafs
-    metrics_path: /api/rafs-ddms/v1/metrics
+    metrics_path: /metrics
     static_configs:
       - targets:
           - 'rafsddms:8080'

@@ -8,7 +8,7 @@ function _build_register_payload() {
   ENTITIES=(rocksampleanalysis coring rocksample)
   # To add new entity id add in this line
   for entity in ${ENTITIES[@]}; do
-    PATHS_OUT=$(curl ${RAFS_URL}/api/rafs-ddms/v1/openapi.json | jq -r --arg ENTITY "$entity/{record_id}" \
+    PATHS_OUT=$(curl ${RAFS_URL}/api/rafs-ddms/openapi.json | jq -r --arg ENTITY "$entity/{record_id}" \
       '.paths | to_entries | [.[] | select((.key | endswith($ENTITY)) and (.value | has("get")))] |
        .[].value.get += {"x-ddms-retrieve-entity": true} | del(.[].value.delete) | from_entries')
     cat <<EOF > ${TEMP_DIR}/${entity}.json

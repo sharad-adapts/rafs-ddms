@@ -30,7 +30,7 @@ async def get_info() -> InfoResponse:
     """
     return InfoResponse.construct(
         name=settings.app_name,
-        api_version=settings.version,
+        app_version=settings.app_version,
         build_time=settings.build_date,
         branch=settings.commit_branch,
         commit_id=settings.commit_id,
