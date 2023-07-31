@@ -19,7 +19,6 @@ from app.api.routes.osdu.storage_records import BaseStorageRecordView
 
 CORING_ID_REGEX_STR = r"^[\w\-\.]+:master-data--Coring:[\w\-\.\:\%]+$"
 
-router = APIRouter()
 coring_router = APIRouter()
 
 BaseStorageRecordView(
@@ -28,5 +27,3 @@ BaseStorageRecordView(
     validate_records_payload=validate_coring_records_payload,
     record_type="Coring",
 )
-
-router.include_router(coring_router, tags=["coringreports"], prefix="/coringreports")

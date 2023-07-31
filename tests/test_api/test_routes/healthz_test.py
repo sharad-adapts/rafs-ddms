@@ -17,13 +17,12 @@ from httpx import AsyncClient
 from starlette.status import HTTP_200_OK
 
 from app.main import app
-from tests.test_api.api_version import API_VERSION
 
 
 @pytest.mark.asyncio
 async def test_healthz_request():
     async with AsyncClient(base_url="http://testserver", app=app) as client:
-        response = await client.get(f"/api/os-rafs-ddms/{API_VERSION}/healthz")
+        response = await client.get(f"/api/os-rafs-ddms/healthz")
 
     assert response.status_code == HTTP_200_OK
 

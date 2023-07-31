@@ -27,7 +27,7 @@ class AppSettings(BaseAppSettings):
 
     app_name: str = "Rock and Fluid Sample DDMS"
 
-    version: str = "0.1.0"
+    app_version: str = "0.2.0"
 
     ddms_id: str = "rafs"
 
@@ -60,9 +60,10 @@ class AppSettings(BaseAppSettings):
         return {
             "debug": self.debug,
             "title": self.app_name,
-            "version": self.version,
+            "version": self.app_version,
             "openapi_url": f"{self.openapi_prefix}/openapi.json",
             "docs_url": f"{self.openapi_prefix}/docs",
+            "redoc_url": f"{self.openapi_prefix}/redoc",
             "description": "OSDU Rock and Fluid Sample DDMS",
             "license_info": {
                 "name": "Apache 2.0",

@@ -20,19 +20,19 @@ configuration:
       containerPort: 8080
     path: /api/rafs-ddms
     podAnnotations:
-      prometheus.io/path: /api/rafs-ddms/v1/metrics
+      prometheus.io/path: /metrics
       prometheus.io/port: "8080"
       prometheus.io/scrape: "true"
     probe:
       readiness:
-        path: /api/rafs-ddms/v1/healthz # make the API version as a variable
+        path: /api/rafs-ddms/healthz # make the API version as a variable
       liveness:
-        path: /api/rafs-ddms/v1/healthz
+        path: /api/rafs-ddms/healthz
     auth:
       disable:
-        - "/api/rafs-ddms/v1/info"
-        - "/api/rafs-ddms/v1/docs*"
-        - "/api/rafs-ddms/v1/openapi.json"
+        - "/api/rafs-ddms/info"
+        - "/api/rafs-ddms/docs*"
+        - "/api/rafs-ddms/openapi.json"
     # This config specifically for environments with core services installed in osdu ns
     # Such as GLAB or SLB managed instances
     # For official azure values, refer to helm-charts-azure values

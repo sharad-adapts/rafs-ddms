@@ -128,7 +128,7 @@ EOF
 docker-compose up rafs
 
 # Simple test
-curl localhost:8080/api/rafs-ddms/v1/info
+curl localhost:8080/api/rafs-ddms/info
 ```
 
 #### Run with Dockerfile

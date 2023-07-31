@@ -16,7 +16,7 @@ import copy
 import json
 import os
 
-from app.api.routes.slimtubetest.api import BULK_DATASET_PREFIX
+from app.api.routes.v1.slimtubetest.api import BULK_DATASET_PREFIX
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
     TEST_SLIMTUBETEST_ID,

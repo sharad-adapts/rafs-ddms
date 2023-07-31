@@ -15,7 +15,7 @@
 import copy
 import os
 
-from app.api.routes.mcm.api import BULK_DATASET_PREFIX, RECORD_TYPE
+from app.api.routes.v1.mcm.api import BULK_DATASET_PREFIX, RECORD_TYPE
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )

@@ -78,7 +78,7 @@ azure_deploy:
 
 azure_swagger_test:
   variables:
-    AZURE_SWAGGER_PATH: api/rafs-ddms/v1/docs#/
+    AZURE_SWAGGER_PATH: api/rafs-ddms/docs#/
 
 # To be able to run these aggressive tests we need to scale up CosmosDB at least to 8000RU/s
 # More than 6 workers will cause failure in the Cosmos Backend.
