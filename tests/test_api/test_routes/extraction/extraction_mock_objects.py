@@ -68,7 +68,7 @@ TEST_AGGREGATED_DATA = {
     ],
     "data": [
         [
-            0.156,
+            3.005,
         ],
     ],
 }
@@ -87,11 +87,11 @@ TEST_FILTERED_DATA = {
             "opendes:work-product-component--SamplesAnalysis:extraction-test:",
             {
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-                "Value": 0.156,
+                "Value": 3.005,
             },
             {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg:",
-                "Value": 0.000156,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
+                "Value": 2.981,
             },
         ],
     ],
@@ -114,7 +114,8 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Permeability in index row 0
-EXPECTED_ERROR_REASON = "Data error: 9 columns passed, passed data had 8 columns"
+EXPECTED_ERROR_REASON = f"Data error: {len(INCORRECT_DATAFRAME_TEST_DATA['columns'])} columns passed, " \
+                        f"passed data had {len(INCORRECT_DATAFRAME_TEST_DATA['data'][0])} columns"
 
 
 TEST_WRONG_COLUMNS_FILTERS = [

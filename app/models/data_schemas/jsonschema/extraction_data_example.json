@@ -1,26 +1,34 @@
 {
-    "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysisID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
-    "SamplesID": "osdu:master-data-SamplesID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
+    "SamplesID": "opendes:master-data--SamplesID:05ff4cc6-cd0f-4b42-9396-2ed1c6988343:",
     "WeightOfRockExtracted": {
-        "Value": 0.156,
+        "Value": 3.005,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
     },
     "WeightOfExtract": {
-        "Value": 0.000156,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg:"
+        "Value": 2.981,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
     },
-    "ExtractPpmByRockWeight": {
-        "Value": 0.0678,
+    "ExtractByRockWeight": {
+        "Value": 992245,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
     },
-    "ExtractPctOfTotalOrganicCarbon": {
-        "Value": 0.013,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+    "ExtractOfTotalOrganicCarbon": {
+        "Value": 99.220,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
     },
-    "HydrocarbonPpmOfExtractByWeight": {
-        "Value": 0.0366,
+    "HydrocarbonOfExtractByWeight": {
+        "Value": null,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
     },
-    "HydrocarbonsToTotalExtractRatio": 0.36,
-    "AlkanesToHydrocarbonsRatio": 0.094
+    "HydrocarbonsToTotalExtractRatio": 0.97,
+    "HydrocarbonWeight": {
+        "Value": 2.892,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+    },
+    "HydrocarbonsToNonHydrocarbonRatio": null,
+    "YieldPoint": {
+        "Value": 992.245,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+    }
 }
