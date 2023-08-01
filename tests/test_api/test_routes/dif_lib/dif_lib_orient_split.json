@@ -119,40 +119,42 @@
           "PhasesPresent": "gas and oil"
         }
       ],
-      {
-        "StepNumber": "1",
-        "StepPressure": {
-          "Value": 1500,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-        },
-        "StepTemperature": {
-          "Value": 150,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-        },
-        "GasGravity": {
-          "Value": 0.849,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
-        },
-        "Remark": "Remark",
-        "VaporComposition": [
-          {
-            "ComponentFormula": "C2",
-            "ComponentName": "Methane",
-            "RelativeMolarWeight": {
-              "Value": 5,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-            }
+      [
+        {
+          "StepNumber": "1",
+          "StepPressure": {
+            "Value": 1500,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
           },
-          {
-            "ComponentFormula": "C7",
-            "ComponentName": "Hexane",
-            "RelativeMolarWeight": {
-              "Value": 10,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+          "StepTemperature": {
+            "Value": 150,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+          },
+          "GasGravity": {
+            "Value": 0.849,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
+          },
+          "Remark": "Remark",
+          "VaporComposition": [
+            {
+              "ComponentFormula": "C2",
+              "ComponentName": "Methane",
+              "RelativeMolarWeight": {
+                "Value": 5,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+              }
+            },
+            {
+              "ComponentFormula": "C7",
+              "ComponentName": "Hexane",
+              "RelativeMolarWeight": {
+                "Value": 10,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+              }
             }
-          }
-        ]
-      },
+          ]
+        }
+      ],
       [
         {
           "ComponentFormula": "C2",
