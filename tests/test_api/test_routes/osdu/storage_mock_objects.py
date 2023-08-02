@@ -75,7 +75,7 @@ from app.models.domain.osdu.WPCVLE100 import VaporLiquidEquilibriumTest
 from app.models.domain.osdu.WPCWaterAnalysis100 import Data as WaterAnalysisData
 from app.models.domain.osdu.WPCWaterAnalysis100 import WaterAnalysisTest
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
-from tests.test_api.api_version import API_VERSION
+from tests.test_api.api_version import API_VERSION, API_VERSION_V2
 
 TEST_SERVER = "http://testserver"
 TEST_HEADERS = {
@@ -558,7 +558,7 @@ INTERFACIAL_TENSION_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/interfacia
 VLE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/vaporliquidequilibriumtests"
 MCM_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/multiplecontactmiscibilitytests"
 SLIMTUBETEST_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/slimtubetests"
-SAMPLESANALYSES_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/samplesanalysesreport"
+SAMPLESANALYSES_REPORT_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/samplesanalysesreport"
 CAP_PRESSURE_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/capillarypressuretests"
 RELATIVE_PERMEABILITY_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/relativepermeabilitytests"
 FRACTIONATION_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/fractionationtests"
@@ -568,6 +568,10 @@ ELECTRICAL_PROPERTIES_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/electric
 ROCK_COMPRESSIBILITY_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/rockcompressibilities"
 WATER_GAS_RELATIVE_PERMEABILITY_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/watergasrelativepermeabilities"
 FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH = f"/api/os-rafs-ddms/{API_VERSION}/formationresistivityindexes"
+
+# V2 endpoint paths
+SAMPLESANALYSES_REPORT_ENDPOINT_PATH_V2 = f"/api/os-rafs-ddms/{API_VERSION_V2}/samplesanalysesreport"
+SAMPLESANALYSIS_ENDPOINT_PATH_V2 = f"/api/os-rafs-ddms/{API_VERSION_V2}/samplesanalysis"
 
 RCA_DATA_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/data"
 RCA_SOURCE_ENDPOINT_PATH = f"{ROCKSAMPLEANALYSIS_ENDPOINT_PATH}/{TEST_ROCKSAMPLEANALYSIS_ID}/rca/source"
