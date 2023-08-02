@@ -52,7 +52,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "CompositionalAnalysisTestID",
-    "rows_filter": "CompositionalAnalysisTestID,eq,opendes:work-product-component--CompositionalAnalysisTest:1:",
+    "rows_filter": "CompositionalAnalysisTestID,eq,opendes:work-product-component--CompositionalAnalysisTest:compositionalanalysis-test:",
 }
 
 with open(f"{dir_path}/compositional_analysis_orient_split.json") as fp:
@@ -81,7 +81,7 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--CompositionalAnalysisTest:1:",
+            "opendes:work-product-component--CompositionalAnalysisTest:compositionalanalysis-test:",
         ],
     ],
 }
