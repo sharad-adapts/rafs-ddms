@@ -4,11 +4,11 @@
   "properties": {
     "StockTankOilAnalysisTestID": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:work-product-component-StockTankOilAnalysisTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:work-product-component--StockTankOilAnalysisTest:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
     "FluidSampleID": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:master-data-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:master-data--FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
     "FlashFromPressure": {
       "type": "object",
@@ -215,7 +215,7 @@
               },
               "UnitOfMeasure": {
                 "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\/]+:[0-9]*$"
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
               }
             }
           },
@@ -384,6 +384,30 @@
             }
           },
           "ParaffinsWeightFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "ResinsWeightFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+            }
+          },
+          "SaturateWeightFraction": {
             "type": "object",
             "properties": {
               "Value": {

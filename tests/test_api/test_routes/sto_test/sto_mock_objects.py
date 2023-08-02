@@ -13,10 +13,14 @@
 #  limitations under the License.
 
 import copy
+import json
+import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:stoanalysis-123:1234"
 TEST_DDMS_URN = f"urn://rafs-v1/stoanalysisdata/partition:work-product-component--StockTankOilAnalysisTest:sto_test/{TEST_DATASET_RECORD_ID}"
@@ -51,175 +55,8 @@ TEST_PARAMS_FILTERS = {
     "rows_filter": "StockTankOilAnalysisTestID,eq,opendes:work-product-component--StockTankOilAnalysisTest:1:",
 }
 
-TEST_DATA = {
-    "index": [0],
-    "columns": [
-        "StockTankOilAnalysisTestID",
-        "FluidConditions",
-        "PhasesPresent",
-        "STOFLashedLiquidProperties",
-        "SARA",
-        "HTGCAnalysis",
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--StockTankOilAnalysisTest:1:",
-            "stock tank conditions",
-            "oil",
-            [{
-                "SampleDepth": {
-                    "Value": 5210.2,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mMD:",
-                },
-                "OilAPIGravity": {
-                    "Value": 30,
-
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:",
-                },
-                "WaterContent": {
-                    "Value": 0.5,
-
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "WatsonKFactor": 117,
-                "AsphaltaneContent": {
-                    "Value": 3.22,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "ParrafinContent": {
-                    "Value": 0.07,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "CloudPoint": {
-                    "Value": 35,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-                "WaxContent": {
-                    "Value": 0.76,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "WaxAppearanceTemperature": {
-                    "Value": 101.5,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-                "Saturates": {
-                    "Value": 51.1,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "PourPoint": {
-                    "Value": 14,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-                "ASTMFlashPoint": {
-                    "Value": 80,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-                "TotalAcidNumber": {
-                    "Value": 0.1,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:KOH/g:",
-                },
-                "TotalSulfurContent": {
-                    "Value": 0.546,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "NBase": {
-                    "Value": 553,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
-                },
-                "NitrogenContent": {
-                    "Value": 0.1,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "ElementalSulfurContent": {
-                    "Value": 0.05,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "LeadContent": {
-                    "Value": 0.001,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "NickelContent": {
-                    "Value": 0.009,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "VanadiumContent": {
-                    "Value": 0.0001,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "IronContent": {
-                    "Value": 0.0001,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "ViscosityAtTemperature": {
-                    "Value": 10,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-                "ReidVaporPressure": {
-                    "Value": 1.26,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                },
-            }],
-            [{
-                "AromaticsWeightFraction": {
-                    "Value": 15,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "AsphaltenesWeightFraction": {
-                    "Value": 15,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "NapthenesWeightFraction": {
-                    "Value": 12,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "ParaffinsWeightFraction": {
-                    "Value": 19,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                },
-                "SaturationPressure": {
-                    "Value": 8000,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:",
-                },
-                "SaturationTemperature": {
-                    "Value": 220,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-                },
-            }],
-            [
-                {
-                    "CarbonNumber": "C20",
-                    "ParaffinContent": {
-                        "Value": 2786.3,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
-                    },
-                    "ParaffinWeightFraction": {
-                        "Value": 0.2786,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                    },
-                    "CumulativeParaffinFraction": {
-                        "Value": 0.2786,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                    },
-                },
-                {
-                    "CarbonNumber": "C21",
-                    "ParaffinContent": {
-                        "Value": 2431.3,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
-                    },
-                    "ParaffinWeightFraction": {
-                        "Value": 0.2431,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                    },
-                    "CumulativeParaffinFraction": {
-                        "Value": 0.5218,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtpct:",
-                    },
-                },
-            ],
-        ],
-    ],
-}
+with open(f"{dir_path}/sto_data_orient_split.json") as fp:
+    TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
