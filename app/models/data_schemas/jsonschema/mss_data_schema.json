@@ -159,7 +159,7 @@
                                 }
                             }
                         },
-                        "FormationVolumeFactorBofb": {
+                        "OilFormationVolumeFactor": {
                             "type": "object",
                             "properties": {
                                 "Value": {
@@ -183,6 +183,54 @@
                                 }
                             }
                         },
+                        "GasFormationVolumeFactor": {
+                            "type": "object",
+                            "properties": {
+                              "Value": {
+                                "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                            }
+                          },
+                          "SaturationPressureCumulativeGasOilRatio": {
+                            "type": "object",
+                            "properties": {
+                              "Value": {
+                                "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                            }
+                          },
+                          "IndicatedPressureCumulativeGasOilRatio": {
+                            "type": "object",
+                            "properties": {
+                              "Value": {
+                                "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                            }
+                          },
+                          "GasZFactor": {
+                            "type": "object",
+                            "properties": {
+                              "Value": {
+                                "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                            }
+                          },
                         "OilFormationVolumeFactorCorrected": {
                             "type": "object",
                             "properties": {
