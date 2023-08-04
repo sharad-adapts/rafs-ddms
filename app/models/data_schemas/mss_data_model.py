@@ -211,6 +211,14 @@ class MultiStageSeparatorTestDatum(BaseModel):
     GasGravity: Optional[GasGravity] = None
     OilFormationVolumeFactor: Optional[OilFormationVolumeFactor] = None
     SeparationVolumeFactor: Optional[SeparationVolumeFactor] = None
+    GasFormationVolumeFactor: Optional[GasFormationVolumeFactor] = None
+    SaturationPressureCumulativeGasOilRatio: Optional[
+        SaturationPressureCumulativeGasOilRatio
+    ] = None
+    IndicatedPressureCumulativeGasOilRatio: Optional[
+        IndicatedPressureCumulativeGasOilRatio
+    ] = None
+    GasZFactor: Optional[GasZFactor] = None
     OilFormationVolumeFactorCorrected: Optional[
         OilFormationVolumeFactorCorrected
     ] = None
