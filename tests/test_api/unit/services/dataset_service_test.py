@@ -21,6 +21,7 @@ from loguru import logger
 from app.core.config import get_app_settings
 from app.models.schemas.user import User
 from app.providers.dependencies.blob_loader import IBlobLoader
+from app.resources.common_headers import CORRELATION_ID
 from app.services.dataset import DatasetService, create_default_dataset_record
 from app.services.osdu_clients.dataset_client import DatasetServiceApiClient
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
@@ -40,6 +41,7 @@ TEST_FIELD_VALUE = "test-value"
 TEST_KIND_SUB_TYPE = "dataset--File.Generic"
 TEST_TOKEN = "token"
 RESOURCE_SECURITY_KEY = "ResourceSecurityClassification"
+TEST_CORRELATION_ID = "test_id"
 
 
 class TestDatasetService:
@@ -76,7 +78,12 @@ class TestDatasetService:
                 },
             ],
         }
-        ds = DatasetService(TEST_DATA_PARTITION_ID, mock_settings, User(access_token=TEST_TOKEN))
+        ds = DatasetService(
+            TEST_DATA_PARTITION_ID,
+            mock_settings,
+            User(access_token=TEST_TOKEN),
+            extra_headers={CORRELATION_ID: TEST_CORRELATION_ID},
+        )
         ds.dataset_client = mock_dataset_client
         ds.blob_loader = mock_blob_loader
 

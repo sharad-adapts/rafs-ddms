@@ -20,7 +20,7 @@ from loguru import logger
 from starlette import status
 
 from app.exceptions import exceptions
-from app.resources.common_headers import ACCEPT, CONTENT_TYPE
+from app.resources.common_headers import ACCEPT, CONTENT_TYPE, CORRELATION_ID
 from app.resources.mime_types import SupportedMimeTypes
 
 
@@ -119,3 +119,15 @@ async def get_content_schema_version(request: Request) -> str:
         raise exceptions.InvalidHeaderException(detail=reason)
     logger.debug(f"Schema version: {content_schema_version}")
     return content_schema_version
+
+
+async def get_correlation_id(request: Request):
+    correlation_id = request.headers.get(CORRELATION_ID)
+    if not correlation_id:
+        reason = f"No {CORRELATION_ID} in headers"
+        logger.debug(reason)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=reason,
+        )
+    return correlation_id

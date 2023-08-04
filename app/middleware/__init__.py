@@ -11,11 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-CONTENT_DISPOSITION = "content-disposition"
-CONTENT_TYPE = "content-type"
-ATTACHMENT = "attachment"
-AUTHORIZATION = "Authorization"
-DATA_PARTITION_ID = "data-partition-id"
-ACCEPT = "Accept"
-CORRELATION_ID = "correlation-id"
