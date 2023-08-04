@@ -23,6 +23,7 @@ from starlette import status
 from app.core.config import get_app_settings
 from app.exceptions.exceptions import OsduApiException
 from app.models.schemas.user import User
+from app.resources.common_headers import CORRELATION_ID
 from app.services.osdu_clients.storage_client import StorageServiceApiClient
 from app.services.storage import (
     StorageService,
@@ -49,7 +50,13 @@ def mock_user():
 @pytest.fixture
 def storage_service(mock_user):
     data_partition_id = "test_partition"
-    yield StorageService(data_partition_id, get_app_settings(), mock_user)
+    correlation_id = "test_id"
+    yield StorageService(
+        data_partition_id,
+        get_app_settings(),
+        mock_user,
+        {CORRELATION_ID: correlation_id},
+    )
 
 
 @pytest.fixture

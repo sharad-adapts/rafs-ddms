@@ -35,9 +35,18 @@ def build_storage_service_exception_detail(method: str = ""):
 
 class StorageService(IStorageService):
 
-    def __init__(self, data_partition_id: str, settings: AppSettings, user: User) -> None:
+    def __init__(
+        self,
+        data_partition_id: str,
+        settings: AppSettings,
+        user: User,
+        extra_headers: dict,
+    ) -> None:
         self.storage_client = StorageServiceApiClient(
-            settings.service_host_storage, data_partition_id=data_partition_id, bearer_token=user.access_token,
+            settings.service_host_storage,
+            data_partition_id=data_partition_id,
+            bearer_token=user.access_token,
+            extra_headers=extra_headers,
         )
 
     @handle_core_services_http_status_error(

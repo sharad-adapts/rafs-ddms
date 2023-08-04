@@ -27,6 +27,7 @@ from app.services.osdu_clients.dataset_client import (
 BASE_URL = "http://test-api.com"
 DATA_PARTITION_ID = "partition"
 TOKEN_STR = "test_token"
+TEST_CORRELATION_ID = "test_id"
 TEST_REGISTRY_ID = "partition:entity-type--EntityName:id"
 TEST_RESPONSE = {"result_key": "result_value"}
 TEST_VERSION = 1
@@ -39,6 +40,7 @@ class TestDatasetServiceApiClient:
     def common_assertions(self, api_client):
         assert api_client.headers[common_headers.DATA_PARTITION_ID] == DATA_PARTITION_ID
         assert api_client.headers[common_headers.AUTHORIZATION] == f"Bearer {TOKEN_STR}"
+        assert api_client.headers[common_headers.CORRELATION_ID] == TEST_CORRELATION_ID
 
     def common_get_post_success_assertions(self, api_client, response):
         self.common_assertions(api_client)
@@ -68,7 +70,10 @@ class TestDatasetServiceApiClient:
     async def test_get_storage_instructions(self):
         with patch.object(AsyncClient, "post", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.storage_instructions(KIND_SUBTYPE)
 
@@ -84,7 +89,10 @@ class TestDatasetServiceApiClient:
     async def test_retrieval_instructions(self):
         with patch.object(AsyncClient, "post", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.retrieval_instructions([TEST_REGISTRY_ID])
 
@@ -99,7 +107,10 @@ class TestDatasetServiceApiClient:
     async def test_get_retrieval_instructions(self):
         with patch.object(AsyncClient, "get", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_retrieval_instructions(TEST_REGISTRY_ID)
 
@@ -115,7 +126,10 @@ class TestDatasetServiceApiClient:
     async def test_create_or_update_dataset_registry(self):
         with patch.object(AsyncClient, "put", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.create_or_update_dataset_registry([TEST_RECORD])
 
@@ -130,7 +144,10 @@ class TestDatasetServiceApiClient:
     async def test_get_dataset_registry(self):
         with patch.object(AsyncClient, "get", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_dataset_registry(TEST_REGISTRY_ID)
 
@@ -146,7 +163,10 @@ class TestDatasetServiceApiClient:
     async def test_get_dataset_registries(self):
         with patch.object(AsyncClient, "post", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = DatasetServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_dataset_registries([TEST_REGISTRY_ID])
 

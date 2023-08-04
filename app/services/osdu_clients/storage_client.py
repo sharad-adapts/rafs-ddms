@@ -31,12 +31,20 @@ class StorageServicePaths(NamedTuple):
 
 
 class StorageServiceApiClient(object):
-    def __init__(self, base_url: str, *, data_partition_id: str = None, bearer_token: str = None) -> None:
+    def __init__(
+        self,
+        base_url: str,
+        *,
+        data_partition_id: str = None,
+        bearer_token: str = None,
+        extra_headers: dict = None,
+    ) -> None:
         self.base_url = base_url
         self.headers = {
             CONTENT_TYPE: "application/json",
             DATA_PARTITION_ID: data_partition_id,
             AUTHORIZATION: f"Bearer {bearer_token}",
+            **(extra_headers or {}),
         }
         self.name = "StorageService"
 

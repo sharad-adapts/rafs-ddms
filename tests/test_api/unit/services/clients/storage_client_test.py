@@ -27,6 +27,7 @@ from app.services.osdu_clients.storage_client import (
 BASE_URL = "http://test-api.com"
 DATA_PARTITION_ID = "partition"
 TOKEN_STR = "test_token"
+TEST_CORRELATION_ID = "test_id"
 TEST_RECORD_ID = "partition:entity-type--EntityName:id"
 TEST_RESPONSE = {"result_key": "result_value"}
 TEST_VERSION = 1
@@ -38,6 +39,7 @@ class TestStorageServiceApiClient:
     def common_assertions(self, api_client):
         assert api_client.headers[common_headers.DATA_PARTITION_ID] == DATA_PARTITION_ID
         assert api_client.headers[common_headers.AUTHORIZATION] == f"Bearer {TOKEN_STR}"
+        assert api_client.headers[common_headers.CORRELATION_ID] == TEST_CORRELATION_ID
 
     def common_get_post_success_assertions(self, api_client, response):
         self.common_assertions(api_client)
@@ -51,7 +53,10 @@ class TestStorageServiceApiClient:
     async def test_get_latest_record(self):
         with patch.object(AsyncClient, "get", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_latest_record(TEST_RECORD_ID)
 
@@ -66,7 +71,10 @@ class TestStorageServiceApiClient:
     async def test_get_specific_record(self):
         with patch.object(AsyncClient, "get", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_specific_record(TEST_RECORD_ID, TEST_VERSION)
 
@@ -81,7 +89,10 @@ class TestStorageServiceApiClient:
     async def test_get_record_versions(self):
         with patch.object(AsyncClient, "get", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.get_record_versions(TEST_RECORD_ID)
 
@@ -96,7 +107,10 @@ class TestStorageServiceApiClient:
     async def test_soft_delete_record(self):
         with patch.object(AsyncClient, "post", return_value=Mock(status_code=HTTPStatus.NO_CONTENT)) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.soft_delete_record(TEST_RECORD_ID)
 
@@ -111,7 +125,10 @@ class TestStorageServiceApiClient:
     async def test_delete_record(self):
         with patch.object(AsyncClient, "delete", return_value=Mock(status_code=HTTPStatus.NO_CONTENT)) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.delete_record(TEST_RECORD_ID)
 
@@ -126,7 +143,10 @@ class TestStorageServiceApiClient:
     async def test_create_update_records(self):
         with patch.object(AsyncClient, "put", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.create_update_records([TEST_RECORD])
 
@@ -141,7 +161,10 @@ class TestStorageServiceApiClient:
     async def test_query_records(self):
         with patch.object(AsyncClient, "post", return_value=Mock(status_code=HTTPStatus.OK, json=Mock(return_value=TEST_RESPONSE))) as httpx_client:
             api_client = StorageServiceApiClient(
-                base_url=BASE_URL, data_partition_id=DATA_PARTITION_ID, bearer_token=TOKEN_STR,
+                base_url=BASE_URL,
+                data_partition_id=DATA_PARTITION_ID,
+                bearer_token=TOKEN_STR,
+                extra_headers={common_headers.CORRELATION_ID: TEST_CORRELATION_ID},
             )
             response = await api_client.query_records([TEST_RECORD_ID])
 

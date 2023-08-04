@@ -22,9 +22,18 @@ from app.services.osdu_clients.search_client import SearchServiceApiClient
 
 class SearchService(ISearchService):
 
-    def __init__(self, data_partition_id: str, settings: AppSettings, user: User) -> None:
+    def __init__(
+        self,
+        data_partition_id: str,
+        settings: AppSettings,
+        user: User,
+        extra_headers: dict,
+    ) -> None:
         self.search_client = SearchServiceApiClient(
-            settings.service_host_search, data_partition_id=data_partition_id, bearer_token=user.access_token,
+            settings.service_host_search,
+            data_partition_id=data_partition_id,
+            bearer_token=user.access_token,
+            extra_headers=extra_headers,
         )
 
     async def find_records(

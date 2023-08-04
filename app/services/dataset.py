@@ -27,10 +27,19 @@ from app.services.utils.dataset import create_default_dataset_record
 
 class DatasetService(IDatasetService):
 
-    def __init__(self, data_partition_id: str, settings: AppSettings, user: User) -> None:
+    def __init__(
+        self,
+        data_partition_id: str,
+        settings: AppSettings,
+        user: User,
+        extra_headers: dict,
+    ) -> None:
         self.schema_authority = settings.schema_authority
         self.dataset_client = DatasetServiceApiClient(
-            settings.service_host_dataset, data_partition_id=data_partition_id, bearer_token=user.access_token,
+            settings.service_host_dataset,
+            data_partition_id=data_partition_id,
+            bearer_token=user.access_token,
+            extra_headers=extra_headers,
         )
         self.blob_loader = get_blob_loader(settings)
         self.name = "DatasetService"

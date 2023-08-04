@@ -42,6 +42,7 @@ from app.exceptions.exceptions import (
     InvalidHeaderException,
     OsduApiException,
 )
+from app.middleware.correlation_id_middleware import CorrelationIDMiddleware
 from app.providers.helpers.metric import init_metric
 
 EXCEPTIONS_AND_HANDLERS = (
@@ -75,6 +76,7 @@ def get_application() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    application.add_middleware(CorrelationIDMiddleware)
     init_metric(application, settings)
 
     application.add_event_handler(
