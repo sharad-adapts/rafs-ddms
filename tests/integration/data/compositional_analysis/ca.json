@@ -2,17 +2,11 @@
         "id": "{data_partition_id}:work-product-component--CompositionalAnalysisTest:{record_id}",
         "kind": "{schema_authority}:wks:work-product-component--CompositionalAnalysisTest:{schema_version}",
         "acl": {
-            "owners": [
-                "data.default.owners@{data_partition_id}.contoso.com"
-            ],
-            "viewers": [
-                "data.default.viewers@{data_partition_id}.contoso.com"
-            ]
+            "owners": ["{acl_viewers}"],
+            "viewers": ["{acl_owners}"]
         },
         "legal": {
-            "legaltags": [
-                "{data_partition_id}-public-usa-dataset-7643990"
-            ],
+            "legaltags": ["{legal_tag}"],
             "otherRelevantDataCountries": [
                 "US"
             ],

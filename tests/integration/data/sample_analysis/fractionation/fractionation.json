@@ -1,0 +1,102 @@
+{
+    "id": "{data_partition_id}:work-product-component--SamplesAnalysis:{record_id}",
+    "kind": "{custom_schema_authority}:wks:work-product-component--SamplesAnalysis:{schema_version}",
+    "acl": {
+        "viewers": [
+            "{acl_viewers}"
+        ],
+        "owners": [
+            "{acl_owners}"
+        ]
+    },
+    "legal": {
+        "legaltags": [
+            "{legal_tag}"
+        ],
+        "otherRelevantDataCountries": [
+            "US"
+        ],
+        "status": "compliant"
+    },
+    "tags": {
+        "NameOfKey": "String value"
+    },
+    "meta": [],
+    "data": {
+        "SampleIDs": [
+            "{data_partition_id}:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+            "{data_partition_id}:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+        ],
+        "ReportSampleIdentifiers": [
+            "45H",
+            "49H"
+        ],
+        "AnalysisDate": "2022-12-16",
+        "DepthShiftsID": "{data_partition_id}:work-product-component--WellLog:Test:",
+        "LaboratoryIDs": [
+            "TBD Lab 1",
+            "TBD Lab 2"
+        ],
+        "LaboratoryNames": [
+            "Corelab",
+            "Weatherford Labs"
+        ],
+        "Remarks": [
+            "Temperature 68F",
+            "Second Remark",
+            "Third Remark"
+        ],
+        "DatePublished": "2022-12-16T11:46:20.163Z",
+        "ParentSamplesAnalysesReports": [
+            "{sar_record_id}:"
+        ],
+        "RockSampleAnalysis": {
+            "RockSampleAnalysisFamilyID": "{data_partition_id}:reference-data--SampleAnalysisFamily:Geochemistry",
+            "RockSampleAnalysisMethodID": "{data_partition_id}:reference-data--SampleAnalysisMethod:TBD",
+            "RockSampleAnalysisMeasurementID": "{data_partition_id}:reference-data--SampleAnalysisMeasurement:TBD",
+            "SamplesAnalysisTypeIDs": [
+                "{data_partition_id}:reference-data--SampleAnalysisType:Geochemistry.OtherMethods"
+            ]
+        },
+        "SamplesAnalysisCategoryTagIDs": [
+            "GeoChem",
+            "Fractionation"
+        ],
+        "AvailableSampleAnalysisProperties": [
+            "FractionationSum",
+            "AsphaltenePctOfExtract",
+            "AlkanesPctOfWholeExtract",
+            "AromaticsPctOfWholeExtract",
+            "NSOPctOfWholeExtract",
+            "NonElutedPctOfWholeExtract",
+            "WeightAlkanes",
+            "WeightAromatics",
+            "WeightResins",
+            "WeightAsphaltenes",
+            "RecoveryPct",
+            "NonHydrocarbonsPct",
+            "WeightOfHydrocarbons",
+            "WeightOfNonHydrocarbons",
+            "NonHydrocarbonsToHydrocarbonsRatio",
+            "NonHydrocarbonsEOM",
+            "OilWeightInitial",
+            "OilWeightAfterTopping",
+            "ToppingLossPct",
+            "WeightOfLoadedAmount",
+            "RecoveryWeight",
+            "LossPct",
+            "LossWeight",
+            "SaturateNormalizedPct",
+            "AromaticNormalizedPct",
+            "NSONormalizedPct",
+            "AsphalteneNormalizedPct",
+            "NaphthenesPctOfTotalExtract",
+            "NParaffinsPctOfTotalExtract",
+            "VolumePctOfAromaticFraction",
+            "AsphalteneC5Pct",
+            "AsphalteneC7Pct",
+            "IparaffinsPctOfTotalExtract"
+        ],
+        "DDMSDatasets": []
+    }
+}

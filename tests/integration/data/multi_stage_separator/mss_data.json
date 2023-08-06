@@ -84,11 +84,11 @@
                         "Value": 12.5,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
                     },
-                        "SaturationPressureCumulativeGasOilRatio": {
+                    "SaturationPressureCumulativeGasOilRatio": {
                         "Value": 1.34,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
                     },
-                        "IndicatedPressureCumulativeGasOilRatio": {
+                    "IndicatedPressureCumulativeGasOilRatio": {
                         "Value": 1.42,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
                     },

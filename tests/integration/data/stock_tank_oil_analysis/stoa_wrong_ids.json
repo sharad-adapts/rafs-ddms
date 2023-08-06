@@ -141,6 +141,14 @@
                         "Value": 19,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID29:"
                     },
+                    "ResinsWeightFraction": {
+                        "Value": 19,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID39:"
+                    },
+                    "SaturateWeightFraction": {
+                        "Value": 19,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID40:"
+                    },
                     "SaturationPressure": {
                         "Value": 8000,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID30:"

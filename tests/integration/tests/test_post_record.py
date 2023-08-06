@@ -27,6 +27,11 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.RSA, DataTypes.RSA),
         (DataFiles.PVT, DataTypes.PVT),
         (DataFiles.SAR, DataTypes.SAR),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP),
     ],
 )
 @pytest.mark.smoke
@@ -47,6 +52,11 @@ def test_post_record(api, tests_data, data_file_name, api_path, delete_record):
         (DataFiles.RSA, DataTypes.RSA, DataTemplates.ID_RSA),
         (DataFiles.PVT, DataTypes.PVT, DataTemplates.ID_PVT),
         (DataFiles.SAR, DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -86,6 +96,10 @@ def test_update_record(api, helper, create_record, tests_data, data_file_name, a
         (DataFiles.VLE, DataTypes.VLE),
         (DataFiles.WA, DataTypes.WA),
         (DataFiles.SAR, DataTypes.SAR),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP),
     ],
 )
 @pytest.mark.smoke
@@ -103,6 +117,10 @@ def test_failed_record_creation(api, tests_data, data_file_name, api_path):
         (DataFiles.RSA, DataTypes.RSA),
         (DataFiles.PVT, DataTypes.PVT),
         (DataFiles.SAR, DataTypes.SAR),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP),
     ],
 )
 @pytest.mark.smoke
@@ -145,6 +163,10 @@ def test_post_multiple_records(api, helper, tests_data, data_file_name, api_path
         (DataFiles.VLE, DataTypes.VLE),
         (DataFiles.WA, DataTypes.WA),
         (DataFiles.SAR, DataTypes.SAR),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP),
     ],
 )
 @pytest.mark.smoke
@@ -180,6 +202,10 @@ def test_post_records_with_the_same_record_id(api, tests_data, data_file_name, a
         (DataFiles.VLE, DataTypes.VLE),
         (DataFiles.WA, DataTypes.WA),
         (DataFiles.SAR, DataTypes.SAR),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP),
     ],
 )
 @pytest.mark.smoke

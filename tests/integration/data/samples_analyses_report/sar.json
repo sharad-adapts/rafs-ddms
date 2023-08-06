@@ -2,17 +2,11 @@
         "id": "{data_partition_id}:work-product-component--SamplesAnalysesReport:{record_id}",
         "kind": "{custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:{schema_version}",
         "acl": {
-            "viewers": [
-                "data.default.viewers@{data_partition_id}.contoso.com"
-            ],
-            "owners": [
-                "data.default.owners@{data_partition_id}.contoso.com"
-            ]
+            "viewers": ["{acl_viewers}"],
+            "owners": ["{acl_owners}"]
         },
         "legal": {
-            "legaltags": [
-                "{data_partition_id}-rafs-ddms-legal"
-            ],
+            "legaltags": ["{legal_tag}"],
             "otherRelevantDataCountries": [
                 "US"
             ],
@@ -23,7 +17,7 @@
         },
         "meta": [],
         "data": {
-            "DocumentTypeID": "osdu:reference-data--DocumentType:SampleAnalysisReport:",
+            "DocumentTypeID": "{data_partition_id}:reference-data--DocumentType:SampleAnalysisReport:",
             "NumberOfPages": 45,
             "SubTitle": "Advanced Core Analysis Study",
             "DocumentSubject": "SCAL Results Report (Final)",
@@ -31,7 +25,7 @@
             "DateModified": "2020-12-16T11:46:20.163Z",
             "DocumentLanguage": "English",
             "SampleIDs": [
-                "osdu:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10:"
+                "{data_partition_id}:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10:"
             ],
             "ReportSampleIdentifiers": [
                 "45H"

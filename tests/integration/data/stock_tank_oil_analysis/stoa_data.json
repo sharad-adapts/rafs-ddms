@@ -141,6 +141,14 @@
                         "Value": 19,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
                     },
+                    "ResinsWeightFraction": {
+                        "Value": 19,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
+                    "SaturateWeightFraction": {
+                        "Value": 19,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
                     "SaturationPressure": {
                         "Value": 8000,
                         "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"

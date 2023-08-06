@@ -26,6 +26,11 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.RSA, DataTypes.RSA, DataTemplates.ID_RSA),
         (DataFiles.PVT, DataTypes.PVT, DataTemplates.ID_PVT),
         (DataFiles.SAR, DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -61,6 +66,11 @@ def test_get_version(api, helper, create_record, api_path, data_file_name, id_te
         (DataFiles.VLE, DataTypes.VLE, DataTemplates.ID_VLE),
         (DataFiles.WA, DataTypes.WA, DataTemplates.ID_WA),
         (DataFiles.SAR, DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -95,6 +105,11 @@ def test_get_non_existent_version_of_the_record(api, create_record, api_path, da
         (DataTypes.VLE, DataTemplates.ID_VLE),
         (DataTypes.WA, DataTemplates.ID_WA),
         (DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke

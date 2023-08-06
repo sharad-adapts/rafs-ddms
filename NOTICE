@@ -69,7 +69,7 @@ The following software have components provided under the terms of this license:
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
 - starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.31.0/)
-- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.23.1/, https://www.uvicorn.org/)
+- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.23.2/, https://www.uvicorn.org/)
 
 ========================================================================
 CC-BY-4.0

@@ -119,40 +119,42 @@
                     "PhasesPresent": "gas and oil"
                 }
             ],
-            {
-                "StepNumber": "1",
-                "StepPressure": {
-                    "Value": 1500,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID23:"
-                },
-                "StepTemperature": {
-                    "Value": 150,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID24:"
-                },
-                "GasGravity": {
-                    "Value": 0.849,
-                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID25:"
-                },
-                "Remark": "Remark",
-                "VaporComposition": [
-                    {
-                        "ComponentFormula": "C2",
-                        "ComponentName": "Methane",
-                        "RelativeMolarWeight": {
-                            "Value": 5,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID26:"
-                        }
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 1500,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID23:"
                     },
-                    {
-                        "ComponentFormula": "C7",
-                        "ComponentName": "Hexane",
-                        "RelativeMolarWeight": {
-                            "Value": 10,
-                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID27:"
+                    "StepTemperature": {
+                        "Value": 150,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID24:"
+                    },
+                    "GasGravity": {
+                        "Value": 0.849,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID25:"
+                    },
+                    "Remark": "Remark",
+                    "VaporComposition": [
+                        {
+                            "ComponentFormula": "C2",
+                            "ComponentName": "Methane",
+                            "RelativeMolarWeight": {
+                                "Value": 5,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID26:"
+                            }
+                        },
+                        {
+                            "ComponentFormula": "C7",
+                            "ComponentName": "Hexane",
+                            "RelativeMolarWeight": {
+                                "Value": 10,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID27:"
+                            }
                         }
-                    }
-                ]
-            },
+                    ]
+                }
+            ],
             [
                 {
                     "ComponentFormula": "C2",
