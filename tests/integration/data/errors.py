@@ -1,4 +1,4 @@
-MANDATORY_PARAMETERS = [
+RCA_MANDATORY_PARAMETERS = [
     "RockSampleID",
     "SampleNumber",
     "SampleDepth",

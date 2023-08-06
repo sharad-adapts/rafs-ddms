@@ -40,6 +40,23 @@ class DataFiles(NamedTuple):
     CORING = "coring.json"
     SAR = "samples_analyses_report/sar.json"
 
+    # Sample Analyses tests
+    CAP_PRESSURE = "sample_analysis/cap_pressure/cap_pressure.json"
+    CAP_PRESSURE_DATA = "sample_analysis/cap_pressure/cap_pressure_data.json"
+    CAP_PRESSURE_WRONG_ID = "sample_analysis/cap_pressure/cap_pressure_wrong_ids.json"
+    EXTRACTION = "sample_analysis/extraction/extraction.json"
+    EXTRACTION_DATA = "sample_analysis/extraction/extraction_data.json"
+    EXTRACTION_WRONG_ID = "sample_analysis/extraction/extraction_wrong_ids.json"
+    FRACTIONATION = "sample_analysis/fractionation/fractionation.json"
+    FRACTIONATION_DATA = "sample_analysis/fractionation/fractionation_data.json"
+    FRACTIONATION_WRONG_ID = "sample_analysis/fractionation/fractionation_wrong_ids.json"
+    PHYS_CHEM = "sample_analysis/phys_chem/phys_chem.json"
+    PHYS_CHEM_DATA = "sample_analysis/phys_chem/phys_chem_data.json"
+    PHYS_CHEM_WRONG_ID = "sample_analysis/phys_chem/phys_chem_wrong_ids.json"
+    RP = "sample_analysis/relative_permeability/relative_permeability.json"
+    RP_DATA = "sample_analysis/relative_permeability/relative_permeability_data.json"
+    RP_WRONG_ID = "sample_analysis/relative_permeability/relative_permeability_wrong_ids.json"
+
     PVT = "pvt.json"
 
     # PVT tests
@@ -106,9 +123,12 @@ class DataTemplates(NamedTuple):
     ID_TT = "opendes:work-product-component--TransportTest:"
     ID_VLE = "opendes:work-product-component--VaporLiquidEquilibriumTest:"
     ID_WA = "opendes:work-product-component--WaterAnalysisTest:"
+    ID_SAMPLE_ANALYSIS = "opendes:work-product-component--SamplesAnalysis:"
 
 
 class DataTypes(NamedTuple):
+    """Values have to be equal to client/api/__init__.py keys for a specific
+    data type client api."""
     RSA = "rsa"
     RS = "rs"
     CORING = "coring"
@@ -127,6 +147,11 @@ class DataTypes(NamedTuple):
     VLE = "vle"
     WA = "wa"
     SAR = "sar"
+    CAP_PRESSURE = "cap_pressure"
+    EXTRACTION = "extraction"
+    FRACTIONATION = "fractionation"
+    PHYS_CHEM = "phys_chem"
+    RP = "rp"
 
 
 class DatasetPrefix:
@@ -145,3 +170,8 @@ class DatasetPrefix:
     VLE = "vaporliquidequilibriumtest"
     WA = "wateranalysis"
     SAR = "sar"
+    CAP_PRESSURE = "capillary-pressure"
+    EXTRACTION = "extraction"
+    FRACTIONATION = "fractionation"
+    PHYS_CHEM = "physical-chemistry"
+    RP = "relative-permeability"

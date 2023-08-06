@@ -32,7 +32,6 @@ class RecordValues(object):
     custom_schema_authority: str
     acl_viewers: str
     acl_owners: str
-    legal_tag: str
 
 
 azure_values = RecordValues(
@@ -41,7 +40,6 @@ azure_values = RecordValues(
     custom_schema_authority="rafsddms",
     acl_viewers="data.default.viewers@opendes.contoso.com",
     acl_owners="data.default.owners@opendes.contoso.com",
-    legal_tag="opendes-rafs-ddms-legal",
 )
 
 
@@ -57,6 +55,8 @@ def test_data(file_name: str) -> dict:
             ).replace(
                 "{pvt_record_id}", TEST_DATA_STORE.get("pvt_record_id", ""),
             ).replace(
+                "{sar_record_id}", TEST_DATA_STORE.get("sar_record_id", ""),
+            ).replace(
                 "{schema_version}", SCHEMA_VERSION,
             ).replace(
                 "{data_partition_id}", data_values.data_partition_id,
@@ -69,7 +69,7 @@ def test_data(file_name: str) -> dict:
             ).replace(
                 "{acl_owners}", data_values.acl_owners,
             ).replace(
-                "{legal_tag}", data_values.legal_tag,
+                "{legal_tag}", TEST_DATA_STORE.get("legal_tag"),
             )
         )
         return json.loads(data_str)

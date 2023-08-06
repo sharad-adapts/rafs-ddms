@@ -15,7 +15,6 @@ import copy
 
 import pytest
 from loguru import logger
-from starlette import status
 
 from tests.integration.config import (
     TEST_DATA_STORE,
@@ -26,18 +25,35 @@ from tests.integration.config import (
 
 
 @pytest.fixture(scope="session", autouse=True)
-def create_pvt(api, helper, tests_data):
-    """Fixture to create a pvt record with a random unique id and delete it
-    after test."""
-    record_data = copy.deepcopy(tests_data(DataFiles.PVT))
-    record_data["id"] = f"{DataTemplates.ID_PVT}{helper.generate_random_record_id()}"
-    getattr(api, DataTypes.PVT).post_record([record_data])
-    TEST_DATA_STORE["pvt_record_id"] = record_data["id"]
+def create_legal_tag(api):
+    """Fixture to create a legal tag with a random id and delete it after a
+    test."""
+    legal_tag = api.legal.create_tag()
+    TEST_DATA_STORE["legal_tag"] = legal_tag
 
-    yield record_data
+    yield legal_tag
 
-    if record_data:
-        api.storage.purge_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
+    api.legal.delete_tag(legal_tag)
+
+
+@pytest.fixture(scope="session", autouse=True)
+def create_parent_records(api, helper, tests_data):
+    """Fixture to create parent records with a random id and delete it after a
+    test."""
+    record_to_create = [
+        (DataTypes.PVT, DataFiles.PVT, DataTemplates.ID_PVT),
+        (DataTypes.SAR, DataFiles.SAR, DataTemplates.ID_SAR),
+    ]
+    for data_type, data, id_template in record_to_create:
+        record_data = copy.deepcopy(tests_data(data))
+        record_data["id"] = f"{id_template}{helper.generate_random_record_id()}"
+        getattr(api, data_type).post_record([record_data])
+        TEST_DATA_STORE[f"{data_type}_record_id"] = record_data["id"]
+
+    yield
+
+    for data_type, _, _ in record_to_create:
+        api.storage.purge_record(TEST_DATA_STORE[f"{data_type}_record_id"])
 
 
 @pytest.fixture
@@ -53,19 +69,16 @@ def create_record(api, helper, tests_data):
         file_name: str,
         id_template: str,
         datasets: list = None,
-        to_delete: bool = True,
     ) -> [dict | dict]:
         """
         :param api_path: example - DataTypes.RS, DataTypes.CORING, DataTypes.RSA, DataTypes.PVT
         :param file_name: see tests/integration/config.py
         :param id_template: example - ID_RSA_TEMPLATE
-        :param datasets: list of raw data files tha can be downloaded
-        :param to_delete: if the record needs to be deleted
+        :param datasets: list of raw data files that can be downloaded
         :return: created record data
         """
         nonlocal record_data, _api_path, _to_delete
         _api_path = api_path
-        _to_delete = to_delete
         record_data = copy.deepcopy(tests_data(file_name))
         record_data["id"] = f"{id_template}{helper.generate_random_record_id()}"
 
@@ -86,8 +99,7 @@ def create_record(api, helper, tests_data):
 
     yield _create_record
 
-    if _to_delete:
-        api.storage.purge_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
+    api.storage.purge_record(record_data["id"])
 
 
 @pytest.fixture
@@ -98,4 +110,4 @@ def delete_record(api, helper):
     yield container
 
     for record_id in container["record_id"]:
-        api.storage.purge_record(record_id, allowed_codes=[status.HTTP_204_NO_CONTENT])
+        api.storage.purge_record(record_id)

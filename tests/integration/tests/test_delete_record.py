@@ -37,11 +37,16 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.VLE, DataTypes.VLE, DataTemplates.ID_VLE),
         (DataFiles.WA, DataTypes.WA, DataTemplates.ID_WA),
         (DataFiles.SAR, DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_delete_record(api, create_record, api_path, data_file_name, id_template):
-    record_data, _ = create_record(api_path, data_file_name, id_template, to_delete=False)
+    record_data, _ = create_record(api_path, data_file_name, id_template)
     # status code check is implemented on the API client layer
     getattr(api, api_path).soft_delete_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
     getattr(api, api_path).get_record(record_data["id"], allowed_codes=[status.HTTP_404_NOT_FOUND])
@@ -67,6 +72,11 @@ def test_delete_record(api, create_record, api_path, data_file_name, id_template
         (DataTypes.VLE, DataTemplates.ID_VLE),
         (DataTypes.WA, DataTemplates.ID_WA),
         (DataTypes.SAR, DataTemplates.ID_SAR),
+        (DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke

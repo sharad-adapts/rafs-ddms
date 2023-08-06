@@ -11,6 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+from client.api.core.cap_pressure import CapPressureCore
 from client.api.core.cce import CCECore
 from client.api.core.compositional_analysis import CompositionalAnalysisCore
 from client.api.core.constant_volume_depletion import (
@@ -18,12 +19,16 @@ from client.api.core.constant_volume_depletion import (
 )
 from client.api.core.coring import CoringCore
 from client.api.core.dif_lib import DifLibCore
+from client.api.core.extraction import ExtractionCore
+from client.api.core.fractionation import FractionationCore
 from client.api.core.interfacial_tension import InterfacialTensionCore
 from client.api.core.multi_stage_separator import MultiStageSeparatorCore
 from client.api.core.multiple_contact_miscibility import (
     MultipleContactMiscibilityCore,
 )
+from client.api.core.phys_chem import PhysChemCore
 from client.api.core.pvt import PVTCore
+from client.api.core.relative_permeability import RelativePermeabilityCore
 from client.api.core.rock_sample import RockSampleCore
 from client.api.core.rock_sample_analysis import RSACore
 from client.api.core.samples_analyses_report import SamplesAnalysesReportCore
@@ -33,6 +38,7 @@ from client.api.core.swelling_test import SwellingTestCore
 from client.api.core.transport_test import TransportTestCore
 from client.api.core.vapor_liquid_equilibrium import VaporLiquidEquilibriumCore
 from client.api.core.water_analysis import WaterAnalysisCore
+from client.api.legal import APILegal
 from client.api.storage import APIStorage
 
 
@@ -41,6 +47,7 @@ class ApiWorker(object):
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str) -> None:
         self.storage = APIStorage(host, data_partition, token)
+        self.legal = APILegal(host, data_partition, token)
         self.rsa = RSACore(host, url_prefix, data_partition, token)
         self.rs = RockSampleCore(host, url_prefix, data_partition, token)
         self.coring = CoringCore(host, url_prefix, data_partition, token)
@@ -59,3 +66,8 @@ class ApiWorker(object):
         self.slim_tube = SlimTubeCore(host, url_prefix, data_partition, token)
         self.mcm = MultipleContactMiscibilityCore(host, url_prefix, data_partition, token)
         self.sar = SamplesAnalysesReportCore(host, url_prefix, data_partition, token)
+        self.cap_pressure = CapPressureCore(host, url_prefix, data_partition, token)
+        self.extraction = ExtractionCore(host, url_prefix, data_partition, token)
+        self.fractionation = FractionationCore(host, url_prefix, data_partition, token)
+        self.rp = RelativePermeabilityCore(host, url_prefix, data_partition, token)
+        self.phys_chem = PhysChemCore(host, url_prefix, data_partition, token)
