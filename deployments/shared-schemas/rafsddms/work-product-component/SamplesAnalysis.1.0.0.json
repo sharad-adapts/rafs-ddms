@@ -164,23 +164,18 @@
                                 "format": "date-time"
                             },
                             "ParentSamplesAnalysesReports": {
-                              "type": "array",
-                              "title": "ParentSamplesAnalysesReports",
-                              "description": "Identifies the report from which this analysis was extracted or multiple reports from which this analysis was reconstructed.",
-                              "items": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysesReport:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
+                                "type": "array",
+                                "title": "ParentSamplesAnalysesReports",
+                                "description": "Identifies the report from which this analysis was extracted or multiple reports from which this analysis was reconstructed.",
+                                "items": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysesReport:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
                             },
-                            "RockSamplesAnalysis": {
-                                "type": "object",
-                                "title": "RockSamplesAnalysis",
-                                "description": "Attributes that pertain only to rock sample analysis, not fluid sample analysis, for the purpose of search and discovery."
-                            },
-                            "FluidSamplesAnalysis": {
-                                "type": "object",
-                                "title": "FluidSamplesAnalysis",
-                                "description": "Attributes that pertain only to fluid sample analysis, not rock sample analysis, for the purpose of search and discovery.."
+                            "SampleAnalysisTypeIDs": {
+                                "type": "array",
+                                "title": "SampleAnalysisTypeIDs",
+                                "description": "A list of all sample analysis types represented by this report, whether the sample analysis type relates to Rock, Fluid, or both."
                             },
                             "SamplesAnalysisCategoryTagIDs": {
                                 "type": "array",

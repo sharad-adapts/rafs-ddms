@@ -13,3 +13,4 @@
 #  limitations under the License.
 
 API_VERSION = "v1"
+API_VERSION_V2 = "v2"
