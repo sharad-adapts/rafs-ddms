@@ -37,6 +37,8 @@ from app.models.data_schemas.water_gas_relative_permeability_data_model import M
 from app.models.data_schemas.rock_compressibility_data_model import Model as RockCompressibilityModel
 from app.models.data_schemas.electrical_properties_data_model import Model as ElectricalPropertiesModel
 from app.models.data_schemas.formation_resistivity_index_data_model import Model as FormationResistivityIndexModel
+from app.models.data_schemas.nmr_data_model import Model as NMRModel
+from app.models.data_schemas.multiple_salinity_data_model import Model as MultipleSalinityModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -111,6 +113,12 @@ ELECTRICAL_PROPERTIES_MODELS = {
 FORMATION_RESISTIVITY_INDEX_MODELS = {
     ContentShemaVersion.V_1_0_0: FormationResistivityIndexModel,
 }
+NMR_MODELS = {
+    ContentShemaVersion.V_1_0_0: NMRModel,
+}
+MULTIPLE_SALINITY_MODELS = {
+    ContentShemaVersion.V_1_0_0: MultipleSalinityModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -135,4 +143,6 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
     CommonRelativePaths.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
     CommonRelativePaths.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
+    CommonRelativePaths.NMR: NMR_MODELS,
+    CommonRelativePaths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
 }

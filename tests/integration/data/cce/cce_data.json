@@ -13,7 +13,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--ConstantCompositionExpansionTest:Test:",
+            "{data_partition_id}:work-product-component--ConstantCompositionExpansionTest:{record_id}:",
             "1",
             "{data_partition_id}:master-data--FluidSample:1:",
             {

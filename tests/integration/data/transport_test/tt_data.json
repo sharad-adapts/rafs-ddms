@@ -12,7 +12,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--TransportTest:Test:",
+            "{data_partition_id}:work-product-component--TransportTest:{record_id}:",
             "RFL-20858575/Section-C",
             "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
             {

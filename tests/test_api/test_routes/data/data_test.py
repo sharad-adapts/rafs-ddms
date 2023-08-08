@@ -76,7 +76,11 @@ from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
 )
 from tests.test_api.test_routes.mcm import mcm_mock_objects
+from tests.test_api.test_routes.multiple_salinity import (
+    multiple_salinity_mock_objects,
+)
 from tests.test_api.test_routes.multistageseparator import mss_test_mock_objects
+from tests.test_api.test_routes.nmr import nmr_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CAP_PRESSURE_DATA_ENDPOINT_PATH,
     CCE_DATA_ENDPOINT_PATH,
@@ -101,6 +105,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     MCM_SOURCE_ENDPOINT_PATH,
     MSS_DATA_ENDPOINT_PATH,
     MSS_SOURCE_ENDPOINT_PATH,
+    MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+    NMR_DATA_ENDPOINT_PATH,
     OSDU_GENERIC_RECORD,
     PHYS_CHEM_DATA_ENDPOINT_PATH,
     PHYS_CHEM_SOURCE_ENDPOINT_PATH,
@@ -233,10 +239,12 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
+        (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
+        (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
     ],
 )
 @pytest.mark.asyncio
-async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched_storage_get_success_200):
+async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_patched_storage_get_success_200):
     with get_overrides():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.get(
@@ -274,6 +282,8 @@ async def test_get_rca_data_no_data(data_endpoint_path, dataset_id, with_patched
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
+        (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
+        (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
     ],
 )
 @pytest.mark.asyncio
@@ -315,6 +325,8 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
+        (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
+        (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
     ],
 )
 @pytest.mark.asyncio
@@ -462,6 +474,26 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet")],
+        ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1540,6 +1572,24 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             formationresistivityindex_mock_objects.TEST_DATA,
         ),
         (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1691,6 +1741,24 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
             electricalproperties_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            nmr_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            multiple_salinity_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1880,6 +1948,24 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
             formationresistivityindex_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            nmr_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            multiple_salinity_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2094,6 +2180,22 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
             formationresistivityindex_mock_objects.TEST_DATA,
         ),
+        (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2306,6 +2408,22 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
             formationresistivityindex_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2520,6 +2638,22 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", formationresistivityindex_mock_objects.TEST_DATA)],
             formationresistivityindex_mock_objects.TEST_DATA,
         ),
+        (
+            f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [nmr_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", nmr_mock_objects.TEST_DATA)],
+            nmr_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [multiple_salinity_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+            multiple_salinity_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2711,6 +2845,20 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
             formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            nmr_mock_objects.TEST_DATA,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+            nmr_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            multiple_salinity_mock_objects.TEST_DATA,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+            multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2893,6 +3041,20 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
             formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            nmr_mock_objects.TEST_DATA,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+            nmr_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            multiple_salinity_mock_objects.TEST_DATA,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+            multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3031,6 +3193,16 @@ async def test_post_data_json_no_ddmsdatasets_field(
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
             formationresistivityindex_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3210,6 +3382,20 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             formationresistivityindex_mock_objects.TEST_DATA,
             formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
             formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            nmr_mock_objects.TEST_DATA,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+            nmr_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            multiple_salinity_mock_objects.TEST_DATA,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+            multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3395,6 +3581,20 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID,
             formationresistivityindex_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            nmr_mock_objects.TEST_DATA,
+            nmr_mock_objects.TEST_DATASET_RECORD_ID,
+            nmr_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            multiple_salinity_mock_objects.TEST_DATA,
+            multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+            multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3439,6 +3639,8 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
             formationresistivityindex_mock_objects.INCORRECT_SCHEMA_TEST_DATA,
         ),
+        (NMR_DATA_ENDPOINT_PATH, nmr_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, multiple_salinity_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -3570,6 +3772,16 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             formationresistivityindex_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             formationresistivityindex_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            NMR_DATA_ENDPOINT_PATH,
+            nmr_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            nmr_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
+            MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+            multiple_salinity_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            multiple_salinity_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3612,6 +3824,8 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH}/{rock_compressibility_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3650,6 +3864,8 @@ async def test_rca_get_403(data_endpoint_path):
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+        NMR_DATA_ENDPOINT_PATH,
+        MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -3715,6 +3931,8 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
+        NMR_DATA_ENDPOINT_PATH,
+        MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3759,6 +3977,8 @@ async def test_invalid_data_with_nan(path):
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (NMR_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

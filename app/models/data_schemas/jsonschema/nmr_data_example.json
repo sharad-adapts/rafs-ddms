@@ -1,0 +1,69 @@
+{
+    "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
+    "SampleID": "osdu:master-data--Sample:88Y:",
+    "FreshState": [
+        {
+            "LiquidFilledPorosity": {
+                "Value": "NULL",
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "T2LogMean": {
+                "Value": "NULL",
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ms:"
+            }
+        }
+    ],
+    "FullBrineSaturation": [
+        {
+            "Porosity": {
+                "Value": 28.12,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "EffectivePorosity": {
+                "Value": 28.35,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "T2LogMean": {
+                "Value": 158.1,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ms:"
+            }
+        }
+    ],
+   "PartialBrineSaturation": [
+        {
+            "BVI": {
+                "Value": 3.5,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "FFI": {
+                "Value": 27,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "Swi": {
+                "Value": 11,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "T2Cutoff": {
+                "Value": 33,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "IncrementalPorositySteps": [
+                {
+                    "StepNumber": "1",
+                    "Saturation": {
+                        "Value": 100,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "T2": {
+                        "Value": 0.150,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ms:"
+                    },
+                    "Porosity": {
+                        "Value": 0.507,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ]
+        }
+    ]
+}

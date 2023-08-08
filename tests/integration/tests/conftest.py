@@ -99,7 +99,8 @@ def create_record(api, helper, tests_data):
 
     yield _create_record
 
-    api.storage.purge_record(record_data["id"])
+    if record_data.get("id"):
+        api.storage.purge_record(record_data["id"])
 
 
 @pytest.fixture
