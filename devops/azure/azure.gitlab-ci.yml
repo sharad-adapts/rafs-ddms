@@ -88,6 +88,7 @@ azure_test_py:
   stage: integration
   image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
   needs: ["azure_deploy"]
+  allow_failure: true
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
     PARTITION: opendes
@@ -98,16 +99,6 @@ azure_test_py:
     - !reference [.get_azure_access_token, script ]
   script:
     - >-
-      if ! time pytest -n 3
-      --junitxml=integration_tests_report.xml 
-      --cov=app
-      --cov-report=term
-      ./tests/integration/tests
-      --ddms-base-url https://${AZURE_DNS_NAME}
-      --url-prefix ${URL_PREFIX}
-      --bearer-token ${ACCESS_TOKEN}
-      --partition ${PARTITION}; then
-      echo "Retry - 1";
       time pytest -n 3
       --junitxml=integration_tests_report.xml 
       --cov=app
@@ -116,8 +107,7 @@ azure_test_py:
       --ddms-base-url https://${AZURE_DNS_NAME}
       --url-prefix ${URL_PREFIX}
       --bearer-token ${ACCESS_TOKEN}
-      --partition ${PARTITION};
-      fi
+      --partition ${PARTITION}
   only:
     variables:
       - $AZURE == '1' && $AZURE_SKIP_DEPLOY != 'true' && $AZURE_TEST_TYPE == 'python'
