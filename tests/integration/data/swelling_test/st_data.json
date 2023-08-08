@@ -14,7 +14,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--SwellingTest:Test:",
+            "{data_partition_id}:work-product-component--SwellingTest:{record_id}:",
             "RFL 202002580",
             "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
             {

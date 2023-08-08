@@ -22,6 +22,7 @@ COMMON_DEPENDENCIES = [
     Depends(require_data_partition_id),
 ]
 
+SAMPLES_ANALYSIS_PREFIX = "/samplesanalysis"
 router = APIRouter()
 
 router.include_router(
@@ -32,7 +33,7 @@ router.include_router(
 )
 router.include_router(
     sampleanalysis_api.sa_router,
-    prefix="/samplesanalysis",
+    prefix=SAMPLES_ANALYSIS_PREFIX,
     tags=["samplesanalysis"],
     dependencies=COMMON_DEPENDENCIES,
 )

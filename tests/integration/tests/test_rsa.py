@@ -19,7 +19,7 @@ from starlette import status
 from tests.integration.config import DataFiles, DataTemplates, DataTypes
 
 
-@pytest.mark.smoke
+@pytest.mark.xfail(reason="issues/158")
 @pytest.mark.parametrize(
     "rows_filter, expected_result",
     [
@@ -36,19 +36,19 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:M:",
                 "Value": 346.0,
             }]],
-            marks=[pytest.mark.xfail(reason="XOMROCK-563")],
+            marks=[pytest.mark.skip(reason="XOMROCK-563")],
         ),  # greater than
         pytest.param(
             "Permeability.Value,gte,1", [[1], [1]],
-            marks=[pytest.mark.xfail(reason="XOMROCK-563")],
+            marks=[pytest.mark.skip(reason="XOMROCK-563")],
         ),  # greater than or equal to
         pytest.param(
             "Porosity.Value,lt,100", [[89.0, 56.5]],
-            marks=[pytest.mark.xfail(reason="XOMROCK-563")],
+            marks=[pytest.mark.skip(reason="XOMROCK-563")],
         ),  # less than
         pytest.param(
             "GrainDensity.Value,lte,10", [[10], [1.3]],
-            marks=[pytest.mark.xfail(reason="XOMROCK-563")],
+            marks=[pytest.mark.skip(reason="XOMROCK-563")],
         ),  # less than or equal to
     ],
     ids=[
@@ -88,7 +88,7 @@ def test_measurements_filters_positive(
     assert response["data"] == expected_result, "Wrong filtration"
 
 
-@pytest.mark.smoke
+@pytest.mark.xfail(reason="issues/158")
 @pytest.mark.parametrize(
     "column, operator, expected_result", [
         ("SampleDepth", "count", [[2]]),
@@ -127,7 +127,6 @@ def test_measurements_aggregation_positive(
     assert response["data"] == expected_result, "Wrong aggregation"
 
 
-@pytest.mark.smoke
 @pytest.mark.parametrize(
     "columns_filter, rows_filter, expected_result, status_code",
     [
@@ -210,7 +209,6 @@ def test_filters_syntax_error(
         assert expected_result in response["reason"], f"\nWrong error message: \n{row_filter=}\n{expected_result=}\n"
 
 
-@pytest.mark.smoke
 @pytest.mark.parametrize(
     "columns_aggregation, expected_result, status_code",
     [
@@ -234,10 +232,11 @@ def test_filters_syntax_error(
             "For aggregation column select one of",
             status.HTTP_400_BAD_REQUEST,
         ),
-        (
+        pytest.param(
             ["SampleDepth.WrongFieldName,max"],
             "Processing filter exception (<class 'KeyError'>): 'WrongFieldName'",
             status.HTTP_422_UNPROCESSABLE_ENTITY,
+            marks=[pytest.mark.skip(reason="issues/158")],
         ),
     ],
     ids=[

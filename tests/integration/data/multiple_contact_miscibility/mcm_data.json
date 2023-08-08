@@ -13,7 +13,7 @@
     "index": [0],
     "data": [
         [
-            "{data_partition_id}:work-product-component--MultipleContactMiscibilityTest:Test:",
+            "{data_partition_id}:work-product-component--MultipleContactMiscibilityTest:{record_id}:",
             "{data_partition_id}:master-data--FluidSample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
             "MCMT_222",
             {

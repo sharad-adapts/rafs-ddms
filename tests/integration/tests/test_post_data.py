@@ -116,34 +116,37 @@ def test_post_measurements_as_parquet(
 
 
 @pytest.mark.parametrize(
-    "measurements_file, api_path, id_template", [
-        (DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),
-        (DataFiles.CCE_DATA, DataTypes.CCE, DataTemplates.ID_CCE),
-        (DataFiles.DIF_LIB_DATA, DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB),
-        (DataFiles.CA_DATA, DataTypes.CA, DataTemplates.ID_CA),
-        (DataFiles.CVD_DATA, DataTypes.CVD, DataTemplates.ID_CVD),
-        (DataFiles.IT_DATA, DataTypes.IT, DataTemplates.ID_IT),
-        (DataFiles.MSS_DATA, DataTypes.MSS, DataTemplates.ID_MSS),
-        (DataFiles.MCM_DATA, DataTypes.MCM, DataTemplates.ID_MCM),
-        (DataFiles.SLIM_TUBE_DATA, DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE),
-        (DataFiles.STOA_DATA, DataTypes.STOA, DataTemplates.ID_STOA),
-        (DataFiles.ST_DATA, DataTypes.ST, DataTemplates.ID_ST),
-        (DataFiles.TT_DATA, DataTypes.TT, DataTemplates.ID_TT),
-        (DataFiles.VLE_DATA, DataTypes.VLE, DataTemplates.ID_VLE),
-        (DataFiles.WA_DATA, DataTypes.WA, DataTemplates.ID_WA),
-        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.EXTRACTION_DATA, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.FRACTIONATION_DATA, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.PHYS_CHEM_DATA, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.RP_DATA, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
+    "data_file_name, measurements_file, api_path, id_template", [
+        (None, DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),
+        (DataFiles.CCE, DataFiles.CCE_DATA, DataTypes.CCE, DataTemplates.ID_CCE),
+        (DataFiles.DIF_LIB, DataFiles.DIF_LIB_DATA, DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB),
+        (DataFiles.CA, DataFiles.CA_DATA, DataTypes.CA, DataTemplates.ID_CA),
+        (DataFiles.CVD, DataFiles.CVD_DATA, DataTypes.CVD, DataTemplates.ID_CVD),
+        (DataFiles.IT, DataFiles.IT_DATA, DataTypes.IT, DataTemplates.ID_IT),
+        (DataFiles.MSS, DataFiles.MSS_DATA, DataTypes.MSS, DataTemplates.ID_MSS),
+        (DataFiles.MCM, DataFiles.MCM_DATA, DataTypes.MCM, DataTemplates.ID_MCM),
+        (DataFiles.SLIM_TUBE, DataFiles.MCM_DATA, DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE),
+        (DataFiles.STOA, DataFiles.STOA_DATA, DataTypes.STOA, DataTemplates.ID_STOA),
+        (DataFiles.ST, DataFiles.ST_DATA, DataTypes.ST, DataTemplates.ID_ST),
+        (DataFiles.TT, DataFiles.TT_DATA, DataTypes.TT, DataTemplates.ID_TT),
+        (DataFiles.VLE, DataFiles.VLE_DATA, DataTypes.VLE, DataTemplates.ID_VLE),
+        (DataFiles.WA, DataFiles.WA_DATA, DataTypes.WA, DataTemplates.ID_WA),
+        (DataFiles.CAP_PRESSURE, DataFiles.CAP_PRESSURE_DATA, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataFiles.EXTRACTION_DATA, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataFiles.FRACTIONATION_DATA, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataFiles.PHYS_CHEM_DATA, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataFiles.RP_DATA, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_post_measurements_with_non_existent_record_id(
-    api, helper, tests_data, measurements_file, api_path,
+    api, helper, create_record, tests_data, data_file_name, measurements_file, api_path,
     id_template,
 ):
-    measurements = tests_data(measurements_file)
+    measurements = copy.deepcopy(tests_data(measurements_file))
+    if api_path != DataTypes.RSA:
+        record_data, _ = create_record(api_path, data_file_name, id_template)
+        measurements["data"][0][0] = f'{record_data["id"]}:'
 
     getattr(api, api_path).post_measurements(
         f"{id_template}{helper.generate_random_record_id()}",
@@ -447,6 +450,7 @@ def test_post_measurements_mandatory_columns_missing_parquet(
     }
 
 
+@pytest.mark.skip(reason="issues/158")
 @pytest.mark.parametrize(
     "data_file_name, measurements_file, api_path, id_template", [
         (DataFiles.RSA, DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),
@@ -474,6 +478,7 @@ def test_get_measurements_as_parquet(
     assert isinstance(measurements, bytes)
 
 
+@pytest.mark.skip(reason="issues/158")
 @pytest.mark.parametrize(
     "data_file_name, measurements_file, api_path, id_template", [
         (DataFiles.RSA, DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),

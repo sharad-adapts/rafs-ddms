@@ -294,15 +294,19 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.ROCK_COMPRESSIBILITY,
         CommonRelativePaths.ELECTRICAL_PROPERTIES,
         CommonRelativePaths.FORMATION_RESISTIVITY_INDEX,
+        CommonRelativePaths.NMR,
+        CommonRelativePaths.MULTIPLE_SALINITY,
     )
 
+    version_models = None
+    request_path = request.url.path
     for path in common_relative_paths:
-        if path in str(request.url.path):
+        if path in str(request_path):
             version_models = PATH_TO_DATA_MODEL_VERSIONS.get(path)
             break
 
     if not version_models:
-        reason = "Unimplemented model."
+        reason = f"Unimplemented model for route {request_path}."
         logger.debug(reason)
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=reason)
 

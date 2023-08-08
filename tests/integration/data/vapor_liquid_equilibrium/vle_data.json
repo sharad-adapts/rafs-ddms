@@ -30,7 +30,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--VaporLiquidEquilibriumTest:Test:",
+            "{data_partition_id}:work-product-component--VaporLiquidEquilibriumTest:{record_id}:",
             "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
             "VLE_125",
             {

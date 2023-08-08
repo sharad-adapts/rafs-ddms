@@ -21,7 +21,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--SlimTubeTest:Test:",
+            "{data_partition_id}:work-product-component--SlimTubeTest:{record_id}:",
             "{data_partition_id}:master-data--FluidSample:fluid_sample_test:",
             "SlimTube_123",
             {

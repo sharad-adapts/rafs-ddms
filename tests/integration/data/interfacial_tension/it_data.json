@@ -14,7 +14,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--InterfacialTensionTest:Test:",
+            "{data_partition_id}:work-product-component--InterfacialTensionTest:{record_id}:",
             "{data_partition_id}:master-data--FluidSample:1:",
             "1",
             "oleic",

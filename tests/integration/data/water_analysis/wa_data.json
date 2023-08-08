@@ -13,7 +13,7 @@
     ],
     "data": [
         [
-            "{data_partition_id}:work-product-component--WaterAnalysisTest:wat_test:",
+            "{data_partition_id}:work-product-component--WaterAnalysisTest:{record_id}:",
             "{data_partition_id}:master-data--FluidSample:1:",
             "17. Water Analysis",
             "Firstly, sample cylinder opening pressures were measured upon sample bottle receipt followed by 24 hours of thermal restoration at reservoir temperature and 15,000 psia",

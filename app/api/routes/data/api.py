@@ -71,6 +71,7 @@ class BaseDataView:
         bulk_dataset_prefix: str,
         record_type: str,
         specific_route_type: str = "",
+        include_dataset_source_view=True,
     ) -> None:
         self._router = router
         self._id_regex_str = id_regex_str
@@ -99,8 +100,14 @@ class BaseDataView:
             If the record relates to multiple reports, the reports' source files will be zipped.",
         )
         self.bulk_dataset_regex = r"[\w\-\.]+:dataset--File.Generic:{bulk_dataset_prefix}[\w\-\d\.]+:?[\w\-\.\:\%]*"
-        self._prepare_api_routes()
-        self._wpc_dataset_source_view = WPCDatasetSourceView(router, id_regex_str, specific_route_type)
+        self.prepare_api_routes()
+        if include_dataset_source_view:
+            self._wpc_dataset_source_view = WPCDatasetSourceView(router, id_regex_str, specific_route_type)
+
+    def prepare_api_routes(self) -> None:
+        """Prepare and add api routes."""
+        self._prepare_get_data_route()
+        self._prepare_post_data_route()
 
     @cache(expire=CACHE_DEFAULT_TTL, coder=ResponseCoder, key_builder=key_builder_using_token)
     async def get_data(
@@ -167,7 +174,7 @@ class BaseDataView:
 
         return response
 
-    async def post_data(  # noqa: WPS213
+    async def post_data(
         self,
         request: Request,
         record_id: str,
@@ -198,9 +205,41 @@ class BaseDataView:
         api_version = get_api_version_from_url(request.url.path)
         logger.info(f"Post data for api version: {api_version}")
 
-        record = await storage_service.get_record(record_id)
-        data_partition_id = request.headers["data-partition-id"]
+        parquet_file = await self._get_validated_payload(request, model, storage_service)
+
+        return await self._upsert_dataset(
+            request,
+            record_id,
+            parquet_file,
+            self._bulk_dataset_prefix,
+            content_schema_version,
+            api_version,
+            settings,
+            dataset_service,
+            storage_service,
+        )
+
+    async def _get_validated_payload(
+        self,
+        request: Request,
+        model: BaseModel,
+        storage_service: storage.StorageService,
+    ) -> bytes:
+        """Validates payload and returns the parquet file.
+
+        :param request: request object
+        :type request: Request
+        :param model: the model
+        :type model: BaseModel
+        :param storage_service: storage service instance
+        :type storage_service: storage.StorageService
+        :raises exceptions.InvalidDatasetException: when is not possible to convert to parquet
+        :raises exceptions.DataValidationException: when validation fails
+        :return: validated parquet file
+        :rtype: bytes
+        """
         mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
+
         data_schema = build_data_schema(model)
         data_validator = DataValidator(data_schema, storage_service)
 
@@ -262,11 +301,52 @@ class BaseDataView:
                 logger.debug(reason)
                 raise exceptions.InvalidDatasetException(detail=reason)
 
+        return parquet_file
+
+    async def _upsert_dataset(
+        self,
+        request: Request,
+        record_id: str,
+        parquet_file: bytes,
+        bulk_dataset_prefix: str,
+        content_schema_version: str,
+        api_version: str,
+        settings: AppSettings,
+        dataset_service: dataset.DatasetService,
+        storage_service: storage.StorageService,
+    ) -> dict:
+        """Upsert dataset via dataset service and updates wpc via storage
+        service.
+
+        :param request: the request object
+        :type request: Request
+        :param record_id: the record id
+        :type record_id: str
+        :param parquet_file: the parquet file to store
+        :type parquet_file: bytes
+        :param bulk_dataset_prefix: the prefix of the bulk data (aka content data)
+        :type bulk_dataset_prefix: str
+        :param content_schema_version: the content schema version
+        :type content_schema_version: str
+        :param api_version: the api version
+        :type api_version: str
+        :param settings: app settings
+        :type settings: AppSettings
+        :param dataset_service: dataset service instance
+        :type dataset_service: dataset.DatasetService
+        :param storage_service: storage service instance
+        :type storage_service: storage.StorageService
+        :return: the ddms urn of the stored parquet file
+        :rtype: dict
+        """
+        record = await storage_service.get_record(record_id)
+        data_partition_id = request.headers["data-partition-id"]
+
         # Removing hyphens "-" as they are not supported in register service
-        entity_type = self._bulk_dataset_prefix.replace("-", "")
+        entity_type = bulk_dataset_prefix.replace("-", "")
         record_data = record["data"]
         ddms_datasets = record_data.get("DDMSDatasets", [])
-        existent_dataset_id = find_dataset_id(ddms_datasets, self._bulk_dataset_prefix)
+        existent_dataset_id = find_dataset_id(ddms_datasets, bulk_dataset_prefix)
 
         if existent_dataset_id:
             dataset_record_id = await dataset_service.upload_file(parquet_file, existent_dataset_id, record)
@@ -278,10 +358,10 @@ class BaseDataView:
                 dataset_id=dataset_record_id,
                 content_schema_version=content_schema_version,
             )
-            update_dataset_id(record_data["DDMSDatasets"], ddms_urn, self._bulk_dataset_prefix)
+            update_dataset_id(record_data["DDMSDatasets"], ddms_urn, bulk_dataset_prefix)
             logger.info(f"File uploaded for existent dataset: {existent_dataset_id}")
         else:
-            new_dataset_id = f"{data_partition_id}:dataset--File.Generic:{self._bulk_dataset_prefix}-{uuid.uuid4()}"
+            new_dataset_id = f"{data_partition_id}:dataset--File.Generic:{bulk_dataset_prefix}-{uuid.uuid4()}"
             dataset_record_id = await dataset_service.upload_file(parquet_file, new_dataset_id, record)
 
             ddms_urn = generate_dataset_urn(
@@ -325,11 +405,6 @@ class BaseDataView:
             reason = f"{error_title} {error_details}"
             logger.debug(reason)
             raise exceptions.InvalidHeaderException(detail=reason)
-
-    def _prepare_api_routes(self) -> None:
-        """Prepare and add api routes."""
-        self._prepare_get_data_route()
-        self._prepare_post_data_route()
 
     def _prepare_get_data_route(self) -> None:
         """Add api route for get_data."""
