@@ -12,9 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import List
+from typing import Dict, List
 
 from fastapi import APIRouter, Depends, Request
+from fastapi.responses import JSONResponse
 from starlette import status
 
 from app.api.dependencies.request import validate_json_content_type
@@ -24,6 +25,7 @@ from app.api.dependencies.validation import (
 )
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
+from app.models.data_schemas.base import PATH_TO_DATA_MODEL_VERSIONS
 from app.models.schemas.osdu_storage import StorageUpsertResponse
 from app.services import storage
 
@@ -64,4 +66,32 @@ class SamplesAnalysisRecordView(BaseStorageRecordView):
                 f"Create or update `{self._record_type}` record(s).",
             ),
             dependencies=[Depends(validate_json_content_type)],
+        )
+
+
+class SamplesAnalysisTypesView:
+    def __init__(
+        self,
+        router: APIRouter,
+    ) -> None:
+        self._router = router
+        self._prepare_types_route()
+
+    async def get_types(self) -> JSONResponse:
+        """Get available data types and their supported versions."""
+        analysis_types_versions_map = {
+            path.strip("/"): list(versions.keys())
+            for path, versions in PATH_TO_DATA_MODEL_VERSIONS.items()
+        }
+        return JSONResponse(content=analysis_types_versions_map)
+
+    def _prepare_types_route(self) -> None:
+        """Add API route for getting available data types and versions."""
+        self._router.add_api_route(
+            path="/analysistypes",
+            endpoint=self.get_types,
+            methods=["GET"],
+            status_code=status.HTTP_200_OK,
+            response_model=Dict[str, list],
+            description="Get available types.",
         )
