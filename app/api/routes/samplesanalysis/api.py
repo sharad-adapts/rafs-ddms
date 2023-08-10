@@ -17,11 +17,14 @@ from fastapi import APIRouter
 from app.api.routes.samplesanalysis.endpoints import (
     SAMPLESANALYSIS_ID_REGEX_STR,
     SamplesAnalysisRecordView,
+    SamplesAnalysisTypesView,
 )
 from app.api.routes.v2.data.endpoints import BaseDataViewV2
 
 sa_router = APIRouter()
 RECORD_TYPE = "SamplesAnalysis"
+
+SamplesAnalysisTypesView(sa_router)
 
 SamplesAnalysisRecordView(sa_router, RECORD_TYPE)
 

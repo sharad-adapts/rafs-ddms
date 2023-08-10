@@ -68,8 +68,10 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     ROCKSAMPLE_RECORD,
     ROCKSAMPLEANALYSIS_ENDPOINT_PATH,
     ROCKSAMPLEANALYSIS_RECORD,
+    SAMPLESANALYSIS_ENDPOINT_PATH,
     SAMPLESANALYSIS_RECORD,
     SAMPLESANALYSIS_RECORD_WITHOUT_PARENT,
+    SAMPLESANALYSIS_TYPES_ENDPOINT_PATH,
     SLIMTUBETEST_ENDPOINT_PATH,
     SLIMTUBETEST_RECORD,
     STO_ENDPOINT_PATH,
@@ -2411,3 +2413,19 @@ async def test_delete_record_wrong_kind(endpoint, record_id):
             )
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+
+@pytest.mark.asyncio
+async def test_types_route():
+    async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+        response = await client.get(
+            SAMPLESANALYSIS_TYPES_ENDPOINT_PATH,
+            headers=TEST_HEADERS,
+        )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.headers["content-type"] == "application/json"
+
+    response_json = response.json()
+    assert isinstance(response_json, dict)
+    assert response_json
