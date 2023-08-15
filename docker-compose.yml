@@ -17,7 +17,7 @@ services:
       - "8080:8080"
     volumes:
       - ./app/:/app/app
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "8"]
 
 
   tests:
@@ -35,12 +35,14 @@ services:
   integration:
     image: osdu-rafsddms_tests
     restart: "no"
+    env_file:
+      - .env
     volumes:
       - ./tests/:/tests
       - ./client/:/client
     working_dir: /
     entrypoint: [ "bash", "-c",
-      "time pytest -n 3 --cov=app --cov-report=term ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
+      "time pytest -n auto --cov=app --cov-report=term ./tests/integration/tests --ddms-base-url \"${DDMS_BASE_URL}\" --url-prefix \"${URL_PREFIX}\" --partition \"${PARTITION}\" --bearer-token \"${ACCESS_TOKEN}\""]
     profiles: ["tests"]
     depends_on:
       - rafs

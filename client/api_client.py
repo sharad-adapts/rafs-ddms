@@ -15,11 +15,13 @@
 from os import linesep
 from time import sleep
 from typing import List
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import requests
 from loguru import logger
 from starlette import status
+
+from client.api.settings import ApiClientSettings
 
 
 class APIException(Exception):
@@ -36,11 +38,15 @@ class APIClient(object):
     """Class API client."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str) -> None:
+        settings = ApiClientSettings()
+        extracted_url_prefix = urlparse(host).path
         self.host = host
-        self.url_prefix = url_prefix
+        self.url_prefix = f"{extracted_url_prefix}{url_prefix}"
         self.data_partition = data_partition
         self.token = token
         self.url: str
+        self.retry_attempts = settings.retry_attempts
+        self.retry_delay = settings.retry_delay
 
     def post(self, path: str, **kwargs) -> requests.Response:
         return self._send_request(method=HTTPMethods.POST, path=path, **kwargs)
@@ -105,8 +111,6 @@ class APIClient(object):
         self,
         method: str,
         path: str,
-        retry_attempts: int = 3,
-        retry_delay: int = 1,
         **kwargs,
     ) -> requests.Response:
         """
@@ -124,7 +128,7 @@ class APIClient(object):
             allowed_codes = kwargs.get("allowed_codes")
             kwargs.pop("allowed_codes")
         self.url = urljoin(self.host, f"{self.url_prefix}{path}")
-        for retry_attempt in range(retry_attempts + 1):
+        for retry_attempt in range(self.retry_attempts + 1):
             logger.info(f"Sending {method.upper()} request to {path}")
             request_body = kwargs.get("json", kwargs.get("body", ""))
             logger.debug(f"{method.upper()} request body: {request_body}")
@@ -136,8 +140,8 @@ class APIClient(object):
                     **kwargs,
                 )
             except APIException:
-                if retry_attempt < retry_attempts:
-                    sleep(retry_delay)
+                if retry_attempt < self.retry_attempts:
+                    sleep(self.retry_delay)
             else:
                 return response
 

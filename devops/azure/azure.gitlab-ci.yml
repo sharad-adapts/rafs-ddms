@@ -92,6 +92,8 @@ azure_test_py:
   variables:
     PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
     PARTITION: opendes
+    SERVICE_HOST_STORAGE: https://${AZURE_DNS_NAME}/api/storage/v2
+    SERVICE_HOST_LEGAL: https://${AZURE_DNS_NAME}/api/legal/v1
   extends:
     - .python_test_report
   before_script:

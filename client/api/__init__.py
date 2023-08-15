@@ -46,8 +46,8 @@ class ApiWorker(object):
     """Class combine all api actions in one place."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str) -> None:
-        self.storage = APIStorage(host, data_partition, token)
-        self.legal = APILegal(host, data_partition, token)
+        self.storage = APIStorage(data_partition, token)
+        self.legal = APILegal(data_partition, token)
         self.rsa = RSACore(host, url_prefix, data_partition, token)
         self.rs = RockSampleCore(host, url_prefix, data_partition, token)
         self.coring = CoringCore(host, url_prefix, data_partition, token)
