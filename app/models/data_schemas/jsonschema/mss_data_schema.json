@@ -10,7 +10,7 @@
             "type": "string",
             "title": "Fluid Sample ID",
             "description": "Unique identifier of the Fluid Sample which analysis is done on",
-            "pattern": "^[\\w\\-\\.]+:master-data--FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]$"
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-FluidSample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "TestNumber": {
             "type": "string"
@@ -186,51 +186,51 @@
                         "GasFormationVolumeFactor": {
                             "type": "object",
                             "properties": {
-                              "Value": {
-                                "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
                             }
-                          },
-                          "SaturationPressureCumulativeGasOilRatio": {
+                        },
+                        "SaturationPressureCumulativeGasOilRatio": {
                             "type": "object",
                             "properties": {
-                              "Value": {
-                                "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
                             }
-                          },
-                          "IndicatedPressureCumulativeGasOilRatio": {
+                        },
+                        "IndicatedPressureCumulativeGasOilRatio": {
                             "type": "object",
                             "properties": {
-                              "Value": {
-                                "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
                             }
-                          },
-                          "GasZFactor": {
+                        },
+                        "GasZFactor": {
                             "type": "object",
                             "properties": {
-                              "Value": {
-                                "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
                             }
-                          },
+                        },
                         "OilFormationVolumeFactorCorrected": {
                             "type": "object",
                             "properties": {
@@ -278,234 +278,239 @@
             ]
         },
         "VaporCompositionalAnalysis": {
-          "type": "object",
-          "properties": {
-              "StepNumber": {
-                  "type": "string"
-              },
-              "StepPressure": {
-                  "type": "object",
-                  "properties": {
-                      "Value": {
-                          "type": "number"
-                      },
-                      "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  }
-              },
-              "StepTemperature": {
-                  "type": "object",
-                  "properties": {
-                      "Value": {
-                          "type": "number"
-                      },
-                      "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  }
-              },
-              "VaporComposition": {
-                  "type": "array",
-                  "items": [
-                      {
-                          "type": "object",
-                          "properties": {
-                              "ComponentFormula": {
-                                  "type": "string"
-                              },
-                              "ComponentName": {
-                                  "type": "string"
-                              },
-                              "RelativeMolarWeight": {
-                                  "type": "object",
-                                  "properties": {
-                                      "Value": {
-                                          "type": "number"
-                                      },
-                                      "UnitOfMeasure": {
-                                          "type": "string",
-                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  ]
-              }
-          }
-      },
-      "LiquidCompositionalAnalysis": {
-          "type": "array",
-          "items": [
-              {
-                  "type": "object",
-                  "properties": {
-                      "ComponentFormula": {
-                          "type": "string"
-                      },
-                      "ComponentName": {
-                          "type": "string"
-                      },
-                      "FlashedLiquidRelativeMolarWeight": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          }
-                      },
-                      "FlashedLiquidRelativeMass": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          }
-                      },
-                      "FlashedGasRelativeMass": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          }
-                      },
-                      "FlashedGasRelativeMolarWeight": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          }
-                      }
-                  }
-              }
-          ]
-      },
-      "CalculatedProperties": {
-          "type": "object",
-          "properties": {
-              "AvgMoleWeight": {
-                  "type": "object",
-                  "properties": {
-                      "Value": {
-                          "type": "number"
-                      },
-                      "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  }
-              },
-              "ResidueDensity": {
-                  "type": "object",
-                  "properties": {
-                      "Value": {
-                          "type": "number"
-                      },
-                      "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  }
-              },
-              "ResidueAPI": {
-                  "type": "object",
-                  "properties": {
-                      "Value": {
-                          "type": "number"
-                      },
-                      "UnitOfMeasure": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  }
-              },
-              "Remark": {
-                  "type": "string"
-              },
-              "LiquidCalculatedProperties": {
-                  "type": "array",
-                  "items": [
-                      {
-                          "type": "object",
-                          "properties": {
-                              "ComponentFormula": {
-                                  "type": "string"
-                              },
-                              "FlashedLiquidRelativeMolarWeight": {
-                                  "type": "object",
-                                  "properties": {
-                                      "Value": {
-                                          "type": "number"
-                                      },
-                                      "UnitOfMeasure": {
-                                          "type": "string",
-                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                      }
-                                  }
-                              },
-                              "FlashedLiquidRelativeMolecularWeight": {
-                                  "type": "object",
-                                  "properties": {
-                                      "Value": {
-                                          "type": "number"
-                                      },
-                                      "UnitOfMeasure": {
-                                          "type": "string",
-                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                      }
-                                  }
-                              },
-                              "FlashedLiquidRelativeMass": {
-                                  "type": "object",
-                                  "properties": {
-                                      "Value": {
-                                          "type": "number"
-                                      },
-                                      "UnitOfMeasure": {
-                                          "type": "string",
-                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                      }
-                                  }
-                              },
-                              "FlashedLiquidDensity": {
-                                  "type": "object",
-                                  "properties": {
-                                      "Value": {
-                                          "type": "number"
-                                      },
-                                      "UnitOfMeasure": {
-                                          "type": "string",
-                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                      }
-                                  }
-                              }
-                          }
-                      }
-                  ]
-              }
-          }
-      }
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "StepNumber": {
+                            "type": "string"
+                        },
+                        "StepPressure": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        },
+                        "StepTemperature": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        },
+                        "VaporComposition": {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "ComponentFormula": {
+                                            "type": "string"
+                                        },
+                                        "ComponentName": {
+                                            "type": "string"
+                                        },
+                                        "RelativeMolarWeight": {
+                                            "type": "object",
+                                            "properties": {
+                                                "Value": {
+                                                    "type": "number"
+                                                },
+                                                "UnitOfMeasure": {
+                                                    "type": "string",
+                                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "LiquidCompositionalAnalysis": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ComponentFormula": {
+                            "type": "string"
+                        },
+                        "ComponentName": {
+                            "type": "string"
+                        },
+                        "FlashedLiquidRelativeMolarWeight": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        },
+                        "FlashedLiquidRelativeMass": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        },
+                        "FlashedGasRelativeMass": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        },
+                        "FlashedGasRelativeMolarWeight": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "CalculatedProperties": {
+            "type": "object",
+            "properties": {
+                "AvgMoleWeight": {
+                    "type": "object",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "ResidueDensity": {
+                    "type": "object",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "ResidueAPI": {
+                    "type": "object",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "Remark": {
+                    "type": "string"
+                },
+                "LiquidCalculatedProperties": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "ComponentFormula": {
+                                    "type": "string"
+                                },
+                                "FlashedLiquidRelativeMolarWeight": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    }
+                                },
+                                "FlashedLiquidRelativeMolecularWeight": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    }
+                                },
+                                "FlashedLiquidRelativeMass": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    }
+                                },
+                                "FlashedLiquidDensity": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            }
+        }
     },
     "required": [
         "MultiStageSeparatorTestID"
