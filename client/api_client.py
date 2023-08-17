@@ -11,7 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
+import uuid
 from os import linesep
 from time import sleep
 from typing import List
@@ -21,6 +21,7 @@ import requests
 from loguru import logger
 from starlette import status
 
+from app.resources.common_headers import CORRELATION_ID, DATA_PARTITION_ID
 from client.api.settings import ApiClientSettings
 
 
@@ -37,11 +38,11 @@ class HTTPMethods(object):
 class APIClient(object):
     """Class API client."""
 
-    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str) -> None:
+    def __init__(self, host: str, version: str, url_prefix: str, data_partition: str, token: str) -> None:
         settings = ApiClientSettings()
         extracted_url_prefix = urlparse(host).path
         self.host = host
-        self.url_prefix = f"{extracted_url_prefix}{url_prefix}"
+        self.url_prefix = f"{extracted_url_prefix}{url_prefix}{version}"
         self.data_partition = data_partition
         self.token = token
         self.url: str
@@ -61,8 +62,9 @@ class APIClient(object):
         headers = {
             "Authorization": f"Bearer {self.token}",
             "Content-Type": "application/json",
-            "data-partition-id": self.data_partition,
+            DATA_PARTITION_ID: self.data_partition,
             "Cache-Control": "no-store",
+            CORRELATION_ID: f"rafs-ddms/autotest/{uuid.uuid4()}",
         }
 
         if kwargs.get("headers") is not None:
@@ -74,15 +76,18 @@ class APIClient(object):
     @staticmethod
     def _log_response(method, path, response):
         logger.info(f"{linesep}{linesep}============ RESPONSE =============== {linesep}")
-        log_msg = f"{method.upper()} {path} - {response.status_code}"
+        log_msg = f"{method.upper()} {path} {response.headers} - {response.status_code}"
         logger.info(log_msg)
 
     @staticmethod
     def _handle_error_response(response, allowed_codes):
-        response_error = f"\n[ERROR] Response code: [{response.status_code}]. EXPECTED CODES: {allowed_codes}"
-        response_body = f"\n[ERROR] Response body: {response.text}"
+        response_error = f"\n[ERROR] Response CODE: [{response.status_code}]. EXPECTED CODES: {allowed_codes}"
+        response_body = f"\n[ERROR] Response BODY: {response.text}"
         response_url = f"\n[ERROR] Response URL: {response.url}"
-        raise AssertionError(f"{response_error}{response_body}{response_url}")
+        headers_list = [f"{key}: {value}" for key, value in response.headers.items()]  # noqa: WPS110
+        headers_str = "\n".join(headers_list)
+        response_headers = f"\n[ERROR] Response HEADERS:\n{headers_str}"
+        raise AssertionError(f"{response_error}{response_body}{response_url}{response_headers}")
 
     def _base_request(self, path: str, method: str, allowed_codes: List[int], **kwargs) -> requests.Response:
         """

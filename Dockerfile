@@ -1,6 +1,7 @@
 # docker build -t rafsdistroless -f Dockerfile .
 # https://gealber.com/recipe-distroless-container-fastapi
 ARG python_version=3.11
+ARG python_image_version=latest
 FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim AS build-env
 
 COPY requirements.txt /app/requirements.txt
@@ -18,7 +19,7 @@ RUN cp -v $(which uvicorn) .
 # cgr.dev/chainguard/python:3.X can use either 3.10 -> 3.11 : https://github.com/chainguard-images/images/tree/main/images/python
 # For permissions https://github.com/alexdmoss/distroless-python/blob/main/distroless.Dockerfile#L38
 # Gunicorn distroless approach https://github.com/alexdmoss/distroless-python/tree/main/tests/gunicorn
-FROM cgr.dev/chainguard/python:${python_version}
+FROM cgr.dev/chainguard/python:${python_image_version}
 ARG python_version
 ARG user_id=1001
 

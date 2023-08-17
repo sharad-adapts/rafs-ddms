@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class CCEPaths(object):
+    VERSION = "/v1"
     POST = "/ccereports"
     GET = "/ccereports/{record_id}"
     GET_VERSIONS = "/ccereports/{record_id}/versions"
@@ -33,7 +34,7 @@ class CCECore(APIResource, APIClient):
     """API CCE methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, CCEPaths)
+        super().__init__(host, CCEPaths.VERSION, url_prefix, data_partition, token, CCEPaths)
 
     def post_measurements(
         self,

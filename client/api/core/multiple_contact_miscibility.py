@@ -21,6 +21,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class MCMPaths(object):
+    VERSION = "/v1"
     POST = "/multiplecontactmiscibilitytests"
     GET = "/multiplecontactmiscibilitytests/{record_id}"
     GET_VERSIONS = "/multiplecontactmiscibilitytests/{record_id}/versions"
@@ -34,7 +35,7 @@ class MultipleContactMiscibilityCore(APIResource, APIClient):
     """API Multiple Contact Miscibility methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, MCMPaths)
+        super().__init__(host, MCMPaths.VERSION, url_prefix, data_partition, token, MCMPaths)
 
     def post_measurements(
         self,

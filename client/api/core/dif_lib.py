@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class DifLibPaths(object):
+    VERSION = "/v1"
     POST = "/difflibreports"
     POST_DATA = "/difflibreports/{record_id}/data"
     GET_DATA = "/difflibreports/{record_id}/data/{dataset_id}"
@@ -33,7 +34,7 @@ class DifLibCore(APIResource, APIClient):
     """API DifLib methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, DifLibPaths)
+        super().__init__(host, DifLibPaths.VERSION, url_prefix, data_partition, token, DifLibPaths)
 
     def post_measurements(
         self,

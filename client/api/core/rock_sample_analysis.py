@@ -22,6 +22,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class RSACorePaths(object):
+    VERSION = "/v1"
     POST = "/rocksampleanalyses"
     GET = "/rocksampleanalyses/{record_id}"
     POST_DATA = "/rocksampleanalyses/{record_id}/rca/data"
@@ -36,7 +37,7 @@ class RSACore(APIResource, APIClient):
     """API RSA methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, RSACorePaths)
+        super().__init__(host, RSACorePaths.VERSION, url_prefix, data_partition, token, RSACorePaths)
 
     def post_measurements(
         self,

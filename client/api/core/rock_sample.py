@@ -15,6 +15,7 @@ from client.api.core.api_source import APIResource
 
 
 class RockSampleCorePaths(object):
+    VERSION = "/v1"
     POST = "/rocksamples"
     GET = "/rocksamples/{record_id}"
     GET_VERSIONS = "/rocksamples/{record_id}/versions"
@@ -26,4 +27,4 @@ class RockSampleCore(APIResource):
     """API Rock Sample methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, RockSampleCorePaths)
+        super().__init__(host, RockSampleCorePaths.VERSION, url_prefix, data_partition, token, RockSampleCorePaths)

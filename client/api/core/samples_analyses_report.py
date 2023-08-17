@@ -17,6 +17,7 @@ from client.api_client import APIClient
 
 
 class SARPaths(object):
+    VERSION = "/v1"
     POST = "/samplesanalysesreport"
     GET = "/samplesanalysesreport/{record_id}"
     GET_VERSIONS = "/samplesanalysesreport/{record_id}/versions"
@@ -29,4 +30,4 @@ class SamplesAnalysesReportCore(APIResource, APIClient):
     """API Samples Analyses Report methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, SARPaths)
+        super().__init__(host, SARPaths.VERSION, url_prefix, data_partition, token, SARPaths)

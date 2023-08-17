@@ -13,7 +13,7 @@ class APILegal(APIClient):
     """API storage service methods."""
 
     def __init__(self, data_partition: str, token: str) -> None:
-        super().__init__(ApiClientSettings().service_host_legal, "", data_partition, token)
+        super().__init__(ApiClientSettings().service_host_legal, "", "", data_partition, token)
 
     def create_tag(self, **kwargs) -> None:
         """Method to create a legal tag."""

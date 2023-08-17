@@ -21,6 +21,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class MSSPaths(object):
+    VERSION = "/v1"
     POST = "/multistageseparatortests"
     GET = "/multistageseparatortests/{record_id}"
     GET_VERSIONS = "/multistageseparatortests/{record_id}/versions"
@@ -34,7 +35,7 @@ class MultiStageSeparatorCore(APIResource, APIClient):
     """API MultiStage Separator methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, MSSPaths)
+        super().__init__(host, MSSPaths.VERSION, url_prefix, data_partition, token, MSSPaths)
 
     def post_measurements(
         self,

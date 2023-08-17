@@ -15,6 +15,7 @@ from client.api.core.api_source import APIResource
 
 
 class CoringCorePaths(object):
+    VERSION = "/v1"
     POST = "/coringreports"
     GET = "/coringreports/{record_id}"
     GET_VERSIONS = "/coringreports/{record_id}/versions"
@@ -26,4 +27,4 @@ class CoringCore(APIResource):
     """API Coring methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, CoringCorePaths)
+        super().__init__(host, CoringCorePaths.VERSION, url_prefix, data_partition, token, CoringCorePaths)

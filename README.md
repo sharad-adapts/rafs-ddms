@@ -187,7 +187,7 @@ docker-compose up rafs
 export DDMS_BASE_URL=http://rafs:8080
 export ACCESS_TOKEN=<access_token>
 export PARTITION=<partition>
-export URL_PREFIX=api/rafs-ddms/v1
+export URL_PREFIX=api/rafs-ddms
 # Run test
 docker-compose build tests
 docker-compose --profile tests run --rm integration

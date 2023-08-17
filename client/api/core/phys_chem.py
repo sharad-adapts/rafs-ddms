@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class PhysChemPaths(object):
+    VERSION = "/v1"
     POST = "/physicalchemistrytests"
     GET = "/physicalchemistrytests/{record_id}"
     GET_VERSIONS = "/physicalchemistrytests/{record_id}/versions"
@@ -33,7 +34,7 @@ class PhysChemCore(APIResource, APIClient):
     """API PhysChem methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, PhysChemPaths)
+        super().__init__(host, PhysChemPaths.VERSION, url_prefix, data_partition, token, PhysChemPaths)
 
     def post_measurements(
         self,

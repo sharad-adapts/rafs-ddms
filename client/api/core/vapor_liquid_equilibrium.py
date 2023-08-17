@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class VLEPaths(object):
+    VERSION = "/v1"
     POST = "/vaporliquidequilibriumtests"
     GET = "/vaporliquidequilibriumtests/{record_id}"
     GET_VERSIONS = "/vaporliquidequilibriumtests/{record_id}/versions"
@@ -34,7 +35,7 @@ class VaporLiquidEquilibriumCore(APIResource, APIClient):
     """API Vapor Liquid Equilibrium methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, VLEPaths)
+        super().__init__(host, VLEPaths.VERSION, url_prefix, data_partition, token, VLEPaths)
 
     def post_measurements(
         self,

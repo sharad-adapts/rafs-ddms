@@ -21,6 +21,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class CVDPaths(object):
+    VERSION = "/v1"
     POST = "/constantvolumedepletiontests"
     GET = "/constantvolumedepletiontests/{record_id}"
     GET_VERSIONS = "/constantvolumedepletiontests/{record_id}/versions"
@@ -35,7 +36,7 @@ class ConstantVolumeDepletionCore(APIResource, APIClient):
     """API Constant Volume Depletion methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, CVDPaths)
+        super().__init__(host, CVDPaths.VERSION, url_prefix, data_partition, token, CVDPaths)
 
     def post_measurements(
         self,

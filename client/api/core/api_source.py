@@ -6,8 +6,16 @@ from client.api_client import APIClient
 class APIResource(APIClient):
     """Intermediate class for API resource methods."""
 
-    def __init__(self, host: str, url_prefix: str, data_partition: str, token: str, resource_path: type) -> None:
-        super().__init__(host, url_prefix, data_partition, token)
+    def __init__(
+        self,
+        host: str,
+        version: str,
+        url_prefix: str,
+        data_partition: str,
+        token: str,
+        resource_path: type,
+    ) -> None:
+        super().__init__(host, version, url_prefix, data_partition, token)
         self.resource_path = resource_path
 
     def post_record(self, body: list, **kwargs) -> dict:

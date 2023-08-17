@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class TTPaths(object):
+    VERSION = "/v1"
     POST = "/transporttests"
     GET = "/transporttests/{record_id}"
     GET_VERSIONS = "/transporttests/{record_id}/versions"
@@ -34,7 +35,7 @@ class TransportTestCore(APIResource, APIClient):
     """API Transport Test methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, TTPaths)
+        super().__init__(host, TTPaths.VERSION, url_prefix, data_partition, token, TTPaths)
 
     def post_measurements(
         self,

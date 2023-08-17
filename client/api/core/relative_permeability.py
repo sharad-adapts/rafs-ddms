@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class RelativePermeabilityPaths(object):
+    VERSION = "/v1"
     POST = "/relativepermeabilitytests"
     GET = "/relativepermeabilitytests/{record_id}"
     GET_VERSIONS = "/relativepermeabilitytests/{record_id}/versions"
@@ -33,7 +34,14 @@ class RelativePermeabilityCore(APIResource, APIClient):
     """API Relative Permeability methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, RelativePermeabilityPaths)
+        super().__init__(
+            host,
+            RelativePermeabilityPaths.VERSION,
+            url_prefix,
+            data_partition,
+            token,
+            RelativePermeabilityPaths,
+        )
 
     def post_measurements(
         self,

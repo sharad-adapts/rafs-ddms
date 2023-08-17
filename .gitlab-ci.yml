@@ -1,7 +1,7 @@
 variables:
   DDMS_NAME: rafs
   GIT_DEPTH: 1
-  URL_PREFIX: api/rafs-ddms/v1
+  URL_PREFIX: api/rafs-ddms
 
   # Azure specific
   AZURE_TEST_TYPE: python

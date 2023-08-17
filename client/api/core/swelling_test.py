@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class STPaths(object):
+    VERSION = "/v1"
     POST = "/swellingtests"
     GET = "/swellingtests/{record_id}"
     GET_VERSIONS = "/swellingtests/{record_id}/versions"
@@ -34,7 +35,7 @@ class SwellingTestCore(APIResource, APIClient):
     """API Swelling Test methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, STPaths)
+        super().__init__(host, STPaths.VERSION, url_prefix, data_partition, token, STPaths)
 
     def post_measurements(
         self,
