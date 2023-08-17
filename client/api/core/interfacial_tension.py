@@ -21,6 +21,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class ITPaths(object):
+    VERSION = "/v1"
     POST = "/interfacialtensiontests"
     GET = "/interfacialtensiontests/{record_id}"
     GET_VERSIONS = "/interfacialtensiontests/{record_id}/versions"
@@ -34,7 +35,7 @@ class InterfacialTensionCore(APIResource, APIClient):
     """API Interfacial Tension methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, ITPaths)
+        super().__init__(host, ITPaths.VERSION, url_prefix, data_partition, token, ITPaths)
 
     def post_measurements(
         self,

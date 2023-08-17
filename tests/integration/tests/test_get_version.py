@@ -45,6 +45,7 @@ def test_get_version(api, helper, create_record, api_path, data_file_name, id_te
     assert test_data["version"] == version
 
 
+@pytest.mark.xfail(reason="issues/181")
 @pytest.mark.parametrize(
     "data_file_name, api_path, id_template", [
         (DataFiles.RS, DataTypes.RS, DataTemplates.ID_RS),

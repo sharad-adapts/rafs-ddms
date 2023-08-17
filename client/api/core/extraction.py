@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class ExtractionPaths(object):
+    VERSION = "/v1"
     POST = "/extractiontests"
     GET = "/extractiontests/{record_id}"
     GET_VERSIONS = "/extractiontests/{record_id}/versions"
@@ -33,7 +34,7 @@ class ExtractionCore(APIResource, APIClient):
     """API Extraction methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, ExtractionPaths)
+        super().__init__(host, ExtractionPaths.VERSION, url_prefix, data_partition, token, ExtractionPaths)
 
     def post_measurements(
         self,

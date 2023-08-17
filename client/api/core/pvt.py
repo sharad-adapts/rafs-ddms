@@ -19,6 +19,7 @@ from client.api_client import APIClient
 
 
 class PVTPaths(object):
+    VERSION = "/v1"
     POST = "/pvtreports"
     GET = "/pvtreports/{record_id}"
     GET_VERSIONS = "/pvtreports/{record_id}/versions"
@@ -31,7 +32,7 @@ class PVTCore(APIResource, APIClient):
     """API PVT methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, PVTPaths)
+        super().__init__(host, PVTPaths.VERSION, url_prefix, data_partition, token, PVTPaths)
 
     def get_source_file(self, record_id: str, **kwargs) -> Response:
         return self.get(path=PVTPaths.GET_SOURCE_FILE.format(record_id=record_id), **kwargs)

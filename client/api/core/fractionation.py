@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class FractionationPaths(object):
+    VERSION = "/v1"
     POST = "/fractionationtests"
     GET = "/fractionationtests/{record_id}"
     GET_VERSIONS = "/fractionationtests/{record_id}/versions"
@@ -33,7 +34,7 @@ class FractionationCore(APIResource, APIClient):
     """API Fractionation methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, FractionationPaths)
+        super().__init__(host, FractionationPaths.VERSION, url_prefix, data_partition, token, FractionationPaths)
 
     def post_measurements(
         self,

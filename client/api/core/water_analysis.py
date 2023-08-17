@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class WAPaths(object):
+    VERSION = "/v1"
     POST = "/wateranalysisreports"
     GET = "/wateranalysisreports/{record_id}"
     GET_VERSIONS = "/wateranalysisreports/{record_id}/versions"
@@ -34,7 +35,7 @@ class WaterAnalysisCore(APIResource, APIClient):
     """API Water Analysis methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, WAPaths)
+        super().__init__(host, WAPaths.VERSION, url_prefix, data_partition, token, WAPaths)
 
     def post_measurements(
         self,

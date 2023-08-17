@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class SlimTubePaths(object):
+    VERSION = "/v1"
     POST = "/slimtubetests"
     GET = "/slimtubetests/{record_id}"
     GET_VERSIONS = "/slimtubetests/{record_id}/versions"
@@ -33,7 +34,7 @@ class SlimTubeCore(APIResource, APIClient):
     """API Slim Tube methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, SlimTubePaths)
+        super().__init__(host, SlimTubePaths.VERSION, url_prefix, data_partition, token, SlimTubePaths)
 
     def post_measurements(
         self,

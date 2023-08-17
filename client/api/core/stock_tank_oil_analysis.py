@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class STOAPaths(object):
+    VERSION = "/v1"
     POST = "/stocktankoilanalysisreports"
     GET = "/stocktankoilanalysisreports/{record_id}"
     GET_VERSIONS = "/stocktankoilanalysisreports/{record_id}/versions"
@@ -33,7 +34,7 @@ class StockTankOilAnalysisCore(APIResource, APIClient):
     """API Stock Tank Oil Analysis methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, STOAPaths)
+        super().__init__(host, STOAPaths.VERSION, url_prefix, data_partition, token, STOAPaths)
 
     def post_measurements(
         self,

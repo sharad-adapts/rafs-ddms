@@ -20,6 +20,7 @@ from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
 
 
 class CAPaths(object):
+    VERSION = "/v1"
     POST = "/compositionalanalysisreports"
     GET = "/compositionalanalysisreports/{record_id}"
     GET_VERSIONS = "/compositionalanalysisreports/{record_id}/versions"
@@ -34,7 +35,7 @@ class CompositionalAnalysisCore(APIResource, APIClient):
     """API Compositional Analysis Reports methods."""
 
     def __init__(self, host: str, url_prefix: str, data_partition: str, token: str):
-        super().__init__(host, url_prefix, data_partition, token, CAPaths)
+        super().__init__(host, CAPaths.VERSION, url_prefix, data_partition, token, CAPaths)
 
     def post_measurements(
         self,
