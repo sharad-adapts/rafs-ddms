@@ -1,0 +1,106 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysisID:test_id:",
+    "InjectionSampleData": [
+        {
+            "SampleID": "opendes:master-data--Samples:3a:",
+            "Porosity": {
+                "Value": 0.307,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "PoreVolume": {
+                "Value": 1.160,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
+            },
+            "BulkVolume": {
+                "Value": 3.774,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
+            },
+            "BrineDensityGradient": {
+                "Value": 1.437,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi%2Fm:"
+            },
+            "GasDensityGradient": {
+                "Value": 0.305,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi%2Fm:"
+            },
+            "AvgHydraulicRadius": {
+                "Value": 3.278,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:um:"
+            },
+            "FZI": 2.11,
+            "SwansonParameter": 0.624
+        }
+    ],
+    "IftCosineContactAngle": [
+        {
+            "LabAirBrineAngle": {
+                "Value": 72,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "ReservoirAirBrineAngle": {
+                "Value": 50,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "LabAirOilAngle": {
+                "Value": 24,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "ReservoirAirOilAngle": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "LabOilBrineAngle": {
+                "Value": 35,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "ReservoirOilBrineAngle": {
+                "Value": 30,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "LabAirMercuryAngle": {
+                "Value": 372,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            },
+            "ReservoirAirMercuryAngle": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+            }
+        }
+    ],
+    "InjectionTestSteps": [
+        {
+            "StepNumber": "1",
+            "MercurySaturationFraction": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
+            },
+            "EquivalentSaturationFraction": {
+                "Value": 1,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
+            },
+            "PoreThroatRadius": {
+                "Value": 104.33,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:um:"
+            },
+            "NormalizedPoreSizeDistributionFunction": 0,
+            "OnBottomPressure": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "GasBubblePressure": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "AnnulusBorePressure": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "HeightAboveFreeWater": {
+                "Value": 0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
+            },
+            "NormalizedPermeabilityDistributionFunction": 1,
+            "jFunction": 1
+        }
+    ]
+}
