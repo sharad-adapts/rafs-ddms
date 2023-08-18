@@ -39,6 +39,7 @@ from app.models.data_schemas.electrical_properties_data_model import Model as El
 from app.models.data_schemas.formation_resistivity_index_data_model import Model as FormationResistivityIndexModel
 from app.models.data_schemas.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.multiple_salinity_data_model import Model as MultipleSalinityModel
+from app.models.data_schemas.mercury_injection_analysis_data_model import Model as MercuryInjectionModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -119,6 +120,9 @@ NMR_MODELS = {
 MULTIPLE_SALINITY_MODELS = {
     ContentShemaVersion.V_1_0_0: MultipleSalinityModel,
 }
+MERCURY_INJECTION_MODELS = {
+    ContentShemaVersion.V_1_0_0: MercuryInjectionModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -145,4 +149,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
     CommonRelativePaths.NMR: NMR_MODELS,
     CommonRelativePaths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
+    CommonRelativePaths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
 }

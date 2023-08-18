@@ -76,6 +76,9 @@ from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
 )
 from tests.test_api.test_routes.mcm import mcm_mock_objects
+from tests.test_api.test_routes.mercuryinjection import (
+    mercuryinjection_mock_objects,
+)
 from tests.test_api.test_routes.multiple_salinity import (
     multiple_salinity_mock_objects,
 )
@@ -103,6 +106,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH,
     MCM_DATA_ENDPOINT_PATH,
     MCM_SOURCE_ENDPOINT_PATH,
+    MERCURY_INJECTION_DATA_ENDPOINT_PATH,
     MSS_DATA_ENDPOINT_PATH,
     MSS_SOURCE_ENDPOINT_PATH,
     MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
@@ -241,6 +245,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
+        (MERCURY_INJECTION_DATA_ENDPOINT_PATH, BulkDatasetId.MERCURY_INJECTION),
     ],
 )
 @pytest.mark.asyncio
@@ -284,6 +289,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
+        (MERCURY_INJECTION_DATA_ENDPOINT_PATH, BulkDatasetId.MERCURY_INJECTION),
     ],
 )
 @pytest.mark.asyncio
@@ -327,6 +333,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
+        (MERCURY_INJECTION_DATA_ENDPOINT_PATH, BulkDatasetId.MERCURY_INJECTION),
     ],
 )
 @pytest.mark.asyncio
@@ -494,6 +501,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
+        ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1590,6 +1607,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             multiple_salinity_mock_objects.TEST_DATA,
         ),
         (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1759,6 +1785,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
             multiple_salinity_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            mercuryinjection_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1966,6 +2001,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
             multiple_salinity_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            mercuryinjection_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2196,6 +2240,14 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
             multiple_salinity_mock_objects.TEST_DATA,
         ),
+        (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2424,6 +2476,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
             multiple_salinity_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2654,6 +2714,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", multiple_salinity_mock_objects.TEST_DATA)],
             multiple_salinity_mock_objects.TEST_DATA,
         ),
+        (
+            f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [mercuryinjection_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
+            mercuryinjection_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2859,6 +2927,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
             multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            mercuryinjection_mock_objects.TEST_DATA,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
+            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3055,6 +3130,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
             multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            mercuryinjection_mock_objects.TEST_DATA,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
+            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3203,6 +3285,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
             multiple_salinity_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3396,6 +3483,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             multiple_salinity_mock_objects.TEST_DATA,
             multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
             multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            mercuryinjection_mock_objects.TEST_DATA,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
+            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3595,6 +3689,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID,
             multiple_salinity_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            mercuryinjection_mock_objects.TEST_DATA,
+            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
+            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3641,6 +3742,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         ),
         (NMR_DATA_ENDPOINT_PATH, nmr_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, multiple_salinity_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (MERCURY_INJECTION_DATA_ENDPOINT_PATH, mercuryinjection_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -3782,6 +3884,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             multiple_salinity_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             multiple_salinity_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            MERCURY_INJECTION_DATA_ENDPOINT_PATH,
+            mercuryinjection_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            mercuryinjection_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3826,6 +3933,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{MERCURY_INJECTION_DATA_ENDPOINT_PATH}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3866,6 +3974,7 @@ async def test_rca_get_403(data_endpoint_path):
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
         NMR_DATA_ENDPOINT_PATH,
         MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+        MERCURY_INJECTION_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -3933,6 +4042,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
         NMR_DATA_ENDPOINT_PATH,
         MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
+        MERCURY_INJECTION_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3979,6 +4089,7 @@ async def test_invalid_data_with_nan(path):
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (NMR_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (MERCURY_INJECTION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
