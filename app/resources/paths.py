@@ -45,3 +45,4 @@ class CommonRelativePaths(NamedTuple):
     NMR = "/data/nmrtests"
     MULTIPLE_SALINITY = "/data/multiplesalinitytests"
     MERCURY_INJECTION = "/data/mercuryinjectionanalyses"
+    GCMS_AROMATICS = "/data/gcmsaromatics"
