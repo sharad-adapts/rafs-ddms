@@ -47,7 +47,7 @@ class Remark(BaseModel):
 
 
 class Data(Field0):
-    PVTReportID: constr(regex=r'^[\w\-\.]+:work-product\-component\-\-PVT:[\w\-\.\:\%]+:[0-9]*$') = Field(
+    PVTReportID: constr(regex=r'^[\w\-\.]+:work-product-component\-\-PVT:[\w\-\.\:\%]+:[0-9]*$') = Field(
         ...,
         description='Unique PVT identifier linked to this Constant Composition Expansion Test',
         title='PVT Report ID',
