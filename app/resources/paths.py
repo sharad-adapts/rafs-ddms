@@ -44,5 +44,6 @@ class CommonRelativePaths(NamedTuple):
     FORMATION_RESISTIVITY_INDEX = "/formationresistivityindexes/"
     NMR = "/data/nmrtests"
     MULTIPLE_SALINITY = "/data/multiplesalinitytests"
+    GCMS_ALKANES = "/data/gcmsalkanes"
     MERCURY_INJECTION = "/data/mercuryinjectionanalyses"
     GCMS_AROMATICS = "/data/gcmsaromatics"

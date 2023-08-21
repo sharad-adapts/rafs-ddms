@@ -1,0 +1,121 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:SamplesAnalysisIDTest:",
+  "SampleID": "opendes:master-data--Sample:TestSample:",
+  "SaturateBiomarkers": [
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:chol5b:",
+      "RetentionTime": {
+        "Value": 1.1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHI",
+      "Peak": [
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:gcar:",
+      "RetentionTime": {
+        "Value": 3.3,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "Peak": [
+        {
+          "Value": 4.4,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:t22:",
+      "RetentionTime": {
+        "Value": 9.9,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKLMNOPQR",
+      "Peak": [
+        {
+          "Value": 1.1,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        },
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:t24:",
+      "RetentionTime": {
+        "Value": 5.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJ",
+      "Peak": [
+        {
+          "Value": 6.6,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:t24o:",
+      "RetentionTime": {
+        "Value": 9.9,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": [
+        {
+          "Value": 1.1,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        },
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:c24delup:",
+      "RetentionTime": {
+        "Value": 4.4,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": []
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:t25:",
+      "RetentionTime": {
+        "Value": 5.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": [
+        {
+          "Value": 6.6,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+        }
+      ]
+    }
+  ],
+  "StdCompound": {
+    "CompoundCode": "opendes:reference-data--SaturateBiomarkersCompounds:c24deurs:",
+    "RetentionTime": {
+      "Value": 8.8,
+      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+    },
+    "Ion": "ABCDEFGHI",
+    "Peak": [
+      {
+        "Value": 1.1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      }
+    ]
+  }
+}
