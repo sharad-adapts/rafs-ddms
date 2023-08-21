@@ -40,6 +40,7 @@ from app.models.data_schemas.formation_resistivity_index_data_model import Model
 from app.models.data_schemas.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.multiple_salinity_data_model import Model as MultipleSalinityModel
 from app.models.data_schemas.mercury_injection_analysis_data_model import Model as MercuryInjectionModel
+from app.models.data_schemas.gcms_aromatics_data_model import Model as GCMSAromaticsModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -123,6 +124,9 @@ MULTIPLE_SALINITY_MODELS = {
 MERCURY_INJECTION_MODELS = {
     ContentShemaVersion.V_1_0_0: MercuryInjectionModel,
 }
+GCMS_AROMATICS_MODELS = {
+    ContentShemaVersion.V_1_0_0: GCMSAromaticsModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -150,4 +154,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.NMR: NMR_MODELS,
     CommonRelativePaths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
     CommonRelativePaths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
+    CommonRelativePaths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
 }

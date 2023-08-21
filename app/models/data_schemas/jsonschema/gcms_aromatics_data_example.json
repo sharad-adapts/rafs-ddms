@@ -1,0 +1,42 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:test:",
+  "SampleID": "opendes:master-data--Sample:test:",
+  "AromaticBiomarkers": [
+    {
+      "CompoundCode": "opendes:reference-data--AromaticBiomarkersCompounds:mn1:",
+      "RetentionTime": {
+        "Value": 12.34,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
+      },
+      "Ion": "K+",
+      "Peak": [
+        {
+          "Value": 56.78,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+        },
+        {
+          "Value": 90.12,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+        }
+      ]
+    }
+  ],
+  "StdCompound": {
+    "CompoundCode": "opendes:reference-data--AromaticBiomarkersCompounds:mn1:",
+    "RetentionTime": {
+      "Value": 45.67,
+      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
+    },
+    "Ion": "Mg2+",
+    "Peak": [
+      {
+        "Value": 78.90,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+      },
+      {
+        "Value": 12.34,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+      }
+    ]
+  }
+}
