@@ -27,3 +27,11 @@ Before registering the schemas the next variables must be populated:
 `{{schema-authority}}` - the schema authority that was used for the OSDU WKS schemas.
 
 The [Postman Collection](./rafsddms_schemas_mvp.postman_collection.json) can be used for the schemas registration.
+
+#### Reference Data
+
+The RAFS DDMS [content schemas](https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/tree/main/app/models/data_schemas) may use reference data that is still not published in the OSDU forum, for both: schema definition and values.
+
+We provide the schema definition for such reference data in the [reference-data](./shared-schemas/rafsddms/work-product-component/) folder.
+
+The list of values can be found in the RAFS DDMS Development Document Repository in the [Reference Values](https://gitlab.opengroup.org/osdu/subcommittees/data-def/projects/RAFSDDMSDEV/docs/-/tree/main/Design%20Documents/ReferenceValues/Manifests/reference-data/OPEN) folder.
