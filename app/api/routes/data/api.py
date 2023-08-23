@@ -137,42 +137,15 @@ class BaseDataView:
         :return: dataset data
         :rtype: Response
         """
-        record = await storage_service.get_record(record_id)
-        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
-
-        dataset_id, _ = get_id_version(dataset_id)
-        ddms_datasets = record["data"].get("DDMSDatasets", [])
-
-        if dataset_id_exist(ddms_datasets, dataset_id):
-            logger.debug(f"Retrieving dataset: {dataset_id}")
-            self._check_content_schema_version(content_schema_version, ddms_datasets, dataset_id)
-            parquet_bytes = await dataset_service.download_file(dataset_id)
-
-            if not parquet_bytes:
-                reason = f"{dataset_id} exist in record but without content."
-                logger.debug(reason)
-                raise exceptions.UnprocessableContentException(
-                    detail=reason,
-                )
-
-            df = apply_filters(parquet_bytes, sql_filter)
-            logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
-
-            if mime_type == SupportedMimeTypes.PARQUET:
-                df.astype(str)
-                response = Response(content=df.to_parquet(), media_type=SupportedMimeTypes.PARQUET.mime_type)
-            else:
-                response = Response(
-                    content=df.to_json(orient="split"),
-                    media_type=SupportedMimeTypes.JSON.mime_type,
-                )
-        else:
-            response = JSONResponse(
-                {"message": f"{dataset_id} does not exist in current record.", "reason": "Not found."},
-                status_code=status.HTTP_404_NOT_FOUND,
-            )
-
-        return response
+        return await self._get_data(
+            request,
+            record_id,
+            dataset_id,
+            dataset_service,
+            storage_service,
+            sql_filter,
+            content_schema_version,
+        )
 
     async def post_data(
         self,
@@ -218,6 +191,70 @@ class BaseDataView:
             dataset_service,
             storage_service,
         )
+
+    async def _get_data(
+        self,
+        request: Request,
+        record_id: str,
+        dataset_id: str,
+        dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        storage_service: storage.StorageService = Depends(get_async_storage_service),
+        sql_filter: DataFrameFilterValidator = Depends(validate_filters),
+        content_schema_version: str = Depends(get_content_schema_version),
+    ) -> Response:
+        """Get record data.
+
+        :param request: request
+        :type request: Request
+        :param record_id: record id,
+        :type record_id: str
+        :param dataset_id: dataset id,
+        :type dataset_id: str
+        :param dataset_service: dataset service
+        :type dataset_service: dataset.DatasetService
+        :param storage_service: storage service
+        :type storage_service: storage.StorageService
+        :param sql_filter: sql filter validator
+        :type sql_filter: SQLFilterValidator
+        :return: dataset data
+        :rtype: Response
+        """
+        record = await storage_service.get_record(record_id)
+        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
+
+        dataset_id, _ = get_id_version(dataset_id)
+        ddms_datasets = record["data"].get("DDMSDatasets", [])
+
+        if dataset_id_exist(ddms_datasets, dataset_id):
+            logger.debug(f"Retrieving dataset: {dataset_id}")
+            self._check_content_schema_version(content_schema_version, ddms_datasets, dataset_id)
+            parquet_bytes = await dataset_service.download_file(dataset_id)
+
+            if not parquet_bytes:
+                reason = f"{dataset_id} exist in record but without content."
+                logger.debug(reason)
+                raise exceptions.UnprocessableContentException(
+                    detail=reason,
+                )
+
+            df = apply_filters(parquet_bytes, sql_filter)
+            logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
+
+            if mime_type == SupportedMimeTypes.PARQUET:
+                df.astype(str)
+                response = Response(content=df.to_parquet(), media_type=SupportedMimeTypes.PARQUET.mime_type)
+            else:
+                response = Response(
+                    content=df.to_json(orient="split"),
+                    media_type=SupportedMimeTypes.JSON.mime_type,
+                )
+        else:
+            response = JSONResponse(
+                {"message": f"{dataset_id} does not exist in current record.", "reason": "Not found."},
+                status_code=status.HTTP_404_NOT_FOUND,
+            )
+
+        return response
 
     async def _get_validated_payload(
         self,

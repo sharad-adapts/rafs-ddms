@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 from fastapi import APIRouter, Depends, Path, Request, Response
+from fastapi_cache.decorator import cache
 from loguru import logger
 from pydantic import BaseModel
 from starlette import status
@@ -30,6 +31,9 @@ from app.api.routes.data.api import BaseDataView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.api_version import get_api_version_from_url
 from app.core.config import get_app_settings
+from app.core.helpers.cache.coder import ResponseCoder
+from app.core.helpers.cache.key_builder import key_builder_using_token
+from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
 from app.core.settings.app import AppSettings
 from app.resources.filters import DataFrameFilterValidator
 from app.services import dataset, storage
@@ -66,6 +70,7 @@ class BaseDataViewV2(BaseDataView):
         if kwargs:
             self.__dict__.update(kwargs)
 
+    @cache(expire=CACHE_DEFAULT_TTL, coder=ResponseCoder, key_builder=key_builder_using_token)
     async def get_data_v2(
         self,
         request: Request,
@@ -100,7 +105,7 @@ class BaseDataViewV2(BaseDataView):
         """
         logger.info(f"Get data for type {analysis_type}")
 
-        return await self.get_data(
+        return await self._get_data(
             request,
             record_id,
             dataset_id,
