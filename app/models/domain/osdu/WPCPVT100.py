@@ -284,7 +284,8 @@ class Data(Field0, Field0_1, Field0_2):
     @validator("PVTTests", pre=True)
     def prevent_empty(cls, v):
         if not isinstance(v, dict):
-            assert v
+            if not v:
+                raise AssertionError("Not valid value for PVTTests")
         return v
 
 

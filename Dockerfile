@@ -1,7 +1,7 @@
 # docker build -t rafsdistroless -f Dockerfile .
 # https://gealber.com/recipe-distroless-container-fastapi
 ARG python_version=3.11
-ARG python_image_version=latest
+ARG python_distroless_image=msosdu.azurecr.io/distroless/python:3.11-slim
 FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim AS build-env
 
 COPY requirements.txt /app/requirements.txt
@@ -16,10 +16,10 @@ RUN pip install --no-cache-dir uvicorn[standard]==0.22.0
 RUN cp -v $(which uvicorn) .
 
 # Google Distroless uses python 3.9 we are choosing to go with cgr.dev (gcr.io/distroless/python3:nonroot uses python 3.9)
-# cgr.dev/chainguard/python:3.X can use either 3.10 -> 3.11 : https://github.com/chainguard-images/images/tree/main/images/python
+# Originally sourced from cgr.dev/chainguard/python:3.X | can use either 3.10 -> 3.11 : https://github.com/chainguard-images/images/tree/main/images/python
 # For permissions https://github.com/alexdmoss/distroless-python/blob/main/distroless.Dockerfile#L38
 # Gunicorn distroless approach https://github.com/alexdmoss/distroless-python/tree/main/tests/gunicorn
-FROM cgr.dev/chainguard/python:${python_image_version}
+FROM ${python_distroless_image}
 ARG python_version
 ARG user_id=1001
 
@@ -47,7 +47,3 @@ EXPOSE 8080
 USER $user_id
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080", "--workers", "8", "--loop", "uvloop"]
-
-# If we want to control server settings through python run.py file
-# COPY --chown=${user_id}:0 ./devops/run.py /app/run.py
-# ENTRYPOINT ["python", "run.py"]
