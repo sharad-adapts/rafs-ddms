@@ -120,12 +120,12 @@ EXPECTED_ERROR_REASON = f"Data error: {len(INCORRECT_DATAFRAME_TEST_DATA['column
 
 TEST_WRONG_COLUMNS_FILTERS = [
     {"columns_filter": "unvalid_column_1,unvalid_column_2"},
-    {"columns_filter": "SamplesID,"},
+    {"columns_filter": "SampleID,"},
 ]
 TEST_WRONG_ROWS_FILTERS = [
     {"rows_filter": "wrong_syntax"},
     {"rows_filter": "unvalid_column,gt,0"},
-    {"rows_filter": "SamplesID,wrong_operator,test_id"},
+    {"rows_filter": "SampleID,wrong_operator,test_id"},
     {"rows_filter": "SamplesAnalysisID,eq,wrong_pattern"},
 ]
 TEST_WRONG_AGGREGATION = [
