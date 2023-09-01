@@ -1,0 +1,57 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "TestMethod",
+        "SalinityTestResults",
+        "SalinityTestSteps"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "namespace:work-product-component--SamplesAnalysis:multiple_salinity_example:",
+            "TestMethod",
+            [
+                {
+                    "SampleID": "namespace:master-data--Sample:test_id:",
+                    "BQv": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "Qv": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    }
+                },
+                {
+                    "SampleID": "namespace:master-data--Sample:test_id:",
+                    "BQv": {
+                        "Value": 4.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "Qv": {
+                        "Value": 4.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ],
+            [
+                {
+                    "BrineSalinity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "BrineConductivity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "CoreConductivity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ]
+        ]
+    ]
+}

@@ -1,5 +1,5 @@
 {
-    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysisID:test_id:",
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysisID:Mercury_Injection_Analysis_Example:",
     "InjectionSampleData": [
         {
             "SampleID": "opendes:master-data--Samples:3a:",
