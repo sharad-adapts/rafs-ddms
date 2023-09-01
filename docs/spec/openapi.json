@@ -21,7 +21,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -128,7 +128,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -147,7 +147,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -210,7 +210,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -262,7 +262,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -281,7 +281,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -344,7 +344,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -397,7 +397,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -460,7 +460,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -532,7 +532,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -598,7 +598,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -661,7 +661,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -714,7 +714,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -777,7 +777,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -849,7 +849,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -915,7 +915,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -978,7 +978,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1031,7 +1031,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1094,7 +1094,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1166,7 +1166,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1232,7 +1232,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1295,7 +1295,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1348,7 +1348,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1411,7 +1411,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1483,7 +1483,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1549,7 +1549,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1600,7 +1600,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -1619,7 +1619,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1702,7 +1702,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -1721,7 +1721,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1784,7 +1784,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1836,7 +1836,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -1855,7 +1855,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1918,7 +1918,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -1971,7 +1971,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2034,7 +2034,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2106,7 +2106,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2172,7 +2172,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2255,7 +2255,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -2274,7 +2274,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2337,7 +2337,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2389,7 +2389,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -2408,7 +2408,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2471,7 +2471,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2524,7 +2524,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2587,7 +2587,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2659,7 +2659,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2725,7 +2725,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2808,7 +2808,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -2827,7 +2827,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2890,7 +2890,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -2942,7 +2942,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -2961,7 +2961,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3024,7 +3024,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3077,7 +3077,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3140,7 +3140,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3212,7 +3212,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3278,7 +3278,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3361,7 +3361,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -3380,7 +3380,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3443,7 +3443,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3495,7 +3495,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -3514,7 +3514,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3577,7 +3577,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3630,7 +3630,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3693,7 +3693,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3765,7 +3765,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3831,7 +3831,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3914,7 +3914,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -3933,7 +3933,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -3996,7 +3996,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4048,7 +4048,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -4067,7 +4067,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4130,7 +4130,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4183,7 +4183,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4246,7 +4246,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4318,7 +4318,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4384,7 +4384,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4467,7 +4467,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -4486,7 +4486,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4549,7 +4549,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4601,7 +4601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -4620,7 +4620,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4683,7 +4683,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4736,7 +4736,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4799,7 +4799,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4871,7 +4871,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -4937,7 +4937,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5020,7 +5020,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -5039,7 +5039,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5102,7 +5102,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5154,7 +5154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -5173,7 +5173,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5236,7 +5236,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5289,7 +5289,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5352,7 +5352,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5424,7 +5424,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5490,7 +5490,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5573,7 +5573,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -5592,7 +5592,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5655,7 +5655,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5707,7 +5707,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -5726,7 +5726,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5789,7 +5789,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5842,7 +5842,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5905,7 +5905,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -5977,7 +5977,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6043,7 +6043,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6126,7 +6126,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -6145,7 +6145,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6208,7 +6208,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6260,7 +6260,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -6279,7 +6279,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6342,7 +6342,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6395,7 +6395,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6458,7 +6458,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6530,7 +6530,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6596,7 +6596,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6679,7 +6679,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -6698,7 +6698,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6761,7 +6761,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6813,7 +6813,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -6832,7 +6832,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6895,7 +6895,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -6948,7 +6948,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7011,7 +7011,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7083,7 +7083,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7149,7 +7149,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7232,7 +7232,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -7251,7 +7251,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7314,7 +7314,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7366,7 +7366,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -7385,7 +7385,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7448,7 +7448,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7501,7 +7501,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7564,7 +7564,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7636,7 +7636,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7702,7 +7702,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7785,7 +7785,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -7804,7 +7804,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7867,7 +7867,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -7919,7 +7919,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -7938,7 +7938,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8001,7 +8001,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8054,7 +8054,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8117,7 +8117,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8189,7 +8189,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8255,7 +8255,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8338,7 +8338,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -8357,7 +8357,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8420,7 +8420,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8472,7 +8472,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -8491,7 +8491,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8554,7 +8554,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8607,7 +8607,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8670,7 +8670,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8742,7 +8742,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8808,7 +8808,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8871,7 +8871,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8924,7 +8924,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -8987,7 +8987,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9059,7 +9059,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9095,7 +9095,67 @@
                 "items": {
                   "type": "object"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysesReport:1.0.0",
+                  "version": 15620,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "DocumentTypeID": "namespace:reference-data--DocumentType:SampleAnalysisReport:",
+                  "NumberOfPages": "45",
+                  "SubTitle": "Advanced Core Analysis Study",
+                  "DocumentSubject": "SCAL Results Report (Final)",
+                  "DatePublished": "10-06-2021",
+                  "DateModified": "10-06-2021",
+                  "DocumentLanguage": "English",
+                  "SampleIDs": [
+                    "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                    "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                  ],
+                  "ReportSampleIdentifiers": [
+                    "45H",
+                    "49H"
+                  ],
+                  "SampleAnalysisTypeIDs": [
+                    "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                  ],
+                  "SampleAnalysisCategoryTagIDs": [
+                    "SCAL",
+                    "CapPressure"
+                  ],
+                  "Remarks": [
+                    {
+                      "Remark": "Test was successfully conducted",
+                      "RemarkID": "1",
+                      "RemarkSource": "Lab Manager"
+                    }
+                  ]
+                }
+              ]
             }
           },
           "required": true
@@ -9125,7 +9185,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9177,7 +9237,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -9196,7 +9256,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9279,7 +9339,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -9298,7 +9358,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9361,7 +9421,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9413,7 +9473,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -9432,7 +9492,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9495,7 +9555,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9548,7 +9608,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9611,7 +9671,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9683,7 +9743,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9719,7 +9779,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -9749,7 +9891,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9812,7 +9954,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9865,7 +10007,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -9928,7 +10070,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10000,7 +10142,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10036,7 +10178,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -10066,7 +10290,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10149,7 +10373,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -10168,7 +10392,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10231,7 +10455,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10283,7 +10507,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -10302,7 +10526,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10365,7 +10589,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10418,7 +10642,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10481,7 +10705,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10553,7 +10777,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10589,7 +10813,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -10619,7 +10925,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10702,7 +11008,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -10721,7 +11027,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10784,7 +11090,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10836,7 +11142,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -10855,7 +11161,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10918,7 +11224,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -10971,7 +11277,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11034,7 +11340,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11106,7 +11412,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11142,7 +11448,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -11172,7 +11560,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11255,7 +11643,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -11274,7 +11662,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11337,7 +11725,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11389,7 +11777,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -11408,7 +11796,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11471,7 +11859,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11524,7 +11912,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11587,7 +11975,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11659,7 +12047,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11695,7 +12083,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -11725,7 +12195,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11808,7 +12278,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -11827,7 +12297,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11890,7 +12360,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -11942,7 +12412,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -11961,7 +12431,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12024,7 +12494,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12077,7 +12547,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12140,7 +12610,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12212,7 +12682,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12248,7 +12718,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -12278,7 +12830,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12361,7 +12913,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -12380,7 +12932,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12443,7 +12995,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12495,7 +13047,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -12514,7 +13066,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12577,7 +13129,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12630,7 +13182,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12693,7 +13245,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12765,7 +13317,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12801,7 +13353,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -12831,7 +13465,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12914,7 +13548,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -12933,7 +13567,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -12996,7 +13630,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13048,7 +13682,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -13067,7 +13701,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13130,7 +13764,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13183,7 +13817,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13246,7 +13880,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13318,7 +13952,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13354,7 +13988,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -13384,7 +14100,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13467,7 +14183,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -13486,7 +14202,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13549,7 +14265,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13601,7 +14317,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -13620,7 +14336,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13683,7 +14399,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13736,7 +14452,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13799,7 +14515,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13871,7 +14587,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -13907,7 +14623,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -13937,7 +14735,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14020,7 +14818,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -14039,7 +14837,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14102,7 +14900,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14154,7 +14952,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -14173,7 +14971,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14236,7 +15034,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14289,7 +15087,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14352,7 +15150,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14424,7 +15222,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14460,7 +15258,67 @@
                 "items": {
                   "type": "object"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysesReport:1.0.0",
+                  "version": 15620,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "DocumentTypeID": "namespace:reference-data--DocumentType:SampleAnalysisReport:",
+                  "NumberOfPages": "45",
+                  "SubTitle": "Advanced Core Analysis Study",
+                  "DocumentSubject": "SCAL Results Report (Final)",
+                  "DatePublished": "10-06-2021",
+                  "DateModified": "10-06-2021",
+                  "DocumentLanguage": "English",
+                  "SampleIDs": [
+                    "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                    "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                  ],
+                  "ReportSampleIdentifiers": [
+                    "45H",
+                    "49H"
+                  ],
+                  "SampleAnalysisTypeIDs": [
+                    "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                  ],
+                  "SampleAnalysisCategoryTagIDs": [
+                    "SCAL",
+                    "CapPressure"
+                  ],
+                  "Remarks": [
+                    {
+                      "Remark": "Test was successfully conducted",
+                      "RemarkID": "1",
+                      "RemarkSource": "Lab Manager"
+                    }
+                  ]
+                }
+              ]
             }
           },
           "required": true
@@ -14490,7 +15348,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14542,7 +15400,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -14561,64 +15419,65 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
       }
     },
     "/api/rafs-ddms/v2/samplesanalysis/analysistypes": {
-        "get": {
-          "tags": [
-            "samplesanalysis"
-          ],
-          "summary": "Get Types",
-          "description": "Get available types.",
-          "operationId": "get_types_api_rafs_ddms_v2_samplesanalysis_types_get",
-          "parameters": [
-            {
-              "description": "Specifies the proper data partition id",
-              "required": true,
-              "schema": {
-                "title": "data-partition-id",
-                "description": "Specifies the proper data partition id"
-              },
-              "example": "opendes",
-              "name": "data-partition-id",
-              "in": "header"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Successful Response",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "title": "Response Get Types Api Rafs Ddms V2 Samplesanalysis Types Get",
-                    "type": "object",
-                    "additionalProperties": {
-                      "type": "array",
-                      "items": {
-                      }
+      "get": {
+        "tags": [
+          "samplesanalysis"
+        ],
+        "summary": "Get Types",
+        "description": "Get available types.",
+        "operationId": "get_types_api_rafs_ddms_v2_samplesanalysis_analysistypes_get",
+        "parameters": [
+          {
+            "description": "Specifies the proper data partition id",
+            "required": true,
+            "schema": {
+              "title": "data-partition-id",
+              "description": "Specifies the proper data partition id"
+            },
+            "example": "opendes",
+            "name": "data-partition-id",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Types Api Rafs Ddms V2 Samplesanalysis Analysistypes Get",
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      
                     }
                   }
                 }
               }
-            },
-            "422": {
-              "description": "Validation Error",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "$ref": "#/components/schemas/HTTPValidationError"
-                  }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
                 }
               }
             }
           }
         }
-      },
-      "/api/rafs-ddms/v2/samplesanalysis/{record_id}": {
+      }
+    },
+    "/api/rafs-ddms/v2/samplesanalysis/{record_id}": {
       "get": {
         "tags": [
           "samplesanalysis"
@@ -14675,7 +15534,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14728,7 +15587,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14791,7 +15650,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14863,7 +15722,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -14899,7 +15758,89 @@
                 "items": {
                   "$ref": "#/components/schemas/OsduStorageRecord"
                 }
-              }
+              },
+              "example": [
+                {
+                  "id": "namespace:work-product-component--SamplesAnalysis:c69cf08a-ae35-5984-b855-f9b36ce1ea21",
+                  "kind": "schema_authority:wks:work-product-component--SamplesAnalysis:1.0.0",
+                  "version": 1562066009929332,
+                  "acl": {
+                    "owners": [
+                      "someone@company.com"
+                    ],
+                    "viewers": [
+                      "someone@company.com"
+                    ]
+                  },
+                  "legal": {
+                    "legaltags": [
+                      "Example legaltags"
+                    ],
+                    "otherRelevantDataCountries": [
+                      "US"
+                    ],
+                    "status": "compliant"
+                  },
+                  "tags": {
+                    "NameOfKey": "String value"
+                  },
+                  "createTime": "2020-12-16T11:46:20.163Z",
+                  "createUser": "some-user@some-company-cloud.com",
+                  "modifyTime": "2020-12-16T11:52:24.477Z",
+                  "modifyUser": "some-user@some-company-cloud.com",
+                  "meta": [
+                    
+                  ],
+                  "data": {
+                    "SampleIDs": [
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10",
+                      "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11"
+                    ],
+                    "ReportSampleIdentifiers": [
+                      "45H",
+                      "49H"
+                    ],
+                    "AnalysisDate": "08-02-2013",
+                    "DepthShiftsID": "opendes:work-product-component--WellLog:Test:",
+                    "LaboratoryIDs": [
+                      "TBD Lab 1",
+                      "TBD Lab 2"
+                    ],
+                    "LaboratoryNames": [
+                      "Corelab",
+                      "Weatherford Labs"
+                    ],
+                    "Remarks": [
+                      "Temperature 68F",
+                      "Second Remark",
+                      "Third Remark"
+                    ],
+                    "DatePublished": "08-02-2016",
+                    "ParentSamplesAnalysesReports": [
+                      {
+                        "ParentSamplesAnalysisReportID": "namespace:work-product-component--SamplesAnalysesReport:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
+                        "ParentSamplesAnalysisPageNumbers": "12,14,15-20"
+                      }
+                    ],
+                    "SamplesAnalysisTypeIDs": [
+                      "CapillaryPressureGasOil.CentrifugeDrainageGasOil"
+                    ],
+                    "SamplesAnalysisCategoryTagIDs": [
+                      "CapPressure",
+                      "CapillaryPressure",
+                      "SCAL"
+                    ],
+                    "AvailableSampleAnalysisProperties": [
+                      "Depth",
+                      "Permeability",
+                      "Porosity",
+                      "InitialSaturation",
+                      "Remark",
+                      "WaterSaturation"
+                    ]
+                  }
+                }
+              ]
             }
           },
           "required": true
@@ -14929,7 +15870,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -15021,7 +15962,7 @@
             "content": {
               "application/json": {
                 "schema": {
-
+                  
                 }
               }
             }
@@ -15040,7 +15981,7 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
         ]
@@ -15112,10 +16053,112 @@
         "security": [
           {
             "HTTPBearer": [
-
+              
             ]
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "OrientSplit",
+                "type": "object",
+                "properties": {
+                  "columns": {
+                    "title": "Columns",
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "index": {
+                    "title": "Index",
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "data": {
+                    "title": "Data",
+                    "minItems": 1,
+                    "type": "array",
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "columns",
+                  "index",
+                  "data"
+                ],
+                "additionalProperties": false
+              },
+              "example": {
+                "columns": [
+                  "SamplesAnalysisID",
+                  "TestMethod",
+                  "SalinityTestResults",
+                  "SalinityTestSteps"
+                ],
+                "index": [
+                  0
+                ],
+                "data": [
+                  [
+                    "namespace:work-product-component--SamplesAnalysis:multiple_salinity_example:",
+                    "TestMethod",
+                    [
+                      {
+                        "SampleID": "namespace:master-data--Sample:test_id:",
+                        "BQv": {
+                          "Value": 3.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        },
+                        "Qv": {
+                          "Value": 3.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        }
+                      },
+                      {
+                        "SampleID": "namespace:master-data--Sample:test_id:",
+                        "BQv": {
+                          "Value": 4.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        },
+                        "Qv": {
+                          "Value": 4.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "BrineSalinity": {
+                          "Value": 3.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        },
+                        "BrineConductivity": {
+                          "Value": 3.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        },
+                        "CoreConductivity": {
+                          "Value": 3.5,
+                          "UnitOfMeasure": "namespace:reference-data--UnitOfMeasure:%25:"
+                        }
+                      }
+                    ]
+                  ]
+                ]
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -15252,7 +16295,7 @@
             "title": "Meta",
             "type": "array",
             "items": {
-
+              
             }
           },
           "ancestry": {

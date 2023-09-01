@@ -13,9 +13,9 @@
 #  limitations under the License.
 
 import json
-from typing import Iterable, List, Optional, TypeVar
+from typing import Annotated, Iterable, List, Optional, TypeVar
 
-from fastapi import Depends, HTTPException, Query, Request
+from fastapi import Body, Depends, HTTPException, Query, Request
 from loguru import logger
 from pydantic import BaseModel
 from pydantic.error_wrappers import ValidationError
@@ -56,6 +56,7 @@ from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.errors import FilterValidationError
 from app.resources.filters import DataFrameFilterValidator
+from app.resources.load_model_example import load_data_example
 from app.resources.paths import CommonRelativePaths
 from app.services.storage import StorageService
 
@@ -248,7 +249,7 @@ async def validate_samples_analyses_report_payload(records_list: List[OsduStorag
 
 
 async def validate_samplesanalysis_records_payload(
-    records_list: List[OsduStorageRecord],
+    records_list: Annotated[List[OsduStorageRecord], Body(example=load_data_example("samples_analysis.json"))],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
     records = await validate_records_payload(records_list, SAMPLESANALYSIS_KIND)
