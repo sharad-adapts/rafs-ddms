@@ -27,7 +27,7 @@ class RetentionTime(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
-            regex=r'^[\w\-\.]+:reference-data\-\-UnitOfMeasure:[\w\-\.\:\%]+:[0-9]*$'
+            regex=r"^[\w\-\.]+:reference-data\-\-UnitOfMeasure:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -36,20 +36,20 @@ class PeakItem(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
-            regex=r'^[\w\-\.]+:reference-data\-\-UnitOfMeasure:[\w\-\.\:\%]+:[0-9]*$'
+            regex=r"^[\w\-\.]+:reference-data\-\-UnitOfMeasure:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     AreaHeightQualifier: Optional[
         constr(
-            regex=r'^[\w\-\.]+:reference-data\-\-BiomarkersAreaHeight:[\w\-\.\:\%]+:[0-9]*$'
+            regex=r"^[\w\-\.]+:reference-data\-\-CompoundsAreaHeight:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
 
-class AromaticBiomarker(BaseModel):
+class AromaticCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r'^[\w\-\.]+:reference-data\-\-AromaticBiomarkersCompounds:[\w\-\.\:\%]+:[0-9]*$'
+            regex=r"^[\w\-\.]+:reference-data\-\-AromaticCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -60,7 +60,7 @@ class AromaticBiomarker(BaseModel):
 class StdCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r'^[\w\-\.]+:reference-data\-\-AromaticBiomarkersCompounds:[\w\-\.\:\%]+:[0-9]*$'
+            regex=r"^[\w\-\.]+:reference-data\-\-AromaticCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -70,14 +70,14 @@ class StdCompound(BaseModel):
 
 class Model(BaseModel):
     SamplesAnalysisID: constr(
-        regex=r'^[\w\-\.]+:work-product-component\-\-SamplesAnalysis:[\w\-\.\:\%]+:[0-9]*$'
+        regex=r"^[\w\-\.]+:work-product-component\-\-SamplesAnalysis:[\w\-\.\:\%]+:[0-9]*$"
     )
-    SampleID: constr(regex=r'^[\w\-\.]+:master-data--Sample:[\w\-\.\:\%]+:[0-9]*$')
-    AromaticBiomarkers: Optional[List[AromaticBiomarker]] = Field(
+    SampleID: constr(regex=r"^[\w\-\.]+:master-data--Sample:[\w\-\.\:\%]+:[0-9]*$")
+    AromaticCompounds: Optional[List[AromaticCompound]] = Field(
         None,
-        description='The aromatic hydrocarbon fraction biomarkers analysis',
-        title='Aromatic Biomarkers',
+        description="The aromatic hydrocarbon compounds fraction analysis",
+        title="Aromatic Compounds",
     )
     StdCompound: Optional[StdCompound] = Field(
-        None, description='Compound added as internal standard'
+        None, description="Compound added as internal standard"
     )
