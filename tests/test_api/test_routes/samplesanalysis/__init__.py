@@ -11,27 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from fastapi import APIRouter
-
-from app.api.routes.samplesanalysis.endpoints import (
-    SAMPLESANALYSIS_ID_REGEX_STR,
-    SamplesAnalysisRecordView,
-    SamplesAnalysisSchemasView,
-    SamplesAnalysisTypesView,
-)
-from app.api.routes.v2.data.endpoints import BaseDataViewV2
-
-sa_router = APIRouter()
-RECORD_TYPE = "SamplesAnalysis"
-
-SamplesAnalysisTypesView(sa_router)
-
-SamplesAnalysisRecordView(sa_router, RECORD_TYPE)
-
-SamplesAnalysisSchemasView(sa_router)
-
-BaseDataViewV2(
-    router=sa_router,
-    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
-)

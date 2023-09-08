@@ -15876,6 +15876,67 @@
         ]
       }
     },
+    "/api/rafs-ddms/v2/samplesanalysis/{analysistype}/data/schema": {
+      "get": {
+        "tags": [
+          "samplesanalysis"
+        ],
+        "summary": "Get Content Schema",
+        "description": "Get the (`content schema`) for a given `{analysistype}`. <br><br>                Use the `Accept` request header to specify content schema version                     (example header `Accept: application/json;version=1.0.0` is supported).<br><br>        Required roles: `users.datalake.viewers` or `users.datalake.editors` or `users.datalake.admins`.<br>         In addition, users must be members of a data group(ACL) to access the data.",
+        "operationId": "get_content_schema_api_rafs_ddms_v2_samplesanalysis__analysistype__data_schema_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Analysistype",
+              "type": "string"
+            },
+            "name": "analysistype",
+            "in": "path"
+          },
+          {
+            "description": "Specifies the proper data partition id",
+            "required": true,
+            "schema": {
+              "title": "data-partition-id",
+              "description": "Specifies the proper data partition id"
+            },
+            "example": "opendes",
+            "name": "data-partition-id",
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Get Content Schema Api Rafs Ddms V2 Samplesanalysis  Analysistype  Data Schema Get",
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/rafs-ddms/v2/samplesanalysis/{record_id}/data/{analysis_type}/{dataset_id}": {
       "get": {
         "tags": [

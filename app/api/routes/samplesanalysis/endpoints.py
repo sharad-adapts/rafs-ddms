@@ -18,7 +18,10 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 from starlette import status
 
-from app.api.dependencies.request import validate_json_content_type
+from app.api.dependencies.request import (
+    get_content_schema_version,
+    validate_json_content_type,
+)
 from app.api.dependencies.services import get_async_storage_service
 from app.api.dependencies.validation import (
     validate_samplesanalysis_records_payload,
@@ -80,7 +83,7 @@ class SamplesAnalysisTypesView:
     async def get_types(self) -> JSONResponse:
         """Get available data types and their supported versions."""
         analysis_types_versions_map = {
-            path.strip("/"): list(versions.keys())
+            path.strip("/").split("/")[-1]: list(versions.keys())
             for path, versions in PATH_TO_DATA_MODEL_VERSIONS.items()
         }
         return JSONResponse(content=analysis_types_versions_map)
@@ -94,4 +97,46 @@ class SamplesAnalysisTypesView:
             status_code=status.HTTP_200_OK,
             response_model=Dict[str, list],
             description="Get available types.",
+        )
+
+
+class SamplesAnalysisSchemasView:
+    def __init__(
+        self,
+        router: APIRouter,
+    ) -> None:
+        self._router = router
+        self._prepare_content_schema_route()
+
+    async def get_content_schema(
+        self,
+        analysistype: str,
+        content_schema_version: str = Depends(get_content_schema_version),
+    ) -> JSONResponse:
+        """Get the schema of the given analysis type and version."""
+        model_versions = PATH_TO_DATA_MODEL_VERSIONS.get(
+            f"/{analysistype}/",
+        ) or PATH_TO_DATA_MODEL_VERSIONS.get(f"/data/{analysistype}")
+        if model_versions and (model := model_versions.get(content_schema_version)):  # noqa: WPS332
+            return JSONResponse(
+                content=model.schema(),
+            )
+        return JSONResponse(
+            {"message": f"Schema not found for {analysistype} and version {content_schema_version}"},
+            status_code=status.HTTP_404_NOT_FOUND,
+        )
+
+    def _prepare_content_schema_route(self) -> None:
+        """Add API route for getting content schema."""
+        self._router.add_api_route(
+            path="/{analysistype}/data/schema",
+            endpoint=self.get_content_schema,
+            methods=["GET"],
+            status_code=status.HTTP_200_OK,
+            response_model=Dict[str, list],
+            description=APIDescriptionHelper.append_joined_roles(
+                "Get the (`content schema`) for a given `{analysistype}`. <br><br>\
+                Use the `Accept` request header to specify content schema version \
+                    (example header `Accept: application/json;version=1.0.0` is supported).",
+            ),
         )
