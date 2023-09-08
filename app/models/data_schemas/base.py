@@ -42,6 +42,7 @@ from app.models.data_schemas.multiple_salinity_data_model import Model as Multip
 from app.models.data_schemas.gcms_alkanes_data_model import Model as GCMSAlkanesModel
 from app.models.data_schemas.mercury_injection_analysis_data_model import Model as MercuryInjectionModel
 from app.models.data_schemas.gcms_aromatics_data_model import Model as GCMSAromaticsModel
+from app.models.data_schemas.gcms_ratios_data_model import Model as GCMSRatiosModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -131,6 +132,9 @@ MERCURY_INJECTION_MODELS = {
 GCMS_AROMATICS_MODELS = {
     ContentShemaVersion.V_1_0_0: GCMSAromaticsModel,
 }
+GCMS_RATIOS_MODELS = {
+    ContentShemaVersion.V_1_0_0: GCMSRatiosModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -160,4 +164,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.GCMS_ALKANES: GCMS_ALKANES_MODELS,
     CommonRelativePaths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
     CommonRelativePaths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
+    CommonRelativePaths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
 }

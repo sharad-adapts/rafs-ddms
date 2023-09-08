@@ -300,6 +300,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.GCMS_ALKANES,
         CommonRelativePaths.MERCURY_INJECTION,
         CommonRelativePaths.GCMS_AROMATICS,
+        CommonRelativePaths.GCMS_RATIOS,
     )
 
     version_models = None
