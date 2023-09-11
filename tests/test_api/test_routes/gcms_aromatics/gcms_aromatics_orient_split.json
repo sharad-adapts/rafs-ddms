@@ -2,7 +2,7 @@
   "columns": [
     "SamplesAnalysisID",
     "SampleID",
-    "AromaticBiomarkers",
+    "AromaticCompounds",
     "StdCompound"
   ],
   "index": [
@@ -14,7 +14,7 @@
       "opendes:master-data--Sample:test:",
       [
         {
-          "CompoundCode": "opendes:reference-data--AromaticBiomarkersCompounds:mn1:",
+          "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",
           "RetentionTime": {
             "Value": 12.34,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
@@ -23,17 +23,19 @@
           "Peak": [
             {
               "Value": 56.78,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
+              "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
             },
             {
               "Value": 90.12,
-              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+              "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
+              "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
             }
           ]
         }
       ],
       {
-        "CompoundCode": "opendes:reference-data--AromaticBiomarkersCompounds:mn1:",
+        "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",
         "RetentionTime": {
           "Value": 45.67,
           "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
@@ -42,11 +44,13 @@
         "Peak": [
           {
             "Value": 78.9,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
+            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
           },
           {
             "Value": 12.34,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
+            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
           }
         ]
       }

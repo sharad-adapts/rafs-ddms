@@ -27,15 +27,15 @@ class PeakItem(BaseModel):
     ] = None
     AreaHeightQualifier: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-BiomarkersAreaHeight:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-CompoundsAreaHeight:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
 
-class SaturateBiomarker(BaseModel):
+class SaturateCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-SaturateBiomarkersCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-SaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -46,7 +46,7 @@ class SaturateBiomarker(BaseModel):
 class StdCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-SaturateBiomarkersCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-SaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -59,10 +59,10 @@ class Model(BaseModel):
         regex=r"^[\w\-\.]+:work-product-component\-\-SamplesAnalysis:[\w\-\.\:\%]+:[0-9]*$"
     )
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
-    SaturateBiomarkers: Optional[List[SaturateBiomarker]] = Field(
+    SaturateCompounds: Optional[List[SaturateCompound]] = Field(
         None,
-        description="The saturate hydrocarbon fraction biomarkers analysis",
-        title="Saturate Biomarkers",
+        description="The saturate hydrocarbon compounds fraction analysis",
+        title="Saturate Compounds",
     )
     StdCompound: Optional[StdCompound] = Field(
         None, description="Compound added as internal standard"
