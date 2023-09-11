@@ -47,3 +47,4 @@ class CommonRelativePaths(NamedTuple):
     GCMS_ALKANES = "/data/gcmsalkanes"
     MERCURY_INJECTION = "/data/mercuryinjectionanalyses"
     GCMS_AROMATICS = "/data/gcmsaromatics"
+    GCMS_RATIOS = "/data/gcmsratios"

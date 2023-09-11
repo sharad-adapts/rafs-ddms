@@ -71,6 +71,7 @@ async def test_types_route():
         "gcmsalkanes",
         "mercuryinjectionanalyses",
         "gcmsaromatics",
+        "gcmsratios",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -119,6 +120,7 @@ async def test_content_schemas_route(analysistype):
         "gcmsalkanes",
         "mercuryinjectionanalyses",
         "gcmsaromatics",
+        "gcmsratios",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):
@@ -130,54 +132,6 @@ async def test_content_schemas_wrong_version(analysistype):
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.json()["message"] == f"Schema not found for {analysistype} and version 0.0.0"
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
-    "analysistype", [
-        "rocksampleanalyses",
-        "ccereports",
-        "difflibreports",
-        "transporttests",
-        "multistageseparatortests",
-        "compositionalanalysisreports",
-        "swellingtests",
-        "constantvolumedepletiontests",
-        "wateranalysisreports",
-        "interfacialtensiontests",
-        "stocktankoilanalysisreports",
-        "vaporliquidequilibriumtests",
-        "multiplecontactmiscibilitytests",
-        "slimtubetests",
-        "relativepermeabilitytests",
-        "capillarypressuretests",
-        "fractionationtests",
-        "extractiontests",
-        "physicalchemistrytests",
-        "watergasrelativepermeabilities",
-        "rockcompressibilities",
-        "electricalproperties",
-        "formationresistivityindexes",
-        "nmrtests",
-        "multiplesalinitytests",
-        "gcmsalkanes",
-        "mercuryinjectionanalyses",
-        "gcmsaromatics",
-    ],
-)
-async def test_content_schemas_route(analysistype):
-    async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
-        response = await client.get(
-            f"{SAMPLESANALYSIS_ENDPOINT_PATH}/{analysistype}/data/schema",
-            headers={**TEST_HEADERS, "Accept": "application/json;version=1.0.0"},
-        )
-
-    assert response.status_code == status.HTTP_200_OK
-    assert response.headers["content-type"] == "application/json"
-
-    response_json = response.json()
-    assert isinstance(response_json, dict)
-    assert response_json
 
 
 @pytest.mark.asyncio
