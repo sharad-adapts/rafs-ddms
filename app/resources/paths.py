@@ -49,3 +49,4 @@ class CommonRelativePaths(NamedTuple):
     GCMS_AROMATICS = "/data/gcmsaromatics"
     GCMS_RATIOS = "/data/gcmsratios"
     WHOLE_OIL_GC = "/data/wholeoilgaschromatographyanalyses"
+    GASOLINE_GC = "/data/gasolinegaschromatographyanalyses"

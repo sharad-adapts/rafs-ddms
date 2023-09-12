@@ -1,0 +1,64 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "GasolineData": {
+            "title": "Gasoline",
+            "description": "The gas chromatography gasoline analysis",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "CompoundCode": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GasolineCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "RetentionTime": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Peak": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                },
+                                "AreaHeightQualifier": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CompoundsAreaHeight:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+  }
+  
