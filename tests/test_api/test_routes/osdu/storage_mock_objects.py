@@ -630,6 +630,7 @@ GCMS_ALKANES_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gcmsalkanes"
 MERCURY_INJECTION_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/mercuryinjectionanalyses"
 GCMS_AROMATICS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gcmsaromatics"
 GCMS_RATIOS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gcmsratios"
+WHOLE_OIL_GC_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/wholeoilgaschromatographyanalyses"
 
 
 class BulkDatasetId(NamedTuple):
@@ -662,3 +663,4 @@ class BulkDatasetId(NamedTuple):
     MERCURY_INJECTION = f"{PARTITION}:{FILE_GENERIC_TYPE}:mercuryinjectionanalyses-{TEST_DATASET_UID}"
     GCMS_AROMATICS = f"{PARTITION}:{FILE_GENERIC_TYPE}:gcmsaromatics-{TEST_DATASET_UID}"
     GCMS_RATIOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:gcmsratios-{TEST_DATASET_UID}"
+    WHOLE_OIL_GC = f"{PARTITION}:{FILE_GENERIC_TYPE}:wholeoilgaschromatographyanalyses-{TEST_DATASET_UID}"

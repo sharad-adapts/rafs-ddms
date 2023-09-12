@@ -1,0 +1,112 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "WholeOilCompounds": {
+            "title": "Whole Oil Compounds",
+            "description": "The whole oil (or gas chromatography full range) compounds fraction analysis",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "CompoundCode": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WholeOilGasChromatographyCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "RetentionTime": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Peak": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                },
+                                "AreaHeightQualifier": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CompoundsAreaHeight:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "StdCompound": {
+            "description": "Compound added as internal standard",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                  "CompoundCode": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WholeOilGasChromatographyCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  },
+                  "RetentionTime": {
+                      "type": "object",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "Peak": {
+                      "type": "array",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                              "Value": {
+                                  "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              },
+                              "AreaHeightQualifier": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CompoundsAreaHeight:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              },
+                              "Type": {
+                                "type": "string",
+                                "description": "The type of the internal standard compound in GC Whole Oil analysis, e.g. Standard2"
+                              }
+                          }
+                      }
+                  }
+              }
+            }
+        }
+    },
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+  }
+  
