@@ -73,6 +73,7 @@ async def test_types_route():
         "gcmsaromatics",
         "gcmsratios",
         "wholeoilgaschromatographyanalyses",
+        "gasolinegaschromatographyanalyses",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -123,6 +124,7 @@ async def test_content_schemas_route(analysistype):
         "gcmsaromatics",
         "gcmsratios",
         "wholeoilgaschromatographyanalyses",
+        "gasolinegaschromatographyanalyses",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

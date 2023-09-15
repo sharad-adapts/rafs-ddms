@@ -72,6 +72,7 @@ from tests.test_api.test_routes.formationresistivityindex import (
     formationresistivityindex_mock_objects,
 )
 from tests.test_api.test_routes.fractionation import fractionation_mock_objects
+from tests.test_api.test_routes.gasoline_gc import gasoline_gc_mock_objects
 from tests.test_api.test_routes.gcms_alkanes import gcms_alkanes_mock_objects
 from tests.test_api.test_routes.gcms_aromatics import (
     gcms_aromatics_mock_objects,
@@ -107,6 +108,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     FORMATION_RESISTIVITY_INDEX_SOURCE_ENDPOINT_PATH,
     FRACTIONATION_DATA_ENDPOINT_PATH,
     FRACTIONATION_SOURCE_ENDPOINT_PATH,
+    GASOLINE_GC_DATA_ENDPOINT_PATH,
     GCMS_ALKANES_DATA_ENDPOINT_PATH,
     GCMS_AROMATICS_DATA_ENDPOINT_PATH,
     GCMS_RATIOS_DATA_ENDPOINT_PATH,
@@ -260,6 +262,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (GCMS_AROMATICS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_AROMATICS),
         (GCMS_RATIOS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_RATIOS),
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
+        (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
     ],
 )
 @pytest.mark.asyncio
@@ -308,6 +311,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (GCMS_AROMATICS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_AROMATICS),
         (GCMS_RATIOS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_RATIOS),
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
+        (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
     ],
 )
 @pytest.mark.asyncio
@@ -356,6 +360,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (GCMS_AROMATICS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_AROMATICS),
         (GCMS_RATIOS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMS_RATIOS),
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
+        (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
     ],
 )
 @pytest.mark.asyncio
@@ -573,6 +578,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
+        ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1714,6 +1729,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             whole_oil_gc_mock_objects.TEST_DATA,
         ),
         (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1928,6 +1952,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
             whole_oil_gc_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            gasoline_gc_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2180,6 +2213,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
             whole_oil_gc_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            gasoline_gc_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2450,6 +2492,14 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
             whole_oil_gc_mock_objects.TEST_DATA,
         ),
+        (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2718,6 +2768,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
             whole_oil_gc_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2988,6 +3046,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", whole_oil_gc_mock_objects.TEST_DATA)],
             whole_oil_gc_mock_objects.TEST_DATA,
         ),
+        (
+            f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gasoline_gc_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gasoline_gc_mock_objects.TEST_DATA)],
+            gasoline_gc_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3228,6 +3294,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID,
             whole_oil_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gasoline_gc_mock_objects.TEST_DATA,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
+            gasoline_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3459,6 +3532,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID,
             whole_oil_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gasoline_gc_mock_objects.TEST_DATA,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
+            gasoline_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3632,6 +3712,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
             whole_oil_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3860,6 +3945,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             whole_oil_gc_mock_objects.TEST_DATA,
             whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID,
             whole_oil_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gasoline_gc_mock_objects.TEST_DATA,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
+            gasoline_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4094,6 +4186,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID,
             whole_oil_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gasoline_gc_mock_objects.TEST_DATA,
+            gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID,
+            gasoline_gc_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4145,6 +4244,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (GCMS_AROMATICS_DATA_ENDPOINT_PATH, gcms_aromatics_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (GCMS_RATIOS_DATA_ENDPOINT_PATH, gcms_ratios_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, whole_oil_gc_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (GASOLINE_GC_DATA_ENDPOINT_PATH, gasoline_gc_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -4310,7 +4410,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
             whole_oil_gc_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             whole_oil_gc_mock_objects.EXPECTED_ERROR_REASON,
-
+        ),
+        (
+            GASOLINE_GC_DATA_ENDPOINT_PATH,
+            gasoline_gc_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            gasoline_gc_mock_objects.EXPECTED_ERROR_REASON,
         ),
     ],
 )
@@ -4361,6 +4465,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{GCMS_AROMATICS_DATA_ENDPOINT_PATH}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{GCMS_RATIOS_DATA_ENDPOINT_PATH}/{gcms_ratios_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{WHOLE_OIL_GC_DATA_ENDPOINT_PATH}/{whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -4406,6 +4511,7 @@ async def test_rca_get_403(data_endpoint_path):
         GCMS_AROMATICS_DATA_ENDPOINT_PATH,
         GCMS_RATIOS_DATA_ENDPOINT_PATH,
         WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
+        GASOLINE_GC_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -4478,6 +4584,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         GCMS_AROMATICS_DATA_ENDPOINT_PATH,
         GCMS_RATIOS_DATA_ENDPOINT_PATH,
         WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
+        GASOLINE_GC_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -4529,6 +4636,7 @@ async def test_invalid_data_with_nan(path):
         (GCMS_AROMATICS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (GCMS_RATIOS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (GASOLINE_GC_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
