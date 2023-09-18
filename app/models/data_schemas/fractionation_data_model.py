@@ -77,7 +77,7 @@ class NonElutedPctOfWholeExtract(BaseModel):
     ] = None
 
 
-class WeightAlkanes(BaseModel):
+class MassAlkanes(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -86,7 +86,7 @@ class WeightAlkanes(BaseModel):
     ] = None
 
 
-class WeightAromatics(BaseModel):
+class MassAromatics(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -95,7 +95,7 @@ class WeightAromatics(BaseModel):
     ] = None
 
 
-class WeightResins(BaseModel):
+class MassResins(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -104,7 +104,7 @@ class WeightResins(BaseModel):
     ] = None
 
 
-class WeightAsphaltenes(BaseModel):
+class MassAsphaltenes(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -131,7 +131,7 @@ class NonHydrocarbonsPct(BaseModel):
     ] = None
 
 
-class WeightOfHydrocarbons(BaseModel):
+class MassOfHydrocarbons(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -140,7 +140,7 @@ class WeightOfHydrocarbons(BaseModel):
     ] = None
 
 
-class WeightOfNonHydrocarbons(BaseModel):
+class MassOfNonHydrocarbons(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -158,7 +158,7 @@ class NonHydrocarbonsEOM(BaseModel):
     ] = None
 
 
-class OilWeightInitial(BaseModel):
+class OilMassInitial(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -167,7 +167,7 @@ class OilWeightInitial(BaseModel):
     ] = None
 
 
-class OilWeightAfterTopping(BaseModel):
+class OilMassAfterTopping(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -185,7 +185,7 @@ class ToppingLossPct(BaseModel):
     ] = None
 
 
-class WeightOfLoadedAmount(BaseModel):
+class MassOfLoadedAmount(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -194,7 +194,7 @@ class WeightOfLoadedAmount(BaseModel):
     ] = None
 
 
-class RecoveryWeight(BaseModel):
+class RecoveryMass(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -212,7 +212,7 @@ class LossPct(BaseModel):
     ] = None
 
 
-class LossWeight(BaseModel):
+class LossMass(BaseModel):
     Value: Optional[float] = None
     UnitOfMeasure: Optional[
         constr(
@@ -322,23 +322,23 @@ class Model(BaseModel):
     AromaticsPctofWholeExtract: Optional[AromaticsPctofWholeExtract] = None
     NSOPctOfWholeExtract: Optional[NSOPctOfWholeExtract] = None
     NonElutedPctOfWholeExtract: Optional[NonElutedPctOfWholeExtract] = None
-    WeightAlkanes: Optional[WeightAlkanes] = None
-    WeightAromatics: Optional[WeightAromatics] = None
-    WeightResins: Optional[WeightResins] = None
-    WeightAsphaltenes: Optional[WeightAsphaltenes] = None
+    MassAlkanes: Optional[MassAlkanes] = None
+    MassAromatics: Optional[MassAromatics] = None
+    MassResins: Optional[MassResins] = None
+    MassAsphaltenes: Optional[MassAsphaltenes] = None
     RecoveryPct: Optional[RecoveryPct] = None
     NonHydrocarbonsPct: Optional[NonHydrocarbonsPct] = None
-    WeightOfHydrocarbons: Optional[WeightOfHydrocarbons] = None
-    WeightOfNonHydrocarbons: Optional[WeightOfNonHydrocarbons] = None
+    MassOfHydrocarbons: Optional[MassOfHydrocarbons] = None
+    MassOfNonHydrocarbons: Optional[MassOfNonHydrocarbons] = None
     NonHydrocarbonsToHydrocarbonsRatio: Optional[float] = None
     NonHydrocarbonsEOM: Optional[NonHydrocarbonsEOM] = None
-    OilWeightInitial: Optional[OilWeightInitial] = None
-    OilWeightAfterTopping: Optional[OilWeightAfterTopping] = None
+    OilMassInitial: Optional[OilMassInitial] = None
+    OilMassAfterTopping: Optional[OilMassAfterTopping] = None
     ToppingLossPct: Optional[ToppingLossPct] = None
-    WeightOfLoadedAmount: Optional[WeightOfLoadedAmount] = None
-    RecoveryWeight: Optional[RecoveryWeight] = None
+    MassOfLoadedAmount: Optional[MassOfLoadedAmount] = None
+    RecoveryMass: Optional[RecoveryMass] = None
     LossPct: Optional[LossPct] = None
-    LossWeight: Optional[LossWeight] = None
+    LossMass: Optional[LossMass] = None
     SaturateNormalizedPct: Optional[SaturateNormalizedPct] = None
     AromaticNormalizedPct: Optional[AromaticNormalizedPct] = None
     NSONormalizedPct: Optional[NSONormalizedPct] = None

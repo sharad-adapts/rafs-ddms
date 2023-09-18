@@ -2,9 +2,9 @@
     "columns": [
         "SamplesAnalysisID",
         "SamplesID",
-        "WeightOfRockExtracted",
-        "WeightOfExtract",
-        "ExtractByRockWeight",
+        "MassOfRockExtracted",
+        "MassOfExtract",
+        "ExtractByRockMass",
         "ExtractOfTotalOrganicCarbon",
         "HydrocarbonOfExtractByWeight",
         "HydrocarbonsToTotalExtractRatio",
