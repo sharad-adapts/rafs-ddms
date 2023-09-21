@@ -8,7 +8,7 @@ This software includes the following software and licenses:
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.4.0/, https://pypi.org/project/typing-extensions/4.7.1/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.4.0/, https://pypi.org/project/typing-extensions/4.8.0/)
 
 ========================================================================
 Apache-2.0
@@ -17,7 +17,7 @@ The following software have components provided under the terms of this license:
 
 - aiohttp (from https://github.com/aio-libs/aiohttp, https://github.com/aio-libs/aiohttp/)
 - aiosignal (from https://github.com/aio-libs/aiosignal)
-- async-timeout (from https://github.com/aio-libs/async-timeout)
+- async-timeout (from https://github.com/aio-libs/async-timeout, https://github.com/aio-libs/async_timeout/)
 - azure-storage-blob (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob)
 - cryptography (from https://github.com/pyca/cryptography)
 - fastapi-cache2 (from https://github.com/long2ice/fastapi-cache)
@@ -55,7 +55,7 @@ The following software have components provided under the terms of this license:
 
 - click (from https://palletsprojects.com/p/click/)
 - cryptography (from https://github.com/pyca/cryptography)
-- httpcore (from https://pypi.org/project/httpcore/0.18.0/)
+- httpcore (from https://github.com/encode/httpcore, https://pypi.org/project/httpcore/0.18.0/)
 - httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.25.0/)
 - idna (from https://pypi.org/project/idna/3.4/)
 - isodate (from http://cheeseshop.python.org/pypi/isodate, https://github.com/gweis/isodate/)
@@ -68,7 +68,7 @@ The following software have components provided under the terms of this license:
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
-- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.31.0/)
+- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.31.1/)
 - uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.23.2/, https://www.uvicorn.org/)
 
 ========================================================================
@@ -120,7 +120,7 @@ The following software have components provided under the terms of this license:
 - six (from http://pypi.python.org/pypi/six/, https://github.com/benjaminp/six)
 - sniffio (from https://github.com/python-trio/sniffio)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.4/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.0.5/)
 
 ========================================================================
 MPL-2.0
@@ -152,8 +152,8 @@ The following software have components provided under the terms of this license:
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - python-dateutil (from https://github.com/dateutil/dateutil)
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.4.0/, https://pypi.org/project/typing-extensions/4.7.1/)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.4/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.4.0/, https://pypi.org/project/typing-extensions/4.8.0/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.0.5/)
 
 ========================================================================
 SunPro
