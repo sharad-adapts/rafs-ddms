@@ -1,6 +1,6 @@
 # Using https://community.opengroup.org/osdu/platform/deployment-and-operations/helm-charts-azure/-/tree/master/osdu-ddms/standard-ddms for simplicity
-## helm template "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -f values.yaml
-## helm upgrade "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -f values.yaml
+## helm template "oci://msosdu.azurecr.io/helm/standard-ddms" --version <version/1.1x.0> -f values.yaml
+## helm upgrade "oci://msosdu.azurecr.io/helm/standard-ddms" --version <version/1.1x.0> -f values.yaml
 
 deployment:
   replicaCount: 1
@@ -44,7 +44,6 @@ configuration:
       SERVICE_HOST_SEARCH: "http://search.osdu/api/search/v2"
       SERVICE_HOST_PARTITION: "http://partition.osdu/api/partition/v1"
       SERVICE_HOST_DATASET: "http://dataset.osdu/api/dataset/v1"
-      USE_PARTITION_SERVICE: "disabled"
       CACHE_ENABLE: "True"
       CACHE_BACKEND: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
       REDIS_DATABASE: "13"
