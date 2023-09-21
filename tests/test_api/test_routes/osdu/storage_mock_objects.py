@@ -632,6 +632,7 @@ GCMS_AROMATICS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gcmsaromatics"
 GCMS_RATIOS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gcmsratios"
 WHOLE_OIL_GC_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/wholeoilgaschromatographyanalyses"
 GASOLINE_GC_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gasolinegaschromatographyanalyses"
+GAS_COMPOSITION_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gascompositionanalyses"
 
 
 class BulkDatasetId(NamedTuple):
@@ -666,3 +667,4 @@ class BulkDatasetId(NamedTuple):
     GCMS_RATIOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:gcmsratios-{TEST_DATASET_UID}"
     WHOLE_OIL_GC = f"{PARTITION}:{FILE_GENERIC_TYPE}:wholeoilgaschromatographyanalyses-{TEST_DATASET_UID}"
     GASOLINE_GC = f"{PARTITION}:{FILE_GENERIC_TYPE}:gasolinegaschromatographyanalyses-{TEST_DATASET_UID}"
+    GAS_COMPOSITION = f"{PARTITION}:{FILE_GENERIC_TYPE}:gascompositionanalyses-{TEST_DATASET_UID}"
