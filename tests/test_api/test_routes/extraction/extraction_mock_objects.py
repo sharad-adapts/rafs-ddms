@@ -49,10 +49,10 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "WeightOfRockExtracted.Value,sum",
+    "columns_aggregation": "MassOfRockExtracted.Value,sum",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,WeightOfRockExtracted,WeightOfExtract",
+    "columns_filter": "SamplesAnalysisID,MassOfRockExtracted,MassOfExtract",
     "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:extraction-test:",
 }
 
@@ -61,7 +61,7 @@ with open(f"{dir_path}/extraction_test_data_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "WeightOfRockExtracted",
+        "MassOfRockExtracted",
     ],
     "index": [
         "sum",
@@ -76,8 +76,8 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
-        "WeightOfRockExtracted",
-        "WeightOfExtract",
+        "MassOfRockExtracted",
+        "MassOfExtract",
     ],
     "index": [
         0,

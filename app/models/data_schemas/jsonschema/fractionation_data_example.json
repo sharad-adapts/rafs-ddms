@@ -25,19 +25,19 @@
         "Value": 0.0063,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
     },
-    "WeightAlkanes": {
+    "MassAlkanes": {
         "Value": 0.0085,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "WeightAromatics": {
+    "MassAromatics": {
         "Value": 0.0068,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "WeightResins": {
+    "MassResins": {
         "Value": 0.0045,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "WeightAsphaltenes": {
+    "MassAsphaltenes": {
         "Value": 0.0097,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
@@ -49,11 +49,11 @@
         "Value": 0.0025,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
     },
-    "WeightOfHydrocarbons": {
+    "MassOfHydrocarbons": {
         "Value": 0.000984,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "WeightOfNonHydrocarbons": {
+    "MassOfNonHydrocarbons": {
         "Value": 0.000784,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
@@ -62,11 +62,11 @@
         "Value": 0.0095,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
     },
-    "OilWeightInitial": {
+    "OilMassInitial": {
         "Value": 0.0000964,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "OilWeightAfterTopping": {
+    "OilMassAfterTopping": {
         "Value": 0.0084,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
@@ -74,11 +74,11 @@
         "Value": 0.00784,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
     },
-    "WeightOfLoadedAmount": {
+    "MassOfLoadedAmount": {
         "Value": 0.00078,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
-    "RecoveryWeight": {
+    "RecoveryMass": {
         "Value": 0.0071,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },
@@ -86,7 +86,7 @@
         "Value": 0.0069,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
     },
-    "LossWeight": {
+    "LossMass": {
         "Value": 0.0098,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
     },

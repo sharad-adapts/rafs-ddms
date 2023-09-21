@@ -54,11 +54,11 @@
                 "Extraction"
             ],
             "AvailableSampleAnalysisProperties": [
-                "WeightOfRockExtracted",
-                "WeightOfExtract",
-                "WeightOfRockExtractedPpm",
+                "MassOfRockExtracted",
+                "MassOfExtract",
+                "MassOfRockExtractedPpm",
                 "PctPfTotalOrganicCarbonExtracted",
-                "WeightOfHydrocarbonsExtractedPpm",
+                "MassOfHydrocarbonsExtractedPpm",
                 "HydrocarbonsToTotalExtractRatio",
                 "AlkanesToHydrocarbonsRatio"
             ],
