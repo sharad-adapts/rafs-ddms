@@ -55,8 +55,8 @@ The following software have components provided under the terms of this license:
 
 - click (from https://palletsprojects.com/p/click/)
 - cryptography (from https://github.com/pyca/cryptography)
-- httpcore (from https://github.com/encode/httpcore)
-- httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.24.1/)
+- httpcore (from https://pypi.org/project/httpcore/0.18.0/)
+- httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.25.0/)
 - idna (from https://pypi.org/project/idna/3.4/)
 - isodate (from http://cheeseshop.python.org/pypi/isodate, https://github.com/gweis/isodate/)
 - numpy

@@ -40,6 +40,7 @@ ingress_dns='...' # kubectl get ingress -n osdu-azure / kubectl get virtualservi
 azure_acr='<acr.domain.name>' # The acr name I.E osdumvpcr{{company}}ajlhcr.azurecr.io
 GROUP=$(az group list --query "[?contains(name, 'cr${UNIQUE}')].name" -otsv)
 ENV_VAULT=$(az keyvault list --resource-group $GROUP --query [].name -otsv)
+HELM_DDMS_VERSION=<1.18.0>  # It started with standard-ddms 1.18.0, however, it should be the last one
 
 azure_tenant=$(az keyvault secret show --id https://${ENV_VAULT}.vault.azure.net/secrets/tenant-id --query value -otsv)
 azure_subscription=$(az keyvault secret show --id https://${ENV_VAULT}.vault.azure.net/secrets/subscription-id --query value -otsv)
@@ -59,7 +60,7 @@ az aks get-credentials --resource-group $azure_resourcegroup --name <azure_kuber
 Rafdms has its own values file, dry run template
 
 ```bash
-helm template "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -f devops/azure/values.yaml
+helm template "oci://msosdu.azurecr.io/helm/standard-ddms" --version ${HELM_DDMS_VERSION} -f devops/azure/values.yaml
 ```
 
 Install the helm chart.
@@ -70,7 +71,7 @@ kubectl create namespace $namespace && \
 kubectl label namespace $namespace istio-injection=enabled
 
 # Example of deployment for Wellbore DDMS
-helm upgrade -i ${ddms}-services "oci://msosdu.azurecr.io/helm/standard-ddms" --version 1.18.0-r -n $namespace \
+helm upgrade -i ${ddms}-services "oci://msosdu.azurecr.io/helm/standard-ddms" --version ${HELM_DDMS_VERSION} -n $namespace \
   -f devops/azure/values.yaml \
   --set azure.tenant=$azure_tenant \
   --set azure.subscription=$azure_subscription \

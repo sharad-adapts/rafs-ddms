@@ -66,7 +66,10 @@ SERVICE_HOST_STORAGE="${API_BASE_URL}/api/storage/v2"
 
 #### Cache settings
 
+> NOTE: Redis Cache it is a NFR, it is used to improve resiliency and performance.
+
 It is needed to add the following variables to .env to set up cache layer:
+
 ```
 CACHE_ENABLE=True
 CACHE_BACKEND="app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
