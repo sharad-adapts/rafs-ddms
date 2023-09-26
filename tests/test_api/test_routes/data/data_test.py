@@ -84,6 +84,9 @@ from tests.test_api.test_routes.gcms_ratios import gcms_ratios_mock_objects
 from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
 )
+from tests.test_api.test_routes.isotope_analysis import (
+    isotope_analysis_mock_objects,
+)
 from tests.test_api.test_routes.mcm import mcm_mock_objects
 from tests.test_api.test_routes.mercuryinjection import (
     mercuryinjection_mock_objects,
@@ -118,6 +121,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     GCMS_RATIOS_DATA_ENDPOINT_PATH,
     INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
     INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH,
+    ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
     MCM_DATA_ENDPOINT_PATH,
     MCM_SOURCE_ENDPOINT_PATH,
     MERCURY_INJECTION_DATA_ENDPOINT_PATH,
@@ -268,6 +272,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
         (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
+        (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -318,6 +323,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
         (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
+        (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -368,6 +374,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, BulkDatasetId.WHOLE_OIL_GC),
         (GASOLINE_GC_DATA_ENDPOINT_PATH, BulkDatasetId.GASOLINE_GC),
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
+        (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -605,6 +612,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
+        ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1764,6 +1781,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             gas_composition_mock_objects.TEST_DATA,
         ),
         (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1996,6 +2022,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
             gas_composition_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            isotope_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2266,6 +2301,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
             gas_composition_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            isotope_analysis_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2552,6 +2596,14 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
             gas_composition_mock_objects.TEST_DATA,
         ),
+        (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2836,6 +2888,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
             gas_composition_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3122,6 +3182,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", gas_composition_mock_objects.TEST_DATA)],
             gas_composition_mock_objects.TEST_DATA,
         ),
+        (
+            f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [isotope_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            isotope_analysis_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3376,6 +3444,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             gas_composition_mock_objects.TEST_DATASET_RECORD_ID,
             gas_composition_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotope_analysis_mock_objects.TEST_DATA,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3621,6 +3696,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             gas_composition_mock_objects.TEST_DATASET_RECORD_ID,
             gas_composition_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotope_analysis_mock_objects.TEST_DATA,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3804,6 +3886,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             GAS_COMPOSITION_DATA_ENDPOINT_PATH,
             gas_composition_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gas_composition_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4046,6 +4133,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             gas_composition_mock_objects.TEST_DATA,
             gas_composition_mock_objects.TEST_DATASET_RECORD_ID,
             gas_composition_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotope_analysis_mock_objects.TEST_DATA,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4294,6 +4388,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             gas_composition_mock_objects.TEST_DATASET_RECORD_ID,
             gas_composition_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotope_analysis_mock_objects.TEST_DATA,
+            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4347,6 +4448,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, whole_oil_gc_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (GASOLINE_GC_DATA_ENDPOINT_PATH, gasoline_gc_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, gas_composition_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, isotope_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -4523,6 +4625,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             gas_composition_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             gas_composition_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
+            isotope_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            isotope_analysis_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4574,6 +4681,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{WHOLE_OIL_GC_DATA_ENDPOINT_PATH}/{whole_oil_gc_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{GASOLINE_GC_DATA_ENDPOINT_PATH}/{gasoline_gc_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{GAS_COMPOSITION_DATA_ENDPOINT_PATH}/{gas_composition_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -4621,6 +4729,7 @@ async def test_rca_get_403(data_endpoint_path):
         WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
         GASOLINE_GC_DATA_ENDPOINT_PATH,
         GAS_COMPOSITION_DATA_ENDPOINT_PATH,
+        ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -4695,6 +4804,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         WHOLE_OIL_GC_DATA_ENDPOINT_PATH,
         GASOLINE_GC_DATA_ENDPOINT_PATH,
         GAS_COMPOSITION_DATA_ENDPOINT_PATH,
+        ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -4748,6 +4858,7 @@ async def test_invalid_data_with_nan(path):
         (WHOLE_OIL_GC_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (GASOLINE_GC_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
