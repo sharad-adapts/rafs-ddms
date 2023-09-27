@@ -45,6 +45,7 @@ from app.models.data_schemas.gcms_aromatics_data_model import Model as GCMSAroma
 from app.models.data_schemas.gcms_ratios_data_model import Model as GCMSRatiosModel
 from app.models.data_schemas.whole_oil_gc_data_model import Model as WholeOilGCModel
 from app.models.data_schemas.gasoline_gc_data_model import Model as GasolineGCModel
+from app.models.data_schemas.gas_composition_data_model import Model as GasCompositionModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -143,6 +144,9 @@ WHOLE_OIL_GC_MODELS = {
 GASOLINE_GC_MODELS = {
     ContentShemaVersion.V_1_0_0: GasolineGCModel,
 }
+GAS_COMPOSITION_MODELS = {
+    ContentShemaVersion.V_1_0_0: GasCompositionModel,
+}
 PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
     CommonRelativePaths.CCE: CCE_MODELS,
@@ -175,4 +179,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     CommonRelativePaths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
     CommonRelativePaths.WHOLE_OIL_GC: WHOLE_OIL_GC_MODELS,
     CommonRelativePaths.GASOLINE_GC: GASOLINE_GC_MODELS,
+    CommonRelativePaths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
 }

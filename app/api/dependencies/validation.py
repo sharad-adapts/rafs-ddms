@@ -303,6 +303,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
         CommonRelativePaths.GCMS_RATIOS,
         CommonRelativePaths.WHOLE_OIL_GC,
         CommonRelativePaths.GASOLINE_GC,
+        CommonRelativePaths.GAS_COMPOSITION,
     )
 
     version_models = None
