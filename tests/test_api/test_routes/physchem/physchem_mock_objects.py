@@ -108,7 +108,7 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()
-EXPECTED_ERROR_REASON = "Data error: 76 columns passed, passed data had 75 columns"
+EXPECTED_ERROR_REASON = "Data error: 77 columns passed, passed data had 76 columns"
 
 
 TEST_WRONG_COLUMNS_FILTERS = [

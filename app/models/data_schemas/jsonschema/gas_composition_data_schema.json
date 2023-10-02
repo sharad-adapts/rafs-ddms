@@ -12,7 +12,8 @@
         },
         "Method": {
             "type": "string",
-            "description": "The sample analysis method used for this analysis"
+            "description": "The sample analysis method used for this analysis",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "GasComposition": {
             "title": "Gas Composition",

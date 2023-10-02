@@ -169,9 +169,11 @@ class Model(BaseModel):
         regex=r"^[\w\-\.]+:work-product-component\-\-SamplesAnalysis:[\w\-\.\:\%]+:[0-9]*$"
     )
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
-    Method: Optional[str] = Field(
-        None, description="The sample analysis method used for this analysis"
-    )
+    Method: Optional[
+        constr(
+            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+        )
+    ] = Field(None, description="The sample analysis method used for this analysis")
     GasComposition: Optional[List[GasCompositionItem]] = Field(
         None,
         description="The relative abundance of hydrocarbon gases measured using gas chromatography",

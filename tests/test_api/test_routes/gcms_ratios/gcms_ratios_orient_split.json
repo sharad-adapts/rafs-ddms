@@ -2,6 +2,7 @@
   "columns": [
       "SamplesAnalysisID",
       "SampleID",
+      "Method",
       "CompoundsRatios"
   ],
   "index": [
@@ -11,6 +12,7 @@
       [
           "opendes:work-product-component--SamplesAnalysis:GCMS_Ratios_Example:",
           "opendes:master-data--Sample:GCMS_Sample:",
+          "opendes:reference-data--GeochemistryMethod:HAWK:",
           [
               {
                   "RatioCode": "opendes:reference-data--CompoundsRatios:iprbenz_e1m3benzene:",

@@ -1,6 +1,7 @@
 {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Gasoline_GC_Example:",
     "SampleID": "opendes:master-data--Sample:GasolineGC_Sample:",
+    "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
     "GasolineCompounds": [
         {
             "CompoundCode": "opendes:reference-data--GasolineCompounds:nc3:",

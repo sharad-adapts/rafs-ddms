@@ -2,6 +2,7 @@
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
+        "Method",
         "MassOfRockExtracted",
         "MassOfExtract",
         "ExtractByRockMass",
@@ -14,6 +15,7 @@
         [
             "opendes:work-product-component--SamplesAnalysis:extraction-test:",
             "opendes:master-data--Sample:05ff4cc6-cd0f-4b42-9396-2ed1c6988343:",
+            "opendes:reference-data--GeochemistryMethod:HAWK:",
             {
                 "Value": 3.005,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"

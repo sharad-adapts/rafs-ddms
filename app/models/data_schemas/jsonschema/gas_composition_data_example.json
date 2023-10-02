@@ -1,7 +1,7 @@
 {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GasComposition_WPC:",
     "SampleID": "opendes:master-data--Sample:GasCompositionSample:",
-    "Method": "SampleMethod",
+    "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
     "GasComposition": [
       {
         "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",

@@ -1,6 +1,7 @@
 {
   "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Aromatics_Example:",
   "SampleID": "opendes:master-data--Sample:test:",
+  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
   "AromaticCompounds": [
     {
       "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",

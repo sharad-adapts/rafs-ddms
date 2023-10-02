@@ -1,6 +1,7 @@
 {
   "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Alkanes_Example:",
   "SampleID": "opendes:master-data--Sample:TestSample:",
+  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
   "SaturateCompounds": [
     {
       "CompoundCode": "opendes:reference-data--SaturateCompounds:chol5b:",
