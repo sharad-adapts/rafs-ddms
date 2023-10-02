@@ -2,6 +2,7 @@
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
+        "Method",
         "WholeOilCompounds",
         "StdCompound"
     ],
@@ -12,6 +13,7 @@
         [
             "opendes:work-product-component--SamplesAnalysis:WholeOilGC_Example:",
             "opendes:master-data--Sample:WholeOilGC_Sample:",
+            "opendes:reference-data--GeochemistryMethod:HAWK:",
             [
                 {
                     "CompoundCode": "opendes:reference-data--WholeOilGasChromatographyCompounds:cis_14_dmch:",

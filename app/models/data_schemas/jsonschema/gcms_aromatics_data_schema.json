@@ -10,6 +10,11 @@
       "type": "string",
       "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
+    "Method": {
+      "type": "string",
+      "description": "The sample analysis method used for this analysis",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+    },
     "AromaticCompounds": {
       "title": "Aromatic Compounds",
       "description": "The aromatic hydrocarbon compounds fraction analysis",

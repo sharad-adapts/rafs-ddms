@@ -2,6 +2,7 @@
   "columns": [
     "SamplesAnalysisID",
     "SampleID",
+    "Method",
     "AromaticCompounds",
     "StdCompound"
   ],
@@ -12,6 +13,7 @@
     [
       "opendes:work-product-component--SamplesAnalysis:test:",
       "opendes:master-data--Sample:test:",
+      "opendes:reference-data--GeochemistryMethod:HAWK:",
       [
         {
           "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",

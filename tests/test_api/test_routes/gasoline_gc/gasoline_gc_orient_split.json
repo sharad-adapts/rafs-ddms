@@ -2,6 +2,7 @@
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
+        "Method",
         "GasolineCompounds"
     ],
     "index": [
@@ -11,6 +12,7 @@
         [
             "opendes:work-product-component--SamplesAnalysis:GasolineGC_Example:",
             "opendes:master-data--Sample:GasolineGC_Sample:",
+            "opendes:reference-data--GeochemistryMethod:HAWK:",
             [
                 {
                     "CompoundCode": "opendes:reference-data--GasolineCompounds:nc3:",

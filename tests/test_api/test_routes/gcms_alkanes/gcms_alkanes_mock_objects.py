@@ -107,4 +107,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting StdCompound in index row 0
-EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"
+EXPECTED_ERROR_REASON = "Data error: 5 columns passed, passed data had 4 columns"

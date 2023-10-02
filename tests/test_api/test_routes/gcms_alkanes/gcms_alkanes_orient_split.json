@@ -2,6 +2,7 @@
   "columns": [
     "SamplesAnalysisID",
     "SampleID",
+    "Method",
     "SaturateCompounds",
     "StdCompound"
   ],
@@ -12,6 +13,7 @@
     [
       "opendes:work-product-component--SamplesAnalysis:SamplesAnalysisIDTest:",
       "opendes:master-data--Sample:TestSample:",
+      "opendes:reference-data--GeochemistryMethod:HAWK:",
       [
         {
           "CompoundCode": "opendes:reference-data--SaturateCompounds:chol5b:",
