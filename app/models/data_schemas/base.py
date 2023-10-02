@@ -46,6 +46,7 @@ from app.models.data_schemas.gcms_ratios_data_model import Model as GCMSRatiosMo
 from app.models.data_schemas.whole_oil_gc_data_model import Model as WholeOilGCModel
 from app.models.data_schemas.gasoline_gc_data_model import Model as GasolineGCModel
 from app.models.data_schemas.gas_composition_data_model import Model as GasCompositionModel
+from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentShemaVersion(NamedTuple):
@@ -147,37 +148,43 @@ GASOLINE_GC_MODELS = {
 GAS_COMPOSITION_MODELS = {
     ContentShemaVersion.V_1_0_0: GasCompositionModel,
 }
+ISOTOPE_ANALYSIS_MODELS = {
+    ContentShemaVersion.V_1_0_0: IsotopeAnalysisModel,
+}
+
+common_relative_paths = CommonRelativePaths()
 PATH_TO_DATA_MODEL_VERSIONS = {
-    CommonRelativePaths.ROUTINECOREANALYSIS: RCA_MODELS,
-    CommonRelativePaths.CCE: CCE_MODELS,
-    CommonRelativePaths.DIF_LIB: DIFF_LIB_MODELS,
-    CommonRelativePaths.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
-    CommonRelativePaths.MSS: MSS_MODELS,
-    CommonRelativePaths.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
-    CommonRelativePaths.SWELLING: SWELLING_TEST_MODELS,
-    CommonRelativePaths.CVD: CVD_MODELS,
-    CommonRelativePaths.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
-    CommonRelativePaths.INTERFACIAL_TENSION: INTERFACIAL_TENSION_MODELS,
-    CommonRelativePaths.STO_ANALYSIS: STO_ANALYSIS_MODELS,
-    CommonRelativePaths.VLE: VLE_MODELS,
-    CommonRelativePaths.MCM: MCM_ANALYSIS_MODELS,
-    CommonRelativePaths.SLIMTUBETEST: SLIMTUBETEST_MODELS,
-    CommonRelativePaths.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
-    CommonRelativePaths.CAP_PRESSURE: CAP_PRESSURE_MODELS,
-    CommonRelativePaths.FRACTIONATION: FRACTIONATION_MODELS,
-    CommonRelativePaths.EXTRACTION: EXTRACTION_MODELS,
-    CommonRelativePaths.PHYS_CHEM: PHYS_CHEM_MODELS,
-    CommonRelativePaths.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
-    CommonRelativePaths.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
-    CommonRelativePaths.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
-    CommonRelativePaths.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
-    CommonRelativePaths.NMR: NMR_MODELS,
-    CommonRelativePaths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
-    CommonRelativePaths.GCMS_ALKANES: GCMS_ALKANES_MODELS,
-    CommonRelativePaths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
-    CommonRelativePaths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
-    CommonRelativePaths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
-    CommonRelativePaths.WHOLE_OIL_GC: WHOLE_OIL_GC_MODELS,
-    CommonRelativePaths.GASOLINE_GC: GASOLINE_GC_MODELS,
-    CommonRelativePaths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
+    common_relative_paths.ROUTINECOREANALYSIS: RCA_MODELS,
+    common_relative_paths.CCE: CCE_MODELS,
+    common_relative_paths.DIF_LIB: DIFF_LIB_MODELS,
+    common_relative_paths.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
+    common_relative_paths.MSS: MSS_MODELS,
+    common_relative_paths.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
+    common_relative_paths.SWELLING: SWELLING_TEST_MODELS,
+    common_relative_paths.CVD: CVD_MODELS,
+    common_relative_paths.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
+    common_relative_paths.INTERFACIAL_TENSION: INTERFACIAL_TENSION_MODELS,
+    common_relative_paths.STO_ANALYSIS: STO_ANALYSIS_MODELS,
+    common_relative_paths.VLE: VLE_MODELS,
+    common_relative_paths.MCM: MCM_ANALYSIS_MODELS,
+    common_relative_paths.SLIMTUBETEST: SLIMTUBETEST_MODELS,
+    common_relative_paths.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
+    common_relative_paths.CAP_PRESSURE: CAP_PRESSURE_MODELS,
+    common_relative_paths.FRACTIONATION: FRACTIONATION_MODELS,
+    common_relative_paths.EXTRACTION: EXTRACTION_MODELS,
+    common_relative_paths.PHYS_CHEM: PHYS_CHEM_MODELS,
+    common_relative_paths.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
+    common_relative_paths.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
+    common_relative_paths.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
+    common_relative_paths.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
+    common_relative_paths.NMR: NMR_MODELS,
+    common_relative_paths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
+    common_relative_paths.GCMS_ALKANES: GCMS_ALKANES_MODELS,
+    common_relative_paths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
+    common_relative_paths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
+    common_relative_paths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
+    common_relative_paths.WHOLE_OIL_GC: WHOLE_OIL_GC_MODELS,
+    common_relative_paths.GASOLINE_GC: GASOLINE_GC_MODELS,
+    common_relative_paths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
+    common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
 }
