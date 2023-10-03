@@ -24,10 +24,10 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:gasolinegaschromatographyanalyses-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/gasolinegaschromatographyanalysesdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:gaschromatographyanalyses-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/gaschromatographyanalysesdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
-TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/gasolinegaschromatographyanalysesdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
+TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/gaschromatographyanalysesdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
@@ -54,10 +54,10 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:GasolineGC_Sample:",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:GasChromatography_Sample:",
 }
 
-with open(f"{dir_path}/gasoline_gc_orient_split.json") as fp:
+with open(f"{dir_path}/gas_chromatography_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -84,8 +84,8 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:GasolineGC_Example:",
-            "opendes:master-data--Sample:GasolineGC_Sample:",
+            "opendes:work-product-component--SamplesAnalysis:GasChromatography_WPC:",
+            "opendes:master-data--Sample:GasChromatography_Sample:",
         ],
     ],
 }
@@ -106,5 +106,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting GasolineCompound in index row 0
-EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting StdCompound in index row 0
+EXPECTED_ERROR_REASON = "Data error: 5 columns passed, passed data had 4 columns"

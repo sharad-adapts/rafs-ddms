@@ -1,0 +1,168 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "Method",
+        "GasChromatographyAnalysis",
+        "StdCompound"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "opendes:work-product-component--SamplesAnalysis:GasChromatography_WPC:",
+            "opendes:master-data--Sample:GasChromatography_Sample:",
+            "opendes:reference-data--GeochemistryMethod:LECO:",
+            [
+                {
+                    "CompoundCode": "opendes:reference-data--WholeOilGasChromatographyCompounds:ic4:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--SaturateGasChromatographyCompounds:pristane:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--PyrolysisGasChromatographyCompounds:c2_c5:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--GasolineGasChromatographyCompounds:oxyl:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--AromaticGasChromatographyCompounds:mn2:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "CompoundCode": "opendes:reference-data--WholeOilGasChromatographyCompounds:dmc7_23:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:",
+                            "Type": "Standard2"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--GasolineGasChromatographyCompounds:nc5:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:",
+                            "Type": "Standard2"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--SaturateGasChromatographyCompounds:pristane:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:",
+                            "Type": "Standard2"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--PyrolysisGasChromatographyCompounds:c2_c5:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:",
+                            "Type": "Standard2"
+                        }
+                    ]
+                },
+                {
+                    "CompoundCode": "opendes:reference-data--AromaticGasChromatographyCompounds:mn2:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:",
+                            "Type": "Standard2"
+                        }
+                    ]
+                }
+            ]
+        ]
+    ]
+}
