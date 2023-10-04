@@ -1,16 +1,11 @@
 {
     "columns": [
         "SamplesAnalysisID",
-        "SamplesID",
-        "MassOfRockExtracted",
-        "MassOfExtract",
-        "ExtractByRockMass",
-        "ExtractOfTotalOrganicCarbon",
-        "HydrocarbonOfExtractByWeight",
-        "HydrocarbonsToTotalExtractRatio",
-        "HydrocarbonWeight",
-        "HydrocarbonsToNonHydrocarbonRatio",
-        "YieldPoint"
+        "SampleID",
+        "WeightOfRockExtracted",
+        "WeightOfExtract",
+        "ExtractByRockWeight",
+        "ExtractOfTotalOrganicCarbon"
     ],
     "index": [
         0
@@ -18,13 +13,13 @@
     "data": [
         [
             "{data_partition_id}:work-product-component--SamplesAnalysis:WrongID1:",
-            "{data_partition_id}:master-data--SamplesID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
+            "{data_partition_id}:master-data--Sample:BP206-12a-5-Sample-154655:",
             {
-                "Value": 3.005,
+                "Value": 10.166,
                 "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID2:"
             },
             {
-                "Value": 2.981,
+                "Value": 11,
                 "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID3:"
             },
             {
@@ -32,22 +27,8 @@
                 "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID4:"
             },
             {
-                "Value": 99.220,
-                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5:"
-            },
-            {
                 "Value": null,
-                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID6:"
-            },
-            0.97,
-            {
-                "Value": 2.892,
-                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID7:"
-            },
-            null,
-            {
-                "Value": 992.245,
-                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID8:"
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5:"
             }
         ]
     ]

@@ -1,7 +1,7 @@
 {
     "columns": [
         "SamplesAnalysisID",
-        "SamplesID",
+        "SampleID",
         "ApiGravity",
         "ApiGravityRemarks",
         "VolatileContentOfOil",
@@ -83,7 +83,7 @@
     "data": [
         [
             "{data_partition_id}:work-product-component--SamplesAnalysis:{record_id}:",
-            "{data_partition_id}:master-data--Samples:PhysChemDevTest:",
+            "{data_partition_id}:master-data--Sample:PhysChemDevTest:",
             {
                 "Value": 32.5,
                 "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:dAPI:"
