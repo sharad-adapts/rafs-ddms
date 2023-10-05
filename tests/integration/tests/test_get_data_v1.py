@@ -1,0 +1,285 @@
+import copy
+import random
+
+import pytest
+from starlette import status
+
+from app.api.routes.utils.records import generate_dataset_urn
+from tests.integration.config import (
+    ACCEPT_HEADERS,
+    PARQUET_HEADERS,
+    SCHEMA_VERSION,
+    DataFiles,
+    DatasetPrefix,
+    DataTemplates,
+    DataTypes,
+)
+from tests.test_api.api_version import API_VERSION
+
+
+@pytest.mark.skip(reason="issues/158")
+@pytest.mark.parametrize(
+    "data_file_name, measurements_file, api_path, id_template", [
+        (DataFiles.RSA, DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_as_parquet(
+    api, helper, tests_data, create_record, data_file_name, measurements_file,
+    api_path, id_template,
+):
+    record_data, created_record = create_record(api_path, data_file_name, id_template)
+
+    full_dataset_id = getattr(api, api_path).post_measurements(record_data["id"], tests_data(measurements_file))[
+        "ddms_urn"
+    ]
+    dataset_id = helper.get_dataset_id_from_ddms_urn(full_dataset_id)
+
+    measurements = getattr(api, api_path).get_measurements(
+        record_data["id"],
+        dataset_id,
+        headers=PARQUET_HEADERS,
+    )
+
+    # parquet is a binary file
+    assert isinstance(measurements, bytes)
+
+
+@pytest.mark.skip(reason="issues/158")
+@pytest.mark.parametrize(
+    "data_file_name, measurements_file, api_path, id_template", [
+        (DataFiles.RSA, DataFiles.RCA, DataTypes.RSA, DataTemplates.ID_RSA),
+        (DataFiles.CCE, DataFiles.CCE_DATA, DataTypes.CCE, DataTemplates.ID_CCE),
+        (DataFiles.DIF_LIB, DataFiles.DIF_LIB_DATA, DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB),
+        (DataFiles.CA, DataFiles.CA_DATA, DataTypes.CA, DataTemplates.ID_CA),
+        (DataFiles.CVD, DataFiles.CVD_DATA, DataTypes.CVD, DataTemplates.ID_CVD),
+        (DataFiles.IT, DataFiles.IT_DATA, DataTypes.IT, DataTemplates.ID_IT),
+        (DataFiles.MSS, DataFiles.MSS_DATA, DataTypes.MSS, DataTemplates.ID_MSS),
+        (DataFiles.MCM, DataFiles.MCM_DATA, DataTypes.MCM, DataTemplates.ID_MCM),
+        (DataFiles.SLIM_TUBE, DataFiles.SLIM_TUBE_DATA, DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE),
+        (DataFiles.STOA, DataFiles.STOA_DATA, DataTypes.STOA, DataTemplates.ID_STOA),
+        (DataFiles.ST, DataFiles.ST_DATA, DataTypes.ST, DataTemplates.ID_ST),
+        (DataFiles.TT, DataFiles.TT_DATA, DataTypes.TT, DataTemplates.ID_TT),
+        (DataFiles.VLE, DataFiles.VLE_DATA, DataTypes.VLE, DataTemplates.ID_VLE),
+        (DataFiles.WA, DataFiles.WA_DATA, DataTypes.WA, DataTemplates.ID_WA),
+        (DataFiles.CAP_PRESSURE, DataFiles.CAP_PRESSURE_DATA, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.EXTRACTION, DataFiles.EXTRACTION_DATA, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.FRACTIONATION, DataFiles.FRACTIONATION_DATA, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.PHYS_CHEM, DataFiles.PHYS_CHEM_DATA, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.RP, DataFiles.RP_DATA, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_as_json(
+    api, helper, tests_data, create_record, data_file_name, measurements_file, api_path,
+    id_template,
+):
+    record_data, created_record = create_record(api_path, data_file_name, id_template)
+
+    tests_data = tests_data(measurements_file)
+    test_data = copy.deepcopy(tests_data)
+    if api_path != DataTypes.RSA:
+        test_data["data"][0][0] = f'{record_data["id"]}:'
+
+    full_dataset_id = getattr(api, api_path).post_measurements(record_data["id"], test_data)[
+        "ddms_urn"
+    ]
+    dataset_id = helper.get_dataset_id_from_ddms_urn(full_dataset_id)
+
+    measurements = getattr(api, api_path).get_measurements(record_data["id"], dataset_id)
+
+    assert isinstance(measurements, dict)
+
+    assert "columns" in measurements and measurements["columns"]
+    assert "index" in measurements and measurements["index"]
+    assert "data" in measurements and measurements["data"]
+
+
+@pytest.mark.parametrize(
+    "api_path, id_template, dataset_prefix", [
+        (DataTypes.RSA, DataTemplates.ID_RSA, DatasetPrefix.RCA),
+        (DataTypes.CCE, DataTemplates.ID_CCE, DatasetPrefix.CCE),
+        (DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB, DatasetPrefix.DIF_LIB),
+        (DataTypes.CA, DataTemplates.ID_CA, DatasetPrefix.CA),
+        (DataTypes.CVD, DataTemplates.ID_CVD, DatasetPrefix.CVD),
+        (DataTypes.IT, DataTemplates.ID_IT, DatasetPrefix.IT),
+        (DataTypes.MSS, DataTemplates.ID_MSS, DatasetPrefix.MSS),
+        (DataTypes.MCM, DataTemplates.ID_MCM, DatasetPrefix.MCM),
+        (DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE, DatasetPrefix.SLIM_TUBE),
+        (DataTypes.STOA, DataTemplates.ID_STOA, DatasetPrefix.STOA),
+        (DataTypes.ST, DataTemplates.ID_ST, DatasetPrefix.ST),
+        (DataTypes.TT, DataTemplates.ID_TT, DatasetPrefix.TT),
+        (DataTypes.VLE, DataTemplates.ID_VLE, DatasetPrefix.VLE),
+        (DataTypes.WA, DataTemplates.ID_WA, DatasetPrefix.WA),
+        (DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.CAP_PRESSURE),
+        (DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.EXTRACTION),
+        (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.FRACTIONATION),
+        (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.PHYS_CHEM),
+        (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.RP),
+    ],
+    ids=[
+        "RSA", "CCE", "DIF_LIB", "CA", "CVD", "IT", "MSS", "MCM", "SLIM_TUBE", "STOA", "ST",
+        "TT", "VLE", "WA", "CAP_PRESSURE", "EXTRACTION", "FRACTIONATION", "PHYS_CHEM", "RP",
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_with_empty_dataset_version(
+        api, helper, dataset_prefix, api_path, id_template,
+):
+    dataset_id = f"{DataTemplates.ID_DATASET}{dataset_prefix}{helper.generate_random_record_id()}"
+    error = getattr(api, api_path).get_measurements(
+        f"{id_template}{helper.generate_random_record_id()}",
+        dataset_id,
+        schema_version_header=None,
+        allowed_codes=[status.HTTP_400_BAD_REQUEST],
+    )
+
+    assert "No schema version specified or invalid schema format. " \
+           "Check if the schema version is specified in the 'Accept' header. " \
+           f"Example: --header 'Accept: */*;version={SCHEMA_VERSION}" in error["reason"]
+
+
+@pytest.mark.parametrize(
+    "api_path, id_template, dataset_prefix", [
+        (DataTypes.RSA, DataTemplates.ID_RSA, DatasetPrefix.RCA),
+        (DataTypes.CCE, DataTemplates.ID_CCE, DatasetPrefix.CCE),
+        (DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB, DatasetPrefix.DIF_LIB),
+        (DataTypes.CA, DataTemplates.ID_CA, DatasetPrefix.CA),
+        (DataTypes.CVD, DataTemplates.ID_CVD, DatasetPrefix.CVD),
+        (DataTypes.IT, DataTemplates.ID_IT, DatasetPrefix.IT),
+        (DataTypes.MSS, DataTemplates.ID_MSS, DatasetPrefix.MSS),
+        (DataTypes.MCM, DataTemplates.ID_MCM, DatasetPrefix.MCM),
+        (DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE, DatasetPrefix.SLIM_TUBE),
+        (DataTypes.STOA, DataTemplates.ID_STOA, DatasetPrefix.STOA),
+        (DataTypes.ST, DataTemplates.ID_ST, DatasetPrefix.ST),
+        (DataTypes.TT, DataTemplates.ID_TT, DatasetPrefix.TT),
+        (DataTypes.VLE, DataTemplates.ID_VLE, DatasetPrefix.VLE),
+        (DataTypes.WA, DataTemplates.ID_WA, DatasetPrefix.WA),
+        (DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.CAP_PRESSURE),
+        (DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.EXTRACTION),
+        (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.FRACTIONATION),
+        (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.PHYS_CHEM),
+        (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.RP),
+    ],
+    ids=[
+        "RSA", "CCE", "DIF_LIB", "CA", "CVD", "IT", "MSS", "MCM", "SLIM_TUBE", "STOA", "ST",
+        "TT", "VLE", "WA", "CAP_PRESSURE", "EXTRACTION", "FRACTIONATION", "PHYS_CHEM", "RP",
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_with_wrong_dataset_version(
+        api, helper, dataset_prefix, api_path, id_template,
+):
+    version = random.choice(["0.0.0", "1.11.0", "11.111.000.", "100000000.1000000.100000000"])
+    dataset_id = f"{DataTemplates.ID_DATASET}{dataset_prefix}{helper.generate_random_record_id()}"
+    error = getattr(api, api_path).get_measurements(
+        f"{id_template}{helper.generate_random_record_id()}",
+        dataset_id,
+        schema_version_header=ACCEPT_HEADERS.format(version=version),
+        allowed_codes=[status.HTTP_400_BAD_REQUEST],
+    )
+
+    assert "There is no model for given version. " \
+           f"Schema version {version.rstrip('.')} is not one of proper versions: {{'{SCHEMA_VERSION}'}}" in error[
+               "reason"
+           ]
+
+
+@pytest.mark.parametrize(
+    "data_file_name, api_path, id_template, dataset_prefix", [
+        (DataFiles.RSA, DataTypes.RSA, DataTemplates.ID_RSA, DatasetPrefix.RCA),
+        (DataFiles.CCE, DataTypes.CCE, DataTemplates.ID_CCE, DatasetPrefix.CCE),
+        (DataFiles.DIF_LIB, DataTypes.DIF_LIB, DataTemplates.ID_DIF_LIB, DatasetPrefix.DIF_LIB),
+        (DataFiles.CA, DataTypes.CA, DataTemplates.ID_CA, DatasetPrefix.CA),
+        (DataFiles.CVD, DataTypes.CVD, DataTemplates.ID_CVD, DatasetPrefix.CVD),
+        (DataFiles.IT, DataTypes.IT, DataTemplates.ID_IT, DatasetPrefix.IT),
+        (DataFiles.MSS, DataTypes.MSS, DataTemplates.ID_MSS, DatasetPrefix.MSS),
+        (DataFiles.MCM, DataTypes.MCM, DataTemplates.ID_MCM, DatasetPrefix.MCM),
+        (DataFiles.SLIM_TUBE, DataTypes.SLIM_TUBE, DataTemplates.ID_SLIM_TUBE, DatasetPrefix.SLIM_TUBE),
+        (DataFiles.STOA, DataTypes.STOA, DataTemplates.ID_STOA, DatasetPrefix.STOA),
+        (DataFiles.ST, DataTypes.ST, DataTemplates.ID_ST, DatasetPrefix.ST),
+        (DataFiles.TT, DataTypes.TT, DataTemplates.ID_TT, DatasetPrefix.TT),
+        (DataFiles.VLE, DataTypes.VLE, DataTemplates.ID_VLE, DatasetPrefix.VLE),
+        (DataFiles.WA, DataTypes.WA, DataTemplates.ID_WA, DatasetPrefix.WA),
+        (DataFiles.CAP_PRESSURE, DataTypes.CAP_PRESSURE, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.CAP_PRESSURE),
+        (DataFiles.EXTRACTION, DataTypes.EXTRACTION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.EXTRACTION),
+        (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.FRACTIONATION),
+        (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.PHYS_CHEM),
+        (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS, DatasetPrefix.RP),
+    ],
+    ids=[
+        "RSA", "CCE", "DIF_LIB", "CA", "CVD", "IT", "MSS", "MCM", "SLIM_TUBE", "STOA", "ST",
+        "TT", "VLE", "WA", "CAP_PRESSURE", "EXTRACTION", "FRACTIONATION", "PHYS_CHEM", "RP",
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_invalid_dataset_version(
+        api, helper, tests_data, data_file_name, api_path, id_template, dataset_prefix, delete_record,
+):
+    tests_data = tests_data(data_file_name)
+    test_data = copy.deepcopy(tests_data)
+    dataset_id = f"{DataTemplates.ID_DATASET}{dataset_prefix}{helper.generate_random_record_id()}"
+    version = "1.7.0"
+
+    ddms_urn = generate_dataset_urn(
+        ddms_id="rafs",
+        api_version=API_VERSION,
+        entity_type=f"{dataset_prefix.replace('-', '')}data",
+        wpc_id=test_data["id"],
+        dataset_id=dataset_id,
+        content_schema_version=version,
+    )
+    test_data["data"]["DDMSDatasets"] = test_data.get("DDMSDatasets", [ddms_urn])
+
+    getattr(api, api_path).post_record([test_data])
+
+    delete_record["record_id"].append(test_data["id"])
+    delete_record["api_path"] = api_path
+
+    error = getattr(api, api_path).get_measurements(
+        test_data["id"],
+        dataset_id,
+        schema_version_header=ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        allowed_codes=[status.HTTP_400_BAD_REQUEST],
+    )
+
+    assert "Invalid schema version has been provided. " \
+           f"Schema version {SCHEMA_VERSION} is not one of proper versions: {{'{version}'}}" == error["reason"]
+
+
+@pytest.mark.parametrize(
+    "api_path, id_template, dataset_prefix", [
+        (DataTypes.RSA, DataTemplates.ID_RSA, DatasetPrefix.RCA),
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_non_existent_record_id(api, helper, api_path, id_template, dataset_prefix):
+    full_id = f"{id_template}{helper.generate_random_record_id()}"
+    dataset_id = f"{DataTemplates.ID_DATASET}{dataset_prefix}{helper.generate_random_record_id()}"
+    error = getattr(api, api_path).get_measurements(
+        full_id,
+        dataset_id,
+        allowed_codes=[status.HTTP_404_NOT_FOUND],
+    )
+    assert full_id in error["message"]
+
+
+@pytest.mark.parametrize(
+    "data_file_name, api_path, id_template, dataset_prefix", [
+        (DataFiles.RSA, DataTypes.RSA, DataTemplates.ID_RSA, DatasetPrefix.RCA),
+    ],
+)
+@pytest.mark.smoke
+def test_get_measurements_non_existent_dataset_id(
+    api, helper, create_record, data_file_name, api_path, id_template,
+    dataset_prefix,
+):
+    record_data, created_record = create_record(api_path, data_file_name, id_template)
+
+    dataset_id = f"{DataTemplates.ID_DATASET}{dataset_prefix}{helper.generate_random_record_id()}"
+    error = getattr(api, api_path).get_measurements(
+        record_data["id"],
+        dataset_id,
+        allowed_codes=[status.HTTP_404_NOT_FOUND],
+    )
+    assert dataset_id in error["message"]

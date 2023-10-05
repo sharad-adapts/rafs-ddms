@@ -11,33 +11,36 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-from client.api.core.cap_pressure import CapPressureCore
-from client.api.core.cce import CCECore
-from client.api.core.compositional_analysis import CompositionalAnalysisCore
-from client.api.core.constant_volume_depletion import (
+from client.api.core.v1.cap_pressure import CapPressureCore
+from client.api.core.v1.cce import CCECore
+from client.api.core.v1.compositional_analysis import CompositionalAnalysisCore
+from client.api.core.v1.constant_volume_depletion import (
     ConstantVolumeDepletionCore,
 )
-from client.api.core.coring import CoringCore
-from client.api.core.dif_lib import DifLibCore
-from client.api.core.extraction import ExtractionCore
-from client.api.core.fractionation import FractionationCore
-from client.api.core.interfacial_tension import InterfacialTensionCore
-from client.api.core.multi_stage_separator import MultiStageSeparatorCore
-from client.api.core.multiple_contact_miscibility import (
+from client.api.core.v1.coring import CoringCore
+from client.api.core.v1.dif_lib import DifLibCore
+from client.api.core.v1.extraction import ExtractionCore
+from client.api.core.v1.fractionation import FractionationCore
+from client.api.core.v1.interfacial_tension import InterfacialTensionCore
+from client.api.core.v1.multi_stage_separator import MultiStageSeparatorCore
+from client.api.core.v1.multiple_contact_miscibility import (
     MultipleContactMiscibilityCore,
 )
-from client.api.core.phys_chem import PhysChemCore
-from client.api.core.pvt import PVTCore
-from client.api.core.relative_permeability import RelativePermeabilityCore
-from client.api.core.rock_sample import RockSampleCore
-from client.api.core.rock_sample_analysis import RSACore
-from client.api.core.samples_analyses_report import SamplesAnalysesReportCore
-from client.api.core.slim_tube import SlimTubeCore
-from client.api.core.stock_tank_oil_analysis import StockTankOilAnalysisCore
-from client.api.core.swelling_test import SwellingTestCore
-from client.api.core.transport_test import TransportTestCore
-from client.api.core.vapor_liquid_equilibrium import VaporLiquidEquilibriumCore
-from client.api.core.water_analysis import WaterAnalysisCore
+from client.api.core.v1.phys_chem import PhysChemCore
+from client.api.core.v1.pvt import PVTCore
+from client.api.core.v1.relative_permeability import RelativePermeabilityCore
+from client.api.core.v1.rock_sample import RockSampleCore
+from client.api.core.v1.rock_sample_analysis import RSACore
+from client.api.core.v1.samples_analyses_report import SamplesAnalysesReportCore
+from client.api.core.v1.slim_tube import SlimTubeCore
+from client.api.core.v1.stock_tank_oil_analysis import StockTankOilAnalysisCore
+from client.api.core.v1.swelling_test import SwellingTestCore
+from client.api.core.v1.transport_test import TransportTestCore
+from client.api.core.v1.vapor_liquid_equilibrium import (
+    VaporLiquidEquilibriumCore,
+)
+from client.api.core.v1.water_analysis import WaterAnalysisCore
+from client.api.core.v2.sample_analysis import SamplesAnalysis
 from client.api.legal import APILegal
 from client.api.storage import APIStorage
 
@@ -71,3 +74,4 @@ class ApiWorker(object):
         self.fractionation = FractionationCore(host, url_prefix, data_partition, token)
         self.rp = RelativePermeabilityCore(host, url_prefix, data_partition, token)
         self.phys_chem = PhysChemCore(host, url_prefix, data_partition, token)
+        self.sample_analysis = SamplesAnalysis(host, url_prefix, data_partition, token)

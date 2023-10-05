@@ -32,6 +32,7 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
         (DataFiles.RP, DataTypes.RP),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -57,6 +58,7 @@ def test_post_record(api, tests_data, data_file_name, api_path, delete_record):
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -100,6 +102,7 @@ def test_update_record(api, helper, create_record, tests_data, data_file_name, a
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
         (DataFiles.RP, DataTypes.RP),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -121,6 +124,7 @@ def test_failed_record_creation(api, tests_data, data_file_name, api_path):
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
         (DataFiles.RP, DataTypes.RP),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -167,6 +171,7 @@ def test_post_multiple_records(api, helper, tests_data, data_file_name, api_path
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
         (DataFiles.RP, DataTypes.RP),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -206,6 +211,7 @@ def test_post_records_with_the_same_record_id(api, tests_data, data_file_name, a
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM),
         (DataFiles.RP, DataTypes.RP),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
