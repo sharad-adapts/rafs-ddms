@@ -634,6 +634,7 @@ WHOLE_OIL_GC_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/wholeoilgaschromatograph
 GASOLINE_GC_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gasolinegaschromatographyanalyses"
 GAS_COMPOSITION_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/gascompositionanalyses"
 ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/isotopes"
+BULK_PYROLYSIS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/bulkpyrolysisanalyses"
 
 
 class BulkDatasetId(NamedTuple):
@@ -670,3 +671,4 @@ class BulkDatasetId(NamedTuple):
     GASOLINE_GC = f"{PARTITION}:{FILE_GENERIC_TYPE}:gasolinegaschromatographyanalyses-{TEST_DATASET_UID}"
     GAS_COMPOSITION = f"{PARTITION}:{FILE_GENERIC_TYPE}:gascompositionanalyses-{TEST_DATASET_UID}"
     ISOTOPE_ANALYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:isotopes-{TEST_DATASET_UID}"
+    BULK_PYROLYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:bulkpyrolysisanalyses-{TEST_DATASET_UID}"

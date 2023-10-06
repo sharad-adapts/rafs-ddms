@@ -49,3 +49,4 @@ class CommonRelativePaths(NamedTuple):
     GASOLINE_GC: str = "/data/gasolinegaschromatographyanalyses"
     GAS_COMPOSITION: str = "/data/gascompositionanalyses"
     ISOTOPE_ANALYSIS: str = "/data/isotopes"
+    BULK_PYROLYSIS: str = "/data/bulkpyrolysisanalyses"

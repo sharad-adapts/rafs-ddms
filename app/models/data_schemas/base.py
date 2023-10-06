@@ -47,109 +47,113 @@ from app.models.data_schemas.whole_oil_gc_data_model import Model as WholeOilGCM
 from app.models.data_schemas.gasoline_gc_data_model import Model as GasolineGCModel
 from app.models.data_schemas.gas_composition_data_model import Model as GasCompositionModel
 from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
+from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
 from app.resources.paths import CommonRelativePaths
 
-class ContentShemaVersion(NamedTuple):
+class ContentSchemaVersion(NamedTuple):
     V_1_0_0 = "1.0.0"
 
 RCA_MODELS = {
-    ContentShemaVersion.V_1_0_0: RCAModel
+    ContentSchemaVersion.V_1_0_0: RCAModel
 }
 CCE_MODELS = {
-    ContentShemaVersion.V_1_0_0: CCEModel
+    ContentSchemaVersion.V_1_0_0: CCEModel
 }
 DIFF_LIB_MODELS = {
-    ContentShemaVersion.V_1_0_0: DLModel
+    ContentSchemaVersion.V_1_0_0: DLModel
 }
 TRANSPORT_TEST_MODELS = {
-    ContentShemaVersion.V_1_0_0: TransportTestModel
+    ContentSchemaVersion.V_1_0_0: TransportTestModel
 }
 MSS_MODELS = {
-    ContentShemaVersion.V_1_0_0: MSSModel
+    ContentSchemaVersion.V_1_0_0: MSSModel
 }
 COMPOSITIONAL_ANALYSIS_MODELS = {
-    ContentShemaVersion.V_1_0_0: CompositionalAnalysisModel
+    ContentSchemaVersion.V_1_0_0: CompositionalAnalysisModel
 }
 SWELLING_TEST_MODELS = {
-    ContentShemaVersion.V_1_0_0: SwellingTestModel
+    ContentSchemaVersion.V_1_0_0: SwellingTestModel
 }
 CVD_MODELS = {
-    ContentShemaVersion.V_1_0_0: CVDModel
+    ContentSchemaVersion.V_1_0_0: CVDModel
 }
 WATER_ANALYSIS_MODELS = {
-    ContentShemaVersion.V_1_0_0: WaterAnalysisModel
+    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel
 }
 INTERFACIAL_TENSION_MODELS = {
-    ContentShemaVersion.V_1_0_0: InterfacialTensionModel
+    ContentSchemaVersion.V_1_0_0: InterfacialTensionModel
 }
 STO_ANALYSIS_MODELS = {
-    ContentShemaVersion.V_1_0_0: StockTankOilAnalysisModel
+    ContentSchemaVersion.V_1_0_0: StockTankOilAnalysisModel
 }
 VLE_MODELS = {
-    ContentShemaVersion.V_1_0_0: VLEModel
+    ContentSchemaVersion.V_1_0_0: VLEModel
 }
 MCM_ANALYSIS_MODELS = {
-    ContentShemaVersion.V_1_0_0: MCMModel
+    ContentSchemaVersion.V_1_0_0: MCMModel
 }
 SLIMTUBETEST_MODELS = {
-    ContentShemaVersion.V_1_0_0: SlimTubeModel
+    ContentSchemaVersion.V_1_0_0: SlimTubeModel
 }
 RELATIVE_PERMEABILITY_MODELS = {
-    ContentShemaVersion.V_1_0_0: RelativePermeabilityModel
+    ContentSchemaVersion.V_1_0_0: RelativePermeabilityModel
 }
 CAP_PRESSURE_MODELS = {
-    ContentShemaVersion.V_1_0_0: CapPressureModel
+    ContentSchemaVersion.V_1_0_0: CapPressureModel
 }
 FRACTIONATION_MODELS = {
-    ContentShemaVersion.V_1_0_0: FractionationModel
+    ContentSchemaVersion.V_1_0_0: FractionationModel
 }
 EXTRACTION_MODELS = {
-    ContentShemaVersion.V_1_0_0: ExtractionModel,
+    ContentSchemaVersion.V_1_0_0: ExtractionModel,
 }
 PHYS_CHEM_MODELS = {
-    ContentShemaVersion.V_1_0_0: PhysChemModel
+    ContentSchemaVersion.V_1_0_0: PhysChemModel
 }
 WATER_GAS_RELATIVE_PERMEABILITY_MODELS = {
-    ContentShemaVersion.V_1_0_0: WaterGasRelativePermeabilityModel
+    ContentSchemaVersion.V_1_0_0: WaterGasRelativePermeabilityModel
 }
 ROCK_COMPRESSIBILITY_MODELS = {
-    ContentShemaVersion.V_1_0_0: RockCompressibilityModel
+    ContentSchemaVersion.V_1_0_0: RockCompressibilityModel
 }
 ELECTRICAL_PROPERTIES_MODELS = {
-    ContentShemaVersion.V_1_0_0: ElectricalPropertiesModel,
+    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel,
 }
 FORMATION_RESISTIVITY_INDEX_MODELS = {
-    ContentShemaVersion.V_1_0_0: FormationResistivityIndexModel,
+    ContentSchemaVersion.V_1_0_0: FormationResistivityIndexModel,
 }
 NMR_MODELS = {
-    ContentShemaVersion.V_1_0_0: NMRModel,
+    ContentSchemaVersion.V_1_0_0: NMRModel,
 }
 MULTIPLE_SALINITY_MODELS = {
-    ContentShemaVersion.V_1_0_0: MultipleSalinityModel,
+    ContentSchemaVersion.V_1_0_0: MultipleSalinityModel,
 }
 GCMS_ALKANES_MODELS = {
-    ContentShemaVersion.V_1_0_0: GCMSAlkanesModel,
+    ContentSchemaVersion.V_1_0_0: GCMSAlkanesModel,
 }
 MERCURY_INJECTION_MODELS = {
-    ContentShemaVersion.V_1_0_0: MercuryInjectionModel,
+    ContentSchemaVersion.V_1_0_0: MercuryInjectionModel,
 }
 GCMS_AROMATICS_MODELS = {
-    ContentShemaVersion.V_1_0_0: GCMSAromaticsModel,
+    ContentSchemaVersion.V_1_0_0: GCMSAromaticsModel,
 }
 GCMS_RATIOS_MODELS = {
-    ContentShemaVersion.V_1_0_0: GCMSRatiosModel,
+    ContentSchemaVersion.V_1_0_0: GCMSRatiosModel,
 }
 WHOLE_OIL_GC_MODELS = {
-    ContentShemaVersion.V_1_0_0: WholeOilGCModel,
+    ContentSchemaVersion.V_1_0_0: WholeOilGCModel,
 }
 GASOLINE_GC_MODELS = {
-    ContentShemaVersion.V_1_0_0: GasolineGCModel,
+    ContentSchemaVersion.V_1_0_0: GasolineGCModel,
 }
 GAS_COMPOSITION_MODELS = {
-    ContentShemaVersion.V_1_0_0: GasCompositionModel,
+    ContentSchemaVersion.V_1_0_0: GasCompositionModel,
 }
 ISOTOPE_ANALYSIS_MODELS = {
-    ContentShemaVersion.V_1_0_0: IsotopeAnalysisModel,
+    ContentSchemaVersion.V_1_0_0: IsotopeAnalysisModel,
+}
+BULK_PYROLYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: BulkPyrolysisModel,
 }
 
 common_relative_paths = CommonRelativePaths()
@@ -187,4 +191,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     common_relative_paths.GASOLINE_GC: GASOLINE_GC_MODELS,
     common_relative_paths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
     common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
+    common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
 }
