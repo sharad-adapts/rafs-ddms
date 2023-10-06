@@ -43,8 +43,7 @@ from app.models.data_schemas.gcms_alkanes_data_model import Model as GCMSAlkanes
 from app.models.data_schemas.mercury_injection_analysis_data_model import Model as MercuryInjectionModel
 from app.models.data_schemas.gcms_aromatics_data_model import Model as GCMSAromaticsModel
 from app.models.data_schemas.gcms_ratios_data_model import Model as GCMSRatiosModel
-from app.models.data_schemas.whole_oil_gc_data_model import Model as WholeOilGCModel
-from app.models.data_schemas.gasoline_gc_data_model import Model as GasolineGCModel
+from app.models.data_schemas.gas_chromatography_data_model import Model as GasChromatographyModel
 from app.models.data_schemas.gas_composition_data_model import Model as GasCompositionModel
 from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
@@ -140,11 +139,8 @@ GCMS_AROMATICS_MODELS = {
 GCMS_RATIOS_MODELS = {
     ContentSchemaVersion.V_1_0_0: GCMSRatiosModel,
 }
-WHOLE_OIL_GC_MODELS = {
-    ContentSchemaVersion.V_1_0_0: WholeOilGCModel,
-}
-GASOLINE_GC_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GasolineGCModel,
+GAS_CHROMATOGRAPHY_MODELS = {
+    ContentSchemaVersion.V_1_0_0: GasChromatographyModel,
 }
 GAS_COMPOSITION_MODELS = {
     ContentSchemaVersion.V_1_0_0: GasCompositionModel,
@@ -187,8 +183,7 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     common_relative_paths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
     common_relative_paths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
     common_relative_paths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
-    common_relative_paths.WHOLE_OIL_GC: WHOLE_OIL_GC_MODELS,
-    common_relative_paths.GASOLINE_GC: GASOLINE_GC_MODELS,
+    common_relative_paths.GAS_CHROMATOGRAPHY: GAS_CHROMATOGRAPHY_MODELS,
     common_relative_paths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
     common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
     common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
