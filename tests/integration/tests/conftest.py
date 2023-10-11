@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import copy
+from typing import Optional
 
 import pytest
 from loguru import logger
@@ -21,6 +22,7 @@ from tests.integration.config import (
     DataFiles,
     DataTemplates,
     DataTypes,
+    SamplesAnalysisTypes,
 )
 
 
@@ -68,18 +70,20 @@ def create_record(api, helper, tests_data):
         api_path: DataTypes,
         file_name: str,
         id_template: str,
+        analysis_type: Optional[SamplesAnalysisTypes] = None,
         datasets: list = None,
     ) -> [dict | dict]:
         """
         :param api_path: example - DataTypes.RS, DataTypes.CORING, DataTypes.RSA, DataTypes.PVT
         :param file_name: see tests/integration/config.py
         :param id_template: example - ID_RSA_TEMPLATE
+        :param analysis_type: example - SamplesAnalysisTypes.RCA
         :param datasets: list of raw data files that can be downloaded
         :return: created record data
         """
         nonlocal record_data, _api_path, _to_delete
         _api_path = api_path
-        record_data = copy.deepcopy(tests_data(file_name))
+        record_data = copy.deepcopy(tests_data(file_name, analysis_type))
         record_data["id"] = f"{id_template}{helper.generate_random_record_id()}"
 
         if datasets:

@@ -13,7 +13,6 @@
 #  limitations under the License.
 
 from pathlib import Path
-from typing import NamedTuple
 
 CONFIG = {}
 
@@ -30,78 +29,92 @@ DATA_DIR = Path("tests", "integration", "data")
 TEST_DATA_STORE = {}
 
 
-class DataFiles(NamedTuple):
-    RSA = "rsa/rsa.json"
-    RCA = "rsa/rca.json"
-    RCA_PARQUET = "rsa/rca.parquet"
-    RCA_WRONG_ID = "rsa/rca_wrong_ids.json"
-    RCA_MANDATORY_ATTRIBUTES_PARQUET = "rsa/missing_attributes_rca.parquet"
-    RS = "rocksample.json"
-    CORING = "coring.json"
-    SAR = "samples_analyses_report/sar.json"
+class DataFiles:
+    # v1
+    RSA = "v1/rsa/rsa.json"
+    RCA = "v1/rsa/rca.json"
+    RCA_PARQUET = "v1/rsa/rca.parquet"
+    RCA_WRONG_ID = "v1/rsa/rca_wrong_ids.json"
+    RCA_MANDATORY_ATTRIBUTES_PARQUET = "v1/rsa/missing_attributes_rca.parquet"
+    RS = "v1/rocksample.json"
+    CORING = "v1/coring.json"
+    SAR = "v1/samples_analyses_report/sar.json"
 
     # Sample Analyses tests
-    CAP_PRESSURE = "sample_analysis/cap_pressure/cap_pressure.json"
-    CAP_PRESSURE_DATA = "sample_analysis/cap_pressure/cap_pressure_data.json"
-    CAP_PRESSURE_WRONG_ID = "sample_analysis/cap_pressure/cap_pressure_wrong_ids.json"
-    EXTRACTION = "sample_analysis/extraction/extraction.json"
-    EXTRACTION_DATA = "sample_analysis/extraction/extraction_data.json"
-    EXTRACTION_WRONG_ID = "sample_analysis/extraction/extraction_wrong_ids.json"
-    FRACTIONATION = "sample_analysis/fractionation/fractionation.json"
-    FRACTIONATION_DATA = "sample_analysis/fractionation/fractionation_data.json"
-    FRACTIONATION_WRONG_ID = "sample_analysis/fractionation/fractionation_wrong_ids.json"
-    PHYS_CHEM = "sample_analysis/phys_chem/phys_chem.json"
-    PHYS_CHEM_DATA = "sample_analysis/phys_chem/phys_chem_data.json"
-    PHYS_CHEM_WRONG_ID = "sample_analysis/phys_chem/phys_chem_wrong_ids.json"
-    RP = "sample_analysis/relative_permeability/relative_permeability.json"
-    RP_DATA = "sample_analysis/relative_permeability/relative_permeability_data.json"
-    RP_WRONG_ID = "sample_analysis/relative_permeability/relative_permeability_wrong_ids.json"
+    CAP_PRESSURE = "v1/sample_analysis/cap_pressure/cap_pressure.json"
+    CAP_PRESSURE_DATA = "v1/sample_analysis/cap_pressure/cap_pressure_data.json"
+    CAP_PRESSURE_WRONG_ID = "v1/sample_analysis/cap_pressure/cap_pressure_wrong_ids.json"
+    EXTRACTION = "v1/sample_analysis/extraction/extraction.json"
+    EXTRACTION_DATA = "v1/sample_analysis/extraction/extraction_data.json"
+    EXTRACTION_WRONG_ID = "v1/sample_analysis/extraction/extraction_wrong_ids.json"
+    FRACTIONATION = "v1/sample_analysis/fractionation/fractionation.json"
+    FRACTIONATION_DATA = "v1/sample_analysis/fractionation/fractionation_data.json"
+    FRACTIONATION_WRONG_ID = "v1/sample_analysis/fractionation/fractionation_wrong_ids.json"
+    PHYS_CHEM = "v1/sample_analysis/phys_chem/phys_chem.json"
+    PHYS_CHEM_DATA = "v1/sample_analysis/phys_chem/phys_chem_data.json"
+    PHYS_CHEM_WRONG_ID = "v1/sample_analysis/phys_chem/phys_chem_wrong_ids.json"
+    RP = "v1/sample_analysis/relative_permeability/relative_permeability.json"
+    RP_DATA = "v1/sample_analysis/relative_permeability/relative_permeability_data.json"
+    RP_WRONG_ID = "v1/sample_analysis/relative_permeability/relative_permeability_wrong_ids.json"
 
-    PVT = "pvt.json"
+    PVT = "v1/pvt.json"
 
     # PVT tests
-    CCE = "cce/cce.json"
-    CCE_DATA = "cce/cce_data.json"
-    CCE_WRONG_ID = "cce/cce_wrong_ids.json"
-    DIF_LIB = "dif_lib/dif_lib.json"
-    DIF_LIB_DATA = "dif_lib/dif_lib_data.json"
-    DIF_LIB_WRONG_ID = "dif_lib/dif_lib_wrong_ids.json"
-    CA = "compositional_analysis/ca.json"
-    CA_DATA = "compositional_analysis/ca_data.json"
-    CA_WRONG_ID = "compositional_analysis/ca_wrong_ids.json"
-    CVD = "constant_volume_depletion/cvd.json"
-    CVD_DATA = "constant_volume_depletion/cvd_data.json"
-    CVD_WRONG_ID = "constant_volume_depletion/cvd_wrong_ids.json"
-    IT = "interfacial_tension/it.json"
-    IT_DATA = "interfacial_tension/it_data.json"
-    IT_WRONG_ID = "interfacial_tension/it_wrong_ids.json"
-    MSS = "multi_stage_separator/mss.json"
-    MSS_DATA = "multi_stage_separator/mss_data.json"
-    MSS_WRONG_ID = "multi_stage_separator/mss_wrong_ids.json"
-    MCM = "multiple_contact_miscibility/mcm.json"
-    MCM_DATA = "multiple_contact_miscibility/mcm_data.json"
-    MCM_WRONG_ID = "multiple_contact_miscibility/mcm_wrong_ids.json"
-    SLIM_TUBE = "slim_tube/st.json"
-    SLIM_TUBE_DATA = "slim_tube/st_data.json"
-    SLIM_TUBE_WRONG_ID = "slim_tube/st_wrong_ids.json"
-    STOA = "stock_tank_oil_analysis/stoa.json"
-    STOA_DATA = "stock_tank_oil_analysis/stoa_data.json"
-    STOA_WRONG_ID = "stock_tank_oil_analysis/stoa_wrong_ids.json"
-    ST = "swelling_test/st.json"
-    ST_DATA = "swelling_test/st_data.json"
-    ST_WRONG_ID = "swelling_test/st_wrong_ids.json"
-    TT = "transport_test/tt.json"
-    TT_DATA = "transport_test/tt_data.json"
-    TT_WRONG_ID = "transport_test/tt_wrong_ids.json"
-    VLE = "vapor_liquid_equilibrium/vle.json"
-    VLE_DATA = "vapor_liquid_equilibrium/vle_data.json"
-    VLE_WRONG_ID = "vapor_liquid_equilibrium/vle_wrong_ids.json"
-    WA = "water_analysis/wa.json"
-    WA_DATA = "water_analysis/wa_data.json"
-    WA_WRONG_ID = "water_analysis/wa_wrong_ids.json"
+    CCE = "v1/cce/cce.json"
+    CCE_DATA = "v1/cce/cce_data.json"
+    CCE_WRONG_ID = "v1/cce/cce_wrong_ids.json"
+    DIF_LIB = "v1/dif_lib/dif_lib.json"
+    DIF_LIB_DATA = "v1/dif_lib/dif_lib_data.json"
+    DIF_LIB_WRONG_ID = "v1/dif_lib/dif_lib_wrong_ids.json"
+    CA = "v1/compositional_analysis/ca.json"
+    CA_DATA = "v1/compositional_analysis/ca_data.json"
+    CA_WRONG_ID = "v1/compositional_analysis/ca_wrong_ids.json"
+    CVD = "v1/constant_volume_depletion/cvd.json"
+    CVD_DATA = "v1/constant_volume_depletion/cvd_data.json"
+    CVD_WRONG_ID = "v1/constant_volume_depletion/cvd_wrong_ids.json"
+    IT = "v1/interfacial_tension/it.json"
+    IT_DATA = "v1/interfacial_tension/it_data.json"
+    IT_WRONG_ID = "v1/interfacial_tension/it_wrong_ids.json"
+    MSS = "v1/multi_stage_separator/mss.json"
+    MSS_DATA = "v1/multi_stage_separator/mss_data.json"
+    MSS_WRONG_ID = "v1/multi_stage_separator/mss_wrong_ids.json"
+    MCM = "v1/multiple_contact_miscibility/mcm.json"
+    MCM_DATA = "v1/multiple_contact_miscibility/mcm_data.json"
+    MCM_WRONG_ID = "v1/multiple_contact_miscibility/mcm_wrong_ids.json"
+    SLIM_TUBE = "v1/slim_tube/st.json"
+    SLIM_TUBE_DATA = "v1/slim_tube/st_data.json"
+    SLIM_TUBE_WRONG_ID = "v1/slim_tube/st_wrong_ids.json"
+    STOA = "v1/stock_tank_oil_analysis/stoa.json"
+    STOA_DATA = "v1/stock_tank_oil_analysis/stoa_data.json"
+    STOA_WRONG_ID = "v1/stock_tank_oil_analysis/stoa_wrong_ids.json"
+    ST = "v1/swelling_test/st.json"
+    ST_DATA = "v1/swelling_test/st_data.json"
+    ST_WRONG_ID = "v1/swelling_test/st_wrong_ids.json"
+    TT = "v1/transport_test/tt.json"
+    TT_DATA = "v1/transport_test/tt_data.json"
+    TT_WRONG_ID = "v1/transport_test/tt_wrong_ids.json"
+    VLE = "v1/vapor_liquid_equilibrium/vle.json"
+    VLE_DATA = "v1/vapor_liquid_equilibrium/vle_data.json"
+    VLE_WRONG_ID = "v1/vapor_liquid_equilibrium/vle_wrong_ids.json"
+    WA = "v1/water_analysis/wa.json"
+    WA_DATA = "v1/water_analysis/wa_data.json"
+    WA_WRONG_ID = "v1/water_analysis/wa_wrong_ids.json"
+
+    # v2
+    SAMPLE_ANALYSIS = "v2/samplesanalysis.json"
+    NMR_DATA = "v2/NMR/nmr_data.json"
+    NMR_WRONG_ID = "v2/NMR/nmr_wrong_ids.json"
+    MULTIPLE_SALINITY_DATA = "v2/multiple_salinity/multiplesalinity_data.json"
+    MULTIPLE_SALINITY_WRONG_ID = "v2/multiple_salinity/multiplesalinity_wrong_ids.json"
+    AROMATICS_DATA = "v2/aromatics/aromatics_data.json"
+    AROMATICS_WRONG_ID = "v2/aromatics/aromatics_wrong_ids.json"
+    HPMI_DATA = "v2/HPMI/hpmi_data.json"
+    HPMI_WRONG_ID = "v2/HPMI/hpmi_wrong_ids.json"
+    ALKANES_DATA = "v2/alkanes/alkanes_data.json"
+    ALKANES_WRONG_ID = "v2/alkanes/alkanes_wrong_ids.json"
 
 
-class DataTemplates(NamedTuple):
+class DataTemplates:
     ID_DATASET = "opendes:dataset--File.Generic:"
     ID_CORING = f"opendes:master-data--Coring:"
     ID_RS = "opendes:master-data--RockSample:"
@@ -126,9 +139,10 @@ class DataTemplates(NamedTuple):
     ID_SAMPLE_ANALYSIS = "opendes:work-product-component--SamplesAnalysis:"
 
 
-class DataTypes(NamedTuple):
+class DataTypes:
     """Values have to be equal to client/api/__init__.py keys for a specific
     data type client api."""
+    # v1
     RSA = "rsa"
     RS = "rs"
     CORING = "coring"
@@ -153,8 +167,20 @@ class DataTypes(NamedTuple):
     PHYS_CHEM = "phys_chem"
     RP = "rp"
 
+    # v2
+    SAMPLE_ANALYSIS = "sample_analysis"
+
+
+class SamplesAnalysisTypes:  # Custom values
+    NMR = "NMR"
+    MULTIPLE_SALINITY = "MultipleSalinity"
+    AROMATICS = "Aromatics"
+    HPMI = "HPMI"
+    ALKANES = "Alkanes"
+
 
 class DatasetPrefix:
+    # v1
     RCA = "routine-core-analysis"
     DIF_LIB = "differential-liberation"
     CCE = "constant-composition-expansion"
@@ -175,3 +201,10 @@ class DatasetPrefix:
     FRACTIONATION = "fractionation"
     PHYS_CHEM = "physical-chemistry"
     RP = "relative-permeability"
+
+    # v2
+    NMR = "nmrtests"
+    MULTIPLE_SALINITY = "multiplesalinitytests"
+    AROMATICS = "gcmsaromatics"
+    HPMI = "mercuryinjectionanalyses"
+    ALKANES = "gcmsalkanes"

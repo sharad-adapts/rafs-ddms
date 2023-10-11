@@ -30,6 +30,7 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
@@ -66,6 +67,7 @@ def test_get_record(api, helper, create_record, api_path, data_file_name, id_tem
         (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
+        (DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke

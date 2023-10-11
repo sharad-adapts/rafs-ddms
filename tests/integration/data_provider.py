@@ -15,12 +15,14 @@
 import json
 import os
 from dataclasses import dataclass
+from typing import Optional
 
 from tests.integration.config import (
     CONFIG,
     DATA_DIR,
     SCHEMA_VERSION,
     TEST_DATA_STORE,
+    SamplesAnalysisTypes,
 )
 from tests.integration.helpers import CommonHelper
 
@@ -43,7 +45,7 @@ azure_values = RecordValues(
 )
 
 
-def test_data(file_name: str) -> dict:
+def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = None) -> dict:
     data_values = None
     if CONFIG["CLOUD_PROVIDER"] == "azure":
         data_values = azure_values
@@ -70,6 +72,8 @@ def test_data(file_name: str) -> dict:
                 "{acl_owners}", data_values.acl_owners,
             ).replace(
                 "{legal_tag}", TEST_DATA_STORE.get("legal_tag"),
+            ).replace(
+                "{analysis_type}", analysis_type if analysis_type else "",
             )
         )
         return json.loads(data_str)
