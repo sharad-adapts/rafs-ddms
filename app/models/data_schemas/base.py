@@ -47,6 +47,7 @@ from app.models.data_schemas.gas_chromatography_data_model import Model as GasCh
 from app.models.data_schemas.gas_composition_data_model import Model as GasCompositionModel
 from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
+from app.models.data_schemas.core_gamma_data_model import Model as CoreGammaModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentSchemaVersion(NamedTuple):
@@ -151,6 +152,9 @@ ISOTOPE_ANALYSIS_MODELS = {
 BULK_PYROLYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: BulkPyrolysisModel,
 }
+CORE_GAMMA_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CoreGammaModel,
+}
 
 common_relative_paths = CommonRelativePaths()
 PATH_TO_DATA_MODEL_VERSIONS = {
@@ -187,4 +191,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     common_relative_paths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
     common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
     common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
+    common_relative_paths.CORE_GAMMA: CORE_GAMMA_MODELS,
 }
