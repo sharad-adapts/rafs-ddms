@@ -41,6 +41,7 @@ from tests.test_api.test_routes.cce import cce_mock_objects
 from tests.test_api.test_routes.compositionalanalysis import (
     compositionalanalysis_mock_objects,
 )
+from tests.test_api.test_routes.core_gamma import core_gamma_mock_objects
 from tests.test_api.test_routes.cvd import cvd_mock_objects
 from tests.test_api.test_routes.data import data_mock_objects
 from tests.test_api.test_routes.data.data_mock_objects import (
@@ -108,6 +109,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CCE_SOURCE_ENDPOINT_PATH,
     COMPOSITIONALANALYSIS_DATA_ENDPOINT_PATH,
     COMPOSITIONALANALYSIS_SOURCE_ENDPOINT_PATH,
+    CORE_GAMMA_DATA_ENDPOINT_PATH,
     CVD_DATA_ENDPOINT_PATH,
     CVD_SOURCE_ENDPOINT_PATH,
     DIF_LIB_DATA_ENDPOINT_PATH,
@@ -277,6 +279,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
+        (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
     ],
 )
 @pytest.mark.asyncio
@@ -328,6 +331,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
+        (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
     ],
 )
 @pytest.mark.asyncio
@@ -379,6 +383,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, BulkDatasetId.GAS_COMPOSITION),
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
+        (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
     ],
 )
 @pytest.mark.asyncio
@@ -626,6 +631,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
+        ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1794,6 +1809,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             bulk_pyrolysis_mock_objects.TEST_DATA,
         ),
         (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -2035,6 +2059,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
             bulk_pyrolysis_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            core_gamma_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2314,6 +2347,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
             bulk_pyrolysis_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            core_gamma_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2608,6 +2650,14 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
             bulk_pyrolysis_mock_objects.TEST_DATA,
         ),
+        (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2900,6 +2950,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
             bulk_pyrolysis_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3194,6 +3252,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", bulk_pyrolysis_mock_objects.TEST_DATA)],
             bulk_pyrolysis_mock_objects.TEST_DATA,
         ),
+        (
+            f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [core_gamma_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+            core_gamma_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3455,6 +3521,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID,
             bulk_pyrolysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            core_gamma_mock_objects.TEST_DATA,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+            core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3707,6 +3780,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID,
             bulk_pyrolysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            core_gamma_mock_objects.TEST_DATA,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+            core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3895,6 +3975,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
             bulk_pyrolysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4144,6 +4229,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             bulk_pyrolysis_mock_objects.TEST_DATA,
             bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID,
             bulk_pyrolysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            core_gamma_mock_objects.TEST_DATA,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+            core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4399,6 +4491,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID,
             bulk_pyrolysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            core_gamma_mock_objects.TEST_DATA,
+            core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+            core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4453,6 +4552,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, gas_composition_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, isotope_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, bulk_pyrolysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (CORE_GAMMA_DATA_ENDPOINT_PATH, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -4634,6 +4734,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             bulk_pyrolysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             bulk_pyrolysis_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            CORE_GAMMA_DATA_ENDPOINT_PATH,
+            core_gamma_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            core_gamma_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4686,6 +4791,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{GAS_COMPOSITION_DATA_ENDPOINT_PATH}/{gas_composition_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{BULK_PYROLYSIS_DATA_ENDPOINT_PATH}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -4734,6 +4840,7 @@ async def test_rca_get_403(data_endpoint_path):
         GAS_COMPOSITION_DATA_ENDPOINT_PATH,
         ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
+        CORE_GAMMA_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -4809,6 +4916,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         GAS_COMPOSITION_DATA_ENDPOINT_PATH,
         ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
+        CORE_GAMMA_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -4863,6 +4971,7 @@ async def test_invalid_data_with_nan(path):
         (GAS_COMPOSITION_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (CORE_GAMMA_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
