@@ -154,6 +154,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     SWELLING_SOURCE_ENDPOINT_PATH,
     TRANSPORT_DATA_ENDPOINT_PATH,
     TRANSPORT_SOURCE_ENDPOINT_PATH,
+    UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
     VLE_DATA_ENDPOINT_PATH,
     VLE_SOURCE_ENDPOINT_PATH,
     WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
@@ -175,6 +176,7 @@ from tests.test_api.test_routes.swelling_test import swelling_test_mock_objects
 from tests.test_api.test_routes.transport_test import (
     transport_test_mock_objects,
 )
+from tests.test_api.test_routes.uniaxial_test import uniaxial_test_mock_objects
 from tests.test_api.test_routes.vle import vle_mock_objects
 from tests.test_api.test_routes.water_analysis import (
     water_analysis_mock_objects,
@@ -280,6 +282,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
+        (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -332,6 +335,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
+        (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -384,6 +388,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.ISOTOPE_ANALYSIS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
+        (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -641,6 +646,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
+        ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1818,6 +1833,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             core_gamma_mock_objects.TEST_DATA,
         ),
         (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -2068,6 +2092,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            uniaxial_test_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2356,6 +2389,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            uniaxial_test_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2658,6 +2700,15 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_DATA,
         ),
+
+        (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2958,6 +3009,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3260,6 +3319,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_DATA,
         ),
+        (
+            f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [uniaxial_test_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            uniaxial_test_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3528,6 +3595,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
             core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_test_mock_objects.TEST_DATA,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3787,6 +3861,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
             core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_test_mock_objects.TEST_DATA,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3980,6 +4061,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             CORE_GAMMA_DATA_ENDPOINT_PATH,
             core_gamma_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4236,6 +4322,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             core_gamma_mock_objects.TEST_DATA,
             core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
             core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_test_mock_objects.TEST_DATA,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4498,6 +4591,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             core_gamma_mock_objects.TEST_DATASET_RECORD_ID,
             core_gamma_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_test_mock_objects.TEST_DATA,
+            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4553,6 +4653,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, isotope_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, bulk_pyrolysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -4739,6 +4840,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             core_gamma_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             core_gamma_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            uniaxial_test_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            uniaxial_test_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4792,6 +4898,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{BULK_PYROLYSIS_DATA_ENDPOINT_PATH}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -4841,6 +4948,7 @@ async def test_rca_get_403(data_endpoint_path):
         ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
         CORE_GAMMA_DATA_ENDPOINT_PATH,
+        UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -4917,6 +5025,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
         CORE_GAMMA_DATA_ENDPOINT_PATH,
+        UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -4972,6 +5081,7 @@ async def test_invalid_data_with_nan(path):
         (ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

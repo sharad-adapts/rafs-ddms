@@ -77,6 +77,7 @@ async def test_types_route():
         "isotopes",
         "bulkpyrolysisanalyses",
         "coregamma",
+        "uniaxial",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -131,6 +132,7 @@ async def test_content_schemas_route(analysistype):
         "isotopes",
         "bulkpyrolysisanalyses",
         "coregamma",
+        "uniaxial",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

@@ -50,3 +50,4 @@ class CommonRelativePaths(NamedTuple):
     ISOTOPE_ANALYSIS: str = "/data/isotopes"
     BULK_PYROLYSIS: str = "/data/bulkpyrolysisanalyses"
     CORE_GAMMA: str = "/data/coregamma"
+    UNIAXIAL_TEST: str = "/data/uniaxial"

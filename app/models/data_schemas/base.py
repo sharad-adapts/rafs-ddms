@@ -48,6 +48,7 @@ from app.models.data_schemas.gas_composition_data_model import Model as GasCompo
 from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
 from app.models.data_schemas.core_gamma_data_model import Model as CoreGammaModel
+from app.models.data_schemas.uniaxial_test_data_model import Model as UniaxialTestModel
 from app.resources.paths import CommonRelativePaths
 
 class ContentSchemaVersion(NamedTuple):
@@ -155,6 +156,9 @@ BULK_PYROLYSIS_MODELS = {
 CORE_GAMMA_MODELS = {
     ContentSchemaVersion.V_1_0_0: CoreGammaModel,
 }
+UNIAXIAL_TEST_MODELS = {
+    ContentSchemaVersion.V_1_0_0: UniaxialTestModel
+}
 
 common_relative_paths = CommonRelativePaths()
 PATH_TO_DATA_MODEL_VERSIONS = {
@@ -192,4 +196,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
     common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
     common_relative_paths.CORE_GAMMA: CORE_GAMMA_MODELS,
+    common_relative_paths.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
 }
