@@ -1,5 +1,5 @@
 ARG python_version=3.11
-FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim
+FROM python:${python_version}-bookworm
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip \

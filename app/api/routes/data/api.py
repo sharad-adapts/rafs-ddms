@@ -300,7 +300,7 @@ class BaseDataView:
                 # TODO remove when migration to pyarrow validation is done
                 df = pd.read_json(io.StringIO(df.to_json(orient="split")), orient="split")
             else:
-                df = pd.read_json(await get_validated_bulk_data_json(request), orient="split")
+                df = pd.read_json(io.StringIO(await get_validated_bulk_data_json(request)), orient="split")
 
         except (ValueError, pyarrow.lib.ArrowException) as v_exc:
             reason = f"Data error: {v_exc}"

@@ -1,7 +1,7 @@
 # Requirements.txt can be built with pip-compile as we are not supposed to maintain multiple requirements*.txt files.
 # Keeping testing requirements segregated from runtime requirements.
 # dependencies for tests and checks
-asgi-lifespan==2.0.0
+asgi-lifespan==2.1.0
 httpx==0.23.3
 pytest==7.2.0
 pytest-asyncio==0.19.0
