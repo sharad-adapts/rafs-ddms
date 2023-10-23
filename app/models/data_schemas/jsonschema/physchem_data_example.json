@@ -1,6 +1,7 @@
 {
   "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8",
-  "SamplesID": "osdu:master-data--Samples:dd76cf6c-226f-5636-ad1b-1ca0f8249c787845c8",
+  "SampleID": "osdu:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249c787845c8",
+  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
   "ApiGravity": {
     "Value": 32.5,
     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI",

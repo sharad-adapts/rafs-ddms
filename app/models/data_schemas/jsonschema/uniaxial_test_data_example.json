@@ -1,0 +1,61 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:UniaxialTest123:",
+    "data": [
+        {
+            "SampleID": "opendes:master-data--Sample:Uniaxial75FR:",
+            "SampleOrientation": "Vertical",
+            "LabSampleIdentifier": "75FR",
+            "Remarks": "Successfully Checked",
+            "DepletionCondition": "True",
+            "Lithology": "Interbedded",
+            "Length": {
+                "Value": 1.93,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            },
+            "Diameter": {
+                "Value": 1.00,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%15:"
+            },
+            "Density": {
+                "Value": 2.03,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C13:"
+            },
+            "BulkCompressibility": {
+                "Value": 0.000000835,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1psi:"
+            },
+            "PoreVolumeCompressibility": {
+                "Value": 0.00000280,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1si:"
+            }
+        },
+        {
+            "SampleID": "opendes:master-data--Sample:Uniaxial76FR:",
+            "SampleOrientation": "Vertical",
+            "LabSampleIdentifier": "76FR",
+            "Remarks": "Successfully Checked",
+            "DepletionCondition": "Effective",
+            "Lithology": "Interbedded",
+            "Length": {
+                "Value": 2.20,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C13:"
+            },
+            "Diameter": {
+                "Value": 1.00,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C11:"
+            },
+            "Density": {
+                "Value": 2.05,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C11:"
+            },
+            "BulkCompressibility": {
+                "Value": 0.000000893,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:11:"
+            },
+            "PoreVolumeCompressibility": {
+                "Value": 0.00000310,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:14:"
+            }
+        }
+    ]
+}

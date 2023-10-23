@@ -1,0 +1,177 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "FractionationSum",
+        "AsphaltenePctOfExtract",
+        "AlkanesPctOfWholeExtract",
+        "AromaticsPctofWholeExtract",
+        "NSOPctOfWholeExtract",
+        "NonElutedPctOfWholeExtract",
+        "MassAlkanes",
+        "MassAromatics",
+        "MassResins",
+        "MassAsphaltenes",
+        "RecoveryPct",
+        "NonHydrocarbonsPct",
+        "MassOfHydrocarbons",
+        "MassOfNonHydrocarbons",
+        "NonHydrocarbonsToHydrocarbonsRatio",
+        "NonHydrocarbonsEOM",
+        "OilMassInitial",
+        "OilMassAfterTopping:",
+        "ToppingLossPct",
+        "MassOfLoadedAmount",
+        "RecoveryMass",
+        "LossPct",
+        "LossMass",
+        "SaturateNormalizedPct",
+        "AromaticNormalizedPct",
+        "NSONormalizedPct",
+        "AsphalteneNormalizedPct",
+        "NaphthenesPctOfTotalExtract",
+        "NParaffinsPctOfTotalExtract",
+        "VolumePctOfAromaticFraction",
+        "AsphalteneC5Pct",
+        "AsphalteneC7Pct",
+        "IparaffinsPctOfTotalExtract"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--SamplesAnalysis:WrongID1:",
+            "{data_partition_id}:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f87454589cc8:",
+            {
+                "Value": 0.169,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID2:"
+            },
+            {
+                "Value": 0.756,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID3:"
+            },
+            {
+                "Value": 0.006,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID4:"
+            },
+            {
+                "Value": 0.009,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID5:"
+            },
+            {
+                "Value": 0.0096,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID6:"
+            },
+            {
+                "Value": 0.0063,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID7:"
+            },
+            {
+                "Value": 0.0085,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID8:"
+            },
+            {
+                "Value": 0.0068,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID9:"
+            },
+            {
+                "Value": 0.0045,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID10:"
+            },
+            {
+                "Value": 0.0097,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID11:"
+            },
+            {
+                "Value": 0.0015,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID12:"
+            },
+            {
+                "Value": 0.0025,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID13:"
+            },
+            {
+                "Value": 0.000984,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID14:"
+            },
+            {
+                "Value": 0.000784,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID15:"
+            },
+            0.000975,
+            {
+                "Value": 0.0095,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID16:"
+            },
+            {
+                "Value": 0.0000964,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID17:"
+            },
+            {
+                "Value": 0.0084,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID18:"
+            },
+            {
+                "Value": 0.00784,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID19:"
+            },
+            {
+                "Value": 0.00078,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID20:"
+            },
+            {
+                "Value": 0.0071,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID21:"
+            },
+            {
+                "Value": 0.0069,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID22:"
+            },
+            {
+                "Value": 0.0098,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID23:"
+            },
+            {
+                "Value": 0.0095,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID24:"
+            },
+            {
+                "Value": 0.0078,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID25:"
+            },
+            {
+                "Value": 0.0078,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID26:"
+            },
+            {
+                "Value": 0.00784,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID27:"
+            },
+            {
+                "Value": 0.0078,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID28:"
+            },
+            {
+                "Value": 0.00785,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID29:"
+            },
+            {
+                "Value": 0.00075,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID30:"
+            },
+            {
+                "Value": 0.00045,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID31:"
+            },
+            {
+                "Value": 0.00054,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID32:"
+            },
+            {
+                "Value": 0.0069,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID33:"
+            }
+        ]
+    ]
+}

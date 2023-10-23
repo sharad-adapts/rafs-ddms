@@ -33,7 +33,7 @@ from tests.integration.config import (
 )
 @pytest.mark.smoke
 def test_get_source_zip_file(api, create_record, data_file_name, api_path, id_template):
-    record_data, _ = create_record(api_path, data_file_name, id_template, UPLOADED_FILES)
+    record_data, _ = create_record(api_path, data_file_name, id_template, datasets=UPLOADED_FILES)
 
     response = getattr(api, api_path).get_source_file(record_data["id"])
     assert response.headers[CONTENT_TYPE] == SupportedMimeTypes.ZIP.mime_type
@@ -48,7 +48,7 @@ def test_get_source_zip_file(api, create_record, data_file_name, api_path, id_te
 )
 @pytest.mark.smoke
 def test_get_source_single_file(api, create_record, data_file_name, api_path, id_template):
-    record_data, _ = create_record(api_path, data_file_name, id_template, [UPLOADED_FILES[0]])
+    record_data, _ = create_record(api_path, data_file_name, id_template, datasets=[UPLOADED_FILES[0]])
 
     response = getattr(api, api_path).get_source_file(record_data["id"])
     assert "application/" in response.headers["Content-Type"]
@@ -65,7 +65,7 @@ def test_get_source_single_file(api, create_record, data_file_name, api_path, id
 def test_get_source_file_not_uploaded(api, create_record, data_file_name, api_path, id_template):
     record_data, _ = create_record(
         api_path, data_file_name, id_template,
-        ["opendes:dataset--File.Generic:not_uploaded:"],
+        datasets=["opendes:dataset--File.Generic:not_uploaded:"],
     )
 
     response = getattr(api, api_path).get_source_file(record_data["id"], allowed_codes=[status.HTTP_404_NOT_FOUND])

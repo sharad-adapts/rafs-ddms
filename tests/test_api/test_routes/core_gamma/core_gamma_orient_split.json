@@ -1,0 +1,40 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "CoreGammaData"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "opendes:work-product-component--SamplesAnalysis:CoreGamma_WPC:",
+            "opendes:master-data--Sample:CoreGamma_Sample:",
+            [
+                {
+                    "Depth": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
+                    },
+                    "Uranium": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "Thorium": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
+                    },
+                    "Potassium": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "TotalGamma": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
+                    }
+                }
+            ]
+        ]
+    ]
+}

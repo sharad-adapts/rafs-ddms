@@ -10,6 +10,11 @@
         "type": "string",
         "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
       },
+      "Method": {
+        "type": "string",
+        "description": "The sample analysis method used for this analysis",
+        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
       "FractionationSum": {
         "type": "object",
         "properties": {
@@ -82,7 +87,7 @@
           }
         }
       },
-      "WeightAlkanes": {
+      "MassAlkanes": {
         "type": "object",
         "properties": {
           "Value": {
@@ -94,7 +99,7 @@
           }
         }
       },
-      "WeightAromatics": {
+      "MassAromatics": {
         "type": "object",
         "properties": {
           "Value": {
@@ -106,7 +111,7 @@
           }
         }
       },
-      "WeightResins": {
+      "MassResins": {
         "type": "object",
         "properties": {
           "Value": {
@@ -118,7 +123,7 @@
           }
         }
       },
-      "WeightAsphaltenes": {
+      "MassAsphaltenes": {
         "type": "object",
         "properties": {
           "Value": {
@@ -154,7 +159,7 @@
           }
         }
       },
-      "WeightOfHydrocarbons": {
+      "MassOfHydrocarbons": {
         "type": "object",
         "properties": {
           "Value": {
@@ -166,7 +171,7 @@
           }
         }
       },
-      "WeightOfNonHydrocarbons": {
+      "MassOfNonHydrocarbons": {
         "type": "object",
         "properties": {
           "Value": {
@@ -193,7 +198,7 @@
           }
         }
       },
-      "OilWeightInitial": {
+      "OilMassInitial": {
         "type": "object",
         "properties": {
           "Value": {
@@ -205,7 +210,7 @@
           }
         }
       },
-      "OilWeightAfterTopping": {
+      "OilMassAfterTopping": {
         "type": "object",
         "properties": {
           "Value": {
@@ -229,7 +234,7 @@
           }
         }
       },
-      "WeightOfLoadedAmount": {
+      "MassOfLoadedAmount": {
         "type": "object",
         "properties": {
           "Value": {
@@ -241,7 +246,7 @@
           }
         }
       },
-      "RecoveryWeight": {
+      "RecoveryMass": {
         "type": "object",
         "properties": {
           "Value": {
@@ -265,7 +270,7 @@
           }
         }
       },
-      "LossWeight": {
+      "LossMass": {
         "type": "object",
         "properties": {
           "Value": {

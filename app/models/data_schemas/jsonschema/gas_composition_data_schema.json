@@ -1,0 +1,185 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "Method": {
+            "type": "string",
+            "description": "The sample analysis method used for this analysis",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "GasComposition": {
+            "title": "Gas Composition",
+            "description": "The relative abundance of hydrocarbon gases measured using gas chromatography",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Component": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GasChromatographyGasCompositionComponents:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "Concentration": {
+                        "type": "object",
+                        "description": "the concentration of the gas component in the overall hydrocarbon gas composition",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "Ratios": {
+            "type": "object",
+            "properties": {
+                "WetnessC5": {
+                    "type": "object",
+                    "description": "Gas Wetness (C2-C5) / (C1-C5)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "WetnessC4": {
+                    "type": "object",
+                    "description": "Gas Wetness (C2-C4) / (C1-C4)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "DrynessC5": {
+                    "type": "object",
+                    "description": "Gas Dryness ratio (C1) / (C1-C5)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "DrynessC4": {
+                    "type": "object",
+                    "description": "Gas Dryness ratio (C1) / (C1-C4)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "Maturity": {
+                    "type": "object",
+                    "description": "Gas Maturity ratio iso-butane / normal-pentane",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "Balance": {
+                    "type": "object",
+                    "description": "Balance ratio C1+C2/C3+C4+C5",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "Character": {
+                    "type": "object",
+                    "description": "Character ratio C4+C5/C3",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "GasIndicator": {
+                    "type": "object",
+                    "description": "Gas Indicator ratio ((C3+C4+C5) * Total Gas) / (C1+C2+C3+C4+C5)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "OilIndicator": {
+                    "type": "object",
+                    "description": "Oil Indicator ratio ((C3+C4)/C1)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                },
+                "Bernard": {
+                    "type": "object",
+                    "description": "Bernard ratio - Methane / Ethane + Propane (%)",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+}

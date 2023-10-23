@@ -1,0 +1,35 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "WeightOfRockExtracted",
+        "WeightOfExtract",
+        "ExtractByRockWeight",
+        "ExtractOfTotalOrganicCarbon"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--SamplesAnalysis:{record_id}:",
+            "{data_partition_id}:master-data--Sample:BP206-12a-5-Sample-154655:",
+            {
+                "Value": 10.166,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g:"
+            },
+            {
+                "Value": 11,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:mg:"
+            },
+            {
+                "Value": 992245,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:mg%2Fkg:"
+            },
+            {
+                "Value": null,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+            }
+        ]
+    ]
+}

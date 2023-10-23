@@ -1,15 +1,16 @@
 {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
     "SampleID": "opendes:master-data--Sample:05ff4cc6-cd0f-4b42-9396-2ed1c6988343:",
-    "WeightOfRockExtracted": {
+    "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
+    "MassOfRockExtracted": {
         "Value": 3.005,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
     },
-    "WeightOfExtract": {
+    "MassOfExtract": {
         "Value": 2.981,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
     },
-    "ExtractByRockWeight": {
+    "ExtractByRockMass": {
         "Value": 992245,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
     },

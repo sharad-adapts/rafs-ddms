@@ -271,38 +271,7 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
     """
     model = None
 
-    common_relative_paths = (
-        CommonRelativePaths.CCE,
-        CommonRelativePaths.ROUTINECOREANALYSIS,
-        CommonRelativePaths.DIF_LIB,
-        CommonRelativePaths.TRANSPORT_TEST,
-        CommonRelativePaths.MSS,
-        CommonRelativePaths.COMPOSITIONAL_ANALYSIS,
-        CommonRelativePaths.SWELLING,
-        CommonRelativePaths.CVD,
-        CommonRelativePaths.STO_ANALYSIS,
-        CommonRelativePaths.INTERFACIAL_TENSION,
-        CommonRelativePaths.WATER_ANALYSIS,
-        CommonRelativePaths.VLE,
-        CommonRelativePaths.MCM,
-        CommonRelativePaths.SLIMTUBETEST,
-        CommonRelativePaths.RELATIVE_PERMEABILITY,
-        CommonRelativePaths.CAP_PRESSURE,
-        CommonRelativePaths.FRACTIONATION,
-        CommonRelativePaths.EXTRACTION,
-        CommonRelativePaths.PHYS_CHEM,
-        CommonRelativePaths.WATER_GAS_RELATIVE_PERMEABILITY,
-        CommonRelativePaths.ROCK_COMPRESSIBILITY,
-        CommonRelativePaths.ELECTRICAL_PROPERTIES,
-        CommonRelativePaths.FORMATION_RESISTIVITY_INDEX,
-        CommonRelativePaths.NMR,
-        CommonRelativePaths.MULTIPLE_SALINITY,
-        CommonRelativePaths.GCMS_ALKANES,
-        CommonRelativePaths.MERCURY_INJECTION,
-        CommonRelativePaths.GCMS_AROMATICS,
-        CommonRelativePaths.GCMS_RATIOS,
-    )
-
+    common_relative_paths = CommonRelativePaths()
     version_models = None
     request_path = request.url.path
     for path in common_relative_paths:

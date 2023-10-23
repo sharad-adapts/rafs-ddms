@@ -72,6 +72,12 @@ async def test_types_route():
         "mercuryinjectionanalyses",
         "gcmsaromatics",
         "gcmsratios",
+        "gaschromatographyanalyses",
+        "gascompositionanalyses",
+        "isotopes",
+        "bulkpyrolysisanalyses",
+        "coregamma",
+        "uniaxial",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -121,6 +127,12 @@ async def test_content_schemas_route(analysistype):
         "mercuryinjectionanalyses",
         "gcmsaromatics",
         "gcmsratios",
+        "gaschromatographyanalyses",
+        "gascompositionanalyses",
+        "isotopes",
+        "bulkpyrolysisanalyses",
+        "coregamma",
+        "uniaxial",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

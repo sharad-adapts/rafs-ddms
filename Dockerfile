@@ -1,8 +1,8 @@
 # docker build -t rafsdistroless -f Dockerfile .
 # https://gealber.com/recipe-distroless-container-fastapi
 ARG python_version=3.11
-ARG python_distroless_image=msosdu.azurecr.io/distroless/python:3.11-slim
-FROM mcr.microsoft.com/mirror/docker/library/python:${python_version}-slim AS build-env
+ARG python_distroless_image=gcr.io/distroless/python3-debian12:nonroot
+FROM python:${python_version}-bookworm AS build-env
 
 COPY requirements.txt /app/requirements.txt
 RUN pip install --upgrade pip \
@@ -11,8 +11,8 @@ RUN pip install --upgrade pip \
 COPY ./app /app/
 WORKDIR /app
 
-# Only needed for production uvloop==0.17.0
-RUN pip install --no-cache-dir uvicorn[standard]==0.22.0
+# Only needed for production uvloop==0.18.0
+RUN pip install --no-cache-dir uvicorn[standard]==0.23.2
 RUN cp -v $(which uvicorn) .
 
 # Google Distroless uses python 3.9 we are choosing to go with cgr.dev (gcr.io/distroless/python3:nonroot uses python 3.9)
@@ -21,11 +21,11 @@ RUN cp -v $(which uvicorn) .
 # Gunicorn distroless approach https://github.com/alexdmoss/distroless-python/tree/main/tests/gunicorn
 FROM ${python_distroless_image}
 ARG python_version
-ARG user_id=1001
+ARG user_id=nonroot
 
 COPY --from=build-env /usr/local/lib/python${python_version}/site-packages /usr/local/lib/python${python_version}/site-packages
-COPY --from=build-env --chown=${user_id}:0 /app /app/app
-COPY --from=build-env --chown=${user_id}:0 /app/uvicorn /app/uvicorn
+COPY --from=build-env --chown=${user_id}:${user_id} /app /app/app
+COPY --from=build-env --chown=${user_id}:${user_id} /app/uvicorn /app/uvicorn
 
 ARG build_date
 ARG commit_id

@@ -1,0 +1,488 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+      "SamplesAnalysisID": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "SampleID": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "BulkPyrolysisAnalysis": {
+          "title": "Bulk Pyrolysis Analysis",
+          "description": "",
+          "type": "array",
+          "items": {
+              "type": "object",
+              "properties": {
+                  "Prep": {
+                      "type": "string",
+                      "description": "Sample preparation method",
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SamplesPreparationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  },
+                  "TOC": {
+                      "type": "array",
+                      "description": "Total organic carbon content",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                              "Value": {
+                                  "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              },
+                              "Method": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                          }
+                      }
+                  },
+                  "S1": {
+                      "type": "object",
+                      "description": "Pyrolysis S1. Free hydrocarbons generated at lower temperatures",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S2": {
+                      "type": "object",
+                      "description": "Pyrolysis S2. Hydrocarbon potential generated at higher temperatures",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S3Org": {
+                      "type": "object",
+                      "description": "Pyrolysis S3, carbon dioxide generated from pyrolsis below 400degC. Thought to relate to organic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S3InOrg": {
+                      "type": "object",
+                      "description": "Pyrolysis S3, carbon dioxide generated from pyrolsis below 400degC. Thought to relate to inorganic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "TMAX": {
+                      "type": "object",
+                      "description": "The temperature at which the maximum rate of hydrocarbon generation occurs in a kerogen sample during pyrolysis analysis",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "RawTMAX": {
+                      "type": "object",
+                      "description": "The temperature at the maximum S2 value",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S5": {
+                      "type": "object",
+                      "description": "Pyrolysis S5, carbon dioxide generated from oxidation above 650degC. Thought to relate to inorganic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "TotalSulfurContent": {
+                      "type": "array",
+                      "description": "Total Sulfur content",
+                      "items": {
+                          "type": "object",
+                          "properties": {
+                              "Value": {
+                                  "type": "number"
+                              },
+                              "UnitOfMeasure": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              },
+                              "Method": {
+                                  "type": "string",
+                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                              }
+                          }
+                      }
+                  },
+                  "S3COOrg": {
+                      "type": "object",
+                      "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to organic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S3COInOrg": {
+                      "type": "object",
+                      "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to inorganic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S4CO": {
+                      "type": "object",
+                      "description": "Pyrolysis S4CO, carbon monoxide generated from oxidation below 650degC. Thought to relate to organic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "S4CO2": {
+                      "type": "object",
+                      "description": "Pyrolysis S4CO2, carbon dioxide generated from oxidation below 650degC. Thought to relate to organic carbon",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "PyrolysisCarbon": {
+                      "type": "object",
+                      "description": "Pyrolysable organic carbon content",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "ResidualCarbon": {
+                      "type": "object",
+                      "description": "Residual organic carbon content",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "MineralCarbon": {
+                      "type": "object",
+                      "description": "Mineral carbon content",
+                      "properties": {
+                          "Value": {
+                              "type": "number"
+                          },
+                          "UnitOfMeasure": {
+                              "type": "string",
+                              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                          }
+                      }
+                  },
+                  "MultiHeatingPeaks": {
+                      "type": "object",
+                      "description": "Mineral carbon content",
+                      "properties": {
+                          "q0": {
+                              "type": "object",
+                              "description": "multi-heating peak 0",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  },
+                                  "Method": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "q1": {
+                              "type": "object",
+                              "description": "multi-heating peak 1",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  },
+                                  "Method": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "q2": {
+                              "type": "object",
+                              "description": "multi-heating peak 2",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  },
+                                  "Method": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "q3": {
+                              "type": "object",
+                              "description": "multi-heating peak 3",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  },
+                                  "Method": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "q4": {
+                              "type": "object",
+                              "description": "multi-heating peak 4",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  },
+                                  "Method": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          }
+                      }
+                  },
+                  "CalculatedProperties": {
+                      "type": "object",
+                      "properties": {
+                          "HI": {
+                              "type": "object",
+                              "description": "Hydrogen Index: S2/TOC",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "OI": {
+                              "type": "object",
+                              "description": "Oxygen Index: S3/TOC",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "PI": {
+                              "type": "object",
+                              "description": "Production Index: S1/(S1+S2))",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "S1TOCRatio": {
+                              "type": "object",
+                              "description": "Ratio of pyrolysis S1 to the total organic carbon %",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "PP": {
+                              "type": "object",
+                              "description": "PP (Petroleum Potential): S1+S2",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "S2S3Ratio": {
+                              "type": "object",
+                              "description": "Ratio Pyrolysis S2/S3",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "VRE": {
+                              "type": "array",
+                              "description": "Vitrinite Reflectance Equivalent (VRE) using Tmax",
+                              "items": {
+                                  "type": "object",
+                                  "properties": {
+                                      "Value": {
+                                          "type": "number"
+                                      },
+                                      "UnitOfMeasure": {
+                                          "type": "string",
+                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                      },
+                                      "Method": {
+                                          "type": "string",
+                                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                      }
+                                  }
+                              }
+                          },
+                          "TransformationRatio": {
+                              "type": "object",
+                              "description": "Calculated transformation ratio using the calculated VRE, assuming organofacies B",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "TOCOriginal": {
+                              "type": "object",
+                              "description": "TOC original (TOCo) back-calculated using present day TOC and a calculated VRE, to account for maturity",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          },
+                          "HIOriginal": {
+                              "type": "object",
+                              "description": "HI original (HIo) back-calculated using present day TOC and a calculated VRE, to account for maturity",
+                              "properties": {
+                                  "Value": {
+                                      "type": "number"
+                                  },
+                                  "UnitOfMeasure": {
+                                      "type": "string",
+                                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                  }
+                              }
+                          }
+                      }
+                  }
+              }
+          }
+      }
+  },
+  "required": [
+      "SamplesAnalysisID",
+      "SampleID"
+  ]
+}

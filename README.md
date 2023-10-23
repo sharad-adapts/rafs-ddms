@@ -4,6 +4,8 @@
 
 Rock and Fluid Sample Domain Data Management Services (RAFS DDMS) Open Subsurface Data Universe (OSDU) is a microservices-based project that comprises OSDU software ecosystem, written in Python that provides an API for Rock and Fluid Sample related data.
 
+For business context, videos, slides, OSDU schemas, and FAQs about the RAFS DDMS see [this separate Member Gitlab wiki](https://gitlab.opengroup.org/osdu/subcommittees/data-def/projects/RAFSDDMSDEV/home/-/wikis/home).
+
 [[_TOC_]]
 
 ## Project structure
@@ -66,7 +68,10 @@ SERVICE_HOST_STORAGE="${API_BASE_URL}/api/storage/v2"
 
 #### Cache settings
 
+> NOTE: Redis Cache it is a NFR, it is used to improve resiliency and performance.
+
 It is needed to add the following variables to .env to set up cache layer:
+
 ```
 CACHE_ENABLE=True
 CACHE_BACKEND="app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
