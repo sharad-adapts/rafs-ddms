@@ -44,11 +44,20 @@ azure_values = RecordValues(
     acl_owners="data.default.owners@opendes.contoso.com",
 )
 
+aws_values = RecordValues(
+    data_partition_id="opendes",
+    schema_authority="osdu",
+    custom_schema_authority="rafsddms",
+    acl_viewers="data.default.viewers@opendes.example.com",
+    acl_owners="data.default.owners@opendes.example.com",
+)
 
 def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = None) -> dict:
     data_values = None
     if CONFIG["CLOUD_PROVIDER"] == "azure":
         data_values = azure_values
+    elif CONFIG["CLOUD_PROVIDER"] == "aws":
+        data_values = aws_values
     with open(os.path.join(DATA_DIR, file_name)) as json_file:
         data_str = (
             json_file.read(
