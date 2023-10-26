@@ -13,9 +13,9 @@
 #  limitations under the License.
 
 import json
-from typing import Annotated, Iterable, List, Optional, TypeVar
+from typing import Iterable, List, Optional, TypeVar
 
-from fastapi import Body, Depends, HTTPException, Query, Request
+from fastapi import Depends, HTTPException, Query, Request
 from loguru import logger
 from pydantic import BaseModel
 from pydantic.error_wrappers import ValidationError
@@ -30,34 +30,11 @@ from app.exceptions.exceptions import (
     RecordValidationException,
 )
 from app.models.data_schemas.base import PATH_TO_DATA_MODEL_VERSIONS
-from app.models.domain.osdu.base import (
-    CCE_KIND,
-    COMPOSITIONAL_ANALYSIS_KIND,
-    CORING_KIND,
-    CVD_KIND,
-    DIF_LIB_KIND,
-    IMPLEMENTED_MODELS,
-    INTERFACIAL_TENSION_KIND,
-    MCM_KIND,
-    MSS_KIND,
-    PVT_KIND,
-    ROCKSAMPLE_KIND,
-    ROCKSAMPLEANALYSIS_KIND,
-    SAMPLES_ANALYSES_REPORT_KIND,
-    SAMPLES_ANALYSES_REPORT_V1_KIND,
-    SAMPLESANALYSIS_KIND,
-    SLIMTUBETEST_KIND,
-    STO_KIND,
-    SWELLING_KIND,
-    TRANSPORT_TEST_KIND,
-    VLE_KIND,
-    WATER_ANALYSYS_KIND,
-)
+from app.models.domain.osdu import base as osdu_models_base
 from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.errors import FilterValidationError
 from app.resources.filters import DataFrameFilterValidator
-from app.resources.load_model_example import load_data_example
 from app.resources.paths import CommonRelativePaths
 from app.services.storage import StorageService
 
@@ -87,6 +64,9 @@ async def get_all_ids_from_records(
             if isinstance(id_data, dict):
                 for id_value in id_data.values():
                     yield from get_id(id_value)
+            elif isinstance(id_data, list):
+                for element in id_data:
+                    yield from get_id(element)
             else:
                 yield from id_data
 
@@ -94,7 +74,6 @@ async def get_all_ids_from_records(
         for field in fields:
             field_data = record["data"].get(field, None)
             ids_list.extend(list(get_id(field_data)))
-
     return ids_list
 
 
@@ -137,7 +116,7 @@ def validate_record(record: dict, kind: str):
     :raises RuntimeError: if there is not an Osdu Model that matches
     :raises ValidationError: if matches Osdu Model but it's not compliant
     """
-    osdu_model = IMPLEMENTED_MODELS.get(kind)  # type Model
+    osdu_model = osdu_models_base.IMPLEMENTED_MODELS.get(kind)  # type Model
     if not osdu_model:
         raise RuntimeError("No valid entity in kind found or not implemented.")
     osdu_model.parse_obj(record)
@@ -173,91 +152,100 @@ async def validate_records_payload(records_list: List[OsduStorageRecord], kind: 
 
 
 async def validate_coring_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, CORING_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.CORING_KIND)
 
 
 async def validate_rocksample_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, ROCKSAMPLE_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.ROCKSAMPLE_KIND)
 
 
 async def validate_rocksampleanalysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, ROCKSAMPLEANALYSIS_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.ROCKSAMPLEANALYSIS_KIND)
 
 
 async def validate_pvt_records_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
-    records = await validate_records_payload(records_list, PVT_KIND)
+    records = await validate_records_payload(records_list, osdu_models_base.PVT_KIND)
     await validate_referential_integrity(records, ["PVTTests"], storage_service)
     return records
 
 
 async def validate_cce_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, CCE_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.CCE_KIND)
 
 
 async def validate_dif_lib_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, DIF_LIB_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.DIF_LIB_KIND)
 
 
 async def validate_transport_test_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, TRANSPORT_TEST_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.TRANSPORT_TEST_KIND)
 
 
 async def validate_com_analysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, COMPOSITIONAL_ANALYSIS_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.COMPOSITIONAL_ANALYSIS_KIND)
 
 
 async def validate_mss_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, MSS_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.MSS_KIND)
 
 
 async def validate_swelling_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, SWELLING_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.SWELLING_KIND)
 
 
 async def validate_cvd_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, CVD_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.CVD_KIND)
 
 
 async def validate_wateranalysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, WATER_ANALYSYS_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.WATER_ANALYSYS_KIND)
 
 
 async def validate_sto_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, STO_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.STO_KIND)
 
 
 async def validate_interfacialtension_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, INTERFACIAL_TENSION_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.INTERFACIAL_TENSION_KIND)
 
 
 async def validate_vle_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, VLE_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.VLE_KIND)
 
 
 async def validate_mcm_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, MCM_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.MCM_KIND)
 
 
 async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, SLIMTUBETEST_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.SLIMTUBETEST_KIND)
 
 
 async def validate_samples_analyses_report_v1_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, SAMPLES_ANALYSES_REPORT_V1_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.SAMPLES_ANALYSES_REPORT_V1_KIND)
 
 
 async def validate_samples_analyses_report_v2_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, SAMPLES_ANALYSES_REPORT_KIND)
+    return await validate_records_payload(records_list, osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND)
 
 
-async def validate_samplesanalysis_records_payload(
-    records_list: Annotated[List[OsduStorageRecord], Body(example=load_data_example("samples_analysis.json"))],
+async def validate_samplesanalysis_records_v1_payload(
+    records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
-    records = await validate_records_payload(records_list, SAMPLESANALYSIS_KIND)
+    records = await validate_records_payload(records_list, osdu_models_base.SAMPLESANALYSIS_V1_KIND)
+    await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
+    return records
+
+
+async def validate_samplesanalysis_records_v2_payload(
+    records_list: List[OsduStorageRecord],
+    storage_service: StorageService = Depends(get_async_storage_service),
+):
+    records = await validate_records_payload(records_list, osdu_models_base.SAMPLESANALYSIS_KIND)
     await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
     return records
 

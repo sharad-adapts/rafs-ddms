@@ -14,7 +14,12 @@
 import pytest
 from starlette import status
 
-from tests.integration.config import DataFiles, DataTemplates, DataTypes
+from tests.integration.config import (
+    DataFiles,
+    DataTemplates,
+    DataTypes,
+    SamplesAnalysisTypes,
+)
 
 
 @pytest.mark.parametrize(
@@ -42,12 +47,24 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_delete_record(api, create_record, api_path, data_file_name, id_template):
     record_data, _ = create_record(api_path, data_file_name, id_template)
+    # status code check is implemented on the API client layer
+    getattr(api, api_path).soft_delete_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
+    getattr(api, api_path).get_record(record_data["id"], allowed_codes=[status.HTTP_404_NOT_FOUND])
+
+
+@pytest.mark.smoke
+@pytest.mark.v2
+def test_delete_v2_sample_analysis(api, create_record):
+    data_file_name = DataFiles.SAMPLE_ANALYSIS
+    api_path = DataTypes.SAMPLE_ANALYSIS
+    id_template = DataTemplates.ID_SAMPLE_ANALYSIS
+
+    record_data, _ = create_record(api_path, data_file_name, id_template, "AnyType")
     # status code check is implemented on the API client layer
     getattr(api, api_path).soft_delete_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
     getattr(api, api_path).get_record(record_data["id"], allowed_codes=[status.HTTP_404_NOT_FOUND])
@@ -78,11 +95,23 @@ def test_delete_record(api, create_record, api_path, data_file_name, id_template
         (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_delete_non_existent_record(api, helper, api_path, id_template):
+    # status code check is implemented on the API client layer
+    getattr(api, api_path).soft_delete_record(
+        f"{id_template}{helper.generate_random_record_id()}",
+        allowed_codes=[status.HTTP_404_NOT_FOUND],
+    )
+
+
+@pytest.mark.smoke
+@pytest.mark.v2
+def test_delete_v2_sample_analysis_non_existent_record(api, helper, create_record):
+    api_path = DataTypes.SAMPLE_ANALYSIS
+    id_template = DataTemplates.ID_SAMPLE_ANALYSIS
+
     # status code check is implemented on the API client layer
     getattr(api, api_path).soft_delete_record(
         f"{id_template}{helper.generate_random_record_id()}",

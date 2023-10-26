@@ -1,0 +1,66 @@
+[
+    {
+        "id": "namespace:work-product-component--SamplesAnalysis:SamplesAnalysisExample",
+        "kind": "osdu:wks:work-product-component--SamplesAnalysis:1.0.0",
+        "acl": {
+            "viewers": [
+                "someone@company.com"
+            ],
+            "owners": [
+                "someone@company.com"
+            ]
+        },
+        "legal": {
+            "legaltags": [
+                "Example legaltags"
+            ],
+            "otherRelevantDataCountries": [
+                "US"
+            ],
+            "status": "compliant"
+        },
+        "tags": {
+            "NameOfKey": "String value"
+        },
+        "data": {
+            "SampleIDs": [
+                "namespace:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11:"
+            ],
+            "ReportSampleIdentifiers": [
+                "88Y"
+            ],
+            "AnalysisDate": "2022-12-16",
+            "LaboratoryIDs": [
+                "namespace:master-data--Organisation:TBD_Lab_1:"
+            ],
+            "LaboratoryNames": [
+                "TestLab"
+            ],
+            "LaboratoryAnalysts": [
+                "Analyst Contact 1"
+            ],
+            "Remarks": [
+                {
+                    "Remark": "Test was successfully conducted",
+                    "RemarkSequenceNumber": 1,
+                    "RemarkSource": "Lab",
+                    "RemarkDate": "2023-10-23"
+                }
+            ],
+            "DateAnalyzed": "2022-12-01",
+            "DatePublished": "2022-12-16",
+            "ParentSamplesAnalysesReports": [
+                {
+                    "ParentSamplesAnalysesReportID": "namespace:work-product-component--SamplesAnalysesReport:SamplesAnalysesReport:"
+                }
+            ],
+            "SampleAnalysisTypeIDs": [
+                "namespace:reference-data--SampleAnalysisType:CapillaryPressure.Centrifuge:"
+            ],
+            "SamplesAnalysisCategoryTagIDs": [
+                "namespace:reference-data--SamplesAnalysisCategoryTag:GreenCompany.SCAL:"
+            ],
+            "DDMSDatasets": []
+        }
+    }
+]

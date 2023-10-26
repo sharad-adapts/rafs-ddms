@@ -174,11 +174,11 @@ class DataTypes:
 
 
 class SamplesAnalysisTypes:  # Custom values
-    NMR = "NMR"
-    MULTIPLE_SALINITY = "MultipleSalinity"
-    AROMATICS = "Aromatics"
-    HPMI = "HPMI"
-    ALKANES = "Alkanes"
+    NMR = "nmrtests"
+    MULTIPLE_SALINITY = "multiplesalinitytests"
+    AROMATICS = "gcmsaromatics"
+    HPMI = "mercuryinjectionanalyses"
+    ALKANES = "gcmsalkanes"
 
 
 class DatasetPrefix:

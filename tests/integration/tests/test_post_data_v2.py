@@ -27,20 +27,23 @@ from tests.integration.config import (
     DatasetPrefix,
     DataTemplates,
     DataTypes,
+    SamplesAnalysisTypes,
 )
 
 
 @pytest.mark.parametrize(
     "measurements_file, dataset_prefix, analysis_type", [
-        (DataFiles.NMR_DATA, DatasetPrefix.NMR, DatasetPrefix.NMR),
+        (DataFiles.NMR_DATA, DatasetPrefix.NMR, SamplesAnalysisTypes.NMR),
     ],
 )
+@pytest.mark.v2
 def test_post_measurements(
     api, create_record, helper, tests_data, measurements_file, dataset_prefix, analysis_type,
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
         DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
     tests_data = tests_data(measurements_file)
     test_data = copy.deepcopy(tests_data)
@@ -54,9 +57,10 @@ def test_post_measurements(
 
 
 @pytest.mark.parametrize(
-    "measurements_file, analysis_type", [(DataFiles.NMR_DATA, DatasetPrefix.NMR)],
+    "measurements_file, analysis_type", [(DataFiles.NMR_DATA, SamplesAnalysisTypes.NMR)],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_with_non_existent_record_id(
     api, helper, create_record, tests_data, measurements_file, analysis_type,
 ):
@@ -64,6 +68,7 @@ def test_post_measurements_with_non_existent_record_id(
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
         DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
     measurements["data"][0][0] = f'{record_data["id"]}:'
 
@@ -76,17 +81,19 @@ def test_post_measurements_with_non_existent_record_id(
 
 
 @pytest.mark.parametrize(
-    "measurements_file, analysis_type", [(DataFiles.NMR_WRONG_ID, DatasetPrefix.NMR)],
+    "measurements_file, analysis_type", [(DataFiles.NMR_WRONG_ID, SamplesAnalysisTypes.NMR)],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_validation_failed(
         api, tests_data, create_record, measurements_file, analysis_type,
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
         DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
-    measurements = tests_data(measurements_file)
+    measurements = tests_data(measurements_file, analysis_type)
 
     error = api.sample_analysis.post_measurements(
         record_data["id"],
@@ -113,15 +120,17 @@ def test_post_measurements_validation_failed(
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_with_empty_body(
         api, create_record, analysis_type,
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
         DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
 
     api.sample_analysis.post_measurements(
@@ -134,10 +143,11 @@ def test_post_measurements_with_empty_body(
 
 @pytest.mark.parametrize(
     "measurements_file, analysis_type", [
-        (DataFiles.NMR_DATA, DatasetPrefix.NMR),
+        (DataFiles.NMR_DATA, SamplesAnalysisTypes.NMR),
     ],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_with_empty_dataset_version(
         api, helper, measurements_file, analysis_type,
 ):
@@ -156,10 +166,11 @@ def test_post_measurements_with_empty_dataset_version(
 
 @pytest.mark.parametrize(
     "measurements_file, analysis_type", [
-        (DataFiles.NMR_DATA, DatasetPrefix.NMR),
+        (DataFiles.NMR_DATA, SamplesAnalysisTypes.NMR),
     ],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_with_wrong_dataset_version(
         api, helper, measurements_file, analysis_type,
 ):
@@ -182,11 +193,12 @@ def test_post_measurements_with_wrong_dataset_version(
 @pytest.mark.parametrize(
     "measurements_file, analysis_type, mandatory_fields", [
         (
-            DataFiles.NMR_DATA, DatasetPrefix.NMR, ["SamplesAnalysisID", "SampleID"],
+            DataFiles.NMR_DATA, SamplesAnalysisTypes.NMR, ["SamplesAnalysisID", "SampleID"],
         ),
     ],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_post_measurements_mandatory_columns_missing(api, tests_data, create_record, analysis_type, measurements_file, mandatory_fields):
     record_data, created_record = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS,

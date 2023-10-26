@@ -14,6 +14,9 @@
 
 from fastapi import APIRouter
 
+from app.api.dependencies.validation import (
+    validate_samplesanalysis_records_v2_payload,
+)
 from app.api.routes.samplesanalysis.endpoints import (
     SAMPLESANALYSIS_ID_REGEX_STR,
     SamplesAnalysisRecordView,
@@ -27,7 +30,11 @@ RECORD_TYPE = "SamplesAnalysis"
 
 SamplesAnalysisTypesView(sa_router)
 
-SamplesAnalysisRecordView(sa_router, RECORD_TYPE)
+SamplesAnalysisRecordView(
+    router=sa_router,
+    validate_records_payload=validate_samplesanalysis_records_v2_payload,
+    record_type=RECORD_TYPE,
+)
 
 SamplesAnalysisSchemasView(sa_router)
 

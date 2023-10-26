@@ -132,7 +132,7 @@ class SamplesAnalysesReport(BaseModel):
         title='Ancestry',
     )
     data: Optional[Data] = None
-    kind: constr(regex=r'^rafsddms:wks:[\w\-\.]+:[0-9]+.[0-9]+.[0-9]+$') = Field(
+    kind: constr(regex=r'^[\w\-\.]+:[\w\-\.]+:[\w\-\.]+:[0-9]+.[0-9]+.[0-9]+$') = Field(
         ...,
         description='The schema identification for the OSDU resource object following the pattern {Namespace}:{Source}:{Type}:{VersionMajor}.{VersionMinor}.{VersionPatch}. The versioning scheme follows the semantic versioning, https://semver.org/.',
         example='rafsddms:wks:work-product-component--SamplesAnalysesReport:1.0.0',

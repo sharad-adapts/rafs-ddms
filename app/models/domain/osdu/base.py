@@ -24,6 +24,7 @@ from .WPCMSS100 import MultiStageSeparatorTest
 from .WPCPVT100 import PVT
 from .WPCRockSampleAnalysis110 import RockSampleAnalysis
 from .WPCSamplesAnalysis100 import SamplesAnalysis
+from .WPCSamplesAnalysis100_V1 import SamplesAnalysis as SamplesAnalysisV1
 from .WPCSlimTubeTest100 import SlimTubeTest
 from .WPCTransportTest100 import TransportTest
 from .WPCSwellingTest100 import SwellingTest
@@ -56,7 +57,9 @@ INTERFACIAL_TENSION_KIND = f"{settings.custom_schema_authority}:wks:work-product
 VLE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--VaporLiquidEquilibriumTest:1.0.0"
 MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--MultipleContactMiscibilityTest:1.0.0"
 SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
-SAMPLESANALYSIS_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysis:1.0.0"
+
+SAMPLESANALYSIS_V1_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysis:1.0.0"
+SAMPLESANALYSIS_KIND = f"{settings.schema_authority}:wks:work-product-component--SamplesAnalysis:1.0.0"
 
 SAMPLES_ANALYSES_REPORT_V1_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
 SAMPLES_ANALYSES_REPORT_KIND = f"{settings.schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
@@ -81,5 +84,6 @@ IMPLEMENTED_MODELS = {
     SLIMTUBETEST_KIND: SlimTubeTest,
     SAMPLES_ANALYSES_REPORT_V1_KIND: SamplesAnalysesReportV1,
     SAMPLES_ANALYSES_REPORT_KIND: SamplesAnalysesReport,
+    SAMPLESANALYSIS_V1_KIND: SamplesAnalysisV1,
     SAMPLESANALYSIS_KIND: SamplesAnalysis,
 }

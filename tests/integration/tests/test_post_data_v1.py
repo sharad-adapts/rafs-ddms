@@ -30,7 +30,6 @@ from tests.integration.config import (
     DatasetPrefix,
     DataTemplates,
     DataTypes,
-    SamplesAnalysisTypes,
 )
 from tests.integration.data.errors import RCA_MANDATORY_PARAMETERS
 
