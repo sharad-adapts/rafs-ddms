@@ -446,8 +446,13 @@ SAMPLESANALYSESREPORT_RECORD = SamplesAnalysesReport(
     data=SamplesAnalysesReportData(
         SampleIDs=[f"{PARTITION}:master-data--Sample:sample_test_id:"],
         ReportSampleIdentifiers=["45H", "49H"],
-        SampleAnalysisTypeIDs=["CapillaryPressureGasOil", "CentrifugeDrainageGasOil"],
-        SamplesAnalysisCategoryTagIDs=["SCAL"],
+        SampleAnalysisTypeIDs=[
+            "opendes:reference-data--SampleAnalysisType:CapillaryPressureGasOil:",
+            "opendes:reference-data--SampleAnalysisType:CentrifugeDrainageGasOil:",
+        ],
+        SamplesAnalysisCategoryTagIDs=[
+            "opendes:reference-data--SamplesAnalysisCategoryTag:SCAL:",
+        ],
     ),
 )
 

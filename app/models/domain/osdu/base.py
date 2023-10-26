@@ -33,6 +33,7 @@ from .WPCInterfacialTension100 import InterfacialTensionTest
 from .WPCVLE100 import VaporLiquidEquilibriumTest
 from .WPCMCM100 import MultipleContactMiscibilityTest
 from .WPCSamplesAnalysesReport100 import SamplesAnalysesReport
+from .WPCSamplesAnalysesReport100_V1 import SamplesAnalysesReport as SamplesAnalysesReportV1
 
 settings = get_app_settings()
 
@@ -57,7 +58,8 @@ MCM_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--Mult
 SLIMTUBETEST_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SlimTubeTest:1.0.0"
 SAMPLESANALYSIS_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysis:1.0.0"
 
-SAMPLES_ANALYSES_REPORT_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
+SAMPLES_ANALYSES_REPORT_V1_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
+SAMPLES_ANALYSES_REPORT_KIND = f"{settings.schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
 
 IMPLEMENTED_MODELS = {
     CORING_KIND: Coring,
@@ -77,6 +79,7 @@ IMPLEMENTED_MODELS = {
     VLE_KIND: VaporLiquidEquilibriumTest,
     MCM_KIND: MultipleContactMiscibilityTest,
     SLIMTUBETEST_KIND: SlimTubeTest,
+    SAMPLES_ANALYSES_REPORT_V1_KIND: SamplesAnalysesReportV1,
     SAMPLES_ANALYSES_REPORT_KIND: SamplesAnalysesReport,
     SAMPLESANALYSIS_KIND: SamplesAnalysis,
 }

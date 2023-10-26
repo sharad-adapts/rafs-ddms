@@ -45,6 +45,7 @@ def create_parent_records(api, helper, tests_data):
     record_to_create = [
         (DataTypes.PVT, DataFiles.PVT, DataTemplates.ID_PVT),
         (DataTypes.SAR, DataFiles.SAR, DataTemplates.ID_SAR),
+        (DataTypes.SAR_V2, DataFiles.SAR_V2, DataTemplates.ID_SAR),
     ]
     for data_type, data, id_template in record_to_create:
         record_data = copy.deepcopy(tests_data(data))

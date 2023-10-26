@@ -27,7 +27,3 @@ datamodel-codegen \
     - Make sure all imports of init file are correct (some times a dot is missing in a few imports)
     - Rename the `\_\_init\_\_.py` module to the name of the type + the version, i.e., MDCoring100, WPCRockSampleAnalysis110, etc.
     - Add it to IMPLEMENTED_MODELS map in the `base.py` module.
-
-*NOTE:* Within [AbstractCommonResources](app/models/domain/osdu/osdu_wks_AbstractCommonResources_1/field_0.py) there are fields 
-(`ResourceHomeRegionID`, `ResourceHostRegionIDs`, `ResourceSecurityClassification`) that contain a manually added field  
-`copy_to_dataset_record`. This addition is for the purpose of inheritance.
