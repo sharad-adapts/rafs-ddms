@@ -25,28 +25,27 @@ from pydantic import BaseModel, Field, constr
 
 
 class Field0(BaseModel):
-    AliasNameTypeID: Optional[
-        constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-AliasNameType:[\w\-\.\:\%]+:[0-9]*$"
-        )
-    ] = Field(
-        None,
-        description="A classification of alias names such as by role played or type of source, such as regulatory name, regulatory code, company code, international standard name, etc.",
-    )
     EffectiveDateTime: Optional[datetime] = Field(
-        None, description="The date and time when an alias name becomes effective."
-    )
-    AliasName: Optional[str] = Field(
-        None, description="Alternative Name value of defined name type for an object."
+        None,
+        description="The date and time at which the activity status becomes effective.",
+        title="Effective Date Time",
     )
     TerminationDateTime: Optional[datetime] = Field(
-        None, description="The data and time when an alias name is no longer in effect."
+        None,
+        description="The date and time at which the activity status is no longer in effect. For still effective activity states, the TerminationDateTime is left absent. For zero-duration intervals (events), the TerminationDateTime set to the same value as EffectiveDateTime.",
+        title="Termination Date Time",
     )
-    DefinitionOrganisationID: Optional[
+    ActivityStatusID: Optional[
         constr(
-            regex=r"^[\w\-\.]+:(reference-data\-\-StandardsOrganisation|master-data\-\-Organisation):[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-ActivityStatus:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,
-        description="The StandardsOrganisation (reference-data) or Organisation (master-data) that provided the name (the source).",
+        description="The ActivityStatus is a set of major activity phases that are significant to business stakeholders.",
+        title="Activity Status ID",
+    )
+    Remark: Optional[str] = Field(
+        None,
+        description="An optional remark associated with the ActivityStatus and time interval.",
+        title="Remark",
     )

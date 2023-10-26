@@ -12,24 +12,29 @@ from tests.integration.config import (
     DatasetPrefix,
     DataTemplates,
     DataTypes,
+    SamplesAnalysisTypes,
 )
 from tests.test_api.api_version import API_VERSION
 
 
 @pytest.mark.parametrize(
     "measurements_file, analysis_type", [
-        (DataFiles.NMR_DATA, DatasetPrefix.NMR),
+        (DataFiles.NMR_DATA, SamplesAnalysisTypes.NMR),
     ],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_as_json(
     api, helper, tests_data, create_record, measurements_file, analysis_type,
 ):
     record_data, created_record = create_record(
-        DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTypes.SAMPLE_ANALYSIS,
+        DataFiles.SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
 
-    tests_data = tests_data(measurements_file)
+    tests_data = tests_data(measurements_file, analysis_type)
     test_data = copy.deepcopy(tests_data)
     test_data["data"][0][0] = f'{record_data["id"]}:'
 
@@ -46,9 +51,10 @@ def test_get_measurements_as_json(
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_with_empty_dataset_version(api, helper, analysis_type):
     dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
     error = api.sample_analysis.get_measurements(
@@ -65,9 +71,10 @@ def test_get_measurements_with_empty_dataset_version(api, helper, analysis_type)
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_with_wrong_dataset_version(
         api, helper, analysis_type,
 ):
@@ -88,13 +95,14 @@ def test_get_measurements_with_wrong_dataset_version(
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_invalid_dataset_version(
         api, helper, tests_data, analysis_type, delete_record,
 ):
-    tests_data = tests_data(DataFiles.SAMPLE_ANALYSIS)
+    tests_data = tests_data(DataFiles.SAMPLE_ANALYSIS, analysis_type)
     test_data = copy.deepcopy(tests_data)
     dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
     version = "1.7.0"
@@ -127,9 +135,10 @@ def test_get_measurements_invalid_dataset_version(
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_non_existent_record_id(api, helper, analysis_type):
     full_id = f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}"
     dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
@@ -143,14 +152,18 @@ def test_get_measurements_non_existent_record_id(api, helper, analysis_type):
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [DatasetPrefix.NMR],
+    "analysis_type", [SamplesAnalysisTypes.NMR],
 )
 @pytest.mark.smoke
+@pytest.mark.v2
 def test_get_measurements_non_existent_dataset_id(
     api, helper, create_record, analysis_type,
 ):
     record_data, created_record = create_record(
-        DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTypes.SAMPLE_ANALYSIS,
+        DataFiles.SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS,
+        analysis_type,
     )
 
     dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"

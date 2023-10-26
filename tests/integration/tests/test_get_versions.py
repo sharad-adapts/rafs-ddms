@@ -30,12 +30,25 @@ from tests.integration.config import DataFiles, DataTemplates, DataTypes
         (DataFiles.FRACTIONATION, DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.PHYS_CHEM, DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataFiles.RP, DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataFiles.SAMPLE_ANALYSIS, DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_get_versions(api, helper, create_record, api_path, data_file_name, id_template):
     record_data, created_record = create_record(api_path, data_file_name, id_template)
+    test_data = getattr(api, api_path).get_record_versions(record_data["id"])
+
+    assert test_data["recordId"] == record_data["id"]
+    assert test_data["versions"][-1] == helper.parse_full_record_id(created_record["recordIdVersions"][0])["version"]
+
+
+@pytest.mark.smoke
+@pytest.mark.v2
+def test_get_versions_v2_sample_analysis(api, helper, create_record):
+    data_file_name = DataFiles.SAMPLE_ANALYSIS
+    api_path = DataTypes.SAMPLE_ANALYSIS
+    id_template = DataTemplates.ID_SAMPLE_ANALYSIS
+
+    record_data, created_record = create_record(api_path, data_file_name, id_template, "AnyType")
     test_data = getattr(api, api_path).get_record_versions(record_data["id"])
 
     assert test_data["recordId"] == record_data["id"]
@@ -67,11 +80,24 @@ def test_get_versions(api, helper, create_record, api_path, data_file_name, id_t
         (DataTypes.FRACTIONATION, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.PHYS_CHEM, DataTemplates.ID_SAMPLE_ANALYSIS),
         (DataTypes.RP, DataTemplates.ID_SAMPLE_ANALYSIS),
-        (DataTypes.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS),
     ],
 )
 @pytest.mark.smoke
 def test_get_versions_of_non_existent_record(api, helper, api_path, id_template):
+    non_existent_id = f"{id_template}{helper.generate_random_record_id()}"
+    error = getattr(api, api_path).get_record_versions(
+        non_existent_id,
+        allowed_codes=[status.HTTP_404_NOT_FOUND],
+    )
+    assert f"The record '{non_existent_id}' was not found" in error["message"]
+
+
+@pytest.mark.smoke
+@pytest.mark.v2
+def test_get_versions_of_non_existent_record_v2_sample_analysis(api, helper, create_record):
+    api_path = DataTypes.SAMPLE_ANALYSIS
+    id_template = DataTemplates.ID_SAMPLE_ANALYSIS
+
     non_existent_id = f"{id_template}{helper.generate_random_record_id()}"
     error = getattr(api, api_path).get_record_versions(
         non_existent_id,
