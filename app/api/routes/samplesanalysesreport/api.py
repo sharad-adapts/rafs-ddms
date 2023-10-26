@@ -15,7 +15,8 @@
 from fastapi import APIRouter
 
 from app.api.dependencies.validation import (
-    validate_samples_analyses_report_payload,
+    validate_samples_analyses_report_v1_payload,
+    validate_samples_analyses_report_v2_payload,
 )
 from app.api.routes.samplesanalysesreport.endpoints import (
     SamplesAnalysesReportView,
@@ -23,11 +24,19 @@ from app.api.routes.samplesanalysesreport.endpoints import (
 
 SAR_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysesReport:[\w\-\.\:\%]+$"
 
-sar_record_router = APIRouter()
+sar_record_router_v1 = APIRouter()
+sar_record_router_v2 = APIRouter()
 
 SamplesAnalysesReportView(
-    router=sar_record_router,
+    router=sar_record_router_v1,
     id_regex_str=SAR_ID_REGEX_STR,
-    validate_records_payload=validate_samples_analyses_report_payload,
+    validate_records_payload=validate_samples_analyses_report_v1_payload,
+    record_type="SamplesAnalysesReport",
+)
+
+SamplesAnalysesReportView(
+    router=sar_record_router_v2,
+    id_regex_str=SAR_ID_REGEX_STR,
+    validate_records_payload=validate_samples_analyses_report_v2_payload,
     record_type="SamplesAnalysesReport",
 )

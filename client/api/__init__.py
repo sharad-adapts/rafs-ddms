@@ -41,6 +41,9 @@ from client.api.core.v1.vapor_liquid_equilibrium import (
 )
 from client.api.core.v1.water_analysis import WaterAnalysisCore
 from client.api.core.v2.sample_analysis import SamplesAnalysis
+from client.api.core.v2.samples_analyses_report import (
+    SamplesAnalysesReportV2Core,
+)
 from client.api.legal import APILegal
 from client.api.storage import APIStorage
 
@@ -69,6 +72,7 @@ class ApiWorker(object):
         self.slim_tube = SlimTubeCore(host, url_prefix, data_partition, token)
         self.mcm = MultipleContactMiscibilityCore(host, url_prefix, data_partition, token)
         self.sar = SamplesAnalysesReportCore(host, url_prefix, data_partition, token)
+        self.sar_v2 = SamplesAnalysesReportV2Core(host, url_prefix, data_partition, token)
         self.cap_pressure = CapPressureCore(host, url_prefix, data_partition, token)
         self.extraction = ExtractionCore(host, url_prefix, data_partition, token)
         self.fractionation = FractionationCore(host, url_prefix, data_partition, token)

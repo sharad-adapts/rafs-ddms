@@ -102,6 +102,7 @@ class DataFiles:
 
     # v2
     SAMPLE_ANALYSIS = "v2/samplesanalysis.json"
+    SAR_V2 = "v2/sar.json"
     NMR_DATA = "v2/NMR/nmr_data.json"
     NMR_WRONG_ID = "v2/NMR/nmr_wrong_ids.json"
     MULTIPLE_SALINITY_DATA = "v2/multiple_salinity/multiplesalinity_data.json"
@@ -169,6 +170,7 @@ class DataTypes:
 
     # v2
     SAMPLE_ANALYSIS = "sample_analysis"
+    SAR_V2 = "sar_v2"
 
 
 class SamplesAnalysisTypes:  # Custom values

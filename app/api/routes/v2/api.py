@@ -26,7 +26,7 @@ SAMPLES_ANALYSIS_PREFIX = "/samplesanalysis"
 router = APIRouter()
 
 router.include_router(
-    sampleanalysesreport_api.sar_record_router,
+    sampleanalysesreport_api.sar_record_router_v2,
     prefix="/samplesanalysesreport",
     tags=["samplesanalysesreport"],
     dependencies=COMMON_DEPENDENCIES,

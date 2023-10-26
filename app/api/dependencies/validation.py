@@ -44,6 +44,7 @@ from app.models.domain.osdu.base import (
     ROCKSAMPLE_KIND,
     ROCKSAMPLEANALYSIS_KIND,
     SAMPLES_ANALYSES_REPORT_KIND,
+    SAMPLES_ANALYSES_REPORT_V1_KIND,
     SAMPLESANALYSIS_KIND,
     SLIMTUBETEST_KIND,
     STO_KIND,
@@ -244,7 +245,11 @@ async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRe
     return await validate_records_payload(records_list, SLIMTUBETEST_KIND)
 
 
-async def validate_samples_analyses_report_payload(records_list: List[OsduStorageRecord]):
+async def validate_samples_analyses_report_v1_payload(records_list: List[OsduStorageRecord]):
+    return await validate_records_payload(records_list, SAMPLES_ANALYSES_REPORT_V1_KIND)
+
+
+async def validate_samples_analyses_report_v2_payload(records_list: List[OsduStorageRecord]):
     return await validate_records_payload(records_list, SAMPLES_ANALYSES_REPORT_KIND)
 
 

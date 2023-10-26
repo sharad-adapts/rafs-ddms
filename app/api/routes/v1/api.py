@@ -163,7 +163,7 @@ router.include_router(
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
-    samples_analyses_report_api.sar_record_router,
+    samples_analyses_report_api.sar_record_router_v1,
     prefix="/samplesanalysesreport",
     tags=["samplesanalysesreport"],
     dependencies=COMMON_DEPENDENCIES,

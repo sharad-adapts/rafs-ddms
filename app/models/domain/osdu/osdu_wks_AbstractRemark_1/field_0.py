@@ -18,26 +18,27 @@
 
 from __future__ import annotations
 
-from typing import Union
+from datetime import date
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
-from ..osdu_wks_AbstractGeoBasinContext_1 import field_0 as field_0_1
-from ..osdu_wks_AbstractGeoFieldContext_1 import field_0 as field_0_2
-from ..osdu_wks_AbstractGeoPlayContext_1 import field_0 as field_0_3
-from ..osdu_wks_AbstractGeoPoliticalContext_1 import field_0
-from ..osdu_wks_AbstractGeoProspectContext_1 import field_0 as field_0_4
-
 
 class Field0(BaseModel):
-    __root__: Union[
-        field_0.Field0,
-        field_0_1.Field0,
-        field_0_2.Field0,
-        field_0_3.Field0,
-        field_0_4.Field0,
-    ] = Field(
-        ...,
-        description="A geographic context to an entity. It can be either a reference to a GeoPoliticalEntity, Basin, Field, Play or Prospect.",
-        title="AbstractGeoContext",
+    RemarkSource: Optional[str] = Field(
+        None,
+        description="The person, vendor, interpreter or other provider of information.",
+        title="Remark Source",
+    )
+    RemarkDate: Optional[date] = Field(
+        None, description="The date the remark was issued.", title="Remark Date"
+    )
+    RemarkSequenceNumber: Optional[int] = Field(
+        None,
+        description="A unique identifier for each remark record. This identifier is used to uniquely identify a member in an array of remarks.",
+        example=1,
+        title="Remark Sequence Number",
+    )
+    Remark: Optional[str] = Field(
+        None, description="A descriptive comment for this remark.", title="Remark"
     )

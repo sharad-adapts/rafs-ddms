@@ -12,10 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from app.models.domain.osdu.osdu_wks_AbstractCommonResources_1.field_0 import (
-    Field0 as CommonResources,
-)
-
 
 def create_default_dataset_record(
     dataset_id: str,
@@ -24,11 +20,9 @@ def create_default_dataset_record(
     parent_record: dict,
     schema_authority: str = "osdu",
 ):
-    common_resources = {
-        key
-        for key, properties in CommonResources.schema()["properties"].items()
-        if properties.get("copy_to_dataset_record")
-    }
+    # only a subset of AbstractCommonResources properties are copied from parent
+    # see model in app/models/domain/osdu/osdu_wks_AbstractCommonResources_1/field_0.py
+    common_resources = {"ResourceHomeRegionID", "ResourceHostRegionIDs", "ResourceSecurityClassification"}
     existent_common_resources = set(parent_record["data"].keys()).intersection(common_resources)
     record_data = {key: parent_record["data"][key] for key in existent_common_resources}
     record_data.update({
