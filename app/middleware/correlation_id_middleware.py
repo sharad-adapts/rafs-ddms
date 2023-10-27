@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 import uuid
+from contextvars import ContextVar
 
 from fastapi import Request, Response
 from starlette.middleware.base import (
@@ -21,6 +22,16 @@ from starlette.middleware.base import (
 )
 
 from app.resources.common_headers import CORRELATION_ID
+
+_correlation_id_ctx_var: ContextVar[str] = ContextVar(CORRELATION_ID, default=None)
+
+
+def get_correlation_id() -> str:
+    return _correlation_id_ctx_var.get()
+
+
+def set_correlation_id(cid) -> None:
+    _correlation_id_ctx_var.set(cid)
 
 
 class CorrelationIDMiddleware(BaseHTTPMiddleware):
@@ -32,17 +43,23 @@ class CorrelationIDMiddleware(BaseHTTPMiddleware):
     correlation ID in the format "rafs-ddms/{uuid}" and adds it to the
     request headers.
     """
+
     async def dispatch(
-        self, request: Request, call_next: RequestResponseEndpoint,
+        self,
+        request: Request,
+        call_next: RequestResponseEndpoint,
     ) -> Response:
         correlation_id = request.headers.get(CORRELATION_ID)
         if not correlation_id:
             correlation_id = f"rafs-ddms/{uuid.uuid4()}"
             headers = dict(request.scope["headers"])
             headers[bytes(CORRELATION_ID, "utf-8")] = bytes(correlation_id, "utf-8")
-            request.scope["headers"] = [(h_name, h_value) for h_name, h_value in headers.items()]
+            request.scope["headers"] = [
+                (h_name, h_value) for h_name, h_value in headers.items()
+            ]
 
         response = await call_next(request)
         if CORRELATION_ID not in response.headers:
             response.headers[CORRELATION_ID] = correlation_id
+        _correlation_id_ctx_var.set(correlation_id)
         return response

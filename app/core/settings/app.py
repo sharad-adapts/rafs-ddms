@@ -13,11 +13,11 @@
 #  limitations under the License.
 
 import logging
-import sys
 from typing import Any, Dict, List, Tuple
 
 from loguru import logger
 
+from app.core.helpers.app_filter_logging import AppFilterLogging
 from app.core.logging import InterceptHandler
 from app.core.settings.base import BaseAppSettings
 
@@ -37,7 +37,11 @@ class AppSettings(BaseAppSettings):
 
     logging_level: int = logging.INFO
 
-    loggers: Tuple[str, str] = ("uvicorn.asgi", "uvicorn.access")
+    loggers: Tuple[str, str, str] = (
+        "uvicorn.asgi",
+        "uvicorn.access",
+        "uvicorn.error",
+    )
 
     service_host_search: str = None
 
@@ -73,8 +77,24 @@ class AppSettings(BaseAppSettings):
 
     def configure_logging(self) -> None:
         logging.getLogger().handlers = [InterceptHandler()]
+        console_handler = logging.StreamHandler()
+        console_handler.setLevel(level=self.logging_level)
+        console_handler.addFilter(AppFilterLogging())
+        formatter = logging.Formatter(
+            "%(asctime)s [%(process)d][%(levelname)s] --- {correlation-id=%(correlation_id)s} %(name)s: %(message)s",
+        )
+        console_handler.setFormatter(formatter)
+
         for logger_name in self.loggers:
             logging_logger = logging.getLogger(logger_name)
-            logging_logger.handlers = [InterceptHandler(level=self.logging_level)]
+            logging_logger.handlers.clear()
+            logging_logger.propagate = False
+            logging_logger.addHandler(console_handler)
 
-        logger.configure(handlers=[{"sink": sys.stderr, "level": self.logging_level}])
+        logger.remove()
+        logger.add(
+            console_handler,
+            level=self.logging_level,
+            filter=AppFilterLogging,
+            format="{message}",
+        )
