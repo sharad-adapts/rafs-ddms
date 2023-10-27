@@ -20,7 +20,6 @@ from loguru import logger
 
 
 class InterceptHandler(logging.Handler):
-
     def emit(self, record: logging.LogRecord) -> None:  # pragma: no cover
         """Log the specified logging record.
 

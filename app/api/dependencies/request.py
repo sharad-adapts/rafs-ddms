@@ -20,6 +20,7 @@ from loguru import logger
 from starlette import status
 
 from app.exceptions import exceptions
+from app.middleware.correlation_id_middleware import set_correlation_id
 from app.resources.common_headers import ACCEPT, CONTENT_TYPE, CORRELATION_ID
 from app.resources.mime_types import SupportedMimeTypes
 
@@ -66,8 +67,12 @@ def validate_content_type(request: Request, supported_types: List[str]) -> None:
         raise exceptions.InvalidHeaderException(detail=reason)
 
     if content_type not in supported_types:
-        supported_content_types = f"Please provide one of the next supported content types: {supported_types}"
-        reason = f"The provided content-type is not supported. {supported_content_types}"
+        supported_content_types = (
+            f"Please provide one of the next supported content types: {supported_types}"
+        )
+        reason = (
+            f"The provided content-type is not supported. {supported_content_types}"
+        )
         logger.debug(reason)
         raise exceptions.InvalidHeaderException(detail=reason)
 
@@ -80,7 +85,10 @@ def validate_bulkdata_content_type(request: Request) -> None:
     :raises exceptions.InvalidHeaderException: if content type was not provided
     :raises exceptions.InvalidHeaderException: if content type is not supported
     """
-    supported_types = [SupportedMimeTypes.JSON.mime_type, SupportedMimeTypes.PARQUET.mime_type]
+    supported_types = [
+        SupportedMimeTypes.JSON.mime_type,
+        SupportedMimeTypes.PARQUET.mime_type,
+    ]
     validate_content_type(request=request, supported_types=supported_types)
 
 
@@ -130,4 +138,5 @@ async def get_correlation_id(request: Request):
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=reason,
         )
+    set_correlation_id(correlation_id)
     return correlation_id

@@ -22,7 +22,7 @@ The following software have components provided under the terms of this license:
 - fastapi-cache2 (from https://github.com/long2ice/fastapi-cache)
 - frozenlist (from https://github.com/aio-libs/frozenlist)
 - multidict (from https://github.com/aio-libs/multidict)
-- multimethod (from https://pypi.org/project/multimethod/1.10/)
+- multimethod (from https://pypi.org/project/multimethod/1.10/, https://pypi.org/project/multimethod/1.9.1/)
 - numpy
 - packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/23.2/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
