@@ -98,12 +98,13 @@ azure_test_py:
     - .python_test_report
   before_script:
     - apt update -qqq -y && apt install -qqq -y curl jq &> /dev/null
-    - !reference [.get_azure_access_token, script ]
+    - !reference [.get_azure_access_token, script]
   script:
     - >-
       time pytest -n 3
-      --junitxml=integration_tests_report.xml 
+      --junitxml=integration_tests_report.xml
       --cov=app
+      --cov-report=xml:coverage.xml
       --cov-report=term
       ./tests/integration/tests
       --ddms-base-url https://${AZURE_DNS_NAME}
