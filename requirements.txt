@@ -23,6 +23,7 @@ azure-core==1.29.4
     # via azure-storage-blob
 azure-storage-blob==12.18.3
     # via -r requirements.in
+boto3==1.28.63
 certifi==2023.7.22
     # via
     #   httpcore
