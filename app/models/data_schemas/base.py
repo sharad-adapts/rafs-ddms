@@ -30,6 +30,7 @@ from app.models.data_schemas.relative_permeability_data_model import Model as Re
 from app.models.data_schemas.vle_data_model import Model as VLEModel
 from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
 from app.models.data_schemas.cap_pressure_data_model import Model as CapPressureModel
+from app.models.data_schemas.cec_content_model import Model as CECContentModel
 from app.models.data_schemas.fractionation_data_model import Model as FractionationModel
 from app.models.data_schemas.extraction_data_model import Model as ExtractionModel
 from app.models.data_schemas.physchem_data_model import Model as PhysChemModel
@@ -159,6 +160,9 @@ CORE_GAMMA_MODELS = {
 UNIAXIAL_TEST_MODELS = {
     ContentSchemaVersion.V_1_0_0: UniaxialTestModel
 }
+CEC_CONTENT_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CECContentModel
+}
 
 common_relative_paths = CommonRelativePaths()
 PATH_TO_DATA_MODEL_VERSIONS = {
@@ -197,4 +201,5 @@ PATH_TO_DATA_MODEL_VERSIONS = {
     common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
     common_relative_paths.CORE_GAMMA: CORE_GAMMA_MODELS,
     common_relative_paths.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
+    common_relative_paths.CEC_CONTENT: CEC_CONTENT_MODELS,
 }
