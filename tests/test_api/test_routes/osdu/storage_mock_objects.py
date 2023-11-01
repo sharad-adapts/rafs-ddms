@@ -61,7 +61,16 @@ from app.models.domain.osdu.WPCSamplesAnalysesReport100 import (
 from app.models.domain.osdu.WPCSamplesAnalysis100 import (
     Data as SamplesAnalysisData,
 )
-from app.models.domain.osdu.WPCSamplesAnalysis100 import SamplesAnalysis
+from app.models.domain.osdu.WPCSamplesAnalysis100 import (
+    ParentSamplesAnalysesReport,
+    SamplesAnalysis,
+)
+from app.models.domain.osdu.WPCSamplesAnalysis100_V1 import (
+    Data as SamplesAnalysisDataV1,
+)
+from app.models.domain.osdu.WPCSamplesAnalysis100_V1 import (
+    SamplesAnalysis as SamplesAnalysisV1,
+)
 from app.models.domain.osdu.WPCSlimTubeTest100 import Data as SlimTubeTestData
 from app.models.domain.osdu.WPCSlimTubeTest100 import SlimTubeTest
 from app.models.domain.osdu.WPCSTO100 import Data as STOData
@@ -201,9 +210,9 @@ TEST_MCM_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{MCM_TYPE}:{MCM_VERSION}"
 TEST_SLIMTUBETEST_ID = f"{PARTITION}:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_ID}"
 TEST_SLIMTUBETEST_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SLIMTUBETEST_TYPE}:{SLIMTUBETEST_VERSION}"
 TEST_SAMPLESANALYSESREPORT_ID = f"{PARTITION}:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_ID}"
-TEST_SAMPLESANALYSESREPORT_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_VERSION}"
+TEST_SAMPLESANALYSESREPORT_KIND = f"{SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSESREPORT_TYPE}:{SAMPLESANALYSESREPORT_VERSION}"
 TEST_SAMPLESANALYSIS_ID = f"{PARTITION}:{SAMPLESANALYSIS_TYPE}:{SAMPLESANALYSIS_ID}"
-TEST_SAMPLESANALYSIS_KIND = f"{CUSTOM_SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSIS_TYPE}:{SAMPLESANALYSIS_VERSION}"
+TEST_SAMPLESANALYSIS_KIND = f"{SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSIS_TYPE}:{SAMPLESANALYSIS_VERSION}"
 TEST_CAP_PRESSURE_ID = f"{PARTITION}:{SAMPLESANALYSIS_TYPE}:{CAP_PRESSURE_ID}"
 TEST_FLUIDSAMPLE_ID = f"{PARTITION}:{FLUIDSAMPLE_TYPE}:{FLUIDSAMPLE_ID}"
 TEST_RELATIVE_PERMEABILITY_ID = f"{PARTITION}:{SAMPLESANALYSIS_TYPE}:{RELATIVE_PERMEABILITY_ID}"
@@ -446,23 +455,45 @@ SAMPLESANALYSESREPORT_RECORD = SamplesAnalysesReport(
     data=SamplesAnalysesReportData(
         SampleIDs=[f"{PARTITION}:master-data--Sample:sample_test_id:"],
         ReportSampleIdentifiers=["45H", "49H"],
-        SampleAnalysisTypeIDs=["CapillaryPressureGasOil", "CentrifugeDrainageGasOil"],
-        SamplesAnalysisCategoryTagIDs=["SCAL"],
+        SampleAnalysisTypeIDs=[
+            "opendes:reference-data--SampleAnalysisType:CapillaryPressureGasOil:",
+            "opendes:reference-data--SampleAnalysisType:CentrifugeDrainageGasOil:",
+        ],
+        SamplesAnalysisCategoryTagIDs=[
+            "opendes:reference-data--SamplesAnalysisCategoryTag:SCAL:",
+        ],
     ),
 )
 
-SAMPLESANALYSIS_RECORD = SamplesAnalysis(
+SAMPLESANALYSIS_RECORD_V1 = SamplesAnalysisV1(
+    id=TEST_SAMPLESANALYSIS_ID,
+    kind=TEST_SAMPLESANALYSIS_KIND,
+    acl=TEST_ACL,
+    legal=TEST_LEGAL,
+    data=SamplesAnalysisDataV1(
+        ParentSamplesAnalysesReports=[f"{TEST_SAMPLESANALYSESREPORT_ID}:"],
+    ),
+)
+
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT_V1 = copy.deepcopy(SAMPLESANALYSIS_RECORD_V1)
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT_V1.data.ParentSamplesAnalysesReports = []
+
+SAMPLESANALYSIS_RECORD_V2 = SamplesAnalysis(
     id=TEST_SAMPLESANALYSIS_ID,
     kind=TEST_SAMPLESANALYSIS_KIND,
     acl=TEST_ACL,
     legal=TEST_LEGAL,
     data=SamplesAnalysisData(
-        ParentSamplesAnalysesReports=[f"{TEST_SAMPLESANALYSESREPORT_ID}:"],
+        ParentSamplesAnalysesReports=[
+            ParentSamplesAnalysesReport(
+                ParentSamplesAnalysesReportID=f"{TEST_SAMPLESANALYSESREPORT_ID}:",
+            ),
+        ],
     ),
 )
 
-SAMPLESANALYSIS_RECORD_WITHOUT_PARENT = copy.deepcopy(SAMPLESANALYSIS_RECORD)
-SAMPLESANALYSIS_RECORD_WITHOUT_PARENT.data.ParentSamplesAnalysesReports = []
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT_V2 = copy.deepcopy(SAMPLESANALYSIS_RECORD_V2)
+SAMPLESANALYSIS_RECORD_WITHOUT_PARENT_V1.data.ParentSamplesAnalysesReports = []
 
 
 def build_storage_service_response_200(
@@ -636,6 +667,7 @@ ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/isotopes"
 BULK_PYROLYSIS_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/bulkpyrolysisanalyses"
 CORE_GAMMA_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/coregamma"
 UNIAXIAL_TEST_DATA_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/uniaxial"
+CEC_CONTENT_ENDPOINT_PATH = f"{BASE_DATA_V2_PATH}/cec"
 
 
 class BulkDatasetId(NamedTuple):
@@ -674,3 +706,4 @@ class BulkDatasetId(NamedTuple):
     BULK_PYROLYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:bulkpyrolysisanalyses-{TEST_DATASET_UID}"
     CORE_GAMMA = f"{PARTITION}:{FILE_GENERIC_TYPE}:coregamma-{TEST_DATASET_UID}"
     UNIAXIAL_TEST = f"{PARTITION}:{FILE_GENERIC_TYPE}:uniaxial-{TEST_DATASET_UID}"
+    CEC_CONTENT = f"{PARTITION}:{FILE_GENERIC_TYPE}:cec-{TEST_DATASET_UID}"

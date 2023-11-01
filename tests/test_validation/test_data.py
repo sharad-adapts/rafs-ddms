@@ -61,9 +61,17 @@ TEST_RECORD = {
             "StringID": "DictStringID",
             "ListIDs": ["DictListID1", "DictListID2"],
         },
+        "ListOfDicts": [
+            {
+                "ListOfDictsStringID": "ListOfDictsStringID",
+            },
+        ],
     },
 }
 
-TEST_IDS_FIELDS = ["StringID", "ListIDs", "DictIDs", "MissingField"]
+TEST_IDS_FIELDS = ["StringID", "ListIDs", "DictIDs", "MissingField", "ListOfDicts"]
 
-EXPECTED_IDS_LIST = ["StringID", "ListID1", "ListID2", "DictStringID", "DictListID1", "DictListID2"]
+EXPECTED_IDS_LIST = [
+    "StringID", "ListID1", "ListID2", "DictStringID",
+    "DictListID1", "DictListID2", "ListOfDictsStringID",
+]

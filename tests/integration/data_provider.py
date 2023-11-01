@@ -68,6 +68,8 @@ def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = No
             ).replace(
                 "{sar_record_id}", TEST_DATA_STORE.get("sar_record_id", ""),
             ).replace(
+                "{sar_v2_record_id}", TEST_DATA_STORE.get("sar_v2_record_id", ""),
+            ).replace(
                 "{schema_version}", SCHEMA_VERSION,
             ).replace(
                 "{data_partition_id}", data_values.data_partition_id,

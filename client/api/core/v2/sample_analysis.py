@@ -3,7 +3,11 @@ from typing import Optional
 
 from client.api.core.api_source import APIResource
 from client.api_client import APIClient
-from tests.integration.config import ACCEPT_HEADERS, SCHEMA_VERSION
+from tests.integration.config import (
+    ACCEPT_HEADERS,
+    SCHEMA_VERSION,
+    SamplesAnalysisTypes,
+)
 
 
 class SamplesAnalysisPaths:
@@ -27,7 +31,7 @@ class SamplesAnalysis(APIResource, APIClient):
         self,
         record_id: str,
         body: dict,
-        analysis_type: str,
+        analysis_type: SamplesAnalysisTypes,
         schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
         **kwargs,
     ) -> dict:
@@ -52,7 +56,7 @@ class SamplesAnalysis(APIResource, APIClient):
         self,
         record_id: str,
         dataset_id,
-        analysis_type: str,
+        analysis_type: SamplesAnalysisTypes,
         schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
         **kwargs,
     ) -> dict:
@@ -83,7 +87,7 @@ class SamplesAnalysis(APIResource, APIClient):
             **kwargs,
         ).json()
 
-    def get_schema(self, analysis_type: str, **kwargs) -> dict:
+    def get_schema(self, analysis_type: SamplesAnalysisTypes, **kwargs) -> dict:
         """Get actual schema for provided analysis_type."""
         return self.get(
             path=SamplesAnalysisPaths.GET_SCHEMA.format(analysistypes=analysis_type),
