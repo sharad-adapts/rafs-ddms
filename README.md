@@ -193,6 +193,7 @@ export DDMS_BASE_URL=http://rafs:8080
 export ACCESS_TOKEN=<access_token>
 export PARTITION=<partition>
 export URL_PREFIX=api/rafs-ddms
+export CLOUD_PROVIDER=<cloud-provider>
 # Run test
 docker-compose build tests
 docker-compose --profile tests run --rm integration
@@ -216,7 +217,7 @@ docker-compose down
 3. 
 - Run via Terminal:
     ```
-    pytest -n auto tests/integration/tests --ddms-base-url {DDMS_BASE_URL} --url-prefix {URL_PREFIX} --partition {PARTITION} --bearer-token {TOKEN}
+    pytest -n auto tests/integration/tests --ddms-base-url {DDMS_BASE_URL} --url-prefix {URL_PREFIX} --partition {PARTITION} --bearer-token {TOKEN} --cloud-provider {CLOUD_PROVIDER}
     ```
 - Run/Debug via PyCharm:
   1. Open "Run/Debug Configurations" in the upper right corner.
@@ -323,6 +324,11 @@ In other cases, all checks run automatically on commit.
 ### Azure
 
 * [Azure Deployment Instructions - Standard DDMS](./devops/azure/)
+
+### AWS
+* AWS recommends the Terraform CLI for DDMS deployments
+  * Instructions can be found in the deployment-ddms directory at the root level of the downloaded AWS artifact or in the [aws-terraform-deployment repository](https://community.opengroup.org/osdu/platform/deployment-and-operations/terraform-deployment-aws).
+  * Make sure you have selected the branch corresponding to the current release.
 
 ## License
 Licensed under Apache License Version 2.0; details can be found in [LICENSE](./LICENSE).
