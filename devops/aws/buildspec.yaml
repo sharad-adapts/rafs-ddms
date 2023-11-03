@@ -41,6 +41,7 @@ phases:
       - export BRANCH_NAME=`echo ${CODEBUILD_SOURCE_VERSION} | awk '{gsub("refs/heads/","");gsub("\\.","-");gsub("[[:space:]]","-")}1' | sed 's/\//-/g' | awk '{print tolower($0)}'`
       - export ECR_TAG=`echo build.${BRANCH_NAME}.${CODEBUILD_BUILD_NUMBER}.${CODEBUILD_RESOLVED_SOURCE_VERSION} | cut -c 1-120`
       - export ECR_IMAGE=${ECR_REGISTRY}:${ECR_TAG}
+      - export ECR_IMAGE_TEST=${ECR_REGISTRY}:${ECR_TAG}_TEST
       - export ECR_IMAGE_BRANCH_LATEST=${ECR_REGISTRY}:${BRANCH_NAME}
       - mkdir -p ${OUTPUT_DIR}/bin
       - mkdir -p ${OUTPUT_DIR}/testing
@@ -73,11 +74,29 @@ phases:
       - docker push ${ECR_IMAGE}
       - docker push ${ECR_IMAGE_BRANCH_LATEST}
 
+      - echo "Building docker integration test image..."
+      - docker build -f Dockerfile.tests -t ${ECR_IMAGE_TEST} .
+      - docker tag  ${ECR_IMAGE_TEST} ${ECR_IMAGE_BRANCH_LATEST}
+      - echo "Pushing docker image..."
+      - docker push ${ECR_IMAGE_TEST}
+      - docker push ${ECR_IMAGE_BRANCH_LATEST}
+
       - echo "Generate build-info.json"
       - |
-        python devops/aws/build-info.py --branch ${CODEBUILD_SOURCE_VERSION} --commit ${CODEBUILD_RESOLVED_SOURCE_VERSION} \
-          --buildid ${CODEBUILD_BUILD_ID} --buildnumber ${CODEBUILD_BUILD_NUMBER} --reponame ${REPO_NAME} --outdir ${OUTPUT_DIR} \
-          --artifact ${ECR_IMAGE}
+        python devops/aws/build-info.py \
+          --branch ${CODEBUILD_SOURCE_VERSION} \
+          --commit ${CODEBUILD_RESOLVED_SOURCE_VERSION} \
+          --buildid ${CODEBUILD_BUILD_ID} \
+          --buildnumber ${CODEBUILD_BUILD_NUMBER} \
+          --reponame ${REPO_NAME} \
+          --outdir ${OUTPUT_DIR} \
+          --artifact ${ECR_IMAGE} \
+          --artifact ${ECR_IMAGE_TEST}
+
+      - mkdir -p $OUTPUT_DIR/testing/integration/build-aws
+      - cp devops/aws/run-tests.sh $OUTPUT_DIR/testing/integration/build-aws
+      - cp -r tests $OUTPUT_DIR/testing/integration/build-aws
+      - cp -r client $OUTPUT_DIR/testing/integration/build-aws
 
 
 
