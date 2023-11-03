@@ -56,3 +56,6 @@ aws_test_py:
       --bearer-token ${ACCESS_TOKEN}
       --partition ${PARTITION}
       --cloud-provider aws
+  only:
+    variables:
+      - $AWS == '1' && $AWS_SKIP_DEPLOY != 'true'

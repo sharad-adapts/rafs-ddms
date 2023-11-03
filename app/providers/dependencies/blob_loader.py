@@ -36,3 +36,5 @@ def get_blob_loader(settings: AppSettings) -> IBlobLoader:
         case "aws":
             from app.providers.dependencies.aws.blob_loader import BlobLoader
             return BlobLoader()
+        case _:
+            raise NotImplementedError()
