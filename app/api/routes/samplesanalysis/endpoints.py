@@ -25,7 +25,10 @@ from app.api.dependencies.request import (
 from app.api.dependencies.services import get_async_storage_service
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
-from app.models.data_schemas.base import PATH_TO_DATA_MODEL_VERSIONS
+from app.models.data_schemas.base import (
+    ALL_PATHS_TO_DATA_MODEL,
+    ENDPOINT_PATTERNS,
+)
 from app.models.schemas.osdu_storage import (
     OsduStorageRecord,
     StorageUpsertResponse,
@@ -101,7 +104,7 @@ class SamplesAnalysisTypesView:
         """Get available data types and their supported versions."""
         analysis_types_versions_map = {
             path.strip("/").split("/")[-1]: list(versions.keys())
-            for path, versions in PATH_TO_DATA_MODEL_VERSIONS.items()
+            for path, versions in ALL_PATHS_TO_DATA_MODEL.items()
         }
         return JSONResponse(content=analysis_types_versions_map)
 
@@ -131,9 +134,11 @@ class SamplesAnalysisSchemasView:
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> JSONResponse:
         """Get the schema of the given analysis type and version."""
-        model_versions = PATH_TO_DATA_MODEL_VERSIONS.get(
-            f"/{analysistype}/",
-        ) or PATH_TO_DATA_MODEL_VERSIONS.get(f"/data/{analysistype}")
+        model_versions = None
+        for pattern in ENDPOINT_PATTERNS:
+            model_versions = ALL_PATHS_TO_DATA_MODEL.get(pattern.format(analysistype=analysistype))
+            if model_versions:
+                break
         if model_versions and (model := model_versions.get(content_schema_version)):  # noqa: WPS332
             return JSONResponse(
                 content=model.schema(),

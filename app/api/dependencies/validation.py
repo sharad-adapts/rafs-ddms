@@ -23,19 +23,20 @@ from starlette import status
 
 from app.api.dependencies.request import get_content_schema_version
 from app.api.dependencies.services import get_async_storage_service
+from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import get_id_version
 from app.exceptions.exceptions import (
     BadRequestException,
     InvalidDatasetException,
     RecordValidationException,
 )
-from app.models.data_schemas.base import PATH_TO_DATA_MODEL_VERSIONS
+from app.models.data_schemas.base import PATHS_TO_DATA_MODEL
 from app.models.domain.osdu import base as osdu_models_base
 from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.errors import FilterValidationError
 from app.resources.filters import DataFrameFilterValidator
-from app.resources.paths import CommonRelativePaths
+from app.resources.paths import COMMON_RELATIVE_PATHS
 from app.services.storage import StorageService
 
 SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
@@ -264,12 +265,13 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
     """
     model = None
 
-    common_relative_paths = CommonRelativePaths()
     version_models = None
     request_path = request.url.path
+    api_version = get_api_version_from_url(request_path)
+    common_relative_paths = COMMON_RELATIVE_PATHS[api_version]()
     for path in common_relative_paths:
         if path in str(request_path):
-            version_models = PATH_TO_DATA_MODEL_VERSIONS.get(path)
+            version_models = PATHS_TO_DATA_MODEL[api_version].get(path)
             break
 
     if not version_models:

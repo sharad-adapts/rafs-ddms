@@ -1,0 +1,31 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:ElectricalProperties_WPC:",
+    "SampleID": "opendes:master-data--Sample:ElectricalProperties_Sample:",
+    "BrineConcentration": {
+        "Value": 22000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
+    },
+    "FormationResistivityFactor": 6.87,
+    "AdjustedFormationResistivityFactor": 7.27,
+    "CementationExponent": 1.72,
+    "AdjustedCementationExponent": 1.78,
+    "SaturationExponent": 2.03,
+    "AdjustedSaturationExponent": 5.22,
+    "PorosityExponent": 2.32,
+    "AdjustedPorosityExponent": 1.67,
+    "BrineSaturation": {
+        "Value": 986,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mm:"
+    },
+    "FormationFactorAtNetOverburdenPressure": 2.53,
+    "AdjustedFormationFactorAtNetOverburnedPressure": 2.34,
+    "BrineSalinity": {
+        "Value": 235,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
+    },
+    "NumberOfElectrodes": "opendes:reference-data--NumberOfElectrodes:2_Electrodes:",
+    "QuantityOfOilInTheVolume": {
+        "Value": 4.25,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
+    }
+}

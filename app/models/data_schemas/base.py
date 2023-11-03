@@ -36,7 +36,8 @@ from app.models.data_schemas.extraction_data_model import Model as ExtractionMod
 from app.models.data_schemas.physchem_data_model import Model as PhysChemModel
 from app.models.data_schemas.water_gas_relative_permeability_data_model import Model as WaterGasRelativePermeabilityModel
 from app.models.data_schemas.rock_compressibility_data_model import Model as RockCompressibilityModel
-from app.models.data_schemas.electrical_properties_data_model import Model as ElectricalPropertiesModel
+from app.models.data_schemas.electrical_properties_data_model import Model as ElectricalPropertiesModel_API_V1
+from app.models.data_schemas.api_v2.electrical_properties_data_model import Model as ElectricalPropertiesModel_API_V2
 from app.models.data_schemas.formation_resistivity_index_data_model import Model as FormationResistivityIndexModel
 from app.models.data_schemas.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.multiple_salinity_data_model import Model as MultipleSalinityModel
@@ -50,7 +51,8 @@ from app.models.data_schemas.isotope_analysis_data_model import Model as Isotope
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
 from app.models.data_schemas.core_gamma_data_model import Model as CoreGammaModel
 from app.models.data_schemas.uniaxial_test_data_model import Model as UniaxialTestModel
-from app.resources.paths import CommonRelativePaths
+from app.resources.paths import COMMON_RELATIVE_PATHS
+
 
 class ContentSchemaVersion(NamedTuple):
     V_1_0_0 = "1.0.0"
@@ -118,8 +120,11 @@ WATER_GAS_RELATIVE_PERMEABILITY_MODELS = {
 ROCK_COMPRESSIBILITY_MODELS = {
     ContentSchemaVersion.V_1_0_0: RockCompressibilityModel
 }
-ELECTRICAL_PROPERTIES_MODELS = {
-    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel,
+ELECTRICAL_PROPERTIES_MODELS_API_V1 = {
+    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel_API_V1,
+}
+ELECTRICAL_PROPERTIES_MODELS_API_V2 = {
+    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel_API_V2,
 }
 FORMATION_RESISTIVITY_INDEX_MODELS = {
     ContentSchemaVersion.V_1_0_0: FormationResistivityIndexModel,
@@ -164,42 +169,57 @@ CEC_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: CECContentModel
 }
 
-common_relative_paths = CommonRelativePaths()
-PATH_TO_DATA_MODEL_VERSIONS = {
-    common_relative_paths.ROUTINECOREANALYSIS: RCA_MODELS,
-    common_relative_paths.CCE: CCE_MODELS,
-    common_relative_paths.DIF_LIB: DIFF_LIB_MODELS,
-    common_relative_paths.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
-    common_relative_paths.MSS: MSS_MODELS,
-    common_relative_paths.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
-    common_relative_paths.SWELLING: SWELLING_TEST_MODELS,
-    common_relative_paths.CVD: CVD_MODELS,
-    common_relative_paths.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
-    common_relative_paths.INTERFACIAL_TENSION: INTERFACIAL_TENSION_MODELS,
-    common_relative_paths.STO_ANALYSIS: STO_ANALYSIS_MODELS,
-    common_relative_paths.VLE: VLE_MODELS,
-    common_relative_paths.MCM: MCM_ANALYSIS_MODELS,
-    common_relative_paths.SLIMTUBETEST: SLIMTUBETEST_MODELS,
-    common_relative_paths.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
-    common_relative_paths.CAP_PRESSURE: CAP_PRESSURE_MODELS,
-    common_relative_paths.FRACTIONATION: FRACTIONATION_MODELS,
-    common_relative_paths.EXTRACTION: EXTRACTION_MODELS,
-    common_relative_paths.PHYS_CHEM: PHYS_CHEM_MODELS,
-    common_relative_paths.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
-    common_relative_paths.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
-    common_relative_paths.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
-    common_relative_paths.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
-    common_relative_paths.NMR: NMR_MODELS,
-    common_relative_paths.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
-    common_relative_paths.GCMS_ALKANES: GCMS_ALKANES_MODELS,
-    common_relative_paths.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
-    common_relative_paths.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
-    common_relative_paths.GCMS_RATIOS: GCMS_RATIOS_MODELS,
-    common_relative_paths.GAS_CHROMATOGRAPHY: GAS_CHROMATOGRAPHY_MODELS,
-    common_relative_paths.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
-    common_relative_paths.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
-    common_relative_paths.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
-    common_relative_paths.CORE_GAMMA: CORE_GAMMA_MODELS,
-    common_relative_paths.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
-    common_relative_paths.CEC_CONTENT: CEC_CONTENT_MODELS,
+common_relative_paths_api_v1 = COMMON_RELATIVE_PATHS["v1"]()
+common_relative_paths_api_v2 = COMMON_RELATIVE_PATHS["v2"]()
+
+PATH_TO_DATA_MODEL_VERSIONS_API_V1 = {
+    common_relative_paths_api_v1.ROUTINECOREANALYSIS: RCA_MODELS,
+    common_relative_paths_api_v1.CCE: CCE_MODELS,
+    common_relative_paths_api_v1.DIF_LIB: DIFF_LIB_MODELS,
+    common_relative_paths_api_v1.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
+    common_relative_paths_api_v1.MSS: MSS_MODELS,
+    common_relative_paths_api_v1.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
+    common_relative_paths_api_v1.SWELLING: SWELLING_TEST_MODELS,
+    common_relative_paths_api_v1.CVD: CVD_MODELS,
+    common_relative_paths_api_v1.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
+    common_relative_paths_api_v1.INTERFACIAL_TENSION: INTERFACIAL_TENSION_MODELS,
+    common_relative_paths_api_v1.STO_ANALYSIS: STO_ANALYSIS_MODELS,
+    common_relative_paths_api_v1.VLE: VLE_MODELS,
+    common_relative_paths_api_v1.MCM: MCM_ANALYSIS_MODELS,
+    common_relative_paths_api_v1.SLIMTUBETEST: SLIMTUBETEST_MODELS,
+    common_relative_paths_api_v1.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
+    common_relative_paths_api_v1.CAP_PRESSURE: CAP_PRESSURE_MODELS,
+    common_relative_paths_api_v1.FRACTIONATION: FRACTIONATION_MODELS,
+    common_relative_paths_api_v1.EXTRACTION: EXTRACTION_MODELS,
+    common_relative_paths_api_v1.PHYS_CHEM: PHYS_CHEM_MODELS,
+    common_relative_paths_api_v1.WATER_GAS_RELATIVE_PERMEABILITY: WATER_GAS_RELATIVE_PERMEABILITY_MODELS,
+    common_relative_paths_api_v1.ROCK_COMPRESSIBILITY: ROCK_COMPRESSIBILITY_MODELS,
+    common_relative_paths_api_v1.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS_API_V1,
+    common_relative_paths_api_v1.FORMATION_RESISTIVITY_INDEX: FORMATION_RESISTIVITY_INDEX_MODELS,
 }
+
+PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
+    common_relative_paths_api_v2.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS_API_V2,
+    common_relative_paths_api_v2.NMR: NMR_MODELS,
+    common_relative_paths_api_v2.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
+    common_relative_paths_api_v2.GCMS_ALKANES: GCMS_ALKANES_MODELS,
+    common_relative_paths_api_v2.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
+    common_relative_paths_api_v2.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
+    common_relative_paths_api_v2.GCMS_RATIOS: GCMS_RATIOS_MODELS,
+    common_relative_paths_api_v2.GAS_CHROMATOGRAPHY: GAS_CHROMATOGRAPHY_MODELS,
+    common_relative_paths_api_v2.GAS_COMPOSITION: GAS_COMPOSITION_MODELS,
+    common_relative_paths_api_v2.ISOTOPE_ANALYSIS: ISOTOPE_ANALYSIS_MODELS,
+    common_relative_paths_api_v2.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
+    common_relative_paths_api_v2.CORE_GAMMA: CORE_GAMMA_MODELS,
+    common_relative_paths_api_v2.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
+    common_relative_paths_api_v2.CEC_CONTENT: CEC_CONTENT_MODELS,
+}
+
+PATHS_TO_DATA_MODEL = {
+    "v1": PATH_TO_DATA_MODEL_VERSIONS_API_V1,
+    "v2": PATH_TO_DATA_MODEL_VERSIONS_API_V2
+}
+
+ALL_PATHS_TO_DATA_MODEL = {**PATH_TO_DATA_MODEL_VERSIONS_API_V1, **PATH_TO_DATA_MODEL_VERSIONS_API_V2}
+
+ENDPOINT_PATTERNS = ("/data/{analysistype}", "/{analysistype}/")

@@ -15,7 +15,7 @@
 from typing import NamedTuple
 
 
-class CommonRelativePaths(NamedTuple):
+class CommonRelativePathsV1(NamedTuple):
     ROUTINECOREANALYSIS: str = "/rocksampleanalyses/"
     CCE: str = "/ccereports/"
     DIF_LIB: str = "/difflibreports/"
@@ -39,6 +39,10 @@ class CommonRelativePaths(NamedTuple):
     ROCK_COMPRESSIBILITY: str = "/rockcompressibilities/"
     ELECTRICAL_PROPERTIES: str = "/electricalproperties/"
     FORMATION_RESISTIVITY_INDEX: str = "/formationresistivityindexes/"
+
+
+class CommonRelativePathsV2(NamedTuple):
+    ELECTRICAL_PROPERTIES: str = "/data/electricalproperties"
     NMR: str = "/data/nmrtests"
     MULTIPLE_SALINITY: str = "/data/multiplesalinitytests"
     GCMS_ALKANES: str = "/data/gcmsalkanes"
@@ -52,3 +56,9 @@ class CommonRelativePaths(NamedTuple):
     CORE_GAMMA: str = "/data/coregamma"
     UNIAXIAL_TEST: str = "/data/uniaxial"
     CEC_CONTENT: str = "/data/cec"
+
+
+COMMON_RELATIVE_PATHS = {
+    "v1": CommonRelativePathsV1,
+    "v2": CommonRelativePathsV2,
+}
