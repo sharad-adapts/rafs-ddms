@@ -33,6 +33,9 @@ from app.resources.common_headers import CONTENT_TYPE
 from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset, storage
 from tests.test_api.test_routes import dependencies
+from tests.test_api.test_routes.api_v2.electricalproperties import (
+    electricalproperties_mock_objects as electricalproperties_mock_objects_api_v2,
+)
 from tests.test_api.test_routes.bulk_pyrolysis import (
     bulk_pyrolysis_mock_objects,
 )
@@ -70,7 +73,7 @@ from tests.test_api.test_routes.data.data_mock_objects import (
 )
 from tests.test_api.test_routes.dif_lib import dif_lib_mock_objects
 from tests.test_api.test_routes.electricalproperties import (
-    electricalproperties_mock_objects,
+    electricalproperties_mock_objects as electricalproperties_mock_objects_api_v1,
 )
 from tests.test_api.test_routes.extraction import extraction_mock_objects
 from tests.test_api.test_routes.formationresistivityindex import (
@@ -116,8 +119,9 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     CVD_SOURCE_ENDPOINT_PATH,
     DIF_LIB_DATA_ENDPOINT_PATH,
     DIF_LIB_SOURCE_ENDPOINT_PATH,
-    ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-    ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
+    ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+    ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+    ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH_API_V1,
     EXTRACTION_DATA_ENDPOINT_PATH,
     EXTRACTION_SOURCE_ENDPOINT_PATH,
     FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -271,7 +275,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
-        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
@@ -286,6 +290,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
     ],
 )
 @pytest.mark.asyncio
@@ -325,7 +330,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
-        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
@@ -339,6 +344,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
     ],
 )
@@ -379,7 +385,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (PHYS_CHEM_DATA_ENDPOINT_PATH, BulkDatasetId.PHYS_CHEM),
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, BulkDatasetId.WATER_GAS_RELATIVE_PERMEABILITY),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, BulkDatasetId.ROCK_COMPRESSIBILITY),
-        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, BulkDatasetId.FORMATION_RESISTIVITY_INDEX),
         (NMR_DATA_ENDPOINT_PATH, BulkDatasetId.NMR),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, BulkDatasetId.MULTIPLE_SALINITY),
@@ -394,6 +400,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
     ],
 )
 @pytest.mark.asyncio
@@ -523,11 +530,11 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ], "download_file", [build_get_test_data("x-parquet")],
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
             "get_record",
             [
-                electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+                electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
             [build_get_test_data("x-parquet")],
@@ -671,6 +678,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", cec_content_mock_objects.TEST_DATA)],
+        ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
         ),
     ],
 )
@@ -1418,43 +1435,43 @@ async def test_get_content_parquet_data(
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_COLUMNS_FILTERS[0],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_COLUMNS_FILTERS[0],
             TEST_WRONG_COLUMNS_FILTERS_REASONS[0],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_COLUMNS_FILTERS[1],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_COLUMNS_FILTERS[1],
             TEST_WRONG_COLUMNS_FILTERS_REASONS[1],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_ROWS_FILTERS[0],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_ROWS_FILTERS[0],
             TEST_WRONG_ROWS_FILTERS_REASONS[0],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_ROWS_FILTERS[1],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_ROWS_FILTERS[1],
             TEST_WRONG_ROWS_FILTERS_REASONS[1],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_ROWS_FILTERS[2],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_ROWS_FILTERS[2],
             TEST_WRONG_ROWS_FILTERS_REASONS[2],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_AGGREGATION[0],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_AGGREGATION[0],
             TEST_WRONG_AGGREGATION_REASONS[0],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_AGGREGATION[1],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_AGGREGATION[1],
             TEST_WRONG_AGGREGATION_REASONS[1],
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_WRONG_AGGREGATION[2],
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_WRONG_AGGREGATION[2],
             TEST_WRONG_AGGREGATION_REASONS[2],
         ),
         (
@@ -1857,6 +1874,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -2010,13 +2036,13 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             extraction_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_PARAMS_AGGREGATION,
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_PARAMS_AGGREGATION,
             "get_record",
-            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
-            electricalproperties_mock_objects.TEST_AGGREGATED_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v1.TEST_DATA)],
+            electricalproperties_mock_objects_api_v1.TEST_AGGREGATED_DATA,
         ),
         (
             f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2125,6 +2151,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v2.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_AGGREGATED_DATA,
         ),
         (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2271,13 +2306,13 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             extraction_mock_objects.TEST_FILTERED_DATA,
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects.TEST_PARAMS_FILTERS,
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v1.TEST_PARAMS_FILTERS,
             "get_record",
-            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
-            electricalproperties_mock_objects.TEST_FILTERED_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v1.TEST_DATA)],
+            electricalproperties_mock_objects_api_v1.TEST_FILTERED_DATA,
         ),
         (
             f"{CAP_PRESSURE_DATA_ENDPOINT_PATH}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2440,6 +2475,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", cec_content_mock_objects.TEST_DATA)],
             cec_content_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects_api_v2.TEST_PARAMS_FILTERS,
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -2639,12 +2683,12 @@ async def test_get_data_json_data(
             rock_compressibility_mock_objects.TEST_DATA,
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
-            electricalproperties_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v1.TEST_DATA)],
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
         ),
         (
             f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2742,7 +2786,6 @@ async def test_get_data_json_data(
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_DATA,
         ),
-
         (
             f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
@@ -2758,6 +2801,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", cec_content_mock_objects.TEST_DATA)],
             cec_content_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
     ],
 )
@@ -2957,12 +3008,12 @@ async def test_get_data_json_data_no_content_schema_version(
             rock_compressibility_mock_objects.TEST_DATA,
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
-            electricalproperties_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v1.TEST_DATA)],
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
         ),
         (
             f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3075,6 +3126,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", cec_content_mock_objects.TEST_DATA)],
             cec_content_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
     ],
 )
@@ -3274,12 +3333,12 @@ async def test_get_data_json_data_improper_schema_version(
             rock_compressibility_mock_objects.TEST_DATA,
         ),
         (
-            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            [electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
-            electricalproperties_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v1.TEST_DATA)],
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
         ),
         (
             f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3392,6 +3451,14 @@ async def test_get_data_json_data_improper_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", cec_content_mock_objects.TEST_DATA)],
             cec_content_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
     ],
 )
@@ -3571,11 +3638,11 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             rock_compressibility_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects.TEST_DATA,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v1.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -3674,6 +3741,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             cec_content_mock_objects.TEST_DATA,
             cec_content_mock_objects.TEST_DATASET_RECORD_ID,
             cec_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3844,11 +3918,11 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             rock_compressibility_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects.TEST_DATA,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v1.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -3947,6 +4021,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             cec_content_mock_objects.TEST_DATA,
             cec_content_mock_objects.TEST_DATASET_RECORD_ID,
             cec_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4078,9 +4159,9 @@ async def test_post_data_json_no_ddmsdatasets_field(
             rock_compressibility_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -4151,6 +4232,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             CEC_CONTENT_ENDPOINT_PATH,
             cec_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             cec_content_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4318,11 +4404,11 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             rock_compressibility_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects.TEST_DATA,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v1.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -4421,6 +4507,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             cec_content_mock_objects.TEST_DATA,
             cec_content_mock_objects.TEST_DATASET_RECORD_ID,
             cec_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4593,11 +4686,11 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             rock_compressibility_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects.TEST_DATA,
-            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v1.TEST_DATA,
+            electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v1.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -4697,6 +4790,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             cec_content_mock_objects.TEST_DATASET_RECORD_ID,
             cec_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4736,7 +4836,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (PHYS_CHEM_DATA_ENDPOINT_PATH, physchem_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, water_gas_rel_perm_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, rock_compressibility_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
-        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, electricalproperties_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1, electricalproperties_mock_objects_api_v1.INCORRECT_SCHEMA_TEST_DATA),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
             formationresistivityindex_mock_objects.INCORRECT_SCHEMA_TEST_DATA,
@@ -4754,6 +4854,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (CORE_GAMMA_DATA_ENDPOINT_PATH, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CEC_CONTENT_ENDPOINT_PATH, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, electricalproperties_mock_objects_api_v2.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -4876,9 +4977,9 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             rock_compressibility_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
-            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
-            electricalproperties_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
-            electricalproperties_mock_objects.EXPECTED_ERROR_REASON,
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
+            electricalproperties_mock_objects_api_v1.INCORRECT_DATAFRAME_TEST_DATA,
+            electricalproperties_mock_objects_api_v1.EXPECTED_ERROR_REASON,
         ),
         (
             FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
@@ -4950,6 +5051,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             cec_content_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             cec_content_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+            electricalproperties_mock_objects_api_v2.INCORRECT_DATAFRAME_TEST_DATA,
+            electricalproperties_mock_objects_api_v2.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4990,7 +5096,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{PHYS_CHEM_DATA_ENDPOINT_PATH}/{physchem_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH}/{water_gas_rel_perm_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH}/{rock_compressibility_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1}/{electricalproperties_mock_objects_api_v1.TEST_DATASET_RECORD_ID}",
         f"{FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH}/{formationresistivityindex_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{NMR_DATA_ENDPOINT_PATH}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{MULTIPLE_SALINITY_DATA_ENDPOINT_PATH}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -5005,6 +5111,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -5041,7 +5148,7 @@ async def test_rca_get_403(data_endpoint_path):
         PHYS_CHEM_DATA_ENDPOINT_PATH,
         WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
-        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
+        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
         NMR_DATA_ENDPOINT_PATH,
         MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
@@ -5056,6 +5163,7 @@ async def test_rca_get_403(data_endpoint_path):
         CORE_GAMMA_DATA_ENDPOINT_PATH,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
+        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
     ],
 )
 @pytest.mark.asyncio
@@ -5119,7 +5227,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         PHYS_CHEM_DATA_ENDPOINT_PATH,
         WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH,
         ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH,
-        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH,
+        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1,
         FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH,
         NMR_DATA_ENDPOINT_PATH,
         MULTIPLE_SALINITY_DATA_ENDPOINT_PATH,
@@ -5134,6 +5242,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         CORE_GAMMA_DATA_ENDPOINT_PATH,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
+        ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -5176,7 +5285,7 @@ async def test_invalid_data_with_nan(path):
         (PHYS_CHEM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (WATER_GAS_REL_PERM_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ROCK_COMPRESSIBILITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
-        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V1, ORIENT_SPLIT_400_PAYLOADS),
         (FORMATION_RESISTIVITY_INDEX_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (NMR_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (MULTIPLE_SALINITY_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
@@ -5191,6 +5300,7 @@ async def test_invalid_data_with_nan(path):
         (CORE_GAMMA_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (CEC_CONTENT_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
@@ -5638,21 +5748,21 @@ async def test_invalid_data_json_payload(path, payloads):
             NO_DATASETS_DATASET_SIDE_EFFECT,
         ),
         (
-            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
+            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH_API_V1,
             "get_record",
             MULTIPLE_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",
             MULTIPLE_DATASETS_DATASET_SIDE_EFFECT,
         ),
         (
-            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
+            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH_API_V1,
             "get_record",
             SINGLE_DATASET_STORAGE_SIDE_EFFECT,
             "download_file",
             SINGLE_DATASET_DATASET_SIDE_EFFECT,
         ),
         (
-            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH,
+            ELECTRICAL_PROPERTIES_SOURCE_ENDPOINT_PATH_API_V1,
             "get_record",
             NO_DATASETS_STORAGE_SIDE_EFFECT,
             "download_file",
