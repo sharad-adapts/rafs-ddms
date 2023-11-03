@@ -43,7 +43,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     EXPECTED_200_VERSIONS_RESPONSE,
     EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT,
     EXPECTED_404_RESPONSE,
-    EXPECTED_422_NO_KIND_REASON,
+    EXPECTED_422_INVALID_KIND_REASON,
     EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT,
     EXPECTED_422_TYPER_ERROR_LIST,
     EXPECTED_422_WRONG_PATTERN,
@@ -321,6 +321,7 @@ def with_patched_storage_samplesanalysis_existing_parent():
         ("get_record", f"{API_VERSION}/formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
         ("get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.TEST_SAMPLESANALYSIS_ID),
+        ("get_record", f"{API_VERSION_V2}/masterdata", storage_mock_objects.TEST_SAMPLE_ID),
     ],
 )
 async def test_get_record_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -366,6 +367,7 @@ async def test_get_record_not_found(storage_method, path, record_id, with_patche
         ("get_record", f"{API_VERSION}/formationresistivityindexes", TEST_SAMPLESANALYSIS_ID),
         ("get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID),
         ("get_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.TEST_SAMPLESANALYSIS_ID),
+        ("get_record", f"{API_VERSION_V2}/masterdata", storage_mock_objects.TEST_SAMPLE_ID),
     ],
 )
 async def test_get_record_version_not_found(storage_method, path, record_id, with_patched_storage_raises_404):
@@ -418,6 +420,7 @@ async def test_get_record_version_not_found(storage_method, path, record_id, wit
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record_versions", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", f"{API_VERSION_V2}/masterdata", storage_mock_objects.TEST_SAMPLE_ID),
     ],
 )
 async def test_get_record_versions_not_found(
@@ -473,6 +476,7 @@ async def test_get_record_versions_not_found(
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("soft_delete_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.TEST_SAMPLESANALYSIS_ID),
+        ("soft_delete_record", f"{API_VERSION_V2}/masterdata", storage_mock_objects.TEST_SAMPLE_ID),
     ],
 )
 async def test_delete_record_not_found(
@@ -522,20 +526,24 @@ async def test_delete_record_not_found(
         (f"{API_VERSION}/formationresistivityindexes"),
         (f"{API_VERSION_V2}/samplesanalysesreport"),
         (f"{API_VERSION_V2}/samplesanalysis"),
+        (f"{API_VERSION_V2}/masterdata"),
     ],
 )
 async def test_post_record_no_kind(path):
+    osdu_generic_record = OSDU_GENERIC_RECORD.dict()
+    osdu_generic_record.pop("kind")
+
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 f"/api/os-rafs-ddms/{path}",
                 headers=TEST_HEADERS,
-                json=[OSDU_GENERIC_RECORD.dict()],
+                json=[osdu_generic_record],
             )
 
     response_json = response.json()
     assert response_json["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
-    assert EXPECTED_422_NO_KIND_REASON in response.json()["reason"]
+    assert storage_mock_objects.EXPECTED_422_NO_KIND_RESPONSE == response_json
 
 
 @pytest.mark.asyncio
@@ -570,6 +578,7 @@ async def test_post_record_no_kind(path):
         (f"{API_VERSION}/formationresistivityindexes"),
         (f"{API_VERSION_V2}/samplesanalysesreport"),
         (f"{API_VERSION_V2}/samplesanalysis"),
+        (f"{API_VERSION_V2}/masterdata"),
     ],
 )
 async def test_post_record_invalid_payload_type(path):
@@ -602,7 +611,7 @@ async def test_post_record_invalid_payload_type(path):
         (f"{API_VERSION}/vaporliquidequilibriumtests", VLE_RECORD, "FluidSampleID"),
         (f"{API_VERSION}/multiplecontactmiscibilitytests", MCM_RECORD, "FluidSampleID"),
         (f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD, "DocumentTypeID"),
+        (f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1, "DocumentTypeID"),
         (f"{API_VERSION}/capillarypressuretests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
         (f"{API_VERSION}/relativepermeabilitytests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
         (f"{API_VERSION}/fractionationtests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
@@ -612,8 +621,12 @@ async def test_post_record_invalid_payload_type(path):
         (f"{API_VERSION}/rockcompressibilities", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
         (f"{API_VERSION}/watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
         (f"{API_VERSION}/formationresistivityindexes", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD, "DocumentTypeID"),
+        (f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2, "DocumentTypeID"),
         (f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2, "ResourceHomeRegionID"),
+        (
+            f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD, "ResourceHomeRegionID",
+        ),
     ],
 )
 async def test_post_record_invalid_field_type(path, osdu_record, field):
@@ -641,12 +654,19 @@ async def test_post_record_invalid_field_type(path, osdu_record, field):
         ("upsert_records", f"{API_VERSION}/coringreports", CORING_RECORD),
         ("upsert_records", f"{API_VERSION}/pvtreports", PVT_RECORD),
         ("upsert_records", f"{API_VERSION}/rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
-        ("upsert_records", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
+        (
+            "upsert_records", f"{API_VERSION}/samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
+        ),
         (
             "upsert_records", f"{API_VERSION_V2}/samplesanalysesreport",
-            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
         ),
         ("upsert_records", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD,
+        ),
     ],
 )
 async def test_post_record_success(
@@ -1151,12 +1171,19 @@ async def test_post_samplesanalysis_success(
         ("upsert_records", f"{API_VERSION}/coringreports", CORING_RECORD),
         ("upsert_records", f"{API_VERSION}/pvtreports", PVT_RECORD),
         ("upsert_records", f"{API_VERSION}/rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD),
-        ("upsert_records", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
+        (
+            "upsert_records", f"{API_VERSION}/samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
+        ),
         (
             "upsert_records", f"{API_VERSION_V2}/samplesanalysesreport",
-            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
         ),
         ("upsert_records", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD,
+        ),
     ],
 )
 async def test_post_record_no_id(
@@ -1426,7 +1453,7 @@ async def test_post_record_with_linking_no_id(
         ("get_record", f"{API_VERSION}/multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
         ("get_record", f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
         (
-            "get_record", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            "get_record", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record", f"{API_VERSION}/capillarypressuretests", SAMPLESANALYSIS_RECORD_V1, TEST_SAMPLESANALYSIS_ID),
@@ -1445,12 +1472,16 @@ async def test_post_record_with_linking_no_id(
             SAMPLESANALYSIS_RECORD_V1, TEST_SAMPLESANALYSIS_ID,
         ),
         (
-            "get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            "get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         (
-            "get_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            "get_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
             storage_mock_objects.TEST_SAMPLESANALYSIS_ID,
+        ),
+        (
+            "get_record", f"{API_VERSION_V2}/masterdata", storage_mock_objects.SAMPLE_RECORD,
+            storage_mock_objects.TEST_SAMPLE_ID,
         ),
     ],
 )
@@ -1495,7 +1526,7 @@ async def test_get_record_success(
         ("get_record", f"{API_VERSION}/multiplecontactmiscibilitytests", MCM_RECORD, TEST_MCM_ID),
         ("get_record", f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD, TEST_SLIMTUBETEST_ID),
         (
-            "get_record", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            "get_record", f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record", f"{API_VERSION}/capillarypressuretests", SAMPLESANALYSIS_RECORD_V1, TEST_SAMPLESANALYSIS_ID),
@@ -1514,12 +1545,16 @@ async def test_get_record_success(
             SAMPLESANALYSIS_RECORD_V1, TEST_SAMPLESANALYSIS_ID,
         ),
         (
-            "get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            "get_record", f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         (
             "get_record", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V1,
             storage_mock_objects.TEST_SAMPLESANALYSIS_ID,
+        ),
+        (
+            "get_record", f"{API_VERSION_V2}/masterdata", storage_mock_objects.SAMPLE_RECORD,
+            storage_mock_objects.TEST_SAMPLE_ID,
         ),
     ],
 )
@@ -1576,6 +1611,8 @@ async def test_get_record_version_success(
             storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID,
         ),
         ("get_record_versions", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.TEST_SAMPLESANALYSIS_ID),
+        ("get_record_versions", f"{API_VERSION_V2}/masterdata", storage_mock_objects.TEST_SAMPLE_ID),
+
     ],
 )
 async def test_get_record_versions_success(
@@ -1852,6 +1889,20 @@ async def test_get_record_versions_success(
             status.HTTP_401_UNAUTHORIZED,
             f"{API_VERSION_V2}/samplesanalysis/{storage_mock_objects.TEST_SAMPLESANALYSIS_ID}/versions/1234",
         ),
+        (
+            "get_record",
+            status.HTTP_401_UNAUTHORIZED,
+            f"{API_VERSION_V2}/masterdata/{storage_mock_objects.TEST_SAMPLE_ID}",
+        ),
+        (
+            "get_record_versions", status.HTTP_401_UNAUTHORIZED,
+            f"{API_VERSION_V2}/masterdata/{storage_mock_objects.TEST_SAMPLE_ID}/versions",
+        ),
+        (
+            "get_record",
+            status.HTTP_401_UNAUTHORIZED,
+            f"{API_VERSION_V2}/masterdata/{storage_mock_objects.TEST_SAMPLE_ID}/versions/1234",
+        ),
     ],
 )
 async def test_get_record_auth_errors_from_storage(
@@ -1955,6 +2006,9 @@ async def test_get_record_auth_errors_from_storage(
         (f"{API_VERSION_V2}/samplesanalysis/record_id"),
         (f"{API_VERSION_V2}/samplesanalysis/record_id/versions"),
         (f"{API_VERSION_V2}/samplesanalysis/record_id/versions/1234"),
+        (f"{API_VERSION_V2}/masterdata/record_id"),
+        (f"{API_VERSION_V2}/masterdata/record_id/versions"),
+        (f"{API_VERSION_V2}/masterdata/record_id/versions/1234"),
     ],
 )
 async def test_get_record_auth_errors(
@@ -2059,6 +2113,10 @@ async def test_get_record_auth_errors(
             "soft_delete_record", status.HTTP_401_UNAUTHORIZED,
             f"{API_VERSION_V2}/samplesanalysis/{storage_mock_objects.TEST_SAMPLESANALYSIS_ID}",
         ),
+        (
+            "soft_delete_record", status.HTTP_401_UNAUTHORIZED,
+            f"{API_VERSION_V2}/masterdata/{storage_mock_objects.TEST_SAMPLE_ID}",
+        ),
     ],
 )
 async def test_delete_record_auth_errors_from_storage(
@@ -2104,6 +2162,7 @@ async def test_delete_record_auth_errors_from_storage(
         (f"{API_VERSION}/formationresistivityindexes/record_id"),
         (f"{API_VERSION_V2}/samplesanalysesreport/record_id"),
         (f"{API_VERSION_V2}/samplesanalysis/record_id"),
+        (f"{API_VERSION_V2}/masterdata/record_id"),
     ],
 )
 async def test_delete_record_auth_errors(
@@ -2151,7 +2210,7 @@ async def test_delete_record_auth_errors(
         ("upsert_records", status.HTTP_401_UNAUTHORIZED, f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD),
         (
             "upsert_records", status.HTTP_401_UNAUTHORIZED, f"{API_VERSION}/samplesanalysesreport",
-            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
         ),
         (
             "upsert_records", status.HTTP_401_UNAUTHORIZED,
@@ -2187,11 +2246,15 @@ async def test_delete_record_auth_errors(
         ),
         (
             "upsert_records", status.HTTP_401_UNAUTHORIZED, f"{API_VERSION_V2}/samplesanalysesreport",
-            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD,
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
         ),
         (
             "upsert_records", status.HTTP_401_UNAUTHORIZED, f"{API_VERSION_V2}/samplesanalysis",
             storage_mock_objects.SAMPLESANALYSIS_RECORD_V2,
+        ),
+        (
+            "upsert_records", status.HTTP_401_UNAUTHORIZED, f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD,
         ),
     ],
 )
@@ -2232,7 +2295,7 @@ async def test_post_record_auth_errors_from_storage(
         (f"{API_VERSION}/vaporliquidequilibriumtests", VLE_RECORD),
         (f"{API_VERSION}/multiplecontactmiscibilitytests", MCM_RECORD),
         (f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD),
-        (f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
+        (f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1),
         (f"{API_VERSION}/capillarypressuretests", SAMPLESANALYSIS_RECORD_V1),
         (f"{API_VERSION}/relativepermeabilitytests", SAMPLESANALYSIS_RECORD_V1),
         (f"{API_VERSION}/fractionationtests", SAMPLESANALYSIS_RECORD_V1),
@@ -2242,8 +2305,12 @@ async def test_post_record_auth_errors_from_storage(
         (f"{API_VERSION}/rockcompressibilities", SAMPLESANALYSIS_RECORD_V1),
         (f"{API_VERSION}/watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD_V1),
         (f"{API_VERSION}/formationresistivityindexes", SAMPLESANALYSIS_RECORD_V1),
-        (f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD),
+        (f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2),
         (f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2),
+        (
+            f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD,
+        ),
     ],
 )
 async def test_post_record_auth_errors(
@@ -2324,9 +2391,10 @@ async def test_post_record_auth_errors(
         (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, TEST_ROCKSAMPLEANALYSIS_ID),
         (storage_mock_objects.SAMPLESANALYSES_REPORT_ENDPOINT_PATH_V2, TEST_CORING_ID),
         (storage_mock_objects.SAMPLESANALYSIS_ENDPOINT_PATH_V2, TEST_CORING_ID),
+        (storage_mock_objects.MASTER_DATA_ENDPOINT_PATH_V2, TEST_ROCKSAMPLEANALYSIS_ID),
     ],
 )
-async def test_get_record_wrong_kind(endpoint, record_id):
+async def test_get_record_wrong_id_pattern(endpoint, record_id):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.get(
@@ -2367,6 +2435,7 @@ async def test_get_record_wrong_kind(endpoint, record_id):
         (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSES_REPORT_ENDPOINT_PATH_V2, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSIS_ENDPOINT_PATH_V2, OSDU_GENERIC_RECORD.dict()),
+        (f"{storage_mock_objects.MASTER_DATA_ENDPOINT_PATH_V2}", OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -2378,7 +2447,10 @@ async def test_post_record_wrong_kind(endpoint, manifest):
                 json=[manifest],
             )
 
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    response_json = response.json()
+    assert response_json["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+    assert EXPECTED_422_INVALID_KIND_REASON.format(OSDU_GENERIC_RECORD.kind) in response.json()["reason"]
 
 
 @pytest.mark.asyncio
@@ -2412,9 +2484,10 @@ async def test_post_record_wrong_kind(endpoint, manifest):
         (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, TEST_WRONG_ID),
         (storage_mock_objects.SAMPLESANALYSES_REPORT_ENDPOINT_PATH_V2, TEST_WRONG_ID),
         (storage_mock_objects.SAMPLESANALYSIS_ENDPOINT_PATH_V2, TEST_WRONG_ID),
+        (storage_mock_objects.MASTER_DATA_ENDPOINT_PATH_V2, TEST_WRONG_ID),
     ],
 )
-async def test_delete_record_wrong_kind(endpoint, record_id):
+async def test_delete_record_wrong_id_pattern(endpoint, record_id):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.delete(

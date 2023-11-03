@@ -109,7 +109,20 @@ async def validate_referential_integrity(
             )
 
 
-def validate_record(record: dict, kind: str):
+def validate_kind(kind: str, valid_kinds: List[str]):
+    """Validates kind against supported kinds in given endpoint.
+
+    :param str kind: the kind to be validated
+    :param List[str] valid_kinds: supported kinds
+    :raises RuntimeError: If there is no kind that matches supported kinds
+    """
+    if kind not in valid_kinds:
+        raise RuntimeError(
+            f"Kind `{kind}` not supported in RAFS-DDMS. Supported kinds for this endpoint: {valid_kinds}",
+        )
+
+
+def validate_record_model(record: dict, kind: str):
     """Validates given record against Osdu Model.
 
     :param dict record: record
@@ -119,125 +132,147 @@ def validate_record(record: dict, kind: str):
     """
     osdu_model = osdu_models_base.IMPLEMENTED_MODELS.get(kind)  # type Model
     if not osdu_model:
-        raise RuntimeError("No valid entity in kind found or not implemented.")
+        raise RuntimeError("No valid kind or not yet implemented.")
     osdu_model.parse_obj(record)
 
 
-async def validate_records_payload(records_list: List[OsduStorageRecord], kind: str) -> List[dict]:
+def validate_record(record: dict, valid_kinds: List[str]):
+    """Validates given record.
+
+    :param dict record: record
+    :param List[str] valid_kinds: list of valid kinds for given endpoint
+    :raises RuntimeError: if custom validation fails or there is not Osdu Model implemented
+    :raises ValidationError: if matches Osdu Model but it's not compliant with schema
+    """
+    kind = record.get("kind")
+    validate_kind(kind, valid_kinds)
+    validate_record_model(record, kind)
+
+
+def build_skipped_record_error(record: dict, index: int, error: Exception):
+    return {
+        "id": record.get("id"),
+        "kind": record.get("kind"),
+        "payload_index": index,
+        "reason": error,
+    }
+
+
+async def validate_records_payload(records_list: List[OsduStorageRecord], valid_kinds: [List[str]]) -> List[dict]:
     """Validates request payload.
 
     :param List[OsduStorageRecord] records_list: records_list
-    :param str kind: records' kind
+    :param List[str] valid_kinds: list of valid kinds for given endpoint
     :raises HTTPException: raises 422 if exceptions are found
     :return List[dict]: returns the list of validated records
     """
     validated = []
     skipped = []
-    for record in records_list:
+    for index, record in enumerate(records_list):
         record_dict = record.dict(exclude_none=True)
         try:
-            validate_record(record_dict, kind)
+            validate_record(record_dict, valid_kinds)
         except RuntimeError as rexc:
-            skipped.append({"id": record_dict.get("id"), "reason": rexc})
+            skipped.append(build_skipped_record_error(record_dict, index, rexc))
         except ValidationError as vexc:
-            skipped.append({"id": record_dict.get("id"), "reason": vexc})
+            skipped.append(build_skipped_record_error(record_dict, index, vexc))
         validated.append(record_dict)
 
     if skipped:
-        reason = f"Validation failed for {kind}. Skipped records {skipped}"
+        reason = f"Validation failed. Skipped records {skipped}"
         logger.debug(reason)
         raise RecordValidationException(detail=reason)
 
-    logger.debug(f"Records successfully validated for {kind}")
+    logger.debug("Records successfully validated.")
     return validated
 
 
 async def validate_coring_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.CORING_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.CORING_100_KIND])
 
 
 async def validate_rocksample_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.ROCKSAMPLE_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.ROCKSAMPLE_100_KIND])
 
 
 async def validate_rocksampleanalysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.ROCKSAMPLEANALYSIS_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.ROCKSAMPLEANALYSIS_KIND])
 
 
 async def validate_pvt_records_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
-    records = await validate_records_payload(records_list, osdu_models_base.PVT_KIND)
+    records = await validate_records_payload(records_list, [osdu_models_base.PVT_KIND])
     await validate_referential_integrity(records, ["PVTTests"], storage_service)
     return records
 
 
 async def validate_cce_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.CCE_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.CCE_KIND])
 
 
 async def validate_dif_lib_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.DIF_LIB_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.DIF_LIB_KIND])
 
 
 async def validate_transport_test_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.TRANSPORT_TEST_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.TRANSPORT_TEST_KIND])
 
 
 async def validate_com_analysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.COMPOSITIONAL_ANALYSIS_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.COMPOSITIONAL_ANALYSIS_KIND])
 
 
 async def validate_mss_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.MSS_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.MSS_KIND])
 
 
 async def validate_swelling_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.SWELLING_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.SWELLING_KIND])
 
 
 async def validate_cvd_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.CVD_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.CVD_KIND])
 
 
 async def validate_wateranalysis_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.WATER_ANALYSYS_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.WATER_ANALYSYS_KIND])
 
 
 async def validate_sto_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.STO_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.STO_KIND])
 
 
 async def validate_interfacialtension_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.INTERFACIAL_TENSION_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.INTERFACIAL_TENSION_KIND])
 
 
 async def validate_vle_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.VLE_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.VLE_KIND])
 
 
 async def validate_mcm_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.MCM_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.MCM_KIND])
 
 
 async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.SLIMTUBETEST_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.SLIMTUBETEST_KIND])
 
 
 async def validate_samples_analyses_report_v1_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.SAMPLES_ANALYSES_REPORT_V1_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_V1_KIND])
 
 
 async def validate_samples_analyses_report_v2_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND)
+    return await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND])
 
 
 async def validate_samplesanalysis_records_v1_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
-    records = await validate_records_payload(records_list, osdu_models_base.SAMPLESANALYSIS_V1_KIND)
+    records = await validate_records_payload(records_list, [osdu_models_base.SAMPLESANALYSIS_V1_KIND])
     await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
     return records
 
@@ -246,9 +281,13 @@ async def validate_samplesanalysis_records_v2_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
-    records = await validate_records_payload(records_list, osdu_models_base.SAMPLESANALYSIS_KIND)
+    records = await validate_records_payload(records_list, [osdu_models_base.SAMPLESANALYSIS_KIND])
     await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
     return records
+
+
+async def validate_master_data_records_payload(records_list: List[OsduStorageRecord]) -> List[dict]:
+    return await validate_records_payload(records_list, osdu_models_base.MASTER_DATA_KINDS_V2)
 
 
 async def get_data_model(request: Request, content_schema_version: str = Depends(get_content_schema_version)) -> Model:

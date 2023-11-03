@@ -17,6 +17,7 @@ from fastapi.openapi.utils import get_openapi
 
 from app.core.settings.app import AppSettings
 from app.models.domain.osdu.WPCSamplesAnalysis100 import SamplesAnalysis
+from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.load_model_example import load_data_example
 
@@ -30,6 +31,7 @@ def get_custom_openapi_schema(app: FastAPI, settings: AppSettings) -> dict:
     """
     custom_openapi_schema = get_openapi(
         title=settings.app_name,
+        openapi_version="3.0.3",
         version=settings.app_version,
         routes=app.routes,
         description="OSDU Rock and Fluid Sample DDMS",
@@ -49,8 +51,8 @@ def get_custom_openapi_schema(app: FastAPI, settings: AppSettings) -> dict:
             },
         },
     }
-    osdu_record_post_v2_route = f"{settings.openapi_prefix}/v2/samplesanalysis"
-    custom_openapi_schema["paths"][osdu_record_post_v2_route]["post"]["requestBody"] = {
+    sampleanalysis_record_post_v2_route = f"{settings.openapi_prefix}/v2/samplesanalysis"
+    custom_openapi_schema["paths"][sampleanalysis_record_post_v2_route]["post"]["requestBody"] = {
         "content": {
             "application/json": {
                 "schema": {
@@ -60,6 +62,20 @@ def get_custom_openapi_schema(app: FastAPI, settings: AppSettings) -> dict:
                     "items": SamplesAnalysis.schema(),
                 },
                 "example": load_data_example("samples_analysis_v2.json"),
+            },
+        },
+    }
+    masterdata_record_post_v2_route = f"{settings.openapi_prefix}/v2/masterdata"
+    custom_openapi_schema["paths"][masterdata_record_post_v2_route]["post"]["requestBody"] = {
+        "content": {
+            "application/json": {
+                "schema": {
+                    "title": "MasterDataRecords",
+                    "description": "Master Data records payload",
+                    "type": "array",
+                    "items": OsduStorageRecord.schema(),
+                },
+                "example": load_data_example("master_data.json"),
             },
         },
     }

@@ -17,6 +17,7 @@ from fastapi import APIRouter, Depends
 from app.api.dependencies.request import require_data_partition_id
 from app.api.routes.samplesanalysesreport import api as sampleanalysesreport_api
 from app.api.routes.samplesanalysis import api as sampleanalysis_api
+from app.api.routes.v2.master_data import api as masterdata_api
 
 COMMON_DEPENDENCIES = [
     Depends(require_data_partition_id),
@@ -35,5 +36,12 @@ router.include_router(
     sampleanalysis_api.sa_router,
     prefix=SAMPLES_ANALYSIS_PREFIX,
     tags=["samplesanalysis"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+
+router.include_router(
+    masterdata_api.md_router,
+    prefix="/masterdata",
+    tags=["masterdata"],
     dependencies=COMMON_DEPENDENCIES,
 )

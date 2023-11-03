@@ -15,7 +15,9 @@
 from app.core.config import get_app_settings
 
 from .MDCoring100 import Coring
+from .MDCoring110 import Coring as Coring110
 from .MDRockSample100 import RockSample
+from .MDSample100 import Sample as Sample100
 from .WPCCompositionalAnalysis100 import CompositionalAnalysis
 from .WPCCCE100 import ConstantCompositionExpansionTest
 from .WPCConstantVolumeDepletionTest100 import ConstantVolumeDepletionTest
@@ -38,8 +40,12 @@ from .WPCSamplesAnalysesReport100_V1 import SamplesAnalysesReport as SamplesAnal
 
 settings = get_app_settings()
 
-CORING_KIND = f"{settings.schema_authority}:wks:master-data--Coring:1.0.0"
-ROCKSAMPLE_KIND = f"{settings.schema_authority}:wks:master-data--RockSample:1.0.0"
+CORING_100_KIND = f"{settings.schema_authority}:wks:master-data--Coring:1.0.0"
+CORING_110_KIND = f"{settings.schema_authority}:wks:master-data--Coring:1.1.0"
+SAMPLE_100_KIND = f"{settings.schema_authority}:wks:master-data--Sample:1.0.0"
+ROCKSAMPLE_100_KIND = f"{settings.schema_authority}:wks:master-data--RockSample:1.0.0"
+MASTER_DATA_KINDS_V2 = (CORING_100_KIND, CORING_110_KIND, SAMPLE_100_KIND)
+
 ROCKSAMPLEANALYSIS_KIND = f"{settings.schema_authority}:wks:work-product-component--RockSampleAnalysis:1.1.0"
 PVT_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--PVT:1.0.0"
 CCE_KIND = f"{settings.custom_schema_authority}:wks:work-product-component--ConstantCompositionExpansionTest:1.0.0"
@@ -65,8 +71,10 @@ SAMPLES_ANALYSES_REPORT_V1_KIND = f"{settings.custom_schema_authority}:wks:work-
 SAMPLES_ANALYSES_REPORT_KIND = f"{settings.schema_authority}:wks:work-product-component--SamplesAnalysesReport:1.0.0"
 
 IMPLEMENTED_MODELS = {
-    CORING_KIND: Coring,
-    ROCKSAMPLE_KIND: RockSample,
+    CORING_100_KIND: Coring,
+    CORING_110_KIND: Coring110,
+    ROCKSAMPLE_100_KIND: RockSample,
+    SAMPLE_100_KIND: Sample100,
     PVT_KIND: PVT,
     ROCKSAMPLEANALYSIS_KIND: RockSampleAnalysis,
     CCE_KIND: ConstantCompositionExpansionTest,

@@ -1,0 +1,94 @@
+{
+    "id": "namespace:master-data--Coring:Coring100",
+    "kind": "osdu:wks:master-data--Coring:1.0.0",
+    "meta": [],
+    "data": {
+        "TechnicalAssuranceID": "namespace:reference-data--TechnicalAssuranceType:Certified:",
+        "GeoContexts": [
+            {
+                "GeoPoliticalEntityID": "namespace:master-data--GeoPoliticalEntity:3298:",
+                "GeoTypeID": "namespace:reference-data--GeoPoliticalEntityType:BlockID:"
+            },
+            {
+                "BasinID": "namespace:master-data--Basin:Carnarvon:",
+                "GeoTypeID": "namespace:reference-data--BasinType:PassiveMargin:"
+            },
+            {
+                "FieldID": "namespace:master-data--Field:Gorgon:",
+                "GeoTypeID": "Field"
+            }
+        ],
+        "SpatialLocation": {
+            "CoordinateQualityCheckRemarks": [
+                "Wgs84Coordinates copied from parent Wellbore ProjectedBottomHoleLocation."
+            ],
+            "Wgs84Coordinates": {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                                112.81362197200383,
+                                -19.781020115817476
+                            ]
+                        },
+                        "properties": {}
+                    }
+                ]
+            },
+            "AppliedOperations": [
+                "conversion from GDA_1994_MGA_Zone_49 to GCS_GDA_1994; 1 points converted",
+                "transformation GCS_GDA_1994 to GCS_WGS_1984 using GDA_1994_To_WGS_1984; 1 points successfully transformed"
+            ],
+            "SpatialGeometryTypeID": "namespace:reference-data--SpatialGeometryType:Point:"
+        },
+        "VersionCreationReason": "Example VersionCreationReason",
+        "CoreIdentifier": "KKS1-Core-1",
+        "WellboreID": "namespace:master-data--Wellbore:KKS1:",
+        "Name": "KKS1 Core #1",
+        "ServiceCompanyID": "namespace:master-data--Organisation:Baker_Hughes_Inteq_BHI:",
+        "TopDepth": 2413.0,
+        "BottomDepth": 2431.0,
+        "RunNumber": 1,
+        "CoreDiameter": 5.125,
+        "IsOriented": false,
+        "PreferredDepthShiftsID": "namespace:work-product-component--WellLog:WellLog-911bb71f-06ab-4deb-8e68-b8c9229dc76b:",
+        "HasTrippingSchedule": true,
+        "CoringOperationDate": "2012-12-19",
+        "CoreRecoveredDate": "2012-12-19",
+        "ConventionalCoring": {
+            "CoreTypeID": "namespace:reference-data--ConventionalCoreType:ConventionalCore:",
+            "CoreSections": [
+                {
+                    "CoreSectionID": "1A",
+                    "RecoveredLength": 1.0,
+                    "TopDepth": 2413.0,
+                    "BottomDepth": 2414.0
+                }
+            ]
+        },
+        "ExtensionProperties": {}
+    },
+    "acl": {
+        "viewers": [
+            "some-user@some-company-cloud.com"
+        ],
+        "owners": [
+            "some-user@some-company-cloud.com"
+        ]
+    },
+    "legal": {
+        "legaltags": [
+            "Example legaltags"
+        ],
+        "otherRelevantDataCountries": [
+            "US"
+        ],
+        "status": "compliant"
+    },
+    "ancestry": {
+        "parents": []
+    }
+}
