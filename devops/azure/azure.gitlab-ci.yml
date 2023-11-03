@@ -111,6 +111,7 @@ azure_test_py:
       --url-prefix ${URL_PREFIX}
       --bearer-token ${ACCESS_TOKEN}
       --partition ${PARTITION}
+      --cloud-provider azure
   only:
     variables:
       - $AZURE == '1' && $AZURE_SKIP_DEPLOY != 'true' && $AZURE_TEST_TYPE == 'python'
