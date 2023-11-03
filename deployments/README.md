@@ -32,6 +32,21 @@ The [Postman Collection](./rafsddms_schemas_mvp.postman_collection.json) can be 
 
 The RAFS DDMS [content schemas](https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/tree/main/app/models/data_schemas) may use reference data that is still not published in the OSDU forum, for both: schema definition and values.
 
-We provide the schema definition for such reference data in the [reference-data](./shared-schemas/rafsddms/work-product-component/) folder.
+We provide the schema definition for such reference data in the [reference-data](./shared-schemas/rafsddms/reference-data/) folder.
 
 The list of values can be found in the RAFS DDMS Development Document Repository in the [Reference Values](https://gitlab.opengroup.org/osdu/subcommittees/data-def/projects/RAFSDDMSDEV/docs/-/tree/main/Design%20Documents/ReferenceValues/Manifests/reference-data/OPEN) folder.
+
+#### OSDU Reference Data
+New reference-data has been added to OSDU since M21 and it's of particular relevance for the RAFS-DDMS, since it's utilized in the content schemas.
+
+Schemas can be found for each type:
+ - [SampleAnalysisFamily](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/reference-data/SampleAnalysisFamily.1.0.0.json?ref_type=heads)
+ - [SampleAnalysisSubFamily](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/reference-data/SampleAnalysisSubFamily.1.0.0.json?ref_type=heads)
+ - [SampleAnalysisType](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/reference-data/SampleAnalysisType.1.0.0.json?ref_type=heads)
+ - [SamplesAnalysisCategoryTag](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/reference-data/SamplesAnalysisCategoryTag.1.0.0.json?ref_type=heads)
+
+ And its corresponding reference values:
+ - [SampleAnalysisFamily](https://community.opengroup.org/osdu/data/data-definitions/-/blob/master/ReferenceValues/Manifests/reference-data/OPEN/SampleAnalysisFamily.1.0.0.json?ref_type=heads)
+ - [SampleAnalysisSubFamily](https://community.opengroup.org/osdu/data/data-definitions/-/blob/master/ReferenceValues/Manifests/reference-data/OPEN/SampleAnalysisSubFamily.1.0.0.json?ref_type=heads)
+ - [SampleAnalysisType](https://community.opengroup.org/osdu/data/data-definitions/-/blob/master/ReferenceValues/Manifests/reference-data/OPEN/SampleAnalysisType.1.0.0.json?ref_type=heads)
+ - [SamplesAnalysisCategoryTag](https://community.opengroup.org/osdu/data/data-definitions/-/blob/master/ReferenceValues/Manifests/reference-data/LOCAL/SamplesAnalysisCategoryTag.1.0.0.json?ref_type=heads)
