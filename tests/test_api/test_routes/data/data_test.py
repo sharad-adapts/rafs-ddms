@@ -91,6 +91,9 @@ from tests.test_api.test_routes.gcms_aromatics import (
     gcms_aromatics_mock_objects,
 )
 from tests.test_api.test_routes.gcms_ratios import gcms_ratios_mock_objects
+from tests.test_api.test_routes.gcmsms_analysis import (
+    gcmsms_analysis_mock_objects,
+)
 from tests.test_api.test_routes.interfacialtension import (
     interfacialtension_test_mock_objects,
 )
@@ -133,6 +136,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     GCMS_ALKANES_DATA_ENDPOINT_PATH,
     GCMS_AROMATICS_DATA_ENDPOINT_PATH,
     GCMS_RATIOS_DATA_ENDPOINT_PATH,
+    GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
     INTERFACIAL_TENSION_DATA_ENDPOINT_PATH,
     INTERFACIAL_TENSION_SOURCE_ENDPOINT_PATH,
     ISOTOPE_ANALYSIS_DATA_ENDPOINT_PATH,
@@ -289,6 +293,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
+        (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
     ],
@@ -345,6 +350,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
     ],
 )
@@ -399,6 +405,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, BulkDatasetId.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.UNIAXIAL_TEST),
+        (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
     ],
@@ -668,6 +675,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+        ),
+        (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
         ),
         (
             CEC_CONTENT_ENDPOINT_PATH,
@@ -1883,6 +1900,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
         (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CCE_DATA_ENDPOINT_PATH}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
             cce_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -2151,6 +2177,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            gcmsms_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
@@ -2466,6 +2501,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            gcmsms_analysis_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2795,6 +2839,14 @@ async def test_get_data_json_data(
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [cec_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -3118,6 +3170,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_DATA,
         ),
         (
             f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3445,6 +3505,14 @@ async def test_get_data_json_data_improper_schema_version(
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", gcmsms_analysis_mock_objects.TEST_DATA)],
+            gcmsms_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [cec_content_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -3736,6 +3804,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gcmsms_analysis_mock_objects.TEST_DATA,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            gcmsms_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             CEC_CONTENT_ENDPOINT_PATH,
             cec_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             cec_content_mock_objects.TEST_DATA,
@@ -4016,6 +4091,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gcmsms_analysis_mock_objects.TEST_DATA,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            gcmsms_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             CEC_CONTENT_ENDPOINT_PATH,
             cec_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             cec_content_mock_objects.TEST_DATA,
@@ -4227,6 +4309,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
             uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             CEC_CONTENT_ENDPOINT_PATH,
@@ -4500,6 +4587,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             uniaxial_test_mock_objects.TEST_DATA,
             uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gcmsms_analysis_mock_objects.TEST_DATA,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            gcmsms_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             CEC_CONTENT_ENDPOINT_PATH,
@@ -4784,6 +4878,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            gcmsms_analysis_mock_objects.TEST_DATA,
+            gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            gcmsms_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             CEC_CONTENT_ENDPOINT_PATH,
             cec_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             cec_content_mock_objects.TEST_DATA,
@@ -4853,6 +4954,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, bulk_pyrolysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, gcmsms_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CEC_CONTENT_ENDPOINT_PATH, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, electricalproperties_mock_objects_api_v2.INCORRECT_SCHEMA_TEST_DATA),
     ],
@@ -5047,6 +5149,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             uniaxial_test_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
+            GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
+            gcmsms_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            gcmsms_analysis_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
             CEC_CONTENT_ENDPOINT_PATH,
             cec_content_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             cec_content_mock_objects.EXPECTED_ERROR_REASON,
@@ -5110,6 +5217,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{BULK_PYROLYSIS_DATA_ENDPOINT_PATH}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CORE_GAMMA_DATA_ENDPOINT_PATH}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
     ],
@@ -5162,6 +5270,7 @@ async def test_rca_get_403(data_endpoint_path):
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
         CORE_GAMMA_DATA_ENDPOINT_PATH,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+        GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
     ],
@@ -5241,6 +5350,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH,
         CORE_GAMMA_DATA_ENDPOINT_PATH,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
+        GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
     ],
@@ -5299,6 +5409,7 @@ async def test_invalid_data_with_nan(path):
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
+        (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (CEC_CONTENT_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
     ],

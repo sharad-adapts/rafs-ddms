@@ -1,0 +1,59 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "GasChromatographyTandemMassSpectrometryAnalysis",
+        "StdCompound"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "opendes:work-product-component--SamplesAnalysis:GCMSMS_SamplesAnalysis:",
+            "opendes:master-data--Sample:GCMSMS_Sample:",
+            [
+                {
+                    "CompoundCode": "opendes:reference-data--GasChromatographyTandemMassSpectrometrySaturateCompounds:Abietane:",
+                    "RetentionTime": {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                    },
+                    "Ions": [
+                        "ABCDEFGHIJKL"
+                    ],
+                    "Peak": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                            "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
+                        }
+                    ]
+                }
+            ],
+            {
+                "CompoundCode": "opendes:reference-data--GasChromatographyTandemMassSpectrometrySaturateCompounds:Beyerane:",
+                "RetentionTime": {
+                    "Value": 1.0,
+                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+                },
+                "Ions": [
+                    "ABCD",
+                    "ABCDEFGHIJKLMN"
+                ],
+                "Peak": [
+                    {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:",
+                        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
+                    },
+                    {
+                        "Value": 1.0,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+                        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
+                    }
+                ]
+            }
+        ]
+    ]
+}

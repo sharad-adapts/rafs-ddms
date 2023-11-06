@@ -51,6 +51,7 @@ from app.models.data_schemas.isotope_analysis_data_model import Model as Isotope
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
 from app.models.data_schemas.core_gamma_data_model import Model as CoreGammaModel
 from app.models.data_schemas.uniaxial_test_data_model import Model as UniaxialTestModel
+from app.models.data_schemas.gcmsms_data_model import Model as GCMSMS_Model
 from app.resources.paths import COMMON_RELATIVE_PATHS
 
 
@@ -163,7 +164,10 @@ CORE_GAMMA_MODELS = {
     ContentSchemaVersion.V_1_0_0: CoreGammaModel,
 }
 UNIAXIAL_TEST_MODELS = {
-    ContentSchemaVersion.V_1_0_0: UniaxialTestModel
+    ContentSchemaVersion.V_1_0_0: UniaxialTestModel,
+}
+GCMSMS_ANALYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: GCMSMS_Model,
 }
 CEC_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: CECContentModel
@@ -212,6 +216,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.BULK_PYROLYSIS: BULK_PYROLYSIS_MODELS,
     common_relative_paths_api_v2.CORE_GAMMA: CORE_GAMMA_MODELS,
     common_relative_paths_api_v2.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
+    common_relative_paths_api_v2.GCMSMS_ANALYSIS: GCMSMS_ANALYSIS_MODELS,
     common_relative_paths_api_v2.CEC_CONTENT: CEC_CONTENT_MODELS,
 }
 
