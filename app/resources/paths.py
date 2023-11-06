@@ -55,6 +55,7 @@ class CommonRelativePathsV2(NamedTuple):
     BULK_PYROLYSIS: str = "/data/bulkpyrolysisanalyses"
     CORE_GAMMA: str = "/data/coregamma"
     UNIAXIAL_TEST: str = "/data/uniaxial"
+    GCMSMS_ANALYSIS: str = "/data/gcmsms"
     CEC_CONTENT: str = "/data/cec"
 
 
