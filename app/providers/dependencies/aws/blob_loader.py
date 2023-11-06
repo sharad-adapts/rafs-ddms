@@ -45,7 +45,7 @@ def refresh_credentials():
 refresh_credentials()
 
 
-class BlobLoader(IBlobLoader):
+class AWSBlobLoader(IBlobLoader):
     def __init__(self):
         now = datetime.now(timezone.utc)
         if now > CREDENTIALS_CACHE["expiration"] - TIME_LIMIT_MIN:
