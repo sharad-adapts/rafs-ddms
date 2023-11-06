@@ -7,6 +7,12 @@ variables:
   AZURE_TEST_TYPE: python
   AZURE_SKIP_COVERAGE: "true"
 
+  # AWS specific
+  AWS_SERVICE: rafs-ddms
+  AWS_DEPLOY_TARGET: TF
+  AWS_SERVICE_NAMESPACE_SUFFIX: rafs-ddms
+  AWS_EKS_DEPLOYMENT_NAME: os-rafs-ddms
+
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"
@@ -23,6 +29,9 @@ include:
 
   # AZURE provider
   - local: "/devops/azure/azure.gitlab-ci.yml"
+
+  # AWS provider
+  - local: "/devops/aws/aws.gitlab-ci.yml"
 
 compile-and-unit-test:
   image: mcr.microsoft.com/mirror/docker/library/python:3.11-slim

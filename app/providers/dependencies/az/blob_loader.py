@@ -21,7 +21,7 @@ from app.providers.dependencies.blob_loader import IBlobLoader
 TIMEOUT = 60
 
 
-class BlobLoader(IBlobLoader):
+class AzureBlobLoader(IBlobLoader):
 
     async def upload_blob(self, upload_url: str, blob: bytes):
         async with BlobClient.from_blob_url(upload_url) as blob_client:

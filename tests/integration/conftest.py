@@ -22,7 +22,7 @@ from tests.integration.helpers import HelperManager
 
 def pytest_addoption(parser: pytest.Parser):
     """Register custom CLI options."""
-    parser.addoption("--cloud-provider", type=str, default="azure", help="OneOf [az]")
+    parser.addoption("--cloud-provider", type=str, help="OneOf [azure, aws]")
     parser.addoption("--bearer-token", type=str, help="The bearer token for auth")
     parser.addoption("--ddms-base-url", type=str, help="The DDMS base URL")
 
