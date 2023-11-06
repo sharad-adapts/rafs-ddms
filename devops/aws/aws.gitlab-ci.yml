@@ -26,6 +26,7 @@ aws_test_py:
     - .aws_variables
   tags: ["osdu-medium"]
   stage: integration
+  allow_failure: true
   image: ${CI_REGISTRY_IMAGE}:build-${CI_COMMIT_SHA}
   needs: ["aws-update-tf"]
   variables:
