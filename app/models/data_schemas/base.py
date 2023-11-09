@@ -29,7 +29,8 @@ from app.models.data_schemas.mcm_data_model import Model as MCMModel
 from app.models.data_schemas.relative_permeability_data_model import Model as RelativePermeabilityModel
 from app.models.data_schemas.vle_data_model import Model as VLEModel
 from app.models.data_schemas.slimtube_data_model import Model as SlimTubeModel
-from app.models.data_schemas.cap_pressure_data_model import Model as CapPressureModel
+from app.models.data_schemas.cap_pressure_data_model import Model as CapPressureModel_API_V1
+from app.models.data_schemas.api_v2.cap_pressure_data_model import Model as CapPressureModel_API_V2
 from app.models.data_schemas.cec_content_model import Model as CECContentModel
 from app.models.data_schemas.fractionation_data_model import Model as FractionationModel
 from app.models.data_schemas.extraction_data_model import Model as ExtractionModel
@@ -105,8 +106,11 @@ SLIMTUBETEST_MODELS = {
 RELATIVE_PERMEABILITY_MODELS = {
     ContentSchemaVersion.V_1_0_0: RelativePermeabilityModel
 }
-CAP_PRESSURE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CapPressureModel
+CAP_PRESSURE_MODELS_API_V1 = {
+    ContentSchemaVersion.V_1_0_0: CapPressureModel_API_V1
+}
+CAP_PRESSURE_MODELS_API_V2 = {
+    ContentSchemaVersion.V_1_0_0: CapPressureModel_API_V2
 }
 FRACTIONATION_MODELS = {
     ContentSchemaVersion.V_1_0_0: FractionationModel
@@ -197,7 +201,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V1 = {
     common_relative_paths_api_v1.MCM: MCM_ANALYSIS_MODELS,
     common_relative_paths_api_v1.SLIMTUBETEST: SLIMTUBETEST_MODELS,
     common_relative_paths_api_v1.RELATIVE_PERMEABILITY: RELATIVE_PERMEABILITY_MODELS,
-    common_relative_paths_api_v1.CAP_PRESSURE: CAP_PRESSURE_MODELS,
+    common_relative_paths_api_v1.CAP_PRESSURE: CAP_PRESSURE_MODELS_API_V1,
     common_relative_paths_api_v1.FRACTIONATION: FRACTIONATION_MODELS,
     common_relative_paths_api_v1.EXTRACTION: EXTRACTION_MODELS,
     common_relative_paths_api_v1.PHYS_CHEM: PHYS_CHEM_MODELS,
@@ -209,6 +213,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V1 = {
 
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS_API_V2,
+    common_relative_paths_api_v2.CAP_PRESSURE: CAP_PRESSURE_MODELS_API_V2,
     common_relative_paths_api_v2.NMR: NMR_MODELS,
     common_relative_paths_api_v2.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
     common_relative_paths_api_v2.GCMS_ALKANES: GCMS_ALKANES_MODELS,
