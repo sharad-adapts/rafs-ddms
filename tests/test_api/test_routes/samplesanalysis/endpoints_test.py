@@ -79,6 +79,7 @@ async def test_types_route():
         "coregamma",
         "uniaxial",
         "cec",
+        "triaxial",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -135,6 +136,7 @@ async def test_content_schemas_route(analysistype):
         "coregamma",
         "uniaxial",
         "cec",
+        "triaxial",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

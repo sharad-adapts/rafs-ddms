@@ -56,6 +56,7 @@ class CommonRelativePathsV2(NamedTuple):
     CORE_GAMMA: str = "/data/coregamma"
     UNIAXIAL_TEST: str = "/data/uniaxial"
     CEC_CONTENT: str = "/data/cec"
+    TRIAXIAL_TEST: str = "/data/triaxial"
 
 
 COMMON_RELATIVE_PATHS = {

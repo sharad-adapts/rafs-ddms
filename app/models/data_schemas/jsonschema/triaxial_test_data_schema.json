@@ -1,0 +1,230 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "data": {
+            "type": "array",
+            "items": {
+                "types": "object",
+                "properties": {
+                    "SampleID": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "Length": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Diameter": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Density": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Time": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "AxialStrain": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "RadialStrain": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "AxialStress": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "RadialStress": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "PorePressure": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "AxialPWaveVelocity": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "AxialSWaveVelocity": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "Porosity": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "EffectiveAxialStress": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "EffectiveRadialStress": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        }
+                    },
+                    "PoissonsRatio": {
+                        "title": "Poisson Ratio",
+                        "type": "number"
+                    },
+                    "Remarks": {
+                        "title": "Remarks",
+                        "type": "string"
+                    },
+                    "LoadingCondition": {
+                        "title": "Loading Condition",
+                        "type": "string"
+                    },
+                    "ConsolidationType": {
+                        "type": "string",
+                        "description": "Consolidation Type, e.g. Isotropic",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConsolidationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "DrainageCondition": {
+                        "type": "string",
+                        "description": "Categorization of drainage of the sample, e.g. Drained",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DrainageCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "LoadingMethod": {
+                        "type": "string",
+                        "description": "Method by which stress is applied, or loaded, onto the sample",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "Lithology": {
+                        "type": "string",
+                        "description": "Identified lithology of the rock sample",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LithologyType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "CutFluid": {
+                        "type": "string",
+                        "description": "Cutting Fluid used when preparing this sample for testing",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CutFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+        "SamplesAnalysisID"
+    ]
+}
