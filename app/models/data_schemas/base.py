@@ -50,6 +50,7 @@ from app.models.data_schemas.gas_composition_data_model import Model as GasCompo
 from app.models.data_schemas.isotope_analysis_data_model import Model as IsotopeAnalysisModel
 from app.models.data_schemas.bulk_pyrolysis_data_model import Model as BulkPyrolysisModel
 from app.models.data_schemas.core_gamma_data_model import Model as CoreGammaModel
+from app.models.data_schemas.triaxial_test_data_model import Model as TriaxialTestModel
 from app.models.data_schemas.uniaxial_test_data_model import Model as UniaxialTestModel
 from app.models.data_schemas.gcmsms_data_model import Model as GCMSMS_Model
 from app.resources.paths import COMMON_RELATIVE_PATHS
@@ -57,6 +58,7 @@ from app.resources.paths import COMMON_RELATIVE_PATHS
 
 class ContentSchemaVersion(NamedTuple):
     V_1_0_0 = "1.0.0"
+
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel
@@ -172,6 +174,9 @@ GCMSMS_ANALYSIS_MODELS = {
 CEC_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: CECContentModel
 }
+TRIAXIAL_TEST_MODELS = {
+    ContentSchemaVersion.V_1_0_0: TriaxialTestModel
+}
 
 common_relative_paths_api_v1 = COMMON_RELATIVE_PATHS["v1"]()
 common_relative_paths_api_v2 = COMMON_RELATIVE_PATHS["v2"]()
@@ -218,6 +223,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.UNIAXIAL_TEST: UNIAXIAL_TEST_MODELS,
     common_relative_paths_api_v2.GCMSMS_ANALYSIS: GCMSMS_ANALYSIS_MODELS,
     common_relative_paths_api_v2.CEC_CONTENT: CEC_CONTENT_MODELS,
+    common_relative_paths_api_v2.TRIAXIAL_TEST: TRIAXIAL_TEST_MODELS,
 }
 
 PATHS_TO_DATA_MODEL = {

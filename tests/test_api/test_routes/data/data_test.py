@@ -164,6 +164,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     SWELLING_SOURCE_ENDPOINT_PATH,
     TRANSPORT_DATA_ENDPOINT_PATH,
     TRANSPORT_SOURCE_ENDPOINT_PATH,
+    TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
     UNIAXIAL_TEST_DATA_ENDPOINT_PATH,
     VLE_DATA_ENDPOINT_PATH,
     VLE_SOURCE_ENDPOINT_PATH,
@@ -186,6 +187,7 @@ from tests.test_api.test_routes.swelling_test import swelling_test_mock_objects
 from tests.test_api.test_routes.transport_test import (
     transport_test_mock_objects,
 )
+from tests.test_api.test_routes.triaxial_test import triaxial_test_mock_objects
 from tests.test_api.test_routes.uniaxial_test import uniaxial_test_mock_objects
 from tests.test_api.test_routes.vle import vle_mock_objects
 from tests.test_api.test_routes.water_analysis import (
@@ -296,6 +298,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (TRIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.TRIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -352,6 +355,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id, with_pat
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
+        (TRIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.TRIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -408,6 +412,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id, wi
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, BulkDatasetId.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH, BulkDatasetId.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetId.ELECTRICAL_PROPERTIES),
+        (TRIAXIAL_TEST_DATA_ENDPOINT_PATH, BulkDatasetId.TRIAXIAL_TEST),
     ],
 )
 @pytest.mark.asyncio
@@ -705,6 +710,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id,
             ],
             "download_file",
             [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+        ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1882,6 +1897,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             core_gamma_mock_objects.TEST_DATA,
         ),
         (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_DATA,
+        ),
+        (
             f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
@@ -2168,6 +2192,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             "download_file",
             [build_get_test_data("x-parquet", core_gamma_mock_objects.TEST_DATA)],
             core_gamma_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            triaxial_test_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2529,6 +2562,15 @@ async def test_get_rca_data_json_data_errors(data_endpoint_path, params, returne
             [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
             electricalproperties_mock_objects_api_v2.TEST_FILTERED_DATA,
         ),
+        (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            triaxial_test_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_FILTERED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2861,6 +2903,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
             electricalproperties_mock_objects_api_v2.TEST_DATA,
+        ),
+        (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3195,6 +3245,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
             electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
+        (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3528,6 +3586,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
             electricalproperties_mock_objects_api_v2.TEST_DATA,
         ),
+        (
+            f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [triaxial_test_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", triaxial_test_mock_objects.TEST_DATA)],
+            triaxial_test_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3824,6 +3890,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            triaxial_test_mock_objects.TEST_DATA,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            triaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4111,6 +4184,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            triaxial_test_mock_objects.TEST_DATA,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            triaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4324,6 +4404,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
             electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
             electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4608,6 +4693,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             electricalproperties_mock_objects_api_v2.TEST_DATA,
             electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            triaxial_test_mock_objects.TEST_DATA,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            triaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4898,6 +4990,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
             electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            triaxial_test_mock_objects.TEST_DATA,
+            triaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            triaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4957,6 +5056,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, gcmsms_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CEC_CONTENT_ENDPOINT_PATH, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, electricalproperties_mock_objects_api_v2.INCORRECT_SCHEMA_TEST_DATA),
+        (TRIAXIAL_TEST_DATA_ENDPOINT_PATH, triaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -5163,6 +5263,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             electricalproperties_mock_objects_api_v2.INCORRECT_DATAFRAME_TEST_DATA,
             electricalproperties_mock_objects_api_v2.EXPECTED_ERROR_REASON,
         ),
+        (
+            TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
+            triaxial_test_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            triaxial_test_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -5220,6 +5325,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CEC_CONTENT_ENDPOINT_PATH}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+        f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -5273,6 +5379,7 @@ async def test_rca_get_403(data_endpoint_path):
         GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+        TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
     ],
 )
 @pytest.mark.asyncio
@@ -5353,6 +5460,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH,
         CEC_CONTENT_ENDPOINT_PATH,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
+        TRIAXIAL_TEST_DATA_ENDPOINT_PATH,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -5412,6 +5520,7 @@ async def test_invalid_data_with_nan(path):
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (CEC_CONTENT_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
+        (TRIAXIAL_TEST_DATA_ENDPOINT_PATH, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

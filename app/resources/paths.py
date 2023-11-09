@@ -57,6 +57,7 @@ class CommonRelativePathsV2(NamedTuple):
     UNIAXIAL_TEST: str = "/data/uniaxial"
     GCMSMS_ANALYSIS: str = "/data/gcmsms"
     CEC_CONTENT: str = "/data/cec"
+    TRIAXIAL_TEST: str = "/data/triaxial"
 
 
 COMMON_RELATIVE_PATHS = {
