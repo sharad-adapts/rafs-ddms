@@ -1,6 +1,6 @@
 {
         "id": "{data_partition_id}:work-product-component--CompositionalAnalysisTest:{record_id}",
-        "kind": "{schema_authority}:wks:work-product-component--CompositionalAnalysisTest:{schema_version}",
+        "kind": "{custom_schema_authority}:wks:work-product-component--CompositionalAnalysisTest:{schema_version}",
         "acl": {
             "owners": ["{acl_viewers}"],
             "viewers": ["{acl_owners}"]

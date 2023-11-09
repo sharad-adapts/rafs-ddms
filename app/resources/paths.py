@@ -58,6 +58,7 @@ class CommonRelativePathsV2(NamedTuple):
     GCMSMS_ANALYSIS: str = "/data/gcmsms"
     CEC_CONTENT: str = "/data/cec"
     TRIAXIAL_TEST: str = "/data/triaxial"
+    CAP_PRESSURE: str = "/data/capillarypressure"
 
 
 COMMON_RELATIVE_PATHS = {
