@@ -71,7 +71,7 @@ The following software have components provided under the terms of this license:
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
-- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.31.1/)
+- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.32.0.post1/)
 - uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.24.0.post1/, https://www.uvicorn.org/)
 
 ========================================================================
@@ -198,3 +198,4 @@ The following software have components provided under the terms of this license:
 - pytz (from http://pythonhosted.org/pytz)
 - pytzdata (from https://github.com/sdispater/pytzdata)
 - tzdata (from https://github.com/python/tzdata)
+
