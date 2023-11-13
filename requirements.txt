@@ -19,13 +19,13 @@ async-timeout==4.0.3
     # via aiohttp
 attrs==23.1.0
     # via aiohttp
-azure-core==1.29.4
+azure-core==1.29.5
     # via azure-storage-blob
 azure-storage-blob==12.18.3
     # via -r requirements.in
 boto3==1.28.79
     # via -r requirements.in
-botocore==1.31.79
+botocore==1.31.84
     # via
     #   boto3
     #   s3transfer
@@ -36,13 +36,13 @@ certifi==2023.7.22
     #   requests
 cffi==1.16.0
     # via cryptography
-charset-normalizer==3.3.0
+charset-normalizer==3.3.2
     # via
     #   aiohttp
     #   requests
 click==8.1.7
     # via uvicorn
-cryptography==41.0.4
+cryptography==41.0.5
     # via azure-storage-blob
 fastapi==0.103.2
     # via
@@ -50,7 +50,9 @@ fastapi==0.103.2
     #   fastapi-cache2
     #   prometheus-fastapi-instrumentator
 fastapi-cache2[redis]==0.2.1
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   fastapi-cache2
 frozenlist==1.4.0
     # via
     #   aiohttp
@@ -100,11 +102,11 @@ pandera==0.17.2
     # via -r requirements.in
 pendulum==2.1.2
     # via fastapi-cache2
-prometheus-client==0.17.1
+prometheus-client==0.18.0
     # via prometheus-fastapi-instrumentator
 prometheus-fastapi-instrumentator==6.1.0
     # via -r requirements.in
-pyarrow==13.0.0
+pyarrow==14.0.1
     # via -r requirements.in
 pycparser==2.21
     # via cffi
@@ -113,6 +115,7 @@ pydantic[dotenv]==1.10.13
     #   -r requirements.in
     #   fastapi
     #   pandera
+    #   pydantic
 python-dateutil==2.8.2
     # via
     #   botocore
@@ -130,8 +133,11 @@ requests[security]==2.31.0
     # via
     #   -r requirements.in
     #   azure-core
+    #   requests
 rfc3986[idna2008]==1.5.0
-    # via httpx
+    # via
+    #   httpx
+    #   rfc3986
 s3transfer==0.7.0
     # via boto3
 six==1.16.0
@@ -171,7 +177,7 @@ uvicorn==0.23.2
     # via
     #   -r requirements.in
     #   fastapi-cache2
-wrapt==1.15.0
+wrapt==1.16.0
     # via pandera
 yarl==1.9.2
     # via aiohttp
