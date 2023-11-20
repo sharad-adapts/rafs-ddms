@@ -14,10 +14,6 @@
 
 import copy
 
-from app.models.data_schemas.cce_data_model import (
-    FluidConditionType,
-    PhasesPresentType,
-)
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
@@ -138,8 +134,8 @@ TEST_DATA = {
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1:",
                     },
                     "YFunction": 1.0,
-                    "FluidConditionType": FluidConditionType.Stock_Tank_Conditions.value,
-                    "PhasesPresentType": PhasesPresentType.Oil.value,
+                    "FluidConditionType": "Stock Tank Conditions",
+                    "PhasesPresentType": "Oil",
                 },
             ],
         ],

@@ -14,10 +14,6 @@
 
 import copy
 
-from app.models.data_schemas.cce_data_model import (
-    FluidConditionType,
-    PhasesPresentType,
-)
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
