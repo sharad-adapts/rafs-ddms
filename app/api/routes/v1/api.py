@@ -63,7 +63,7 @@ router = APIRouter()
 router.include_router(
     rocksampleanalysis_api.rca_router,
     prefix="/rocksampleanalyses",
-    tags=["rocksampleanalyses"],
+    tags=["rocksampleanalyses (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(

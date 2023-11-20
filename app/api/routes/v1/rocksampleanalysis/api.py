@@ -23,7 +23,7 @@ from app.api.routes.osdu.storage_records import BaseStorageRecordView
 ROCKSAMPLEANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--RockSampleAnalysis:[\w\-\.\:\%]+$"
 RECORD_TYPE = "RockSampleAnalysis"
 
-rca_router = APIRouter()
+rca_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=rca_router,

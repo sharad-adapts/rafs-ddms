@@ -42,6 +42,7 @@ class CommonRelativePathsV1(NamedTuple):
 
 
 class CommonRelativePathsV2(NamedTuple):
+    ROUTINECOREANALYSIS: str = "/data/routinecoreanalyses"
     ELECTRICAL_PROPERTIES: str = "/data/electricalproperties"
     NMR: str = "/data/nmrtests"
     MULTIPLE_SALINITY: str = "/data/multiplesalinitytests"
