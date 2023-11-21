@@ -34,6 +34,7 @@ from app.models.data_schemas.api_v2.triaxial_test_data_model import Model as Tri
 from app.models.data_schemas.api_v2.cap_pressure_data_model import Model as CapPressureModel
 from app.models.data_schemas.api_v2.wettability_index_model import Model as WettabilityIndexModel
 from app.models.data_schemas.api_v2.eds_mapping_data_model import Model as EDSMappingModel
+from app.models.data_schemas.api_v2.xrf_data_model import Model as XRFModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -95,6 +96,9 @@ WETTABILITY_INDEX_MODELS = {
 EDS_MAPPING_MODELS = {
     ContentSchemaVersion.V_1_0_0: EDSMappingModel
 }
+XRF_MODELS = {
+    ContentSchemaVersion.V_1_0_0: XRFModel
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -118,4 +122,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.CAP_PRESSURE: CAP_PRESSURE_MODELS,
     common_relative_paths_api_v2.WETTABILITY_INDEXES: WETTABILITY_INDEX_MODELS,
     common_relative_paths_api_v2.EDS_MAPPING: EDS_MAPPING_MODELS,
+    common_relative_paths_api_v2.XRF: XRF_MODELS,
 }

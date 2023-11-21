@@ -62,6 +62,7 @@ class CommonRelativePathsV2(NamedTuple):
     CAP_PRESSURE: str = "/data/capillarypressure"
     WETTABILITY_INDEXES: str = "/data/wettabilityindex"
     EDS_MAPPING: str = "/data/edsmapping"
+    XRF: str = "/data/xrf"
 
 
 COMMON_RELATIVE_PATHS = {
