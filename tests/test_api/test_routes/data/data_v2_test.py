@@ -99,11 +99,15 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     RCA_DATA_ENDPOINT_PATH_API_V2,
     TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
     UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
+    WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
     BulkDatasetIdV2,
 )
 from tests.test_api.test_routes.routine_core_analysis import rca_mock_objects
 from tests.test_api.test_routes.triaxial_test import triaxial_test_mock_objects
 from tests.test_api.test_routes.uniaxial_test import uniaxial_test_mock_objects
+from tests.test_api.test_routes.wettability_index import (
+    wettability_index_mock_objects,
+)
 
 async_storage_record_service_mock = create_autospec(storage.StorageService, spec_set=True, instance=True)
 async_dataset_service_mock = create_autospec(dataset.DatasetService, spec_set=True, instance=True)
@@ -176,6 +180,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.UNIAXIAL_TEST),
+        (WETTABILITY_INDEX_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.WETTABILITY_INDEX),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.ELECTRICAL_PROPERTIES),
@@ -213,6 +218,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.UNIAXIAL_TEST),
+        (WETTABILITY_INDEX_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.WETTABILITY_INDEX),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.ELECTRICAL_PROPERTIES),
@@ -249,6 +255,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id):
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.BULK_PYROLYSIS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CORE_GAMMA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.UNIAXIAL_TEST),
+        (WETTABILITY_INDEX_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.WETTABILITY_INDEX),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.GCMSMS_ANALYSIS),
         (CEC_CONTENT_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CEC_CONTENT),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.ELECTRICAL_PROPERTIES),
@@ -405,6 +412,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
             ],
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+        ),
+        (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
         ),
         (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
@@ -599,6 +616,15 @@ async def test_get_content_parquet_data(
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
@@ -761,6 +787,15 @@ async def test_get_content_parquet_data(
             uniaxial_test_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            wettability_index_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             gcmsms_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -921,6 +956,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            wettability_index_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1101,6 +1145,14 @@ async def test_get_data_json_data(
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -1272,6 +1324,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
             uniaxial_test_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_DATA,
         ),
         (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1447,6 +1507,14 @@ async def test_get_data_json_data_improper_schema_version(
             uniaxial_test_mock_objects.TEST_DATA,
         ),
         (
+            f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [wettability_index_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
+            wettability_index_mock_objects.TEST_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -1608,6 +1676,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            wettability_index_mock_objects.TEST_DATA,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+            wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -1755,6 +1830,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            wettability_index_mock_objects.TEST_DATA,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+            wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -1877,6 +1959,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
             uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
@@ -2011,6 +2098,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             uniaxial_test_mock_objects.TEST_DATA,
             uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            wettability_index_mock_objects.TEST_DATA,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+            wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
@@ -2162,6 +2256,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            wettability_index_mock_objects.TEST_DATA,
+            wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+            wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -2227,6 +2328,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2, bulk_pyrolysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (WETTABILITY_INDEX_ENDPOINT_PATH_API_V2, wettability_index_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2, gcmsms_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CEC_CONTENT_ENDPOINT_PATH_API_V2, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, electricalproperties_mock_objects_api_v2.INCORRECT_SCHEMA_TEST_DATA),
@@ -2321,6 +2423,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             uniaxial_test_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
+            WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+            wettability_index_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            wettability_index_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             gcmsms_analysis_mock_objects.EXPECTED_ERROR_REASON,
@@ -2377,6 +2484,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{WETTABILITY_INDEX_ENDPOINT_PATH_API_V2}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CEC_CONTENT_ENDPOINT_PATH_API_V2}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
@@ -2410,6 +2518,7 @@ async def test_rca_get_403(data_endpoint_path):
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2,
         CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
+        WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
         GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
         CEC_CONTENT_ENDPOINT_PATH_API_V2,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
@@ -2471,6 +2580,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2,
         CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2,
         UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
+        WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
         GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
         CEC_CONTENT_ENDPOINT_PATH_API_V2,
         ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2,
@@ -2510,6 +2620,7 @@ async def test_invalid_data_with_nan(path):
         (BULK_PYROLYSIS_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (CORE_GAMMA_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
+        (WETTABILITY_INDEX_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (CEC_CONTENT_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (ELECTRICAL_PROPERTIES_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
