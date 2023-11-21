@@ -82,6 +82,7 @@ async def test_types_route():
         "triaxial",
         "wettabilityindex",
         "edsmapping",
+        "xrf",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -141,6 +142,7 @@ async def test_content_schemas_route(analysistype):
         "triaxial",
         "wettabilityindex",
         "edsmapping",
+        "xrf",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

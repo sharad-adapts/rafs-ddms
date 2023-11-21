@@ -1,0 +1,20 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:XRF_WPC:",
+    "SampleID": "opendes:master-data--Sample:XRF_Sample:",
+    "ElementalComposition": [
+        {
+            "Element": "opendes:reference-data--Elements:Cr:",
+            "Content": {
+                "Value": 2,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+            }
+        },
+        {
+            "Element": "opendes:reference-data--Elements:Th:",
+            "Content": {
+                "Value": 10,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+            }
+        }
+    ]
+}

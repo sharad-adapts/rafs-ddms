@@ -104,6 +104,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
     UNIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
     WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
+    XRF_DATA_ENDPOINT_PATH_API_V2,
     BulkDatasetIdV2,
 )
 from tests.test_api.test_routes.routine_core_analysis import rca_mock_objects
@@ -112,6 +113,7 @@ from tests.test_api.test_routes.uniaxial_test import uniaxial_test_mock_objects
 from tests.test_api.test_routes.wettability_index import (
     wettability_index_mock_objects,
 )
+from tests.test_api.test_routes.xrf import xrf_data_mock_objects
 
 async_storage_record_service_mock = create_autospec(storage.StorageService, spec_set=True, instance=True)
 async_dataset_service_mock = create_autospec(dataset.DatasetService, spec_set=True, instance=True)
@@ -191,6 +193,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.TRIAXIAL_TEST),
         (CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CAP_PRESSURE),
         (EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.EDS_MAPPING),
+        (XRF_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.XRF),
 
     ],
 )
@@ -230,6 +233,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.TRIAXIAL_TEST),
         (CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CAP_PRESSURE),
         (EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.EDS_MAPPING),
+        (XRF_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.XRF),
     ],
 )
 @pytest.mark.asyncio
@@ -268,6 +272,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id):
         (TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.TRIAXIAL_TEST),
         (CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.CAP_PRESSURE),
         (EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.EDS_MAPPING),
+        (XRF_DATA_ENDPOINT_PATH_API_V2, BulkDatasetIdV2.XRF),
     ],
 )
 @pytest.mark.asyncio
@@ -490,6 +495,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
             "download_file",
             [build_get_test_data("x-parquet", eds_mapping_data_mock_objects.TEST_DATA)],
         ),
+        (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -640,6 +655,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
             wettability_index_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_DATA,
         ),
         (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -822,6 +846,15 @@ async def test_get_content_parquet_data(
             wettability_index_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            xrf_data_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             gcmsms_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -991,6 +1024,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
             wettability_index_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            xrf_data_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1188,6 +1230,14 @@ async def test_get_data_json_data(
             wettability_index_mock_objects.TEST_DATA,
         ),
         (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -1375,6 +1425,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", wettability_index_mock_objects.TEST_DATA)],
             wettability_index_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_DATA,
         ),
         (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1566,6 +1624,14 @@ async def test_get_data_json_data_improper_schema_version(
             wettability_index_mock_objects.TEST_DATA,
         ),
         (
+            f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrf_data_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrf_data_mock_objects.TEST_DATA)],
+            xrf_data_mock_objects.TEST_DATA,
+        ),
+        (
             f"{GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcmsms_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -1742,6 +1808,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrf_data_mock_objects.TEST_DATA,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
+            xrf_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -1903,6 +1976,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrf_data_mock_objects.TEST_DATA,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
+            xrf_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -2037,6 +2117,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             WETTABILITY_INDEX_ENDPOINT_PATH_API_V2,
             wettability_index_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
@@ -2183,6 +2268,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             wettability_index_mock_objects.TEST_DATA,
             wettability_index_mock_objects.TEST_DATASET_RECORD_ID,
             wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrf_data_mock_objects.TEST_DATA,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
+            xrf_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
@@ -2348,6 +2440,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             wettability_index_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrf_data_mock_objects.TEST_DATA,
+            xrf_data_mock_objects.TEST_DATASET_RECORD_ID,
+            xrf_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcmsms_analysis_mock_objects.TEST_DATA,
@@ -2427,6 +2526,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, triaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2, cappressure_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2, eds_mapping_data_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (XRF_DATA_ENDPOINT_PATH_API_V2, xrf_data_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -2521,6 +2621,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             wettability_index_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
+            XRF_DATA_ENDPOINT_PATH_API_V2,
+            xrf_data_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            xrf_data_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
             GCMSMS_ANALYSIS_DATA_ENDPOINT_PATH_API_V2,
             gcmsms_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             gcmsms_analysis_mock_objects.EXPECTED_ERROR_REASON,
@@ -2589,6 +2694,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2}/{eds_mapping_data_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{XRF_DATA_ENDPOINT_PATH_API_V2}/{xrf_data_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -2624,6 +2730,7 @@ async def test_rca_get_403(data_endpoint_path):
         TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
         CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2,
         EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2,
+        XRF_DATA_ENDPOINT_PATH_API_V2,
     ],
 )
 @pytest.mark.asyncio
@@ -2687,6 +2794,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2,
         CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2,
         EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2,
+        XRF_DATA_ENDPOINT_PATH_API_V2,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -2728,6 +2836,7 @@ async def test_invalid_data_with_nan(path):
         (TRIAXIAL_TEST_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (CAP_PRESSURE_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
         (EDS_MAPPING_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
+        (XRF_DATA_ENDPOINT_PATH_API_V2, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
