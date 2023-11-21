@@ -32,6 +32,7 @@ from app.models.data_schemas.api_v2.gcmsms_data_model import Model as GCMSMS_Mod
 from app.models.data_schemas.api_v2.cec_content_model import Model as CECContentModel
 from app.models.data_schemas.api_v2.triaxial_test_data_model import Model as TriaxialTestModel
 from app.models.data_schemas.api_v2.cap_pressure_data_model import Model as CapPressureModel
+from app.models.data_schemas.api_v2.wettability_index_model import Model as WettabilityIndexModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -87,6 +88,9 @@ TRIAXIAL_TEST_MODELS = {
 CAP_PRESSURE_MODELS = {
     ContentSchemaVersion.V_1_0_0: CapPressureModel
 }
+WETTABILITY_INDEX_MODELS = {
+    ContentSchemaVersion.V_1_0_0: WettabilityIndexModel
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -108,4 +112,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.CEC_CONTENT: CEC_CONTENT_MODELS,
     common_relative_paths_api_v2.TRIAXIAL_TEST: TRIAXIAL_TEST_MODELS,
     common_relative_paths_api_v2.CAP_PRESSURE: CAP_PRESSURE_MODELS,
+    common_relative_paths_api_v2.WETTABILITY_INDEXES: WETTABILITY_INDEX_MODELS,
 }
