@@ -35,6 +35,7 @@ from app.models.data_schemas.api_v2.cap_pressure_data_model import Model as CapP
 from app.models.data_schemas.api_v2.wettability_index_model import Model as WettabilityIndexModel
 from app.models.data_schemas.api_v2.eds_mapping_data_model import Model as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import Model as XRFModel
+from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as TensileStrengthModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -99,6 +100,9 @@ EDS_MAPPING_MODELS = {
 XRF_MODELS = {
     ContentSchemaVersion.V_1_0_0: XRFModel
 }
+TENSILE_STRENGTH_MODELS = {
+    ContentSchemaVersion.V_1_0_0: TensileStrengthModel
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -123,4 +127,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.WETTABILITY_INDEXES: WETTABILITY_INDEX_MODELS,
     common_relative_paths_api_v2.EDS_MAPPING: EDS_MAPPING_MODELS,
     common_relative_paths_api_v2.XRF: XRF_MODELS,
+    common_relative_paths_api_v2.TENSILE_STRENGTH: TENSILE_STRENGTH_MODELS,
 }

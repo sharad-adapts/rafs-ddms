@@ -63,6 +63,7 @@ class CommonRelativePathsV2(NamedTuple):
     WETTABILITY_INDEXES: str = "/data/wettabilityindex"
     EDS_MAPPING: str = "/data/edsmapping"
     XRF: str = "/data/xrf"
+    TENSILE_STRENGTH: str = "/data/tensilestrength"
 
 
 COMMON_RELATIVE_PATHS = {

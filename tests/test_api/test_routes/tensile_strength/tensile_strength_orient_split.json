@@ -1,0 +1,40 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "Unit",
+        "PeakForce",
+        "TVD",
+        "TensileStrength"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "opendes:work-product-component--SamplesAnalysis:TensileStrength_SamplesAnalysis:",
+            "opendes:master-data--Sample:TensileStrength_Sample:",
+            "Some unit 1",
+            {
+                "Value": 28.01,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf:"
+            },
+            {
+                "Value": 5413.57,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
+            },
+            [
+                {
+                    "Value": 22.74,
+                    "Type": "opendes:reference-data--TensileStrengthMethod:ASTM:",
+                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+                },
+                {
+                    "Value": 27.19,
+                    "Type": "opendes:reference-data--TensileStrengthMethod:YongYu:",
+                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+                }    
+            ]
+        ]
+    ]
+}
