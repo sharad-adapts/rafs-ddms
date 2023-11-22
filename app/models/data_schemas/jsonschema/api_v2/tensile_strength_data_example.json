@@ -1,0 +1,21 @@
+{
+    "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysisID:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
+    "SampleID": "opendes:master-data--Sample:26Hb:",
+    "Unit": "Example Unit 4",
+    "PeakForce": {
+        "Value": 28.01,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf:"
+    },
+    "TensileStrength": [
+        {
+            "Value": 22.08,
+            "Type": "opendes:reference-data--TensileStrengthMethod:ASTM:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+        },
+        {
+            "Value": 26.70,
+            "Type": "opendes:reference-data--TensileStrengthMethod:YongYu:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi"
+        }
+    ]
+}
