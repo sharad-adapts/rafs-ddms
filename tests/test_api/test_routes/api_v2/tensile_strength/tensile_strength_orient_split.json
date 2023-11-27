@@ -33,7 +33,7 @@
                     "Value": 27.19,
                     "Type": "opendes:reference-data--TensileStrengthMethod:YongYu:",
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                }    
+                }
             ]
         ]
     ]

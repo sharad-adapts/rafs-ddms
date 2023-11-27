@@ -1,0 +1,65 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
+    "TestNumber": "RFL 202002580",
+    "TestTemperature": {
+        "Value": 243,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF"
+    },
+    "SaturationPressure": {
+        "Value": 100.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+    },
+    "DensityAtSaturationPressure": {
+        "Value": 0.6699,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3"
+    },
+    "SwellingTestSteps": [
+        {
+            "StepNumber": "1",
+            "SaturationPressure": {
+                "Value": 15000,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi"
+            },
+            "GasPhaseType": "Pb",
+            "RelativeVolume": {
+                "Value": 0.00852,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+            },
+            "Density": {
+                "Value": 0.6699,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/cm3"
+            },
+            "GasOilRatio": {
+                "Value": 57,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:scf/bbl"
+            },
+            "CumulativeMethaneToOriginalFluidMolePCT": {
+                "Value": 5.26,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+            },
+            "CumulativeMethaneOfTotalFluidMolePCT": {
+                "Value": 5.26,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+            }
+        }
+    ],
+    "InjectionGasProperties": [
+        {
+            "ComponentName": "Carbon Dioxide",
+            "ComponentFormula": "CO2",
+            "MoleWeight": {
+                "Value":  44.08,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g/mol"
+            },
+            "TargetMolePct": {
+                "Value": 0.74,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+            },
+            "AchieveMolePct": {
+                "Value": 0.90,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%"
+            }
+        }
+    ]
+}

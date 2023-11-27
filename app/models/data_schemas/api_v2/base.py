@@ -15,7 +15,14 @@
 from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import CommonRelativePathsV2
 from app.models.data_schemas.api_v2.rca_data_model import Model as RCAModel
-from app.models.data_schemas.api_v2.electrical_properties_data_model import Model as ElectricalPropertiesModel_API_V2
+from app.models.data_schemas.api_v2.cce_data_model import Model as CCEModel
+from app.models.data_schemas.api_v2.diff_lib_data_model import Model as DiffLibModel
+from app.models.data_schemas.api_v2.transport_test_data_model import Model as TransportTestModel
+from app.models.data_schemas.api_v2.compositionalanalysis_data_model import Model as CompositionalAnalysisModel
+from app.models.data_schemas.api_v2.mss_data_model import Model as MSSModel
+from app.models.data_schemas.api_v2.swelling_test_data_model import Model as SwellingTestModel
+from app.models.data_schemas.api_v2.cvd_data_model import Model as CVDModel
+from app.models.data_schemas.api_v2.electrical_properties_data_model import Model as ElectricalPropertiesModel
 from app.models.data_schemas.api_v2.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.api_v2.multiple_salinity_data_model import Model as MultipleSalinityModel
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import Model as GCMSAlkanesModel
@@ -40,8 +47,29 @@ from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
 }
-ELECTRICAL_PROPERTIES_MODELS_API_V2 = {
-    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel_API_V2,
+CCE_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CCEModel,
+}
+DIFF_LIB_MODELS = {
+    ContentSchemaVersion.V_1_0_0: DiffLibModel,
+}
+TRANSPORT_TEST_MODELS = {
+    ContentSchemaVersion.V_1_0_0: TransportTestModel,
+}
+COMPOSITIONAL_ANALYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CompositionalAnalysisModel,
+}
+MSS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: MSSModel,
+}
+SWELLING_MODELS = {
+    ContentSchemaVersion.V_1_0_0: SwellingTestModel,
+}
+CVD_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CVDModel,
+}
+ELECTRICAL_PROPERTIES_MODELS = {
+    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel,
 }
 NMR_MODELS = {
     ContentSchemaVersion.V_1_0_0: NMRModel,
@@ -107,7 +135,14 @@ TENSILE_STRENGTH_MODELS = {
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.ROUTINECOREANALYSIS: RCA_MODELS,
-    common_relative_paths_api_v2.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS_API_V2,
+    common_relative_paths_api_v2.CCE: CCE_MODELS,
+    common_relative_paths_api_v2.DIFF_LIB: DIFF_LIB_MODELS,
+    common_relative_paths_api_v2.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
+    common_relative_paths_api_v2.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
+    common_relative_paths_api_v2.MSS: MSS_MODELS,
+    common_relative_paths_api_v2.SWELLING: SWELLING_MODELS,
+    common_relative_paths_api_v2.CVD: CVD_MODELS,
+    common_relative_paths_api_v2.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
     common_relative_paths_api_v2.NMR: NMR_MODELS,
     common_relative_paths_api_v2.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
     common_relative_paths_api_v2.GCMS_ALKANES: GCMS_ALKANES_MODELS,
@@ -124,7 +159,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.CEC_CONTENT: CEC_CONTENT_MODELS,
     common_relative_paths_api_v2.TRIAXIAL_TEST: TRIAXIAL_TEST_MODELS,
     common_relative_paths_api_v2.CAP_PRESSURE: CAP_PRESSURE_MODELS,
-    common_relative_paths_api_v2.WETTABILITY_INDEXES: WETTABILITY_INDEX_MODELS,
+    common_relative_paths_api_v2.WETTABILITY_INDEX: WETTABILITY_INDEX_MODELS,
     common_relative_paths_api_v2.EDS_MAPPING: EDS_MAPPING_MODELS,
     common_relative_paths_api_v2.XRF: XRF_MODELS,
     common_relative_paths_api_v2.TENSILE_STRENGTH: TENSILE_STRENGTH_MODELS,

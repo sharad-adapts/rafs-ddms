@@ -1,0 +1,31 @@
+
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
+    "TestNumber": "test_number",
+    "TestTemperature": {
+        "Value": 273,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+    },
+    "SaturationPressure": {
+        "Value": 4634,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+    },
+    "TransportTestSteps": [
+        {
+            "StepNumber": "1",
+            "StepPressure": {
+                "Value": 4634,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+            },
+            "OilViscosity": {
+                "Value": 15,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
+            },
+            "GasViscosity": {
+                "Value": 20,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
+            }
+        }
+    ]
+}

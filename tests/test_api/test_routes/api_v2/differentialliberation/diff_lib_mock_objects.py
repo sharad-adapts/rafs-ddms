@@ -18,15 +18,14 @@ import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
-    TEST_SAMPLESANALYSIS_ID,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:xrfdata-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/xrfdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:differentialliberation-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/differentialliberationdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
-TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/xrfdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
+TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/differentialliberationdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
@@ -49,19 +48,19 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "SampleID,count",
+    "columns_aggregation": "TestNumber,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,SampleID,ElementalComposition",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:XRF_Sample:",
+    "columns_filter": "SamplesAnalysisID,TestNumber,SampleID",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:DIFFLIB_SamplesAnalysis:",
 }
 
-with open(f"{dir_path}/xrf_data_orient_split.json") as fp:
+with open(f"{dir_path}/diff_lib_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "SampleID",
+        "TestNumber",
     ],
     "index": [
         "count",
@@ -76,32 +75,17 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
+        "TestNumber",
         "SampleID",
-        "ElementalComposition",
     ],
     "index": [
         0,
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:XRF_WPC:",
-            "opendes:master-data--Sample:XRF_Sample:",
-            [
-                {
-                    "Element": "opendes:reference-data--Elements:Cr:",
-                    "Content": {
-                        "Value": 2,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
-                    },
-                },
-                {
-                    "Element": "opendes:reference-data--Elements:Th:",
-                    "Content": {
-                        "Value": 10,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
-                    },
-                },
-            ],
+            "opendes:work-product-component--SamplesAnalysis:DIFFLIB_SamplesAnalysis:",
+            "125",
+            "opendes:master-data--Sample:fluid_sample_test:",
         ],
     ],
 }
@@ -110,17 +94,17 @@ INCORRECT_SCHEMA_TEST_DATA = {
     "columns": [
         "WrongField",  # Wrong field
         "data",
-        # "SamplesAnalysisID",  # Missing mandatory field
+        # "DifferentialLiberationTestSteps",  # Missing mandatory field
     ],
     "index": [0],
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:1:",
-            "opendes:master-data--:1:",  # Incorrect master-data value
+            "opendes:master-data--:1:",  # Incorrect Coring value
         ],
     ],
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting ElementalComposition in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting DifferentialLiberationTestSteps
+EXPECTED_ERROR_REASON = "Data error: 13 columns passed, passed data had 12 columns"

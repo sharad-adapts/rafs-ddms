@@ -52,6 +52,7 @@ aws_values = RecordValues(
     acl_owners="data.default.owners@opendes.example.com",
 )
 
+
 def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = None) -> dict:
     data_values = None
     if CONFIG["CLOUD_PROVIDER"] == "azure":

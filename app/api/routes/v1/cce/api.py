@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 CCE_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--ConstantCompositionExpansionTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "ConstantCompositionExpansionTest"
 
-cce_router = APIRouter()
+cce_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=cce_router,

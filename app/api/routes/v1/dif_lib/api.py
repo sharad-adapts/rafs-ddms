@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 DIF_LIB_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--DifferentialLiberationTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "DifferentialLiberationTest"
 
-dif_lib_router = APIRouter()
+dif_lib_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=dif_lib_router,

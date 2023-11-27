@@ -18,8 +18,8 @@ import pytest
 
 from app.providers.dependencies.az.blob_loader import (
     TIMEOUT,
-    BlobClient,
     AzureBlobLoader,
+    BlobClient,
 )
 
 TEST_BLOB_URL = "https://somedomain.blob.core.windows.net/staging-area/user"

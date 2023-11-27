@@ -87,43 +87,43 @@ router.include_router(
 router.include_router(
     cce_api.cce_router,
     prefix="/ccereports",
-    tags=["ccereports"],
+    tags=["ccereports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     dif_lib_api.dif_lib_router,
     prefix="/difflibreports",
-    tags=["difflibreports"],
+    tags=["difflibreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     transport_test_api.transport_test_router,
     prefix="/transporttests",
-    tags=["transporttests"],
+    tags=["transporttests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     compositionalanalysis_api.ca_router,
     prefix="/compositionalanalysisreports",
-    tags=["compositionalanalysisreports"],
+    tags=["compositionalanalysisreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     mss_api.mss_router,
     prefix="/multistageseparatortests",
-    tags=["multistageseparatortests"],
+    tags=["multistageseparatortests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     swelling_api.swelling_test_router,
     prefix="/swellingtests",
-    tags=["swellingtests"],
+    tags=["swellingtests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     cvd_api.cvd_router,
     prefix="/constantvolumedepletiontests",
-    tags=["constantvolumedepletiontests"],
+    tags=["constantvolumedepletiontests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(

@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 MSS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--MultiStageSeparatorTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "MultiStageSeparatorTest"
 
-mss_router = APIRouter()
+mss_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=mss_router,

@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 SWELLING_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SwellingTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "SwellingTest"
 
-swelling_test_router = APIRouter()
+swelling_test_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=swelling_test_router,
