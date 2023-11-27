@@ -24,7 +24,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 COMPOSITIONALANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--CompositionalAnalysisTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "CompositionAnalysisTest"
 
-ca_router = APIRouter()
+ca_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=ca_router,

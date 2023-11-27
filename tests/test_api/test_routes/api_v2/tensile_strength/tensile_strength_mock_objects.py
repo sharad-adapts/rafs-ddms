@@ -23,10 +23,11 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:edsmappingdata-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/edsmappingdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
+
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:tensilestrength-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/tensilestrengthdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
-TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/edsmappingdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
+TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
@@ -52,11 +53,11 @@ TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "SampleID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,SampleID,ElementalComposition",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:EDS_Mapping_Sample:",
+    "columns_filter": "SamplesAnalysisID,SampleID",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:TensileStrength_Sample:",
 }
 
-with open(f"{dir_path}/eds_mapping_data_orient_split.json") as fp:
+with open(f"{dir_path}/tensile_strength_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -77,39 +78,14 @@ TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
-        "ElementalComposition",
     ],
     "index": [
         0,
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:EDS_Mapping_WPC:",
-            "opendes:master-data--Sample:EDS_Mapping_Sample:",
-            [
-                {
-                    "Element": "opendes:reference-data--Elements:Ag:",
-                    "Concentration": {
-                        "PeakPosition": {
-                            "XCoordinate": 4,
-                            "YCoordinate": 2,
-                        },
-                        "Value": 6.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                    },
-                },
-                {
-                    "Element": "opendes:reference-data--Elements:V:",
-                    "Concentration": {
-                        "PeakPosition": {
-                            "XCoordinate": 3,
-                            "YCoordinate": 8,
-                        },
-                        "Value": 13.6,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                    },
-                },
-            ],
+            "opendes:work-product-component--SamplesAnalysis:TensileStrength_SamplesAnalysis:",
+            "opendes:master-data--Sample:TensileStrength_Sample:",
         ],
     ],
 }
@@ -130,5 +106,6 @@ INCORRECT_SCHEMA_TEST_DATA = {
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting ElementalComposition in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting TensileStrength in index row 0
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

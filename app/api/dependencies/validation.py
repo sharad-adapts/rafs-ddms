@@ -158,7 +158,7 @@ def build_skipped_record_error(record: dict, index: int, error: Exception):
     }
 
 
-async def validate_records_payload(records_list: List[OsduStorageRecord], valid_kinds: [List[str]]) -> List[dict]:
+async def validate_records_payload(records_list: List[OsduStorageRecord], valid_kinds: List[str]) -> List[dict]:
     """Validates request payload.
 
     :param List[OsduStorageRecord] records_list: records_list

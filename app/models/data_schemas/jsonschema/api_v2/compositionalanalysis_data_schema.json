@@ -1,0 +1,649 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "TestNumber": {
+            "title": "Test Number",
+            "type": "string",
+            "description": "A number for this test for purposes of e.g., tracking lab sequence."
+        },
+        "FlashPressure": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
+        },
+        "FlashTemperature": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
+        },
+        "CompositionalAnalysis": {
+            "name": "Compositional analysis taken under specific conditions",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "ComponentFormula": {
+                        "type": "string",
+                        "description": "The chemical composition of the component"
+                    },
+                    "ComponentName": {
+                        "type": "string",
+                        "description": "The name of the liquid component."
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "type": "object",
+                        "description": "The relative mass of the component in the flashed liquid.",
+                        "x-osdu-frame-of-reference": "UOM:%[mass]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "FlashedGasRelativeMass": {
+                        "type": "object",
+                        "description": "The relative mass of the component in the flashed gas.",
+                        "x-osdu-frame-of-reference": "UOM:%[mass]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "FlashedLiquidRelativeMole": {
+                        "type": "object",
+                        "description": "The relative molar weight of the component in the flashed liquid.",
+                        "x-osdu-frame-of-reference": "UOM:%[molar]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "FlashedGasRelativeMole": {
+                        "type": "object",
+                        "description": "The relative molar weight of the component in the flashed gas.",
+                        "x-osdu-frame-of-reference": "UOM:%[molar]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "OverallFluidRelativeMass": {
+                        "type": "object",
+                        "description": "The relative mass of the component in the flashed liquid.",
+                        "x-osdu-frame-of-reference": "UOM:%[mass]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "OverallFluidRelativeMole": {
+                        "type": "object",
+                        "description": "The relative mass of the component in the flashed liquid.",
+                        "x-osdu-frame-of-reference": "UOM:%[mass]",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "CalculatedProperties": {
+            "name": "Compositional analysis taken under specific conditions",
+            "type": "object",
+            "properties": {
+                "SampleCalculatedProperties": {
+                    "type": "object",
+                    "properties": {
+                        "AvgFlashedLiquidMolecularWeight": {
+                            "type": "object",
+                            "description": "The average mole weight of the flashed liquid",
+                            "x-osdu-frame-of-reference": "UOM:g/mol",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "AvgFlashedGasMolecularWeight": {
+                            "type": "object",
+                            "description": "The average mole weight of the flashed gas",
+                            "x-osdu-frame-of-reference": "UOM:g/mol",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "AvgFlashedOverallFluidMolecularWeight": {
+                            "type": "object",
+                            "description": "The average mole weight of the overall flashed fluid",
+                            "x-osdu-frame-of-reference": "UOM:g/mol",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedLiquidDensity": {
+                            "type": "object",
+                            "description": "The density of the flashed liquid",
+                            "x-osdu-frame-of-reference": "UOM:g/cm3",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedGasDensity": {
+                            "type": "object",
+                            "description": "The density of the flashed gas",
+                            "x-osdu-frame-of-reference": "UOM:g/cm3",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedOverallFluidDensity": {
+                            "type": "object",
+                            "description": "The density of the overall fluid",
+                            "x-osdu-frame-of-reference": "UOM:g/cm3",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedLiquidRealRelativeDensity": {
+                            "type": "object",
+                            "description": "The real relative density of the flashed liquid",
+                            "x-osdu-frame-of-reference": "UOM:unitless",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedGasRealRelativeDensity": {
+                            "type": "object",
+                            "description": "The real relative density of the flashed gas",
+                            "x-osdu-frame-of-reference": "UOM:unitless",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "OverallFluidRealRelativeDensity": {
+                            "type": "object",
+                            "description": "The real relative density of the overall fluid",
+                            "x-osdu-frame-of-reference": "UOM:unitless",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "OverallFluidGasOilRatio": {
+                            "type": "object",
+                            "description": "The gas-oil ratio of the overall liquid",
+                            "x-osdu-frame-of-reference": "UOM:scf/bbl",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedLiquidMoleFraction": {
+                            "type": "object",
+                            "description": "The mole fraction of the flashed liquid",
+                            "x-osdu-frame-of-reference": "UOM:%[molar]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedGasMoleFraction": {
+                            "type": "object",
+                            "description": "The mole fraction of the flashed gas",
+                            "x-osdu-frame-of-reference": "UOM:%[molar]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "OverallFluidMoleFraction": {
+                            "type": "object",
+                            "description": "The mole fraction of the overall fluid",
+                            "x-osdu-frame-of-reference": "UOM:%[molar]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedLiquidMassFraction": {
+                            "type": "object",
+                            "description": "The mass fraction of the flashed liquid",
+                            "x-osdu-frame-of-reference": "UOM:%[mass]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "FlashedGasMassFraction": {
+                            "type": "object",
+                            "description": "The mass fraction of the flashed gas",
+                            "x-osdu-frame-of-reference": "UOM:%[mass]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "OverallFluidMassFraction": {
+                            "type": "object",
+                            "description": "The mass fraction of the overall liquid",
+                            "x-osdu-frame-of-reference": "UOM:%[mass]",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "PlusComponentsCalculatedProperties": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "ComponentFormula": {
+                                "type": "string",
+                                "description": "The formula of the liquid component."
+                            },
+                            "ComponentName": {
+                                "type": "string",
+                                "description": "The name of the liquid component."
+                            },
+                            "FlashedLiquidRelativeMole": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:%[molar]",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "FlashedLiquidMolecularWeight": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed gas.",
+                                "x-osdu-frame-of-reference": "UOM:g/mol",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "FlashedLiquidDensity": {
+                                "type": "object",
+                                "description": "The relative molar weight of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:g/cm3",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "FlashedGasMolecularWeight": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:g/mol",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "FlashedGasRelativeMole": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:%[molar]",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "FlashedGasDensity": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:g/cm3",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "OverallFluidMolecularWeight": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:g/mol",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "OverallFluidRelativeMole": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:%[molar]",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            },
+                            "OverallFluidDensity": {
+                                "type": "object",
+                                "description": "The relative mass of the component in the flashed liquid.",
+                                "x-osdu-frame-of-reference": "UOM:g/cm3",
+                                "properties": {
+                                    "Value": {
+                                        "type": "number"
+                                    },
+                                    "UnitOfMeasure": {
+                                        "type": "string",
+                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "additionalProperties": false
+        },
+        "GasCompositionalCalculations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "ComponentName": {
+                        "type": "string",
+                        "description": "The name of the gas component."
+                    },
+                    "MolecularWeight": {
+                        "type": "object",
+                        "description": "Molecular Weight",
+                        "x-osdu-frame-of-reference": "UOM:g/mol",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "Density": {
+                        "type": "object",
+                        "description": "Density.",
+                        "x-osdu-frame-of-reference": "UOM:g/cm3",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "OilCompositionalCalculations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "ComponentName": {
+                        "type": "string",
+                        "description": "The name of the oil component."
+                    },
+                    "MolecularWeight": {
+                        "type": "object",
+                        "description": "Molecular Weight",
+                        "x-osdu-frame-of-reference": "UOM:g/mol",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "Density": {
+                        "type": "object",
+                        "description": "Density.",
+                        "x-osdu-frame-of-reference": "UOM:g/cm3",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+}

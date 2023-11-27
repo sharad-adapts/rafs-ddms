@@ -9,7 +9,7 @@ repos:
       - id: debug-statements
       - id: trailing-whitespace
         files: "(app)|(tests)|(client)"
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
 # Formatters
 
@@ -17,31 +17,31 @@ repos:
     rev: 5.12.0
     hooks:
       - id: isort
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/pre-commit/mirrors-autopep8
     rev: v2.0.1
     hooks:
       - id: autopep8
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/PyCQA/autoflake
     rev: v2.0.1
     hooks:
       - id: autoflake
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/PyCQA/docformatter
     rev: v1.6.0
     hooks:
       - id: docformatter
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/asottile/add-trailing-comma
     rev: v2.4.0
     hooks:
       - id: add-trailing-comma
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/myint/unify
     rev: v0.5
@@ -52,7 +52,7 @@ repos:
           --in-place,
           --quote="
         ]
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
 # Linters
 
@@ -86,7 +86,7 @@ repos:
           wemake_python_styleguide==0.17.0,
         ]
         args: [--config=setup.cfg]
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/PyCQA/pylint
     rev: v2.16.2
@@ -96,10 +96,10 @@ repos:
           --rcfile=setup.cfg,
           --errors-only
         ]
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
 
   - repo: https://github.com/jorisroovers/gitlint
     rev: v0.18.0
     hooks:
       - id: gitlint
-        exclude: "(app/models/domain)|(app/models/data_schemas)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"

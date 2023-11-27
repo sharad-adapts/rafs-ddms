@@ -24,7 +24,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 TRANSPORT_TEST_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--TransportTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "TransportTest"
 
-transport_test_router = APIRouter()
+transport_test_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=transport_test_router,

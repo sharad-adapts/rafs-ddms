@@ -18,14 +18,12 @@ import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
-    TEST_SAMPLESANALYSIS_ID,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:tensilestrength-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/tensilestrengthdata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:constantvolumedepletion-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/constantvolumedepletiondata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
@@ -50,19 +48,19 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "SampleID,count",
+    "columns_aggregation": "SamplesAnalysisID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:TensileStrength_Sample:",
+    "columns_filter": "SamplesAnalysisID",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
 }
 
-with open(f"{dir_path}/tensile_strength_orient_split.json") as fp:
+with open(f"{dir_path}/cvd_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "SampleID",
+        "SamplesAnalysisID",
     ],
     "index": [
         "count",
@@ -77,35 +75,35 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
-        "SampleID",
     ],
     "index": [
         0,
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:TensileStrength_SamplesAnalysis:",
-            "opendes:master-data--Sample:TensileStrength_Sample:"
+            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
         ],
     ],
 }
 
 INCORRECT_SCHEMA_TEST_DATA = {
     "columns": [
-        "WrongField",  # Wrong field
-        "data",
         # "SamplesAnalysisID",  # Missing mandatory field
+        "WrongField",  # Wrong field
+        "TestNumber",
+        "FluidSampleID",
     ],
     "index": [0],
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:1:",
-            "opendes:master-data--:1:",  # Incorrect master-data value
+            "1",
+            "opendes:master-data--:1:",  # Incorrect Value
         ],
     ],
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting TensileStrength in index row 0
-TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
-EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()
+EXPECTED_ERROR_REASON = f"Data error: {len(INCORRECT_DATAFRAME_TEST_DATA['columns'])} columns passed, " \
+                        f"passed data had {len(INCORRECT_DATAFRAME_TEST_DATA['data'][0])} columns"

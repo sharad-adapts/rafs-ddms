@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 CVD_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--ConstantVolumeDepletionTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "ConstantVolumeDepletionTest"
 
-cvd_router = APIRouter()
+cvd_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=cvd_router,
