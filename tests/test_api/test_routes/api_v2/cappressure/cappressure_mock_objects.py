@@ -89,6 +89,7 @@ TEST_FILTERED_DATA = {
             "opendes:master-data--Sample:CapillaryPressure_Sample:",
             [
                 {
+                    "FluidSystemType": "opendes:reference-data--FluidSystemType:GasBrine:",
                     "Permeability": {
                         "Value": 52.2,
                         "Type": "opendes:reference-data--PermeabilityMeasurementType:Kair:",
@@ -309,6 +310,7 @@ TEST_FILTERED_DATA = {
                     ],
                 },
                 {
+                    "FluidSystemType": "opendes:reference-data--FluidSystemType:OilWater:",
                     "Permeability": {
                         "Value": 88.2,
                         "Type": "opendes:reference-data--PermeabilityMeasurementType:Vari:",

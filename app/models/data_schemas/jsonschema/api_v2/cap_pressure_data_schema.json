@@ -15,6 +15,10 @@
             "items": {
                 "type": "object",
                 "properties": {
+                    "FluidSystemType": {
+                      "type": "string",
+                      "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
                     "Permeability": {
                         "type": "object",
                         "properties": {

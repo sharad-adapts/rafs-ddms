@@ -63,6 +63,7 @@ TEST_DATA = {
             [
                 {
                     "SampleID": "opendes:master-data--Sample:1:",
+                    "FluidSystemType": "opendes:reference-data--FluidSystemType:GasOil:",
                     "Depth": {
                         "Value": 5293.22,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:",
@@ -108,6 +109,7 @@ TEST_DATA = {
                 },
                 {
                     "SampleID": "opendes:master-data--Sample:2:",
+                    "FluidSystemType": "opendes:reference-data--FluidSystemType:GasOilImmobileWater:",
                     "Depth": {
                         "Value": 5293.53,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:",

@@ -68,3 +68,6 @@ venv.bak/
 
 # Generated requirements
 requirements-*.txt
+
+# Pipenv
+Pipfile*
