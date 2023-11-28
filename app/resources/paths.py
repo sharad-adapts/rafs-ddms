@@ -71,6 +71,7 @@ class CommonRelativePathsV2(NamedTuple):
     EDS_MAPPING: str = "/data/edsmapping"
     XRF: str = "/data/xrf"
     TENSILE_STRENGTH: str = "/data/tensilestrength"
+    XRD: str = "/data/xrd"
 
 
 COMMON_RELATIVE_PATHS = {

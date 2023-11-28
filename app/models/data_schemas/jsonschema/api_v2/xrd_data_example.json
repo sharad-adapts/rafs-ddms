@@ -1,0 +1,13 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
+    "SampleID": "opendes:master-data--Sample:XRD_Sample:",
+    "MineralContent": [
+        {
+            "Mineral": "opendes:reference-data--Minerals:actinolite:",
+            "Content": {
+                "Value": 123,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+            }
+        }
+    ]
+}

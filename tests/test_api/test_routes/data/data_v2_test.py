@@ -67,6 +67,7 @@ from tests.test_api.test_routes.api_v2.wettability_index import (
     wettability_index_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.xrf import xrf_mock_objects
+from tests.test_api.test_routes.api_v2.xrd import xrd_mock_objects
 from tests.test_api.test_routes.bulk_pyrolysis import (
     bulk_pyrolysis_mock_objects,
 )
@@ -204,6 +205,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.EDS_MAPPING, BulkDatasetIdV2.EDS_MAPPING),
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
+        (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
     ],
 )
 @pytest.mark.asyncio
@@ -251,6 +253,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.EDS_MAPPING, BulkDatasetIdV2.EDS_MAPPING),
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
+        (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
     ],
 )
 @pytest.mark.asyncio
@@ -298,6 +301,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.EDS_MAPPING, BulkDatasetIdV2.EDS_MAPPING),
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
+        (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
     ],
 )
 @pytest.mark.asyncio
@@ -609,6 +613,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
             ],
             "download_file",
             [build_get_test_data("x-parquet", tensile_strength_mock_objects.TEST_DATA)],
+        ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -1418,6 +1432,33 @@ async def test_get_content_parquet_data(
             [build_get_test_data("x-parquet", tensile_strength_mock_objects.TEST_DATA)],
             tensile_strength_mock_objects.TEST_AGGREGATED_DATA,
         ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            xrd_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            xrd_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_AGGREGATED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -1678,6 +1719,22 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", tensile_strength_mock_objects.TEST_DATA)],
             tensile_strength_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -1940,6 +1997,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", tensile_strength_mock_objects.TEST_DATA)],
             tensile_strength_mock_objects.TEST_DATA,
         ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2201,6 +2266,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", tensile_strength_mock_objects.TEST_DATA)],
             tensile_strength_mock_objects.TEST_DATA,
         ),
+        (
+            f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [xrd_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+            xrd_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2434,6 +2507,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             tensile_strength_mock_objects.TEST_DATASET_RECORD_ID,
             tensile_strength_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrd_mock_objects.TEST_DATA,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
+            xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2658,6 +2738,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             tensile_strength_mock_objects.TEST_DATASET_RECORD_ID,
             tensile_strength_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrd_mock_objects.TEST_DATA,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
+            xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2826,6 +2913,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             TestContentPathsApiV2.TENSILE_STRENGTH,
             tensile_strength_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             tensile_strength_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3047,6 +3139,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             tensile_strength_mock_objects.TEST_DATA,
             tensile_strength_mock_objects.TEST_DATASET_RECORD_ID,
             tensile_strength_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrd_mock_objects.TEST_DATA,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
+            xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3274,6 +3373,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             tensile_strength_mock_objects.TEST_DATASET_RECORD_ID,
             tensile_strength_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            xrd_mock_objects.TEST_DATA,
+            xrd_mock_objects.TEST_DATASET_RECORD_ID,
+            xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3321,6 +3427,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.EDS_MAPPING, eds_mapping_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.XRF, xrf_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.TENSILE_STRENGTH, tensile_strength_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.XRD, xrd_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -3489,6 +3596,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             tensile_strength_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             tensile_strength_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            TestContentPathsApiV2.XRD,
+            xrd_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            xrd_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3537,6 +3649,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{TestContentPathsApiV2.EDS_MAPPING}/{eds_mapping_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.XRF}/{xrf_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.TENSILE_STRENGTH}/{tensile_strength_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3581,6 +3694,7 @@ async def test_rca_get_403(data_endpoint_path):
         TestContentPathsApiV2.EDS_MAPPING,
         TestContentPathsApiV2.XRF,
         TestContentPathsApiV2.TENSILE_STRENGTH,
+        TestContentPathsApiV2.XRD,
     ],
 )
 @pytest.mark.asyncio
@@ -3688,6 +3802,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         TestContentPathsApiV2.EDS_MAPPING,
         TestContentPathsApiV2.XRF,
         TestContentPathsApiV2.TENSILE_STRENGTH,
+        TestContentPathsApiV2.XRD,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3738,6 +3853,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.EDS_MAPPING, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.XRF, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.TENSILE_STRENGTH, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsApiV2.XRD, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
