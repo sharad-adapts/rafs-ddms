@@ -177,7 +177,6 @@ class SamplesAnalysisTypes:  # Custom values
     NMR = "nmrtests"
     MULTIPLE_SALINITY = "multiplesalinitytests"
     AROMATICS = "gcmsaromatics"
-    HPMI = "mercuryinjectionanalyses"
     ALKANES = "gcmsalkanes"
 
 
@@ -208,5 +207,4 @@ class DatasetPrefix:
     NMR = "nmrtests"
     MULTIPLE_SALINITY = "multiplesalinitytests"
     AROMATICS = "gcmsaromatics"
-    HPMI = "mercuryinjectionanalyses"
     ALKANES = "gcmsalkanes"
