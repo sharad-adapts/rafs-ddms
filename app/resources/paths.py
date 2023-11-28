@@ -54,7 +54,6 @@ class CommonRelativePathsV2(NamedTuple):
     NMR: str = "/data/nmrtests"
     MULTIPLE_SALINITY: str = "/data/multiplesalinitytests"
     GCMS_ALKANES: str = "/data/gcmsalkanes"
-    MERCURY_INJECTION: str = "/data/mercuryinjectionanalyses"
     GCMS_AROMATICS: str = "/data/gcmsaromatics"
     GCMS_RATIOS: str = "/data/gcmsratios"
     GAS_CHROMATOGRAPHY: str = "/data/gaschromatographyanalyses"

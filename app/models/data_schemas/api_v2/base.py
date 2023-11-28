@@ -26,7 +26,6 @@ from app.models.data_schemas.api_v2.electrical_properties_data_model import Mode
 from app.models.data_schemas.api_v2.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.api_v2.multiple_salinity_data_model import Model as MultipleSalinityModel
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import Model as GCMSAlkanesModel
-from app.models.data_schemas.api_v2.mercury_injection_analysis_data_model import Model as MercuryInjectionModel
 from app.models.data_schemas.api_v2.gcms_aromatics_data_model import Model as GCMSAromaticsModel
 from app.models.data_schemas.api_v2.gcms_ratios_data_model import Model as GCMSRatiosModel
 from app.models.data_schemas.api_v2.gas_chromatography_data_model import Model as GasChromatographyModel
@@ -81,9 +80,6 @@ MULTIPLE_SALINITY_MODELS = {
 }
 GCMS_ALKANES_MODELS = {
     ContentSchemaVersion.V_1_0_0: GCMSAlkanesModel,
-}
-MERCURY_INJECTION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MercuryInjectionModel,
 }
 GCMS_AROMATICS_MODELS = {
     ContentSchemaVersion.V_1_0_0: GCMSAromaticsModel,
@@ -154,7 +150,6 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.NMR: NMR_MODELS,
     common_relative_paths_api_v2.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
     common_relative_paths_api_v2.GCMS_ALKANES: GCMS_ALKANES_MODELS,
-    common_relative_paths_api_v2.MERCURY_INJECTION: MERCURY_INJECTION_MODELS,
     common_relative_paths_api_v2.GCMS_AROMATICS: GCMS_AROMATICS_MODELS,
     common_relative_paths_api_v2.GCMS_RATIOS: GCMS_RATIOS_MODELS,
     common_relative_paths_api_v2.GAS_CHROMATOGRAPHY: GAS_CHROMATOGRAPHY_MODELS,

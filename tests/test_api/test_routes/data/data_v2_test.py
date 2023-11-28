@@ -104,9 +104,6 @@ from tests.test_api.test_routes.gcmsms_analysis import (
 from tests.test_api.test_routes.isotope_analysis import (
     isotope_analysis_mock_objects,
 )
-from tests.test_api.test_routes.mercuryinjection import (
-    mercuryinjection_mock_objects,
-)
 from tests.test_api.test_routes.multiple_salinity import (
     multiple_salinity_mock_objects,
 )
@@ -187,7 +184,6 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.NMR, BulkDatasetIdV2.NMR),
         (TestContentPathsApiV2.MULTIPLE_SALINITY, BulkDatasetIdV2.MULTIPLE_SALINITY),
         (TestContentPathsApiV2.GCMS_ALKANES, BulkDatasetIdV2.GCMS_ALKANES),
-        (TestContentPathsApiV2.MERCURY_INJECTION, BulkDatasetIdV2.MERCURY_INJECTION),
         (TestContentPathsApiV2.GCMS_AROMATICS, BulkDatasetIdV2.GCMS_AROMATICS),
         (TestContentPathsApiV2.GCMS_RATIOS, BulkDatasetIdV2.GCMS_RATIOS),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, BulkDatasetIdV2.GAS_CHROMATOGRAPHY),
@@ -235,7 +231,6 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.NMR, BulkDatasetIdV2.NMR),
         (TestContentPathsApiV2.MULTIPLE_SALINITY, BulkDatasetIdV2.MULTIPLE_SALINITY),
         (TestContentPathsApiV2.GCMS_ALKANES, BulkDatasetIdV2.GCMS_ALKANES),
-        (TestContentPathsApiV2.MERCURY_INJECTION, BulkDatasetIdV2.MERCURY_INJECTION),
         (TestContentPathsApiV2.GCMS_AROMATICS, BulkDatasetIdV2.GCMS_AROMATICS),
         (TestContentPathsApiV2.GCMS_RATIOS, BulkDatasetIdV2.GCMS_RATIOS),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, BulkDatasetIdV2.GAS_CHROMATOGRAPHY),
@@ -283,7 +278,6 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.NMR, BulkDatasetIdV2.NMR),
         (TestContentPathsApiV2.MULTIPLE_SALINITY, BulkDatasetIdV2.MULTIPLE_SALINITY),
         (TestContentPathsApiV2.GCMS_ALKANES, BulkDatasetIdV2.GCMS_ALKANES),
-        (TestContentPathsApiV2.MERCURY_INJECTION, BulkDatasetIdV2.MERCURY_INJECTION),
         (TestContentPathsApiV2.GCMS_AROMATICS, BulkDatasetIdV2.GCMS_AROMATICS),
         (TestContentPathsApiV2.GCMS_RATIOS, BulkDatasetIdV2.GCMS_RATIOS),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, BulkDatasetIdV2.GAS_CHROMATOGRAPHY),
@@ -433,16 +427,6 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
             ],
             "download_file",
             [build_get_test_data("x-parquet", gcms_alkanes_mock_objects.TEST_DATA)],
-        ),
-        (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-            "get_record",
-            [
-                mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            ],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
         ),
         (
             TestContentPathsApiV2.GCMS_AROMATICS,
@@ -749,15 +733,6 @@ async def test_get_content_parquet_data(
             gcms_alkanes_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            None,
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_DATA,
-        ),
-        (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
@@ -1001,15 +976,6 @@ async def test_get_content_parquet_data(
             gcms_alkanes_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            mercuryinjection_mock_objects.TEST_PARAMS_AGGREGATION,
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_AGGREGATED_DATA,
-        ),
-        (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
             gcms_aromatics_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1251,15 +1217,6 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", gcms_alkanes_mock_objects.TEST_DATA)],
             gcms_alkanes_mock_objects.TEST_FILTERED_DATA,
-        ),
-        (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            mercuryinjection_mock_objects.TEST_PARAMS_FILTERS,
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1577,14 +1534,6 @@ async def test_get_data_json_data(
             gcms_alkanes_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_DATA,
-        ),
-        (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -1854,14 +1803,6 @@ async def test_get_data_json_data_no_content_schema_version(
             gcms_alkanes_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_DATA,
-        ),
-        (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -2123,14 +2064,6 @@ async def test_get_data_json_data_improper_schema_version(
             gcms_alkanes_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
-            "get_record",
-            [mercuryinjection_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
-            "download_file",
-            [build_get_test_data("x-parquet", mercuryinjection_mock_objects.TEST_DATA)],
-            mercuryinjection_mock_objects.TEST_DATA,
-        ),
-        (
             f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [gcms_aromatics_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -2382,13 +2315,6 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             gcms_alkanes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            mercuryinjection_mock_objects.TEST_DATA,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
-        ),
-        (
             TestContentPathsApiV2.GCMS_AROMATICS,
             gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcms_aromatics_mock_objects.TEST_DATA,
@@ -2613,13 +2539,6 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             gcms_alkanes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            mercuryinjection_mock_objects.TEST_DATA,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
-        ),
-        (
             TestContentPathsApiV2.GCMS_AROMATICS,
             gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcms_aromatics_mock_objects.TEST_DATA,
@@ -2825,11 +2744,6 @@ async def test_post_data_json_no_ddmsdatasets_field(
             gcms_alkanes_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-        ),
-        (
             TestContentPathsApiV2.GCMS_AROMATICS,
             gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID,
@@ -3013,13 +2927,6 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             gcms_alkanes_mock_objects.TEST_DATA,
             gcms_alkanes_mock_objects.TEST_DATASET_RECORD_ID,
             gcms_alkanes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
-        ),
-        (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            mercuryinjection_mock_objects.TEST_DATA,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.GCMS_AROMATICS,
@@ -3248,13 +3155,6 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             gcms_alkanes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            mercuryinjection_mock_objects.TEST_DATA,
-            mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID,
-            mercuryinjection_mock_objects.TEST_DDMS_URN_WITH_VERSION,
-        ),
-        (
             TestContentPathsApiV2.GCMS_AROMATICS,
             gcms_aromatics_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             gcms_aromatics_mock_objects.TEST_DATA,
@@ -3409,7 +3309,6 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.NMR, nmr_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.MULTIPLE_SALINITY, multiple_salinity_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GCMS_ALKANES, gcms_alkanes_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
-        (TestContentPathsApiV2.MERCURY_INJECTION, mercuryinjection_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GCMS_AROMATICS, gcms_aromatics_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GCMS_RATIOS, gcms_ratios_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, gas_chromatography_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
@@ -3505,11 +3404,6 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             TestContentPathsApiV2.GCMS_ALKANES,
             gcms_alkanes_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             gcms_alkanes_mock_objects.EXPECTED_ERROR_REASON,
-        ),
-        (
-            TestContentPathsApiV2.MERCURY_INJECTION,
-            mercuryinjection_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
-            mercuryinjection_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
             TestContentPathsApiV2.GCMS_AROMATICS,
@@ -3631,7 +3525,6 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{TestContentPathsApiV2.NMR}/{nmr_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.MULTIPLE_SALINITY}/{multiple_salinity_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GCMS_ALKANES}/{gcms_alkanes_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{TestContentPathsApiV2.MERCURY_INJECTION}/{mercuryinjection_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GCMS_AROMATICS}/{gcms_aromatics_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GCMS_RATIOS}/{gcms_ratios_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GAS_CHROMATOGRAPHY}/{gas_chromatography_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3676,7 +3569,6 @@ async def test_rca_get_403(data_endpoint_path):
         TestContentPathsApiV2.NMR,
         TestContentPathsApiV2.MULTIPLE_SALINITY,
         TestContentPathsApiV2.GCMS_ALKANES,
-        TestContentPathsApiV2.MERCURY_INJECTION,
         TestContentPathsApiV2.GCMS_AROMATICS,
         TestContentPathsApiV2.GCMS_RATIOS,
         TestContentPathsApiV2.GAS_CHROMATOGRAPHY,
@@ -3784,7 +3676,6 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         TestContentPathsApiV2.NMR,
         TestContentPathsApiV2.MULTIPLE_SALINITY,
         TestContentPathsApiV2.GCMS_ALKANES,
-        TestContentPathsApiV2.MERCURY_INJECTION,
         TestContentPathsApiV2.GCMS_AROMATICS,
         TestContentPathsApiV2.GCMS_RATIOS,
         TestContentPathsApiV2.GAS_CHROMATOGRAPHY,
@@ -3835,7 +3726,6 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.NMR, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.MULTIPLE_SALINITY, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.GCMS_ALKANES, ORIENT_SPLIT_400_PAYLOADS),
-        (TestContentPathsApiV2.MERCURY_INJECTION, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.GCMS_AROMATICS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.GCMS_RATIOS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, ORIENT_SPLIT_400_PAYLOADS),
