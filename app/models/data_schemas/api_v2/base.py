@@ -43,6 +43,7 @@ from app.models.data_schemas.api_v2.wettability_index_model import Model as Wett
 from app.models.data_schemas.api_v2.eds_mapping_data_model import Model as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import Model as XRFModel
 from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as TensileStrengthModel
+from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -131,6 +132,9 @@ XRF_MODELS = {
 TENSILE_STRENGTH_MODELS = {
     ContentSchemaVersion.V_1_0_0: TensileStrengthModel
 }
+XRD_MODELS = {
+    ContentSchemaVersion.V_1_0_0: XRDModel
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -163,4 +167,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.EDS_MAPPING: EDS_MAPPING_MODELS,
     common_relative_paths_api_v2.XRF: XRF_MODELS,
     common_relative_paths_api_v2.TENSILE_STRENGTH: TENSILE_STRENGTH_MODELS,
+    common_relative_paths_api_v2.XRD: XRD_MODELS,
 }
