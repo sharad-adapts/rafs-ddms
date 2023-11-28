@@ -716,6 +716,7 @@ class TestContentPathsApiV2:
     XRF = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRF}"
     TENSILE_STRENGTH = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.TENSILE_STRENGTH}"
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
+    PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -775,3 +776,4 @@ class BulkDatasetIdV2(NamedTuple):
     XRF = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrf-{TEST_DATASET_UID}"
     TENSILE_STRENGTH = f"{PARTITION}:{FILE_GENERIC_TYPE}:tensilestrength-{TEST_DATASET_UID}"
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
+    PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
