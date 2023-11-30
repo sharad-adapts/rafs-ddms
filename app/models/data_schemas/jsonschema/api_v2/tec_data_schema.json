@@ -1,0 +1,186 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "TestFluid": {
+            "type": "string"
+        },
+        "BulkDensity": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Pressure": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "PressureMeasurementType": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        },
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "TestData": {
+            "type": "array",
+            "items": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "TimeStamp": {
+                            "type": "string"
+                        },
+                        "TestTime": {
+                            "type": "number"
+                        },
+                        "Temperature": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "AxialStrain": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "CoefficientData": {
+            "type": "object",
+            "properties": {
+                "RunNumber": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "object",
+                            "properties": {
+                                "TECMeasured": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "TECCorrectionFactor": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "TECCorrected": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "TemperatureMinimum": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "TemperatureMaximum": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "Spacer": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-Elements:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    ]
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+}

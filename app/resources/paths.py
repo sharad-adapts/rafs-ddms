@@ -67,6 +67,7 @@ class CommonRelativePathsV2(NamedTuple):
     TRIAXIAL_TEST: str = "/data/triaxial"
     CAP_PRESSURE: str = "/data/capillarypressure"
     WETTABILITY_INDEX: str = "/data/wettabilityindex"
+    TEC: str = "/data/tec"
     EDS_MAPPING: str = "/data/edsmapping"
     XRF: str = "/data/xrf"
     TENSILE_STRENGTH: str = "/data/tensilestrength"
