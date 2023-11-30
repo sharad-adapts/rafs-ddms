@@ -32,13 +32,13 @@ The following software have components provided under the terms of this license:
 - pyarrow (from https://arrow.apache.org/)
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - requests (from http://python-requests.org, https://requests.readthedocs.io)
-- rfc3986 (from https://rfc3986.readthedocs.org)
+- rfc3986 (from http://rfc3986.readthedocs.io)
 - s3transfer (from https://github.com/boto/s3transfer)
 - sniffio (from https://github.com/python-trio/sniffio)
 - tenacity (from https://github.com/jd/tenacity)
 - tzdata (from https://github.com/python/tzdata)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.0.7/)
-- yarl (from https://github.com/aio-libs/yarl/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.1.0/)
+- yarl (from https://github.com/aio-libs/yarl)
 
 ========================================================================
 BSD-2-Clause
@@ -49,6 +49,7 @@ The following software have components provided under the terms of this license:
 - packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/23.2/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - prometheus-client (from https://github.com/prometheus/client_python)
+- pyarrow (from https://arrow.apache.org/)
 - wrapt (from https://github.com/GrahamDumpleton/wrapt)
 
 ========================================================================
@@ -58,9 +59,9 @@ The following software have components provided under the terms of this license:
 
 - click (from https://palletsprojects.com/p/click/)
 - cryptography (from https://github.com/pyca/cryptography)
-- httpcore (from https://github.com/encode/httpcore, https://pypi.org/project/httpcore/0.18.0/, https://pypi.org/project/httpcore/1.0.1/)
-- httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.25.1/)
-- idna (from https://pypi.org/project/idna/3.4/)
+- httpcore (from https://github.com/encode/httpcore, https://pypi.org/project/httpcore/0.18.0/, https://pypi.org/project/httpcore/1.0.2/)
+- httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.25.2/)
+- idna (from https://pypi.org/project/idna/3.4/, https://pypi.org/project/idna/3.6/)
 - isodate (from http://cheeseshop.python.org/pypi/isodate, https://github.com/gweis/isodate/)
 - numpy
 - packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/23.2/)
@@ -75,6 +76,20 @@ The following software have components provided under the terms of this license:
 - uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.24.0.post1/, https://www.uvicorn.org/)
 
 ========================================================================
+BSL-1.0
+========================================================================
+The following software have components provided under the terms of this license:
+
+- pyarrow (from https://arrow.apache.org/)
+
+========================================================================
+CC-BY-3.0
+========================================================================
+The following software have components provided under the terms of this license:
+
+- pyarrow (from https://arrow.apache.org/)
+
+========================================================================
 CC-BY-4.0
 ========================================================================
 The following software have components provided under the terms of this license:
@@ -87,6 +102,7 @@ CC0-1.0
 The following software have components provided under the terms of this license:
 
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
+- pyarrow (from https://arrow.apache.org/)
 
 ========================================================================
 ISC
@@ -101,7 +117,7 @@ MIT
 The following software have components provided under the terms of this license:
 
 - aiohttp (from https://github.com/aio-libs/aiohttp, https://github.com/aio-libs/aiohttp/)
-- anyio (from https://pypi.org/project/anyio/3.3.0/, https://pypi.org/project/anyio/4.0.0/)
+- anyio (from https://pypi.org/project/anyio/3.3.0/, https://pypi.org/project/anyio/4.1.0/)
 - attrs (from https://attrs.readthedocs.io/, https://pypi.org/project/attrs/23.1.0/, https://www.attrs.org/)
 - azure-core (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/core/azure-core)
 - azure-storage-blob (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob)
@@ -118,6 +134,7 @@ The following software have components provided under the terms of this license:
 - pandera (from https://github.com/pandera-dev/pandera)
 - pendulum (from https://pendulum.eustace.io)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
+- pyarrow (from https://arrow.apache.org/)
 - pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.4.2/)
 - pytz (from http://pythonhosted.org/pytz)
 - redis (from https://github.com/redis/redis-py)
@@ -125,7 +142,7 @@ The following software have components provided under the terms of this license:
 - sniffio (from https://github.com/python-trio/sniffio)
 - typeguard (from https://pypi.org/project/typeguard/4.1.5/)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.0.7/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.1.0/)
 
 ========================================================================
 MPL-2.0
@@ -148,6 +165,20 @@ OPL-1.0
 The following software have components provided under the terms of this license:
 
 - numpy
+
+========================================================================
+OpenSSL
+========================================================================
+The following software have components provided under the terms of this license:
+
+- pyarrow (from https://arrow.apache.org/)
+
+========================================================================
+Protobuf
+========================================================================
+The following software have components provided under the terms of this license:
+
+- pyarrow (from https://arrow.apache.org/)
 
 ========================================================================
 Python-2.0
@@ -180,14 +211,23 @@ Zlib
 The following software have components provided under the terms of this license:
 
 - numpy
+- pyarrow (from https://arrow.apache.org/)
 
 ========================================================================
 mit-old-style-no-advert
 ========================================================================
 The following software have components provided under the terms of this license:
 
+- pyarrow (from https://arrow.apache.org/)
 - pytz (from http://pythonhosted.org/pytz)
 - tzdata (from https://github.com/python/tzdata)
+
+========================================================================
+openssl-ssleay
+========================================================================
+The following software have components provided under the terms of this license:
+
+- pyarrow (from https://arrow.apache.org/)
 
 ========================================================================
 public-domain
@@ -195,7 +235,7 @@ public-domain
 The following software have components provided under the terms of this license:
 
 - numpy
+- pyarrow (from https://arrow.apache.org/)
 - pytz (from http://pythonhosted.org/pytz)
 - pytzdata (from https://github.com/sdispater/pytzdata)
 - tzdata (from https://github.com/python/tzdata)
-
