@@ -27,5 +27,22 @@
     "QuantityOfOilInTheVolume": {
         "Value": 4.25,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
-    }
+    },
+    "FluidSystem": "opendes:reference-data--FluidSystemType:SolubleCuttingOil:",
+    "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Mercury:",
+    "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Hexane:",
+    "SaturationProcessMethod": "opendes:reference-data--SaturationProcessMethod:ThirdDrainage:",
+    "DesaturationMethod": "opendes:reference-data--DesaturationMethod:PorousPlateGasWaterOil:",
+    "BrineResistivity": {
+        "Value": 125,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm%2Fcm:"
+    },
+    "WaterSaturationOverResistivityIndex": [
+        {
+            "Value": 2
+        },
+        {
+            "Value": 4
+        }
+    ]
 }
