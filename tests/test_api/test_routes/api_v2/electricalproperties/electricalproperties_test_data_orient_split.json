@@ -16,7 +16,14 @@
         "AdjustedFormationFactorAtNetOverburnedPressure",
         "BrineSalinity",
         "NumberOfElectrodes",
-        "QuantityOfOilInTheVolume"
+        "QuantityOfOilInTheVolume",
+        "FluidSystem",
+        "DisplacingFluid",
+        "DisplacedFluid",
+        "SaturationProcessMethod",
+        "DesaturationMethod",
+        "BrineResistivity",
+        "WaterSaturationOverResistivityIndex"
     ],
     "index": [
         0
@@ -51,7 +58,24 @@
             {
                 "Value": 4.25,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
-            }
+            },
+            "opendes:reference-data--FluidSystemType:SolubleCuttingOil:",
+            "opendes:reference-data--DisplacingFluidType:Mercury:",
+            "opendes:reference-data--DisplacedFluidType:Hexane:",
+            "opendes:reference-data--SaturationProcessMethod:ThirdDrainage:",
+            "opendes:reference-data--DesaturationMethod:PorousPlateGasWaterOil:",
+            {
+                "Value": 125,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm%2Fcm:"
+            },
+            [
+                {
+                    "Value": 2
+                },
+                {
+                    "Value": 4
+                }
+            ]
         ]
     ]
 }

@@ -66,8 +66,8 @@ from tests.test_api.test_routes.api_v2.transport import (
 from tests.test_api.test_routes.api_v2.wettability_index import (
     wettability_index_mock_objects,
 )
-from tests.test_api.test_routes.api_v2.xrf import xrf_mock_objects
 from tests.test_api.test_routes.api_v2.xrd import xrd_mock_objects
+from tests.test_api.test_routes.api_v2.xrf import xrf_mock_objects
 from tests.test_api.test_routes.bulk_pyrolysis import (
     bulk_pyrolysis_mock_objects,
 )
