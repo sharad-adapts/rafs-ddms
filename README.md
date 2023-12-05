@@ -40,6 +40,10 @@ Note regarding OSDU Well Known Schema interaction: Currently (April 2023), OSDU 
 
 [RAFS DDMS custom schemas](./deployments/README.md).
 
+## Content Schemas
+
+You can find more information about content schemas [here](app/models/data_schemas/README.md).
+
 ## Project Startup
 ### Configuration
 
