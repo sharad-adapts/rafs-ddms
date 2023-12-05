@@ -12,7 +12,7 @@ pytest-mock==3.10.0
 pytest-xdist==3.0.2
 
 # dependencies for checks
-# NOT USED BY RAFS-DDMS but for code quality checks 
+# NOT USED BY RAFS-DDMS but for code quality checks
 pre-commit
 flake8-async==22.11.14
 flake8-bandit==3.0.0
