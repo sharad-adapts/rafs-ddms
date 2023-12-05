@@ -48,7 +48,7 @@ from tests.test_api.test_routes.api_v2.eds_mapping_data import (
     eds_mapping_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.electricalproperties import (
-    electricalproperties_mock_objects as electricalproperties_mock_objects_api_v2,
+    electricalproperties_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.multistageseparator import (
     mss_mock_objects,
@@ -65,6 +65,9 @@ from tests.test_api.test_routes.api_v2.tensile_strength import (
 )
 from tests.test_api.test_routes.api_v2.transport import (
     transport_test_mock_objects,
+)
+from tests.test_api.test_routes.api_v2.water_analysis import (
+    water_analysis_data_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.wettability_index import (
     wettability_index_mock_objects,
@@ -206,6 +209,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
+        (TestContentPathsApiV2.WATER_ANALYSIS, BulkDatasetIdV2.WATER_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -254,6 +258,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
+        (TestContentPathsApiV2.WATER_ANALYSIS, BulkDatasetIdV2.WATER_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -302,6 +307,7 @@ async def test_get_rca_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.XRF, BulkDatasetIdV2.XRF),
         (TestContentPathsApiV2.TENSILE_STRENGTH, BulkDatasetIdV2.TENSILE_STRENGTH),
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
+        (TestContentPathsApiV2.WATER_ANALYSIS, BulkDatasetIdV2.WATER_ANALYSIS),
     ],
 )
 @pytest.mark.asyncio
@@ -536,13 +542,13 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
             "get_record",
             [
-                electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
+                electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -623,6 +629,16 @@ async def test_get_rca_data_wrong_content_header(data_endpoint_path, dataset_id)
             ],
             "download_file",
             [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
+        ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -830,13 +846,13 @@ async def test_get_content_parquet_data(
             gcmsms_analysis_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.CEC_CONTENT}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -909,6 +925,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", rca_mock_objects.TEST_DATA)],
             rca_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.CCE}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1082,13 +1107,13 @@ async def test_get_content_parquet_data(
             gcmsms_analysis_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects_api_v2.TEST_PARAMS_AGGREGATION,
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_AGGREGATED_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.CEC_CONTENT}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1161,6 +1186,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", rca_mock_objects.TEST_DATA)],
             rca_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_analysis_data_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.CCE}/{cce_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1343,13 +1377,13 @@ async def test_get_content_parquet_data(
             cec_content_mock_objects.TEST_FILTERED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
-            electricalproperties_mock_objects_api_v2.TEST_PARAMS_FILTERS,
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
+            electricalproperties_mock_objects.TEST_PARAMS_FILTERS,
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_FILTERED_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.TRIAXIAL_TEST}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1458,6 +1492,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
             xrd_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            water_analysis_data_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_FILTERED_DATA,
         ),
     ],
 )
@@ -1657,12 +1700,12 @@ async def test_get_data_json_data(
             cec_content_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.TRIAXIAL_TEST}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1735,6 +1778,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
             xrd_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -1934,12 +1985,12 @@ async def test_get_data_json_data_no_content_schema_version(
             cec_content_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.TRIAXIAL_TEST}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2004,6 +2055,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
             xrd_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2203,12 +2262,12 @@ async def test_get_data_json_data_improper_schema_version(
             cec_content_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            [electricalproperties_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", electricalproperties_mock_objects_api_v2.TEST_DATA)],
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
+            [build_get_test_data("x-parquet", electricalproperties_mock_objects.TEST_DATA)],
+            electricalproperties_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.TRIAXIAL_TEST}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2273,6 +2332,14 @@ async def test_get_data_json_data_improper_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", xrd_mock_objects.TEST_DATA)],
             xrd_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [water_analysis_data_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", water_analysis_data_mock_objects.TEST_DATA)],
+            water_analysis_data_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2453,10 +2520,10 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects.TEST_DATA,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -2513,6 +2580,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             xrd_mock_objects.TEST_DATA,
             xrd_mock_objects.TEST_DATASET_RECORD_ID,
             xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_analysis_data_mock_objects.TEST_DATA,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
+            water_analysis_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -2684,10 +2758,10 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects.TEST_DATA,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -2744,6 +2818,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             xrd_mock_objects.TEST_DATA,
             xrd_mock_objects.TEST_DATASET_RECORD_ID,
             xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_analysis_data_mock_objects.TEST_DATA,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
+            water_analysis_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -2876,8 +2957,8 @@ async def test_post_data_json_no_ddmsdatasets_field(
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -2918,6 +2999,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             TestContentPathsApiV2.XRD,
             xrd_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             xrd_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -3086,10 +3172,10 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects.TEST_DATA,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -3146,6 +3232,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             xrd_mock_objects.TEST_DATA,
             xrd_mock_objects.TEST_DATASET_RECORD_ID,
             xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_analysis_data_mock_objects.TEST_DATA,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
+            water_analysis_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3319,10 +3412,10 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.RECORD_DATA_WITH_SCHEMA_VERSION,
-            electricalproperties_mock_objects_api_v2.TEST_DATA,
-            electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID,
-            electricalproperties_mock_objects_api_v2.TEST_DDMS_URN_WITH_VERSION,
+            electricalproperties_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            electricalproperties_mock_objects.TEST_DATA,
+            electricalproperties_mock_objects.TEST_DATASET_RECORD_ID,
+            electricalproperties_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -3380,6 +3473,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             xrd_mock_objects.TEST_DATASET_RECORD_ID,
             xrd_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            water_analysis_data_mock_objects.TEST_DATA,
+            water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID,
+            water_analysis_data_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3419,7 +3519,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.UNIAXIAL_TEST, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GCMSMS_ANALYSIS, gcmsms_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.CEC_CONTENT, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
-        (TestContentPathsApiV2.ELECTRICAL_PROPERTIES, electricalproperties_mock_objects_api_v2.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.ELECTRICAL_PROPERTIES, electricalproperties_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.TRIAXIAL_TEST, triaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.CAP_PRESSURE, cappressure_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.WETTABILITY_INDEX, wettability_index_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
@@ -3428,6 +3528,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.XRF, xrf_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.TENSILE_STRENGTH, tensile_strength_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.XRD, xrd_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.WATER_ANALYSIS, water_analysis_data_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -3558,8 +3659,8 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
         ),
         (
             TestContentPathsApiV2.ELECTRICAL_PROPERTIES,
-            electricalproperties_mock_objects_api_v2.INCORRECT_DATAFRAME_TEST_DATA,
-            electricalproperties_mock_objects_api_v2.EXPECTED_ERROR_REASON,
+            electricalproperties_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            electricalproperties_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
             TestContentPathsApiV2.TRIAXIAL_TEST,
@@ -3601,6 +3702,11 @@ async def test_post_rca_data_validation_error(data_endpoint_path, incorrect_sche
             xrd_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             xrd_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            TestContentPathsApiV2.WATER_ANALYSIS,
+            water_analysis_data_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            water_analysis_data_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3641,7 +3747,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.CEC_CONTENT}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects_api_v2.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.TRIAXIAL_TEST}/{triaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.CAP_PRESSURE}/{cappressure_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.WETTABILITY_INDEX}/{wettability_index_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3650,6 +3756,7 @@ async def test_post_rca_invalid_df_error(data_endpoint_path, incorrect_dataframe
         f"{TestContentPathsApiV2.XRF}/{xrf_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.TENSILE_STRENGTH}/{tensile_strength_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.WATER_ANALYSIS}/{water_analysis_data_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -3695,6 +3802,7 @@ async def test_rca_get_403(data_endpoint_path):
         TestContentPathsApiV2.XRF,
         TestContentPathsApiV2.TENSILE_STRENGTH,
         TestContentPathsApiV2.XRD,
+        TestContentPathsApiV2.WATER_ANALYSIS,
     ],
 )
 @pytest.mark.asyncio
@@ -3803,6 +3911,7 @@ async def test_post_rca_integrity_error(data_endpoint_path, integrity_error_data
         TestContentPathsApiV2.XRF,
         TestContentPathsApiV2.TENSILE_STRENGTH,
         TestContentPathsApiV2.XRD,
+        TestContentPathsApiV2.WATER_ANALYSIS,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -3854,6 +3963,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.XRF, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.TENSILE_STRENGTH, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.XRD, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsApiV2.WATER_ANALYSIS, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

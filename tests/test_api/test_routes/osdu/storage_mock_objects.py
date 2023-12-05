@@ -717,6 +717,7 @@ class TestContentPathsApiV2:
     TENSILE_STRENGTH = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.TENSILE_STRENGTH}"
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
     PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
+    WATER_ANALYSIS = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.WATER_ANALYSIS}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -777,3 +778,4 @@ class BulkDatasetIdV2(NamedTuple):
     TENSILE_STRENGTH = f"{PARTITION}:{FILE_GENERIC_TYPE}:tensilestrength-{TEST_DATASET_UID}"
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
+    WATER_ANALYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:wateranalysis-{TEST_DATASET_UID}"

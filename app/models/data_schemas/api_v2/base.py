@@ -45,6 +45,7 @@ from app.models.data_schemas.api_v2.xrf_data_model import Model as XRFModel
 from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as TensileStrengthModel
 from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 from app.models.data_schemas.api_v2.pdp_data_model import Model as PdpModel
+from app.models.data_schemas.api_v2.water_analysis_data_model import Model as WaterAnalysisModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -139,6 +140,9 @@ XRD_MODELS = {
 PDP_MODELS = {
     ContentSchemaVersion.V_1_0_0: PdpModel
 }
+WATER_ANALYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -173,4 +177,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.TENSILE_STRENGTH: TENSILE_STRENGTH_MODELS,
     common_relative_paths_api_v2.XRD: XRD_MODELS,
     common_relative_paths_api_v2.PDP: PDP_MODELS,
+    common_relative_paths_api_v2.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
 }
