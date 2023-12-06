@@ -1,3 +1,13 @@
+# RAFS tests currently require the data ingestion pipeline on the environment
+# Most of our envs don't have this data ingested, so we skip the tests for now
+# This avoid a false negative, failing the entire pipeline stage because of it
+if [ -z "${RUN_RAFS_DDMS_TESTS}" ]; then
+  echo "RAFS Tests Skipped, RUN_RAFS_DDMS_TESTS env var not set"
+  exit 0;
+fi
+
+
+
 wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64
 chmod +x /usr/local/bin/jq
 
