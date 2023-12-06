@@ -276,9 +276,10 @@ class BaseDataView:
         :rtype: bytes
         """
         mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
+        api_version = get_api_version_from_url(request.url.path)
 
         data_schema = build_data_schema(model)
-        data_validator = DataValidator(data_schema, storage_service)
+        data_validator = DataValidator(data_schema, storage_service, api_version)
 
         error_case_to_message = {
             "column_in_schema": "Invalid parameters",
