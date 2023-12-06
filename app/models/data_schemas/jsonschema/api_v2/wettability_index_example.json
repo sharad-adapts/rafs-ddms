@@ -50,21 +50,41 @@
             "Value": 8.1,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
         },
-        "WettingIndex": [
+        "WettabilityIndex": [
             {
                 "Value": 4.67,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:",
-                "FluidSystem": "opendes:reference-data--FluidSystemType:WaterOil:"
+                "WettabilityIndexType": "opendes:reference-data--WettabilityIndexType:Water:"
             },
             {
-                "Value": 0.212,
+                "Value": 3.2,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:",
-                "FluidSystem": "opendes:reference-data--FluidSystemType:WaterOil:"
+                "WettabilityIndexType": "opendes:reference-data--WettabilityIndexType:Oil:"
             }
         ],
         "ConfiningPressure": {
             "Value": 0.453,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+        },
+        "DesaturationMethod": "opendes:reference-data--DesaturationMethod:CentrifugeOilWater:",
+        "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Decane:",
+        "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Carnation:",
+        "FluidSystem": "opendes:reference-data--FluidSystemType:OilGas:",
+        "InitialWaterSaturation": {
+            "Value": 32,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+        },
+        "InitialCappillaryPressure": {
+            "Value": 65,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bar:"
+        },
+        "ForcedWaterImbibition": {
+            "Value": 12,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
+        },
+        "ForcedOilImbibition": {
+            "Value": 5.9,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
         }
     }
 }
