@@ -33,7 +33,7 @@ def refresh_credentials():
     )
     credentials = assumed_role_object["Credentials"]
     CREDENTIALS_CACHE["credentials"] = credentials
-    CREDENTIALS_CACHE["s3_resource"] = boto3.resource(
+    CREDENTIALS_CACHE["s3_client"] = boto3.client(
         "s3",
         aws_access_key_id=credentials["AccessKeyId"],
         aws_secret_access_key=credentials["SecretAccessKey"],
@@ -42,27 +42,27 @@ def refresh_credentials():
     CREDENTIALS_CACHE["expiration"] = credentials["Expiration"]
 
 
-refresh_credentials()
-
-
 class AWSBlobLoader(IBlobLoader):
-    def __init__(self):
-        now = datetime.now(timezone.utc)
-        if now > CREDENTIALS_CACHE["expiration"] - TIME_LIMIT_MIN:
-            refresh_credentials()
-        self.s3_resource = CREDENTIALS_CACHE["s3_resource"]
+    def __init__(self, s3_client=None):
+        if s3_client:
+            self.s3_client = s3_client
+        else:
+            now = datetime.now(timezone.utc)
+            if "expiration" not in CREDENTIALS_CACHE or now > CREDENTIALS_CACHE["expiration"] - TIME_LIMIT_MIN:
+                refresh_credentials()
+            self.s3_client = CREDENTIALS_CACHE["s3_client"]
 
     def client_from_url(self, signed_url: str):
         parse_result = urlparse(signed_url)
         bucket_endpoint = parse_result.netloc
         key = parse_result.path.lstrip("/")
         bucket = bucket_endpoint.split(".")[0]
-        return self.s3_resource.Object(bucket, key)
+        return [bucket, key]
 
     async def upload_blob(self, upload_url: str, blob: bytes):
-        s3_obj = self.client_from_url(upload_url)
-        return s3_obj.put(Body=blob)
+        bucket, key = self.client_from_url(upload_url)
+        return self.s3_client.put_object(Bucket=bucket, Key=key, Body=blob)
 
     async def download_blob(self, download_url: str) -> bytes:
-        s3_obj = self.client_from_url(download_url)
-        return s3_obj.get()["Body"].read()
+        bucket, key = self.client_from_url(download_url)
+        return self.s3_client.get_object(Bucket=bucket, Key=key)["Body"].read()
