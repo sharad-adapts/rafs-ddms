@@ -18,7 +18,7 @@ from app.api.routes.v1.pvt.endpoints import PVTView
 
 PVT_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--PVT:[\w\-\.\:\%]+$"
 
-pvt_record_router = APIRouter()
+pvt_record_router = APIRouter(deprecated=True)
 
 PVTView(
     router=pvt_record_router,

@@ -16,17 +16,16 @@ import copy
 import json
 import os
 
-from app.models.data_schemas.version import ContentSchemaVersion
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:routinecoreanalyses-123:1234"
-TEST_SCHEMA_VERSION = ContentSchemaVersion.V_1_0_0
-TEST_DDMS_URN = f"urn://rafs-v2/routinecoreanalysesdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
-TEST_DDMS_URN_WITH_VERSION = f"urn://rafs-v2/routinecoreanalysesdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}/{TEST_SCHEMA_VERSION}"
+TEST_DATASET_RECORD_ID = f"opendes:dataset--File.Generic:multiplecontactmiscibility-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/multiplecontactmiscibilitydata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
+TEST_SCHEMA_VERSION = "1.0.0"
+TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
@@ -48,48 +47,48 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
         },
     },
 }
-
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "SampleDepth.Value,max",
+    "columns_aggregation": "TestNumber,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SampleDepth,Remarks",
-    "rows_filter": "SampleDepth.Value,lt,2450",
+    "columns_filter": "SamplesAnalysisID,TestNumber,TestTemperature",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
 }
 
-with open(f"{dir_path}/rca_orient_split.json") as fp:
+with open(f"{dir_path}/mcm_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
-
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "SampleDepth",
+        "TestNumber",
     ],
     "index": [
-        "max",
+        "count",
     ],
     "data": [
         [
-            2000,
+            1,
         ],
     ],
 }
 
 TEST_FILTERED_DATA = {
     "columns": [
-        "SampleDepth",
-        "Remarks",
+        "SamplesAnalysisID",
+        "TestNumber",
+        "TestTemperature",
     ],
     "index": [
         0,
     ],
     "data": [
         [
+            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+            "test_number",
             {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:",
-                "Value": 2000,
+                "Value": 243,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
             },
-            "RCA data transfer from EPDS",
         ],
     ],
 }
@@ -97,31 +96,17 @@ TEST_FILTERED_DATA = {
 INCORRECT_SCHEMA_TEST_DATA = {
     "columns": [
         "WrongField",  # Wrong field
-        # "RockSampleID",  # Missing mandatory field
-        "CoringID",
-        "WellboreID",
-        "SampleNumber",
-        "SampleType",
-        "SampleDepth",
-        "Remarks",
+        "data",
     ],
     "index": [0],
     "data": [
         [
-            "opendes:master-data--RockSample:1:",
-            "opendes:master-data--:1:",  # Incorrect Coring value
-            "opendes:master-data--Wellbore:1:",
-            "SampleNumber",
-            "opendes:reference-data--RockSampleType:1:",
-            {
-                "Value": "number required",  # String in place of float value
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1:",
-            },
-            "Remarks",
+            "opendes:work-product-component--SamplesAnalysis:1:",
+            "opendes:master-data--:1:",  # Incorrect master-data value
         ],
     ],
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()
-EXPECTED_ERROR_REASON = "Data error: 13 columns passed, passed data had 12 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting MixRatio
+EXPECTED_ERROR_REASON = "Data error: 9 columns passed, passed data had 8 columns"

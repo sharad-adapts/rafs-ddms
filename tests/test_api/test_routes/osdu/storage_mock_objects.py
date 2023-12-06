@@ -694,6 +694,11 @@ class TestContentPathsApiV2:
     MSS = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.MSS}"
     SWELLING = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.SWELLING}"
     CVD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.CVD}"
+    WATER_ANALYSIS = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.WATER_ANALYSIS}"
+    INTERFACIAL_TENSION = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.INTERFACIAL_TENSION}"
+    VLE = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.VLE}"
+    MCM = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.MCM}"
+    SLIMTUBE = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.SLIMTUBE}"
     NMR = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.NMR}"
     MULTIPLE_SALINITY = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.MULTIPLE_SALINITY}"
     GCMS_ALKANES = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.GCMS_ALKANES}"
@@ -717,7 +722,6 @@ class TestContentPathsApiV2:
     TENSILE_STRENGTH = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.TENSILE_STRENGTH}"
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
     PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
-    WATER_ANALYSIS = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.WATER_ANALYSIS}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -747,7 +751,7 @@ class BulkDatasetIdV1(NamedTuple):
 
 
 class BulkDatasetIdV2(NamedTuple):
-    RCA = f"{PARTITION}:{FILE_GENERIC_TYPE}:routinecoreanalyses-{TEST_DATASET_UID}"
+    RCA = f"{PARTITION}:{FILE_GENERIC_TYPE}:routinecoreanalysis-{TEST_DATASET_UID}"
     CCE = f"{PARTITION}:{FILE_GENERIC_TYPE}:constantcompositionexpansion-{TEST_DATASET_UID}"
     DIFF_LIB = f"{PARTITION}:{FILE_GENERIC_TYPE}:differentialliberation-{TEST_DATASET_UID}"
     TRANSPORT_TEST = f"{PARTITION}:{FILE_GENERIC_TYPE}:transport-{TEST_DATASET_UID}"
@@ -755,6 +759,11 @@ class BulkDatasetIdV2(NamedTuple):
     MSS = f"{PARTITION}:{FILE_GENERIC_TYPE}:multistageseparator-{TEST_DATASET_UID}"
     SWELLING = f"{PARTITION}:{FILE_GENERIC_TYPE}:swelling-{TEST_DATASET_UID}"
     CVD = f"{PARTITION}:{FILE_GENERIC_TYPE}:constantvolumedepletion-{TEST_DATASET_UID}"
+    WATER_ANALYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:wateranalysis-{TEST_DATASET_UID}"
+    INTERFACIAL_TENSION = f"{PARTITION}:{FILE_GENERIC_TYPE}:interfacialtension-{TEST_DATASET_UID}"
+    VLE = f"{PARTITION}:{FILE_GENERIC_TYPE}:vaporliquidequilibrium-{TEST_DATASET_UID}"
+    MCM = f"{PARTITION}:{FILE_GENERIC_TYPE}:multiplecontactmiscibility-{TEST_DATASET_UID}"
+    SLIMTUBE = f"{PARTITION}:{FILE_GENERIC_TYPE}:slimtube-{TEST_DATASET_UID}"
     ELECTRICAL_PROPERTIES = f"{PARTITION}:{FILE_GENERIC_TYPE}:electricalproperties-{TEST_DATASET_UID}"
     NMR = f"{PARTITION}:{FILE_GENERIC_TYPE}:nmrtests-{TEST_DATASET_UID}"
     MULTIPLE_SALINITY = f"{PARTITION}:{FILE_GENERIC_TYPE}:multiplesalinitytests-{TEST_DATASET_UID}"
@@ -778,4 +787,3 @@ class BulkDatasetIdV2(NamedTuple):
     TENSILE_STRENGTH = f"{PARTITION}:{FILE_GENERIC_TYPE}:tensilestrength-{TEST_DATASET_UID}"
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
-    WATER_ANALYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:wateranalysis-{TEST_DATASET_UID}"

@@ -24,7 +24,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 WATERANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--WaterAnalysisTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "WaterAnalysisTest"
 
-wateranalysis_router = APIRouter()
+wateranalysis_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=wateranalysis_router,

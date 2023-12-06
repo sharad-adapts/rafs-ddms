@@ -42,7 +42,7 @@ class CommonRelativePathsV1(NamedTuple):
 
 
 class CommonRelativePathsV2(NamedTuple):
-    ROUTINECOREANALYSIS: str = "/data/routinecoreanalyses"
+    ROUTINECOREANALYSIS: str = "/data/routinecoreanalysis"
     CCE: str = "/data/constantcompositionexpansion"
     DIFF_LIB: str = "/data/differentialliberation"
     TRANSPORT_TEST: str = "/data/transport"
@@ -50,6 +50,11 @@ class CommonRelativePathsV2(NamedTuple):
     MSS: str = "/data/multistageseparator"
     SWELLING: str = "/data/swelling"
     CVD: str = "/data/constantvolumedepletion"
+    WATER_ANALYSIS: str = "/data/wateranalysis"
+    INTERFACIAL_TENSION: str = "/data/interfacialtension"
+    VLE: str = "/data/vaporliquidequilibrium"
+    MCM: str = "/data/multiplecontactmiscibility"
+    SLIMTUBE: str = "/data/slimtube"
     ELECTRICAL_PROPERTIES: str = "/data/electricalproperties"
     NMR: str = "/data/nmrtests"
     MULTIPLE_SALINITY: str = "/data/multiplesalinitytests"
@@ -73,7 +78,6 @@ class CommonRelativePathsV2(NamedTuple):
     TENSILE_STRENGTH: str = "/data/tensilestrength"
     XRD: str = "/data/xrd"
     PDP: str = "/data/pdp"
-    WATER_ANALYSIS: str = "/data/wateranalysis"
 
 
 COMMON_RELATIVE_PATHS = {

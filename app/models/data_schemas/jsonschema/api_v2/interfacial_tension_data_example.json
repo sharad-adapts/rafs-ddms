@@ -1,0 +1,44 @@
+{
+    "SamplesAnalysisID": "rafsddms:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
+    "TestNumber": "test_number",
+    "WettingPhase": "opendes:reference-data--WettabilityPhaseType:WettingOleic:",
+    "NonWettingPhase": "opendes:reference-data--WettabilityPhaseType:NonwettingOleic:",
+    "Surfactants": [
+        {
+            "ComponentName": "CH3(CH2)11OSO3Na",
+            "ComponentMassFraction": {
+                "Value": 15,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
+            },
+            "ComponentMoleFraction": {
+                "Value": 15,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
+            }
+        }
+    ],
+    "Remark": "Test was successfully executed this monday on sample #2475",
+    "InterfacialTensionTestSteps": [
+        {
+            "StepNumber": "1",
+            "StepPressure": {
+                "Value": 1500,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia"
+            },
+            "StepTemperature": {
+                "Value": 150,
+                "UnitOfMeasure":"opendes:reference-data--UnitOfMeasure:degF"
+            },
+            "WettingPhaseSaturation": 150,
+            "SurfactantConcentration": {
+                "Value":195,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm"
+            },
+            "InterfacialTension": {
+                "Value": 1,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf/ft"
+            },
+            "Remark": "There were problems in observing the results of this step, we try again in step 2"
+        }
+    ]
+}

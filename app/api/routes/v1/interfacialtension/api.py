@@ -24,7 +24,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 INTERFACIAL_TENSION_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--InterfacialTensionTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "InterfacialTensionTest"
 
-interfacialtension_router = APIRouter()
+interfacialtension_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=interfacialtension_router,

@@ -81,7 +81,7 @@ router.include_router(
 router.include_router(
     pvt_api.pvt_record_router,
     prefix="/pvtreports",
-    tags=["pvtreports"],
+    tags=["pvtreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
@@ -129,7 +129,7 @@ router.include_router(
 router.include_router(
     wateranalysis_api.wateranalysis_router,
     prefix="/wateranalysisreports",
-    tags=["wateranalysisreports"],
+    tags=["wateranalysisreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
@@ -141,25 +141,25 @@ router.include_router(
 router.include_router(
     interfacialtension_api.interfacialtension_router,
     prefix="/interfacialtensiontests",
-    tags=["interfacialtensiontests"],
+    tags=["interfacialtensiontests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     vle_api.vle_router,
     prefix="/vaporliquidequilibriumtests",
-    tags=["vaporliquidequilibriumtests"],
+    tags=["vaporliquidequilibriumtests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     mcm_api.mcm_router,
     prefix="/multiplecontactmiscibilitytests",
-    tags=["multiplecontactmiscibilitytests"],
+    tags=["multiplecontactmiscibilitytests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     slimtubetest_api.slimtubetest_router,
     prefix="/slimtubetests",
-    tags=["slimtubetests"],
+    tags=["slimtubetests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(

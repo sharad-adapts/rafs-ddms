@@ -25,7 +25,7 @@ SLIMTUBETEST_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SlimTubeTest:[\
 RECORD_TYPE = "SlimTubeTest"
 BULK_DATASET_PREFIX = "slimtube-test"
 
-slimtubetest_router = APIRouter()
+slimtubetest_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=slimtubetest_router,

@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 VLE_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--VaporLiquidEquilibriumTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "VaporLiquidEquilibriumTest"
 
-vle_router = APIRouter()
+vle_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=vle_router,
