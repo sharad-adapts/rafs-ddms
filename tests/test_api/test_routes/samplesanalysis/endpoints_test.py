@@ -43,7 +43,7 @@ async def test_types_route():
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "analysistype", [
-        "routinecoreanalyses",
+        "routinecoreanalysis",
         "constantcompositionexpansion",
         "differentialliberation",
         "transport",
@@ -51,6 +51,11 @@ async def test_types_route():
         "compositionalanalysis",
         "swelling",
         "constantvolumedepletion",
+        "wateranalysis",
+        "interfacialtension",
+        "vaporliquidequilibrium",
+        "multiplecontactmiscibility",
+        "slimtube",
         "capillarypressure",
         "electricalproperties",
         "nmrtests",
@@ -74,7 +79,6 @@ async def test_types_route():
         "tensilestrength",
         "xrd",
         "pdp",
-        "wateranalysis",
     ],
 )
 async def test_content_schemas_route(analysistype):
@@ -95,7 +99,7 @@ async def test_content_schemas_route(analysistype):
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
     "analysistype", [
-        "routinecoreanalyses",
+        "routinecoreanalysis",
         "constantcompositionexpansion",
         "differentialliberation",
         "transport",
@@ -103,6 +107,12 @@ async def test_content_schemas_route(analysistype):
         "compositionalanalysis",
         "swelling",
         "constantvolumedepletion",
+        "constantvolumedepletion",
+        "wateranalysis",
+        "interfacialtension",
+        "vaporliquidequilibrium",
+        "multiplecontactmiscibility",
+        "slimtube",
         "capillarypressure",
         "electricalproperties",
         "nmrtests",
@@ -126,7 +136,6 @@ async def test_content_schemas_route(analysistype):
         "tensilestrength",
         "xrd"
         "pdp",
-        "wateranalysis",
     ],
 )
 async def test_content_schemas_wrong_version(analysistype):

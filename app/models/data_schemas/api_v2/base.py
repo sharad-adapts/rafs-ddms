@@ -22,6 +22,11 @@ from app.models.data_schemas.api_v2.compositionalanalysis_data_model import Mode
 from app.models.data_schemas.api_v2.mss_data_model import Model as MSSModel
 from app.models.data_schemas.api_v2.swelling_test_data_model import Model as SwellingTestModel
 from app.models.data_schemas.api_v2.cvd_data_model import Model as CVDModel
+from app.models.data_schemas.api_v2.water_analysis_data_model import Model as WaterAnalysisModel
+from app.models.data_schemas.api_v2.interfacial_tension_data_model import Model as InterfacialTensionModel
+from app.models.data_schemas.api_v2.vle_data_model import Model as VLEModel
+from app.models.data_schemas.api_v2.mcm_data_model import Model as MCMModel
+from app.models.data_schemas.api_v2.slimtube_data_model import Model as SlimtubeModel
 from app.models.data_schemas.api_v2.electrical_properties_data_model import Model as ElectricalPropertiesModel
 from app.models.data_schemas.api_v2.nmr_data_model import Model as NMRModel
 from app.models.data_schemas.api_v2.multiple_salinity_data_model import Model as MultipleSalinityModel
@@ -45,7 +50,6 @@ from app.models.data_schemas.api_v2.xrf_data_model import Model as XRFModel
 from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as TensileStrengthModel
 from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 from app.models.data_schemas.api_v2.pdp_data_model import Model as PdpModel
-from app.models.data_schemas.api_v2.water_analysis_data_model import Model as WaterAnalysisModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -70,6 +74,21 @@ SWELLING_MODELS = {
 }
 CVD_MODELS = {
     ContentSchemaVersion.V_1_0_0: CVDModel,
+}
+WATER_ANALYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel,
+}
+INTERFACIAL_TENSION_MODELS = {
+    ContentSchemaVersion.V_1_0_0: InterfacialTensionModel,
+}
+VLE_MODELS = {
+    ContentSchemaVersion.V_1_0_0: VLEModel,
+}
+MCM_MODELS = {
+    ContentSchemaVersion.V_1_0_0: MCMModel,
+}
+SLIMTUBE_MODELS = {
+    ContentSchemaVersion.V_1_0_0: SlimtubeModel,
 }
 ELECTRICAL_PROPERTIES_MODELS = {
     ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel,
@@ -140,9 +159,6 @@ XRD_MODELS = {
 PDP_MODELS = {
     ContentSchemaVersion.V_1_0_0: PdpModel
 }
-WATER_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel
-}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -154,6 +170,11 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.MSS: MSS_MODELS,
     common_relative_paths_api_v2.SWELLING: SWELLING_MODELS,
     common_relative_paths_api_v2.CVD: CVD_MODELS,
+    common_relative_paths_api_v2.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
+    common_relative_paths_api_v2.INTERFACIAL_TENSION: INTERFACIAL_TENSION_MODELS,
+    common_relative_paths_api_v2.VLE: VLE_MODELS,
+    common_relative_paths_api_v2.MCM: MCM_MODELS,
+    common_relative_paths_api_v2.SLIMTUBE: SLIMTUBE_MODELS,
     common_relative_paths_api_v2.ELECTRICAL_PROPERTIES: ELECTRICAL_PROPERTIES_MODELS,
     common_relative_paths_api_v2.NMR: NMR_MODELS,
     common_relative_paths_api_v2.MULTIPLE_SALINITY: MULTIPLE_SALINITY_MODELS,
@@ -177,5 +198,4 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.TENSILE_STRENGTH: TENSILE_STRENGTH_MODELS,
     common_relative_paths_api_v2.XRD: XRD_MODELS,
     common_relative_paths_api_v2.PDP: PDP_MODELS,
-    common_relative_paths_api_v2.WATER_ANALYSIS: WATER_ANALYSIS_MODELS,
 }

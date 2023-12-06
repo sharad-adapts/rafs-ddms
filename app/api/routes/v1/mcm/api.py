@@ -23,7 +23,7 @@ MCM_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--MultipleContactMiscibili
 RECORD_TYPE = "MultipleContactMiscibilityTest"
 BULK_DATASET_PREFIX = "multiple-contact-miscibility"
 
-mcm_router = APIRouter()
+mcm_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=mcm_router,
