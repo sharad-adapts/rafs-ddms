@@ -1,0 +1,30 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:sample_test:",
+    "Method": "Method",
+    "VitriniteReflectanceReadings": [
+      {
+        "Value": 1.0,
+        "ReadingOrder": 1,
+        "Frequency": 10
+      },
+      {
+        "Value": 1.0,
+        "ReadingOrder": 2,
+        "Frequency": 12
+      }
+    ],
+    "VitriniteMountTechnique": "Mount technique",
+    "VitriniteReflectanceHistogramPopulations": [
+      {
+        "PopulationType": "opendes:reference-data--VitriniteReflectancePopulationType:UnalteredIndigenous:",
+        "PopulationTypeValue": 1.0,
+        "PopulationMean": 1.0,
+        "PopulationStDv": 1.0,
+        "PopulationQualifier": "Population qualifier",
+        "TotalPopulationReadings": 1.0,
+        "MinimumReading": 1.0,
+        "MaximumReading": 1.0
+      }
+    ]
+  }

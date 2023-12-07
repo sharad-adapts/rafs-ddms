@@ -1,0 +1,90 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "SamplesAnalysisID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "SampleID": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        },
+        "Method": {
+            "type": "string",
+            "description": "The sample analysis method used for this analysis"
+        },
+        "VitriniteReflectanceReadings": {
+            "title": "Vitrinite Reflectance Readings",
+            "type": "array",
+            "description": "The percentage of incident light reflected from the surface of vitrinite particles in a sample",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "Value": {
+                        "type": "number"
+                    },
+                    "ReadingOrder": {
+                        "type": "number"
+                    },
+                    "Frequency": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "VitriniteMountTechnique": {
+            "type": "string",
+            "description": "Preparation technique for vitrinite mount"
+        },
+        "VitriniteReflectanceHistogramPopulations": {
+            "title": "Vitrinite Reflectance Histogram Populations",
+            "type": "array",
+            "description": "The population of dispersed organic matter that is relevant to thermal maturity determination",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "PopulationType": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-VitriniteReflectancePopulationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    },
+                    "PopulationTypeValue": {
+                        "type": "number",
+                        "description": "The population type observation value, used when the same type is assigned to two or more populations based on different interpretations. e.g. reworked-2 will have a value of 2"
+                    },
+                    "PopulationMean": {
+                        "type": "number",
+                        "description": "mean value of vitrinite reflectance readings within a population"
+                    },
+                    "PopulationStDv": {
+                        "type": "number",
+                        "description": "standard deviation value of vitrinite reflectance readings within a population"
+                    },
+                    "PopulationQualifier": {
+                        "type": "string",
+                        "description": "Vitrinite reflectance qualifier within a population"
+                    },
+                    "TotalPopulationReadings": {
+                        "type": "number",
+                        "description": "number of vitrinite refelctance readings in the population"
+                    },
+                    "MinimumReading": {
+                        "type": "number",
+                        "description": "Minimum value of range comprising the population"
+                    },
+                    "MaximumReading": {
+                        "type": "number",
+                        "description": "Maximum value of range comprising the population"
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "additionalProperties": false,
+    "required": [
+        "SamplesAnalysisID",
+        "SampleID"
+    ]
+}
