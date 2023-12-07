@@ -22,7 +22,23 @@
                     "Qv": {
                         "Value": 3.5,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    }
+                    },
+                    "BrineResistivity": {
+                        "Value": 12,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
+                    },
+                    "AdjustedFormationResistivityFactor": 12,
+                    "AdjustedSaturationExponent": 12,
+                    "AdjustedPorosityExponent": 12,
+                    "WaterSaturationOverResistivity": [
+                        {
+                            "ResistivityIndex": 15,
+                            "WaterSaturation": {
+                                "Value": 12,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                            }
+                        }
+                    ]
                 },
                 {
                     "SampleID": "opendes:master-data--Sample:88Y:",
@@ -33,7 +49,23 @@
                     "Qv": {
                         "Value": 4.5,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    }
+                    },
+                    "BrineResistivity": {
+                        "Value": 13,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
+                    },
+                    "AdjustedFormationResistivityFactor": 13,
+                    "AdjustedSaturationExponent": 13,
+                    "AdjustedPorosityExponent": 13,
+                    "WaterSaturationOverResistivity": [
+                        {
+                            "ResistivityIndex": 15,
+                            "WaterSaturation": {
+                                "Value": 28,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                            }
+                        }
+                    ]
                 }
             ],
             [
