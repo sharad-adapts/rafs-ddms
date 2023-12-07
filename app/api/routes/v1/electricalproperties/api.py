@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "ElectricalProperties"
 BULK_DATASET_PREFIX = "electricalproperties"
 
-electrical_properties_router = APIRouter()
+electrical_properties_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=electrical_properties_router,

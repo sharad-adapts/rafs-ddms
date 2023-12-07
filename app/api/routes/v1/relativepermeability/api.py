@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "RelativePermeability"
 BULK_DATASET_PREFIX = "relative-permeability"
 
-rel_perm_router = APIRouter()
+rel_perm_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=rel_perm_router,

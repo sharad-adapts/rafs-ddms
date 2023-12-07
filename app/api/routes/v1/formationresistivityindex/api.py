@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "FormationResistivityIndex"
 BULK_DATASET_PREFIX = "formationresistivityindex"
 
-formationresistivityindex_router = APIRouter()
+formationresistivityindex_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=formationresistivityindex_router,

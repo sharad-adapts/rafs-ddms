@@ -11,19 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from fastapi import APIRouter
-
-from app.api.dependencies.validation import validate_coring_records_payload
-from app.api.routes.osdu.storage_records import BaseStorageRecordView
-
-CORING_ID_REGEX_STR = r"^[\w\-\.]+:master-data--Coring:[\w\-\.\:\%]+$"
-
-coring_router = APIRouter(deprecated=True)
-
-BaseStorageRecordView(
-    router=coring_router,
-    id_regex_str=CORING_ID_REGEX_STR,
-    validate_records_payload=validate_coring_records_payload,
-    record_type="Coring",
-)

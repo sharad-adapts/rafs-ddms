@@ -72,7 +72,7 @@
         },
         "WaterThermalConductivity": {
             "Value": 123,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu%5BIT%5D:"
         },
         "WaterThermalExpansion": {
             "Value": 323,
@@ -80,11 +80,11 @@
         },
         "WaterEnthalpy": {
             "Value": 222,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu%2Flb:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu%5BIT%5D%2Flbm:"
         },
         "WaterEntropy": {
             "Value": 544,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Btu%5BIT%5D:"
         },
         "WaterSpecificVolume": {
             "Value": 314,
@@ -92,7 +92,7 @@
         },
         "Salinity": {
             "Value": 387,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtPct:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
             "Temperature": {
                 "Value": 34,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
@@ -100,12 +100,12 @@
         },
         "TotalDissolvedSolids": {
             "Value": 211,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtPct:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
             "Type": "N/A"
         },
         "TotalSuspendedSolids": {
             "Value": 433,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtPct:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
             "Type": "N/A"
         },
         "TotalHardness": {
@@ -120,7 +120,7 @@
         },
         "TotalSedimentSolids": {
             "Value": 277,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:wtPct:",
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
             "Type": "N/A"
         },
         "pH": {
@@ -201,7 +201,7 @@
             ],
             "IonDifference": {
                 "Value": 0.22,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pct:"
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
             },
             "MolarConcentration": {
                 "Value": 0.1,

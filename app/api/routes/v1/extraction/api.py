@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "Extraction"
 BULK_DATASET_PREFIX = "extraction"
 
-extraction_router = APIRouter()
+extraction_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=extraction_router,
