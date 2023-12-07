@@ -24,7 +24,7 @@ from app.api.routes.samplesanalysesreport.endpoints import (
 
 SAR_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysesReport:[\w\-\.\:\%]+$"
 
-sar_record_router_v1 = APIRouter()
+sar_record_router_v1 = APIRouter(deprecated=True)
 sar_record_router_v2 = APIRouter()
 
 SamplesAnalysesReportView(

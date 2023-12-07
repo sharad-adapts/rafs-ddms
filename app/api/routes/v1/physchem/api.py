@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "PhysChem"
 BULK_DATASET_PREFIX = "physical-chemistry"
 
-physchem_router = APIRouter()
+physchem_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=physchem_router,

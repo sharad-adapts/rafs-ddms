@@ -69,7 +69,7 @@ router.include_router(
 router.include_router(
     coring_api.coring_router,
     prefix="/coringreports",
-    tags=["coringreports"],
+    tags=["coringreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
@@ -135,7 +135,7 @@ router.include_router(
 router.include_router(
     sto_api.sto_router,
     prefix="/stocktankoilanalysisreports",
-    tags=["stocktankoilanalysisreports"],
+    tags=["stocktankoilanalysisreports (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
@@ -165,60 +165,60 @@ router.include_router(
 router.include_router(
     samples_analyses_report_api.sar_record_router_v1,
     prefix="/samplesanalysesreport",
-    tags=["samplesanalysesreport"],
+    tags=["samplesanalysesreport (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     cappressure_api.cap_pressure_router,
     prefix="/capillarypressuretests",
-    tags=["capillarypressuretests"],
+    tags=["capillarypressuretests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     relative_permeability_api.rel_perm_router,
     prefix="/relativepermeabilitytests",
-    tags=["relativepermeabilitytests"],
+    tags=["relativepermeabilitytests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     fractionation_api.fractionation_router,
     prefix="/fractionationtests",
-    tags=["fractionationtests"],
+    tags=["fractionationtests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     extraction_api.extraction_router,
     prefix="/extractiontests",
-    tags=["extractiontests"],
+    tags=["extractiontests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     physchem_api.physchem_router,
     prefix="/physicalchemistrytests",
-    tags=["physicalchemistrytests"],
+    tags=["physicalchemistrytests (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     electricalproperties_api.electrical_properties_router,
     prefix="/electricalproperties",
-    tags=["electricalproperties"],
+    tags=["electricalproperties (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     rockcompressibility_api.rockcompressibility_router,
     prefix="/rockcompressibilities",
-    tags=["rockcompressibilities"],
+    tags=["rockcompressibilities (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     watergasrelativepermeability_api.watergasrelativepermeability_router,
     prefix="/watergasrelativepermeabilities",
-    tags=["watergasrelativepermeabilities"],
+    tags=["watergasrelativepermeabilities (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
     formationresistivityindex_api.formationresistivityindex_router,
     prefix="/formationresistivityindexes",
-    tags=["formationresistivityindexes"],
+    tags=["formationresistivityindexes (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )

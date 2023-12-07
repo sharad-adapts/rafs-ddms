@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "RockCompressibility"
 BULK_DATASET_PREFIX = "rock-compressibility"
 
-rockcompressibility_router = APIRouter()
+rockcompressibility_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=rockcompressibility_router,
