@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "WaterGasRelativePermeability"
 BULK_DATASET_PREFIX = "water-gas-relative-permeability"
 
-watergasrelativepermeability_router = APIRouter()
+watergasrelativepermeability_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=watergasrelativepermeability_router,

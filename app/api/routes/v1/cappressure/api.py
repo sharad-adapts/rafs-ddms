@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "CapPressure"
 BULK_DATASET_PREFIX = "capillary-pressure"
 
-cap_pressure_router = APIRouter()
+cap_pressure_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=cap_pressure_router,

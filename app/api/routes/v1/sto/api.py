@@ -22,7 +22,7 @@ from app.models.domain.osdu.WPCPVT100 import PVT
 STO_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--StockTankOilAnalysisTest:[\w\-\.\:\%]+$"
 RECORD_TYPE = "StockTankOilAnalysisTest"
 
-sto_router = APIRouter()
+sto_router = APIRouter(deprecated=True)
 
 BaseDataView(
     router=sto_router,

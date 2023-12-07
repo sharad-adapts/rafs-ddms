@@ -26,7 +26,7 @@ from app.api.routes.samplesanalysis.endpoints import (
 RECORD_TYPE = "Fractionation"
 BULK_DATASET_PREFIX = "fractionation"
 
-fractionation_router = APIRouter()
+fractionation_router = APIRouter(deprecated=True)
 
 SamplesAnalysisRecordView(
     router=fractionation_router,

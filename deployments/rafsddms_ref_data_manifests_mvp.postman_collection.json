@@ -462,6 +462,71 @@
 			"response": []
 		},
 		{
+			"name": "Ingest RefData CompressibilityMeasurementType",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var workflowId = jsonData.workflowId;\r",
+							"    var runId = jsonData.runId;\r",
+							"    pm.collectionVariables.set(\"run_id\", runId);\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{access_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "data-partition-id",
+						"type": "text",
+						"value": "{{data-partition-id}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"executionContext\": {\r\n        \"Payload\": {\r\n            \"AppKey\": \"unused_legacy_field\",\r\n            \"data-partition-id\": \"{{NAMESPACE}}\"\r\n        },\r\n        \"manifest\": {\r\n            \"kind\": \"osdu:wks:Manifest:1.0.0\",\r\n            \"ReferenceData\": [\r\n                {\r\n                    \"id\": \"{{NAMESPACE}}:reference-data--CompressibilityMeasurementType:Hydrostatic\",\r\n                    \"kind\": \"{{rafsddms-schema-authority}}:wks:reference-data--CompressibilityMeasurementType:1.0.0\",\r\n                    \"acl\": {\r\n                        \"owners\": [\r\n                            \"{{DATA_OWNERS_GROUP}}\"\r\n                        ],\r\n                        \"viewers\": [\r\n                            \"{{DATA_VIEWERS_GROUP}}\"\r\n                        ]\r\n                    },\r\n                    \"legal\": {\r\n                        \"legaltags\": [\r\n                            \"{{LEGAL_TAG}}\"\r\n                        ],\r\n                        \"otherRelevantDataCountries\": [\r\n                            \"{{ISO_3166_ALPHA_2_CODE}}\"\r\n                        ],\r\n                        \"status\": \"compliant\"\r\n                    },\r\n                    \"data\": {\r\n                        \"Name\": \"Hydrostatic\",\r\n                        \"ID\": null,\r\n                        \"Description\": \"Hydrostatic\",\r\n                        \"Code\": \"Hydrostatic\",\r\n                        \"AttributionAuthority\": \"RAFSDDMS\"\r\n                    }\r\n                },\r\n                {\r\n                    \"id\": \"{{NAMESPACE}}:reference-data--CompressibilityMeasurementType:Uniaxial\",\r\n                    \"kind\": \"{{rafsddms-schema-authority}}:wks:reference-data--CompressibilityMeasurementType:1.0.0\",\r\n                    \"acl\": {\r\n                        \"owners\": [\r\n                            \"{{DATA_OWNERS_GROUP}}\"\r\n                        ],\r\n                        \"viewers\": [\r\n                            \"{{DATA_VIEWERS_GROUP}}\"\r\n                        ]\r\n                    },\r\n                    \"legal\": {\r\n                        \"legaltags\": [\r\n                            \"{{LEGAL_TAG}}\"\r\n                        ],\r\n                        \"otherRelevantDataCountries\": [\r\n                            \"{{ISO_3166_ALPHA_2_CODE}}\"\r\n                        ],\r\n                        \"status\": \"compliant\"\r\n                    },\r\n                    \"data\": {\r\n                        \"Name\": \"Uniaxial\",\r\n                        \"ID\": null,\r\n                        \"Description\": \"Uniaxial\",\r\n                        \"Code\": \"Uniaxial\",\r\n                        \"AttributionAuthority\": \"RAFSDDMS\"\r\n                    }\r\n                }\r\n            ]\r\n        }\r\n    }\r\n}"
+				},
+				"url": {
+					"raw": "https://{{WORKFLOW_URL}}/workflow/Osdu_ingest/workflowRun",
+					"protocol": "https",
+					"host": [
+						"{{WORKFLOW_URL}}"
+					],
+					"path": [
+						"workflow",
+						"Osdu_ingest",
+						"workflowRun"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Ingest RefData ConductivityMeasurementMethod",
 			"event": [
 				{
