@@ -11,7 +11,23 @@
             "Qv": {
                 "Value": 3.5,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-            }
+            },
+            "BrineResistivity": {
+                "Value": 15,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
+            },
+            "AdjustedFormationResistivityFactor": 15,
+            "AdjustedSaturationExponent": 15,
+            "AdjustedPorosityExponent": 15,
+            "WaterSaturationOverResistivity": [
+                {
+                    "ResistivityIndex": 15,
+                    "WaterSaturation": {
+                        "Value": 12,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ]
         },
         {
             "SampleID": "osdu:master-data--Sample:88Y:",
@@ -22,7 +38,23 @@
             "Qv": {
                 "Value": 4.5,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-            }
+            },
+            "BrineResistivity": {
+                "Value": 12,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
+            },
+            "AdjustedFormationResistivityFactor": 12,
+            "AdjustedSaturationExponent": 12,
+            "AdjustedPorosityExponent": 12,
+            "WaterSaturationOverResistivity": [
+                {
+                    "ResistivityIndex": 15,
+                    "WaterSaturation": {
+                        "Value": 12,
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ]
         }
     ],
     "SalinityTestSteps": [

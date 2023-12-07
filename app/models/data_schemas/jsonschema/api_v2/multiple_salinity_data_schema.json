@@ -28,7 +28,8 @@
                                 "type": "string",
                                 "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             }
-                        }
+                        },
+                        "additionalProperties": false
                     },
                     "Qv": {
                         "type": "object",
@@ -40,9 +41,59 @@
                                 "type": "string",
                                 "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             }
+                        },
+                        "additionalProperties": false
+                    },
+                    "BrineResistivity": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                    
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "AdjustedFormationResistivityFactor": {
+                        "type": "number"
+                    },
+                    "AdjustedSaturationExponent": {
+                        "type": "number"
+                    },
+                    "AdjustedPorosityExponent": {
+                        "type": "number"
+                    },
+                    "WaterSaturationOverResistivity": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "ResistivityIndex": {
+                                    "type": "number"
+                                },
+                                "WaterSaturation": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                }
+                            },
+                            "additionalProperties": false
                         }
                     }
-                }
+                },
+                "additionalProperties": false
             }
         },
         "SalinityTestSteps": {
@@ -60,7 +111,8 @@
                                 "type": "string",
                                 "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             }
-                        }
+                        },
+                        "additionalProperties": false
                     },
                     "BrineConductivity": {
                         "type": "object",
@@ -72,7 +124,8 @@
                                 "type": "string",
                                 "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             }
-                        }
+                        },
+                        "additionalProperties": false
                     },
                     "CoreConductivity": {
                         "type": "object",
@@ -84,12 +137,15 @@
                                 "type": "string",
                                 "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             }
-                        }
+                        },
+                        "additionalProperties": false
                     }
-                }
+                },
+                "additionalProperties": false
             }
         }
     },
+    "additionalProperties": false,
     "required": [
         "SamplesAnalysisID"
     ]
