@@ -13,6 +13,7 @@
 #  limitations under the License.
 
 from dataclasses import dataclass
+from typing import Iterable
 
 import pandas as pd
 import pandera as pa
@@ -29,6 +30,7 @@ settings = get_app_settings()
 class DataValidator:
     data_schema: pa.DataFrameSchema
     storage_service: StorageService
+    api_version: str
 
     async def validate(self, df: pd.DataFrame) -> dict:
         """Validate dataframe.
@@ -111,12 +113,19 @@ class DataValidator:
         for ids_to_check_batch in divide_chunks(list(ids_to_check), settings.storage_query_limit):
             missing_records.update(await self._find_missing_records(ids_to_check=ids_to_check_batch))
 
-        # @TODO remove once Sample and/or FluidSample master-data schema is created
-        invalid_records = set()
-        skip_records = ["master-data--FluidSample", "master-data--Sample"]
-        for record in missing_records:
-            for skip_record in skip_records:
-                if skip_record in record:
-                    invalid_records.add(record)
+        excluded_records = set()
+        if self.api_version == "v1":
+            # remove validation for Sample and FluidSample master-data only in v1
+            skip_types = ("master-data--FluidSample", "master-data--Sample")
+            excluded_records = self._get_excluded_records(missing_records, skip_types)
 
-        return missing_records - invalid_records
+        return missing_records - excluded_records
+
+    def _get_excluded_records(self, records: Iterable, skip_types: Iterable) -> set:
+        """Get excluded record ids from a list given skip types."""
+        excluded_records = set()
+        for record in records:
+            for skip_type in skip_types:
+                if skip_type in record:
+                    excluded_records.add(record)
+        return excluded_records
