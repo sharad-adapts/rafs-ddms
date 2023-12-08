@@ -19,7 +19,7 @@ from app.api.routes.osdu.storage_records import BaseStorageRecordView
 
 ROCKSAMPLE_ID_REGEX_STR = r"^[\w\-\.]+:master-data--RockSample:[\w\-\.\:\%]+$"
 
-rocksample_router = APIRouter()
+rocksample_router = APIRouter(deprecated=True)
 
 BaseStorageRecordView(
     router=rocksample_router,
