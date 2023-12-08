@@ -75,7 +75,7 @@ router.include_router(
 router.include_router(
     rocksample_api.rocksample_router,
     prefix="/rocksamples",
-    tags=["rocksamples"],
+    tags=["rocksamples (deprecated)"],
     dependencies=COMMON_DEPENDENCIES,
 )
 router.include_router(
