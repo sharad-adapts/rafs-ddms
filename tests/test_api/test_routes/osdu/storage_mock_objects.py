@@ -728,6 +728,7 @@ class TestContentPathsApiV2:
     VITRINITE_REFLECTANCE = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.VITRINITE_REFLECTANCE}"
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
     PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
+    STO = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.STO}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -799,3 +800,4 @@ class BulkDatasetIdV2(NamedTuple):
     VITRINITE_REFLECTANCE = f"{PARTITION}:{FILE_GENERIC_TYPE}:vitrinitereflectance-{TEST_DATASET_UID}"
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
+    STO = f"{PARTITION}:{FILE_GENERIC_TYPE}:stocktankoilanalysisreports-{TEST_DATASET_UID}"

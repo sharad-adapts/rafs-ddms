@@ -84,6 +84,7 @@ class CommonRelativePathsV2(NamedTuple):
     VITRINITE_REFLECTANCE: str = "/data/vitrinitereflectance"
     XRD: str = "/data/xrd"
     PDP: str = "/data/pdp"
+    STO: str = "/data/stocktankoilanalysis"
 
 
 COMMON_RELATIVE_PATHS = {
