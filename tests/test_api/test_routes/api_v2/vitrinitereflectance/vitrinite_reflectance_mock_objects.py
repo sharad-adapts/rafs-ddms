@@ -18,12 +18,14 @@ import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
+    TEST_SAMPLESANALYSIS_ID,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:wateranalysis-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/wateranalysisdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
+
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:vitrinitereflectance-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/vitrinitereflectancedata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
@@ -48,18 +50,19 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "TestNumber,count",
+    "columns_aggregation": "SampleID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,TestNumber,SampleID",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "columns_filter": "SamplesAnalysisID,SampleID",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:sample_test:",
 }
-with open(f"{dir_path}/water_analysis_orient_split.json") as fp:
+
+with open(f"{dir_path}/vitrinite_reflectance_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "TestNumber",
+        "SampleID",
     ],
     "index": [
         "count",
@@ -74,7 +77,6 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
-        "TestNumber",
         "SampleID",
     ],
     "index": [
@@ -83,8 +85,7 @@ TEST_FILTERED_DATA = {
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "17. Water Analysis",
-            "opendes:master-data--Sample:fluid_sample_test:",
+            "opendes:master-data--Sample:sample_test:",
         ],
     ],
 }
@@ -93,17 +94,18 @@ INCORRECT_SCHEMA_TEST_DATA = {
     "columns": [
         "WrongField",  # Wrong field
         "data",
-        # "WaterAnalysisTestSteps",  # Missing mandatory field
+        # "SamplesAnalysisID",  # Missing mandatory field
     ],
     "index": [0],
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:1:",
-            "opendes:master-data--:1:",  # Incorrect Coring value
+            "opendes:master-data--:1:",  # Incorrect master-data value
         ],
     ],
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting WaterAnalysisTestSteps
-EXPECTED_ERROR_REASON = "Data error: 7 columns passed, passed data had 6 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting TensileStrength in index row 0
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

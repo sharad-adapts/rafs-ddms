@@ -152,7 +152,7 @@ TEST_FILTERED_DATA = {
                     ],
                     "IonDifference": {
                         "Value": 0.22,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:pct:",
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
                     },
                     "MolarConcentration": {
                         "Value": 0.1,

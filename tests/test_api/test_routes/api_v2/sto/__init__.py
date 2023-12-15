@@ -11,19 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-from fastapi import APIRouter
-
-from app.api.dependencies.validation import validate_rocksample_records_payload
-from app.api.routes.osdu.storage_records import BaseStorageRecordView
-
-ROCKSAMPLE_ID_REGEX_STR = r"^[\w\-\.]+:master-data--RockSample:[\w\-\.\:\%]+$"
-
-rocksample_router = APIRouter(deprecated=True)
-
-BaseStorageRecordView(
-    router=rocksample_router,
-    id_regex_str=ROCKSAMPLE_ID_REGEX_STR,
-    validate_records_payload=validate_rocksample_records_payload,
-    record_type="RockSample",
-)
