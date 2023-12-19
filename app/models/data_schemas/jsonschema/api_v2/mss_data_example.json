@@ -166,15 +166,15 @@
     "CalculatedProperties": {
         "AvgMoleWeight": {
             "Value": 0,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%.:w.:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
         },
         "ResidueDensity": {
             "Value": 0,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%%%:-:0"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
         },
         "ResidueAPI": {
             "Value": 0,
-            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:w:-:.www%w:%..%:%-w-w%w.w:"
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
         },
         "Remark": "Remark",
         "LiquidCalculatedProperties": [
