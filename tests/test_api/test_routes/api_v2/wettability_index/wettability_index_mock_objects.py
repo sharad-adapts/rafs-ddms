@@ -156,7 +156,7 @@ TEST_FILTERED_DATA = {
                 "DesaturationMethod": "opendes:reference-data--DesaturationMethod:CentrifugeOilWater:",
                 "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Decane:",
                 "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Carnation:",
-                "FluidSystem": "opendes:reference-data--FluidSystemType:OilGas:",
+                "FluidSystem": "opendes:reference-data--FluidSystemType:GasOil:",
                 "InitialWaterSaturation": {
                     "Value": 32,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
