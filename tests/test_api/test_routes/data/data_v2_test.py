@@ -63,6 +63,7 @@ from tests.test_api.test_routes.api_v2.multiplecontactmiscibility import (
 from tests.test_api.test_routes.api_v2.multistageseparator import (
     mss_mock_objects,
 )
+from tests.test_api.test_routes.api_v2.nmr import nmr_mock_objects
 from tests.test_api.test_routes.api_v2.pdp import pdp_mock_objects
 from tests.test_api.test_routes.api_v2.relative_permeability import (
     relative_permeability_mock_objects,
@@ -139,7 +140,6 @@ from tests.test_api.test_routes.isotope_analysis import (
 from tests.test_api.test_routes.multiple_salinity import (
     multiple_salinity_mock_objects,
 )
-from tests.test_api.test_routes.nmr import nmr_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     BulkDatasetIdV2,
     TestContentPathsApiV2,
