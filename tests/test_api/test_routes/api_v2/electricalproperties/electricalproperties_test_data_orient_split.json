@@ -58,7 +58,7 @@
             "opendes:reference-data--FluidSystemType:SolubleCuttingOil:",
             "opendes:reference-data--DisplacingFluidType:Mercury:",
             "opendes:reference-data--DisplacedFluidType:Hexane:",
-            "opendes:reference-data--SaturationProcessMethod:TertiaryDrainage:",
+            "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
             "opendes:reference-data--DesaturationMethod:PorousPlateGasWaterOil:",
             {
                 "Value": 125,
