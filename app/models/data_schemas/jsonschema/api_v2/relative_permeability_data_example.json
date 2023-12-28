@@ -87,7 +87,7 @@
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
         "Type": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:"
     },
-    "SaturationProcessMethod": "opendes:reference-data--SaturationProcessMethod:TertiaryDrainage:",
+    "SaturationProcessMethod": "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
     "InterfacialTension": {
         "Value": 123,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"

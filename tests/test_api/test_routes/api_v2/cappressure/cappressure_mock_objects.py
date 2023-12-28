@@ -102,7 +102,7 @@ TEST_FILTERED_DATA = {
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bvol%5D:",
                     },
                     "SaturationProcessMethod": {
-                        "Value": "opendes:reference-data--SaturationProcessMethod:PrimaryDrainage:",
+                        "Value": "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
                     },
                     "InitialWaterSaturation": {
                         "Value": 25,
