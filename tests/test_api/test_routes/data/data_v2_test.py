@@ -63,6 +63,7 @@ from tests.test_api.test_routes.api_v2.multiplecontactmiscibility import (
 from tests.test_api.test_routes.api_v2.multistageseparator import (
     mss_mock_objects,
 )
+from tests.test_api.test_routes.api_v2.nmr import nmr_mock_objects
 from tests.test_api.test_routes.api_v2.pdp import pdp_mock_objects
 from tests.test_api.test_routes.api_v2.relative_permeability import (
     relative_permeability_mock_objects,
@@ -74,6 +75,7 @@ from tests.test_api.test_routes.api_v2.routinecoreanalysis import (
     rca_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.slimtube import slimtube_mock_objects
+from tests.test_api.test_routes.api_v2.sto import sto_mock_objects
 from tests.test_api.test_routes.api_v2.swelling import swelling_mock_objects
 from tests.test_api.test_routes.api_v2.tec import tec_data_mock_objects
 from tests.test_api.test_routes.api_v2.tensile_strength import (
@@ -138,15 +140,12 @@ from tests.test_api.test_routes.isotope_analysis import (
 from tests.test_api.test_routes.multiple_salinity import (
     multiple_salinity_mock_objects,
 )
-from tests.test_api.test_routes.nmr import nmr_mock_objects
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     BulkDatasetIdV2,
     TestContentPathsApiV2,
 )
 from tests.test_api.test_routes.triaxial_test import triaxial_test_mock_objects
 from tests.test_api.test_routes.uniaxial_test import uniaxial_test_mock_objects
-from tests.test_api.test_routes.api_v2.tensile_strength import tensile_strength_mock_objects
-from tests.test_api.test_routes.api_v2.sto import sto_mock_objects
 
 async_storage_record_service_mock = create_autospec(storage.StorageService, spec_set=True, instance=True)
 async_dataset_service_mock = create_autospec(dataset.DatasetService, spec_set=True, instance=True)
