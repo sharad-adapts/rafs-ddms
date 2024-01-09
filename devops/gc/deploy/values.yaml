@@ -1,0 +1,43 @@
+global:
+  domain: ""
+  onPremEnabled: false
+  limitsEnabled: true
+
+data:
+  # Configmaps
+  cloudProvider: "gc"
+  openapiPrefix: "/api/rafs-ddms"
+  storageHost: "http://storage"
+  searchHost: "http://search"
+  partitionHost: "http://partition"
+  datasetHost: "http://dataset"
+  # Redis connection
+  cacheEnable: "True"
+  cacheBackend: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
+  enableApiV1: "True"
+  # Update 'redisRafsDdmsHost' var if you want to use external Redis
+  redisRafsDdmsHost: ""
+  redisRafsDdmsDatabase: "13"
+  redisRafsDdmsSsl: "False"
+  redisRafsDdmsPort: "6379"
+  # Deployments
+  requestsCpu: "5m"
+  requestsMemory: "350Mi"
+  limitsCpu: "1"
+  limitsMemory: "1G"
+  redisRequestsCpu: "10m"
+  redisRequestsMemory: "50Mi"
+  redisImage: "docker.io/library/redis:7"
+  image: ""
+  imagePullPolicy: "IfNotPresent"
+  serviceAccountName: "rafs-ddms"
+
+conf:
+  configmap: "rafs-ddms-config"
+  appName: "rafs-ddms"
+  rafsDdmsRedisSecretName: "rafs-ddms-redis-secret"
+  replicas: 1
+
+istio:
+  redisProxyCPU: "50m"
+  redisProxyMemory: "100Mi"

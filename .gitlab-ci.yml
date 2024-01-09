@@ -33,6 +33,12 @@ include:
   # AWS provider
   - local: "/devops/aws/aws.gitlab-ci.yml"
 
+  # GC provider
+  - project: "osdu/platform/ci-cd-pipelines"
+    file: "cloud-providers/gc-global.yml"
+
+  - local: "devops/gc/pipeline/override-stages.yml"
+
 compile-and-unit-test:
   image: mcr.microsoft.com/mirror/docker/library/python:3.11-slim
   variables:
