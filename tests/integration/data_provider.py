@@ -52,6 +52,15 @@ aws_values = RecordValues(
     acl_owners="data.default.owners@opendes.example.com",
 )
 
+def create_gc_values(data_partition_id: str) -> RecordValues:
+    return RecordValues(
+        data_partition_id=data_partition_id,
+        schema_authority="osdu",
+        custom_schema_authority="rafsddms",
+        acl_viewers=f"data.default.viewers@{data_partition_id}.group",
+        acl_owners=f"data.default.owners@{data_partition_id}.group"
+    )
+
 
 def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = None) -> dict:
     data_values = None
@@ -59,6 +68,8 @@ def test_data(file_name: str, analysis_type: Optional[SamplesAnalysisTypes] = No
         data_values = azure_values
     elif CONFIG["CLOUD_PROVIDER"] == "aws":
         data_values = aws_values
+    elif CONFIG["CLOUD_PROVIDER"] == "gc":
+        data_values = create_gc_values(CONFIG["DATA_PARTITION"])
     with open(os.path.join(DATA_DIR, file_name)) as json_file:
         data_str = (
             json_file.read(

@@ -38,5 +38,10 @@ def get_blob_loader(settings: AppSettings) -> IBlobLoader:
         case "aws":
             from app.providers.dependencies.aws.blob_loader import AWSBlobLoader
             return AWSBlobLoader()
+        case "gc":
+            from app.providers.dependencies.gc.blob_loader import (
+                GoogleBlobLoader,
+            )
+            return GoogleBlobLoader()
         case _:
             raise NotImplementedError()
