@@ -35,7 +35,7 @@ class BaseAppSettings(BaseSettings):
 
     build_date: str = None
 
-    cloud_provider: Literal["", "azure", "gcp", "aws", "anthos", "ibm"] = ""
+    cloud_provider: Literal["", "azure", "gc", "aws", "anthos", "ibm"] = ""
 
     schema_authority: str = "osdu"
 
