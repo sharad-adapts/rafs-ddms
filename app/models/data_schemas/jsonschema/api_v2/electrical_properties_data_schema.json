@@ -136,6 +136,45 @@
                 },
                 "additionalProperties": false
             }
+        },
+        "Temperature": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
+        },
+        "NetConfiningStress": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
+        },
+        "Frequency": {
+            "type": "object",
+            "properties": {
+                "Value": {
+                    "type": "number"
+                },
+                "UnitOfMeasure": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
         }
     },
     "additionalProperties": false,
