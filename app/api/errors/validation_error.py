@@ -34,7 +34,7 @@ def format_errors(errors: list) -> list:
         error_field = error["loc"][-1]
         if error_field == "record_id":
             pattern = error["ctx"]["pattern"]
-            entity = pattern.split(":")[1].split("--")[-1]
+            entity = pattern.split(":")[1]
             error_message = f'{entity} ID is not provided in expected OSDU pattern "{pattern}"'
         else:
             error_message = f"{error_field} {error['msg']}"

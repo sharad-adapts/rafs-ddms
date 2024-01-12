@@ -34,6 +34,14 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 )
 
 
+def build_reason(status_code: int, reason_detail: str, message: str):
+    return json.dumps({
+        "code": status_code,
+        "reason": reason_detail,
+        "message": message,
+    })
+
+
 @pytest.fixture
 def mock_record_client():
     mock_client = MagicMock(spec=StorageServiceApiClient, instance=True)
@@ -70,11 +78,38 @@ def mock_get_response(mock_record_client, storage_service):
 
 
 @pytest.fixture
-def with_patched_storage_client_error(storage_service, storage_method, response_code, response_json=""):
+def with_patched_storage_client_error(
+        storage_service,
+        storage_method,
+        response_code,
+        response_json=None,
+        response_text="",
+):
     """Patch storage client to throw an error."""
     class Response(object):
         status_code = response_code
-        text = json.dumps(response_json)
+        text = response_text
+
+        def json(_):
+            raise json.decoder.JSONDecodeError(msg="", doc="", pos=1)
+
+    error = HTTPStatusError(message="", request=object(), response=Response())
+    with patch.object(storage_service.storage_client, storage_method, side_effect=error):
+        yield
+
+
+@pytest.fixture
+def with_patched_storage_client_error_json_from_dependecy(
+        storage_service,
+        storage_method,
+        response_code,
+        response_json,
+        response_text="",
+):
+    """Patch storage client to throw an error."""
+    class Response(object):
+        status_code = response_code
+        text = response_text
         def json(_): return response_json
 
     error = HTTPStatusError(message="", request=object(), response=Response())
@@ -178,7 +213,12 @@ async def test_error_handler_get_record(
         await storage_service.get_record(record_id)
 
     assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
-    assert exc.value.detail == build_storage_service_exception_detail("retrieve")
+    reason = build_reason(
+        status_code=response_code,
+        reason_detail=build_storage_service_exception_detail("retrieve"),
+        message="",
+    )
+    assert exc.value.detail == reason
 
 
 @pytest.mark.parametrize(
@@ -204,7 +244,12 @@ async def test_error_handler_get_record_version(
         await storage_service.get_record(record_id, version)
 
     assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
-    assert exc.value.detail == build_storage_service_exception_detail("retrieve")
+    reason = build_reason(
+        status_code=response_code,
+        reason_detail=build_storage_service_exception_detail("retrieve"),
+        message="",
+    )
+    assert exc.value.detail == reason
 
 
 @pytest.mark.parametrize(
@@ -229,7 +274,12 @@ async def test_error_handler_soft_delete_record(
         await storage_service.soft_delete_record(record_id)
 
     assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
-    assert exc.value.detail == build_storage_service_exception_detail("delete")
+    reason = build_reason(
+        status_code=response_code,
+        reason_detail=build_storage_service_exception_detail("delete"),
+        message="",
+    )
+    assert exc.value.detail == reason
 
 
 @pytest.mark.parametrize(
@@ -251,7 +301,12 @@ async def test_error_handler_upsert_records(
         await storage_service.upsert_records([])
 
     assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
-    assert exc.value.detail == build_storage_service_exception_detail("upsert")
+    reason = build_reason(
+        status_code=response_code,
+        reason_detail=build_storage_service_exception_detail("upsert"),
+        message="",
+    )
+    assert exc.value.detail == reason
 
 
 @pytest.mark.parametrize(
@@ -275,4 +330,49 @@ async def test_error_handler_query_records(
         await storage_service.query_records([])
 
     assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
-    assert exc.value.detail == build_storage_service_exception_detail("query")
+    reason = build_reason(
+        status_code=response_code,
+        reason_detail=build_storage_service_exception_detail("query"),
+        message="",
+    )
+    assert exc.value.detail == reason
+
+
+@pytest.mark.parametrize(
+    "storage_method,response_code,response_json", [
+        ("get_latest_record", status.HTTP_500_INTERNAL_SERVER_ERROR, {"code": status.HTTP_500_INTERNAL_SERVER_ERROR}),
+        ("get_latest_record", status.HTTP_500_INTERNAL_SERVER_ERROR, {"code": status.HTTP_500_INTERNAL_SERVER_ERROR}),
+        (
+            "create_update_records", status.HTTP_500_INTERNAL_SERVER_ERROR,
+            {"code": status.HTTP_500_INTERNAL_SERVER_ERROR},
+        ),
+        ("soft_delete_record", status.HTTP_500_INTERNAL_SERVER_ERROR, {"code": status.HTTP_500_INTERNAL_SERVER_ERROR}),
+        ("query_records", status.HTTP_500_INTERNAL_SERVER_ERROR, {"code": status.HTTP_500_INTERNAL_SERVER_ERROR}),
+    ],
+)
+@pytest.mark.asyncio
+async def test_error_handler_message_from_service(
+    storage_method,
+    response_code,
+    response_json,
+    storage_service,
+    mock_record_client,
+    mock_user,
+    with_patched_storage_client_error_json_from_dependecy,
+):
+    record_id = "test-id"
+
+    with pytest.raises(OsduApiException) as exc:
+        if storage_method == "get_latest_record":
+            await storage_service.get_record(record_id)
+        if storage_method == "get_specific_record":
+            await storage_service.get_record(record_id, version=1)
+        if storage_method == "create_update_records":
+            await storage_service.upsert_records([])
+        if storage_method == "soft_delete_record":
+            await storage_service.soft_delete_record(record_id)
+        if storage_method == "query_records":
+            await storage_service.query_records([])
+
+    assert exc.value.status_code == status.HTTP_424_FAILED_DEPENDENCY
+    assert exc.value.detail == json.dumps(response_json)
