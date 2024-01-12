@@ -153,7 +153,7 @@ class BaseStorageRecordView:
 
     def _prepare_get_record_route(self) -> None:
         """Add api route for get_record."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id
@@ -176,7 +176,7 @@ class BaseStorageRecordView:
 
     def _prepare_get_record_versions_route(self) -> None:
         """Add api route for get_record_versions."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id
@@ -199,7 +199,7 @@ class BaseStorageRecordView:
 
     def _prepare_get_record_specific_version_route(self) -> None:
         """Add api route for get_record_specific_version."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id
@@ -250,7 +250,7 @@ class BaseStorageRecordView:
 
     def _prepare_soft_delete_record_route(self) -> None:
         """Add api route for soft_delete_record."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id

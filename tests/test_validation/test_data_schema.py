@@ -12,6 +12,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import io
+
 import pandas as pd
 import pytest
 
@@ -29,7 +31,7 @@ from tests.test_validation.test_data import (
 async def test_data_validator_success():
     mock_storage_service = StorageService(record_data=None)
     data_validator = DataValidator(TEST_SCHEMA, mock_storage_service, API_VERSION_V2)
-    test_df = pd.read_json(CORRECT_TEST_BULK_DATA, orient="split")
+    test_df = pd.read_json(io.StringIO(CORRECT_TEST_BULK_DATA), orient="split")
 
     errors = await data_validator.validate(test_df)
     assert not errors
@@ -39,7 +41,7 @@ async def test_data_validator_success():
 async def test_data_validator_fail():
     mock_storage_service = StorageService(record_data=None)
     data_validator = DataValidator(TEST_SCHEMA, mock_storage_service, API_VERSION_V2)
-    test_df = pd.read_json(INCORRECT_TEST_BULK_DATA, orient="split")
+    test_df = pd.read_json(io.StringIO(INCORRECT_TEST_BULK_DATA), orient="split")
 
     errors = await data_validator.validate(test_df)
     assert isinstance(errors, dict)

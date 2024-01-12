@@ -38,9 +38,13 @@ class WPCDatasetSourceView:
     ) -> None:
         """Init.
 
-        :param APIRouter router: The router to be added
-        :param str id_regex_str: the record id
-        :param Optional[str] specific_route_prefix: specific route type prefix, defaults to ""
+        :param router: The router to be added
+        :type router: APIRouter
+        :param id_regex_str: the record id regex
+        :type id_regex_str: str
+        :param specific_route_prefix: specific route type prefix,
+            defaults to ""
+        :type specific_route_prefix: Optional[str], optional
         """
         self._router = router
         self._id_regex_str = id_regex_str
@@ -58,9 +62,11 @@ class WPCDatasetSourceView:
 
         :param record_id: record id
         :type record_id: str
-        :param storage_service: storage service, defaults to Depends(get_async_storage_service)
+        :param storage_service: storage service, defaults to
+            Depends(get_async_storage_service)
         :type storage_service: dataset.DatasetService, optional
-        :param dataset_service: dataset service, defaults to Depends(get_async_dataset_service)
+        :param dataset_service: dataset service, defaults to
+            Depends(get_async_dataset_service)
         :type dataset_service: storage.StorageService, optional
         :param version: version, defaults to None
         :type version: Optional[str], optional
@@ -73,7 +79,7 @@ class WPCDatasetSourceView:
 
     def _prepare_get_source_data_route(self) -> None:
         """Add api route for get_source_data."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id

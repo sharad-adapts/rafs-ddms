@@ -104,11 +104,15 @@ from app.models.domain.osdu.WPCSTO100 import Data as STOData
 from app.models.domain.osdu.WPCSTO100 import StockTankOilAnalysisTest
 from app.models.domain.osdu.WPCSwellingTest100 import Data as SwellingData
 from app.models.domain.osdu.WPCSwellingTest100 import SwellingTest
-from app.models.domain.osdu.WPCTransportTest100 import Data as TransportTestData
+from app.models.domain.osdu.WPCTransportTest100 import (
+    Data as TransportTestData,
+)
 from app.models.domain.osdu.WPCTransportTest100 import TransportTest
 from app.models.domain.osdu.WPCVLE100 import Data as VLEData
 from app.models.domain.osdu.WPCVLE100 import VaporLiquidEquilibriumTest
-from app.models.domain.osdu.WPCWaterAnalysis100 import Data as WaterAnalysisData
+from app.models.domain.osdu.WPCWaterAnalysis100 import (
+    Data as WaterAnalysisData,
+)
 from app.models.domain.osdu.WPCWaterAnalysis100 import WaterAnalysisTest
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
 from app.resources.paths import CommonRelativePathsV2
@@ -119,6 +123,7 @@ class KindVersion:
     V_1_0_0: str = "1.0.0"
     V_1_1_0: str = "1.1.0"
     V_2_0_0: str = "2.0.0"
+
 
 TEST_SERVER = "http://testserver"
 TEST_HEADERS = {
@@ -808,7 +813,7 @@ class TestContentPathsApiV2:
     CEC_CONTENT = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.CEC_CONTENT}"
     ELECTRICAL_PROPERTIES = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.ELECTRICAL_PROPERTIES}"
     TRIAXIAL_TEST = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.TRIAXIAL_TEST}"
-    CAP_PRESSURE= f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.CAP_PRESSURE}"
+    CAP_PRESSURE = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.CAP_PRESSURE}"
     WETTABILITY_INDEX = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.WETTABILITY_INDEX}"
     TEC = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.TEC}"
     EDS_MAPPING = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.EDS_MAPPING}"

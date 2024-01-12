@@ -46,7 +46,8 @@ class APIResource(APIClient):
     def get_record_versions(self, record_id: str, **kwargs) -> dict:
         """Get the versions of a record.
 
-        :param record_id: The ID of the record to retrieve the versions for.
+        :param record_id: The ID of the record to retrieve the versions
+            for.
         :param kwargs: Additional keyword arguments.
         :return: The versions of the record.
         """

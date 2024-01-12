@@ -15,7 +15,11 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from redis.exceptions import AuthenticationError, ConnectionError, ResponseError
+from redis.exceptions import (
+    AuthenticationError,
+    ConnectionError,
+    ResponseError,
+)
 
 from app.core.helpers.cache.backends.redis_cache import RedisCacheBackend
 from app.core.helpers.cache.errors import CacheBackendError

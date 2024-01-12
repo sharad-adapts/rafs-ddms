@@ -45,7 +45,7 @@
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C13:"
             },
             "opendes:reference-data--FluidSaturantType:LabOil:",
-            {   
+            {
                 "Value": 0.835,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa.s:"
             },

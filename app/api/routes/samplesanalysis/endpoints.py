@@ -69,9 +69,13 @@ class SamplesAnalysisRecordView(BaseStorageRecordView):
         ) -> List[dict]:
             """Validate request records.
 
-            :param Annotated[List[OsduStorageRecord], Body request_records: request records,
-            :param storage.StorageService storage_service: storage service instance,
-            :return List[dict]: validated records
+            :param request_records: request records
+            :type request_records: List[OsduStorageRecord]
+            :param storage_service: storage service instance, defaults
+                  to Depends(get_async_storage_service)
+            :type storage_service: storage.StorageService, optional
+            :return: validated records
+            :rtype: List[dict]
             """
             return await self._validate_records_payload(request_records, storage_service)
 

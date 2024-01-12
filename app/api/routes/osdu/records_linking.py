@@ -29,6 +29,34 @@ from app.models.schemas.osdu_storage import StorageUpsertResponse
 from app.services.storage import StorageService
 
 
+def validate_parent_record(parent_record: dict, parent_model: BaseModel):
+    """Validates a record given a model.
+
+    :param parent_record: parent record
+    :type parent_record: dict
+    :param parent_model: parent model
+    :type parent_model: BaseModel
+    :raises HTTPException: when parent record is invalid
+    """
+    try:
+        parent_model.validate(parent_record)
+        parent_record_size = len(parent_record)
+        logger.info(f"{parent_record_size} Parent records are valid.")
+    except ValidationError as val_error:
+        details = []
+        for error in val_error.errors():
+            error_field = ".".join(map(str, error["loc"]))
+            error_msg = error["msg"]
+            error_detail = f"{error_field}: {error_msg}"
+            details.append(error_detail)
+        reason = f"Parent record is invalid. {details}"
+        logger.debug(reason)
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=reason,
+        )
+
+
 async def get_parent_records(
     storage_service: StorageService,
     records: list,
@@ -68,23 +96,7 @@ async def get_parent_records(
     logger.info(f"Parent records have been found: {parent_records_size}")
 
     for parent_record in parent_records:
-        try:
-            parent_model.validate(parent_record)
-            parent_record_size = len(parent_record)
-            logger.info(f"{parent_record_size} Parent records are valid.")
-        except ValidationError as val_error:
-            details = []
-            for error in val_error.errors():
-                error_field = ".".join(map(str, error["loc"]))
-                error_msg = error["msg"]
-                error_detail = f"{error_field}: {error_msg}"
-                details.append(error_detail)
-            reason = f"Parent record is invalid. {details}"
-            logger.debug(reason)
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail=reason,
-            )
+        validate_parent_record(parent_record, parent_model)
 
     logger.debug(f"Map parent_id-child_record: {parent_id_child_record_map}")
     return parent_id_child_record_map, parent_records
@@ -102,7 +114,8 @@ async def link_to_parent(
     :type storage_service: StorageService
     :param child_id_field: child id field name
     :type child_id_field: str
-    :param parent_id_child_id_map: parent records ids with list of connected child ids
+    :param parent_id_child_id_map: parent records ids with list of
+        connected child ids
     :type parent_id_child_id_map: dict
     :param parent_records: parent records
     :type parent_records: list

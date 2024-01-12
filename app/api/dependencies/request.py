@@ -56,8 +56,10 @@ def validate_content_type(request: Request, supported_types: List[str]) -> None:
     :type request: Request
     :param supported_types: list of suppported mime types
     :type supported_types: List[str]
-    :raises exceptions.InvalidHeaderException: if content type was not provided
-    :raises exceptions.InvalidHeaderException: if content type is not supported
+    :raises exceptions.InvalidHeaderException: if content type was not
+        provided
+    :raises exceptions.InvalidHeaderException: if content type is not
+        supported
     """
     try:
         content_type = request.headers[CONTENT_TYPE]
@@ -82,8 +84,10 @@ def validate_bulkdata_content_type(request: Request) -> None:
 
     :param request: request
     :type request: Request
-    :raises exceptions.InvalidHeaderException: if content type was not provided
-    :raises exceptions.InvalidHeaderException: if content type is not supported
+    :raises exceptions.InvalidHeaderException: if content type was not
+        provided
+    :raises exceptions.InvalidHeaderException: if content type is not
+        supported
     """
     supported_types = [
         SupportedMimeTypes.JSON.mime_type,
@@ -97,8 +101,10 @@ def validate_json_content_type(request: Request) -> None:
 
     :param request: request
     :type request: Request
-    :raises exceptions.InvalidHeaderException: if content type was not provided
-    :raises exceptions.InvalidHeaderException: if content type is not supported
+    :raises exceptions.InvalidHeaderException: if content type was not
+        provided
+    :raises exceptions.InvalidHeaderException: if content type is not
+        supported
     """
     supported_types = [SupportedMimeTypes.JSON.mime_type]
     validate_content_type(request=request, supported_types=supported_types)
@@ -109,7 +115,8 @@ async def get_content_schema_version(request: Request) -> str:
 
     :param request: request
     :type request: Request
-    :raises exceptions.InvalidHeaderException: if schema version hasn't been provided or schema format is invalid
+    :raises exceptions.InvalidHeaderException: if schema version hasn't
+        been provided or schema format is invalid
     :return: schema version
     :rtype: str
     """

@@ -14,7 +14,9 @@
 
 from fastapi import APIRouter
 
-from app.api.dependencies.validation import validate_master_data_records_payload
+from app.api.dependencies.validation import (
+    validate_master_data_records_payload,
+)
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.records import parse_kind
 from app.models.domain.osdu.base import MASTER_DATA_KINDS_V2

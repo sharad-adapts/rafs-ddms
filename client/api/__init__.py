@@ -31,7 +31,9 @@ from client.api.core.v1.pvt import PVTCore
 from client.api.core.v1.relative_permeability import RelativePermeabilityCore
 from client.api.core.v1.rock_sample import RockSampleCore
 from client.api.core.v1.rock_sample_analysis import RSACore
-from client.api.core.v1.samples_analyses_report import SamplesAnalysesReportCore
+from client.api.core.v1.samples_analyses_report import (
+    SamplesAnalysesReportCore,
+)
 from client.api.core.v1.slim_tube import SlimTubeCore
 from client.api.core.v1.stock_tank_oil_analysis import StockTankOilAnalysisCore
 from client.api.core.v1.swelling_test import SwellingTestCore

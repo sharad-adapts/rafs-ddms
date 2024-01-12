@@ -15,7 +15,11 @@
 from fastapi_cache.backends.redis import RedisBackend
 from loguru import logger
 from redis.asyncio.client import Redis
-from redis.exceptions import AuthenticationError, ConnectionError, ResponseError
+from redis.exceptions import (
+    AuthenticationError,
+    ConnectionError,
+    ResponseError,
+)
 
 from app.core.helpers.cache.backends.base_cache import BaseCacheBackend
 from app.core.helpers.cache.config import RedisCacheConfig

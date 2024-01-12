@@ -18,7 +18,7 @@ import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
-    TEST_SAMPLESANALYSIS_ID
+    TEST_SAMPLESANALYSIS_ID,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))

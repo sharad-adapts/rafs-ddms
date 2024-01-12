@@ -53,8 +53,10 @@ def handle_core_services_http_status_error(expected_codes: list[int], detail: st
     :type expected_codes: list
     :param detail: error details
     :type detail: str
-    :raises OsduApiException: when error from OSDU service has unexpected status code
-    :raises status_error.response.raise_for_status: if status code is expected
+    :raises OsduApiException: when error from OSDU service has
+        unexpected status code
+    :raises status_error.response.raise_for_status: if status code is
+        expected
     """
     def decorator(func):
         @functools.wraps(func)
