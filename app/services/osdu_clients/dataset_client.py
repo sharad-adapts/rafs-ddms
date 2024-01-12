@@ -65,7 +65,8 @@ class DatasetServiceApiClient(object):
 
         :param kind_subtype: kind subtype
         :type kind_subtype: str
-        :return: instructions with unsigned and signed URL for the uploading file
+        :return: instructions with unsigned and signed URL for the
+            uploading file
         :rtype: dict
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
@@ -82,7 +83,8 @@ class DatasetServiceApiClient(object):
 
         :param kind_subtype: kind subtype
         :type kind_subtype: str
-        :return: instructions with unsigned and signed URL for the uploading file
+        :return: instructions with unsigned and signed URL for the
+            uploading file
         :rtype: dict
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
@@ -97,9 +99,11 @@ class DatasetServiceApiClient(object):
     async def retrieval_instructions(self, dataset_ids: List[str]) -> dict:
         """Get retrieval instructions for a list of datasets to download.
 
-        :param dataset_ids: the list of dataset ids to get the retrieval instructions for
+        :param dataset_ids: the list of dataset ids to get the retrieval
+            instructions for
         :type dataset_ids: List[str]
-        :return: instructions with unsigned and signed URL to download the dataset file sources
+        :return: instructions with unsigned and signed URL to download
+            the dataset file sources
         :rtype: dict
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
@@ -119,9 +123,11 @@ class DatasetServiceApiClient(object):
     async def get_retrieval_instructions(self, dataset_id: str) -> dict:
         """Get retrieval instructions for a dataset to download.
 
-        :param dataset_id: the dataset id to get the retrieval instructions for
+        :param dataset_id: the dataset id to get the retrieval
+            instructions for
         :type dataset_ids: str
-        :return: instructions with unsigned and signed URL to download the dataset file source
+        :return: instructions with unsigned and signed URL to download
+            the dataset file source
         :rtype: dict
         """
         async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:

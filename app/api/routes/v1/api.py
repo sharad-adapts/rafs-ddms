@@ -42,7 +42,9 @@ from app.api.routes.v1.pvt import api as pvt_api
 from app.api.routes.v1.relativepermeability import (
     api as relative_permeability_api,
 )
-from app.api.routes.v1.rockcompressibility import api as rockcompressibility_api
+from app.api.routes.v1.rockcompressibility import (
+    api as rockcompressibility_api,
+)
 from app.api.routes.v1.rocksampleanalysis import api as rocksampleanalysis_api
 from app.api.routes.v1.slimtubetest import api as slimtubetest_api
 from app.api.routes.v1.sto import api as sto_api

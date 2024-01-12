@@ -15,7 +15,9 @@
 from fastapi import APIRouter, Depends
 
 from app.api.dependencies.request import require_data_partition_id
-from app.api.routes.samplesanalysesreport import api as sampleanalysesreport_api
+from app.api.routes.samplesanalysesreport import (
+    api as sampleanalysesreport_api,
+)
 from app.api.routes.samplesanalysis import api as sampleanalysis_api
 from app.api.routes.v2.master_data import api as masterdata_api
 

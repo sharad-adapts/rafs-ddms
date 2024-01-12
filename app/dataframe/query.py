@@ -39,8 +39,10 @@ class PandasDFQueryBase:
     def project(self, columns: Optional[List[str]] = None) -> "PandasDFQueryBase":
         """Project given columns over DataFrame.
 
-        :param Optional[List[str]] columns: list of columns to project, defaults to None
-        :return PandasDFQueryBase: an updated PandasDFQueryBase object
+        :param columns: list of columns to project, defaults to None
+        :type columns: Optional[List[str]], optional
+        :return: an updated PandasDFQueryBase object
+        :rtype: PandasDFQueryBase
         """
         df_query = self
         if columns:
@@ -50,11 +52,16 @@ class PandasDFQueryBase:
     def select(self, column: str, op_type: str, comp_val: Any, field: Optional[str] = None) -> "PandasDFQueryBase":
         """Select (filter) rows given a condition.
 
-        :param str column: the column name
-        :param str op_type: the operator type
-        :param Any comp_val: the comparison value
-        :param Optional[str] field: an optional field of the column, defaults to None
-        :return PandasDFQueryBase: an updated PandasDFQueryBase object
+        :param column: the column name
+        :type column: str
+        :param op_type: the operator type
+        :type op_type: str
+        :param comp_val: the comparison value
+        :type comp_val: Any
+        :param field: an optional field of the column, defaults to None
+        :type field: Optional[str], optional
+        :return: an updated PandasDFQueryBase object
+        :rtype: PandasDFQueryBase
         """
         operator_types = {
             "=": operator.eq,
@@ -78,10 +85,14 @@ class PandasDFQueryBase:
     def aggregate(self, column: str, agg_func: str, field: Optional[str] = None) -> "PandasDFQueryBase":
         """Aggregate DataFrame column based on an operator function.
 
-        :param str column: the column name
-        :param str operator: the operator function name
-        :param Optional[str] field: an optional field of the column, defaults to None
-        :return PandasDFQueryBase: an updated PandasDFQueryBase object
+        :param column: the column name
+        :type column: str
+        :param agg_func: the operator function name
+        :type agg_func: str
+        :param field: an optional field of the column, defaults to None
+        :type field: Optional[str], optional
+        :return: an updated PandasDFQueryBase object
+        :rtype: PandasDFQueryBase
         """
         df_col = self.df[column]
 

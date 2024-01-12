@@ -108,15 +108,16 @@ class DataFrameFilterValidator:
         try:
             match val_type:
                 case "integer":
-                    return int(comp_value)
+                    validated_value = int(comp_value)
                 case "number":
-                    return float(comp_value)
+                    validated_value = float(comp_value)
                 case "boolean":
-                    return comp_value.lower() == "true"
+                    validated_value = comp_value.lower() == "true"
                 case "string":
-                    return str(comp_value)
+                    validated_value = str(comp_value)
                 case _:
                     raise FilterValidationError(f"Filter not supported on {val_type}")
+            return validated_value
         except ValueError as exc:
             raise FilterValidationError(exc)
 

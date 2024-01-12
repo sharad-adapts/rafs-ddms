@@ -90,11 +90,18 @@ class APIClient(object):
         raise AssertionError(f"{response_error}{response_body}{response_url}{response_headers}")
 
     def _base_request(self, path: str, method: str, allowed_codes: List[int], **kwargs) -> requests.Response:
-        """
-        Universal API request sending
-        :param method: api method type (get, post, etc.)
+        """Universal API request sending :param method: api method type
+        (get,post, etc.)
+
+        :param path: path
+        :type path: str
+        :param method: method
+        :type method: str
         :param allowed_codes: expected status codes
-        :param kwargs: additional request params
+        :type allowed_codes: List[int]
+        :raises APIException: API Exception
+        :return: response
+        :rtype: requests.Response
         """
         headers = self._build_headers(kwargs)
 
@@ -118,15 +125,23 @@ class APIClient(object):
         path: str,
         **kwargs,
     ) -> requests.Response:
-        """
-        Resending API request if API error
+        """Resending API request if API error.
+
         :param method: API method
+        :type method: str
         :param path: path of the endpoint
+        :type path: str
         :param allowed_codes: available response codes
+        :type allowed_codes: list
         :param retry_attempts: limit of sending retries
+        :type retry_attempts: int
         :param retry_delay: seconds between sending
+        :type retry_delay: int
         :param kwargs: additional request params
+        :type kwargs: dict
+        :raises APIException: API Exception
         :return: response
+        :rtype: requests.Response
         """
         allowed_codes = [status.HTTP_200_OK]
         if kwargs.get("allowed_codes"):
