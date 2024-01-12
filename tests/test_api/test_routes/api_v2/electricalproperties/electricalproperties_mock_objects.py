@@ -113,5 +113,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting WaterSaturationOverResistivityIndex in index row 0
-EXPECTED_ERROR_REASON = "Data error: 22 columns passed, passed data had 21 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Frequency in index row 0
+EXPECTED_ERROR_REASON = "Data error: 25 columns passed, passed data had 24 columns"

@@ -42,5 +42,17 @@
         {
             "Value": 4
         }
-    ]
+    ],
+    "Temperature": {
+        "Value": 90,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+    },
+    "NetConfiningStress": {
+        "Value": 1000,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+    },
+    "Frequency": {
+        "Value": 100,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Hz:"
+    }
 }
