@@ -258,7 +258,7 @@ def with_patched_storage_query_pvt_invalid_200():
 
 
 @pytest.fixture()
-def with_patched_storage_samplesanalysis_missing_parent():
+def with_patched_storage_samplesanalysis_missing_reference():
     """Patch storage to return missing SamplesAnalysesReport record ID."""
     return_value = {
         "records": [],
@@ -1056,16 +1056,12 @@ async def test_post_record_success_update_pvt_parent(
             f"{API_VERSION}/formationresistivityindexes",
             SAMPLESANALYSIS_RECORD_V1,
         ),
-        (
-            f"{API_VERSION_V2}/samplesanalysis",
-            storage_mock_objects.SAMPLESANALYSIS_RECORD_V2,
-        ),
     ],
 )
 async def test_post_samplesanalysis_with_missing_parent(
     path,
     osdu_record,
-    with_patched_storage_samplesanalysis_missing_parent,
+    with_patched_storage_samplesanalysis_missing_reference,
 ):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
@@ -1078,6 +1074,48 @@ async def test_post_samplesanalysis_with_missing_parent(
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
     result_json = response.json()
     assert result_json == EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record,checked_fields",
+    [
+        (
+            f"{API_VERSION_V2}/samplesanalysis",
+            storage_mock_objects.SAMPLESANALYSIS_RECORD_V2,
+            ["ParentSamplesAnalysesReports", "SampleAnalysisTypeIDs"],
+        ),
+        (
+            f"{API_VERSION_V2}/samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
+            ["SampleAnalysisTypeIDs"],
+        ),
+    ],
+)
+async def test_post_samplesanalysis_with_missing_reference(
+    path,
+    osdu_record,
+    checked_fields,
+    with_patched_storage_samplesanalysis_missing_reference,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    title = "Request can't be processed due to missing referenced records."
+    detail = f"Fields checked: {checked_fields}. Records not found: ['{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}']"
+    expected_response = {
+        "code": 422,
+        "reason": f"{title} {detail}",
+    }
+
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    result_json = response.json()
+    assert result_json == expected_response
 
 
 @pytest.mark.asyncio

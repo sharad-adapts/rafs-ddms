@@ -40,6 +40,7 @@ from app.resources.paths import COMMON_RELATIVE_PATHS
 from app.services.storage import StorageService
 
 SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
+SAMPLESANALYSIS_TYPE_RECORD_FIELD = "SampleAnalysisTypeIDs"
 
 Model = TypeVar("Model", bound=BaseModel)
 
@@ -209,15 +210,15 @@ async def validate_records_payload(records_list: List[OsduStorageRecord], valid_
     return validated
 
 
-async def validate_coring_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_coring_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.CORING_100_KIND])
 
 
-async def validate_rocksample_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_rocksample_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.ROCKSAMPLE_100_KIND])
 
 
-async def validate_rocksampleanalysis_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_rocksampleanalysis_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.ROCKSAMPLEANALYSIS_KIND])
 
 
@@ -230,64 +231,69 @@ async def validate_pvt_records_payload(
     return records
 
 
-async def validate_cce_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_cce_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.CCE_KIND])
 
 
-async def validate_dif_lib_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_dif_lib_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.DIF_LIB_KIND])
 
 
-async def validate_transport_test_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_transport_test_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.TRANSPORT_TEST_KIND])
 
 
-async def validate_com_analysis_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_com_analysis_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.COMPOSITIONAL_ANALYSIS_KIND])
 
 
-async def validate_mss_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_mss_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.MSS_KIND])
 
 
-async def validate_swelling_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_swelling_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.SWELLING_KIND])
 
 
-async def validate_cvd_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_cvd_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.CVD_KIND])
 
 
-async def validate_wateranalysis_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_wateranalysis_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.WATER_ANALYSYS_KIND])
 
 
-async def validate_sto_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_sto_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.STO_KIND])
 
 
-async def validate_interfacialtension_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_interfacialtension_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.INTERFACIAL_TENSION_KIND])
 
 
-async def validate_vle_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_vle_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.VLE_KIND])
 
 
-async def validate_mcm_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_mcm_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.MCM_KIND])
 
 
-async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRecord]):
+async def validate_slimtubetest_records_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.SLIMTUBETEST_KIND])
 
 
-async def validate_samples_analyses_report_v1_payload(records_list: List[OsduStorageRecord]):
+async def validate_samples_analyses_report_v1_payload(records_list: List[OsduStorageRecord], **kwargs):
     return await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_V1_KIND])
 
 
-async def validate_samples_analyses_report_v2_payload(records_list: List[OsduStorageRecord]):
-    return await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND])
+async def validate_samples_analyses_report_v2_payload(
+    records_list: List[OsduStorageRecord],
+    storage_service: StorageService = Depends(get_async_storage_service),
+):
+    records = await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND])
+    await validate_referential_integrity(records, [SAMPLESANALYSIS_TYPE_RECORD_FIELD], storage_service)
+    return records
 
 
 async def validate_samplesanalysis_records_v1_payload(
@@ -304,11 +310,13 @@ async def validate_samplesanalysis_records_v2_payload(
     storage_service: StorageService = Depends(get_async_storage_service),
 ):
     records = await validate_records_payload(records_list, [osdu_models_base.SAMPLESANALYSIS_KIND])
-    await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
+    await validate_referential_integrity(
+        records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD, SAMPLESANALYSIS_TYPE_RECORD_FIELD], storage_service,
+    )
     return records
 
 
-async def validate_master_data_records_payload(records_list: List[OsduStorageRecord]) -> List[dict]:
+async def validate_master_data_records_payload(records_list: List[OsduStorageRecord], **kwargs) -> List[dict]:
     return await validate_records_payload(records_list, osdu_models_base.MASTER_DATA_KINDS_V2)
 
 

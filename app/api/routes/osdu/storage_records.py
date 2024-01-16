@@ -222,15 +222,21 @@ class BaseStorageRecordView:
 
     def _prepare_post_records_route(self) -> None:
         """Add api route for post_records."""
-        async def validate_request_records(request_records: List[OsduStorageRecord]) -> List[dict]:
+        async def validate_request_records(
+            request_records: List[OsduStorageRecord],
+            storage_service: storage.StorageService = Depends(get_async_storage_service),
+        ) -> List[dict]:
             """Validate request records.
 
             :param request_records: request records
             :type request_records: List[OsduStorageRecord]
+            :param storage_service: storage service instance, defaults
+                  to Depends(get_async_storage_service)
+            :type storage_service: storage.StorageService, optional
             :return: validated records
             :rtype: List[dict]
             """
-            return await self._validate_records_payload(request_records)
+            return await self._validate_records_payload(request_records, storage_service=storage_service)
 
         self._router.add_api_route(
             path="",
