@@ -39,3 +39,5 @@ wemake_python_styleguide==0.17.0
 pylint==2.16.2
 flake8==4.0.1
 flake8-fixme==1.1.1
+flake8-functions==0.0.8
+flake8-cognitive-complexity==0.1.0

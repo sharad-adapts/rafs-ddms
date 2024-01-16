@@ -54,7 +54,6 @@ from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
-from app.core.settings.app import AppSettings
 from app.dataframe.parquet_filter import apply_filters
 from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
@@ -117,7 +116,7 @@ class BaseDataView:
         dataset_id: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
-        sql_filter: DataFrameFilterValidator = Depends(validate_filters),
+        df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
         """Get record data.
@@ -132,8 +131,8 @@ class BaseDataView:
         :type dataset_service: dataset.DatasetService
         :param storage_service: storage service
         :type storage_service: storage.StorageService
-        :param sql_filter: sql filter validator
-        :type sql_filter: SQLFilterValidator
+        :param df_filter: dataframe filter validator
+        :type df_filter: DataFrameFilterValidator
         :return: dataset data
         :rtype: Response
         """
@@ -143,7 +142,7 @@ class BaseDataView:
             dataset_id,
             dataset_service,
             storage_service,
-            sql_filter,
+            df_filter,
             content_schema_version,
         )
 
@@ -151,7 +150,6 @@ class BaseDataView:
         self,
         request: Request,
         record_id: str,
-        settings: AppSettings = Depends(get_app_settings),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         model: BaseModel = Depends(get_data_model),
@@ -169,9 +167,12 @@ class BaseDataView:
         :type dataset_service: dataset.DatasetService
         :param model: pydantic model for validation
         :type model: BaseModel
-        :raises exceptions.InvalidDatasetException: if data impossible to read
-        :raises exceptions.DataValidationException: if data does not match pydantic model
-        :raises exceptions.InvalidDatasetException: if data impossible to convert to parquet
+        :raises exceptions.InvalidDatasetException: if data impossible
+            to read
+        :raises exceptions.DataValidationException: if data does not
+            match pydantic model
+        :raises exceptions.InvalidDatasetException: if data impossible
+            to convert to parquet
         :return: upserted records ids
         :rtype: dict
         """
@@ -187,7 +188,6 @@ class BaseDataView:
             self._bulk_dataset_prefix,
             content_schema_version,
             api_version,
-            settings,
             dataset_service,
             storage_service,
         )
@@ -270,8 +270,10 @@ class BaseDataView:
         :type model: BaseModel
         :param storage_service: storage service instance
         :type storage_service: storage.StorageService
-        :raises exceptions.InvalidDatasetException: when is not possible to convert to parquet
-        :raises exceptions.DataValidationException: when validation fails
+        :raises exceptions.InvalidDatasetException: when is not possible
+            to convert to parquet
+        :raises exceptions.DataValidationException: when validation
+            fails
         :return: validated parquet file
         :rtype: bytes
         """
@@ -280,14 +282,6 @@ class BaseDataView:
 
         data_schema = build_data_schema(model)
         data_validator = DataValidator(data_schema, storage_service, api_version)
-
-        error_case_to_message = {
-            "column_in_schema": "Invalid parameters",
-            "column_in_dataframe": "Mandatory parameters missing",
-            "invalid_type": "Invalid type",
-            "invalid_value": "Invalid value",
-            "missing_records": "Missing records in storage",
-        }
 
         parquet_file = None
 
@@ -311,23 +305,8 @@ class BaseDataView:
         logger.info(f"Data has been read from {mime_type} format")
 
         errors = await data_validator.validate(df)
-
         if errors:
-            errors_desc = {}
-            unknown_errors = []
-
-            for case, columns in errors.items():
-                if error_case_to_message.get(case):
-                    errors_desc.update({error_case_to_message.get(case): columns})
-                else:
-                    unknown_errors = [*unknown_errors, *columns]
-
-            if unknown_errors:
-                errors_desc.update({"Unknown errors": unknown_errors})
-
-            reason = "Data validation failed."
-            logger.debug(f"{reason} {errors_desc}")
-            raise exceptions.DataValidationException(errors=errors_desc, detail=reason)
+            self._handle_errors(errors)
 
         if not parquet_file:
             try:
@@ -349,7 +328,6 @@ class BaseDataView:
         bulk_dataset_prefix: str,
         content_schema_version: str,
         api_version: str,
-        settings: AppSettings,
         dataset_service: dataset.DatasetService,
         storage_service: storage.StorageService,
     ) -> dict:
@@ -362,14 +340,13 @@ class BaseDataView:
         :type record_id: str
         :param parquet_file: the parquet file to store
         :type parquet_file: bytes
-        :param bulk_dataset_prefix: the prefix of the bulk data (aka content data)
+        :param bulk_dataset_prefix: the prefix of the bulk data (aka
+            content data)
         :type bulk_dataset_prefix: str
         :param content_schema_version: the content schema version
         :type content_schema_version: str
         :param api_version: the api version
         :type api_version: str
-        :param settings: app settings
-        :type settings: AppSettings
         :param dataset_service: dataset service instance
         :type dataset_service: dataset.DatasetService
         :param storage_service: storage service instance
@@ -379,6 +356,7 @@ class BaseDataView:
         """
         record = await storage_service.get_record(record_id)
         data_partition_id = request.headers["data-partition-id"]
+        settings = get_app_settings()
 
         # Removing hyphens "-" as they are not supported in register service
         entity_type = bulk_dataset_prefix.replace("-", "")
@@ -434,7 +412,8 @@ class BaseDataView:
         :type ddms_datasets: List[str]
         :param dataset_id: dataset id
         :type dataset_id: str
-        :raises exceptions.InvalidHeaderException: if client schema version is improper
+        :raises exceptions.InvalidHeaderException: if client schema
+            version is improper
         """
         schema_versions = find_schema_versions_for_dataset_id(ddms_datasets, dataset_id)
         if content_schema_version not in schema_versions:
@@ -444,11 +423,43 @@ class BaseDataView:
             logger.debug(reason)
             raise exceptions.InvalidHeaderException(detail=reason)
 
+    def _handle_errors(self, errors: dict):
+        """Handle validation errors.
+
+        :param errors: errors as dict
+        :type errors: dict
+        :raises exceptions.DataValidationException: when there are
+            validation errors
+        """
+        error_case_to_message = {
+            "column_in_schema": "Invalid parameters",
+            "column_in_dataframe": "Mandatory parameters missing",
+            "invalid_type": "Invalid type",
+            "invalid_value": "Invalid value",
+            "missing_records": "Missing records in storage",
+        }
+
+        errors_desc = {}
+        unknown_errors = []
+
+        for case, columns in errors.items():
+            if error_case_to_message.get(case):
+                errors_desc.update({error_case_to_message.get(case): columns})
+            else:
+                unknown_errors = [*unknown_errors, *columns]
+
+        if unknown_errors:
+            errors_desc.update({"Unknown errors": unknown_errors})
+
+        reason = "Data validation failed."
+        logger.debug(f"{reason} {errors_desc}")
+        raise exceptions.DataValidationException(errors=errors_desc, detail=reason)
+
     def _prepare_get_data_route(self) -> None:
         """Add api route for get_data."""
         bulk_dataset_regex = self.bulk_dataset_regex.format(bulk_dataset_prefix=self._bulk_dataset_prefix)
 
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id
@@ -458,7 +469,7 @@ class BaseDataView:
             """
             return record_id
 
-        async def validate_dataset_id(dataset_id: str = Path(default=..., regex=bulk_dataset_regex)) -> str:
+        async def validate_dataset_id(dataset_id: str = Path(default=..., pattern=bulk_dataset_regex)) -> str:
             """Validate if dataset id matches regex.
 
             :param dataset_id: dataset id
@@ -483,7 +494,7 @@ class BaseDataView:
 
     def _prepare_post_data_route(self) -> None:
         """Add api route for post_data."""
-        async def validate_record_id(record_id: str = Path(default=..., regex=self._id_regex_str)) -> str:
+        async def validate_record_id(record_id: str = Path(default=..., pattern=self._id_regex_str)) -> str:
             """Validate if record id matches regex.
 
             :param record_id: record id

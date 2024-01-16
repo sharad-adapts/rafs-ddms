@@ -44,32 +44,35 @@ SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
 Model = TypeVar("Model", bound=BaseModel)
 
 
+def get_id(id_data):  # noqa: CCR001
+    """Generator to get record ids from different record data field values."""
+    if isinstance(id_data, str):
+        yield id_data
+    elif isinstance(id_data, Iterable):
+        if isinstance(id_data, dict):
+            for id_value in id_data.values():
+                yield from get_id(id_value)
+        elif isinstance(id_data, list):
+            for element in id_data:
+                yield from get_id(element)
+        else:
+            yield from id_data
+
+
 async def get_all_ids_from_records(
     records: List[dict],
     fields: List[str],
 ) -> List[str]:
     """Get the list of all ids in the records fields.
 
-    :param List[dict] records: list of records
-    :param List[str] fields: list of fields to collect
+    :param records: list of records
+    :type records: List[dict]
+    :param fields: list of fields to collect
+    :type fields: List[str]
     :return: list of ids
+    :rtype: List[str]
     """
     ids_list = []
-
-    def get_id(id_data):
-        """Generator to get record ids from different record data field
-        values."""
-        if isinstance(id_data, str):
-            yield id_data
-        elif isinstance(id_data, Iterable):
-            if isinstance(id_data, dict):
-                for id_value in id_data.values():
-                    yield from get_id(id_value)
-            elif isinstance(id_data, list):
-                for element in id_data:
-                    yield from get_id(element)
-            else:
-                yield from id_data
 
     for record in records:
         for field in fields:
@@ -85,10 +88,14 @@ async def validate_referential_integrity(
 ):
     """Performs referential integrity validation.
 
-    :param List[dict] records: list of records to validate
-    :param List[str] fields: list of fields to validate
-    :param StorageService storage_service: the storage service instance
-    :raises HTTPException: Status 422 if any of the references is not found.
+    :param records: list of records to validate
+    :type records: List[dict]
+    :param fields: list of fields to validate
+    :type fields: List[str]
+    :param storage_service: the storage service instance
+    :type storage_service: StorageService
+    :raises HTTPException: Status 422 if any of the references is not
+        found
     """
     all_test_ids = await get_all_ids_from_records(records, fields)
 
@@ -112,9 +119,12 @@ async def validate_referential_integrity(
 def validate_kind(kind: str, valid_kinds: List[str]):
     """Validates kind against supported kinds in given endpoint.
 
-    :param str kind: the kind to be validated
-    :param List[str] valid_kinds: supported kinds
-    :raises RuntimeError: If there is no kind that matches supported kinds
+    :param kind: the kind to be validated
+    :type kind: str
+    :param valid_kinds: supported kinds
+    :type valid_kinds: List[str]
+    :raises RuntimeError: If there is no kind that matches supported
+        kinds
     """
     if kind not in valid_kinds:
         raise RuntimeError(
@@ -125,10 +135,13 @@ def validate_kind(kind: str, valid_kinds: List[str]):
 def validate_record_model(record: dict, kind: str):
     """Validates given record against Osdu Model.
 
-    :param dict record: record
-    :param str kind: kind
+    :param record: record
+    :type record: dict
+    :param kind: kind
+    :type kind: str
     :raises RuntimeError: if there is not an Osdu Model that matches
-    :raises ValidationError: if matches Osdu Model but it's not compliant
+    :raises ValidationError: if matches Osdu Model but it's not
+        compliant
     """
     osdu_model = osdu_models_base.IMPLEMENTED_MODELS.get(kind)  # type Model
     if not osdu_model:
@@ -139,10 +152,14 @@ def validate_record_model(record: dict, kind: str):
 def validate_record(record: dict, valid_kinds: List[str]):
     """Validates given record.
 
-    :param dict record: record
-    :param List[str] valid_kinds: list of valid kinds for given endpoint
-    :raises RuntimeError: if custom validation fails or there is not Osdu Model implemented
-    :raises ValidationError: if matches Osdu Model but it's not compliant with schema
+    :param record: record
+    :type record: dict
+    :param valid_kinds: list of valid kinds for given endpoin
+    :type valid_kinds: List[str]
+    :raises RuntimeError: if custom validation fails or there is not
+        Osdu Model implemented
+    :raises ValidationError: if matches Osdu Model but it's not
+        compliant with schema
     """
     kind = record.get("kind")
     validate_kind(kind, valid_kinds)
@@ -161,10 +178,15 @@ def build_skipped_record_error(record: dict, index: int, error: Exception):
 async def validate_records_payload(records_list: List[OsduStorageRecord], valid_kinds: List[str]) -> List[dict]:
     """Validates request payload.
 
-    :param List[OsduStorageRecord] records_list: records_list
-    :param List[str] valid_kinds: list of valid kinds for given endpoint
-    :raises HTTPException: raises 422 if exceptions are found
-    :return List[dict]: returns the list of validated records
+    :param records_list: records list
+    :type records_list: List[OsduStorageRecord]
+    :param valid_kinds: list of valid (supported) kinds for given
+        endpoint
+    :type valid_kinds: List[str]
+    :raises RecordValidationException: raises 422 if exceptions are
+        found
+    :return: returns the list of validated records
+    :rtype: List[dict]
     """
     validated = []
     skipped = []
@@ -295,10 +317,13 @@ async def get_data_model(request: Request, content_schema_version: str = Depends
 
     :param request: request object
     :type request: Request
-    :param content_schema_version: version obtained from header, defaults to Depends(retrieve_schema_version)
+    :param content_schema_version: version obtained from header,
+        defaults to Depends(retrieve_schema_version)
     :type content_schema_version: str, optional
-    :raises BadRequestException: if model is not implemented for given version
-    :raises HTTPException: if model is not implemented neither for path nor version
+    :raises BadRequestException: if model is not implemented for given
+        version
+    :raises HTTPException: if model is not implemented neither for path
+        nor version
     :return: The corresponding data model according to path and version
     :rtype: Model
     """
@@ -347,11 +372,22 @@ async def validate_filters(
 ) -> DataFrameFilterValidator:
     """Validates query parameters used for dataframe filtering.
 
-    :param BaseModel model: pydantic model
-    :param Optional[str] columns_filter: comma separated string of columns, defaults to None
-    :param Optional[str] rows_filter: comma separated predicate, defaults to None
-    :param Optional[str] columns_aggregation: comma separated aggregation, defaults to None
-    :return SQLFilter: filter object with validations
+    :param model: pydantic model, defaults to Depends(get_data_model)
+    :type model: BaseModel, optional
+    :param columns_filter: comma separated string of columns, defaults
+        to Query( default=None, example="PropertyX,PropertyY,PropertyZ",
+        )
+    :type columns_filter: Optional[str], optional
+    :param rows_filter: comma separated predicate, defaults to Query(
+        default=None, example="PropertyX[.PropertyXFieldA],gt,4000", )
+    :type rows_filter: Optional[str], optional
+    :param columns_aggregation: comma separated aggregation, defaults to
+        Query( default=None, example="PropertyX[.PropertyXFieldA],avg",
+        )
+    :type columns_aggregation: Optional[str], optional
+    :raises HTTPException: when validation  fails
+    :return: filter object with validations
+    :rtype: DataFrameFilterValidator
     """
     sql_filter = DataFrameFilterValidator(
         model=model,
@@ -379,7 +415,8 @@ async def get_validated_bulk_data_json(request: Request) -> str:
     :param request: the incoming request object
     :type request: Request
     :raises InvalidDatasetException: if data and index are inconsistent
-    :raises ValidationError: if orientsplit frame can't be build from request body
+    :raises ValidationError: if orientsplit frame can't be build from
+        request body
     :return: validated json data
     :rtype: str
     """

@@ -21,7 +21,10 @@
         "SaturationProcessMethod",
         "DesaturationMethod",
         "BrineResistivity",
-        "WaterSaturationOverResistivityIndex"
+        "WaterSaturationOverResistivityIndex",
+        "Temperature",
+        "NetConfiningStress",
+        "Frequency"
     ],
     "index": [
         0
@@ -71,7 +74,19 @@
                 {
                     "Value": 4
                 }
-            ]
+            ],
+            {
+                "Value": 90,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            {
+                "Value": 1000,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            {
+                "Value": 100,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Hz:"
+            }
         ]
     ]
 }

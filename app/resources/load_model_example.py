@@ -23,8 +23,8 @@ MODELS_EXAMPLES_DIR = os.path.join(BASE_DIR, "..", "models", "examples")
 def load_data_example(file_name: str) -> Union[list, dict]:
     """Loads data examples.
 
-    :param str file_name: the filename
-    :return Union[list, dict]: an example of data
+    :param str file_name: the filename :return Union[list, dict]: an
+        example of data
     """
     with open(os.path.join(MODELS_EXAMPLES_DIR, file_name), "r") as json_file:
         return json.load(json_file)

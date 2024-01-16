@@ -2,6 +2,7 @@
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
+        "QuartzCrystallinityIndex",
         "MineralContent"
     ],
     "index": [
@@ -11,6 +12,10 @@
         [
             "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
             "opendes:master-data--Sample:XRD_Sample:",
+            {
+                "Value": 8.9,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+            },
             [
                 {
                     "Mineral": "opendes:reference-data--Minerals:actinolite:",

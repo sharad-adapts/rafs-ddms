@@ -26,7 +26,8 @@ class IStorageService(ABC):
         :type record_id: str
         :param version: version, defaults to None
         :type version: Optional[str], optional
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: record
         :rtype: dict
         """
@@ -38,7 +39,8 @@ class IStorageService(ABC):
 
         :param record_id: record id
         :type record_id: str
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: record versions
         :rtype: dict
         """
@@ -50,7 +52,8 @@ class IStorageService(ABC):
 
         :param records: records
         :type records: List[dict]
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: upserted records ids
         :rtype: dict
         """
@@ -62,7 +65,8 @@ class IStorageService(ABC):
 
         :param record_id: record id
         :type record_id: str
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         """
         raise NotImplementedError()
 
@@ -72,7 +76,8 @@ class IStorageService(ABC):
 
         :param record_ids: record ids
         :type record_ids: list[str]
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: records
         :rtype: dict
         """
@@ -87,7 +92,8 @@ class IDatasetService(ABC):
 
         :param dataset_id: dataset id
         :type dataset_id: str
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: file content
         :rtype: Optional[bytes]
         """
@@ -103,7 +109,8 @@ class IDatasetService(ABC):
         :type dataset_id: str
         :param parent_record: parent record
         :type parent_record: dict
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: stored dataset id and version
         :rtype: str
         """
@@ -120,7 +127,8 @@ class ISearchService(ABC):
         :type kind: Optional[str]
         :param optional_search_params: optional params, defaults to None
         :type optional_search_params: Optional[dict], optional
-        :raises NotImplementedError: method is supposed to be implemented
+        :raises NotImplementedError: method is supposed to be
+            implemented
         :return: records
         :rtype: List[dict]
         """

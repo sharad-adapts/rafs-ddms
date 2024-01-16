@@ -50,7 +50,9 @@ from tests.test_api.test_routes.api_v2.eds_mapping_data import (
 from tests.test_api.test_routes.api_v2.electricalproperties import (
     electricalproperties_mock_objects,
 )
-from tests.test_api.test_routes.api_v2.extraction import extraction_mock_objects
+from tests.test_api.test_routes.api_v2.extraction import (
+    extraction_mock_objects,
+)
 from tests.test_api.test_routes.api_v2.fractionation import (
     fractionation_mock_objects,
 )

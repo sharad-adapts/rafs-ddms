@@ -65,24 +65,7 @@ class DataValidator:
         try:
             self.data_schema.validate(df, lazy=True)
         except pa.errors.SchemaErrors as err:
-            for case in list(err.failure_cases.iloc(0)):
-                check = case["check"]
-                if check not in {"column_in_dataframe", "column_in_schema"}:
-                    check = "invalid_type" if "dtype" in check else "invalid_value"
-
-                column = case["column"]
-                failure_case = str(case["failure_case"])
-                # If the check type is "column_in_dataframe" or "column_in_schema" the column name is in
-                # "failure_case" field, otherwise it is in "column" and "failure_case" contains the field value
-                if column:
-                    failure_desc = {column: failure_case}
-                else:
-                    failure_desc = failure_case
-
-                if check not in errors.keys():
-                    errors.update({check: [failure_desc]})
-                else:
-                    errors[check].append(failure_desc)
+            errors = self._collect_errors(list(err.failure_cases.iloc(0)))
 
         return errors
 
@@ -129,3 +112,28 @@ class DataValidator:
                 if skip_type in record:
                     excluded_records.add(record)
         return excluded_records
+
+    def _collect_errors(self, error_cases: Iterable) -> dict:
+        """Collect the errors.
+
+        :param error_cases: an iterable with the error cases
+        :type error_cases: Iterable
+        :return: A dictionary with errors by case
+        :rtype: dict
+        """
+        errors = {}
+        for error_case in error_cases:
+            check = error_case.get("check", "")
+            column = error_case.get("column", "")
+            failure_case = str(error_case.get("failure_case", ""))
+
+            if check not in {"column_in_dataframe", "column_in_schema"}:
+                check = "invalid_type" if "dtype" in check else "invalid_value"
+
+            # If the check type is "column_in_dataframe" or "column_in_schema" the column name is in
+            # "failure_case" field, otherwise it is in "column" and "failure_case" contains the field value
+            failure_desc = {column: failure_case} if column else failure_case
+
+            errors.setdefault(check, []).append(failure_desc)
+
+        return errors
