@@ -36,7 +36,8 @@
         },
         "VitriniteMountTechnique": {
             "type": "string",
-            "description": "Preparation technique for vitrinite mount"
+            "description": "Preparation technique for vitrinite mount",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-VitriniteMountTechnique:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "VitriniteReflectanceHistogramPopulations": {
             "title": "Vitrinite Reflectance Histogram Populations",
