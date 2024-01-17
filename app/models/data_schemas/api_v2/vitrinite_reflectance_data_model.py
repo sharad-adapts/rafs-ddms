@@ -83,9 +83,11 @@ class Model(RafsBaseModel):
         description="The percentage of incident light reflected from the surface of vitrinite particles in a sample",
         title="Vitrinite Reflectance Readings",
     )
-    VitriniteMountTechnique: Optional[str] = Field(
-        None, description="Preparation technique for vitrinite mount"
-    )
+    VitriniteMountTechnique: Optional[
+        constr(
+            regex=r"^[\w\-\.]+:reference-data\-\-VitriniteMountTechnique:[\w\-\.\:\%]+:[0-9]*$"
+        )
+    ] = Field(None, description="Preparation technique for vitrinite mount")
     VitriniteReflectanceHistogramPopulations: Optional[
         List[VitriniteReflectanceHistogramPopulation]
     ] = Field(
