@@ -679,9 +679,6 @@ EXPECTED_200_VERSIONS_RESPONSE = STORAGE_SERVICE_200_VERSIONS_RESPONSE
 EXPECTED_400_RESPONSE_ON_INVALID_PARENT_PVT = {
     "code": 400, "reason": "Parent record is invalid. ['data.PVTTests: value is not a valid dict']",
 }
-EXPECTED_422_RESPONSE_ON_MISSING_SAMPLESANALYSESREPORT = {
-    "code": 422, "reason": f"Records not found: ['{TEST_SAMPLESANALYSESREPORT_ID}']",
-}
 
 ERROR_TITLE = "Request can't be processed due to missing referenced records."
 ERROR_DETAILS = f"Fields checked: ['ParentSamplesAnalysesReports']. Records not found: ['{TEST_SAMPLESANALYSESREPORT_ID}']"

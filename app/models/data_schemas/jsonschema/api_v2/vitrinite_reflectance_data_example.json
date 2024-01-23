@@ -14,7 +14,7 @@
         "Frequency": 12
       }
     ],
-    "VitriniteMountTechnique": "Mount technique",
+    "VitriniteMountTechnique": "opendes:reference-data--VitriniteMountTechnique:EpoxyResin:",
     "VitriniteReflectanceHistogramPopulations": [
       {
         "PopulationType": "opendes:reference-data--VitriniteReflectancePopulationType:UnalteredIndigenous:",
