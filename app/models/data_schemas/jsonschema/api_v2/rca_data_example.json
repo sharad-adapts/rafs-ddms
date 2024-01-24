@@ -107,7 +107,8 @@
           }
         ],
         "LithologyDescription": "Sst.lt-Brn.M-gr.Ang.W-cmt.Fr-srt.mtrx.frac.w/Mic,Pyr,Calc,C,",
-        "Remarks": "RCA data transfer from EPDS"
+        "Remarks": "RCA data transfer from EPDS",
+        "SampleTestRunType": "opendes:reference-data--SampleTestRunType:PreSCAL:"
       }
     ]
   }
