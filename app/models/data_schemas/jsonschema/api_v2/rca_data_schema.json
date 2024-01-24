@@ -168,27 +168,31 @@
                         "additionalProperties": false
                     },
                     "Saturation": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Value": {
+                                    "type": "number"
+                                },
+                                "UnitOfMeasure": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                },
+                                "Type": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                },
+                                "Method": {
+                                    "type": "string",
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationMethodType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                },
+                                "Conditions": {
+                                    "$ref": "#/definitions/Conditions"
+                                }
                             },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Type": {
-                                "type": "string"
-                            },
-                            "Method": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationMethodType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
+                            "additionalProperties": false
+                        }
                     },
                     "LithologyDescription": {
                         "type": "string"

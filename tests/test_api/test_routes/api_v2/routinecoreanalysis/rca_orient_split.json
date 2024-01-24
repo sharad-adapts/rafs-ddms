@@ -97,23 +97,25 @@
                             }
                         }
                     },
-                    "Saturation": {
-                        "Value": 1.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "Type": "Oil Saturation",
-                        "Method": "opendes:reference-data--SaturationMethodType:KarlFischer:",
-                        "Conditions": {
-                            "Pressure": {
-                                "Value": 1280,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                                "Type": "opendes:reference-data--PressureMeasurementType:Overburden:"
-                            },
-                            "Temperature": {
-                                "Value": 100,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                    "Saturation": [
+                        {
+                            "Value": 1.0,
+                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
+                            "Type": "opendes:reference-data--SaturationFluidType:Oil:",
+                            "Method": "opendes:reference-data--SaturationMethodType:KarlFischer:",
+                            "Conditions": {
+                                "Pressure": {
+                                    "Value": 1280,
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+                                    "Type": "opendes:reference-data--PressureMeasurementType:Overburden:"
+                                },
+                                "Temperature": {
+                                    "Value": 100,
+                                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                                }
                             }
                         }
-                    },
+                    ],
                     "LithologyDescription": "Sst.lt-Brn.M-gr.Ang.W-cmt.Fr-srt.mtrx.frac.w\\/Mic,Pyr,Calc,C,",
                     "Remarks": "RCA data transfer from EPDS"
                 }
