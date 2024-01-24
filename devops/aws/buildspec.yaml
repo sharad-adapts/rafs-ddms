@@ -20,19 +20,32 @@ env:
   secrets-manager:
     DOCKER_USERNAME: /osdu/devops/docker_credentials:username
     DOCKER_PASSWORD: /osdu/devops/docker_credentials:password
+    SONAR_USERNAME: /osdu/devops/sonar_credentials:username
+    SONAR_PASSWORD: /osdu/devops/sonar_credentials:password
+  variables:
+    SONAR_PATH: "app/providers/dependencies/aws"
+    SONAR_TEST_PATH: "tests/test_api"
+  parameter-store:
+    SONAR_URL: /osdu/devops/sonar_url
 phases:
   install:
+    runtime-versions:
+      python: 3.11
     commands:
      - if [ $(echo $CODEBUILD_SOURCE_VERSION | grep -c  ^refs/heads.*) -eq 1 ]; then echo "Branch name found"; else echo "This build only supports branch builds" && exit 1; fi
      - apt-get update -y
-     # Install git secrets
-     #TODO temporarily adding hotfix, due to https://github.com/awslabs/git-secrets/issues/220
+     - wget -nv https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472.zip
+     - unzip -q ./sonar-scanner-cli-4.6.2.2472.zip
+     - pip install safety
      - export SAY_LOCATION=`ln -s "$(which echo)" say`
      - export PATH="$PATH:$SAY_LOCATION"
-
      - git clone https://github.com/awslabs/git-secrets.git
      - cd git-secrets && make install && cd ..
      - git secrets --install && git secrets --register-aws
+  pre_build:
+    commands:
+        - echo "Logging in to Amazon ECR..."
+        - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ECR_REGISTRY} # authenticate with ECR via the AWS CLI
   build:
     commands:
       - export AWS_ACCOUNT_ID=`aws sts get-caller-identity --query Account --output text`
@@ -56,17 +69,24 @@ phases:
       - echo "--Copying Helm Charts to ${OUTPUT_DIR:-dist}--"
       - rsync -r devops/aws/* "${OUTPUT_DIR:-dist}"
 
-      - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com # authenticate with ECR via the AWS CLI
-      
-      - echo "Running unit tests..."
-      - |
-        cat > .env <<EOF
-        CLOUD_PROVIDER=aws
-        CACHE_ENABLE=False
-        EOF
-      - docker-compose run tests
 
+      - echo "Running unit tests..."
+      - export CLOUD_PROVIDER=aws
+      - export CACHE_ENABLE=False
+      - pip install -r requirements.txt -q
+      - pip install pip-tools -q
+      - pip-compile --output-file=requirements-test.txt requirements-tests.in
+      - pip install -r requirements-test.txt -q
+
+      - python3 -m pytest -p no:cacheprovider --ignore=integration   --junit-xml=unit_tests_report.xml --cov=app --cov-report=html --cov-report=xml ./tests/test_api
+
+      - |
+        java -jar sonar-scanner-4.6.2.2472/lib/sonar-scanner-cli-4.6.2.2472.jar -Dsonar.projectKey=rafs-ddms -Dsonar.host.url=${SONAR_URL} \
+          -Dsonar.login=${SONAR_USERNAME} -Dsonar.password=${SONAR_PASSWORD} -Dsonar.branch.name=${BRANCH_NAME} -Dsonar.python.coverage.reportPaths=coverage.xml -Dsonar.sources=${SONAR_PATH} -Dsonar.tests=${SONAR_TEST_PATH}
+      
+      - safety check -r requirements.txt -r requirements_dev.txt -o text > safety_check.txt; EXITCODE=$?
+      # override docker file with aws dockerfile
+      - cp ./devops/aws/Dockerfile ./
       - echo "Building docker image..."
       - docker build -f Dockerfile -t ${ECR_IMAGE} .
       - docker tag  ${ECR_IMAGE} ${ECR_IMAGE_BRANCH_LATEST}
