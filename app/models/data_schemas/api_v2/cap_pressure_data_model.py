@@ -681,6 +681,11 @@ class TestDatum(RafsBaseModel):
     class Config:
         extra = Extra.forbid
 
+    FluidSystemType: Optional[
+        constr(
+            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemType:[\w\-\.\:\%]+:[0-9]*$"
+        )
+    ] = None
     Permeability: Optional[List[PermeabilityItem]] = None
     Porosity: Optional[Porosity] = None
     SaturationProcessMethod: Optional[SaturationProcessMethod] = None
