@@ -89,6 +89,7 @@ TEST_FILTERED_DATA = {
             "opendes:master-data--Sample:CapillaryPressure_Sample:",
             [
                 {
+                    "FluidSystemType": "opendes:reference-data--FluidSystemType:GasBrine:",
                     "Permeability": [
                         {
                             "Value": 52.2,

@@ -3,6 +3,7 @@
     "SampleID": "opendes:master-data--Sample:CapillaryPressure_Sample:",
     "TestData": [
         {
+            "FluidSystemType": "opendes:reference-data--FluidSystemType:GasBrine:",
             "Permeability": [
                 {
                     "Value": 52.2,

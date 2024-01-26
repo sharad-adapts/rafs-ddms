@@ -72,8 +72,8 @@ The following software have components provided under the terms of this license:
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
-- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.35.1/)
-- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.26.0/, https://www.uvicorn.org/)
+- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.36.1/)
+- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.27.0/, https://www.uvicorn.org/)
 
 ========================================================================
 BSL-1.0
