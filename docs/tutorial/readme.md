@@ -1,171 +1,161 @@
-# RAFS DDMS Tutorial
+# RAFS DDMS Tutorial Api V2
 
 ## Getting started
-This prototype supports the following endpoints
-- [GET/POST] RockSampleAnalysis metadata
-- [GET/POST] Routine Core Analysis bulk data (either in parquet or json)
+The RAFSDDMS supports the following set of endpoints:
+- Ingestion of [SamplesAnalysesReport](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/work-product-component/SamplesAnalysesReport.1.0.0.json?ref_type=heads) metadata
+![SamplesAnalysesReport](samplesanalysesreport.png "SamplesAnalysesReport")
+- Ingestion of [SamplesAnalysis](https://community.opengroup.org/osdu/platform/system/schema-service/-/blob/master/deployments/shared-schemas/osdu/work-product-component/SamplesAnalysis.1.0.0.json?ref_type=heads) metadata and content data
+![SamplesAnalysis](samplesanalysis.png "SamplesAnalysis")
+- Ingestion of MasterData metadata
+![MasterData](masterdata.png "MasterData")
 
 #### Pre-requisites
-- [Optional] Coring, RockSample and Wellbore master data should be already ingested
 - [Required] Have ready acl, legal and all required info for RockSampleAnalysis metadata ingestion
-- [Required] Have access and permissions to the data partition 
+- [Required] Have access and permissions to the data partition
+- [Required] Have uploaded [all refernce-data schemas with rafsddms authority](../../deployments/rafsddms_schemas_mvp.postman_collection.json) and [all reference-data values](../../deployments/rafsddms_ref_data_manifests_mvp.postman_collection.json)
 
+#### Api V2 details
+Get familiar with Api V2 documentation in [REST docs](../spec/openapi.json)
 
-#### API
-Get familiar with api documentation in [REST docs](../spec/openapi.json)
+## Ingestion order
+1. Ingest medatadat: Master Data, SamplesAnalysesReport, SamplesAnalysis
+2. Ingest Specific Analysis Content
 
-#### Post and Get RockSampleAnalysis WPC metadata.
-1. Prepare json file to comply with ```osdu:work-product-component--RockSampleAnalysis:1.1.0``` schema.
+#### Example: Ingest MasterData (applies for SamplesAnalysesReport and SamplesAnalysis in its respective endpoints)
+1. Prepare json file to comply with any of the following schemas 
+- ```osdu:wks:master-data--GenericFacility:1.0.0```
+- ```osdu:wks:master-data--GenericSite:1.0.0```
+- ```osdu:wks:master-data--Sample:2.0.0```
+- ```osdu:wks:master-data--SampleAcquisitionJob:1.0.0```
+- ```osdu:wks:master-data--SampleChainOfCustodyEvent:1.0.0```
+- ```osdu:wks:master-data--SampleContainer:1.0.0```
+
 2. Issue following POST request:
 ```
-curl --location --request POST '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/' \
+curl --location --request POST '{RAFS_DDMS_URL}/api/rafs-ddms/masterdata' \
 --header 'Content-Type: application/json' \
 --header 'data-partition-id: opendes' \
 --header 'Authorization: Bearer token' \
 --data-raw '{
-    "id": "opendes:work-product-component--RockSampleAnalysis:Test_Example",
+    "id": "{data_partition_id}:master-data--Sample:Test_Example",
     ...
    }'
 ```
-Response should be an id with its corresponding version, i.e.,  ```opendes:work-product-component--RockSampleAnalysis:Test_Example:1673921980922175```
+Response should be an id with its corresponding version, i.e.,  ```{data_partition_id}:master-data--Sample:Test_Example:1673921980922175```
 
 3. Get the record with following GET request:
 ```
-curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example' \
+curl --location --request GET '{RAFS_DDMS_URL}/api/rafs-ddms/masterdata/{data_partition_id}:master-data--Sample:Test_Example' \
 --header 'Content-Type: application/json' \
 --header 'data-partition-id: opendes' \
 --header 'Authorization: Bearer token'
 ```
 4. Alternatively, get the all versions of a record and fetch the specific version with following endpoints, respectively:
 ```
-{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/versions
-{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/versions/{VERSION_NUMBER}
+{RAFS_DDMS_URL}/api/rafs-ddms/masterdata/{data_partition_id}:master-data--Sample:Test_Example/versions
+{RAFS_DDMS_URL}/api/rafs-ddms/masterdata/{data_partition_id}:master-data--Sample:Test_Example/versions/{VERSION_NUMBER}
 ```
+## End to end example using QA Postman collection.
+The latest collection is located at [QA Collection](https://community.opengroup.org/osdu/qa/-/blob/main/Dev/48_CICD_Setup_RAFSDDMSAPI/RAFSDDMS_API_CI-CD_v1.0.postman_collection.json?ref_type=heads).
 
-#### Post and Get Routine Core Analysis bulk data.
-1. Endpoint accepts either a json pandas dataframe with orient = "split" or a parquet file just by adjusting the content-type header to one of the following options
+### Consult available analysis types and their schemas
+1. Use the `GET all available analysis types`. ![Get all available types](qa_collection_get_all_available_types.png "Get all available types")
+2. [Optionally] Get specific schema of any available type, for example for relativepermeability with version 1.0.0 use the following request
 ```
-Content-Type: application/json
-Content-Type: x-parquet
-```
-2. Example request with json payload (endpoint loads it and converts it to parquet to save it as dataset):
-```
-curl --location --request POST '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data' \
+curl --location --request GET '{RAFS_DDMS_URL}/v2/samplesanalysis/relativepermeability/data/schema' \
+--header 'Content-Type: application/json' \
 --header 'data-partition-id: opendes' \
 --header 'Authorization: Bearer token' \
---header 'Content-Type: application/json' \
---data-raw '{
-  "columns": [
-    "Country",
-    "Field",
-    "Wellbore",
-    "Depth",
-    "Type",
-    "Number",
-    "Laboratory",
-    "Report",
-    "Grain-density",
+--header 'Accept: */*;version=1.0.0' \
+```
+
+### Ingest RelativePermeability Data
+
+1. Use the `Configure collection/{Auth|Create related records}` folders to start
+    - Refresh the token 
+    - Create a legal tag
+    - Create needed master data ![MasterData request](qa_collection_masterdata.png "MasterData request")
+2. Use the `v2/Samples Analyses Report KentishKnockSouth1 SCAL` folder
+    - create the record (request #1). ![Create SamplesAnalysesReport for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysesReport for KentishKnockSouth request")
+    - [Optionally] Get the record, list versions or get any specific version(requests #2,5 or 6)
+3. Use the `v2/SamplesAnalysis [RelativePermeability]` folder
+    - create the record (request #1). ![Create SamplesAnalysis for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysis for KentishKnockSouth request")
+    - [Optionally] Get the record, list versions or get any specific version (request #2, 5 or 6)
+    - Add the relative_permeability content data (request #3). ![POST Relative Permeability Data](qa_collection_relative_permeability_data_post.png "POST Relative Permeability Data") 
+    - Get the recently added relative permeabulity data (request # 4). ![GET Relative Permeability Data](qa_collection_relative_permeability_data_post.png "GET Relative Permeability Data")
+
+### Filters and Aggregation
+Filter and aggregation are only available for top level properties. For example for Relative Permeability schema the following properties are available when using filters and aggregators.
+```
+[
+    "SamplesAnalysisID",
+    "SampleID",
+    "DesaturationMethod",
+    "TestTemperature",
     "Porosity",
-    "Saturation-oil",
-    "Lithology",
-    "Comments"
-  ],
-  "index": [
-    1,
-  ],
-  "data": [
-    [
-      "Norway",
-      "VOLVE",
-      "NO 15\/9-19 A",
-      3837.0,
-      "Plug_RCA",
-      1.0,
-      "Unknown",
-      "Merge from EPDS RCA",
-      2.66,
-      "0.1697",
-      null,
-      "Sst.lt-Brn.M-gr.Ang.W-cmt.Fr-srt.mtrx.frac.w\/Mic,Pyr,Calc,C,",
-      "RCA data transfer from EPDS"
-    ]
-  ]
-}'
+    "InitialConditions",
+    "TerminalConditions",
+    "ReferencePermeability",
+    "SaturationProcessMethod",
+    "FluidSystemType",
+    "PermeabilityTestSteps"
+]
 ```
-3. Example with parquet payload:
-```
-curl --location --request POST '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data' \
---header 'data-partition-id: opendes' \
---header 'Content-Type: application/x-parquet' \
---header 'Authorization: Bearer token' \
---data-binary '@/Path/to/parquet/file.parquet'
-```
-In both cases the id of the dataset created with the parquet data is returned and the RockSampleAnalysis WPC datasets are updated with it:
-```
-{
-    "id": "opendes:dataset--File.Generic:routine-core-analysis-61202228-4ca8-406b-ac4f-a9153dac56d6"
-}
-```
-Datasets field of ```opendes:work-product-component--RockSampleAnalysis:Test_Example``` is updated
-```
-"Datasets": [
-    "opendes:dataset--File.Generic:WellCompletionReport-KentishKnockSouth1-WA-365-P--R1:",
-    "opendes:dataset--File.Generic:routine-core-analysis-61202228-4ca8-406b-ac4f-a9153dac56d6:"
-],
-```
-4. Data can be retrieved also in json or parquet formats and optionally filters at row and column level can be applied.
-5. Example get raw parquet data:
-```
-curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data' \
---header 'data-partition-id: opendes' \
---header 'Content-Type: application/x-parquet' \
---header 'Authorization: Bearer token'
-```
-6. Example get data as json pandas dataframe with filters.
-```
-curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data?columns_filter=Depth,Porosity&rows_filter=Depth,gt,3850' \
---header 'data-partition-id: opendes' \
---header 'Content-Type: application/json' \
---header 'Authorization: Bearer token'
-```
-Columns filter is a comma separated list of projected column names ```ColumnName1,ColumnName2```
 
-Rows filter is a comma separated list that represent a condition (current implementation only allows a single condition) with the following format ```ColumnName,Operator,Value```
+#### Filtering
+There are two types of filtering: column and row filtering.
+
+_columns_filter_ is a comma separated list of projected column names ```ColumnName1,ColumnName2```
+
+_rows_filter_ is a comma separated list that represent a condition (current implementation only allows a single condition) with the following format ```ColumnName,Operator,Value```
 
 Valid operators are strings and their math operator equivalent is decribed in following dictionary:
 ```
  {"lt": "<", "gt": ">", "lte": "<=", "gte": ">=", "eq": "=", "neq": "!="}
 ```
-Response will only contain the project columns that comply with the row condition filter.
 
-7. Example with aggregation over a column (current implementation allows only one column aggregation)
+Example of a request using both filters on the previous ingested RelativePermeability content data
+
 ```
-curl --location --request GET '{RAFS_DDMS_URL}/api/os-rafs-ddms/rocksampleanalyses/opendes:work-product-component--RockSampleAnalysis:Test_Example/rca/data?columns_filter=Porosity&columns_aggregation=Porosity,mean' \
+curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/relativepermeability/{DatasetID}?columns_filter=SampleID%2CDesaturationMethod&rows_filter=DesaturationMethod%2Ceq%2Copendes%3Areference-data--DesaturationMethod%3ACentrifugeGasWater%3A' \
+--header 'Authorization: Bearer token' \
 --header 'data-partition-id: opendes' \
 --header 'Content-Type: application/json' \
---header 'Authorization: Bearer token'
+--header 'Accept: */*;version=1.0.0'
 ```
-Apply the column filter over the column you want to do the aggregation and then add the aggregation as ```ColumnName,aggregation```
+
+### Aggregation
+_columns_aggregation_ works over the entire response result or over a filtered one. With the following syntax ```ColumnName,aggregation```.
 
 Supported aggregations depends on column type but in general:
 ```
 [mean, count, max, min, sum, describe]
 ```
-8. Column aggregation and row filtering support ```ColumnName.FieldName``` syntax to work over nested fields.
 
-For example todo a row filtering and aggregation over a column named ```Permeability``` which has the following object as value
 ```
-{
-  Value: 1000.0,
-  UnitOfMeasure: "osdu:reference-data--UnitOfMeasure:mD
-}
-```
-The rows_filter parameter would be
-```
-rows_filter=Permeability.Value,lt,1000
+curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/relativepermeability/{DatasetID}?columns_aggregation=DesaturationMethod%2Ccount' \
+--header 'Authorization: Bearer token' \
+--header 'data-partition-id: opendes' \
+--header 'Content-Type: application/json' \
+--header 'Accept: */*;version=1.0.0'
 ```
 
-And the colums_aggregation parameter would be:
+### Doted notation
+
+_columns\_aggregation_ and _rows\_filter_ support ```ColumnName.FieldName``` syntax to work over nested fields.
+
+Example, get the mean of the result set where TestTemperature value is above 10 degF:
 ```
-columns_aggregation=Permeability.Value,mean
+curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/relativepermeability/{DatasetID}?rows_filter=TestTemperature.Value%2Cgt%2C10&columns_aggregation=TestTemperature.Value%2Cmean' \
+--header 'Authorization: Bearer token' \
+--header 'data-partition-id: opendes' \
+--header 'Content-Type: application/json' \
+--header 'Accept: */*;version=1.0.0'
 ```
+
+
+
+
+
+#### Deprecated Api V1
+API v1 is deprecated and therefore is not covered in the tutorial.
