@@ -19,6 +19,6 @@ from fastapi_cache.backends import Backend
 
 class BaseCacheBackend(ABC):
     @abstractmethod
-    def get_backend(self) -> Backend:
+    async def get_backend(self) -> Backend:
         """Init and return instance of any fastapi-cache backend."""
         raise NotImplementedError

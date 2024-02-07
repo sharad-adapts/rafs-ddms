@@ -13,6 +13,7 @@ data:
   SERVICE_HOST_SEARCH: {{ printf "%s%s" .Values.data.searchHost "/api/search/v2" | quote }}
   SERVICE_HOST_PARTITION: {{ printf "%s%s" .Values.data.partitionHost "/api/partition/v1" | quote }}
   SERVICE_HOST_DATASET: {{ printf "%s%s" .Values.data.datasetHost "/api/dataset/v1" | quote }}
+  SERVICE_HOST_SCHEMA: {{ printf "%s%s" .Values.data.schemaHost "/api/schema-service/v1" | quote }}
   ENABLE_API_V1: {{ .Values.data.enableApiV1 | quote }}
   CACHE_ENABLE: {{ .Values.data.cacheEnable | quote }}
   CACHE_BACKEND: {{ .Values.data.cacheBackend | quote }}

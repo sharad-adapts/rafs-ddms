@@ -17,9 +17,9 @@ from fastapi import APIRouter
 from app.api.dependencies.validation import (
     validate_samplesanalysis_records_v2_payload,
 )
+from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.samplesanalysis.endpoints import (
     SAMPLESANALYSIS_ID_REGEX_STR,
-    SamplesAnalysisRecordView,
     SamplesAnalysisSchemasView,
     SamplesAnalysisTypesView,
 )
@@ -30,8 +30,9 @@ RECORD_TYPE = "SamplesAnalysis"
 
 SamplesAnalysisTypesView(sa_router)
 
-SamplesAnalysisRecordView(
+BaseStorageRecordView(
     router=sa_router,
+    id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
     validate_records_payload=validate_samplesanalysis_records_v2_payload,
     record_type=RECORD_TYPE,
 )

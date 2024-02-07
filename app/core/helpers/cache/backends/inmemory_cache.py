@@ -18,7 +18,7 @@ from app.core.helpers.cache.backends.base_cache import BaseCacheBackend
 
 
 class InMemoryCacheBackend(BaseCacheBackend):
-    def get_backend(self) -> InMemoryBackend:
+    async def get_backend(self) -> InMemoryBackend:
         """Init and return instance of InMemoryBackend from fastapi-cache.
 
         :return InMemoryBackend: instance of InMemoryBackend

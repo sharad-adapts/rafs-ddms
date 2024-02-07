@@ -23,7 +23,7 @@ from app.core.config import get_app_settings
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
 from app.resources.common_headers import CORRELATION_ID
-from app.services import dataset, search, storage
+from app.services import dataset, schema, search, storage
 
 
 async def get_async_dataset_service(
@@ -61,6 +61,20 @@ async def get_async_search_service(
     correlation_id: str = Depends(get_correlation_id),
 ):
     return search.SearchService(
+        data_partition_id=data_partition_id,
+        settings=settings,
+        user=user,
+        extra_headers={CORRELATION_ID: correlation_id},
+    )
+
+
+async def get_async_schema_service(
+    data_partition_id: str = Depends(get_data_partition_id),
+    settings: AppSettings = Depends(get_app_settings),
+    user: User = Depends(require_authorized_user),
+    correlation_id: str = Depends(get_correlation_id),
+):
+    return schema.SchemaService(
         data_partition_id=data_partition_id,
         settings=settings,
         user=user,

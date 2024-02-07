@@ -51,6 +51,8 @@ class AppSettings(BaseAppSettings):
 
     service_host_dataset: str = None
 
+    service_host_schema: str = None
+
     user_token: str = None
 
     cache_enable: bool = False

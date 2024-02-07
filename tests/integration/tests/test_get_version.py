@@ -54,7 +54,7 @@ def test_get_version_v2_sample_analysis(api, helper, create_record):
         api_path,
         DataFiles.SAMPLE_ANALYSIS,
         DataTemplates.ID_SAMPLE_ANALYSIS,
-        "AnyType",
+        "BasicRockProperties",
     )
     version = helper.parse_full_record_id(created_record["recordIdVersions"][0])["version"]
     test_data = getattr(api, api_path).get_record_version(
@@ -110,7 +110,10 @@ def test_get_non_existent_version_of_the_record(api, create_record, api_path, da
 def test_get_non_existent_version_v2_sample_analysis(api, create_record):
     api_path = DataTypes.SAMPLE_ANALYSIS
 
-    record_data, _ = create_record(api_path, DataFiles.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS, "AnyType")
+    record_data, _ = create_record(
+        api_path, DataFiles.SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS, "BasicRockProperties",
+    )
     int(time.time())
     error = getattr(api, api_path).get_record_version(
         record_data["id"],
