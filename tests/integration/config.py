@@ -101,6 +101,7 @@ class DataFiles:
     WA_WRONG_ID = "v1/water_analysis/wa_wrong_ids.json"
 
     # v2
+    SAMPLE = "v2/sample.json"
     SAMPLE_ANALYSIS = "v2/samplesanalysis.json"
     SAR_V2 = "v2/sar.json"
     NMR_DATA = "v2/NMR/nmr_data.json"
@@ -169,6 +170,7 @@ class DataTypes:
     RP = "rp"
 
     # v2
+    MASTER_DATA = "masterdata"
     SAMPLE_ANALYSIS = "sample_analysis"
     SAR_V2 = "sar_v2"
 

@@ -11,6 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+
 import copy
 from contextlib import contextmanager
 from unittest.mock import call, create_autospec, patch
@@ -19,8 +20,13 @@ import pytest
 from httpx import AsyncClient, HTTPStatusError
 from starlette import status
 
-from app.api.dependencies.services import get_async_storage_service
+from app.api.dependencies.services import (
+    get_async_schema_service,
+    get_async_storage_service,
+)
+from app.api.routes.utils.records import parse_kind
 from app.main import app
+from app.services.schema import SchemaService
 from app.services.storage import StorageService
 from tests.test_api.api_version import API_VERSION, API_VERSION_V2
 from tests.test_api.test_routes import dependencies
@@ -112,6 +118,7 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 )
 
 storage_record_service_mock = create_autospec(StorageService, spec_set=True, instance=True)
+schema_service_mock = create_autospec(SchemaService, spec_set=True, instance=True)
 
 
 async def query_records_mock(_):
@@ -129,10 +136,24 @@ async def mock_get_async_storage_service():
     yield storage_record_service_mock
 
 
+async def mock_get_async_schema_service():
+    yield schema_service_mock
+
+
 @contextmanager
 def storage_override():
     overrides = {
         get_async_storage_service: mock_get_async_storage_service,
+    }
+    with dependencies.DependencyOverrider(app, overrides) as mock_dependencies:
+        yield mock_dependencies
+
+
+@contextmanager
+def storage_schema_override():
+    overrides = {
+        get_async_storage_service: mock_get_async_storage_service,
+        get_async_schema_service: mock_get_async_schema_service,
     }
     with dependencies.DependencyOverrider(app, overrides) as mock_dependencies:
         yield mock_dependencies
@@ -211,6 +232,20 @@ def with_patched_storage_raises_40x(storage_method, api_status_code):
 def with_patched_storage_get_success_200(storage_method, osdu_record):
     """Patch storage to 200 success."""
     with patch.object(storage_record_service_mock, storage_method, return_value=osdu_record):
+        yield
+
+
+@pytest.fixture
+def with_patched_schema_validate_success():
+    """Patch schema with mock to validate success."""
+    with patch.object(schema_service_mock, "validate", return_value={}):
+        yield
+
+
+@pytest.fixture
+def with_patched_schema_get_success(schema):
+    """Patch  get_schema to provided schema."""
+    with patch.object(SchemaService, "get_schema", return_value=schema):
         yield
 
 
@@ -592,82 +627,6 @@ async def test_post_record_invalid_payload_type(path):
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "path,osdu_record,field",
-    [
-        (f"{API_VERSION}/rocksamples", ROCKSAMPLE_RECORD, "WellboreID"),
-        (f"{API_VERSION}/coringreports", CORING_RECORD, "WellboreID"),
-        (f"{API_VERSION}/pvtreports", PVT_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/rocksampleanalyses", ROCKSAMPLEANALYSIS_RECORD, "WellboreID"),
-        (f"{API_VERSION}/ccereports", CCE_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/difflibreports", DL_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/transporttests", TRANSPORT_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/compositionalanalysisreports", COMPOSITIONALANALYSIS_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/multistageseparatortests", MULTISTAGESEPARATOR_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/swellingtests", SWELLING_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/constantvolumedepletiontests", CVD_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/wateranalysisreports", WATERANALYSIS_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/stocktankoilanalysisreports", STO_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/interfacialtensiontests", INTERFACIAL_TENSION_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/vaporliquidequilibriumtests", VLE_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/multiplecontactmiscibilitytests", MCM_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/slimtubetests", SLIMTUBETEST_RECORD, "FluidSampleID"),
-        (f"{API_VERSION}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1, "DocumentTypeID"),
-        (f"{API_VERSION}/capillarypressuretests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/relativepermeabilitytests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/fractionationtests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/extractiontests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/physicalchemistrytests", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/electricalproperties", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/rockcompressibilities", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/watergasrelativepermeabilities", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION}/formationresistivityindexes", SAMPLESANALYSIS_RECORD_V1, "DepthShiftsID"),
-        (f"{API_VERSION_V2}/samplesanalysesreport", storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2, "DocumentTypeID"),
-        (f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2, "ResourceHomeRegionID"),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_RECORD, "ResourceHomeRegionID",
-        ),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_ACQUISITION_JOB_RECORD, "ResourceHomeRegionID",
-        ),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_CHAIN_OF_CUSTODY_EVENT_RECORD, "ResourceHomeRegionID",
-        ),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_CONTAINER_RECORD, "ResourceHomeRegionID",
-        ),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.GENERIC_FACILITY_RECORD, "ResourceHomeRegionID",
-        ),
-        (
-            f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.GENERIC_SITE_RECORD, "ResourceHomeRegionID",
-        ),
-    ],
-)
-async def test_post_record_invalid_field_type(path, osdu_record, field):
-    osdu_record_wrong_field_type = osdu_record.dict()
-    osdu_record_wrong_field_type.update({"data": {field: "wrong_pattern"}})
-
-    with storage_override():
-        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
-            response = await client.post(
-                f"/api/os-rafs-ddms/{path}",
-                headers=TEST_HEADERS,
-                json=[osdu_record_wrong_field_type],
-            )
-
-    assert response.json()["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
-    assert field in response.json()["reason"]
-    assert all([s in response.json()["reason"] for s in EXPECTED_422_WRONG_PATTERN])
-
-
-@pytest.mark.asyncio
-@pytest.mark.parametrize(
     "storage_method,path,osdu_record",
     [
         ("upsert_records", f"{API_VERSION}/rocksamples", ROCKSAMPLE_RECORD),
@@ -678,40 +637,77 @@ async def test_post_record_invalid_field_type(path, osdu_record, field):
             "upsert_records", f"{API_VERSION}/samplesanalysesreport",
             storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V1,
         ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/samplesanalysesreport",
-            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
-        ),
-        ("upsert_records", f"{API_VERSION_V2}/samplesanalysis", storage_mock_objects.SAMPLESANALYSIS_RECORD_V2),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_RECORD,
-        ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_ACQUISITION_JOB_RECORD,
-        ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_CHAIN_OF_CUSTODY_EVENT_RECORD,
-        ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.SAMPLE_CONTAINER_RECORD,
-        ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.GENERIC_FACILITY_RECORD,
-        ),
-        (
-            "upsert_records", f"{API_VERSION_V2}/masterdata",
-            storage_mock_objects.GENERIC_SITE_RECORD,
-        ),
     ],
 )
 async def test_post_record_success(
     storage_method, path, osdu_record,
     with_patched_storage_created_200,
+):
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record.dict(exclude_none=True)],
+            )
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.json() == EXPECTED_200_CREATED_RESPONSE
+    storage_record_service_mock.upsert_records.assert_called_once_with(
+        [osdu_record.dict(exclude_none=True)],
+    )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "storage_method,path,osdu_record,schema",
+    [
+        (
+            "upsert_records", f"{API_VERSION_V2}/samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2,
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/samplesanalysis",
+            storage_mock_objects.SAMPLESANALYSIS_RECORD_V2,
+            storage_mock_objects.SAMPLESANALYSIS_RECORD_V2.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD,
+            storage_mock_objects.SAMPLE_RECORD.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_ACQUISITION_JOB_RECORD,
+            storage_mock_objects.SAMPLE_ACQUISITION_JOB_RECORD.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_CHAIN_OF_CUSTODY_EVENT_RECORD,
+            storage_mock_objects.SAMPLE_CHAIN_OF_CUSTODY_EVENT_RECORD.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_CONTAINER_RECORD,
+            storage_mock_objects.SAMPLE_CONTAINER_RECORD.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.GENERIC_FACILITY_RECORD,
+            storage_mock_objects.GENERIC_FACILITY_RECORD.schema(),
+        ),
+        (
+            "upsert_records", f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.GENERIC_SITE_RECORD,
+            storage_mock_objects.GENERIC_SITE_RECORD.schema(),
+        ),
+    ],
+)
+async def test_post_record_success_with_jsonschema(
+    storage_method, path, osdu_record, schema,
+    with_patched_storage_created_200,
+    with_patched_schema_get_success,
 ):
     with storage_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
@@ -1097,8 +1093,9 @@ async def test_post_samplesanalysis_with_missing_reference(
     osdu_record,
     checked_fields,
     with_patched_storage_samplesanalysis_missing_reference,
+    with_patched_schema_validate_success,
 ):
-    with storage_override():
+    with storage_schema_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 f"/api/os-rafs-ddms/{path}",
@@ -1225,8 +1222,9 @@ async def test_post_samplesanalysis_success(
     osdu_record,
     with_patched_storage_created_200,
     with_patched_storage_samplesanalysis_existing_parent,
+    with_patched_schema_validate_success,
 ):
-    with storage_override():
+    with storage_schema_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 f"/api/os-rafs-ddms/{path}",
@@ -1289,12 +1287,13 @@ async def test_post_record_no_id(
     path,
     osdu_record,
     with_patched_storage_created_200,
+    with_patched_schema_validate_success,
 ):
     osdu_record_json = osdu_record.dict(
         exclude={"id"},
         exclude_none=True,
     )
-    with storage_override():
+    with storage_schema_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 f"/api/os-rafs-ddms/{path}",
@@ -2420,8 +2419,9 @@ async def test_post_record_auth_errors_from_storage(
     storage_method, api_status_code, path, osdu_record,
     with_patched_storage_raises_40x,
     with_patched_storage_query_pvt_200,
+    with_patched_schema_validate_success,
 ):
-    with storage_override():
+    with storage_schema_override():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.post(
                 f"/api/os-rafs-ddms/{path}",
@@ -2613,7 +2613,7 @@ async def test_get_record_wrong_id_pattern(endpoint, record_id):
         (FORMATION_RESISTIVITY_INDEX_ENDPOINT_PATH, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSES_REPORT_ENDPOINT_PATH_V2, OSDU_GENERIC_RECORD.dict()),
         (storage_mock_objects.SAMPLESANALYSIS_ENDPOINT_PATH_V2, OSDU_GENERIC_RECORD.dict()),
-        (f"{storage_mock_objects.MASTER_DATA_ENDPOINT_PATH_V2}", OSDU_GENERIC_RECORD.dict()),
+        (storage_mock_objects.MASTER_DATA_ENDPOINT_PATH_V2, OSDU_GENERIC_RECORD.dict()),
     ],
 )
 async def test_post_record_wrong_kind(endpoint, manifest):
@@ -2627,8 +2627,7 @@ async def test_post_record_wrong_kind(endpoint, manifest):
 
     response_json = response.json()
     assert response_json["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
-
-    assert EXPECTED_422_INVALID_KIND_REASON.format(OSDU_GENERIC_RECORD.kind) in response.json()["reason"]
+    assert EXPECTED_422_INVALID_KIND_REASON.format(manifest["kind"]) in response_json["reason"]
 
 
 @pytest.mark.asyncio
@@ -2674,3 +2673,47 @@ async def test_delete_record_wrong_id_pattern(endpoint, record_id):
             )
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "path,osdu_record,field,schema",
+    [
+        (
+            f"{API_VERSION_V2}/samplesanalysesreport",
+            storage_mock_objects.SAMPLESANALYSESREPORT_RECORD_V2, "ResourceHomeRegionID",
+            storage_mock_objects.SAMPLES_ANALYSES_REPORT_SCHEMA,
+        ),
+        (
+            f"{API_VERSION_V2}/samplesanalysis",
+            storage_mock_objects.SAMPLESANALYSIS_RECORD_V2, "ResourceHomeRegionID",
+            storage_mock_objects.SAMPLES_ANALYSIS_SCHEMA,
+        ),
+        (
+            f"{API_VERSION_V2}/masterdata",
+            storage_mock_objects.SAMPLE_RECORD, "ResourceHomeRegionID",
+            storage_mock_objects.SAMPLE_SCHEMA,
+        ),
+    ],
+)
+async def test_post_record_invalid_field_type_jsonschema(path, osdu_record, field, schema, with_patched_schema_get_success):
+    osdu_record_wrong_field_type = osdu_record.dict(exclude_none=True)
+    osdu_record_wrong_field_type.update({
+        "data":
+        {
+            field: "wrong_pattern",
+            "Parameters": [],
+        },
+    })
+
+    with storage_override():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.post(
+                f"/api/os-rafs-ddms/{path}",
+                headers=TEST_HEADERS,
+                json=[osdu_record_wrong_field_type],
+            )
+    from loguru import logger
+    logger.warning(response.json())
+    assert response.json()["code"] == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert "'wrong_pattern' does not match" in response.json()["reason"][0]["errors"][0]

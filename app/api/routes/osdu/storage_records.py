@@ -19,7 +19,10 @@ from fastapi_cache.decorator import cache
 from starlette import status
 
 from app.api.dependencies.request import validate_json_content_type
-from app.api.dependencies.services import get_async_storage_service
+from app.api.dependencies.services import (
+    get_async_schema_service,
+    get_async_storage_service,
+)
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
@@ -27,7 +30,7 @@ from app.models.schemas.osdu_storage import (
     OsduStorageRecord,
     StorageUpsertResponse,
 )
-from app.services import storage
+from app.services import schema, storage
 
 
 class BaseStorageRecordView:
@@ -225,6 +228,7 @@ class BaseStorageRecordView:
         async def validate_request_records(
             request_records: List[OsduStorageRecord],
             storage_service: storage.StorageService = Depends(get_async_storage_service),
+            schema_service: schema.SchemaService = Depends(get_async_schema_service),
         ) -> List[dict]:
             """Validate request records.
 
@@ -236,7 +240,9 @@ class BaseStorageRecordView:
             :return: validated records
             :rtype: List[dict]
             """
-            return await self._validate_records_payload(request_records, storage_service=storage_service)
+            return await self._validate_records_payload(
+                request_records, storage_service=storage_service, schema_service=schema_service,
+            )
 
         self._router.add_api_route(
             path="",

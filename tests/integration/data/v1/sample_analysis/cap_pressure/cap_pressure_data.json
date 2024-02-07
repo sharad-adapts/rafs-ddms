@@ -19,7 +19,7 @@
                     "Permeability": {
                         "Value": 52.2,
                         "Type": "{data_partition_id}:reference-data--PermeabilityMeasurementType:Gas:",
-                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:md:"
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:mD:"
                     },
                     "Porosity": {
                         "Value": 0.266,

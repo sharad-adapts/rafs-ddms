@@ -51,7 +51,22 @@ def test_post_record_v2_sample_analysis(api, tests_data, delete_record):
     data_file_name = DataFiles.SAMPLE_ANALYSIS
     api_path = DataTypes.SAMPLE_ANALYSIS
 
-    test_data = tests_data(data_file_name, "AnyType")
+    test_data = tests_data(data_file_name, "BasicRockProperties")
+    full_record_id = getattr(api, api_path).post_record([test_data])["recordIdVersions"][0]
+
+    assert full_record_id.startswith(test_data["id"])
+
+    delete_record["record_id"].append(test_data["id"])
+    delete_record["api_path"] = api_path
+
+
+@pytest.mark.smoke
+@pytest.mark.v2
+def test_post_record_v2_masterdata_sample(api, tests_data, delete_record):
+    data_file_name = DataFiles.SAMPLE
+    api_path = DataTypes.MASTER_DATA
+
+    test_data = tests_data(data_file_name, "BasicRockProperties")
     full_record_id = getattr(api, api_path).post_record([test_data])["recordIdVersions"][0]
 
     assert full_record_id.startswith(test_data["id"])
@@ -98,9 +113,9 @@ def test_update_record_v2_sample_analysis(api, tests_data, helper, create_record
     api_path = DataTypes.SAMPLE_ANALYSIS
     id_template = DataTemplates.ID_SAMPLE_ANALYSIS
 
-    record_data, created_record = create_record(api_path, data_file_name, id_template, "AnyType")
+    record_data, created_record = create_record(api_path, data_file_name, id_template, "BasicRockProperties")
 
-    test_data = copy.deepcopy(tests_data(data_file_name, "AnyType"))
+    test_data = copy.deepcopy(tests_data(data_file_name, "BasicRockProperties"))
     test_data["id"] = record_data["id"]
 
     full_record_id = getattr(api, api_path).post_record([test_data])["recordIdVersions"][0]

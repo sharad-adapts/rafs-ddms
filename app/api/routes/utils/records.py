@@ -192,6 +192,8 @@ def parse_kind(kind: str) -> dict:
     :rtype: dict
     """
     kind_parts = kind.split(":")
+    if len(kind_parts) != 4:
+        raise ValueError(f"Malformed kind: {kind}. Kind should be of the form `authority:source:entity_type:version`")
     authority_index = 0
     source_index = 1
     entity_type_index = 2

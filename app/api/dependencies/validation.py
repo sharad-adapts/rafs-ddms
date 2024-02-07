@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import asyncio
 import json
 from typing import Iterable, List, Optional, TypeVar
 
@@ -22,7 +23,10 @@ from pydantic.error_wrappers import ValidationError
 from starlette import status
 
 from app.api.dependencies.request import get_content_schema_version
-from app.api.dependencies.services import get_async_storage_service
+from app.api.dependencies.services import (
+    get_async_schema_service,
+    get_async_storage_service,
+)
 from app.api.routes.utils.api_version import get_api_version_from_url
 from app.api.routes.utils.records import get_id_version
 from app.exceptions.exceptions import (
@@ -37,6 +41,7 @@ from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.errors import FilterValidationError
 from app.resources.filters import DataFrameFilterValidator
 from app.resources.paths import COMMON_RELATIVE_PATHS
+from app.services.schema import SchemaService
 from app.services.storage import StorageService
 
 SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
@@ -128,8 +133,8 @@ def validate_kind(kind: str, valid_kinds: List[str]):
         kinds
     """
     if kind not in valid_kinds:
-        raise RuntimeError(
-            f"Kind `{kind}` not supported in RAFS-DDMS. Supported kinds for this endpoint: {valid_kinds}",
+        raise RecordValidationException(
+            detail=f"Kind `{kind}` not supported in RAFS-DDMS. Supported kinds for this endpoint: {valid_kinds}",
         )
 
 
@@ -169,11 +174,57 @@ def validate_record(record: dict, valid_kinds: List[str]):
 
 def build_skipped_record_error(record: dict, index: int, error: Exception):
     return {
-        "id": record.get("id"),
+        "id": record.get("id", f"record_at_index_{index}"),
         "kind": record.get("kind"),
-        "payload_index": index,
         "reason": error,
     }
+
+
+async def validate_osdu_wks_records(
+    records_list: List[OsduStorageRecord],
+    schema_service: SchemaService,
+    valid_kinds: List[str],
+) -> List[dict]:
+    """Validate OSDU records using Well Known Schema.
+
+    :param records_list: list of records
+    :type records_list: List[OsduStorageRecord]
+    :param schema_service: schema service instance
+    :type schema_service: SchemaService
+    :param valid_kinds: list of valid kinds
+    :type valid_kinds: List[str]
+    :raises exc: when schema fetch fails
+    :raises RecordValidationException: when jsonschema validation fails
+    :return: list of validated records
+    :rtype: List[dict]
+    """
+    tasks = []
+    records = []
+    skipped = []
+    try:
+        async with asyncio.TaskGroup() as group:
+            for index, record in enumerate(records_list):
+                record_dict = record.dict(exclude_none=True)
+                validate_kind(record_dict.get("kind", ""), valid_kinds=valid_kinds)
+                records.append(record_dict)
+                tasks.append(
+                    group.create_task(
+                        schema_service.validate(
+                            record=record_dict, schema_id=record_dict["kind"], optional_id=f"record_at_index_{index}",
+                        ),
+                    ),
+                )
+    except ExceptionGroup as eg:
+        for exc in eg.exceptions:  # noqa: WPS328 pylint: disable=not-an-iterable
+            raise exc
+
+    skipped = [task.result() for task in tasks if task.result()]
+    if skipped:
+        logger.error(f"Validation failed. Skipped records {skipped}")
+        raise RecordValidationException(detail=skipped)
+
+    logger.info("Records successfully validated.")
+    return records
 
 
 async def validate_records_payload(records_list: List[OsduStorageRecord], valid_kinds: List[str]) -> List[dict]:
@@ -199,6 +250,8 @@ async def validate_records_payload(records_list: List[OsduStorageRecord], valid_
             skipped.append(build_skipped_record_error(record_dict, index, rexc))
         except ValidationError as vexc:
             skipped.append(build_skipped_record_error(record_dict, index, vexc))
+        except RecordValidationException as rvexc:
+            skipped.append(build_skipped_record_error(record_dict, index, rvexc))
         validated.append(record_dict)
 
     if skipped:
@@ -290,8 +343,11 @@ async def validate_samples_analyses_report_v1_payload(records_list: List[OsduSto
 async def validate_samples_analyses_report_v2_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
+    schema_service: SchemaService = Depends(get_async_schema_service),
 ):
-    records = await validate_records_payload(records_list, [osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND])
+    records = await validate_osdu_wks_records(
+        records_list, schema_service, [osdu_models_base.SAMPLES_ANALYSES_REPORT_KIND],
+    )
     await validate_referential_integrity(records, [SAMPLESANALYSIS_TYPE_RECORD_FIELD], storage_service)
     return records
 
@@ -299,6 +355,7 @@ async def validate_samples_analyses_report_v2_payload(
 async def validate_samplesanalysis_records_v1_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
+    **kwargs,
 ):
     records = await validate_records_payload(records_list, [osdu_models_base.SAMPLESANALYSIS_V1_KIND])
     await validate_referential_integrity(records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD], storage_service)
@@ -308,16 +365,21 @@ async def validate_samplesanalysis_records_v1_payload(
 async def validate_samplesanalysis_records_v2_payload(
     records_list: List[OsduStorageRecord],
     storage_service: StorageService = Depends(get_async_storage_service),
+    schema_service: SchemaService = Depends(get_async_schema_service),
 ):
-    records = await validate_records_payload(records_list, [osdu_models_base.SAMPLESANALYSIS_KIND])
+    records = await validate_osdu_wks_records(records_list, schema_service, [osdu_models_base.SAMPLESANALYSIS_KIND])
     await validate_referential_integrity(
         records, [SAMPLESANALYSIS_PARENT_RECORDS_FIELD, SAMPLESANALYSIS_TYPE_RECORD_FIELD], storage_service,
     )
     return records
 
 
-async def validate_master_data_records_payload(records_list: List[OsduStorageRecord], **kwargs) -> List[dict]:
-    return await validate_records_payload(records_list, osdu_models_base.MASTER_DATA_KINDS_V2)
+async def validate_master_data_records_payload(
+    records_list: List[OsduStorageRecord],
+    schema_service: SchemaService,
+    **kwargs,
+) -> List[dict]:
+    return await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.MASTER_DATA_KINDS_V2)
 
 
 async def get_data_model(request: Request, content_schema_version: str = Depends(get_content_schema_version)) -> Model:

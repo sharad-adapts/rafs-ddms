@@ -37,7 +37,7 @@ The following software have components provided under the terms of this license:
 - sniffio (from https://github.com/python-trio/sniffio)
 - tenacity (from https://github.com/jd/tenacity)
 - tzdata (from https://github.com/python/tzdata)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.1.0/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.0/)
 - yarl (from https://github.com/aio-libs/yarl, https://github.com/aio-libs/yarl/)
 
 ========================================================================
@@ -73,7 +73,7 @@ The following software have components provided under the terms of this license:
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://github.com/python-trio/sniffio)
 - starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.36.1/)
-- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.27.0/, https://www.uvicorn.org/)
+- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.27.0.post1/, https://www.uvicorn.org/)
 
 ========================================================================
 BSL-1.0
@@ -118,6 +118,7 @@ The following software have components provided under the terms of this license:
 
 - aiohttp (from https://github.com/aio-libs/aiohttp, https://github.com/aio-libs/aiohttp/)
 - anyio (from https://pypi.org/project/anyio/3.3.0/, https://pypi.org/project/anyio/4.2.0/)
+- async-lru (from https://github.com/aio-libs/async-lru)
 - attrs (from https://attrs.readthedocs.io/, https://pypi.org/project/attrs/23.2.0/, https://www.attrs.org/)
 - azure-core (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/core/azure-core)
 - azure-storage-blob (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob)
@@ -127,6 +128,8 @@ The following software have components provided under the terms of this license:
 - fastapi (from https://pypi.org/project/fastapi/0.109.0/, https://pypi.org/project/fastapi/0.86.0/)
 - h11
 - jmespath (from https://github.com/jmespath/jmespath.py)
+- jsonschema
+- jsonschema-specifications (from https://pypi.org/project/jsonschema-specifications/2023.11.2/, https://pypi.org/project/jsonschema-specifications/2023.12.1/, https://pypi.org/project/jsonschema-specifications/2023.7.1/)
 - loguru (from https://github.com/Delgan/loguru)
 - mypy-extensions (from https://github.com/python/mypy_extensions)
 - numpy
@@ -135,14 +138,16 @@ The following software have components provided under the terms of this license:
 - pendulum (from https://pendulum.eustace.io)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
 - pyarrow (from https://arrow.apache.org/)
-- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.5.3/)
+- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.6.0/)
 - pytz (from http://pythonhosted.org/pytz)
 - redis (from https://github.com/redis/redis-py)
+- referencing (from https://pypi.org/project/referencing/0.30.2/, https://pypi.org/project/referencing/0.31.1/, https://pypi.org/project/referencing/0.33.0/)
+- rpds-py (from https://pypi.org/project/rpds-py/0.10.6/)
 - six (from http://pypi.python.org/pypi/six/, https://github.com/benjaminp/six)
 - sniffio (from https://github.com/python-trio/sniffio)
 - typeguard (from https://pypi.org/project/typeguard/4.1.5/)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.1.0/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.0/)
 
 ========================================================================
 MPL-2.0

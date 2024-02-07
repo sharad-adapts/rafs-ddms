@@ -48,7 +48,7 @@ def test_get_versions_v2_sample_analysis(api, helper, create_record):
     api_path = DataTypes.SAMPLE_ANALYSIS
     id_template = DataTemplates.ID_SAMPLE_ANALYSIS
 
-    record_data, created_record = create_record(api_path, data_file_name, id_template, "AnyType")
+    record_data, created_record = create_record(api_path, data_file_name, id_template, "BasicRockProperties")
     test_data = getattr(api, api_path).get_record_versions(record_data["id"])
 
     assert test_data["recordId"] == record_data["id"]

@@ -54,11 +54,12 @@
             }
         ],
         "SampleAnalysisTypeIDs": [
-            "{data_partition_id}:reference-data--SampleAnalysisType:{analysis_type}:"
+            "{data_partition_id}:reference-data--SampleAnalysisType:Extraction:"
         ],
         "SamplesAnalysisCategoryTagIDs": [
             "{data_partition_id}:reference-data--SamplesAnalysisCategoryTag:GreenCompany.SCAL:"
         ],
-        "DDMSDatasets": []
+        "DDMSDatasets": [],
+        "Parameters": []
     }
 }

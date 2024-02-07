@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import copy
+import json
 import os
 from typing import NamedTuple
 
@@ -117,6 +118,8 @@ from app.models.domain.osdu.WPCWaterAnalysis100 import WaterAnalysisTest
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
 from app.resources.paths import CommonRelativePathsV2
 from tests.test_api.api_version import API_VERSION, API_VERSION_V2
+
+dir_path = os.path.dirname(os.path.abspath(__file__))
 
 
 class KindVersion:
@@ -657,7 +660,7 @@ PVT_QUERY_STORAGE_SERVICE_INVALID_PVT_200_RESPONSE = {
 
 EXPECTED_404_RESPONSE = {"code": 404, "reason": str(b"test reason"), "message": "test txt"}
 EXPECTED_422_NO_KIND_RESPONSE = {"code": 422, "reason": "Unprocessable entity.", "errors": ["kind field required"]}
-EXPECTED_422_INVALID_KIND_REASON = "RuntimeError(\"Kind `{}` not supported in RAFS-DDMS."
+EXPECTED_422_INVALID_KIND_REASON = "Kind `{}` not supported in RAFS-DDMS."
 EXPECTED_422_WRONG_PATTERN = ["ValidationError", "string does not match regex"]
 EXPECTED_422_TYPER_ERROR_LIST = "body value is not a valid list"
 EXPECTED_200_CREATED_RESPONSE = {
@@ -892,3 +895,18 @@ class BulkDatasetIdV2(NamedTuple):
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
     STO = f"{PARTITION}:{FILE_GENERIC_TYPE}:stocktankoilanalysisreports-{TEST_DATASET_UID}"
+
+
+with open(f"{dir_path}/schemas/wpc_definitions.json") as fp:
+    WPC_DEFINITIONS = json.load(fp)
+
+with open(f"{dir_path}/schemas/samplesanalysesreport.json") as fp:
+    SAMPLES_ANALYSES_REPORT_SCHEMA = json.load(fp)
+    SAMPLES_ANALYSES_REPORT_SCHEMA["definitions"] = WPC_DEFINITIONS
+
+with open(f"{dir_path}/schemas/samplesanalysis.json") as fp:
+    SAMPLES_ANALYSIS_SCHEMA = json.load(fp)
+    SAMPLES_ANALYSIS_SCHEMA["definitions"] = WPC_DEFINITIONS
+
+with open(f"{dir_path}/schemas/sample.json") as fp:
+    SAMPLE_SCHEMA = json.load(fp)

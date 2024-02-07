@@ -14,4 +14,4 @@
 
 import os
 
-CACHE_DEFAULT_TTL = os.environ.get("CACHE_DEFAULT_TTL") or 60  # ttl in seconds
+CACHE_DEFAULT_TTL = int(os.environ.get("CACHE_DEFAULT_TTL", default="60"))  # ttl in seconds

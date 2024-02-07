@@ -46,6 +46,7 @@ configuration:
       SERVICE_HOST_SEARCH: "http://search.osdu/api/search/v2"
       SERVICE_HOST_PARTITION: "http://partition.osdu/api/partition/v1"
       SERVICE_HOST_DATASET: "http://dataset.osdu/api/dataset/v1"
+      SERVICE_HOST_SCHEMA: "http://schema.osdu/api/schema-service/v1"
       CACHE_ENABLE: "True"
       CACHE_BACKEND: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
       REDIS_DATABASE: "13"

@@ -76,13 +76,13 @@ curl --location --request GET '{RAFS_DDMS_URL}/v2/samplesanalysis/relativepermea
     - Create a legal tag
     - Create needed master data ![MasterData request](qa_collection_masterdata.png "MasterData request")
 2. Use the `v2/Samples Analyses Report KentishKnockSouth1 SCAL` folder
-    - create the record (request #1). ![Create SamplesAnalysesReport for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysesReport for KentishKnockSouth request")
-    - [Optionally] Get the record, list versions or get any specific version(requests #2,5 or 6)
+    - create the record (request number 1). ![Create SamplesAnalysesReport for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysesReport for KentishKnockSouth request")
+    - [Optionally] Get the record, list versions or get any specific version(requests number 2,5 or 6)
 3. Use the `v2/SamplesAnalysis [RelativePermeability]` folder
-    - create the record (request #1). ![Create SamplesAnalysis for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysis for KentishKnockSouth request")
-    - [Optionally] Get the record, list versions or get any specific version (request #2, 5 or 6)
-    - Add the relative_permeability content data (request #3). ![POST Relative Permeability Data](qa_collection_relative_permeability_data_post.png "POST Relative Permeability Data") 
-    - Get the recently added relative permeabulity data (request # 4). ![GET Relative Permeability Data](qa_collection_relative_permeability_data_post.png "GET Relative Permeability Data")
+    - create the record (request number 1). ![Create SamplesAnalysis for KentishKnockSouth request](qa_collection_sarkks.png "Create SamplesAnalysis for KentishKnockSouth request")
+    - [Optionally] Get the record, list versions or get any specific version (request  number 2, 5 or 6)
+    - Add the relative_permeability content data (request  number 3). ![POST Relative Permeability Data](qa_collection_relative_permeability_data_post.png "POST Relative Permeability Data")
+    - Get the recently added relative permeabulity data (request number 4). ![GET Relative Permeability Data](qa_collection_relative_permeability_data_post.png "GET Relative Permeability Data")
 
 ### Filters and Aggregation
 Filter and aggregation are only available for top level properties. For example for Relative Permeability schema the following properties are available when using filters and aggregators.

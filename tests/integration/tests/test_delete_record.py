@@ -64,7 +64,7 @@ def test_delete_v2_sample_analysis(api, create_record):
     api_path = DataTypes.SAMPLE_ANALYSIS
     id_template = DataTemplates.ID_SAMPLE_ANALYSIS
 
-    record_data, _ = create_record(api_path, data_file_name, id_template, "AnyType")
+    record_data, _ = create_record(api_path, data_file_name, id_template, "BasicRockProperties")
     # status code check is implemented on the API client layer
     getattr(api, api_path).soft_delete_record(record_data["id"], allowed_codes=[status.HTTP_204_NO_CONTENT])
     getattr(api, api_path).get_record(record_data["id"], allowed_codes=[status.HTTP_404_NOT_FOUND])

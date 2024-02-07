@@ -15,10 +15,15 @@ anyio==3.7.1
     #   fastapi
     #   httpcore
     #   starlette
+async-lru==2.0.4
+    # via -r requirements.in
 async-timeout==4.0.3
     # via -r requirements.in
 attrs==23.1.0
-    # via aiohttp
+    # via
+    #   aiohttp
+    #   jsonschema
+    #   referencing
 azure-core==1.29.5
     # via azure-storage-blob
 azure-storage-blob==12.18.3
@@ -75,6 +80,10 @@ jmespath==1.0.1
     # via
     #   boto3
     #   botocore
+jsonschema==4.20.0
+    # via -r requirements.in
+jsonschema-specifications==2023.12.1
+    # via jsonschema
 loguru==0.7.2
     # via -r requirements.in
 multidict==6.0.4
@@ -127,6 +136,10 @@ pytzdata==2020.1
     # via pendulum
 redis==4.6.0
     # via fastapi-cache2
+referencing==0.32.1
+    # via
+    #   jsonschema
+    #   jsonschema-specifications
 requests[security]==2.31.0
     # via
     #   -r requirements.in
@@ -136,6 +149,10 @@ rfc3986[idna2008]==1.5.0
     # via
     #   httpx
     #   rfc3986
+rpds-py==0.17.1
+    # via
+    #   jsonschema
+    #   referencing
 s3transfer==0.8.2
     # via boto3
 six==1.16.0
