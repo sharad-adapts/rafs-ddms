@@ -1,0 +1,43 @@
+{
+    "columns": [
+        "CalibrationDate",
+        "Calibrations"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "2024-01-01",
+            [
+                {
+                    "CalibrationType": "CalibrationType",
+                    "CalibrationMatrix": [
+                        {
+                            "Temperature": {
+                                "Value": 32.0,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                            },
+                            "Pressure": {
+                                "Value": 90.0,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+                            },
+                            "Calibration": 1.0
+                        },
+                        {
+                            "Temperature": {
+                                "Value": 32.0,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+                            },
+                            "Pressure": {
+                                "Value": 90.0,
+                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+                            },
+                            "Calibration": 1.0
+                        }
+                    ]
+                }
+            ]
+        ]
+    ]
+}
