@@ -85,6 +85,7 @@ class CommonRelativePathsV2(NamedTuple):
     XRD: str = "/data/xrd"
     PDP: str = "/data/pdp"
     STO: str = "/data/stocktankoilanalysis"
+    COEFFICIENT_TABLE: str = "/data/coefficienttable"
 
 
 COMMON_RELATIVE_PATHS = {

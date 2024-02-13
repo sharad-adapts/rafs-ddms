@@ -57,6 +57,7 @@ from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as 
 from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import Model as VitriniteReflectanceModel
 from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 from app.models.data_schemas.api_v2.pdp_data_model import Model as PdpModel
+from app.models.data_schemas.api_v2.coefficient_table_data_model import Model as CoefficientTableModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -187,6 +188,9 @@ PDP_MODELS = {
 STO_MODELS = {
     ContentSchemaVersion.V_1_0_0: StoModel
 }
+COEFFICIENT_TABLE_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CoefficientTableModel,
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -233,4 +237,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.XRD: XRD_MODELS,
     common_relative_paths_api_v2.PDP: PDP_MODELS,
     common_relative_paths_api_v2.STO: STO_MODELS,
+    common_relative_paths_api_v2.COEFFICIENT_TABLE: COEFFICIENT_TABLE_MODELS,
 }

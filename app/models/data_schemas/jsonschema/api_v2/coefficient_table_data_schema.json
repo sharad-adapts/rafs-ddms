@@ -1,0 +1,61 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "CalibrationDate": {
+            "type": "string",
+            "format": "date"
+        },
+        "Calibrations": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "CalibrationType": {
+                        "type": "string"
+                    },
+                    "CalibrationMatrix": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "Temperature": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "Pressure": {
+                                    "type": "object",
+                                    "properties": {
+                                        "Value": {
+                                            "type": "number"
+                                        },
+                                        "UnitOfMeasure": {
+                                            "type": "string",
+                                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                "Calibration": {
+                                    "type": "number"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    }
+                },
+                "additionalProperties": false
+            }
+        }
+    },
+    "additionalProperties": false
+}
