@@ -114,6 +114,7 @@ class DataFiles:
     HPMI_WRONG_ID = "v2/HPMI/hpmi_wrong_ids.json"
     ALKANES_DATA = "v2/alkanes/alkanes_data.json"
     ALKANES_WRONG_ID = "v2/alkanes/alkanes_wrong_ids.json"
+    PVT_MODEL = "v2/pvt_model.json"
 
 
 class DataTemplates:
@@ -173,6 +174,7 @@ class DataTypes:
     MASTER_DATA = "masterdata"
     SAMPLE_ANALYSIS = "sample_analysis"
     SAR_V2 = "sar_v2"
+    PVT_MODEL = "pvtmodel"
 
 
 class SamplesAnalysisTypes:  # Custom values

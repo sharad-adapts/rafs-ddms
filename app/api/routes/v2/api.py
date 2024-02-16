@@ -20,6 +20,7 @@ from app.api.routes.samplesanalysesreport import (
 )
 from app.api.routes.samplesanalysis import api as sampleanalysis_api
 from app.api.routes.v2.master_data import api as masterdata_api
+from app.api.routes.v2.pvt_model import api as pvt_model_api
 
 COMMON_DEPENDENCIES = [
     Depends(require_data_partition_id),
@@ -45,5 +46,12 @@ router.include_router(
     masterdata_api.md_router,
     prefix="/masterdata",
     tags=["masterdata"],
+    dependencies=COMMON_DEPENDENCIES,
+)
+
+router.include_router(
+    pvt_model_api.pvt_model_router,
+    prefix="/pvtmodel",
+    tags=["PVT Model"],
     dependencies=COMMON_DEPENDENCIES,
 )

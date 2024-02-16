@@ -1,0 +1,56 @@
+{
+    "Components": [
+        {
+            "ComponentName": "Ethane",
+            "MolecularWeight": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbm%2Flbmol:"
+            },
+            "StdGravity": 1.0,
+            "BoilingPoint": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            "CriticalTemperature": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            "CriticalPressure": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "CriticalVolume": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:"
+            },
+            "VolumeTranslationFactor": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ft3%2Flbmol:"
+            },
+            "ShiftFactor": 1.0,
+            "AcentricFactor": 1.0,
+            "OmegaA": 1.0,
+            "OmegaB": 1.0
+        }
+    ],
+    "BinaryInteractionParameters": [
+        {
+            "ComponentName1": "Water",
+            "ComponentName2": "Ethane",
+            "Value": 1.0
+        },
+        {
+            "ComponentName1": "Nitrogen",
+            "ComponentName2": "Methane",
+            "Value": 1.0
+        }
+    ],
+    "ViscosityCoefficient": {
+        "LBCCoefficient1": 1.0,
+        "LBCCoefficient2": 2.0,
+        "LBCCoefficient3": 3.0,
+        "LBCCoefficient4": 4.0,
+        "LBCCoefficient5": 5.0,
+        "LBCCoefficient6": 6.0
+    }
+}

@@ -1,0 +1,154 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Components": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "ComponentName": {
+                        "type": "string"
+                    },
+                    "MolecularWeight": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "StdGravity": {
+                        "type": "number"
+                    },
+                    "BoilingPoint": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "CriticalTemperature": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "CriticalPressure": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "CriticalVolume": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "VolumeTranslationFactor": {
+                        "type": "object",
+                        "properties": {
+                            "Value": {
+                                "type": "number"
+                            },
+                            "UnitOfMeasure": {
+                                "type": "string",
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                            }
+                        },
+                        "additionalProperties": false
+                    },
+                    "ShiftFactor": {
+                        "type": "number"
+                    },
+                    "AcentricFactor": {
+                        "type": "number"
+                    },
+                    "OmegaA": {
+                        "type": "number"
+                    },
+                    "OmegaB": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "BinaryInteractionParameters": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "ComponentName1": {
+                        "type": "string"
+                    },
+                    "ComponentName2": {
+                        "type": "string"
+                    },
+                    "Value": {
+                        "type": "number"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "ViscosityCoefficient": {
+            "type": "object",
+            "properties": {
+                "LBCCoefficient1": {
+                    "type": "number"
+                },
+                "LBCCoefficient2": {
+                    "type": "number"
+                },
+                "LBCCoefficient3": {
+                    "type": "number"
+                },
+                "LBCCoefficient4": {
+                    "type": "number"
+                },
+                "LBCCoefficient5": {
+                    "type": "number"
+                },
+                "LBCCoefficient6": {
+                    "type": "number"
+                }
+            },
+            "additionalProperties": false
+        }
+    },
+    "additionalProperties": false
+}
