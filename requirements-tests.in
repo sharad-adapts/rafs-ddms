@@ -2,7 +2,7 @@
 # Keeping testing requirements segregated from runtime requirements.
 # dependencies for tests and checks
 asgi-lifespan==2.1.0
-httpx==0.23.3
+httpx==0.26.0
 pytest==7.2.0
 pytest-asyncio==0.19.0
 pytest-cov==3.0.0
