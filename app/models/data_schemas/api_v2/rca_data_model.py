@@ -200,11 +200,7 @@ class TestStep(RafsBaseModel):
     Saturation: Optional[List[SaturationItem]] = None
     LithologyDescription: Optional[str] = None
     Remarks: Optional[str] = None
-    SampleTestRunType: Optional[
-        constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-SampleTestRunType:[\w\-\.\:\%]+:[0-9]*$"
-        )
-    ] = Field(
+    SampleTestRunType: Optional[str] = Field(
         None,
         description="A qualifier used to distinguish the different RCA runs. Used in conjunction with RCA runs pre and post SCAL analysis to QC the rock sample",
     )
