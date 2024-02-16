@@ -135,7 +135,7 @@ SERVICE_HOST_SCHEMA=${OSDU_ENDPOINT}/api/schema-service/v1
 CACHE_ENABLE=False
 EOF
 
-docker-compose up rafs
+docker-compose up
 
 # Simple test
 curl localhost:8080/api/rafs-ddms/info
@@ -179,9 +179,9 @@ Use the `OPENAPI_PREFIX` value used for project settings.
 Unit tests
 
 ```shell
-docker-compose run tests
-docker-compose run --rm tests flake8 / --config=/setup.cfg
-docker-compose run --rm tests flake8 /app --select T1
+docker-compose --profile tests run tests
+docker-compose --profile tests run --rm tests flake8 / --config=/setup.cfg
+docker-compose --profile tests run --rm tests flake8 /app --select T1
 ```
 
 ### Run Local Integration Tests
