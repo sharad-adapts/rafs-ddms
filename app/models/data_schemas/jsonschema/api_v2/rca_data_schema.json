@@ -202,8 +202,7 @@
                     },
                     "SampleTestRunType": {
                         "type": "string",
-                        "description": "A qualifier used to distinguish the different RCA runs. Used in conjunction with RCA runs pre and post SCAL analysis to QC the rock sample",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleTestRunType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "description": "A qualifier used to distinguish the different RCA runs. Used in conjunction with RCA runs pre and post SCAL analysis to QC the rock sample"
                     }
                 },
                 "additionalProperties": false
