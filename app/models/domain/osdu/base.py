@@ -114,3 +114,7 @@ IMPLEMENTED_MODELS = {
     SAMPLESANALYSIS_V1_KIND: SamplesAnalysisV1,
     SAMPLESANALYSIS_KIND: SamplesAnalysis,
 }
+
+PVT_MODEL_KINDS = (
+    f"{settings.custom_schema_authority}:wks:work-product-component--PVTModel:1.0.0",
+)

@@ -92,3 +92,7 @@ COMMON_RELATIVE_PATHS = {
     "v1": CommonRelativePathsV1,
     "v2": CommonRelativePathsV2,
 }
+
+
+class PVTModelRelativePaths(NamedTuple):
+    EOS_PENG_ROBINSON_LOHRENZ: str = "/data/eospengrobinsonlohrenz"

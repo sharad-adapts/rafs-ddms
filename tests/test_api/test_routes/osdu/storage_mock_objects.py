@@ -116,7 +116,7 @@ from app.models.domain.osdu.WPCWaterAnalysis100 import (
 )
 from app.models.domain.osdu.WPCWaterAnalysis100 import WaterAnalysisTest
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
-from app.resources.paths import CommonRelativePathsV2
+from app.resources.paths import CommonRelativePathsV2, PVTModelRelativePaths
 from tests.test_api.api_version import API_VERSION, API_VERSION_V2
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -275,6 +275,9 @@ TEST_FORMATION_RESISTIVITY_INDEX_ID = f"{PARTITION}:{SAMPLESANALYSIS_TYPE}:{FORM
 TEST_ACL = Acl(viewers=["viewers@domain.com"], owners=["owners@domain.com"])
 TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], status="compliant")
 TEST_WRONG_ID = "partition:entity-type:id"
+
+# PVTModel
+TEST_PVT_MODEL_ID = f"{PARTITION}:work-product-component--PVTModel:{KindVersion.V_1_0_0}"
 
 OSDU_GENERIC_RECORD = OsduStorageRecord(
     id="partition:type:identifier",
@@ -912,3 +915,18 @@ with open(f"{dir_path}/schemas/samplesanalysis.json") as fp:
 
 with open(f"{dir_path}/schemas/sample.json") as fp:
     SAMPLE_SCHEMA = json.load(fp)
+
+
+# PVT Model
+PVT_MODEL_ENDPOINT_PATH = f"{BASE_V2_PATH}/pvtmodel"
+BASE_PVT_MODEL_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_PVT_MODEL_ID}"
+
+pvt_model_relative_paths = PVTModelRelativePaths()
+
+
+class TestContentPathsPVTModel:
+    EOS_PENG_ROBINSON_LOHRENZ = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS_PENG_ROBINSON_LOHRENZ}"
+
+
+class BulkDatasetIdPVTModel(NamedTuple):
+    EOS_PENG_ROBINSON_LOHRENZ = f"{PARTITION}:{FILE_GENERIC_TYPE}:eospengrobinsonlohrenzdata-{TEST_DATASET_UID}"
