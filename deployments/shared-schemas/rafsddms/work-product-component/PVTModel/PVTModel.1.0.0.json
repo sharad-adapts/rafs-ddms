@@ -172,16 +172,6 @@
                                 "title": "Viscosity Correlation Document ID",
                                 "description": "The document of Viscosity Correlation Formula",
                                 "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-Document:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "EoSMethod": {
-                                "type": "string",
-                                "title": "Equation of State Method",
-                                "description": "The EoS Method, e.g. Peng-Robinson"
-                            },
-                            "ViscosityCorrelationMethod": {
-                                "type": "string",
-                                "title": "Viscosity Correlation Method",
-                                "description": "The VC Method, e.g. Lohrenz"
                             }
                         },
                         "title": "IndividualProperties"

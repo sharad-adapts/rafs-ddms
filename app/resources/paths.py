@@ -95,4 +95,4 @@ COMMON_RELATIVE_PATHS = {
 
 
 class PVTModelRelativePaths(NamedTuple):
-    EOS_PENG_ROBINSON_LOHRENZ: str = "/data/eospengrobinsonlohrenz"
+    EOS: str = "/data/equationofstate"

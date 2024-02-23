@@ -70,9 +70,7 @@ from tests.test_api.test_routes.api_v2.multistageseparator import (
 )
 from tests.test_api.test_routes.api_v2.nmr import nmr_mock_objects
 from tests.test_api.test_routes.api_v2.pdp import pdp_mock_objects
-from tests.test_api.test_routes.api_v2.pvtmodel import (
-    eos_peng_robinson_lohrenz_mock_objects,
-)
+from tests.test_api.test_routes.api_v2.pvtmodel import eos_content_mock_objects
 from tests.test_api.test_routes.api_v2.relative_permeability import (
     relative_permeability_mock_objects,
 )
@@ -259,7 +257,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
         (TestContentPathsApiV2.COEFFICIENT_TABLE, BulkDatasetIdV2.COEFFICIENT_TABLE),
-        (TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ, BulkDatasetIdPVTModel.EOS_PENG_ROBINSON_LOHRENZ),
+        (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
     ],
 )
 @pytest.mark.asyncio
@@ -322,7 +320,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
         (TestContentPathsApiV2.COEFFICIENT_TABLE, BulkDatasetIdV2.COEFFICIENT_TABLE),
-        (TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ, BulkDatasetIdPVTModel.EOS_PENG_ROBINSON_LOHRENZ),
+        (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
     ],
 )
 @pytest.mark.asyncio
@@ -385,7 +383,7 @@ async def test_get_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
         (TestContentPathsApiV2.COEFFICIENT_TABLE, BulkDatasetIdV2.COEFFICIENT_TABLE),
-        (TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ, BulkDatasetIdPVTModel.EOS_PENG_ROBINSON_LOHRENZ),
+        (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
     ],
 )
 @pytest.mark.asyncio
@@ -849,14 +847,14 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
             [build_get_test_data("x-parquet", coefficienttable_mock_objects.TEST_DATA)],
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
             "get_record",
             [
-                eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+                eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -2072,31 +2070,31 @@ async def test_get_content_parquet_data(
             coefficienttable_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
-            eos_peng_robinson_lohrenz_mock_objects.TEST_PARAMS_FILTERS,
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
+            eos_content_mock_objects.TEST_PARAMS_FILTERS,
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_FILTERED_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_FILTERED_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
-            eos_peng_robinson_lohrenz_mock_objects.TEST_PARAMS_AGGREGATION,
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
+            eos_content_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_AGGREGATED_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_AGGREGATED_DATA,
         ),
     ],
 )
@@ -2471,12 +2469,12 @@ async def test_get_data_json_data(
             coefficienttable_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2860,12 +2858,12 @@ async def test_get_data_json_data_no_content_schema_version(
             coefficienttable_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3241,12 +3239,12 @@ async def test_get_data_json_data_improper_schema_version(
             coefficienttable_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            [eos_content_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", eos_peng_robinson_lohrenz_mock_objects.TEST_DATA)],
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", eos_content_mock_objects.TEST_DATA)],
+            eos_content_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -3587,11 +3585,11 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             coefficienttable_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            eos_content_mock_objects.TEST_DATA,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
+            eos_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -3923,11 +3921,11 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             coefficienttable_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            eos_content_mock_objects.TEST_DATA,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
+            eos_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4174,9 +4172,9 @@ async def test_post_data_json_no_ddmsdatasets_field(
             coefficienttable_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4505,11 +4503,11 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             coefficienttable_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            eos_content_mock_objects.TEST_DATA,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
+            eos_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -4843,11 +4841,11 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             coefficienttable_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATA,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID,
-            eos_peng_robinson_lohrenz_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            eos_content_mock_objects.TEST_DATA,
+            eos_content_mock_objects.TEST_DATASET_RECORD_ID,
+            eos_content_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -5154,9 +5152,9 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
             coefficienttable_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
-            TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
-            eos_peng_robinson_lohrenz_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
-            eos_peng_robinson_lohrenz_mock_objects.EXPECTED_ERROR_REASON,
+            TestContentPathsPVTModel.EOS,
+            eos_content_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            eos_content_mock_objects.EXPECTED_ERROR_REASON,
         ),
     ],
 )
@@ -5221,7 +5219,7 @@ async def test_post_invalid_df_error(data_endpoint_path, incorrect_dataframe_dat
         f"{TestContentPathsApiV2.PDP}/{pdp_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.STO}/{sto_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.COEFFICIENT_TABLE}/{coefficienttable_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ}/{eos_peng_robinson_lohrenz_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -5281,7 +5279,7 @@ async def test_get_403(data_endpoint_path):
         TestContentPathsApiV2.PDP,
         TestContentPathsApiV2.STO,
         TestContentPathsApiV2.COEFFICIENT_TABLE,
-        TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
+        TestContentPathsPVTModel.EOS,
     ],
 )
 @pytest.mark.asyncio
@@ -5454,7 +5452,7 @@ async def test_post_integrity_error(data_endpoint_path, integrity_error_datafram
         TestContentPathsApiV2.PDP,
         TestContentPathsApiV2.STO,
         TestContentPathsApiV2.COEFFICIENT_TABLE,
-        TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ,
+        TestContentPathsPVTModel.EOS,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -5520,7 +5518,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.PDP, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.STO, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.COEFFICIENT_TABLE, ORIENT_SPLIT_400_PAYLOADS),
-        (TestContentPathsPVTModel.EOS_PENG_ROBINSON_LOHRENZ, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsPVTModel.EOS, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):

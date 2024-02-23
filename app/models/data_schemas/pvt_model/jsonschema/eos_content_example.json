@@ -1,4 +1,6 @@
 {
+    "EoSMethod": "Peng-Robinson",
+    "ViscosityCorrelationMethod": "Lohrenz",
     "Components": [
         {
             "ComponentName": "Ethane",

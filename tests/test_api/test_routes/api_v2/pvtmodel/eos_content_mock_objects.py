@@ -23,8 +23,8 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:eospengrobinsonlohrenz-12345:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/eospengrobinsonlohrenzdata/{TEST_PVT_MODEL_ID}/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:equationofstate-12345:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/equationofstatedata/{TEST_PVT_MODEL_ID}/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
@@ -56,7 +56,7 @@ TEST_PARAMS_FILTERS = {
     "rows_filter": "ViscosityCoefficient.LBCCoefficient1,eq,1.0",
 }
 
-with open(f"{dir_path}/eos_peng_robinson_lohrenz_orient_split.json") as fp:
+with open(f"{dir_path}/eos_content_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -96,4 +96,4 @@ TEST_FILTERED_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting ViscosityCoefficient in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+EXPECTED_ERROR_REASON = "Data error: 5 columns passed, passed data had 4 columns"
