@@ -2,6 +2,16 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
+        "EoSMethod": {
+            "type": "string",
+            "title": "Equation of State Method",
+            "description": "The EoS Method, e.g. Peng-Robinson"
+        },
+        "ViscosityCorrelationMethod": {
+            "type": "string",
+            "title": "Viscosity Correlation Method",
+            "description": "The VC Method, e.g. Lohrenz"
+        },
         "Components": {
             "type": "array",
             "items": {

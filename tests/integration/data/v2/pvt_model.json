@@ -26,8 +26,6 @@
         "SamplesAnalysisIDs": ["{data_partition_id}:work-product-component--SamplesAnalysis:Example_SamplesAnalysis:"],
         "EoSDocumentID": "{data_partition_id}:work-product-component--Document:EoSDocument:",
         "VCDocumentID": "{data_partition_id}:work-product-component--Document:VCDocument:",
-        "EoSMethod": "Peng-Robinson",
-        "ViscosityCorrelationMethod": "Lohrenz",
         "DDMSDatasets": []
     }
 }

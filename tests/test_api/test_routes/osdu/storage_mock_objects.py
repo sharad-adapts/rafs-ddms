@@ -925,8 +925,8 @@ pvt_model_relative_paths = PVTModelRelativePaths()
 
 
 class TestContentPathsPVTModel:
-    EOS_PENG_ROBINSON_LOHRENZ = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS_PENG_ROBINSON_LOHRENZ}"
+    EOS = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS}"
 
 
 class BulkDatasetIdPVTModel(NamedTuple):
-    EOS_PENG_ROBINSON_LOHRENZ = f"{PARTITION}:{FILE_GENERIC_TYPE}:eospengrobinsonlohrenzdata-{TEST_DATASET_UID}"
+    EOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:equationofstatedata-{TEST_DATASET_UID}"

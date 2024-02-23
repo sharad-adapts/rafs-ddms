@@ -1,5 +1,7 @@
 {
     "columns": [
+        "EoSMethod",
+        "ViscosityCorrelationMethod",
         "Components",
         "BinaryInteractionParameters",
         "ViscosityCoefficient"
@@ -9,6 +11,8 @@
     ],
     "data": [
         [
+            "Peng-Robinson",
+            "Lohrenz",
             [
                 {
                     "ComponentName": "Ethane",
