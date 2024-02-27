@@ -1,0 +1,21 @@
+{
+    "ComponentScenarioID": "opendes:work-product-component--ComponentScenario:ComponentScenario_Example",
+    "ComponentScenarioName": "ComponentScenarioName",
+    "ComponentMoleFraction": [
+      {
+        "ComponentName": "Water",
+        "MoleFraction": {
+          "Value": 1.0,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        }
+      },
+      {
+        "ComponentName": "Nitrogen",
+        "MoleFraction": {
+          "Value": 1.0,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        }
+      }
+    ],
+    "ComponentConsolidationMethod": "ComponentConsolidationMethod"
+}
