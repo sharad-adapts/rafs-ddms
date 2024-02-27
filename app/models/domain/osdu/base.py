@@ -117,4 +117,5 @@ IMPLEMENTED_MODELS = {
 
 PVT_MODEL_KINDS = (
     f"{settings.custom_schema_authority}:wks:work-product-component--PVTModel:1.0.0",
+    f"{settings.custom_schema_authority}:wks:work-product-component--ComponentScenario:1.0.0",
 )

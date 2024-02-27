@@ -278,6 +278,7 @@ TEST_WRONG_ID = "partition:entity-type:id"
 
 # PVTModel
 TEST_PVT_MODEL_ID = f"{PARTITION}:work-product-component--PVTModel:{KindVersion.V_1_0_0}"
+TEST_COMPONENT_SCENARIO_ID = f"{PARTITION}:work-product-component--ComponentScenario:{KindVersion.V_1_0_0}"
 
 OSDU_GENERIC_RECORD = OsduStorageRecord(
     id="partition:type:identifier",
@@ -920,13 +921,16 @@ with open(f"{dir_path}/schemas/sample.json") as fp:
 # PVT Model
 PVT_MODEL_ENDPOINT_PATH = f"{BASE_V2_PATH}/pvtmodel"
 BASE_PVT_MODEL_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_PVT_MODEL_ID}"
+BASE_COMPONENT_SCENARIO_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_COMPONENT_SCENARIO_ID}"
 
 pvt_model_relative_paths = PVTModelRelativePaths()
 
 
 class TestContentPathsPVTModel:
     EOS = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS}"
+    COMPONENT_SCENARIO = f"{BASE_COMPONENT_SCENARIO_CONTENT_PATH}{pvt_model_relative_paths.COMPONENT_SCENARIO}"
 
 
 class BulkDatasetIdPVTModel(NamedTuple):
     EOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:equationofstatedata-{TEST_DATASET_UID}"
+    COMPONENT_SCENARIO = f"{PARTITION}:{FILE_GENERIC_TYPE}:componentscenariodata-{TEST_DATASET_UID}"

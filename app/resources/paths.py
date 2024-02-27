@@ -96,3 +96,4 @@ COMMON_RELATIVE_PATHS = {
 
 class PVTModelRelativePaths(NamedTuple):
     EOS: str = "/data/equationofstate"
+    COMPONENT_SCENARIO: str = "/data/componentscenario"
