@@ -105,3 +105,14 @@ repos:
     hooks:
       - id: gitlint
         exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
+
+  - repo: https://github.com/leoll2/copyright_notice_precommit
+    rev: 0.1.1
+    hooks:
+      - id: copyright-notice
+        args: [
+          --notice=copyright.txt
+          --enforce-all
+        ]
+        files: "(app)|(tests)|(client)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
