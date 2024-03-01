@@ -1,0 +1,85 @@
+{
+    "columns": [
+        "MeterType",
+        "SeparatorTrain",
+        "Salinity",
+        "CalibrarionDate",
+        "Calibrations",
+        "MultiFlash",
+        "GasOilRatio",
+        "OilDensity",
+        "GasDensity",
+        "WaterDensity"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "MeterType",
+            [
+                {
+                    "Pressure": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+                        "Value": 1.0
+                    },
+                    "Temperature": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
+                        "Value": 1.0
+                    }
+                }
+            ],
+            {
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
+                "Value": 1.0
+            },
+            "2018-11-13T20:20:39+00:00",
+            [
+                {
+                    "Calibration": {
+                        "Type": "Water",
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:",
+                        "Value": 1.0
+                    },
+                    "Pressure": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+                        "Value": 1.0
+                    },
+                    "Temperature": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
+                        "Value": 1.0
+                    }
+                },
+                {
+                    "Calibration": {
+                        "Type": "Oil",
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:",
+                        "Value": 2.0
+                    },
+                    "Pressure": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+                        "Value": 2.0
+                    },
+                    "Temperature": {
+                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
+                        "Value": 2.0
+                    }
+                }
+            ],
+            "MultiFlash",
+            1,
+            {
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+                "Value": 1.0
+            },
+            {
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+                "Value": 1.0
+            },
+            {
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+                "Value": 1.0
+            }
+        ]
+    ]
+}

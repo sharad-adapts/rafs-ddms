@@ -16,10 +16,15 @@ from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import PVTModelRelativePaths
 
 from app.models.data_schemas.pvt_model.eos_content_model import Model as EoSContentModel
+from app.models.data_schemas.pvt_model.mpfm_calibration_model import Model as MPFMCalibrationModel
 from app.models.data_schemas.pvt_model.component_scenario_model import Model as ComponentScenarioModel
 
 EOS_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: EoSContentModel,
+}
+
+MPFM_CALIBRATION_MODELS = {
+    ContentSchemaVersion.V_1_0_0: MPFMCalibrationModel,
 }
 
 COMPONENT_SCENARIO_MODELS = {
@@ -28,6 +33,7 @@ COMPONENT_SCENARIO_MODELS = {
 
 pvt_relative_paths = PVTModelRelativePaths()
 PATHS_TO_CONTENT_PVT_MODELS = {
+    pvt_relative_paths.MPFM_CALIBRATION: MPFM_CALIBRATION_MODELS,
     pvt_relative_paths.EOS: EOS_CONTENT_MODELS,
     pvt_relative_paths.COMPONENT_SCENARIO: COMPONENT_SCENARIO_MODELS,
 }

@@ -12,20 +12,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-
 import copy
 import json
 import os
 
 from tests.test_api.test_routes.osdu.storage_mock_objects import (
     OSDU_GENERIC_RECORD,
-    TEST_SAMPLESANALYSIS_ID,
+    TEST_MPFM_CALIBRATION_ID,
 )
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:coefficienttable-12345:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/coefficienttabledata/{TEST_SAMPLESANALYSIS_ID}/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:mpfmcalibration-12345:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/mpfmcalibrationdata/{TEST_MPFM_CALIBRATION_ID}/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
 RECORD_DATA = {
@@ -50,44 +49,47 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "CalibrationDate,count",
+    "columns_aggregation": "Salinity.Value,sum",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "CalibrationDate",
-    "rows_filter": "CalibrationDate,eq,2024-01-01",
+    "columns_filter": "Salinity",
+    "rows_filter": "Salinity.Value,eq,1.0",
 }
 
-with open(f"{dir_path}/coefficienttable_orient_split.json") as fp:
+with open(f"{dir_path}/mpfm_calibration_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "CalibrationDate",
+        "Salinity",
     ],
     "index": [
-        "count",
+        "sum",
     ],
     "data": [
         [
-            1,
+            1.0,
         ],
     ],
 }
 
 TEST_FILTERED_DATA = {
     "columns": [
-        "CalibrationDate"
+        "Salinity",
     ],
     "index": [
-        0
+        0,
     ],
     "data": [
         [
-            "2024-01-01"
-        ]
-    ]
+            {
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
+                "Value": 1.0,
+            },
+        ],
+    ],
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Calibrations in index row 0
-EXPECTED_ERROR_REASON = "Data error: 2 columns passed, passed data had 1 columns"
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting WaterDensity in index row 0
+EXPECTED_ERROR_REASON = "Data error: 10 columns passed, passed data had 9 columns"

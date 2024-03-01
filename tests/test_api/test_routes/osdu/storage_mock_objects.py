@@ -277,6 +277,7 @@ TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], st
 TEST_WRONG_ID = "partition:entity-type:id"
 
 # PVTModel
+TEST_MPFM_CALIBRATION_ID = f"{PARTITION}:work-product-component--MultiPhaseFlowMeterCalibration:{KindVersion.V_1_0_0}"
 TEST_PVT_MODEL_ID = f"{PARTITION}:work-product-component--PVTModel:{KindVersion.V_1_0_0}"
 TEST_COMPONENT_SCENARIO_ID = f"{PARTITION}:work-product-component--ComponentScenario:{KindVersion.V_1_0_0}"
 
@@ -827,7 +828,6 @@ class TestContentPathsApiV2:
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
     PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
     STO = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.STO}"
-    COEFFICIENT_TABLE = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.COEFFICIENT_TABLE}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -900,7 +900,6 @@ class BulkDatasetIdV2(NamedTuple):
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
     STO = f"{PARTITION}:{FILE_GENERIC_TYPE}:stocktankoilanalysisreports-{TEST_DATASET_UID}"
-    COEFFICIENT_TABLE = f"{PARTITION}:{FILE_GENERIC_TYPE}:coefficienttable-{TEST_DATASET_UID}"
 
 
 with open(f"{dir_path}/schemas/wpc_definitions.json") as fp:
@@ -920,6 +919,7 @@ with open(f"{dir_path}/schemas/sample.json") as fp:
 
 # PVT Model
 PVT_MODEL_ENDPOINT_PATH = f"{BASE_V2_PATH}/pvtmodel"
+BASE_MPFM_CALIBRATION_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_MPFM_CALIBRATION_ID}"
 BASE_PVT_MODEL_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_PVT_MODEL_ID}"
 BASE_COMPONENT_SCENARIO_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_COMPONENT_SCENARIO_ID}"
 
@@ -927,10 +927,12 @@ pvt_model_relative_paths = PVTModelRelativePaths()
 
 
 class TestContentPathsPVTModel:
+    MPFM_CALIBRATION = f"{BASE_MPFM_CALIBRATION_CONTENT_PATH}{pvt_model_relative_paths.MPFM_CALIBRATION}"
     EOS = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS}"
     COMPONENT_SCENARIO = f"{BASE_COMPONENT_SCENARIO_CONTENT_PATH}{pvt_model_relative_paths.COMPONENT_SCENARIO}"
 
 
 class BulkDatasetIdPVTModel(NamedTuple):
+    MPFM_CALIBRATION = f"{PARTITION}:{FILE_GENERIC_TYPE}:mpfmcalibrationdata-{TEST_DATASET_UID}"
     EOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:equationofstatedata-{TEST_DATASET_UID}"
     COMPONENT_SCENARIO = f"{PARTITION}:{FILE_GENERIC_TYPE}:componentscenariodata-{TEST_DATASET_UID}"
