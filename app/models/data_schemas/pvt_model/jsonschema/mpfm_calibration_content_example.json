@@ -1,0 +1,66 @@
+{
+    "MeterType": "MeterType",
+    "SeparatorTrain": [
+        {
+            "Temperature": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            "Pressure": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            }
+        }
+    ],
+    "Salinity": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
+    },
+    "CalibrarionDate": "2018-11-13T20:20:39+00:00",
+    "Calibrations": [
+        {
+            "Temperature": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            "Pressure": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "Calibration": {
+                "Value": 1.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:",
+                "Type": "Water"
+            }
+        },
+        {
+            "Temperature": {
+                "Value": 2.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+            },
+            "Pressure": {
+                "Value": 2.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+            },
+            "Calibration": {
+                "Value": 2.0,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:",
+                "Type": "Oil"
+            }
+        }
+    ],
+    "MultiFlash": "MultiFlash",
+    "GasOilRatio": 1.0,
+    "OilDensity": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+    },
+    "GasDensity": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+    },
+    "WaterDensity": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+    }
+}

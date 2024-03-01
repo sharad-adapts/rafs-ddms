@@ -85,7 +85,6 @@ class CommonRelativePathsV2(NamedTuple):
     XRD: str = "/data/xrd"
     PDP: str = "/data/pdp"
     STO: str = "/data/stocktankoilanalysis"
-    COEFFICIENT_TABLE: str = "/data/coefficienttable"
 
 
 COMMON_RELATIVE_PATHS = {
@@ -96,4 +95,5 @@ COMMON_RELATIVE_PATHS = {
 
 class PVTModelRelativePaths(NamedTuple):
     EOS: str = "/data/equationofstate"
+    MPFM_CALIBRATION: str = "/data/mpfmcalibration"
     COMPONENT_SCENARIO: str = "/data/componentscenario"
