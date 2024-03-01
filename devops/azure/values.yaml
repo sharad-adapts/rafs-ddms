@@ -25,7 +25,7 @@ configuration:
       prometheus.io/scrape: "true"
     probe:
       readiness:
-        path: /api/rafs-ddms/healthz # make the API version as a variable
+        path: /api/rafs-ddms/readiness # make the API version as a variable
         delay: 60
       liveness:
         path: /api/rafs-ddms/healthz
@@ -43,10 +43,10 @@ configuration:
       SERVICE_NAME: "rafs-ddms"
       OPENAPI_PREFIX: "/api/rafs-ddms"
       SERVICE_HOST_STORAGE: "http://storage.osdu/api/storage/v2"
-      SERVICE_HOST_SEARCH: "http://search.osdu/api/search/v2"
       SERVICE_HOST_PARTITION: "http://partition.osdu/api/partition/v1"
       SERVICE_HOST_DATASET: "http://dataset.osdu/api/dataset/v1"
       SERVICE_HOST_SCHEMA: "http://schema.osdu/api/schema-service/v1"
+      SERVICE_READINESS_URLS: "http://storage.osdu/api/storage/v2/liveness_check,http://schema.osdu/api/schema-service/v1/liveness_check"
       CACHE_ENABLE: "True"
       CACHE_BACKEND: "app.core.helpers.cache.backends.redis_cache.RedisCacheBackend"
       REDIS_DATABASE: "13"
@@ -64,7 +64,7 @@ configuration:
     # Initialization will take longer if this is not correctly setup
     request:
       cpu: 0.5
-      memory: 4Gi
+      memory: 2Gi
     limit:
       cpu: 2
-      memory: 6Gi
+      memory: 4Gi
