@@ -61,6 +61,8 @@ class AppSettings(BaseAppSettings):
 
     storage_query_limit: int = 100
 
+    service_readiness_urls: str = None
+
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {

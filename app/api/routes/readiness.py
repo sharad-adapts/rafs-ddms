@@ -1,4 +1,4 @@
-#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#  Copyright 2024 ExxonMobil Technology and Engineering Company
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -12,11 +12,26 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 
-from app.api.routes import healthz, info, readiness
+from app.core.config import get_app_settings
+from app.services.osdu_clients.readiness_client import ReadinessClient
 
 router = APIRouter()
-router.include_router(info.router, tags=["info"])
-router.include_router(healthz.router, tags=["healthz"])
-router.include_router(readiness.router, tags=["healthz"])
+settings = get_app_settings()
+
+
+@router.get("/readiness", include_in_schema=False)
+async def get_ready() -> Response:
+    """Get readiness status.
+
+    :return: ready status
+    :rtype: dict
+    """
+    client = ReadinessClient(settings=settings)
+
+    await client.is_ready()
+
+    return Response(
+        content="Ready",
+    )

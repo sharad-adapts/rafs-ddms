@@ -51,6 +51,18 @@ RAFS contains tiny specific csp layer:
 * RAFS can use out of the box monitoring controllers, in azure implementation we decided to onboard FastApi Prometheus controller to gather metrics, more information can be found on the [prometheus use-case implementation](../devops/azure/monitoring/)
 * The monitoring layer it can be configured per provider, to use whichever driver that it is more convenient for specific CSP. [app/providers/helpers/metrics](../app/providers/helpers/metric.py).
 
+#### Readiness feature
+
+RAFS uses an `SERVICE_READINESS_URLS` env var to define services that are dependencies of rafs ddms like storage or schema service, see [#338](https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/issues/338) for reference, put the needed url liveness/readiness services to be checked separated by coma.
+
+In Example:
+
+```shell
+SERVICE_READINESS_URLS="http://storage/api/storage/v2/liveness_check,http://schema/api/schema-service/v1/liveness_check"
+```
+
+**NOTE** This is an optional feature, omit setting up `SERVICE_READINESS_URLS` env var if don't need to use it at all.
+
 ### Security
 
 * Leveraged authentication and authorization to the istio envoy CSP specific implementation.

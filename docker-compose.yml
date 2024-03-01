@@ -27,6 +27,8 @@ services:
     image: osdu-rafsddms_tests
     restart: "no"
     volumes:
+      - ./app:/app
+      - ./setup.cfg:/setup.cfg
       - ./tests/:/tests
       - ./client/:/client
     entrypoint: [ "bash", "-c"]
