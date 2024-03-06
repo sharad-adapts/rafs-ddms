@@ -112,7 +112,6 @@ repos:
       - id: copyright-notice
         args: [
           --notice=copyright.txt
-          --enforce-all
         ]
         files: "(app)|(tests)|(client)"
         exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
