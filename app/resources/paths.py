@@ -98,3 +98,4 @@ class PVTModelRelativePaths(NamedTuple):
     EOS: str = "/data/equationofstate"
     MPFM_CALIBRATION: str = "/data/mpfmcalibration"
     COMPONENT_SCENARIO: str = "/data/componentscenario"
+    BLACK_OIL_TABLE: str = "/data/blackoiltable"
