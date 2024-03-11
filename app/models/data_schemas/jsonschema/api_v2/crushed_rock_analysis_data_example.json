@@ -1,0 +1,39 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:SamplesAnalysis_Example:",
+    "SampleID": "opendes:master-data--Sample:Sample_Example:",
+    "GrainDensity": {
+      "Value": 1.0,
+      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+    },
+    "BulkDensity": {
+      "Value": 1.0,
+      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+    },
+    "Measurements": [
+      {
+        "SamplePreparation": "opendes:reference-data--SamplePreparationMethod:AsReceived:",
+        "Permeability": {
+          "Value": 1.0,
+          "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Probe:",
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
+        },
+        "Porosity": {
+          "Value": 1.0,
+          "PorosityType": "opendes:reference-data--PorosityMeasurementType:Other:",
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        },
+        "GasSaturation": {
+          "Value": 1.0,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        },
+        "OilSaturation": {
+          "Value": 1.0,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        },
+        "WaterSaturation": {
+          "Value": 1.0,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+        }
+      }
+    ]
+  }

@@ -25,7 +25,7 @@ The following software have components provided under the terms of this license:
 - fastapi-cache2 (from https://github.com/long2ice/fastapi-cache)
 - frozenlist (from https://github.com/aio-libs/frozenlist)
 - multidict (from https://github.com/aio-libs/multidict)
-- multimethod (from https://pypi.org/project/multimethod/1.10/, https://pypi.org/project/multimethod/1.11/, https://pypi.org/project/multimethod/1.9.1/)
+- multimethod (from https://pypi.org/project/multimethod/1.10/, https://pypi.org/project/multimethod/1.11.2/, https://pypi.org/project/multimethod/1.9.1/)
 - numpy
 - packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/23.2/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
@@ -71,7 +71,7 @@ The following software have components provided under the terms of this license:
 - python-dateutil (from https://github.com/dateutil/dateutil)
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://pypi.org/project/sniffio/1.3.1/)
-- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.37.1/)
+- starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.37.2/)
 - uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.27.1/, https://www.uvicorn.org/)
 
 ========================================================================
@@ -128,7 +128,7 @@ The following software have components provided under the terms of this license:
 - rpds-py (from https://pypi.org/project/rpds-py/0.10.6/)
 - six (from http://pypi.python.org/pypi/six/, https://github.com/benjaminp/six)
 - sniffio (from https://pypi.org/project/sniffio/1.3.1/)
-- time-machine (from https://github.com/adamchainz/time-machine)
+- time-machine (from https://pypi.org/project/time-machine/2.14.0/)
 - typeguard (from https://pypi.org/project/typeguard/4.1.5/)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
 - urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.1/)
@@ -163,7 +163,6 @@ The following software have components provided under the terms of this license:
 - cryptography (from https://github.com/pyca/cryptography)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
-- python-dateutil (from https://github.com/dateutil/dateutil)
 - typing-extensions (from https://pypi.org/project/typing-extensions/4.10.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================
@@ -202,3 +201,10 @@ The following software have components provided under the terms of this license:
 - numpy
 - pytz (from http://pythonhosted.org/pytz)
 - tzdata (from https://github.com/python/tzdata)
+
+========================================================================
+unknown
+========================================================================
+The following software have components provided under the terms of this license:
+
+- python-dateutil (from https://github.com/dateutil/dateutil)

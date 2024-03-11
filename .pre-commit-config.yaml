@@ -114,4 +114,4 @@ repos:
           --notice=copyright.txt
         ]
         files: "(app)|(tests)|(client)"
-        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)|(.json$)"

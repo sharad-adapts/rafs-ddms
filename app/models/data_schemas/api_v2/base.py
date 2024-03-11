@@ -57,6 +57,7 @@ from app.models.data_schemas.api_v2.tensile_strength_data_model import Model as 
 from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import Model as VitriniteReflectanceModel
 from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 from app.models.data_schemas.api_v2.pdp_data_model import Model as PdpModel
+from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model import Model as CrushedRockAnalysisModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -179,13 +180,16 @@ VITRINITE_REFLECTANCE_MODELS = {
     ContentSchemaVersion.V_1_0_0: VitriniteReflectanceModel,
 }
 XRD_MODELS = {
-    ContentSchemaVersion.V_1_0_0: XRDModel
+    ContentSchemaVersion.V_1_0_0: XRDModel,
 }
 PDP_MODELS = {
-    ContentSchemaVersion.V_1_0_0: PdpModel
+    ContentSchemaVersion.V_1_0_0: PdpModel,
 }
 STO_MODELS = {
-    ContentSchemaVersion.V_1_0_0: StoModel
+    ContentSchemaVersion.V_1_0_0: StoModel,
+}
+CRUSHED_ROCK_ANALYSIS_MODELS = {
+    ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel,
 }
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
@@ -233,4 +237,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.XRD: XRD_MODELS,
     common_relative_paths_api_v2.PDP: PDP_MODELS,
     common_relative_paths_api_v2.STO: STO_MODELS,
+    common_relative_paths_api_v2.CRUSHED_ROCK_ANALYSIS: CRUSHED_ROCK_ANALYSIS_MODELS,
 }
