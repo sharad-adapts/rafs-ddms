@@ -18,6 +18,7 @@ from app.resources.paths import PVTModelRelativePaths
 from app.models.data_schemas.pvt_model.eos_content_model import Model as EoSContentModel
 from app.models.data_schemas.pvt_model.mpfm_calibration_model import Model as MPFMCalibrationModel
 from app.models.data_schemas.pvt_model.component_scenario_model import Model as ComponentScenarioModel
+from app.models.data_schemas.pvt_model.black_oil_table_content_model import Model as BlackOilTableModel
 
 EOS_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: EoSContentModel,
@@ -31,9 +32,14 @@ COMPONENT_SCENARIO_MODELS = {
     ContentSchemaVersion.V_1_0_0: ComponentScenarioModel,
 }
 
+BLACK_OIL_TABLE_MODELS = {
+    ContentSchemaVersion.V_1_0_0: BlackOilTableModel,
+}
+
 pvt_relative_paths = PVTModelRelativePaths()
 PATHS_TO_CONTENT_PVT_MODELS = {
     pvt_relative_paths.MPFM_CALIBRATION: MPFM_CALIBRATION_MODELS,
     pvt_relative_paths.EOS: EOS_CONTENT_MODELS,
     pvt_relative_paths.COMPONENT_SCENARIO: COMPONENT_SCENARIO_MODELS,
+    pvt_relative_paths.BLACK_OIL_TABLE: BLACK_OIL_TABLE_MODELS,
 }

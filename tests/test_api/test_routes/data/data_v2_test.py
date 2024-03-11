@@ -71,6 +71,7 @@ from tests.test_api.test_routes.api_v2.multistageseparator import (
 from tests.test_api.test_routes.api_v2.nmr import nmr_mock_objects
 from tests.test_api.test_routes.api_v2.pdp import pdp_mock_objects
 from tests.test_api.test_routes.api_v2.pvtmodel import (
+    black_oil_table_mock_objects,
     component_scenario_mock_objects,
     eos_content_mock_objects,
     mpfm_calibration_mock_objects,
@@ -265,6 +266,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
+        (TestContentPathsPVTModel.BLACK_OIL_TABLE, BulkDatasetIdPVTModel.BLACK_OIL_TABLE),
     ],
 )
 @pytest.mark.asyncio
@@ -330,6 +332,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
+        (TestContentPathsPVTModel.BLACK_OIL_TABLE, BulkDatasetIdPVTModel.BLACK_OIL_TABLE),
     ],
 )
 @pytest.mark.asyncio
@@ -395,6 +398,7 @@ async def test_get_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
+        (TestContentPathsPVTModel.BLACK_OIL_TABLE, BulkDatasetIdPVTModel.BLACK_OIL_TABLE),
     ],
 )
 @pytest.mark.asyncio
@@ -886,6 +890,16 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
             ],
             "download_file",
             [build_get_test_data("x-parquet", component_scenario_mock_objects.TEST_DATA)],
+        ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
         ),
     ],
 )
@@ -2181,6 +2195,33 @@ async def test_get_content_parquet_data(
             [build_get_test_data("x-parquet", component_scenario_mock_objects.TEST_DATA)],
             component_scenario_mock_objects.TEST_AGGREGATED_DATA,
         ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            black_oil_table_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            black_oil_table_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_AGGREGATED_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -2576,6 +2617,14 @@ async def test_get_data_json_data(
             "download_file",
             [build_get_test_data("x-parquet", component_scenario_mock_objects.TEST_DATA)],
             component_scenario_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_DATA,
         ),
     ],
 )
@@ -2982,6 +3031,14 @@ async def test_get_data_json_data_no_content_schema_version(
             [build_get_test_data("x-parquet", component_scenario_mock_objects.TEST_DATA)],
             component_scenario_mock_objects.TEST_DATA,
         ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3379,6 +3436,14 @@ async def test_get_data_json_data_improper_schema_version(
             [build_get_test_data("x-parquet", component_scenario_mock_objects.TEST_DATA)],
             component_scenario_mock_objects.TEST_DATA,
         ),
+        (
+            f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [black_oil_table_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", black_oil_table_mock_objects.TEST_DATA)],
+            black_oil_table_mock_objects.TEST_DATA,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -3738,6 +3803,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             component_scenario_mock_objects.TEST_DATASET_RECORD_ID,
             component_scenario_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            black_oil_table_mock_objects.TEST_DATA,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
+            black_oil_table_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4088,6 +4160,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             component_scenario_mock_objects.TEST_DATASET_RECORD_ID,
             component_scenario_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            black_oil_table_mock_objects.TEST_DATA,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
+            black_oil_table_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -4346,6 +4425,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             TestContentPathsPVTModel.COMPONENT_SCENARIO,
             component_scenario_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             component_scenario_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
         ),
     ],
 )
@@ -4693,6 +4777,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             component_scenario_mock_objects.TEST_DATA,
             component_scenario_mock_objects.TEST_DATASET_RECORD_ID,
             component_scenario_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            black_oil_table_mock_objects.TEST_DATA,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
+            black_oil_table_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
     ],
 )
@@ -5046,6 +5137,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             component_scenario_mock_objects.TEST_DATASET_RECORD_ID,
             component_scenario_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            black_oil_table_mock_objects.TEST_DATA,
+            black_oil_table_mock_objects.TEST_DATASET_RECORD_ID,
+            black_oil_table_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -5366,6 +5464,11 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
             component_scenario_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             component_scenario_mock_objects.EXPECTED_ERROR_REASON,
         ),
+        (
+            TestContentPathsPVTModel.BLACK_OIL_TABLE,
+            black_oil_table_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            black_oil_table_mock_objects.EXPECTED_ERROR_REASON,
+        ),
     ],
 )
 @pytest.mark.asyncio
@@ -5432,6 +5535,7 @@ async def test_post_invalid_df_error(data_endpoint_path, incorrect_dataframe_dat
         f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsPVTModel.COMPONENT_SCENARIO}/{component_scenario_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsPVTModel.BLACK_OIL_TABLE}/{black_oil_table_mock_objects.TEST_DATASET_RECORD_ID}",
     ],
 )
 @pytest.mark.asyncio
@@ -5494,6 +5598,7 @@ async def test_get_403(data_endpoint_path):
         TestContentPathsPVTModel.MPFM_CALIBRATION,
         TestContentPathsPVTModel.EOS,
         TestContentPathsPVTModel.COMPONENT_SCENARIO,
+        TestContentPathsPVTModel.BLACK_OIL_TABLE,
     ],
 )
 @pytest.mark.asyncio
@@ -5669,6 +5774,7 @@ async def test_post_integrity_error(data_endpoint_path, integrity_error_datafram
         TestContentPathsPVTModel.MPFM_CALIBRATION,
         TestContentPathsPVTModel.EOS,
         TestContentPathsPVTModel.COMPONENT_SCENARIO,
+        TestContentPathsPVTModel.BLACK_OIL_TABLE,
     ],
 )
 async def test_invalid_data_with_nan(path):
@@ -5737,6 +5843,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsPVTModel.MPFM_CALIBRATION, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsPVTModel.EOS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsPVTModel.BLACK_OIL_TABLE, ORIENT_SPLIT_400_PAYLOADS),
     ],
 )
 async def test_invalid_data_json_payload(path, payloads):
