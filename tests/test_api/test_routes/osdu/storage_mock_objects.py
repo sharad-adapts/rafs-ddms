@@ -828,6 +828,7 @@ class TestContentPathsApiV2:
     XRD = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.XRD}"
     PDP = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.PDP}"
     STO = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.STO}"
+    CRUSHED_ROCK_ANALYSIS = f"{BASE_DATA_V2_PATH}{common_relative_paths_v2.CRUSHED_ROCK_ANALYSIS}"
 
 
 class BulkDatasetIdV1(NamedTuple):
@@ -900,6 +901,7 @@ class BulkDatasetIdV2(NamedTuple):
     XRD = f"{PARTITION}:{FILE_GENERIC_TYPE}:xrd-{TEST_DATASET_UID}"
     PDP = f"{PARTITION}:{FILE_GENERIC_TYPE}:pdp-{TEST_DATASET_UID}"
     STO = f"{PARTITION}:{FILE_GENERIC_TYPE}:stocktankoilanalysisreports-{TEST_DATASET_UID}"
+    CRUSHED_ROCK_ANALYSIS = f"{PARTITION}:{FILE_GENERIC_TYPE}:crushedrockanalysis-{TEST_DATASET_UID}"
 
 
 with open(f"{dir_path}/schemas/wpc_definitions.json") as fp:

@@ -41,6 +41,9 @@ from tests.test_api.test_routes.api_v2.compositionalanalysis import (
 from tests.test_api.test_routes.api_v2.constantvolumedepletion import (
     cvd_mock_objects,
 )
+from tests.test_api.test_routes.api_v2.crushed_rock_analysis import (
+    crushed_rock_analysis_mock_objects,
+)
 from tests.test_api.test_routes.api_v2.differentialliberation import (
     diff_lib_mock_objects,
 )
@@ -257,6 +260,8 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, BulkDatasetIdV2.CRUSHED_ROCK_ANALYSIS),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, BulkDatasetIdV2.CRUSHED_ROCK_ANALYSIS),
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
@@ -321,6 +326,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, BulkDatasetIdV2.CRUSHED_ROCK_ANALYSIS),
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
@@ -385,6 +391,7 @@ async def test_get_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.XRD, BulkDatasetIdV2.XRD),
         (TestContentPathsApiV2.PDP, BulkDatasetIdV2.PDP),
         (TestContentPathsApiV2.STO, BulkDatasetIdV2.STO),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, BulkDatasetIdV2.CRUSHED_ROCK_ANALYSIS),
         (TestContentPathsPVTModel.MPFM_CALIBRATION, BulkDatasetIdPVTModel.MPFM_CALIBRATION),
         (TestContentPathsPVTModel.EOS, BulkDatasetIdPVTModel.EOS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, BulkDatasetIdPVTModel.COMPONENT_SCENARIO),
@@ -831,7 +838,17 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
             [build_get_test_data("x-parquet", pdp_mock_objects.TEST_DATA)],
         ),
         (
-            TestContentPathsApiV2.STO,
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+        ),
+        (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
             sto_mock_objects.TEST_DATASET_RECORD_ID,
             "get_record",
             [
@@ -2057,6 +2074,33 @@ async def test_get_content_parquet_data(
             sto_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            crushed_rock_analysis_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            crushed_rock_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
             f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
@@ -2502,6 +2546,14 @@ async def test_get_data_json_data(
             sto_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [mpfm_calibration_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -2899,6 +2951,14 @@ async def test_get_data_json_data_no_content_schema_version(
             sto_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [mpfm_calibration_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -3288,6 +3348,14 @@ async def test_get_data_json_data_improper_schema_version(
             sto_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", crushed_rock_analysis_mock_objects.TEST_DATA)],
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [mpfm_calibration_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -3643,6 +3711,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             sto_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            crushed_rock_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
             mpfm_calibration_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mpfm_calibration_mock_objects.TEST_DATA,
@@ -3986,6 +4061,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             sto_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            crushed_rock_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
             mpfm_calibration_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mpfm_calibration_mock_objects.TEST_DATA,
@@ -4244,6 +4326,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             TestContentPathsApiV2.STO,
             sto_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             sto_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
@@ -4578,6 +4665,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             sto_mock_objects.TEST_DATA,
             sto_mock_objects.TEST_DATASET_RECORD_ID,
             sto_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            crushed_rock_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
@@ -4925,6 +5019,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             sto_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            crushed_rock_analysis_mock_objects.TEST_DATA,
+            crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            crushed_rock_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
             mpfm_calibration_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mpfm_calibration_mock_objects.TEST_DATA,
@@ -5006,6 +5107,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.XRD, xrd_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.PDP, pdp_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.STO, sto_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, crushed_rock_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
     ],
 )
 @pytest.mark.asyncio
@@ -5245,6 +5347,11 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
             sto_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
+            TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
+            crushed_rock_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            crushed_rock_analysis_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
             TestContentPathsPVTModel.MPFM_CALIBRATION,
             mpfm_calibration_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             mpfm_calibration_mock_objects.EXPECTED_ERROR_REASON,
@@ -5321,6 +5428,7 @@ async def test_post_invalid_df_error(data_endpoint_path, incorrect_dataframe_dat
         f"{TestContentPathsApiV2.XRD}/{xrd_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.PDP}/{pdp_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.STO}/{sto_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS}/{crushed_rock_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsPVTModel.MPFM_CALIBRATION}/{mpfm_calibration_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsPVTModel.EOS}/{eos_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsPVTModel.COMPONENT_SCENARIO}/{component_scenario_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -5382,6 +5490,7 @@ async def test_get_403(data_endpoint_path):
         TestContentPathsApiV2.XRD,
         TestContentPathsApiV2.PDP,
         TestContentPathsApiV2.STO,
+        TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
         TestContentPathsPVTModel.MPFM_CALIBRATION,
         TestContentPathsPVTModel.EOS,
         TestContentPathsPVTModel.COMPONENT_SCENARIO,
@@ -5556,6 +5665,7 @@ async def test_post_integrity_error(data_endpoint_path, integrity_error_datafram
         TestContentPathsApiV2.XRD,
         TestContentPathsApiV2.PDP,
         TestContentPathsApiV2.STO,
+        TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS,
         TestContentPathsPVTModel.MPFM_CALIBRATION,
         TestContentPathsPVTModel.EOS,
         TestContentPathsPVTModel.COMPONENT_SCENARIO,
@@ -5623,6 +5733,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.XRD, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.PDP, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.STO, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsApiV2.CRUSHED_ROCK_ANALYSIS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsPVTModel.MPFM_CALIBRATION, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsPVTModel.EOS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsPVTModel.COMPONENT_SCENARIO, ORIENT_SPLIT_400_PAYLOADS),
