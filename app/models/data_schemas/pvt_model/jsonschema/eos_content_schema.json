@@ -112,6 +112,9 @@
                     },
                     "OmegaB": {
                         "type": "number"
+                    },
+                    "Parachor": {
+                        "type": "number"
                     }
                 },
                 "additionalProperties": false
@@ -136,28 +139,35 @@
             }
         },
         "ViscosityCoefficient": {
-            "type": "object",
-            "properties": {
-                "LBCCoefficient1": {
-                    "type": "number"
+            "type":"array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "LBCCoefficient1": {
+                        "type": "number"
+                    },
+                    "LBCCoefficient2": {
+                        "type": "number"
+                    },
+                    "LBCCoefficient3": {
+                        "type": "number"
+                    },
+                    "LBCCoefficient4": {
+                        "type": "number"
+                    },
+                    "LBCCoefficient5": {
+                        "type": "number"
+                    },
+                    "LBCCoefficient6": {
+                        "type": "number"
+                    },
+                    "FluidType": {
+                        "type": "string",
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    }
                 },
-                "LBCCoefficient2": {
-                    "type": "number"
-                },
-                "LBCCoefficient3": {
-                    "type": "number"
-                },
-                "LBCCoefficient4": {
-                    "type": "number"
-                },
-                "LBCCoefficient5": {
-                    "type": "number"
-                },
-                "LBCCoefficient6": {
-                    "type": "number"
-                }
-            },
-            "additionalProperties": false
+                "additionalProperties": false
+            }
         }
     },
     "additionalProperties": false

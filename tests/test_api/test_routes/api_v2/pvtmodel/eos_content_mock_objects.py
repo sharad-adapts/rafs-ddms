@@ -53,7 +53,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "ViscosityCoefficient",
-    "rows_filter": "ViscosityCoefficient.LBCCoefficient1,eq,1.0",
+    "rows_filter": "EoSMethod,eq,Peng-Robinson",
 }
 
 with open(f"{dir_path}/eos_content_orient_split.json") as fp:
@@ -82,14 +82,17 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            {
-                "LBCCoefficient1": 1.0,
-                "LBCCoefficient2": 2.0,
-                "LBCCoefficient3": 3.0,
-                "LBCCoefficient4": 4.0,
-                "LBCCoefficient5": 5.0,
-                "LBCCoefficient6": 6.0,
-            },
+            [
+                {
+                    "FluidType": "opendes:reference-data--SampleType:Oil:",
+                    "LBCCoefficient1": 1.0,
+                    "LBCCoefficient2": 2.0,
+                    "LBCCoefficient3": 3.0,
+                    "LBCCoefficient4": 4.0,
+                    "LBCCoefficient5": 5.0,
+                    "LBCCoefficient6": 6.0,
+                },
+            ],
         ],
     ],
 }
