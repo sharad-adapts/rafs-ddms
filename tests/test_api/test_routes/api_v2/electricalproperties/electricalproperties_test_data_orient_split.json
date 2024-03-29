@@ -58,8 +58,8 @@
                 "Value": 4.25,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
             },
-            "opendes:reference-data--FluidSystemType:SolubleCuttingOil:",
-            "opendes:reference-data--DisplacingFluidType:Mercury:",
+            "opendes:reference-data--FluidSystemAnalysisType:SolubleCuttingOil:",
+            "opendes:reference-data--InjectionFluidType:Mercury:",
             "opendes:reference-data--DisplacedFluidType:Hexane:",
             "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
             "opendes:reference-data--DesaturationMethod:PorousPlateGasWaterOil:",

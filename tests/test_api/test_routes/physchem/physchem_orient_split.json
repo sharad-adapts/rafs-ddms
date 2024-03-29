@@ -85,7 +85,7 @@
     [
       "opendes:work-product-component--SamplesAnalysis:PhysChemDevTest:",
       "opendes:master-data--Sample:PhysChemDevTest:",
-      "opendes:reference-data--GeochemistryMethod:HAWK:",
+      "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
       {
         "Value": 32.5,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"

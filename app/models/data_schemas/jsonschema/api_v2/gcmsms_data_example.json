@@ -3,7 +3,7 @@
     "SampleID": "opendes:master-data--Sample:GCMSMS_Sample:",
     "GasChromatographyTandemMassSpectrometryAnalysis": [
         {
-            "CompoundCode": "opendes:reference-data--GasChromatographyTandemMassSpectrometrySaturateCompounds:Abietane:",
+            "CompoundCode": "opendes:reference-data--GCMSMSCompounds:Abietane:",
             "RetentionTime": {
                 "Value": 1.0,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -21,7 +21,7 @@
         }
     ],
     "StdCompound": {
-        "CompoundCode": "opendes:reference-data--GasChromatographyTandemMassSpectrometrySaturateCompounds:Beyerane:",
+        "CompoundCode": "opendes:reference-data--GCMSMSCompounds:Beyerane:",
         "RetentionTime": {
             "Value": 1.0,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"

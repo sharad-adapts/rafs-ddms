@@ -254,7 +254,7 @@
                 "DisplacingFluid": {
                     "type": "string",
                     "description": "Fluid introduced to a sample during wettability index testing, e.g. Mercury",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "DisplacedFluid": {
                     "type": "string",
@@ -263,7 +263,7 @@
                 },
                 "FluidSystem": {
                     "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "InitialWaterSaturation": {
                     "type": "object",

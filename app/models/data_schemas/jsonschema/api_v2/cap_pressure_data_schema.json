@@ -15,9 +15,9 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "FluidSystemType": {
+                    "FluidSystemAnalysisType": {
                         "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "Permeability": {
                         "type": "array",
@@ -136,7 +136,7 @@
                                 },
                                 "Type": {
                                     "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                                 },
                                 "UnitOfMeasure": {
                                     "type": "string",
@@ -385,7 +385,7 @@
                                             "DisplacingFluid": {
                                                 "type": "string",
                                                 "description": "Fluid introduced to a sample during capillary pressure testing, e.g. Mercury",
-                                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                                             },
                                             "DisplacedFluid": {
                                                 "type": "string",
@@ -416,7 +416,7 @@
                                             "DisplacingFluid": {
                                                 "type": "string",
                                                 "description": "Fluid introduced to a sample during capillary pressure testing, e.g. Mercury",
-                                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                                             },
                                             "DisplacedFluid": {
                                                 "type": "string",
@@ -606,7 +606,7 @@
                                                     "DisplacingFluid": {
                                                         "type": "string",
                                                         "description": "Fluid introduced to a sample during capillary pressure testing, e.g. Mercury",
-                                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                                                     },
                                                     "DisplacedFluid": {
                                                         "type": "string",
@@ -630,7 +630,7 @@
                                                     "DisplacingFluid": {
                                                         "type": "string",
                                                         "description": "Fluid introduced to a sample during capillary pressure testing, e.g. Mercury",
-                                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                                                     },
                                                     "DisplacedFluid": {
                                                         "type": "string",

@@ -13,10 +13,10 @@
         [
             "opendes:work-product-component--SamplesAnalysis:GasChromatography_WPC:",
             "opendes:master-data--Sample:GasChromatography_Sample:",
-            "opendes:reference-data--GeochemistryMethod:LECO:",
+            "opendes:reference-data--BulkPyrolysisMethod:LECO:",
             [
                 {
-                    "CompoundCode": "opendes:reference-data--WholeOilGasChromatographyCompounds:ic4:",
+                    "CompoundCode": "opendes:reference-data--WholeOilGCCompounds:ic4:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -30,7 +30,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--SaturateGasChromatographyCompounds:pristane:",
+                    "CompoundCode": "opendes:reference-data--SaturateGCCompounds:pristane:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -44,7 +44,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--PyrolysisGasChromatographyCompounds:c2_c5:",
+                    "CompoundCode": "opendes:reference-data--PyrolysisGCCompounds:c2_c5:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -58,7 +58,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--GasolineGasChromatographyCompounds:oxyl:",
+                    "CompoundCode": "opendes:reference-data--GasolineGCCompounds:oxyl:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -72,7 +72,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--AromaticGasChromatographyCompounds:mn2:",
+                    "CompoundCode": "opendes:reference-data--AromaticGCCompounds:mn2:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -88,7 +88,7 @@
             ],
             [
                 {
-                    "CompoundCode": "opendes:reference-data--WholeOilGasChromatographyCompounds:dmc7_23:",
+                    "CompoundCode": "opendes:reference-data--WholeOilGCCompounds:dmc7_23:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -103,7 +103,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--GasolineGasChromatographyCompounds:nc5:",
+                    "CompoundCode": "opendes:reference-data--GasolineGCCompounds:nc5:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -118,7 +118,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--SaturateGasChromatographyCompounds:pristane:",
+                    "CompoundCode": "opendes:reference-data--SaturateGCCompounds:pristane:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -133,7 +133,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--PyrolysisGasChromatographyCompounds:c2_c5:",
+                    "CompoundCode": "opendes:reference-data--PyrolysisGCCompounds:c2_c5:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -148,7 +148,7 @@
                     ]
                 },
                 {
-                    "CompoundCode": "opendes:reference-data--AromaticGasChromatographyCompounds:mn2:",
+                    "CompoundCode": "opendes:reference-data--AromaticGCCompounds:mn2:",
                     "RetentionTime": {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"

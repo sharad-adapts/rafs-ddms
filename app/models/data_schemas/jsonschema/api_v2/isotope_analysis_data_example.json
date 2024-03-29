@@ -1,7 +1,7 @@
 {
   "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:IsotopeAnalysis_WPC:",
   "SampleID": "opendes:master-data--Sample:IsotopeAnalysis_Sample:",
-  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
+  "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
   "IsotopeAnalysisData": [
     {
       "Component": "opendes:reference-data--NonGasIsotopeComponents:Carbonate:",

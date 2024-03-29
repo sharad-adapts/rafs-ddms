@@ -71,7 +71,7 @@ class EffectivePermeabilityItem(RafsBaseModel):
     ] = None
     FluidType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     WettabilityPhase: Optional[
@@ -98,7 +98,7 @@ class RelativePermeabilityItem(RafsBaseModel):
     ] = None
     FluidType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     WettabilityPhase: Optional[
@@ -120,7 +120,7 @@ class SaturationItem(RafsBaseModel):
     ] = None
     FluidType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     WettabilityPhase: Optional[
@@ -335,7 +335,7 @@ class InjectionRateItem(RafsBaseModel):
     ] = None
     FluidType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     WettabilityPhase: Optional[
@@ -419,9 +419,9 @@ class Model(RafsBaseModel):
     OilDensity: Optional[OilDensity] = None
     GasDensity: Optional[GasDensity] = None
     WaterDensity: Optional[WaterDensity] = None
-    FluidSystemType: Optional[
+    FluidSystemAnalysisType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemAnalysisType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     PermeabilityTestSteps: Optional[List[PermeabilityTestStep]] = None

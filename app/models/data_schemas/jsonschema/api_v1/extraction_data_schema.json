@@ -13,7 +13,7 @@
         "Method": {
             "type": "string",
             "description": "The sample analysis method used for this analysis",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "MassOfRockExtracted": {
             "type": "object",

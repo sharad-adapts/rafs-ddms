@@ -97,7 +97,7 @@ class Resistivity(RafsBaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-ResistivityMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-FluidResistivityMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     Temperature: Optional[Temperature] = None
@@ -427,7 +427,7 @@ class Anion(RafsBaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-ElementalConcentrationMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-ElementalMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -445,7 +445,7 @@ class Cation(RafsBaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-ElementalConcentrationMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-ElementalMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -463,7 +463,7 @@ class DissolvedMetal(RafsBaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-ElementalConcentrationMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-ElementalMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -481,7 +481,7 @@ class OrganicAcid(RafsBaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-ElementalConcentrationMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-ElementalMeasurementMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 

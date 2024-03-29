@@ -288,7 +288,7 @@
                             },
                             "InjectedFluid": {
                                 "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                             },
                             "Porosity": {
                                 "type": "array",

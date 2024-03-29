@@ -67,7 +67,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -97,7 +97,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -123,7 +123,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -177,7 +177,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -207,7 +207,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -233,7 +233,7 @@
                 },
                 "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "WettabilityPhase": {
                   "type": "string",
@@ -403,9 +403,9 @@
       },
       "additionalProperties": false
     },
-    "FluidSystemType": {
+    "FluidSystemAnalysisType": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
     "PermeabilityTestSteps": {
       "type": "array",
@@ -454,7 +454,7 @@
                     },
                     "FluidType": {
                       "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "WettabilityPhase": {
                       "type": "string",
@@ -510,7 +510,7 @@
                     },
                     "FluidType": {
                       "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "WettabilityPhase": {
                       "type": "string",
@@ -540,7 +540,7 @@
                     },
                     "FluidType": {
                       "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "WettabilityPhase": {
                       "type": "string",
@@ -566,7 +566,7 @@
                     },
                     "FluidType": {
                       "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "WettabilityPhase": {
                       "type": "string",

@@ -19,7 +19,7 @@
         "OilDensity",
         "GasDensity",
         "WaterDensity",
-        "FluidSystemType",
+        "FluidSystemAnalysisType",
         "PermeabilityTestSteps"
     ],
     "index": [
@@ -45,7 +45,7 @@
                         "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Gas:",
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Gas:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                     }
                 ],
@@ -54,7 +54,7 @@
                         "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:",
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Gas:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                     }
                 ],
@@ -62,7 +62,7 @@
                     {
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Gas:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
                         "SaturationType": "opendes:reference-data--SaturationType:Average:"
                     }
@@ -78,7 +78,7 @@
                         "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Water:",
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Water:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                     }
                 ],
@@ -87,7 +87,7 @@
                         "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:",
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Water:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                     }
                 ],
@@ -95,7 +95,7 @@
                     {
                         "Value": 123,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--DisplacingFluidType:Water:",
+                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
                         "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
                         "SaturationType": "opendes:reference-data--SaturationType:Average:"
                     }
@@ -147,7 +147,7 @@
                 "Value": 2500,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
             },
-            "opendes:reference-data--FluidSystemType:SolubleCuttingOil:",
+            "opendes:reference-data--FluidSystemAnalysisType:SolubleCuttingOil:",
             [
                 {
                     "NetConfiningStress": {
@@ -162,7 +162,7 @@
                         {
                             "Value": 123,
                             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
-                            "FluidType": "opendes:reference-data--DisplacingFluidType:Nitrogen:",
+                            "FluidType": "opendes:reference-data--InjectionFluidType:Nitrogen:",
                             "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:NonwettingTotalHydrocarbon:"
                         }
                     ],
@@ -179,7 +179,7 @@
                             "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Gas:",
                             "Value": 123,
                             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                            "FluidType": "opendes:reference-data--DisplacingFluidType:Gas:",
+                            "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
                             "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                         }
                     ],
@@ -188,7 +188,7 @@
                             "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Water:",
                             "Value": 123,
                             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                            "FluidType": "opendes:reference-data--DisplacingFluidType:Water:",
+                            "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
                             "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
                         }
                     ],
@@ -196,7 +196,7 @@
                         {
                             "Value": 123,
                             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                            "FluidType": "opendes:reference-data--DisplacingFluidType:Liquid:",
+                            "FluidType": "opendes:reference-data--InjectionFluidType:Liquid:",
                             "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
                             "SaturationType": "opendes:reference-data--SaturationType:Average:"
                         }

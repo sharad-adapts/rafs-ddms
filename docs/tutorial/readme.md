@@ -97,7 +97,7 @@ Filter and aggregation are only available for top level properties. For example 
     "TerminalConditions",
     "ReferencePermeability",
     "SaturationProcessMethod",
-    "FluidSystemType",
+    "FluidSystemAnalysisType",
     "PermeabilityTestSteps"
 ]
 ```

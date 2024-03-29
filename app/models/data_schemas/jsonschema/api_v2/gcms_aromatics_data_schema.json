@@ -13,18 +13,18 @@
     "Method": {
       "type": "string",
       "description": "The sample analysis method used for this analysis",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
     },
-    "AromaticCompounds": {
-      "title": "Aromatic Compounds",
-      "description": "The aromatic hydrocarbon compounds fraction analysis",
+    "AromaticGCMSCompounds": {
+      "title": "Aromatic Gas Chromatography Mass Spectrometry Compounds",
+      "description": "The list of compounds in Aromatic Gas Chromatography Mass Spectrometry (GCMS) analysis",
       "type": "array",
       "items": {
         "type": "object",
         "properties": {
           "CompoundCode": {
             "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-AromaticCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-AromaticGCMSCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
           },
           "RetentionTime": {
             "type": "object",
@@ -69,7 +69,7 @@
       "properties": {
         "CompoundCode": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-AromaticCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-AromaticGCMSCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "RetentionTime": {
           "type": "object",

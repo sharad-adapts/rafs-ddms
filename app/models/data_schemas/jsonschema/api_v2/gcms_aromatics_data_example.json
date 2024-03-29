@@ -1,10 +1,10 @@
 {
   "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Aromatics_Example:",
   "SampleID": "opendes:master-data--Sample:test:",
-  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
-  "AromaticCompounds": [
+  "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
+  "AromaticGCMSCompounds": [
     {
-      "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",
+      "CompoundCode": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
       "RetentionTime": {
         "Value": 12.34,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
@@ -25,7 +25,7 @@
     }
   ],
   "StdCompound": {
-    "CompoundCode": "opendes:reference-data--AromaticCompounds:mn1:",
+    "CompoundCode": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
     "RetentionTime": {
       "Value": 45.67,
       "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
