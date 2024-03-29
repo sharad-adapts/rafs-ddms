@@ -8,12 +8,12 @@
                 {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 }
             ],
             "S1": {
@@ -48,17 +48,17 @@
                 {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fkg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fkg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fkg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 }
             ],
             "S3COOrg": {
@@ -93,27 +93,27 @@
                 "q0": {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 "q1": {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 "q2": {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 "q3": {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 },
                 "q4": {
                     "Value": 1.0,
                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:",
-                    "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                    "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                 }
             },
             "CalculatedProperties": {
@@ -145,7 +145,7 @@
                     {
                         "Value": 1.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "Method": "opendes:reference-data--GeochemistryMethod:RockEval6:"
+                        "Method": "opendes:reference-data--BulkPyrolysisMethod:RockEval6:"
                     }
                 ],
                 "TransformationRatio": {

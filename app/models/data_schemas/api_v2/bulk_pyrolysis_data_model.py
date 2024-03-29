@@ -32,7 +32,7 @@ class TOCItem(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -109,7 +109,7 @@ class TotalSulfurContentItem(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -186,7 +186,7 @@ class Q0(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -200,7 +200,7 @@ class Q1(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -214,7 +214,7 @@ class Q2(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -228,7 +228,7 @@ class Q3(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -242,7 +242,7 @@ class Q4(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 
@@ -318,7 +318,7 @@ class VREItem(BaseModel):
     ] = None
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
 

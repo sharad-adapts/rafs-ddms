@@ -1,7 +1,7 @@
 {
     "SamplesAnalysisID": "osdu:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
     "SampleID": "osdu:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f87454589cc8:",
-    "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
+    "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
     "FractionationSum": {
         "Value": 0.169,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"

@@ -40,7 +40,7 @@ class RatioItem(BaseModel):
 class CompoundsRatio(BaseModel):
     RatioCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-CompoundsRatios:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-GCMSCompoundsRatios:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     Ratio: Optional[List[RatioItem]] = None
@@ -53,9 +53,11 @@ class Model(BaseModel):
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(None, description="The sample analysis method used for this analysis")
-    CompoundsRatios: Optional[List[CompoundsRatio]] = Field(
-        None, description="", title="Aromatic Compounds"
+    GCMSCompoundsRatios: Optional[List[CompoundsRatio]] = Field(
+        None,
+        description="The list of ratios of saturate and aromatic compounds in Gas Chromatography Mass Spectrometry (GCMS) analysis",
+        title="Aromatic Gas Chromatography Mass Spectrometry Compounds"
     )

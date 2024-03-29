@@ -89,7 +89,7 @@ TEST_FILTERED_DATA = {
             "opendes:master-data--Sample:CapillaryPressure_Sample:",
             [
                 {
-                    "FluidSystemType": "opendes:reference-data--FluidSystemType:GasBrine:",
+                    "FluidSystemAnalysisType": "opendes:reference-data--FluidSystemAnalysisType:GasBrine:",
                     "Permeability": [
                         {
                             "Value": 52.2,
@@ -127,7 +127,7 @@ TEST_FILTERED_DATA = {
                     "EntryPressure": [
                         {
                             "Value": 21,
-                            "Type": "opendes:reference-data--FluidSystemType:AirMercury:",
+                            "Type": "opendes:reference-data--FluidSystemAnalysisType:AirMercury:",
                             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
                         },
                     ],
@@ -204,7 +204,7 @@ TEST_FILTERED_DATA = {
                                 {
                                     "Value": 55,
                                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                                    "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:LiveBrine:",
+                                    "DisplacingFluid": "opendes:reference-data--InjectionFluidType:LiveBrine:",
                                     "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Soltrol:",
                                     "WettabilityPhaseType": "opendes:reference-data--WettabilityPhaseType:WettingAqueous:",
                                 },
@@ -213,7 +213,7 @@ TEST_FILTERED_DATA = {
                                 {
                                     "Value": 34,
                                     "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:",
-                                    "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Tetradecane:",
+                                    "DisplacingFluid": "opendes:reference-data--InjectionFluidType:Tetradecane:",
                                     "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Decane:",
                                     "WettabilityPhaseType": "opendes:reference-data--WettabilityPhaseType:Wetting:",
                                 },
@@ -270,13 +270,13 @@ TEST_FILTERED_DATA = {
                                     "CumulativePhaseSaturation": {
                                         "Value": 34,
                                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                                        "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Mercury:",
+                                        "DisplacingFluid": "opendes:reference-data--InjectionFluidType:Mercury:",
                                         "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:LiveCrudeOil:",
                                         "WettabilityPhaseType": "opendes:reference-data--WettabilityPhaseType:Nonwetting:",
                                     },
                                     "PhaseSaturationFrequency": {
                                         "Value": 32,
-                                        "DisplacingFluid": "opendes:reference-data--DisplacingFluidType:Helium:",
+                                        "DisplacingFluid": "opendes:reference-data--InjectionFluidType:Helium:",
                                         "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:IsoparBlend:",
                                         "WettabilityPhaseType": "opendes:reference-data--WettabilityPhaseType:Wetting:",
                                     },

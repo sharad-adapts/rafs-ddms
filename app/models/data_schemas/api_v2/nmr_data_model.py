@@ -429,7 +429,7 @@ class NMRSummaryData(RafsBaseModel):
     )
     InjectedFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     Porosity: Optional[List[PorosityItem]] = None

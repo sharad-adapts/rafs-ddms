@@ -133,7 +133,7 @@ class EntryPressureItem(RafsBaseModel):
     Value: Optional[float] = None
     Type: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemAnalysisType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     UnitOfMeasure: Optional[
@@ -370,7 +370,7 @@ class PhaseSaturationItem(RafsBaseModel):
     ] = None
     DisplacingFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,
@@ -406,7 +406,7 @@ class PhaseInjectedVolumeItem(RafsBaseModel):
     ] = None
     DisplacingFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,
@@ -600,7 +600,7 @@ class CumulativePhaseSaturation(RafsBaseModel):
     ] = None
     DisplacingFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,
@@ -631,7 +631,7 @@ class PhaseSaturationFrequency(RafsBaseModel):
     Value: Optional[float] = None
     DisplacingFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,
@@ -681,9 +681,9 @@ class TestDatum(RafsBaseModel):
     class Config:
         extra = Extra.forbid
 
-    FluidSystemType: Optional[
+    FluidSystemAnalysisType: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-FluidSystemAnalysisType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     Permeability: Optional[List[PermeabilityItem]] = None

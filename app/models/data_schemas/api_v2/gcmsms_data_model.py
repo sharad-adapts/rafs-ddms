@@ -60,7 +60,7 @@ class GasChromatographyTandemMassSpectrometryAnalysi(RafsBaseModel):
 
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GasChromatographyTandemMassSpectrometrySaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-GCMSMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -74,7 +74,7 @@ class StdCompound(RafsBaseModel):
 
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GasChromatographyTandemMassSpectrometrySaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-GCMSMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None

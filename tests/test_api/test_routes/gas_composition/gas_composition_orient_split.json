@@ -13,59 +13,59 @@
         [
             "opendes:work-product-component--SamplesAnalysis:GasComposition_WPC:",
             "opendes:master-data--Sample:GasCompositionSample:",
-            "opendes:reference-data--GeochemistryMethod:HAWK:",
+            "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
             [
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
                     }
                 },
                 {
-                    "Component": "opendes:reference-data--GasChromatographyGasCompositionComponents:acetylene:",
+                    "Component": "opendes:reference-data--GasCompositionComponents:acetylene:",
                     "Concentration": {
                         "Value": 0.0,
                         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"

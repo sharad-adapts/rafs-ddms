@@ -3,7 +3,7 @@
     "SamplesAnalysisID",
     "SampleID",
     "Method",
-    "SaturateCompounds",
+    "SaturateGCMSCompounds",
     "StdCompound"
   ],
   "index": [
@@ -13,10 +13,10 @@
     [
       "opendes:work-product-component--SamplesAnalysis:SamplesAnalysisIDTest:",
       "opendes:master-data--Sample:TestSample:",
-      "opendes:reference-data--GeochemistryMethod:HAWK:",
+      "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
       [
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:chol5b:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:chol5b:",
           "RetentionTime": {
             "Value": 1.1,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -31,7 +31,7 @@
           ]
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:gcar:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:gcar:",
           "RetentionTime": {
             "Value": 3.3,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -46,7 +46,7 @@
           ]
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:t22:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t22:",
           "RetentionTime": {
             "Value": 9.9,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -66,7 +66,7 @@
           ]
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:t24:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t24:",
           "RetentionTime": {
             "Value": 5.5,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -81,7 +81,7 @@
           ]
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:t24o:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t24o:",
           "RetentionTime": {
             "Value": 9.9,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -101,7 +101,7 @@
           ]
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:c24delup:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:c24delup:",
           "RetentionTime": {
             "Value": 4.4,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -110,7 +110,7 @@
           "Peak": []
         },
         {
-          "CompoundCode": "opendes:reference-data--SaturateCompounds:t25:",
+          "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t25:",
           "RetentionTime": {
             "Value": 5.5,
             "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
@@ -126,7 +126,7 @@
         }
       ],
       {
-        "CompoundCode": "opendes:reference-data--SaturateCompounds:c24deurs:",
+        "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:c24deurs:",
         "RetentionTime": {
           "Value": 8.8,
           "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"

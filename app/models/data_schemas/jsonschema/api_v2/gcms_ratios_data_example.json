@@ -1,10 +1,10 @@
 {
   "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Ratios_Example:",
   "SampleID": "opendes:master-data--Sample:GCMS_Sample:",
-  "Method": "opendes:reference-data--GeochemistryMethod:HAWK:",
-  "CompoundsRatios": [
+  "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
+  "GCMSCompoundsRatios": [
       {
-          "RatioCode": "opendes:reference-data--CompoundsRatios:iprbenz_e1m3benzene:",
+          "RatioCode": "opendes:reference-data--GCMSCompoundsRatios:iprbenz_e1m3benzene:",
           "Ratio": [
               {
                   "Value": 0.0,
@@ -24,7 +24,7 @@
           ]
       },
       {
-          "RatioCode": "opendes:reference-data--CompoundsRatios:m_pyxl_oxyl:",
+          "RatioCode": "opendes:reference-data--GCMSCompoundsRatios:m_pyxl_oxyl:",
           "Ratio": [
               {
                   "Value": 0.0,

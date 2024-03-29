@@ -13,18 +13,18 @@
         "Method": {
             "type": "string",
             "description": "The sample analysis method used for this analysis",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
-        "CompoundsRatios": {
-            "title": "Aromatic Compounds",
-            "description": "",
+        "GCMSCompoundsRatios": {
+            "title": "Aromatic Gas Chromatography Mass Spectrometry Compounds",
+            "description": "The list of ratios of saturate and aromatic compounds in Gas Chromatography Mass Spectrometry (GCMS) analysis",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "RatioCode": {
                         "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CompoundsRatios:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GCMSCompoundsRatios:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "Ratio": {
                         "type": "array",

@@ -46,10 +46,10 @@ class PeakItem(BaseModel):
     ] = None
 
 
-class AromaticCompound(BaseModel):
+class AromaticGCMSCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-AromaticCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-AromaticGCMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -60,7 +60,7 @@ class AromaticCompound(BaseModel):
 class StdCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-AromaticCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-AromaticGCMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -75,13 +75,13 @@ class Model(BaseModel):
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(None, description="The sample analysis method used for this analysis")
-    AromaticCompounds: Optional[List[AromaticCompound]] = Field(
+    AromaticGCMSCompounds: Optional[List[AromaticGCMSCompound]] = Field(
         None,
-        description="The aromatic hydrocarbon compounds fraction analysis",
-        title="Aromatic Compounds",
+        description="The list of compounds in Aromatic Gas Chromatography Mass Spectrometry (GCMS) analysis",
+        title="Aromatic Gas Chromatography Mass Spectrometry Compounds",
     )
     StdCompound: Optional[StdCompound] = Field(
         None, description="Compound added as internal standard"

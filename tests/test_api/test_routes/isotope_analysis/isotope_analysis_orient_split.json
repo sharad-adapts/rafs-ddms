@@ -12,7 +12,7 @@
         [
             "opendes:work-product-component--SamplesAnalysis:IsotopeAnalysis_WPC:",
             "opendes:master-data--Sample:IsotopeAnalysis_Sample:",
-            "opendes:reference-data--GeochemistryMethod:HAWK:",
+            "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
             [
                 {
                     "Component": "opendes:reference-data--NonGasIsotopeComponents:Carbonate:",

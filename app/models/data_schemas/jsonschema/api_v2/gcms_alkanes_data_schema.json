@@ -13,18 +13,18 @@
         "Method": {
             "type": "string",
             "description": "The sample analysis method used for this analysis",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },  
-        "SaturateCompounds": {
+        "SaturateGCMSCompounds": {
             "title": "Saturate Compounds",
-            "description": "The saturate hydrocarbon compounds fraction analysis",
+            "description": "The list of compounds in Saturate Gas Chromatography Mass Spectrometry (GCMS) analysis",
             "type": "array",
             "items": {
                 "type": "object",
                 "properties": {
                     "CompoundCode": {
                         "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturateCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturateGCMSCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "RetentionTime": {
                         "type": "object",
@@ -69,7 +69,7 @@
             "properties": {
                 "CompoundCode": {
                     "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturateCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturateGCMSCompounds:[\\w\\-\\.\\:\\%]+:[0-9]*$"
                 },
                 "RetentionTime": {
                     "type": "object",

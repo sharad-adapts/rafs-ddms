@@ -44,7 +44,7 @@
         [
             "opendes:work-product-component--SamplesAnalysis:FractionationDevTest:",
             "opendes:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f87454589cc8:",
-            "opendes:reference-data--GeochemistryMethod:HAWK:",
+            "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
             {
                 "Value": 0.169,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"

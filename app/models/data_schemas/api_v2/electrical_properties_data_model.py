@@ -155,12 +155,12 @@ class Model(RafsBaseModel):
     QuantityOfOilInTheVolume: Optional[QuantityOfOilInTheVolume] = None
     FluidSystem: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data--FluidSystemType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data--FluidSystemAnalysisType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     DisplacingFluid: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-DisplacingFluidType:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-InjectionFluidType:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(
         None,

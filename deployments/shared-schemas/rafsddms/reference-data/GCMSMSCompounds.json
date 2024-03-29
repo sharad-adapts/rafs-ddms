@@ -3,11 +3,11 @@
         "schemaIdentity": {
             "authority": "{{rafsddms-schema-authority}}",
             "source": "wks",
-            "entityType": "reference-data--GasolineGasChromatographyCompounds",
+            "entityType": "reference-data--GCMSMSCompounds",
             "schemaVersionMajor": 1,
             "schemaVersionMinor": 0,
             "schemaVersionPatch": 0,
-            "id": "{{rafsddms-schema-authority}}:wks:reference-data--GasolineGasChromatographyCompounds:1.0.0"
+            "id": "{{rafsddms-schema-authority}}:wks:reference-data--GCMSMSCompounds:1.0.0"
         },
         "createdBy": "RAFS DDMS Development Team",
         "scope": "SHARED",
@@ -15,24 +15,24 @@
     },
     "schema": {
         "x-osdu-license": "Copyright 2023, ExxonMobil Technology and Engineering Company \\\\nLicensed under the Apache License, Version 2.0 (the \\\"License\\\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \\\"AS IS\\\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
-        "x-osdu-schema-source": "{{rafsddms-schema-authority}}:wks:reference-data--GasolineGasChromatographyCompounds:1.0.0",
-        "title": "GasolineGasChromatographyCompounds",
-        "description": "The list of gasoline gas chromatography compound codes in GC gasoline analysis",
+        "x-osdu-schema-source": "{{rafsddms-schema-authority}}:wks:reference-data--GCMSMSCompounds:1.0.0",
+        "title": "GCMSMSCompounds",
+        "description": "The list of compounds (saturates and aromatics) referenced in Gas Chromatography Tandem Mass Spectrometry (GCMSMS) analysis",
         "type": "object",
         "properties": {
             "id": {
                 "description": "Previously called ResourceID or SRN which identifies this OSDU resource object without version.",
                 "title": "Entity ID",
                 "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GasolineGasChromatographyCompounds:[\\w\\-\\.\\:\\%]+$",
-                "example": "namespace:reference-data--GasolineGasChromatographyCompounds:c69cf08a-ae35-5984-b855-f9b36ce1ea21"
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GCMSMSCompounds:[\\w\\-\\.\\:\\%]+$",
+                "example": "namespace:reference-data--GCMSMSCompounds:c69cf08a-ae35-5984-b855-f9b36ce1ea21"
             },
             "kind": {
                 "description": "The schema identification for the OSDU resource object following the pattern {Namespace}:{Source}:{Type}:{VersionMajor}.{VersionMinor}.{VersionPatch}. The versioning scheme follows the semantic versioning, https://semver.org/.",
                 "title": "Entity Kind",
                 "type": "string",
                 "pattern": "^[\\w\\-\\.]+:[\\w\\-\\.]+:[\\w\\-\\.]+:[0-9]+.[0-9]+.[0-9]+$",
-                "example": "{{rafsddms-schema-authority}}:wks:reference-data--GasolineGasChromatographyCompounds:1.0.0"
+                "example": "{{rafsddms-schema-authority}}:wks:reference-data--GCMSMSCompounds:1.0.0"
             },
             "version": {
                 "description": "The version number of this OSDU resource; set by the framework.",

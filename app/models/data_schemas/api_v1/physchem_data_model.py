@@ -614,7 +614,7 @@ class Model(BaseModel):
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(None, description="The sample analysis method used for this analysis")
     ApiGravity: Optional[ApiGravity] = None

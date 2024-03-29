@@ -13,7 +13,7 @@
         "Method": {
             "type": "string",
             "description": "The sample analysis method used for this analysis",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GeochemistryMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "GasChromatographyAnalysis": {
             "title": "Gas Chromatography Analysis",
@@ -24,7 +24,7 @@
                 "properties": {
                     "CompoundCode": {
                         "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-(WholeOilGasChromatographyCompounds|SaturateGasChromatographyCompounds|AromaticGasChromatographyCompounds|GasolineGasChromatographyCompounds|PyrolysisGasChromatographyCompounds):[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-(WholeOilGCCompounds|SaturateGCCompounds|AromaticGCCompounds|GasolineGCCompounds|PyrolysisGCCompounds):[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "RetentionTime": {
                         "type": "object",
@@ -68,7 +68,7 @@
                 "properties": {
                     "CompoundCode": {
                         "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-(WholeOilGasChromatographyCompounds|SaturateGasChromatographyCompounds|AromaticGasChromatographyCompounds|GasolineGasChromatographyCompounds|PyrolysisGasChromatographyCompounds):[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-(WholeOilGCCompounds|SaturateGCCompounds|AromaticGCCompounds|GasolineGCCompounds|PyrolysisGCCompounds):[\\w\\-\\.\\:\\%]+:[0-9]*$"
                     },
                     "RetentionTime": {
                         "type": "object",

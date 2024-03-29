@@ -92,12 +92,12 @@
         },
         "FluidSystem": {
             "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "DisplacingFluid": {
             "type": "string",
             "description": "Fluid introduced to a sample during electrical properties testing, e.g. Mercury",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacingFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "DisplacedFluid": {
             "type": "string",

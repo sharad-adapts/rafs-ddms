@@ -106,5 +106,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 }
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
-INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting CompoundsRatios in index row 0
+INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting GCMSCompoundsRatios in index row 0
 EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"

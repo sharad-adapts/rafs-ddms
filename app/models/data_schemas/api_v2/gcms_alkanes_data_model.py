@@ -49,7 +49,7 @@ class PeakItem(BaseModel):
 class SaturateCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-SaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-SaturateGCMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -60,7 +60,7 @@ class SaturateCompound(BaseModel):
 class StdCompound(BaseModel):
     CompoundCode: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-SaturateCompounds:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-SaturateGCMSCompounds:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = None
     RetentionTime: Optional[RetentionTime] = None
@@ -75,12 +75,12 @@ class Model(BaseModel):
     SampleID: constr(regex=r"^[\w\-\.]+:master-data\-\-Sample:[\w\-\.\:\%]+:[0-9]*$")
     Method: Optional[
         constr(
-            regex=r"^[\w\-\.]+:reference-data\-\-GeochemistryMethod:[\w\-\.\:\%]+:[0-9]*$"
+            regex=r"^[\w\-\.]+:reference-data\-\-BulkPyrolysisMethod:[\w\-\.\:\%]+:[0-9]*$"
         )
     ] = Field(None, description="The sample analysis method used for this analysis")
-    SaturateCompounds: Optional[List[SaturateCompound]] = Field(
+    SaturateGCMSCompounds: Optional[List[SaturateCompound]] = Field(
         None,
-        description="The saturate hydrocarbon compounds fraction analysis",
+        description="The list of compounds in Saturate Gas Chromatography Mass Spectrometry (GCMS) analysis",
         title="Saturate Compounds",
     )
     StdCompound: Optional[StdCompound] = Field(

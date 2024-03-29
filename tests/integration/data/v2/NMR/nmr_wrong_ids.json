@@ -90,7 +90,7 @@
                             "Value": 1.0,
                             "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:WrongID22:"
                         },
-                        "InjectedFluid": "{data_partition_id}:reference-data--DisplacingFluidType:WrongID23:",
+                        "InjectedFluid": "{data_partition_id}:reference-data--InjectionFluidType:WrongID23:",
                         "Porosity": [
                             {
                                 "Value": 1.0,
