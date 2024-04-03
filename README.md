@@ -254,7 +254,7 @@ docker-compose down
 
 ### Run Postman Tests
 
-[The following collection](https://community.opengroup.org/osdu/platform/testing) can be used to test RAFS DDMS with Postman.
+[The following collection](https://community.opengroup.org/osdu/qa/-/tree/main/Dev/48_CICD_Setup_RAFSDDMSAPI?ref_type=heads) can be used to test RAFS DDMS with Postman.
 
 ## Contribution
 
