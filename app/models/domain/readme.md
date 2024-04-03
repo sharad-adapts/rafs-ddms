@@ -28,3 +28,4 @@ datamodel-codegen \
     - Rename the `\_\_init\_\_.py` module to the name of the type + the version, i.e., MDCoring100, WPCRockSampleAnalysis110, etc.
     - Add it to IMPLEMENTED_MODELS map in the `base.py` module.
     - Make sure all imports are correct, specifically, there has been an issue in app\models\domain\osdu\osdu_wks_AbstractGeoContext_1\field_0.py where `Union` is not properly imported when running the generation of master-data when using datamodel-code-generator
+    - Make sure all copyrights within the files are specified correctly
