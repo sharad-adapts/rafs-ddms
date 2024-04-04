@@ -28,7 +28,7 @@ data:
   limitsMemory: "1G"
   redisRequestsCpu: "10m"
   redisRequestsMemory: "50Mi"
-  redisImage: "docker.io/library/redis:7"
+  redisImage: "docker.io/library/redis:7.2-alpine"
   image: ""
   imagePullPolicy: "IfNotPresent"
   serviceAccountName: "rafs-ddms"
