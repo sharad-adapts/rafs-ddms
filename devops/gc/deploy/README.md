@@ -61,7 +61,7 @@ Use any code editor to set variables in the **values.yaml** file. Some of the va
 **data.limitsMemory** | memory limit | string | `1G` | only if `global.limitsEnabled` is true
 **data.redisRequestsCpu** | amount of requested CPU for Redis instance | string | `10m` | yes
 **data.redisRequestsMemory** | amount of requested memory for Redis instance | string | `50Mi` | yes
-**data.redisImage** | Redis instance image | string | `redis:7` | yes
+**data.redisImage** | Redis instance image | string | `redis:7.2-alpine` | yes
 **data.image** | Service image | string | - | yes
 **data.imagePullPolicy** | when to pull image | string | `IfNotPresent` | yes
 **data.serviceAccountName** | k8s service account name for the application | string | `rafs-ddms` | yes
