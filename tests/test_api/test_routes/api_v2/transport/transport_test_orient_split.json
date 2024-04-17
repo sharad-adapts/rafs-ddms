@@ -5,7 +5,9 @@
         "TestNumber",
         "TestTemperature",
         "SaturationPressure",
-        "TransportTestSteps"
+        "ReservoirPressure",
+        "Method",
+        "ViscosityTestSteps"
     ],
     "index": [
         0
@@ -23,6 +25,11 @@
                 "Value": 4634,
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
             },
+            {
+                "Value": 4434,
+                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+            },
+            "opendes:reference-data--ViscosityMethod:VibrationalViscometer:",
             [
                 {
                     "StepNumber": "1",

@@ -11,7 +11,12 @@
         "Value": 4634,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
     },
-    "TransportTestSteps": [
+    "ReservoirPressure": {
+        "Value": 4434,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
+    },
+    "Method": "opendes:reference-data--ViscosityMethod:VibrationalViscometer:",
+    "ViscosityTestSteps": [
         {
             "StepNumber": "1",
             "StepPressure": {
