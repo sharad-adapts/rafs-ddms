@@ -61,7 +61,7 @@ gc-test-python:
   script:
     - curl https://community.opengroup.org/api/v4/projects/1410/packages/generic/gc_auth_token/master/gc_auth_token -o gc_auth_token
     - chmod +x gc_auth_token
-    - export GOOGLE_APPLICATION_CREDENTIALS=$GC_INTEGRATION_TESTER_ENCODE
+    - export GOOGLE_APPLICATION_CREDENTIALS=$GC_INTEGRATION_TESTER_SA_FILE
     - export GC_TOKEN=$(./gc_auth_token)
     - pip install -r requirements.txt
     - pip install -r requirements-tests.in
@@ -99,7 +99,7 @@ gc-dev2-test-python:
   script:
     - curl https://community.opengroup.org/api/v4/projects/1410/packages/generic/gc_auth_token/master/gc_auth_token -o gc_auth_token
     - chmod +x gc_auth_token
-    - export GOOGLE_APPLICATION_CREDENTIALS=$GC_INTEGRATION_TESTER_ENCODE
+    - export GOOGLE_APPLICATION_CREDENTIALS=$GC_INTEGRATION_TESTER_SA_FILE
     - export GC_TOKEN=$(./gc_auth_token)
     - pip install -r requirements.txt
     - pip install -r requirements-tests.in
