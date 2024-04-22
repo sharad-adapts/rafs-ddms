@@ -41,7 +41,25 @@
           },
           "additionalProperties": false
       },
-      "TransportTestSteps": {
+      "ReservoirPressure": {
+          "title": "Reservoir Pressure",
+          "type": "object",
+          "properties": {
+              "Value": {
+                  "type": "number"
+              },
+              "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              }
+          },
+          "additionalProperties": false
+      },
+      "Method": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ViscosityMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      },
+      "ViscosityTestSteps": {
           "type": "array",
           "items": [
               {
