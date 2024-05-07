@@ -22,17 +22,35 @@ from app.exceptions.exceptions import UnprocessableContentException
 from app.resources.filters import DataFrameFilterValidator
 
 
-def apply_filters(
+def apply_filters_from_bytes(
     parquet_bytes: bytes,
     df_filter: DataFrameFilterValidator,
 ) -> pd.DataFrame:
     """Apply filters to parquet data and return a filtered pandas.DataFrame.
 
     :param bytes parquet_bytes: parquet as read from blob storage
-    :param SQLFilter filter: sql filter validator
+    :param DataFrameFilterValidator df_filter: df filter validator
     :return pd.DataFrame: the pd.DataFrame result from applying filters
     """
-    query_df = PandasDFQueryBase(pq.read_table(pa.BufferReader(parquet_bytes)).to_pandas())
+    return apply_filters_from_df(pq.read_table(pa.BufferReader(parquet_bytes)).to_pandas(), df_filter)
+
+
+def apply_filters_from_df(
+    df: pd.DataFrame,
+    df_filter: DataFrameFilterValidator,
+) -> pd.DataFrame:
+    """Apply filters to dataframe.
+
+    :param df: dataframe
+    :type df: pd.DataFrame
+    :param df_filter: dataframe filter
+    :type df_filter: DataFrameFilterValidator
+    :raises UnprocessableContentException: if there are issue with
+        filter
+    :return: filtered dataframe
+    :rtype: pd.DataFrame
+    """
+    query_df = PandasDFQueryBase(df)
     try:
         if df_filter.valid_rows_filter:
             query_df = query_df.select(

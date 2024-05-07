@@ -124,7 +124,7 @@ curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/rel
 --header 'Accept: */*;version=1.0.0'
 ```
 
-### Aggregation
+#### Aggregation
 _columns_aggregation_ works over the entire response result or over a filtered one. With the following syntax ```ColumnName,aggregation```.
 
 Supported aggregations depends on column type but in general:
@@ -140,7 +140,7 @@ curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/rel
 --header 'Accept: */*;version=1.0.0'
 ```
 
-### Doted notation
+#### Doted notation
 
 _columns\_aggregation_ and _rows\_filter_ support ```ColumnName.FieldName``` syntax to work over nested fields.
 
@@ -153,9 +153,30 @@ curl --location '{RAFS_DDMS_URL}/v2/samplesanalysis/{SamplesAnalysisID}/data/rel
 --header 'Accept: */*;version=1.0.0'
 ```
 
+## Search endpoints
+Search endpoints are used to retrieve data related to a set of analysis types given a filter (or query)
 
+### Search
+Used to retrieve a list of work-product-component--SamplesAnalysis record ids for given analysis type.
+!["Search request"](search_endpoint.png "Search request ")
+- If the search is provided without parameters (without filters) the result set will include all samples analysis ids found for given type which contains content data.
+- If the search is provided with filters as query params the result set will only include the samples analysis ids that comply with given filters
+- Query filter params works as described for filter and aggregation for single content retrieval.
 
+#### Example
+Retrieve all samples analysis ids for analysis_type=multistageseparator where the SaturationPressure is greater than a 950 psi
+!["Search result example"](search_result_example.png "Search result example")
 
+### Search Data
+Used to retrieve a concanated dataframe of all content found for a given analysis type.
+!["Search data request"](search_data_endpoint.png "Search data request ")
+- If the search is provided without parameters (without filters) the concatenated result will include all analysis types which contains content data.
+- If the search is provided with filters as query params the concatenated result will only include the analysis types that comply with given filters
+- Query filter params works as described for filter and aggregation for single content retrieval.
+
+#### Example
+Retrieve all multistageseparator test where the SaturationPressure is greater than a 950 psi
+!["Search result example"](search_data_result_example.png "Search result example")
 
 #### Deprecated Api V1
 API v1 is deprecated and therefore is not covered in the tutorial.

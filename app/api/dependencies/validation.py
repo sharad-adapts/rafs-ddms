@@ -398,7 +398,7 @@ def get_content_model_paths(request_path: str, api_version: str) -> tuple:
     :type request_path: str
     :param api_version: the api version
     :type api_version: str
-    :return: appropiate paths to search for content models
+    :return: appropiate paths to retrieve content models
     :rtype: tuple
     """
     if "pvtmodel" in request_path:
@@ -407,6 +407,15 @@ def get_content_model_paths(request_path: str, api_version: str) -> tuple:
     else:
         relative_paths = COMMON_RELATIVE_PATHS[api_version]()
         paths_to_content_models = PATHS_TO_DATA_MODEL[api_version]
+
+        if api_version == "v2" and "search" in request_path:
+            start_index = 5  # skip '/data'
+            relative_paths = [f"{path[start_index:]}/search" for path in relative_paths]  # noqa: WPS237
+            search_path_to_content_models = {}
+            for path, model in paths_to_content_models.items():
+                search_path_to_content_models[f"{path[start_index:]}/search"] = model  # noqa: WPS237
+
+            paths_to_content_models = search_path_to_content_models
 
     return (relative_paths, paths_to_content_models)
 

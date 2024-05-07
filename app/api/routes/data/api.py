@@ -54,7 +54,7 @@ from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
-from app.dataframe.parquet_filter import apply_filters
+from app.dataframe.parquet_filter import apply_filters_from_bytes
 from app.exceptions import exceptions
 from app.models.data_schemas.data_schema import build_data_schema
 from app.resources.filters import DataFrameFilterValidator
@@ -199,7 +199,7 @@ class BaseDataView:
         dataset_id: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
-        sql_filter: DataFrameFilterValidator = Depends(validate_filters),
+        df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
         """Get record data.
@@ -214,8 +214,8 @@ class BaseDataView:
         :type dataset_service: dataset.DatasetService
         :param storage_service: storage service
         :type storage_service: storage.StorageService
-        :param sql_filter: sql filter validator
-        :type sql_filter: SQLFilterValidator
+        :param df_filter: df filter validator
+        :type df_filter: DataFrameFilterValidator
         :return: dataset data
         :rtype: Response
         """
@@ -237,7 +237,7 @@ class BaseDataView:
                     detail=reason,
                 )
 
-            df = apply_filters(parquet_bytes, sql_filter)
+            df = apply_filters_from_bytes(parquet_bytes, df_filter)
             logger.debug(f"Dataset info: {df.size} elements; {df.columns}")
 
             if mime_type == SupportedMimeTypes.PARQUET:

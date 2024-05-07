@@ -21,6 +21,7 @@ from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.samplesanalysis.endpoints import (
     SAMPLESANALYSIS_ID_REGEX_STR,
     SamplesAnalysisSchemasView,
+    SamplesAnalysisSearchDataView,
     SamplesAnalysisTypesView,
 )
 from app.api.routes.v2.data.endpoints import BaseDataViewV2
@@ -43,3 +44,5 @@ BaseDataViewV2(
     router=sa_router,
     id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
 )
+
+SamplesAnalysisSearchDataView(sa_router)

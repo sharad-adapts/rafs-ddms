@@ -8,7 +8,7 @@ This software includes the following software and licenses:
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.10.0/, https://pypi.org/project/typing-extensions/4.4.0/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.11.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================
 Apache-2.0
@@ -21,7 +21,7 @@ The following software have components provided under the terms of this license:
 - boto3 (from https://github.com/boto/boto3)
 - botocore (from https://github.com/boto/botocore)
 - cryptography (from https://github.com/pyca/cryptography)
-- fastapi (from https://pypi.org/project/fastapi/0.110.1/, https://pypi.org/project/fastapi/0.86.0/)
+- fastapi (from https://pypi.org/project/fastapi/0.111.0/, https://pypi.org/project/fastapi/0.86.0/)
 - fastapi-cache2 (from https://github.com/long2ice/fastapi-cache)
 - frozenlist (from https://github.com/aio-libs/frozenlist)
 - multidict (from https://github.com/aio-libs/multidict)
@@ -60,7 +60,7 @@ The following software have components provided under the terms of this license:
 - cryptography (from https://github.com/pyca/cryptography)
 - httpcore (from https://github.com/encode/httpcore, https://pypi.org/project/httpcore/0.18.0/, https://pypi.org/project/httpcore/1.0.5/)
 - httpx (from https://pypi.org/project/httpx/0.23.1/, https://pypi.org/project/httpx/0.27.0/)
-- idna (from https://pypi.org/project/idna/3.4/, https://pypi.org/project/idna/3.6/)
+- idna (from https://pypi.org/project/idna/3.4/, https://pypi.org/project/idna/3.7/)
 - isodate (from http://cheeseshop.python.org/pypi/isodate, https://github.com/gweis/isodate/)
 - numpy
 - packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.0/)
@@ -110,7 +110,7 @@ The following software have components provided under the terms of this license:
 - botocore (from https://github.com/boto/botocore)
 - cffi
 - charset-normalizer (from https://github.com/Ousret/charset_normalizer)
-- fastapi (from https://pypi.org/project/fastapi/0.110.1/, https://pypi.org/project/fastapi/0.86.0/)
+- fastapi (from https://pypi.org/project/fastapi/0.111.0/, https://pypi.org/project/fastapi/0.86.0/)
 - h11
 - jmespath (from https://github.com/jmespath/jmespath.py)
 - jsonschema
@@ -122,7 +122,7 @@ The following software have components provided under the terms of this license:
 - pandera (from https://github.com/pandera-dev/pandera)
 - pendulum (from https://pendulum.eustace.io)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
-- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.6.4/)
+- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.7.1/)
 - pytz (from http://pythonhosted.org/pytz)
 - redis (from https://github.com/redis/redis-py)
 - referencing (from https://pypi.org/project/referencing/0.30.2/, https://pypi.org/project/referencing/0.31.1/, https://pypi.org/project/referencing/0.34.0/)
@@ -164,7 +164,7 @@ The following software have components provided under the terms of this license:
 - cryptography (from https://github.com/pyca/cryptography)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.10.0/, https://pypi.org/project/typing-extensions/4.4.0/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.11.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================
 SunPro
