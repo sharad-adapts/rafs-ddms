@@ -14,10 +14,17 @@
 
 from typing import List, Optional
 
+from fastapi_cache.decorator import cache
+from starlette import status
+
+from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
 from app.services.base import ISearchService
+from app.services.error_handlers import handle_core_services_http_status_error
 from app.services.osdu_clients.search_client import SearchServiceApiClient
+
+QUERY_LIMIT = 1000
 
 
 class SearchService(ISearchService):
@@ -36,11 +43,20 @@ class SearchService(ISearchService):
             extra_headers=extra_headers,
         )
 
+    @handle_core_services_http_status_error(
+        expected_codes=[
+            status.HTTP_400_BAD_REQUEST,
+            status.HTTP_401_UNAUTHORIZED,
+            status.HTTP_403_FORBIDDEN,
+        ],
+        detail="Failed to query records using SearchService.",
+    )
+    @cache(expire=CACHE_DEFAULT_TTL)
     async def find_records(
         self,
         kind: Optional[str] = "*:*:*:*",
         query: Optional[str] = "*",
-        limit: Optional[int] = None,
+        limit: Optional[int] = QUERY_LIMIT,
         **kwargs,
     ) -> List[dict]:
         """Find records.

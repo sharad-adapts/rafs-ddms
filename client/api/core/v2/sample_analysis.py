@@ -21,6 +21,8 @@ class SamplesAnalysisPaths:
     GET_DATA = "/samplesanalysis/{record_id}/data/{analysis_type}/{dataset_id}"
     GET_ANALYSIS_TYPES = "/samplesanalysis/analysistypes"
     GET_SCHEMA = "/samplesanalysis/{analysistypes}/data/schema"
+    SEARCH = "/samplesanalysis/{analysis_type}/search"
+    SEARCH_DATA = "/samplesanalysis/{analysis_type}/search/data"
 
 
 class SamplesAnalysis(APIResource, APIClient):
@@ -91,5 +93,37 @@ class SamplesAnalysis(APIResource, APIClient):
         """Get actual schema for provided analysis_type."""
         return self.get(
             path=SamplesAnalysisPaths.GET_SCHEMA.format(analysistypes=analysis_type),
+            **kwargs,
+        ).json()
+
+    def search(
+        self,
+        analysis_type: SamplesAnalysisTypes,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        **kwargs,
+    ) -> dict:
+        """Search for analysis type ids."""
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
+        return self.get(
+            path=SamplesAnalysisPaths.SEARCH.format(analysis_type=analysis_type),
+            **kwargs,
+        ).json()
+
+    def search_data(
+        self,
+        analysis_type: SamplesAnalysisTypes,
+        schema_version_header: Optional[dict] = ACCEPT_HEADERS.format(version=SCHEMA_VERSION),
+        **kwargs,
+    ) -> dict:
+        """Search for bulk data given analysis type."""
+        if schema_version_header:
+            headers = defaultdict(dict, kwargs.get("headers", {}))
+            headers.update({"Accept": schema_version_header})
+            kwargs["headers"] = headers
+        return self.get(
+            path=SamplesAnalysisPaths.SEARCH_DATA.format(analysis_type=analysis_type),
             **kwargs,
         ).json()

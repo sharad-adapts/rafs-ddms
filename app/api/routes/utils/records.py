@@ -204,3 +204,39 @@ def parse_kind(kind: str) -> dict:
         "entity_type": kind_parts[entity_type_index],
         "version": kind_parts[version_index],
     }
+
+
+def get_info_from_urn(urn: str) -> dict:
+    """Obtain information from the ddms_urn.
+
+    :param urn: the ddms urn
+    :type urn: str
+    :raises ValueError: if the urn is malformed
+    :return: a dictionary with proper information
+    :rtype: dict
+    """
+    urn_start = 6  # trims out 'urn://'
+    urn_parts = urn[urn_start:].split("/")
+
+    urn_sections = 5
+    if len(urn_parts) != urn_sections:
+        raise ValueError(
+            f"Malformed URN: {urn}. Should be of the form 'urn://rafs_version/entity_type/wpc_id/dataset_id/content_schema_version'",  # noqa: E501
+        )
+
+    rafs_version_index = 0
+    test_type_index = 1
+    samples_analysis_index = 2
+    dataset_index = 3
+    schema_version_index = 4
+
+    dataset_id = urn_parts[dataset_index]
+    # dataset api does not allow retrieve dataset with version
+    dataset_id = ":".join(dataset_id.split(":")[:-1])
+    return {
+        "rafs_version": urn_parts[rafs_version_index],
+        "test_type": urn_parts[test_type_index],
+        "samples_analysis_id": urn_parts[samples_analysis_index],
+        "dataset_id": dataset_id,
+        "content_schema_version": urn_parts[schema_version_index],
+    }
