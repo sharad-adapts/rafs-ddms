@@ -22,7 +22,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
-from app.services.osdu_clients.conf import TIMEOUT
+from app.services.osdu_clients.conf import RETRIES, TIMEOUT
 
 
 class DatasetServicePaths(NamedTuple):
@@ -69,7 +69,9 @@ class DatasetServiceApiClient(object):
             uploading file
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             q_params = {"kindSubType": kind_subtype}
             response = await client.post(
                 DatasetServicePaths.STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
@@ -87,7 +89,9 @@ class DatasetServiceApiClient(object):
             uploading file
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             q_params = {"kindSubType": kind_subtype}
             response = await client.get(
                 DatasetServicePaths.GET_STORAGE_INSTRUCTIONS, headers=self.headers, params=q_params,
@@ -106,7 +110,9 @@ class DatasetServiceApiClient(object):
             the dataset file sources
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             request_body = {
                 "datasetRegistryIds": dataset_ids,
             }
@@ -130,7 +136,9 @@ class DatasetServiceApiClient(object):
             the dataset file source
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             q_params = {"id": dataset_id}
 
             response = await client.get(
@@ -150,7 +158,9 @@ class DatasetServiceApiClient(object):
         :return: response
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             request_body = {
                 "datasetRegistries": dataset_registries,
             }
@@ -167,7 +177,9 @@ class DatasetServiceApiClient(object):
         :return: the dataset registry
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             q_params = {"id": dataset_id}
 
             response = await client.get(
@@ -185,7 +197,9 @@ class DatasetServiceApiClient(object):
         :return: the dataset registries
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             request_body = {
                 "datasetRegistryIds": dataset_ids,
             }
@@ -196,3 +210,13 @@ class DatasetServiceApiClient(object):
             logger.debug(f"{self.name}: get dataset registries response: {response}")
             response.raise_for_status()
             return response.json()
+
+    def _transport(self, retries: int = RETRIES, **kwargs) -> httpx.AsyncHTTPTransport:
+        """Create a new transport object.
+
+        :param retries: the number of retries, defaults to RETRIES
+        :type retries: int, optional
+        :return: A new transport object
+        :rtype: httpx.AsyncHTTPTransport
+        """
+        return httpx.AsyncHTTPTransport(retries=retries, **kwargs)

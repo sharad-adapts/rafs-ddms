@@ -29,6 +29,8 @@ from app.dataframe.parquet_filter import (
     apply_filters_from_bytes,
 )
 
+RETRIES = 3
+
 
 class ParquetLoader:
 
@@ -48,7 +50,8 @@ class ParquetLoader:
         :return: pairs of dataset_id, pd.DataFrame
         :rtype: List[Tuple[str, pd.DataFrame]]
         """
-        async with httpx.AsyncClient() as client:
+        transport = httpx.AsyncHTTPTransport(retries=RETRIES)
+        async with httpx.AsyncClient(transport=transport) as client:
             tasks = [
                 self._read_parquet_from_url(dataset_id, url, df_filter, client)
                 for (dataset_id, url) in signed_urls

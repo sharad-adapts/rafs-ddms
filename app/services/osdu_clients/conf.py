@@ -20,3 +20,6 @@ settings = get_app_settings()
 
 # reques timeoit, default = 15, configurable via env_var REQUEST_TIMEOUT
 TIMEOUT = httpx.Timeout(settings.request_timeout)
+
+# number of http request retries
+RETRIES = 3

@@ -22,7 +22,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
-from app.services.osdu_clients.conf import TIMEOUT
+from app.services.osdu_clients.conf import RETRIES, TIMEOUT
 
 
 class SearchServicePaths(NamedTuple):
@@ -64,7 +64,9 @@ class SearchServiceApiClient(object):
         :return: query result
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             response = await client.post(SearchServicePaths.QUERY, json=query, headers=self.headers)
             logger.debug(f"{self.name}: query response: {response}")
             response.raise_for_status()
@@ -78,8 +80,20 @@ class SearchServiceApiClient(object):
         :return: query with cursor result
         :rtype: dict
         """
-        async with httpx.AsyncClient(base_url=self.base_url, headers=self.headers, timeout=TIMEOUT) as client:
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+        ) as client:
             response = await client.post(SearchServicePaths.CURSOR_QUERY, json=query, headers=self.headers)
             logger.debug(f"{self.name}: query with cursor response: {response}")
             response.raise_for_status()
             return response.json()
+
+    def _transport(self, retries: int = RETRIES, **kwargs) -> httpx.AsyncHTTPTransport:
+        """Create a new transport object.
+
+        :param retries: the number of retries, defaults to RETRIES
+        :type retries: int, optional
+        :return: A new transport object
+        :rtype: httpx.AsyncHTTPTransport
+        """
+        return httpx.AsyncHTTPTransport(retries=retries, **kwargs)
