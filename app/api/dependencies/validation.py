@@ -14,7 +14,7 @@
 
 import asyncio
 import json
-from typing import Iterable, List, Optional, TypeVar
+from typing import Iterable, List, Optional, Tuple, TypeVar
 
 from fastapi import Depends, HTTPException, Query, Request
 from loguru import logger
@@ -537,3 +537,35 @@ async def get_validated_bulk_data_json(request: Request) -> str:
         detail = f"Data error: 'index' lenght: {index_length} != 'data' lenght: {data_length}"
         raise InvalidDatasetException(detail=detail)
     return bulk_data.json()
+
+
+async def get_search_data_pagination_parameters(
+    page_limit: Optional[int] = Query(
+        default=100,
+        example=100,
+        gt=0,
+        le=100,
+    ),
+    offset: Optional[int] = Query(
+        default=0,
+        example=100,
+        gt=0,
+    ),
+) -> Tuple[int, int]:
+    return offset, page_limit
+
+
+async def get_search_pagination_parameters(
+    page_limit: Optional[int] = Query(
+        default=1000,
+        example=1000,
+        gt=0,
+        le=1000,
+    ),
+    offset: Optional[int] = Query(
+        default=0,
+        example=100,
+        gt=0,
+    ),
+) -> Tuple[int, int]:
+    return offset, page_limit
