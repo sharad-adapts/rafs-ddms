@@ -58,6 +58,7 @@ from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import Mode
 from app.models.data_schemas.api_v2.xrd_data_model import Model as XRDModel
 from app.models.data_schemas.api_v2.pdp_data_model import Model as PdpModel
 from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model import Model as CrushedRockAnalysisModel
+from app.models.data_schemas.api_v2.mining_geotech_logging_data_model import Model as MiningGeotechLoggingModel
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
@@ -191,6 +192,9 @@ STO_MODELS = {
 CRUSHED_ROCK_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel,
 }
+MINING_GEOTECH_LOGGING_MODELS = {
+    ContentSchemaVersion.V_1_0_0: MiningGeotechLoggingModel,
+}
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
 PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
@@ -238,4 +242,5 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.PDP: PDP_MODELS,
     common_relative_paths_api_v2.STO: STO_MODELS,
     common_relative_paths_api_v2.CRUSHED_ROCK_ANALYSIS: CRUSHED_ROCK_ANALYSIS_MODELS,
+    common_relative_paths_api_v2.MINING_GEOTECH_LOGGING: MINING_GEOTECH_LOGGING_MODELS,
 }

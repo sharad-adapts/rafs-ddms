@@ -86,6 +86,7 @@ class CommonRelativePathsV2(NamedTuple):
     PDP: str = "/data/pdp"
     STO: str = "/data/stocktankoilanalysis"
     CRUSHED_ROCK_ANALYSIS: str = "/data/crushedrockanalysis"
+    MINING_GEOTECH_LOGGING: str = "/data/mininggeotechlogging"
 
 
 COMMON_RELATIVE_PATHS = {
