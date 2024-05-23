@@ -1,0 +1,31 @@
+{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:MiningGeotechLogging_WPC:",
+    "SampleID": "opendes:master-data--Sample:MiningGeotechLogging_Sample:",
+    "MiningGeotechData": [
+        {
+            "GeolFrom": {
+                "Value": 70,
+                "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:degF:"
+            },
+            "GeolTo": {
+                "Value": 90,
+                "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
+            },
+            "RecoveredLength": {
+                "Value": 100,
+                "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
+            },
+            "RQD": {
+                "Value": 80,
+                "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
+            },
+            "FractureCount": {
+                "Value": 110,
+                "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
+            },
+            "Description": "Geotech Description",
+            "LoggedBy": "John Doe",
+            "LogDate": "2023-02-01T00:00:00Z"
+        }
+    ]
+}
