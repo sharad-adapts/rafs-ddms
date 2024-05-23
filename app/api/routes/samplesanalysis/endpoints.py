@@ -12,12 +12,14 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from typing import Annotated, Dict, List, Tuple
+import json
+from typing import Annotated, AsyncGenerator, Dict, List, Optional, Tuple
 
 import pandas as pd
 from fastapi import APIRouter, Body, Depends, Request, Response
 from fastapi.responses import JSONResponse
 from fastapi_cache.decorator import cache
+from loguru import logger
 from starlette import status
 
 from app.api.dependencies.parquet import get_parquet_loader
@@ -31,13 +33,18 @@ from app.api.dependencies.services import (
     get_async_search_service,
     get_async_storage_service,
 )
-from app.api.dependencies.validation import validate_filters
+from app.api.dependencies.validation import (
+    get_search_data_pagination_parameters,
+    get_search_pagination_parameters,
+    validate_filters,
+)
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.records import get_info_from_urn
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
+from app.dataframe.parquet_filter import apply_filters_from_df
 from app.dataframe.parquet_loader import ParquetLoader
 from app.models.data_schemas.base import (
     ALL_PATHS_TO_DATA_MODEL,
@@ -55,6 +62,7 @@ from app.resources.paths import SAMPLESANALYSIS_TYPE_MAPPING
 from app.services import dataset, search, storage
 
 SAMPLESANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysis:[\w\-\.\:\%]+$"
+SEARCH_READ_BATCH_SIZE = 100  # max number of parquet files retrieved
 
 
 class SamplesAnalysisRecordView(BaseStorageRecordView):
@@ -199,16 +207,21 @@ class SamplesAnalysisSearchDataView:
             Use the `Accept` request header to specify content schema version \
                 (example header `Accept: */*;version=1.0.0` is supported).<br><br>\
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
-                query parameters can be used to manage data in response.",
+                query parameters can be used to manage data in response. <br><br>\
+            Use `offset`, `page_limit` query parameters to control response data size. \
+                The `page_limit` and `total_size (found in response)` refers to the number of parquet files read.",
         )
         self.description_template_search = APIDescriptionHelper.append_joined_roles(
             "Get the (`samples analysis`) ids list that comply with `{query}` for given`{analysis_type}`. <br><br>\
             Use the `Accept` request header to specify content schema version \
                 (example header `Accept: */*;version=1.0.0` is supported).<br><br>\
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
-                query parameters can be used to manage data in response.",
+                query parameters can be used to manage data in response. <br><br> \
+            Use `offset`, `page_limit` query parameters to control response data size. \
+                The `page_limit` and `total_size (found in response)` refers to the number of parquet files read.",
         )
         self._prepare_api_routes()
+        self._batch_size = SEARCH_READ_BATCH_SIZE
         if kwargs:
             self.__dict__.update(kwargs)
 
@@ -222,6 +235,7 @@ class SamplesAnalysisSearchDataView:
         df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         parquet_loader: ParquetLoader = Depends(get_parquet_loader),
+        pagination_parameters: Tuple[int, int] = Depends(get_search_data_pagination_parameters),
     ) -> Response:
         """Search Data Endpoint.
 
@@ -244,34 +258,46 @@ class SamplesAnalysisSearchDataView:
         :param parquet_loader: parquet loader instance, defaults to
             Depends(get_parquet_loader)
         :type parquet_loader: ParquetLoader, optional
+        :param pagination_parameters: oagination parameters, defaults to
+            Depends(get_pagination_parameters)
+        :type pagination_parameters: Tuple[int, int], optional
         :return: Either json or parquet response from concatenated
             dataframes from search result
         :rtype: Response
         """
         data_partition_id = request.headers.get("data-partition-id")
-        _, dfs = await self._get_search_data(
-            data_partition_id,
-            analysis_type,
+        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
+        offset, page_limit = pagination_parameters
+
+        analysis_type_ids = await self._find_analysis_type_ids(
+            data_partition_id, analysis_type, content_schema_version, search_service,
+        )
+
+        df_pairs_gen = self._get_search_data(
+            analysis_type_ids,
             dataset_service,
-            search_service,
             df_filter,
-            content_schema_version,
             parquet_loader,
         )
 
-        mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
+        result_df, total_size = await self._build_result_df(df_pairs_gen, df_filter, offset, page_limit)
 
-        parquets = [df[1] for df in dfs]
         if mime_type == SupportedMimeTypes.PARQUET:
-            content_response = pd.concat(parquets, ignore_index=True).to_parquet() if parquets else b""
+            content_response = result_df.to_parquet() if result_df.any else b""
             response = Response(
                 content=content_response,
                 media_type=SupportedMimeTypes.PARQUET.mime_type,
             )
         else:
-            content_response = pd.concat(parquets, ignore_index=True).to_json(orient="split") if parquets else ""
+            content_response = result_df.to_json(orient="split") if result_df.any else json.dumps({})
+            dict_response = {
+                "result": json.loads(content_response),
+                "offset": offset,
+                "page_limit": page_limit,
+                "total_size": total_size,
+            }
             response = Response(
-                content=content_response,
+                content=json.dumps(dict_response),
                 media_type=SupportedMimeTypes.JSON.mime_type,
             )
 
@@ -287,6 +313,7 @@ class SamplesAnalysisSearchDataView:
         df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         parquet_loader: ParquetLoader = Depends(get_parquet_loader),
+        pagination_parameters: Tuple[int, int] = Depends(get_search_pagination_parameters),
     ) -> JSONResponse:
         """Search Endpoint.
 
@@ -309,51 +336,64 @@ class SamplesAnalysisSearchDataView:
         :param parquet_loader: parquet loader instance, defaults to
             Depends(get_parquet_loader)
         :type parquet_loader: ParquetLoader, optional
+        :param pagination_parameters: oagination parameters, defaults to
+            Depends(get_pagination_parameters)
+        :type pagination_parameters: Tuple[int, int], optional
         :return: The list with SamplesAnalysis ids obtained from search
         :rtype: Response
         """
         data_partition_id = request.headers.get("data-partition-id")
-        analysis_type_ids, dfs = await self._get_search_data(
-            data_partition_id,
-            analysis_type,
+        offset, page_limit = pagination_parameters
+
+        analysis_type_ids = await self._find_analysis_type_ids(
+            data_partition_id, analysis_type, content_schema_version, search_service,
+        )
+
+        df_pairs_gen = self._get_search_data(
+            analysis_type_ids,
             dataset_service,
-            search_service,
             df_filter,
-            content_schema_version,
             parquet_loader,
         )
 
         result_set = []
         analysis_type_ids = dict(analysis_type_ids)
-        for dataset_id, df in dfs:
-            if not df.empty:
-                result_set.append(analysis_type_ids[dataset_id])
-        return JSONResponse(content=result_set)
+        async for batch_df_pairs in df_pairs_gen:
+            for dataset_id, df in batch_df_pairs:
+                if not df.empty:
+                    result_set.append(analysis_type_ids[dataset_id])
+
+        response = {
+            "result": result_set[offset:offset + page_limit],
+            "offset": offset,
+            "page_limit": page_limit,
+            "total_size": len(result_set),
+        }
+        return JSONResponse(content=response)
 
     def _prepare_api_routes(self) -> None:
         """Prepare and add api routes."""
         self._prepare_get_search_data_route()
         self._prepare_get_search_route()
 
-    async def _get_search_data(
+    async def _get_search_data(  # noqa: WPS234
         self,
-        data_partition_id: str,
-        analysis_type: str,
+        analysis_type_ids: List[Tuple[str, str]],
         dataset_service: dataset.DatasetService,
-        search_service: search.SearchService,
         df_filter: DataFrameFilterValidator,
-        content_schema_version: str,
         parquet_loader: ParquetLoader,
-    ) -> Tuple[Dict[str, str], Dict[str, str]]:
+    ) -> AsyncGenerator[List[Tuple[str, str]], None]:
         """Fetches parquet files from a given result list obtained from search
         service."""
-        analysis_type_ids = await self._find_analysis_type_ids(
-            data_partition_id, analysis_type, content_schema_version, search_service,
-        )
+        analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
         dataset_ids = [result_id[0] for result_id in analysis_type_ids]
-        signed_urls_for_datasets = await dataset_service.get_signed_urls(dataset_ids)
-        dfs = await parquet_loader.read_parquet_files(signed_urls_for_datasets, df_filter)
-        return analysis_type_ids, dfs
+
+        for n_batch in range((len(dataset_ids) // self._batch_size) + 1):
+            batch_offset = self._batch_size * n_batch
+            dataset_ids_batch = dataset_ids[batch_offset:batch_offset + self._batch_size]
+            signed_urls_for_datasets = await dataset_service.get_signed_urls(dataset_ids_batch)
+            df_pairs = await parquet_loader.read_parquet_files(signed_urls_for_datasets, df_filter)
+            yield df_pairs
 
     async def _find_analysis_type_ids(
         self,
@@ -365,11 +405,67 @@ class SamplesAnalysisSearchDataView:
         """Performs a query to search service to build a list of tuples
         dataset_id, samples_analysis_id."""
         query = self._build_sampleanalysistype_query(data_partition_id, SAMPLESANALYSIS_TYPE_MAPPING[analysis_type])
+        query_offset = 0
         search_response = await search_service.find_records(
             kind=SAMPLESANALYSIS_KIND,
             query=query,
+            offset=query_offset,
+            limit=search.QUERY_LIMIT,
         )
-        return self._build_result_ids(search_response, target_schema_version, analysis_type)
+
+        result_records = []
+        while search_response and search_response.get("results"):
+            result_records.extend(search_response.get("results"))
+            query_offset += search.QUERY_LIMIT
+            search_response = await search_service.find_records(
+                kind=SAMPLESANALYSIS_KIND,
+                query=query,
+                offset=query_offset,
+                limit=search.QUERY_LIMIT,
+            )
+
+        return self._build_result_ids(result_records, target_schema_version, analysis_type)
+
+    async def _paginate_dfs(
+        self,
+        dfs: AsyncGenerator[pd.DataFrame, None],
+        offset: int,
+        page_limit: Optional[int] = None,
+        select_all: Optional[bool] = False,
+    ) -> Tuple[List[pd.DataFrame], int]:
+        """Paginate the list of pd.DataFrame."""
+        paged_dfs = []
+        df_i = 0
+        async for df in dfs:
+            if select_all or (df_i >= offset and df_i < offset + page_limit):  # noqa: WPS333
+                paged_dfs.append(df)
+            df_i += 1
+        return paged_dfs, df_i
+
+    async def _build_result_df(
+        self,
+        df_pairs: AsyncGenerator[pd.DataFrame, None],
+        df_filter: DataFrameFilterValidator,
+        offset: int,
+        page_limit: int,
+    ) -> Tuple[pd.DataFrame, int]:
+        """Build a concatenated or aggregated pd.DataFrame."""
+        dfs = (df_pair[1] async for batch_df_pairs in df_pairs for df_pair in batch_df_pairs if not df_pair[1].empty)
+
+        if df_filter.valid_columns_aggregation:
+            paged_dfs, total_size = await self._paginate_dfs(dfs, offset=0, select_all=True)
+            result_df = apply_filters_from_df(
+                pd.concat(paged_dfs, ignore_index=True),
+                df_filter,
+            ) if paged_dfs else pd.DataFrame()
+        else:
+            paged_dfs, total_size = await self._paginate_dfs(dfs, offset, page_limit)
+            result_df = pd.concat(paged_dfs, ignore_index=True) if paged_dfs else pd.DataFrame()
+
+        logger.debug("Parquets included in result: ")
+        logger.debug(paged_dfs)
+
+        return result_df, total_size
 
     def _verify_target_schema(
         self,
@@ -391,13 +487,13 @@ class SamplesAnalysisSearchDataView:
 
     def _build_result_ids(  # noqa: CCR001
         self,
-        search_response: dict,
+        result_records: list,
         target_schema_version: str,
         analysis_type: str,
     ) -> List[Tuple[str, str]]:
         """Build a list of tuples dataset_id, samples_analysis_id."""
         result_ids = []
-        for record in search_response.get("results", []):
+        for record in result_records:
             if ddms_datasets := record.get("data", {}).get("DDMSDatasets"):  # noqa: WPS332
                 for urn in ddms_datasets:
                     urn_info = get_info_from_urn(urn)

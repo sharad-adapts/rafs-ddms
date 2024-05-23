@@ -24,6 +24,7 @@ from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_search_service,
 )
+from app.api.routes.samplesanalysis.endpoints import SEARCH_READ_BATCH_SIZE
 from app.dataframe import parquet_loader
 from app.main import app
 from app.services import dataset, search
@@ -35,13 +36,12 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
     TEST_SERVER,
 )
 from tests.test_api.test_routes.samplesanalysis.samplesanalysis_mock_objects import (
-    END_TEST_INDEX,
-    START_TEST_INDEX,
-    dataset_get_signed_urls_response,
-    orient_split_tests,
-    parquet_loader_read_parquets_response,
-    sa_ids_response,
-    search_find_records_response,
+    build_dataset_get_signed_urls_response,
+    build_orient_split_tests,
+    build_parquet_loader_read_parquets_response,
+    build_sa_ids_response,
+    build_search_find_records_response,
+    get_aggregated_count,
 )
 
 async_dataset_service_mock = create_autospec(dataset.DatasetService, spec_set=True, instance=True)
@@ -118,11 +118,23 @@ def services_overrides():
 
 
 @pytest.fixture
-def with_patched_services_success():
+def with_patched_services_success(total_size):
     """Patch services for success."""
-    with patch.object(async_search_service_mock, "find_records", return_value=search_find_records_response):
-        with patch.object(async_dataset_service_mock, "get_signed_urls", return_value=dataset_get_signed_urls_response):
-            with patch.object(parquet_loader_mock, "read_parquet_files", return_value=parquet_loader_read_parquets_response):
+    with patch.object(
+        async_search_service_mock,
+        "find_records",
+            side_effect=[build_search_find_records_response(1, total_size + 1), {}],
+    ):
+        with patch.object(
+            async_dataset_service_mock,
+            "get_signed_urls",
+                side_effect=[build_dataset_get_signed_urls_response(1, total_size + 1), []],
+        ):
+            with patch.object(
+                parquet_loader_mock,
+                "read_parquet_files",
+                    side_effect=[build_parquet_loader_read_parquets_response(1, total_size + 1), []],
+            ):
                 yield
 
 
@@ -190,36 +202,111 @@ async def test_content_schemas_wrong_type():
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "analysistype", ["nmr"],
+    "analysistype,pagination_params,total_size",
+    [
+        ("nmr", {}, 10),
+        ("nmr", {"offset": 10, "page_limit": 20}, 50),
+        ("nmr", {"offset": 50, "page_limit": 100}, 105),
+    ],
 )
 async def test_search_data_success(
     analysistype,
     with_patched_services_success,
+    pagination_params,
+    total_size,
 ):
+    parameters = {}
+    parameters.update(pagination_params)
+
     with services_overrides():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.get(
                 f"{SAMPLESANALYSIS_ENDPOINT_PATH}/{analysistype}/search/data",
                 headers=TEST_HEADERS_JSON,
+                params=parameters,
             )
 
-    assert len(response.json()["index"]) == END_TEST_INDEX - START_TEST_INDEX
-    assert response.json()["data"] == [test["data"][0] for test in orient_split_tests]
+    expected_offset = parameters.get("offset", 0)
+    expected_page_limit = parameters.get("page_limit", 100)
+
+    assert response.json()["offset"] == expected_offset
+    assert response.json()["page_limit"] == expected_page_limit
+    assert response.json()["total_size"] == total_size
+
+    result_df = response.json()["result"]
+
+    expected_test_data = [
+        test["data"][0]
+        for test in build_orient_split_tests(
+            expected_offset + 1, min(expected_offset + expected_page_limit + 1, total_size + 1),
+        )
+    ]
+    assert result_df["data"] == expected_test_data
 
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "analysistype", ["nmr"],
+    "analysistype,pagination_params,total_size,filters,expected_filtered_data",
+    [
+        ("nmr", {}, 100, {"columns_aggregation": "SamplesAnalysisID,count"}, get_aggregated_count(100)),
+        (
+            "nmr", {}, 1, {
+                "columns_aggregation": "SamplesAnalysisID,count",
+                "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:1:",
+            }, get_aggregated_count(1),
+        ),
+    ],
+)
+async def test_search_data_with_filters_success(
+    analysistype,
+    with_patched_services_success,
+    pagination_params,
+    total_size,
+    filters,
+    expected_filtered_data,
+):
+    parameters = {}
+    parameters.update(pagination_params)
+    parameters.update(filters)
+
+    with services_overrides():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"{SAMPLESANALYSIS_ENDPOINT_PATH}/{analysistype}/search/data",
+                headers=TEST_HEADERS_JSON,
+                params=parameters,
+            )
+
+    assert response.json() == expected_filtered_data
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "analysistype,pagination_params,total_size", [
+        ("nmr", {}, 10),
+        ("nmr", {"offset": 10, "page_limit": 50}, 100),
+    ],
 )
 async def test_search_success(
     analysistype,
     with_patched_services_success,
+    pagination_params,
+    total_size,
 ):
+    parameters = {}
+    parameters.update(pagination_params)
+
     with services_overrides():
         async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
             response = await client.get(
                 f"{SAMPLESANALYSIS_ENDPOINT_PATH}/{analysistype}/search",
                 headers=TEST_HEADERS_JSON,
+                params=parameters,
             )
 
-    assert response.json() == sa_ids_response
+    expected_offset = parameters.get("offset", 0)
+    expected_page_limit = parameters.get("page_limit", 1000)
+
+    assert response.json()["result"] == build_sa_ids_response(
+        expected_offset + 1, min(expected_offset + expected_page_limit + 1, total_size + 1),
+    )

@@ -18,8 +18,8 @@ import json
 
 import pandas as pd
 
-START_TEST_INDEX = 1
-END_TEST_INDEX = 11
+START_TEST_INDEX = 1  # inclusive
+END_TEST_INDEX = 11  # not inclusive
 
 SAMPLES_ANALYSIS_TEMPLATE = {
     "data": {
@@ -31,26 +31,30 @@ SAMPLES_ANALYSIS_TEMPLATE = {
     "id": "opendes:work-product-component--SamplesAnalysis:{sa_id}",
 }
 
-sa_records = [copy.deepcopy(SAMPLES_ANALYSIS_TEMPLATE) for _ in range(START_TEST_INDEX, END_TEST_INDEX)]
-for ix, record in enumerate(sa_records):
-    ix = ix + 1
-    record["id"] = record["id"].format(sa_id=ix)
-    record["data"]["DDMSDatasets"][0] = record["data"]["DDMSDatasets"][0].format(sa_id=ix, ds_id=ix)
 
-search_find_records_response = {
-    "results": sa_records,
-}
+def build_search_find_records_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+    sa_records = [copy.deepcopy(SAMPLES_ANALYSIS_TEMPLATE) for _ in range(start_index, end_index)]
+    for ix, record in enumerate(sa_records, start=start_index):
+        record["id"] = record["id"].format(sa_id=ix)
+        record["data"]["DDMSDatasets"][0] = record["data"]["DDMSDatasets"][0].format(sa_id=ix, ds_id=ix)
 
-dataset_get_signed_urls_response = [
-    ("opendes:dataset--File.Generic:nmr-{ds_id}:1234".format(ds_id=ix), "http://{n}".format(n=ix))
-    for ix in range(START_TEST_INDEX, END_TEST_INDEX)
-]
+    return {
+        "results": sa_records,
+    }
 
-ORIENT_SPLIT_TEST_TEMPLATE = {
+
+def build_dataset_get_signed_urls_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+    return [
+        ("opendes:dataset--File.Generic:nmr-{ds_id}:1234".format(ds_id=ix), "http://{n}".format(n=ix))
+        for ix in range(start_index, end_index)
+    ]
+
+
+NMR_ORIENT_SPLIT_TEST_TEMPLATE = {
     "columns": [
         "SamplesAnalysisID",
         "SampleID",
-        "Test",
+        "NMRTest",
     ],
     "index": [
         0,
@@ -61,26 +65,58 @@ ORIENT_SPLIT_TEST_TEMPLATE = {
             "opendes:master-data--Sample:Sample:",
             {
                 "ExampleKey": "Example-{ex_id}",
+                "NumberKey": 0,
             },
         ],
     ],
 }
 
-orient_split_tests = [copy.deepcopy(ORIENT_SPLIT_TEST_TEMPLATE) for _ in range(START_TEST_INDEX, END_TEST_INDEX)]
 
-for ix, record in enumerate(orient_split_tests):
-    ix = ix + 1
-    record["data"][0][0] = record["data"][0][0].format(sa_id=ix)
-    record["data"][0][2]["ExampleKey"] = record["data"][0][2]["ExampleKey"].format(ex_id=ix)
+def build_orient_split_tests(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+    orient_split_tests = [copy.deepcopy(NMR_ORIENT_SPLIT_TEST_TEMPLATE) for _ in range(start_index, end_index)]
 
-dataframes = [pd.read_json(io.StringIO(json.dumps(test)), orient="split") for test in orient_split_tests]
+    for ix, record in enumerate(orient_split_tests, start=start_index):
+        record["data"][0][0] = record["data"][0][0].format(sa_id=ix)
+        record["data"][0][2]["ExampleKey"] = record["data"][0][2]["ExampleKey"].format(ex_id=ix)
+        record["data"][0][2]["NumberKey"] = ix
 
-parquet_loader_read_parquets_response = [
-    ("opendes:dataset--File.Generic:nmr-{ds_id}".format(ds_id=ix), dataframes[ix - 1])
-    for ix in range(START_TEST_INDEX, END_TEST_INDEX)
-]
+    return orient_split_tests
 
-sa_ids_response = [
-    "opendes:work-product-component--SamplesAnalysis:{sa_id}".format(sa_id=ix)
-    for ix in range(START_TEST_INDEX, END_TEST_INDEX)
-]
+
+def build_parquet_loader_read_parquets_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+    orient_split_tests = build_orient_split_tests(start_index, end_index)
+
+    dataframes = [pd.read_json(io.StringIO(json.dumps(test)), orient="split") for test in orient_split_tests]
+
+    return [
+        ("opendes:dataset--File.Generic:nmr-{ds_id}".format(ds_id=ix), dataframes[ix - 1])
+        for ix in range(start_index, end_index)
+    ]
+
+
+def build_sa_ids_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+    return [
+        "opendes:work-product-component--SamplesAnalysis:{sa_id}".format(sa_id=ix)
+        for ix in range(start_index, end_index)
+    ]
+
+
+def get_aggregated_count(count):
+    return {
+        "result": {
+            "columns": [
+                "SamplesAnalysisID",
+            ],
+            "index": [
+                "count",
+            ],
+            "data": [
+                [
+                    count,
+                ],
+            ],
+        },
+        "offset": 0,
+        "page_limit": 100,
+        "total_size": count,
+    }

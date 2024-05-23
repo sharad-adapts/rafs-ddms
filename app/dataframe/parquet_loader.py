@@ -70,11 +70,21 @@ class ParquetLoader:
             async with client.stream("GET", url) as response:
                 response.raise_for_status()
                 read_content = await response.aread()
-                df = apply_filters_from_bytes(read_content, df_filter) if df_filter else pq.read_table(
-                    pa.BufferReader(read_content),
-                ).to_pandas()
+                if df_filter:
+                    df_filter = self._get_filter_without_aggregation(df_filter)
+                    df = apply_filters_from_bytes(read_content, df_filter)
+                else:
+                    df = pq.read_table(pa.BufferReader(read_content)).to_pandas()
                 return dataset_id, df
         except httpx.HTTPStatusError as exc:
             logger.error(f"HTTP status error {exc.response.status_code} for URL: {url}")  # noqa: WPS237
         except httpx.RequestError as exc:
             logger.error(f"Request error for URL: {url} - {exc}")
+
+    def _get_filter_without_aggregation(self, df_filter: DataFrameFilterValidator) -> DataFrameFilterValidator:
+        """Get a new filter without aggregation."""
+        return DataFrameFilterValidator(
+            model=df_filter.model,
+            raw_rows_filter=df_filter.raw_rows_filter,
+            raw_columns_filter=df_filter.raw_columns_filter,
+        )
