@@ -83,13 +83,13 @@ def build_orient_split_tests(start_index=START_TEST_INDEX, end_index=END_TEST_IN
     return orient_split_tests
 
 
-def build_parquet_loader_read_parquets_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX):
+def build_parquet_loader_read_parquets_response(start_index=START_TEST_INDEX, end_index=END_TEST_INDEX, with_error=None):
     orient_split_tests = build_orient_split_tests(start_index, end_index)
 
     dataframes = [pd.read_json(io.StringIO(json.dumps(test)), orient="split") for test in orient_split_tests]
 
     return [
-        ("opendes:dataset--File.Generic:nmr-{ds_id}".format(ds_id=ix), dataframes[ix - 1])
+        ("opendes:dataset--File.Generic:nmr-{ds_id}".format(ds_id=ix), dataframes[ix - 1], with_error)
         for ix in range(start_index, end_index)
     ]
 

@@ -118,7 +118,7 @@ def services_overrides():
 
 
 @pytest.fixture
-def with_patched_services_success(total_size):
+def with_patched_services_success(total_size, with_parquet_read_error):
     """Patch services for success."""
     with patch.object(
         async_search_service_mock,
@@ -133,7 +133,11 @@ def with_patched_services_success(total_size):
             with patch.object(
                 parquet_loader_mock,
                 "read_parquet_files",
-                    side_effect=[build_parquet_loader_read_parquets_response(1, total_size + 1), []],
+                    side_effect=[
+                        build_parquet_loader_read_parquets_response(
+                            1, total_size + 1, with_parquet_read_error,
+                        ), [],
+                    ],
             ):
                 yield
 
@@ -202,11 +206,11 @@ async def test_content_schemas_wrong_type():
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "analysistype,pagination_params,total_size",
+    "analysistype,pagination_params,total_size,with_parquet_read_error",
     [
-        ("nmr", {}, 10),
-        ("nmr", {"offset": 10, "page_limit": 20}, 50),
-        ("nmr", {"offset": 50, "page_limit": 100}, 105),
+        ("nmr", {}, 10, None),
+        ("nmr", {"offset": 10, "page_limit": 20}, 50, None),
+        ("nmr", {"offset": 50, "page_limit": 100}, 105, None),
     ],
 )
 async def test_search_data_success(
@@ -214,6 +218,7 @@ async def test_search_data_success(
     with_patched_services_success,
     pagination_params,
     total_size,
+    with_parquet_read_error,
 ):
     parameters = {}
     parameters.update(pagination_params)
@@ -246,14 +251,14 @@ async def test_search_data_success(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "analysistype,pagination_params,total_size,filters,expected_filtered_data",
+    "analysistype,pagination_params,total_size,filters,expected_filtered_data,with_parquet_read_error",
     [
-        ("nmr", {}, 100, {"columns_aggregation": "SamplesAnalysisID,count"}, get_aggregated_count(100)),
+        ("nmr", {}, 100, {"columns_aggregation": "SamplesAnalysisID,count"}, get_aggregated_count(100), None),
         (
             "nmr", {}, 1, {
                 "columns_aggregation": "SamplesAnalysisID,count",
                 "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:1:",
-            }, get_aggregated_count(1),
+            }, get_aggregated_count(1), None,
         ),
     ],
 )
@@ -264,6 +269,7 @@ async def test_search_data_with_filters_success(
     total_size,
     filters,
     expected_filtered_data,
+    with_parquet_read_error,
 ):
     parameters = {}
     parameters.update(pagination_params)
@@ -282,9 +288,9 @@ async def test_search_data_with_filters_success(
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
-    "analysistype,pagination_params,total_size", [
-        ("nmr", {}, 10),
-        ("nmr", {"offset": 10, "page_limit": 50}, 100),
+    "analysistype,pagination_params,total_size,with_parquet_read_error", [
+        ("nmr", {}, 10, None),
+        ("nmr", {"offset": 10, "page_limit": 50}, 100, None),
     ],
 )
 async def test_search_success(
@@ -292,6 +298,7 @@ async def test_search_success(
     with_patched_services_success,
     pagination_params,
     total_size,
+    with_parquet_read_error,
 ):
     parameters = {}
     parameters.update(pagination_params)
@@ -310,3 +317,30 @@ async def test_search_success(
     assert response.json()["result"] == build_sa_ids_response(
         expected_offset + 1, min(expected_offset + expected_page_limit + 1, total_size + 1),
     )
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    "analysistype,total_size,with_parquet_read_error", [
+        ("nmr", 10, "Error Msg"),
+    ],
+)
+async def test_search_failed(
+    analysistype,
+    with_patched_services_success,
+    total_size,
+    with_parquet_read_error,
+):
+
+    with services_overrides():
+        async with AsyncClient(base_url=TEST_SERVER, app=app) as client:
+            response = await client.get(
+                f"{SAMPLESANALYSIS_ENDPOINT_PATH}/{analysistype}/search/data",
+                headers=TEST_HEADERS_JSON,
+            )
+    from loguru import logger
+    logger.warning(response.json())
+
+    assert response.json()["code"] == status.HTTP_500_INTERNAL_SERVER_ERROR
+    response_values = response.json()["reason"]["errors"].values()
+    assert list(response_values) == [with_parquet_read_error for _ in range(len(response_values))]
