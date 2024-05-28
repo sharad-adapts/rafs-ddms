@@ -112,7 +112,11 @@ async def test_read_parquet_from_url_with_failed_response(parquet_loader):
         message="", request=None, response=Mock(status_code=HTTPStatus.NOT_FOUND),
     )
 
-    result = await parquet_loader._read_parquet_from_url("dataset_id", "http://example.com/parquet", client=async_client_mock)
+    dataset_id, df, error_msg = await parquet_loader._read_parquet_from_url(
+        "dataset_id", "http://example.com/parquet", client=async_client_mock,
+    )
 
-    assert result is None
+    assert dataset_id == "dataset_id"
+    assert df.empty
+    assert error_msg == "HTTP status error 404 for URL: http://example.com/parquet"
     async_client_mock.stream.assert_called_once_with("GET", "http://example.com/parquet")

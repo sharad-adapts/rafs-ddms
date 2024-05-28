@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import asyncio
-from typing import List, Optional, Tuple
+from typing import List, NamedTuple, Optional, Tuple
 
 import httpx
 import pandas as pd
@@ -32,6 +32,12 @@ from app.dataframe.parquet_filter import (
 RETRIES = 3
 
 
+class DFPayload(NamedTuple):
+    dataset_id: str
+    df: pd.DataFrame
+    error_msg: Optional[str]
+
+
 class ParquetLoader:
 
     @cache(expire=CACHE_DEFAULT_TTL, coder=PickleCoder)
@@ -39,7 +45,7 @@ class ParquetLoader:
         self,
         signed_urls: List[Tuple[str, str]],
         df_filter: Optional[DataFrameFilterValidator] = None,
-    ) -> List[Tuple[str, pd.DataFrame]]:
+    ) -> List[DFPayload]:
         """Use asynchronous HTTP requests to read multiple parquet files from
         signed urls.
 
@@ -48,7 +54,7 @@ class ParquetLoader:
         :param df_filter: df_filter, defaults to None
         :type df_filter: Optional[DataFrameFilterValidator], optional
         :return: pairs of dataset_id, pd.DataFrame
-        :rtype: List[Tuple[str, pd.DataFrame]]
+        :rtype: List[DFPayload]
         """
         transport = httpx.AsyncHTTPTransport(retries=RETRIES)
         async with httpx.AsyncClient(transport=transport) as client:
@@ -58,13 +64,13 @@ class ParquetLoader:
             ]
             return await asyncio.gather(*tasks)
 
-    async def _read_parquet_from_url(
+    async def _read_parquet_from_url(  # noqa: WPS234
         self,
         dataset_id: str,
         url: str,
         df_filter: Optional[DataFrameFilterValidator] = None,
         client: httpx.AsyncClient = None,
-    ) -> Optional[Tuple[str, pd.DataFrame]]:
+    ) -> DFPayload:
         """Read parquet file from url and apply df_filter."""
         try:
             async with client.stream("GET", url) as response:
@@ -75,11 +81,33 @@ class ParquetLoader:
                     df = apply_filters_from_bytes(read_content, df_filter)
                 else:
                     df = pq.read_table(pa.BufferReader(read_content)).to_pandas()
-                return dataset_id, df
-        except httpx.HTTPStatusError as exc:
-            logger.error(f"HTTP status error {exc.response.status_code} for URL: {url}")  # noqa: WPS237
-        except httpx.RequestError as exc:
-            logger.error(f"Request error for URL: {url} - {exc}")
+                error_msg = None
+        except httpx.HTTPStatusError as http_exc:
+            error_msg = f"HTTP status error {http_exc.response.status_code} for URL: {url}"  # noqa: WPS237
+            logger.error(error_msg)
+            df = pd.DataFrame()
+        except httpx.RequestError as req_exc:
+            error_msg = f"Request error for URL: {url} - {req_exc}"
+            logger.error(error_msg)
+            df = pd.DataFrame()
+        except (
+            pa.lib.ArrowCancelled,
+            pa.lib.ArrowCapacityError,
+            pa.lib.ArrowException,
+            pa.lib.ArrowKeyError,
+            pa.lib.ArrowIndexError,
+            pa.lib.ArrowInvalid,
+            pa.lib.ArrowIOError,
+            pa.lib.ArrowMemoryError,
+            pa.lib.ArrowNotImplementedError,
+            pa.lib.ArrowTypeError,
+            pa.lib.ArrowSerializationError,
+        ) as exc:
+            error_msg = f"PyArrowException: {exc}"
+            logger.error(error_msg)
+            df = pd.DataFrame()
+
+        return DFPayload(dataset_id, df, error_msg)
 
     def _get_filter_without_aggregation(self, df_filter: DataFrameFilterValidator) -> DataFrameFilterValidator:
         """Get a new filter without aggregation."""

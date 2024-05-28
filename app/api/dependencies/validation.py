@@ -549,7 +549,7 @@ async def get_search_data_pagination_parameters(
     offset: Optional[int] = Query(
         default=0,
         example=100,
-        gt=0,
+        ge=0,
     ),
 ) -> Tuple[int, int]:
     return offset, page_limit
@@ -565,7 +565,7 @@ async def get_search_pagination_parameters(
     offset: Optional[int] = Query(
         default=0,
         example=100,
-        gt=0,
+        ge=0,
     ),
 ) -> Tuple[int, int]:
     return offset, page_limit
