@@ -641,6 +641,30 @@
                 },
                 "additionalProperties": false
             }
+        },
+        "ContaminationCorrection": {
+            "type": "object",
+            "description": "This object captures if the reported compositional analysis is pre or post correction for mud contamination and the reported mud contamination percentage",
+            "properties": {
+                "MudContamination": {
+                    "type": "object",
+                    "properties": {
+                        "Value": {
+                            "type": "number"
+                        },
+                        "UnitOfMeasure": {
+                            "type": "string",
+                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "MudContaminationCorrectionStatus": {
+                    "type": "string",
+                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-MudContaminationCorrectionStatus:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                }
+            },
+            "additionalProperties": false
         }
     },
     "additionalProperties": false,

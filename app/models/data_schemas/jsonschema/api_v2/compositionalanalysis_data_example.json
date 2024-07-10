@@ -175,5 +175,12 @@
                 "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
             }
         }
-    ]
+    ],
+    "ContaminationCorrection": {
+        "MudContamination": {
+            "Value": 10,
+            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+        },
+        "MudContaminationCorrectionStatus": "opendes:reference-data--MudContaminationCorrectionStatus:postcorrection:"
+    }
 }
