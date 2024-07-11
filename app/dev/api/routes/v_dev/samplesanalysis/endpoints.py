@@ -13,10 +13,10 @@
 #  limitations under the License.
 
 import json
-from typing import Annotated, AsyncGenerator, Dict, List, Optional, Tuple
+from typing import AsyncGenerator, List, Optional, Tuple
 
 import pandas as pd
-from fastapi import APIRouter, Body, Depends, HTTPException, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from fastapi.responses import JSONResponse
 from fastapi_cache.decorator import cache
 from loguru import logger
@@ -26,172 +26,36 @@ from app.api.dependencies.parquet import get_parquet_loader
 from app.api.dependencies.request import (
     get_content_schema_version,
     validate_bulkdata_content_type,
-    validate_json_content_type,
 )
 from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_search_service,
-    get_async_storage_service,
 )
 from app.api.dependencies.validation import (
     get_search_data_pagination_parameters,
     get_search_pagination_parameters,
-    validate_filters,
 )
-from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.records import get_info_from_urn
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
-from app.dataframe.filter_processor import DFFilterProcessor
 from app.dataframe.parquet_loader import DFPayload, ParquetLoader
-from app.models.data_schemas.base import (
-    ALL_PATHS_TO_DATA_MODEL,
-    ENDPOINT_PATTERNS,
+from app.dev.api.dependencies.validation import (
+    validate_multiple_nested_filters,
+)
+from app.dev.dataframe.multiple_nested_filter_processor import (
+    DFMultipleNestedFilterProcessor,
+)
+from app.dev.resources.multiple_nested_filters import (
+    DFMultipleNestedFilterValidator,
 )
 from app.models.domain.osdu.base import SAMPLESANALYSIS_KIND
-from app.models.schemas.osdu_storage import (
-    OsduStorageRecord,
-    StorageUpsertResponse,
-)
-from app.resources.filters import DataFrameFilterValidator
-from app.resources.load_model_example import load_data_example
 from app.resources.mime_types import SupportedMimeTypes
 from app.resources.paths import SAMPLESANALYSIS_TYPE_MAPPING
-from app.services import dataset, search, storage
+from app.services import dataset, search
 
-SAMPLESANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysis:[\w\-\.\:\%]+$"
 SEARCH_READ_BATCH_SIZE = 100  # max number of parquet files retrieved
-
-
-class SamplesAnalysisRecordView(BaseStorageRecordView):
-    def __init__(
-        self,
-        router: APIRouter,
-        validate_records_payload: callable,
-        record_type: str,
-    ) -> None:
-        super().__init__(
-            router=router,
-            id_regex_str=SAMPLESANALYSIS_ID_REGEX_STR,
-            validate_records_payload=validate_records_payload,
-            record_type=record_type,
-        )
-
-    async def post_records(
-        self,
-        request: Request,
-        request_records: Annotated[List[dict], Body(example=load_data_example("samples_analysis.json"))],
-        storage_service: storage.StorageService = Depends(get_async_storage_service),
-    ) -> StorageUpsertResponse:
-        return await super().post_records(request, request_records, storage_service)
-
-    def _prepare_post_records_route(self) -> None:
-        """Add api route for post_records without dependencies."""
-        async def validate_request_records(
-            request_records: List[OsduStorageRecord],
-            storage_service: storage.StorageService = Depends(get_async_storage_service),
-        ) -> List[dict]:
-            """Validate request records.
-
-            :param request_records: request records
-            :type request_records: List[OsduStorageRecord]
-            :param storage_service: storage service instance, defaults
-                  to Depends(get_async_storage_service)
-            :type storage_service: storage.StorageService, optional
-            :return: validated records
-            :rtype: List[dict]
-            """
-            return await self._validate_records_payload(request_records, storage_service)
-
-        self._router.add_api_route(
-            path="",
-            endpoint=self.post_records,
-            methods=["POST"],
-            status_code=status.HTTP_200_OK,
-            response_model=StorageUpsertResponse,
-            response_model_by_alias=False,
-            description=APIDescriptionHelper.append_manage_roles(
-                f"Create or update `{self._record_type}` record(s).",
-            ),
-            dependencies=[
-                Depends(validate_request_records),
-                Depends(validate_json_content_type),
-            ],
-        )
-
-
-class SamplesAnalysisTypesView:
-    def __init__(
-        self,
-        router: APIRouter,
-    ) -> None:
-        self._router = router
-        self._prepare_types_route()
-
-    async def get_types(self) -> JSONResponse:
-        """Get available data types and their supported versions."""
-        analysis_types_versions_map = {
-            path.strip("/").split("/")[-1]: list(versions.keys())
-            for path, versions in ALL_PATHS_TO_DATA_MODEL.items()
-        }
-        return JSONResponse(content=analysis_types_versions_map)
-
-    def _prepare_types_route(self) -> None:
-        """Add API route for getting available data types and versions."""
-        self._router.add_api_route(
-            path="/analysistypes",
-            endpoint=self.get_types,
-            methods=["GET"],
-            status_code=status.HTTP_200_OK,
-            response_model=Dict[str, list],
-            description="Get available types.",
-        )
-
-
-class SamplesAnalysisSchemasView:
-    def __init__(
-        self,
-        router: APIRouter,
-    ) -> None:
-        self._router = router
-        self._prepare_content_schema_route()
-
-    async def get_content_schema(
-        self,
-        analysistype: str,
-        content_schema_version: str = Depends(get_content_schema_version),
-    ) -> JSONResponse:
-        """Get the schema of the given analysis type and version."""
-        model_versions = None
-        for pattern in ENDPOINT_PATTERNS:
-            model_versions = ALL_PATHS_TO_DATA_MODEL.get(pattern.format(analysistype=analysistype))
-            if model_versions:
-                break
-        if model_versions and (model := model_versions.get(content_schema_version)):  # noqa: WPS332
-            return JSONResponse(
-                content=model.schema(),
-            )
-        return JSONResponse(
-            {"message": f"Schema not found for {analysistype} and version {content_schema_version}"},
-            status_code=status.HTTP_404_NOT_FOUND,
-        )
-
-    def _prepare_content_schema_route(self) -> None:
-        """Add API route for getting content schema."""
-        self._router.add_api_route(
-            path="/{analysistype}/data/schema",
-            endpoint=self.get_content_schema,
-            methods=["GET"],
-            status_code=status.HTTP_200_OK,
-            response_model=Dict[str, list],
-            description=APIDescriptionHelper.append_joined_roles(
-                "Get the (`content schema`) for a given `{analysistype}`. <br><br>\
-                Use the `Accept` request header to specify content schema version \
-                    (example header `Accept: application/json;version=1.0.0` is supported).",
-            ),
-        )
 
 
 class SamplesAnalysisSearchDataView:
@@ -232,7 +96,7 @@ class SamplesAnalysisSearchDataView:
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         search_service: search.SearchService = Depends(get_async_search_service),
-        df_filter: DataFrameFilterValidator = Depends(validate_filters),
+        df_filter: DFMultipleNestedFilterValidator = Depends(validate_multiple_nested_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         parquet_loader: ParquetLoader = Depends(get_parquet_loader),
         pagination_parameters: Tuple[int, int] = Depends(get_search_data_pagination_parameters),
@@ -250,8 +114,8 @@ class SamplesAnalysisSearchDataView:
             Depends(get_async_search_service)
         :type search_service: search.SearchService, optional
         :param df_filter: dataframe filter, defaults to
-            Depends(validate_filters)
-        :type df_filter: DataFrameFilterValidator, optional
+            Depends(validate_multiple_nested_filters)
+        :type df_filter: DFMultipleNestedFilterValidator, optional
         :param content_schema_version: content schema version, defaults
             to Depends(get_content_schema_version)
         :type content_schema_version: str, optional
@@ -314,7 +178,7 @@ class SamplesAnalysisSearchDataView:
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         search_service: search.SearchService = Depends(get_async_search_service),
-        df_filter: DataFrameFilterValidator = Depends(validate_filters),
+        df_filter: DFMultipleNestedFilterValidator = Depends(validate_multiple_nested_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         parquet_loader: ParquetLoader = Depends(get_parquet_loader),
         pagination_parameters: Tuple[int, int] = Depends(get_search_pagination_parameters),
@@ -332,8 +196,8 @@ class SamplesAnalysisSearchDataView:
             Depends(get_async_search_service)
         :type search_service: search.SearchService, optional
         :param df_filter: dataframe filter, defaults to
-            Depends(validate_filters)
-        :type df_filter: DataFrameFilterValidator, optional
+            Depends(validate_multiple_nested_filters)
+        :type df_filter: DFMultipleNestedFilterValidator, optional
         :param content_schema_version: content schema version, defaults
             to Depends(get_content_schema_version)
         :type content_schema_version: str, optional
@@ -390,14 +254,14 @@ class SamplesAnalysisSearchDataView:
         self,
         analysis_type_ids: List[Tuple[str, str]],
         dataset_service: dataset.DatasetService,
-        df_filter: DataFrameFilterValidator,
+        df_filter: DFMultipleNestedFilterValidator,
         parquet_loader: ParquetLoader,
     ) -> AsyncGenerator[List[DFPayload], None]:
         """Fetches parquet files from a given result list obtained from search
         service."""
         analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
         dataset_ids = [result_id[0] for result_id in analysis_type_ids]
-        df_filter_processor = DFFilterProcessor(df_filter=df_filter)
+        df_filter_processor = DFMultipleNestedFilterProcessor(df_filter=df_filter)
 
         for n_batch in range((len(dataset_ids) // self._batch_size) + 1):
             batch_offset = self._batch_size * n_batch
@@ -463,7 +327,7 @@ class SamplesAnalysisSearchDataView:
     async def _build_result_df(
         self,
         df_triplets: AsyncGenerator[DFPayload, None],
-        df_filter: DataFrameFilterValidator,
+        df_filter: DFMultipleNestedFilterValidator,
         offset: int,
         page_limit: int,
         analysis_type_ids: List[Tuple[str, str]],
@@ -473,7 +337,7 @@ class SamplesAnalysisSearchDataView:
         filtered_df_triplets = self._filter_dfs(df_triplets)
 
         if df_filter.valid_columns_aggregation:
-            df_filter_processor = DFFilterProcessor(df_filter=df_filter)
+            df_filter_processor = DFMultipleNestedFilterProcessor(df_filter=df_filter)
             paged_dfs, total_size, errors = await self._paginate_dfs(filtered_df_triplets, offset=0, select_all=True)
             result_df = df_filter_processor.apply_filters_from_df(
                 pd.concat(paged_dfs, ignore_index=True),

@@ -89,9 +89,14 @@ class CommonRelativePathsV2(NamedTuple):
     MINING_GEOTECH_LOGGING: str = "/data/mininggeotechlogging"
 
 
+class CommonRelativePathsDev(CommonRelativePathsV2):
+    pass
+
+
 COMMON_RELATIVE_PATHS = {
     "v1": CommonRelativePathsV1,
     "v2": CommonRelativePathsV2,
+    "dev": CommonRelativePathsDev,
 }
 
 

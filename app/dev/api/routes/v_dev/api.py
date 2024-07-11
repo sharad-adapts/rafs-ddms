@@ -1,4 +1,4 @@
-#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#  Copyright 2024 ExxonMobil Technology and Engineering Company
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -12,6 +12,21 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-API_VERSION = "v1"
-API_VERSION_V2 = "v2"
-API_VERSION_DEV = "dev"
+from fastapi import APIRouter, Depends
+
+from app.api.dependencies.request import require_data_partition_id
+from app.dev.api.routes.v_dev.samplesanalysis import api as sampleanalysis_api
+
+COMMON_DEPENDENCIES = [
+    Depends(require_data_partition_id),
+]
+
+SAMPLES_ANALYSIS_PREFIX = "/samplesanalysis"
+router = APIRouter()
+
+router.include_router(
+    sampleanalysis_api.sa_router,
+    prefix=SAMPLES_ANALYSIS_PREFIX,
+    tags=["dev-samplesanalysis"],
+    dependencies=COMMON_DEPENDENCIES,
+)

@@ -24,10 +24,7 @@ from loguru import logger
 from pyarrow import parquet as pq
 
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
-from app.dataframe.parquet_filter import (
-    DataFrameFilterValidator,
-    apply_filters_from_bytes,
-)
+from app.dataframe.filter_processor import FilterProcessor
 
 RETRIES = 3
 
@@ -44,7 +41,7 @@ class ParquetLoader:
     async def read_parquet_files(
         self,
         signed_urls: List[Tuple[str, str]],
-        df_filter: Optional[DataFrameFilterValidator] = None,
+        df_filter_processor: Optional[FilterProcessor] = None,
     ) -> List[DFPayload]:
         """Use asynchronous HTTP requests to read multiple parquet files from
         signed urls.
@@ -59,7 +56,7 @@ class ParquetLoader:
         transport = httpx.AsyncHTTPTransport(retries=RETRIES)
         async with httpx.AsyncClient(transport=transport) as client:
             tasks = [
-                self._read_parquet_from_url(dataset_id, url, df_filter, client)
+                self._read_parquet_from_url(dataset_id, url, df_filter_processor, client)
                 for (dataset_id, url) in signed_urls
             ]
             return await asyncio.gather(*tasks)
@@ -68,7 +65,7 @@ class ParquetLoader:
         self,
         dataset_id: str,
         url: str,
-        df_filter: Optional[DataFrameFilterValidator] = None,
+        df_filter_processor: Optional[FilterProcessor] = None,
         client: httpx.AsyncClient = None,
     ) -> DFPayload:
         """Read parquet file from url and apply df_filter."""
@@ -76,9 +73,9 @@ class ParquetLoader:
             async with client.stream("GET", url) as response:
                 response.raise_for_status()
                 read_content = await response.aread()
-                if df_filter:
-                    df_filter = self._get_filter_without_aggregation(df_filter)
-                    df = apply_filters_from_bytes(read_content, df_filter)
+                if df_filter_processor:
+                    df_filter_processor = df_filter_processor.get_filters_without_aggregation()
+                    df = df_filter_processor.apply_filters_from_bytes(read_content)
                 else:
                     df = pq.read_table(pa.BufferReader(read_content)).to_pandas()
                 error_msg = None
@@ -108,11 +105,3 @@ class ParquetLoader:
             df = pd.DataFrame()
 
         return DFPayload(dataset_id, df, error_msg)
-
-    def _get_filter_without_aggregation(self, df_filter: DataFrameFilterValidator) -> DataFrameFilterValidator:
-        """Get a new filter without aggregation."""
-        return DataFrameFilterValidator(
-            model=df_filter.model,
-            raw_rows_filter=df_filter.raw_rows_filter,
-            raw_columns_filter=df_filter.raw_columns_filter,
-        )

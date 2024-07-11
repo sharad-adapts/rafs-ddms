@@ -37,6 +37,7 @@ from app.api.routes.v2.api import router as api_router_v2
 from app.core.config import get_app_settings
 from app.core.events import create_start_app_handler, create_stop_app_handler
 from app.custom_openapi import get_custom_openapi_schema
+from app.dev.api.routes.v_dev.api import router as api_router_v_dev
 from app.exceptions.exceptions import (
     DataValidationException,
     InvalidBodyException,
@@ -93,6 +94,7 @@ def get_application() -> FastAPI:
     if settings.enable_api_v1:
         application.include_router(api_router_v1, prefix=f"{settings.openapi_prefix}/v1")
     application.include_router(api_router_v2, prefix=f"{settings.openapi_prefix}/v2")
+    application.include_router(api_router_v_dev, prefix=f"{settings.openapi_prefix}/dev")
 
     for exception, error_handler in EXCEPTIONS_AND_HANDLERS:
         application.add_exception_handler(exception, error_handler)

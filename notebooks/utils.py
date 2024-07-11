@@ -6,9 +6,11 @@ from IPython.display import Markdown, display
 from requests import Response
 
 
-def print_json(json_data: dict, length=None):
+def print_json(json_data: dict, length=None, title=None):
     json_dumped = json.dumps(json_data, indent=4)
     print("*" * 90)
+    if title:
+        print(title.upper())
     print(json_dumped[:length])
     if (length and len(json_dumped) > length):
         print("...")
