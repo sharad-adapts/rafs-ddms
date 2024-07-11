@@ -17,6 +17,15 @@ from typing import Any, List, Optional
 
 import pandas as pd
 
+OPERATOR_TYPES = {
+    "=": operator.eq,
+    "!=": operator.ne,
+    "<=": operator.le,
+    ">=": operator.ge,
+    "<": operator.lt,
+    ">": operator.gt,
+}
+
 
 class PandasDFQueryBase:
     """Class to perform simple queries on a Pandas DataFrame."""
@@ -63,16 +72,7 @@ class PandasDFQueryBase:
         :return: an updated PandasDFQueryBase object
         :rtype: PandasDFQueryBase
         """
-        operator_types = {
-            "=": operator.eq,
-            "!=": operator.ne,
-            "<=": operator.le,
-            ">=": operator.ge,
-            "<": operator.lt,
-            ">": operator.gt,
-        }
-
-        oper = operator_types.get(op_type)
+        oper = OPERATOR_TYPES.get(op_type)
         df_query = self
         df_col = self.df[column]
 

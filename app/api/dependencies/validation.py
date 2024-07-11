@@ -408,7 +408,7 @@ def get_content_model_paths(request_path: str, api_version: str) -> tuple:
         relative_paths = COMMON_RELATIVE_PATHS[api_version]()
         paths_to_content_models = PATHS_TO_DATA_MODEL[api_version]
 
-        if api_version == "v2" and "search" in request_path:
+        if api_version in {"v2", "dev"} and "search" in request_path:
             start_index = 5  # skip '/data'
             relative_paths = [f"{path[start_index:]}/search" for path in relative_paths]  # noqa: WPS237
             search_path_to_content_models = {}

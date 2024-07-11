@@ -15,7 +15,6 @@
 from fastapi import APIRouter, Depends
 
 from app.api.dependencies.request import require_data_partition_id
-from app.api.routes.master_data import coring_api, rocksample_api
 from app.api.routes.samplesanalysesreport import (
     api as samples_analyses_report_api,
 )
@@ -35,6 +34,7 @@ from app.api.routes.v1.formationresistivityindex import (
 )
 from app.api.routes.v1.fractionation import api as fractionation_api
 from app.api.routes.v1.interfacialtension import api as interfacialtension_api
+from app.api.routes.v1.master_data import coring_api, rocksample_api
 from app.api.routes.v1.mcm import api as mcm_api
 from app.api.routes.v1.multistageseparator import api as mss_api
 from app.api.routes.v1.physchem import api as physchem_api

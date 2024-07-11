@@ -62,6 +62,9 @@ from tests.test_api.test_routes.api_v2.fractionation import (
 from tests.test_api.test_routes.api_v2.interfacialtension import (
     interfacial_tension_mock_objects,
 )
+from tests.test_api.test_routes.api_v2.mininggeotechlogging import (
+    mining_geotech_logging_mock_objects,
+)
 from tests.test_api.test_routes.api_v2.multiplecontactmiscibility import (
     mcm_mock_objects,
 )
@@ -89,7 +92,6 @@ from tests.test_api.test_routes.api_v2.slimtube import slimtube_mock_objects
 from tests.test_api.test_routes.api_v2.sto import sto_mock_objects
 from tests.test_api.test_routes.api_v2.swelling import swelling_mock_objects
 from tests.test_api.test_routes.api_v2.tec import tec_data_mock_objects
-from tests.test_api.test_routes.api_v2.mininggeotechlogging import mining_geotech_logging_mock_objects
 from tests.test_api.test_routes.api_v2.tensile_strength import (
     tensile_strength_mock_objects,
 )

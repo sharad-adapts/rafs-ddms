@@ -5,6 +5,7 @@ boto3==1.33.1
 fastapi-cache2[redis]==0.2.1
 fastapi==0.109.2
 httpx==0.26.0
+jsonref==1.1.0
 jsonschema==4.21.1
 loguru==0.7.2
 pandas==2.2.0

@@ -35,7 +35,7 @@ class ReadinessClient(object):
     async def is_ready(
         self,
     ) -> bool:
-        """Check rafs dependencies
+        """Check rafs dependencies.
 
         :return: True if 200 on ALL readiness endpoints.
         """
