@@ -8,7 +8,7 @@ This software includes the following software and licenses:
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.12.0rc1/, https://pypi.org/project/typing-extensions/4.4.0/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.2.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================
 Apache-2.0
@@ -27,7 +27,7 @@ The following software have components provided under the terms of this license:
 - multidict (from https://github.com/aio-libs/multidict)
 - multimethod (from https://pypi.org/project/multimethod/1.10/, https://pypi.org/project/multimethod/1.11.2/, https://pypi.org/project/multimethod/1.9.1/)
 - numpy
-- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.0/)
+- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.1/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - prometheus-client (from https://github.com/prometheus/client_python)
 - pyarrow (from https://arrow.apache.org/)
@@ -37,7 +37,7 @@ The following software have components provided under the terms of this license:
 - sniffio (from https://pypi.org/project/sniffio/1.3.1/)
 - tenacity (from https://github.com/jd/tenacity)
 - tzdata (from https://github.com/python/tzdata)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.1/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.2/)
 - yarl (from https://github.com/aio-libs/yarl, https://github.com/aio-libs/yarl/)
 
 ========================================================================
@@ -46,7 +46,7 @@ BSD-2-Clause
 The following software have components provided under the terms of this license:
 
 - numpy
-- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.0/)
+- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.1/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - prometheus-client (from https://github.com/prometheus/client_python)
 - wrapt (from https://github.com/GrahamDumpleton/wrapt)
@@ -63,7 +63,7 @@ The following software have components provided under the terms of this license:
 - idna (from https://pypi.org/project/idna/3.4/, https://pypi.org/project/idna/3.7/)
 - isodate (from http://cheeseshop.python.org/pypi/isodate, https://github.com/gweis/isodate/)
 - numpy
-- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.0/)
+- packaging (from https://pypi.org/project/packaging/22.0/, https://pypi.org/project/packaging/24.1/)
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
 - pyarrow (from https://arrow.apache.org/)
@@ -72,7 +72,7 @@ The following software have components provided under the terms of this license:
 - python-dotenv (from https://github.com/theskumar/python-dotenv)
 - sniffio (from https://pypi.org/project/sniffio/1.3.1/)
 - starlette (from https://pypi.org/project/starlette/0.22.0/, https://pypi.org/project/starlette/0.37.2/)
-- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.29.0/, https://www.uvicorn.org/)
+- uvicorn (from https://github.com/tomchristie/uvicorn, https://pypi.org/project/uvicorn/0.30.1/, https://www.uvicorn.org/)
 - wrapt (from https://github.com/GrahamDumpleton/wrapt)
 
 ========================================================================
@@ -122,7 +122,7 @@ The following software have components provided under the terms of this license:
 - pandera (from https://github.com/pandera-dev/pandera)
 - pendulum (from https://pendulum.eustace.io)
 - prometheus-fastapi-instrumentator (from https://github.com/trallnag/prometheus-fastapi-instrumentator)
-- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.7.2/)
+- pydantic (from https://github.com/samuelcolvin/pydantic, https://pypi.org/project/pydantic/2.8.2/)
 - pytz (from http://pythonhosted.org/pytz)
 - redis (from https://github.com/redis/redis-py)
 - referencing (from https://pypi.org/project/referencing/0.30.2/, https://pypi.org/project/referencing/0.31.1/, https://pypi.org/project/referencing/0.35.1/)
@@ -130,9 +130,9 @@ The following software have components provided under the terms of this license:
 - six (from http://pypi.python.org/pypi/six/, https://github.com/benjaminp/six)
 - sniffio (from https://pypi.org/project/sniffio/1.3.1/)
 - time-machine (from https://pypi.org/project/time-machine/2.14.1/)
-- typeguard (from https://pypi.org/project/typeguard/4.2.1/)
+- typeguard (from https://pypi.org/project/typeguard/4.3.0/)
 - typing-inspect (from https://github.com/ilevkivskyi/typing_inspect)
-- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.1/)
+- urllib3 (from https://pypi.org/project/urllib3/2.0.2/, https://pypi.org/project/urllib3/2.0.4/, https://pypi.org/project/urllib3/2.2.2/)
 
 ========================================================================
 MPL-2.0
@@ -164,7 +164,7 @@ The following software have components provided under the terms of this license:
 - cryptography (from https://github.com/pyca/cryptography)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
-- typing-extensions (from https://pypi.org/project/typing-extensions/4.12.0rc1/, https://pypi.org/project/typing-extensions/4.4.0/)
+- typing-extensions (from https://pypi.org/project/typing-extensions/4.2.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================
 SunPro
