@@ -12,8 +12,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from app.dataframe.parquet_loader import ParquetLoader
+from fastapi import APIRouter
 
+from app.dev.api.routes.v_dev.index.endpoints import RedisIndexView
 
-async def get_parquet_loader() -> ParquetLoader:
-    return ParquetLoader()
+ix_router = APIRouter()
+
+RedisIndexView(ix_router)
