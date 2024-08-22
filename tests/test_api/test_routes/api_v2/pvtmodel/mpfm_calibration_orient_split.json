@@ -3,7 +3,7 @@
         "MeterType",
         "SeparatorTrain",
         "Salinity",
-        "CalibrarionDate",
+        "CalibrationDate",
         "Calibrations",
         "MultiFlash",
         "GasOilRatio",

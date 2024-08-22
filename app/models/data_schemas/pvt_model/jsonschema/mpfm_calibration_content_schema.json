@@ -1,12 +1,15 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "description": "Calibration Tables for Multi Phase Flow Meters, e.g. 5x5 or 11x11 tables",
     "properties": {
         "MeterType": {
-            "type": "string"
+            "type": "string",
+            "description": "Meter type for this calibration"
         },
         "SeparatorTrain": {
             "type": "array",
+            "description": "Separator Train for this calibration",
             "items": {
                 "type": "object",
                 "properties": {
@@ -42,6 +45,7 @@
         },
         "Salinity": {
             "type": "object",
+            "description": "Measure of dissolved salts in a sample",
             "properties": {
                 "Value": {
                     "type": "number"
@@ -53,12 +57,13 @@
             },
             "additionalProperties": false
         },
-        "CalibrarionDate": {
+        "CalibrationDate": {
             "type": "string",
             "format": "date-time"
         },
         "Calibrations": {
             "type": "array",
+            "description": "Array of temperature pressure calibration tables",
             "items": {
                 "type": "object",
                 "properties": {
@@ -102,7 +107,7 @@
                                 "type": "string"
                             }
                         },
-                        "additionalProperties": false 
+                        "additionalProperties": false
                     }
                 },
                 "additionalProperties": false
@@ -113,7 +118,8 @@
             "description": "text contents of a multiflash file for this calibration, if any"
         },
         "GasOilRatio": {
-            "type": "number"
+            "type": "number",
+            "description": "ratio of the volume of gas to the volume of oil in the sample"
         },
         "OilDensity": {
             "type": "object",

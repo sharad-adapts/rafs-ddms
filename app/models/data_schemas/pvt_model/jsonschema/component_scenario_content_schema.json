@@ -1,24 +1,30 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "description": "A set of components based on sample compositional analyses, hypothetical values or consolidations used in creation of a model",
     "properties": {
         "ComponentScenarioID": {
             "type": "string",
+            "description": "OSDU Identifier for this Component Scenario",
             "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-ComponentScenario:[\\w\\-\\.\\:\\%]+:[0-9]*$"
         },
         "ComponentScenarioName": {
-            "type": "string"
+            "type": "string",
+            "description": "Business Name for this Component Scenario"
         },
         "ComponentMoleFraction": {
             "type": "array",
+            "description": "Array Object containing the mole fractions for each component in this scenario",
             "items": {
                 "type": "object",
                 "properties": {
                     "ComponentName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of this molecular component"
                     },
                     "MoleFraction": {
                         "type": "object",
+                        "description": "Number of molecules of a particular component divided by the total number of moles in a given mixture",
                         "properties": {
                             "Value": {
                                 "type": "number"
