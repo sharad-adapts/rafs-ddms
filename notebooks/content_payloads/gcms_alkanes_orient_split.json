@@ -1,0 +1,145 @@
+{
+  "columns": [
+    "SamplesAnalysisID",
+    "SampleID",
+    "Method",
+    "SaturateGCMSCompounds",
+    "StdCompound"
+  ],
+  "index": [
+    0
+  ],
+  "data": [
+    [
+      "{data_partition_id}:work-product-component--SamplesAnalysis:GCMS_Alkanes_WPC:",
+      "{data_partition_id}:master-data--Sample:Sample_200:",
+      "{data_partition_id}:reference-data--BulkPyrolysisMethod:HAWK:",
+      [
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:chol5b:",
+          "RetentionTime": {
+            "Value": 1.1,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHI",
+          "Peak": [
+            {
+              "Value": 2.2,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Height:"
+            }
+          ]
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:gcar:",
+          "RetentionTime": {
+            "Value": 3.3,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+          "Peak": [
+            {
+              "Value": 4.4,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Height:"
+            }
+          ]
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:t22:",
+          "RetentionTime": {
+            "Value": 9.9,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJKLMNOPQR",
+          "Peak": [
+            {
+              "Value": 1.1,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Area:"
+            },
+            {
+              "Value": 2.2,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Area:"
+            }
+          ]
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:t24:",
+          "RetentionTime": {
+            "Value": 5.5,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJ",
+          "Peak": [
+            {
+              "Value": 6.6,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Height:"
+            }
+          ]
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:t24o:",
+          "RetentionTime": {
+            "Value": 9.9,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJKL",
+          "Peak": [
+            {
+              "Value": 1.1,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Area:"
+            },
+            {
+              "Value": 2.2,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Area:"
+            }
+          ]
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:c24delup:",
+          "RetentionTime": {
+            "Value": 4.4,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJKL",
+          "Peak": []
+        },
+        {
+          "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:t25:",
+          "RetentionTime": {
+            "Value": 5.5,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+          },
+          "Ion": "ABCDEFGHIJKL",
+          "Peak": [
+            {
+              "Value": 6.6,
+              "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+              "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Height:"
+            }
+          ]
+        }
+      ],
+      {
+        "CompoundCode": "{data_partition_id}:reference-data--SaturateGCMSCompounds:c24deurs:",
+        "RetentionTime": {
+          "Value": 8.8,
+          "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:"
+        },
+        "Ion": "ABCDEFGHI",
+        "Peak": [
+          {
+            "Value": 1.1,
+            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:s:",
+            "AreaHeightQualifier": "{data_partition_id}:reference-data--CompoundsAreaHeight:Height:"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,245 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "SampleID",
+        "TestNumber",
+        "ReservoirTemperature",
+        "SaturationPressure",
+        "ReservoirPressure",
+        "SaturatedOilFormationVolumeFactor",
+        "SaturatedOilDensity",
+        "SeparatorTestGasOilRatio",
+        "OverallGasGravity",
+        "Remark",
+        "MultiStageSeparatorTestData",
+        "VaporCompositionalAnalysis",
+        "LiquidCompositionalAnalysis",
+        "CalculatedProperties"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--SamplesAnalysis:MultiStageSeparatorTest_WPC:",
+            "{data_partition_id}:master-data--Sample:Sample_200:",
+            "752156",
+            {
+                "Value": 75,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+            },
+            {
+                "Value": 100,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+            },
+            {
+                "Value": 90,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+            },
+            {
+                "Value": 5,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+            },
+            {
+                "Value": 0.08,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+            },
+            {
+                "Value": 15,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+            },
+            {
+                "Value": 13,
+                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:dAPI:"
+            },
+            "Remark",
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 1900,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                    "StepTemperature": {
+                        "Value": 45,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "OilDensity": {
+                        "Value": 0.009,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                    },
+                    "GasGravity": {
+                        "Value": 22,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:dAPI:"
+                    },
+                    "OilFormationVolumeFactor": {
+                        "Value": 22,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "GasFormationVolumeFactor": {
+                        "Value": 12.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fft3:"
+                    },
+                    "SaturationPressureCumulativeGasOilRatio": {
+                        "Value": 1.34,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "IndicatedPressureCumulativeGasOilRatio": {
+                        "Value": 1.42,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "GasZFactor": {
+                        "Value": 1,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "SeparationVolumeFactor": {
+                        "Value": 35,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "OilFormationVolumeFactorCorrected": {
+                        "Value": 1,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "GasOilRatio": {
+                        "Value": 23,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "GasOilRatioRsfb": {
+                        "Value": 25,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ft3%2Fbbl:"
+                    },
+                    "FluidConditions": "{data_partition_id}:reference-data--SampleTestCondition:InitialReservoir:",
+                    "PhasesPresent": "{data_partition_id}:reference-data--FluidPhasesPresent:Wellstream:"
+                }
+            ],
+            [
+                {
+                    "StepNumber": "1",
+                    "StepPressure": {
+                        "Value": 1500,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:psi:"
+                    },
+                    "StepTemperature": {
+                        "Value": 150,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:degF:"
+                    },
+                    "VaporComposition": [
+                        {
+                            "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C20:",
+                            "ComponentName": "Methane",
+                            "RelativeMolarWeight": {
+                                "Value": 5,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                            }
+                        },
+                        {
+                            "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C7:",
+                            "ComponentName": "Hexane",
+                            "RelativeMolarWeight": {
+                                "Value": 10,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                            }
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C20:",
+                    "ComponentName": "Methane",
+                    "FlashedLiquidRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
+                    "FlashedGasRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
+                    "FlashedGasRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                    }
+                },
+                {
+                    "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C7:",
+                    "ComponentName": "Hexane",
+                    "FlashedLiquidRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                    },
+                    "FlashedLiquidRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
+                    "FlashedGasRelativeMass": {
+                        "Value": 0.8,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                    },
+                    "FlashedGasRelativeMolarWeight": {
+                        "Value": 5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                    }
+                }
+            ],
+            {
+                "AvgMoleWeight": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                },
+                "ResidueDensity": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                },
+                "ResidueAPI": {
+                    "Value": 0,
+                    "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:unitless:"
+                },
+                "Remark": "Remark",
+                "LiquidCalculatedProperties": [
+                    {
+                        "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C7PLUS:",
+                        "FlashedLiquidRelativeMolarWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                        },
+                        "FlashedLiquidRelativeMolecularWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                        },
+                        "FlashedLiquidRelativeMass": {
+                            "Value": 0.8,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                        },
+                        "FlashedLiquidDensity": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                        }
+                    },
+                    {
+                        "ComponentFormula": "{data_partition_id}:reference-data--SampleCompositionComponent:C36PLUS:",
+                        "FlashedLiquidRelativeMolarWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                        },
+                        "FlashedLiquidRelativeMolecularWeight": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
+                        },
+                        "FlashedLiquidRelativeMass": {
+                            "Value": 0.8,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
+                        },
+                        "FlashedLiquidDensity": {
+                            "Value": 5,
+                            "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:g%2Fcm3:"
+                        }
+                    }
+                ]
+            }
+        ]
+    ]
+}

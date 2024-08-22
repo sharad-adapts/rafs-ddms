@@ -205,4 +205,54 @@ Retrieve all multistageseparator tests where the SaturationPressure is greater t
 
 Examples can be found in the [Search_and_Filters](../../notebooks/Search_and_Filters.ipynb) notebook.
 
----
+### Metadata Filtering
+
+In addition to filtering within content schemas, the result set of an analysis can be further refined using the metadata filter.
+
+#### Available Fields
+The following fields are available for filtering, based on the defined [SamplesAnalysis schema](../../app/dev/core/helpers/redis_index.py):
+- "SampleIDs"
+- "SampleTypeIDs"
+- "ParentSamplesAnalysesReports"
+- "WellboreIDs"
+- "WellboreNames"
+- "BasinIDs"
+- "BasinNames"
+- "FieldIDs"
+- "FieldNames"
+
+#### Metadata Query Format
+The metadata is passed as a query parameter, formatted as a JSON string:
+```json
+{
+    "FieldNameA": ["ValueA1", "ValueA2"],
+    "FieldNameB": ["ValueB1"]
+}
+```
+Each field name must be one of the available fields listed above.
+
+#### Metadata $and and $or Behavior
+Field names should be unique keys, with different keys representing conjunctions ($and). The values within each field's array represent disjunctions ($or).
+
+For example, the following metadata filter will return all related sample analyses from either WellboreID1 or WellboreID2:
+```json
+{
+    "WellboreIDs": ["WellboreID1", "WellboreID2"]
+}
+```
+
+The following metadata filter will return all related sample analyses from either WellboreID1 or WellboreID2, and also match SampleTypeID1:
+```json
+{
+    "WellboreIDs": ["WellboreID1", "WellboreID2"],
+    "SampleTypeIDs": ["SampleTypeID1"]
+}
+```
+
+#### Request Example
+To retrieve all Routine Core Analysis data from a specific wellbore (using WellboreID), you can use the following query:
+
+![Metadata filter](metadata_filter.png "Metadata filter")
+
+### QA Collection
+For a more comprehensive set of examples, refer to the [QA Postman collection](https://community.opengroup.org/osdu/qa/-/blob/main/Dev/48_CICD_Setup_RAFSDDMSAPI/RAFSDDMS_API_CI-CD_v1.0.postman_collection.json?ref_type=heads).

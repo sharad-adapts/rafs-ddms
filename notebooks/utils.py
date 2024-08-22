@@ -1,3 +1,4 @@
+import io
 import json
 from typing import Any
 
@@ -71,3 +72,17 @@ def get_parquet_cell_value(path: str, row_index: int, column_name) -> Any:
 def get_parquet_as_binary(path: str) -> bytes:
     df = pd.read_parquet(path)
     return df.to_parquet(index=False)
+
+
+def get_parquet_from_json(path: str):
+    df = pd.read_json(path, orient="split")
+    return df.to_parquet(index=False)
+
+
+def build_parquet_from_json(json_path: str, parquet_path, data_partition_id="opendes"):
+    with open(json_path) as fp:
+        data_str = fp.read().replace("{data_partition_id}", data_partition_id)
+    df = pd.read_json(io.StringIO(data_str), orient="split")
+    df.to_parquet(parquet_path, index=False)
+    display(Markdown("**Created parquet:**"))
+    display_parquet(parquet_path)

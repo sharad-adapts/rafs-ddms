@@ -138,7 +138,7 @@ class RedisIndexView:
             if wellbore_id:
                 wellbore_ids.append(get_id(wellbore_id))
 
-        record_to_index["SampleTypeIds"] = ",".join(sample_type_ids)
+        record_to_index["SampleTypeIDs"] = ",".join(sample_type_ids)
         record_to_index["WellboreIDs"] = ",".join(wellbore_ids)
         record_to_index["BasinIDs"] = ",".join(basin_ids)
         record_to_index["FieldIDs"] = ",".join(field_ids)

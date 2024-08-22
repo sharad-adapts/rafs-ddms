@@ -57,8 +57,9 @@ def get_id(id_data):  # noqa: CCR001
         yield id_data
     elif isinstance(id_data, Iterable):
         if isinstance(id_data, dict):
-            for id_value in id_data.values():
-                yield from get_id(id_value)
+            for id_key, id_value in id_data.items():
+                if "ID" in id_key:
+                    yield from get_id(id_value)
         elif isinstance(id_data, list):
             for element in id_data:
                 yield from get_id(element)

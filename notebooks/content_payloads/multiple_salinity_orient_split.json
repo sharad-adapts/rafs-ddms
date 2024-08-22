@@ -1,0 +1,87 @@
+{
+    "columns": [
+        "SamplesAnalysisID",
+        "TestMethod",
+        "SalinityTestResults",
+        "SalinityTestSteps"
+    ],
+    "index": [
+        0
+    ],
+    "data": [
+        [
+            "{data_partition_id}:work-product-component--SamplesAnalysis:MultipleSalinity_Test_WPC:",
+            "TestMethod",
+            [
+                {
+                    "SampleID": "{data_partition_id}:master-data--Sample:Sample_200:",
+                    "BQv": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "Qv": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "BrineResistivity": {
+                        "Value": 12,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ohm.m:"
+                    },
+                    "AdjustedFormationResistivityFactor": 12,
+                    "AdjustedSaturationExponent": 12,
+                    "WaterSaturationOverResistivity": [
+                        {
+                            "ResistivityIndex": 15,
+                            "WaterSaturation": {
+                                "Value": 12,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "SampleID": "{data_partition_id}:master-data--Sample:88Y:",
+                    "BQv": {
+                        "Value": 4.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "Qv": {
+                        "Value": 4.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "BrineResistivity": {
+                        "Value": 13,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:ohm.m:"
+                    },
+                    "AdjustedFormationResistivityFactor": 13,
+                    "AdjustedSaturationExponent": 13,
+                    "WaterSaturationOverResistivity": [
+                        {
+                            "ResistivityIndex": 15,
+                            "WaterSaturation": {
+                                "Value": 28,
+                                "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                            }
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "BrineSalinity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "BrineConductivity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    },
+                    "CoreConductivity": {
+                        "Value": 3.5,
+                        "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
+                    }
+                }
+            ]
+        ]
+    ]
+}
