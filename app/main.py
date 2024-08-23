@@ -32,7 +32,6 @@ from app.api.errors.osdu_api_error import (
 )
 from app.api.errors.validation_error import http422_error_handler
 from app.api.routes.api import router as api_router
-from app.api.routes.v1.api import router as api_router_v1
 from app.api.routes.v2.api import router as api_router_v2
 from app.core.config import get_app_settings
 from app.core.events import create_start_app_handler, create_stop_app_handler
@@ -91,8 +90,6 @@ def get_application() -> FastAPI:
     )
 
     application.include_router(api_router, prefix=f"{settings.openapi_prefix}")
-    if settings.enable_api_v1:
-        application.include_router(api_router_v1, prefix=f"{settings.openapi_prefix}/v1")
     application.include_router(api_router_v2, prefix=f"{settings.openapi_prefix}/v2")
     application.include_router(api_router_v_dev, prefix=f"{settings.openapi_prefix}/dev")
 

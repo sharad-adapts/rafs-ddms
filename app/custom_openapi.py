@@ -16,7 +16,6 @@ from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 
 from app.core.settings.app import AppSettings
-from app.models.domain.osdu.WPCSamplesAnalysis100 import SamplesAnalysis
 from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.load_model_example import load_data_example
@@ -52,15 +51,12 @@ def get_custom_openapi_schema(app: FastAPI, settings: AppSettings) -> dict:
         },
     }
     sampleanalysis_record_post_v2_route = f"{settings.openapi_prefix}/v2/samplesanalysis"
+    request_body = custom_openapi_schema["paths"][sampleanalysis_record_post_v2_route]["post"]["requestBody"]
+    samples_analysis_schema = request_body["content"]["application/json"]["schema"]
     custom_openapi_schema["paths"][sampleanalysis_record_post_v2_route]["post"]["requestBody"] = {
         "content": {
             "application/json": {
-                "schema": {
-                    "title": "SamplesAnalysisRecords",
-                    "description": "SamplesAnalysis records payload",
-                    "type": "array",
-                    "items": SamplesAnalysis.schema(),
-                },
+                "schema": samples_analysis_schema,
                 "example": load_data_example("samples_analysis_v2.json"),
             },
         },

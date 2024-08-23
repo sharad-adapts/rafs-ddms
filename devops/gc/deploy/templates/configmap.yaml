@@ -16,7 +16,6 @@ data:
   SERVICE_HOST_SCHEMA: {{ printf "%s%s" .Values.data.schemaHost "/api/schema-service/v1" | quote }}
   SERVICE_HOST_ENTITLEMENTS: {{ printf "%s%s" .Values.data.entitlementsHost "/api/entitlements/v2" | quote }}
   SERVICE_READINESS_URLS: "{{ printf "%s%s" .Values.data.storageHost "/api/storage/v2/liveness_check" }},{{ printf "%s%s" .Values.data.schemaHost "/api/schema-service/v1/liveness_check" }}"
-  ENABLE_API_V1: {{ .Values.data.enableApiV1 | quote }}
   CACHE_ENABLE: {{ .Values.data.cacheEnable | quote }}
   CACHE_BACKEND: {{ .Values.data.cacheBackend | quote }}
   {{- if .Values.data.redisRafsDdmsHost }}

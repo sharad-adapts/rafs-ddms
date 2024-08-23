@@ -12,15 +12,11 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from app.models.data_schemas.api_v1.base import PATH_TO_DATA_MODEL_VERSIONS_API_V1
 from app.models.data_schemas.api_v2.base import PATH_TO_DATA_MODEL_VERSIONS_API_V2
 
-PATH_TO_DATA_MODEL_VERSIONS_API_DEV = PATH_TO_DATA_MODEL_VERSIONS_API_V2
-
 PATHS_TO_DATA_MODEL = {
-    "v1": PATH_TO_DATA_MODEL_VERSIONS_API_V1,
     "v2": PATH_TO_DATA_MODEL_VERSIONS_API_V2,
-    "dev": PATH_TO_DATA_MODEL_VERSIONS_API_DEV,
+    "dev": PATH_TO_DATA_MODEL_VERSIONS_API_V2,
 }
 
 ALL_PATHS_TO_DATA_MODEL = PATH_TO_DATA_MODEL_VERSIONS_API_V2

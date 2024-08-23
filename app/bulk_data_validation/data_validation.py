@@ -96,13 +96,7 @@ class DataValidator:
         for ids_to_check_batch in divide_chunks(list(ids_to_check), settings.storage_query_limit):
             missing_records.update(await self._find_missing_records(ids_to_check=ids_to_check_batch))
 
-        excluded_records = set()
-        if self.api_version == "v1":
-            # remove validation for Sample and FluidSample master-data only in v1
-            skip_types = ("master-data--FluidSample", "master-data--Sample")
-            excluded_records = self._get_excluded_records(missing_records, skip_types)
-
-        return missing_records - excluded_records
+        return missing_records
 
     def _get_excluded_records(self, records: Iterable, skip_types: Iterable) -> set:
         """Get excluded record ids from a list given skip types."""
