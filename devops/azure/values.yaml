@@ -55,7 +55,6 @@ configuration:
     REDIS_SSL: "False"
     REDIS_PORT: "6379"
     REQUEST_TIMEOUT: "180"
-    ENABLE_API_V1: "True"
     REDIS_HOSTNAME: redis-rafs-service
     REDIS_PASSWORD: redispass
     REDIS_INDEX_ENABLE: "True"
