@@ -1,0 +1,143 @@
+[
+    {
+        "id": "{data_partition_id}:work-product-component--SamplesAnalysesReport:SamplesAnalysesReport",
+        "kind": "osdu:wks:work-product-component--SamplesAnalysesReport:1.0.0",
+        "acl": {
+            "viewers": [
+                "{acl_viewers}"
+            ],
+            "owners": [
+                "{acl_owners}"
+            ]
+        },
+        "legal": {
+            "legaltags": [
+                "{legal_tag}"
+            ],
+            "otherRelevantDataCountries": [
+                "US"
+            ],
+            "status": "compliant"
+        },
+        "tags": {
+            "NameOfKey": "String value"
+        },
+        "data": {
+            "ResourceHomeRegionID": "{data_partition_id}:reference-data--OSDURegion:AWSEastUSA:",
+            "ResourceHostRegionIDs": [
+                "{data_partition_id}:reference-data--OSDURegion:AWSEastUSA:"
+            ],
+            "ResourceCurationStatus": "{data_partition_id}:reference-data--ResourceCurationStatus:Created:",
+            "ResourceLifecycleStatus": "{data_partition_id}:reference-data--ResourceLifecycleStatus:Loading:",
+            "ResourceSecurityClassification": "{data_partition_id}:reference-data--ResourceSecurityClassification:Public:",
+            "Source": "Example Data Source",
+            "ExistenceKind": "{data_partition_id}:reference-data--ExistenceKind:Prototype:",
+            "Datasets": [
+                "{data_partition_id}:dataset--AnyDataset:SomeUniqueAnyDatasetID:"
+            ],
+            "TechnicalAssurances": [
+                {
+                    "TechnicalAssuranceTypeID": "{data_partition_id}:reference-data--TechnicalAssuranceType:Trusted:",
+                    "Reviewers": [
+                        {
+                            "RoleTypeID": "{data_partition_id}:reference-data--ContactRoleType:AccountOwner:",
+                            "DataGovernanceRoleTypeID": "{data_partition_id}:reference-data--DataGovernanceRoleType:SME:",
+                            "WorkflowPersonaTypeID": "{data_partition_id}:reference-data--WorkflowPersonaType:SeismicProcessor:",
+                            "OrganisationID": "{data_partition_id}:master-data--Organisation:SomeUniqueOrganisationID:",
+                            "Name": "John Smith"
+                        }
+                    ],
+                    "AcceptableUsage": [
+                        {
+                            "WorkflowUsageTypeID": "{data_partition_id}:reference-data--WorkflowUsageType:SeismicProcessing:",
+                            "WorkflowPersonaTypeID": "{data_partition_id}:reference-data--WorkflowPersonaType:SeismicProcessor:",
+                            "DataQualityRuleSetID": "{data_partition_id}:reference-data--DataQualityRuleSet:SeismicProcessingQCRuleSet:",
+                            "DataQualityID": "{data_partition_id}:work-product-component--DataQuality:6a433d16-07c8-4f4d-9ddc-5608e2ec4234:1562066077849221",
+                            "ValueChainStatusTypeID": "{data_partition_id}:reference-data--ValueChainStatusType:Exploration:"
+                        }
+                    ],
+                    "UnacceptableUsage": [
+                        {
+                            "WorkflowUsageTypeID": "{data_partition_id}:reference-data--WorkflowUsageType:SeismicInterpretation:",
+                            "WorkflowPersonaTypeID": "{data_partition_id}:reference-data--WorkflowPersonaType:SeismicInterpreter:",
+                            "DataQualityRuleSetID": "{data_partition_id}:reference-data--DataQualityRuleSet:SeismicInterpretationQCRuleSet:",
+                            "DataQualityID": "{data_partition_id}:work-product-component--DataQuality:d79bf97c-ff7c-4b82-89b5-c88520c15017:1562066009929332",
+                            "ValueChainStatusTypeID": "{data_partition_id}:reference-data--ValueChainStatusType:FieldDevelopment:"
+                        }
+                    ],
+                    "EffectiveDate": "2020-02-13",
+                    "Comment": "This is free form text from reviewer, e.g. restrictions on use"
+                }
+            ],
+            "NameAliases": [
+                {
+                    "AliasName": "Example AliasName",
+                    "AliasNameTypeID": "{data_partition_id}:reference-data--AliasNameType:RegulatoryIdentifier:",
+                    "DefinitionOrganisationID": "{data_partition_id}:master-data--Organisation:SomeUniqueOrganisationID:",
+                    "EffectiveDateTime": "2020-02-13T09:13:15.55Z",
+                    "TerminationDateTime": "2020-02-13T09:13:15.55Z"
+                }
+            ],
+            "Name": "Example Name",
+            "Description": "Example Description",
+            "CreationDateTime": "2020-02-13T09:13:15.55Z",
+            "Tags": [
+                "Example Tags"
+            ],
+            "SubmitterName": "Example SubmitterName",
+            "BusinessActivities": [
+                "Example BusinessActivities"
+            ],
+            "AuthorIDs": [
+                "Example AuthorIDs"
+            ],
+            "LineageAssertions": [
+                {
+                    "ID": "{data_partition_id}:any-group-type--AnyIndividualType:SomeUniqueAnyIndividualTypeID:",
+                    "LineageRelationshipType": "{data_partition_id}:reference-data--LineageRelationshipType:Direct:"
+                }
+            ],
+            "DocumentTypeID": "{data_partition_id}:reference-data--DocumentType:Affidavit:",
+            "NumberOfPages": 2,
+            "SubTitle": "Example SubTitle",
+            "DocumentSubject": "Example DocumentSubject",
+            "DatePublished": "2020-02-13T09:13:15.55Z",
+            "DateModified": "2020-02-13T09:13:15.55Z",
+            "DocumentLanguage": "eng",
+            "SampleIDs": [
+                "{data_partition_id}:master-data--Sample:Kentish-Knock-South-1_KK-16:",
+                "{data_partition_id}:master-data--Sample:Kentish-Knock-South-1_KK-17:",
+                "{data_partition_id}:master-data--Sample:Kentish-Knock-South-1_KK-21:"
+            ],
+            "ReportSampleIdentifiers": [
+                "KK-16",
+                "KK-17",
+                "KK-21"
+            ],
+            "SampleAnalysisTypeIDs": [
+                "{data_partition_id}:reference-data--SampleAnalysisType:NMR:",
+                "{data_partition_id}:reference-data--SampleAnalysisType:ElectricalProperties.CoCw:",
+                "{data_partition_id}:reference-data--SampleAnalysisType:PVT.MultiStageSeparatorTest:",
+                "{data_partition_id}:reference-data--SampleAnalysisType:GasChromatographyMassSpectroscopy.Saturate:"
+            ],
+            "SamplesAnalysisCategoryTagIDs": [
+                "{data_partition_id}:reference-data--SamplesAnalysisCategoryTag:ExxonMobil-SCAL:"
+            ],
+            "Remarks": [
+                {
+                    "RemarkSequenceNumber": 1,
+                    "Remark": "Example Remark",
+                    "RemarkSource": "Example Remark Source",
+                    "RemarkDate": "2020-02-13"
+                }
+            ],
+            "LaboratoryIDs": [
+                "{data_partition_id}:master-data--Organisation:SomeUniqueOrganisationID:"
+            ],
+            "LaboratoryNames": [
+                "Example LaboratoryNames"
+            ],
+            "ExtensionProperties": {}
+        }
+    }
+]
