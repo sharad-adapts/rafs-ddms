@@ -1,6 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "description": "Equation of State Model schema, including the method in which the equation of state was created, the method of viscosity correlation, viscosity coefficients, components, and binary interaction parameters",
     "properties": {
         "EoSMethod": {
             "type": "string",
@@ -14,14 +15,17 @@
         },
         "Components": {
             "type": "array",
+            "description": "Array Object containing the molecular components used in the creation of this equation of state",
             "items": {
                 "type": "object",
                 "properties": {
                     "ComponentName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of this component"
                     },
                     "MolecularWeight": {
                         "type": "object",
+                        "description": "molecular weight of this component",
                         "properties": {
                             "Value": {
                                 "type": "number"
@@ -34,10 +38,12 @@
                         "additionalProperties": false
                     },
                     "StdGravity": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "nominal gravitational acceleration of an object in a vacuum near the surface of the Earth"
                     },
                     "BoilingPoint": {
                         "type": "object",
+                        "description": "temperature at which the component transitions from liquid to gas",
                         "properties": {
                             "Value": {
                                 "type": "number"
@@ -51,6 +57,7 @@
                     },
                     "CriticalTemperature": {
                         "type": "object",
+                        "description": "the temperature at and above which vapor of the substance cannot be liquefied, no matter how much pressure is applied (Purdue)",
                         "properties": {
                             "Value": {
                                 "type": "number"
@@ -64,6 +71,7 @@
                     },
                     "CriticalPressure": {
                         "type": "object",
+                        "description": "pressure required to liquefy a gas at its critical temperature (Purdue)",
                         "properties": {
                             "Value": {
                                 "type": "number"
@@ -77,6 +85,7 @@
                     },
                     "CriticalVolume": {
                         "type": "object",
+                        "description": "volume occupied by 1 mole of gas at critical temperature and pressure",
                         "properties": {
                             "Value": {
                                 "type": "number"
@@ -114,7 +123,8 @@
                         "type": "number"
                     },
                     "Parachor": {
-                        "type": "number"
+                        "type": "number",
+                        "description": "an empirical constant for a liquid that relates the surface tension to the molecular volume"
                     }
                 },
                 "additionalProperties": false
@@ -139,7 +149,7 @@
             }
         },
         "ViscosityCoefficient": {
-            "type":"array",
+            "type": "array",
             "items": {
                 "type": "object",
                 "properties": {

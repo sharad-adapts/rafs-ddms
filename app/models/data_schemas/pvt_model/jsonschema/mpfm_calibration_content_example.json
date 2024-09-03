@@ -16,7 +16,7 @@
         "Value": 1.0,
         "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
     },
-    "CalibrarionDate": "2018-11-13T20:20:39+00:00",
+    "CalibrationDate": "2018-11-13T20:20:39+00:00",
     "Calibrations": [
         {
             "Temperature": {
