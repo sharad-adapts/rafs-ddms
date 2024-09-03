@@ -22,6 +22,7 @@ from starlette import status
 
 from tests.integration.config import (
     ACCEPT_HEADERS,
+    CONFIG,
     SCHEMA_VERSION,
     DataFiles,
     DatasetPrefix,
@@ -42,7 +43,7 @@ def test_post_measurements(
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"]),
         analysis_type,
     )
     tests_data = tests_data(measurements_file)
@@ -67,13 +68,13 @@ def test_post_measurements_with_non_existent_record_id(
     measurements = copy.deepcopy(tests_data(measurements_file))
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"]),
         analysis_type,
     )
     measurements["data"][0][0] = f'{record_data["id"]}:'
-
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     api.sample_analysis.post_measurements(
-        f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}",
+        f"{samples_analysis_id}{helper.generate_random_record_id()}",
         measurements,
         analysis_type,
         allowed_codes=[status.HTTP_404_NOT_FOUND],
@@ -90,7 +91,7 @@ def test_post_measurements_validation_failed(
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"]),
         analysis_type,
     )
     measurements = tests_data(measurements_file, analysis_type)
@@ -129,7 +130,7 @@ def test_post_measurements_with_empty_body(
 ):
     record_data, _ = create_record(
         DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"]),
         analysis_type,
     )
 
@@ -151,8 +152,9 @@ def test_post_measurements_with_empty_body(
 def test_post_measurements_with_empty_dataset_version(
         api, helper, measurements_file, analysis_type,
 ):
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     error = api.sample_analysis.post_measurements(
-        f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}",
+        f"{samples_analysis_id}{helper.generate_random_record_id()}",
         measurements_file,
         analysis_type,
         schema_version_header=None,
@@ -175,8 +177,9 @@ def test_post_measurements_with_wrong_dataset_version(
         api, helper, measurements_file, analysis_type,
 ):
     version = random.choice(["0.0.0", "1.11.0", "11.111.000.", "100000000.1000000.100000000"])
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     error = api.sample_analysis.post_measurements(
-        f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}",
+        f"{samples_analysis_id}{helper.generate_random_record_id()}",
         measurements_file,
         analysis_type,
         schema_version_header=ACCEPT_HEADERS.format(version=version),
@@ -201,7 +204,9 @@ def test_post_measurements_with_wrong_dataset_version(
 @pytest.mark.v2
 def test_post_measurements_mandatory_columns_missing(api, tests_data, create_record, analysis_type, measurements_file, mandatory_fields):
     record_data, created_record = create_record(
-        DataTypes.SAMPLE_ANALYSIS, DataFiles.SAMPLE_ANALYSIS, DataTemplates.ID_SAMPLE_ANALYSIS,
+        DataTypes.SAMPLE_ANALYSIS,
+        DataFiles.SAMPLE_ANALYSIS,
+        DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"]),
     )
 
     tests_data = tests_data(measurements_file)

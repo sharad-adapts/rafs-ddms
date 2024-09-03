@@ -7,9 +7,9 @@ from starlette import status
 from app.api.routes.utils.records import generate_dataset_urn
 from tests.integration.config import (
     ACCEPT_HEADERS,
+    CONFIG,
     SCHEMA_VERSION,
     DataFiles,
-    DatasetPrefix,
     DataTemplates,
     DataTypes,
     SamplesAnalysisTypes,
@@ -27,10 +27,11 @@ from tests.test_api.api_version import API_VERSION
 def test_get_measurements_as_json(
     api, helper, tests_data, create_record, measurements_file, analysis_type,
 ):
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     record_data, created_record = create_record(
         DataTypes.SAMPLE_ANALYSIS,
         DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        samples_analysis_id,
         analysis_type,
     )
 
@@ -56,9 +57,11 @@ def test_get_measurements_as_json(
 @pytest.mark.smoke
 @pytest.mark.v2
 def test_get_measurements_with_empty_dataset_version(api, helper, analysis_type):
-    dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
+    dataset_generic_id = DataTemplates.ID_DATASET.format(partition=CONFIG["DATA_PARTITION"])
+    dataset_id = f"{dataset_generic_id}{analysis_type}{helper.generate_random_record_id()}"
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     error = api.sample_analysis.get_measurements(
-        f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}",
+        f"{samples_analysis_id}{helper.generate_random_record_id()}",
         dataset_id,
         analysis_type,
         schema_version_header=None,
@@ -79,9 +82,11 @@ def test_get_measurements_with_wrong_dataset_version(
         api, helper, analysis_type,
 ):
     version = random.choice(["0.0.0", "1.11.0", "11.111.000.", "100000000.1000000.100000000"])
-    dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
+    dataset_generic_id = DataTemplates.ID_DATASET.format(partition=CONFIG["DATA_PARTITION"])
+    dataset_id = f"{dataset_generic_id}{analysis_type}{helper.generate_random_record_id()}"
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     error = api.sample_analysis.get_measurements(
-        f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}",
+        f"{samples_analysis_id}{helper.generate_random_record_id()}",
         dataset_id,
         analysis_type,
         schema_version_header=ACCEPT_HEADERS.format(version=version),
@@ -104,7 +109,8 @@ def test_get_measurements_invalid_dataset_version(
 ):
     tests_data = tests_data(DataFiles.SAMPLE_ANALYSIS, analysis_type)
     test_data = copy.deepcopy(tests_data)
-    dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
+    dataset_generic_id = DataTemplates.ID_DATASET.format(partition=CONFIG["DATA_PARTITION"])
+    dataset_id = f"{dataset_generic_id}{analysis_type}{helper.generate_random_record_id()}"
     version = "1.7.0"
 
     ddms_urn = generate_dataset_urn(
@@ -140,8 +146,10 @@ def test_get_measurements_invalid_dataset_version(
 @pytest.mark.smoke
 @pytest.mark.v2
 def test_get_measurements_non_existent_record_id(api, helper, analysis_type):
-    full_id = f"{DataTemplates.ID_SAMPLE_ANALYSIS}{helper.generate_random_record_id()}"
-    dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
+    full_id = f"{samples_analysis_id}{helper.generate_random_record_id()}"
+    dataset_generic_id = DataTemplates.ID_DATASET.format(partition=CONFIG["DATA_PARTITION"])
+    dataset_id = f"{dataset_generic_id}{analysis_type}{helper.generate_random_record_id()}"
     error = api.sample_analysis.get_measurements(
         full_id,
         dataset_id,
@@ -159,14 +167,16 @@ def test_get_measurements_non_existent_record_id(api, helper, analysis_type):
 def test_get_measurements_non_existent_dataset_id(
     api, helper, create_record, analysis_type,
 ):
+    samples_analysis_id = DataTemplates.ID_SAMPLE_ANALYSIS.format(partition=CONFIG["DATA_PARTITION"])
     record_data, created_record = create_record(
         DataTypes.SAMPLE_ANALYSIS,
         DataFiles.SAMPLE_ANALYSIS,
-        DataTemplates.ID_SAMPLE_ANALYSIS,
+        samples_analysis_id,
         analysis_type,
     )
 
-    dataset_id = f"{DataTemplates.ID_DATASET}{analysis_type}{helper.generate_random_record_id()}"
+    dataset_generic_id = DataTemplates.ID_DATASET.format(partition=CONFIG["DATA_PARTITION"])
+    dataset_id = f"{dataset_generic_id}{analysis_type}{helper.generate_random_record_id()}"
     error = api.sample_analysis.get_measurements(
         record_data["id"],
         dataset_id,

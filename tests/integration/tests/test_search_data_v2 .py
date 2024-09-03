@@ -22,6 +22,7 @@ from tests.integration.config import SamplesAnalysisTypes
 )
 @pytest.mark.smoke
 @pytest.mark.v2
+@pytest.mark.skip(reason="Policy Service issue")
 def test_search_data(
     api, analysis_type,
 ):
@@ -39,6 +40,7 @@ def test_search_data(
 )
 @pytest.mark.smoke
 @pytest.mark.v2
+@pytest.mark.skip(reason="Policy Service issue")
 def test_search(
     api, analysis_type,
 ):

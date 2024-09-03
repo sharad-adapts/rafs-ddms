@@ -15,32 +15,6 @@
 from typing import NamedTuple
 
 
-class CommonRelativePathsV1(NamedTuple):
-    ROUTINECOREANALYSIS: str = "/rocksampleanalyses/"
-    CCE: str = "/ccereports/"
-    DIF_LIB: str = "/difflibreports/"
-    TRANSPORT_TEST: str = "/transporttests/"
-    COMPOSITIONAL_ANALYSIS: str = "/compositionalanalysisreports/"
-    MSS: str = "/multistageseparatortests/"
-    SWELLING: str = "/swellingtests/"
-    CVD: str = "/constantvolumedepletiontests/"
-    WATER_ANALYSIS: str = "/wateranalysisreports/"
-    STO_ANALYSIS: str = "/stocktankoilanalysisreports/"
-    INTERFACIAL_TENSION: str = "/interfacialtensiontests/"
-    VLE: str = "/vaporliquidequilibriumtests/"
-    MCM: str = "/multiplecontactmiscibilitytests/"
-    SLIMTUBETEST: str = "/slimtubetests/"
-    RELATIVE_PERMEABILITY: str = "/relativepermeabilitytests/"
-    CAP_PRESSURE: str = "/capillarypressuretests/"
-    FRACTIONATION: str = "/fractionationtests/"
-    EXTRACTION: str = "/extractiontests/"
-    PHYS_CHEM: str = "/physicalchemistrytests/"
-    WATER_GAS_RELATIVE_PERMEABILITY: str = "/watergasrelativepermeabilities/"
-    ROCK_COMPRESSIBILITY: str = "/rockcompressibilities/"
-    ELECTRICAL_PROPERTIES: str = "/electricalproperties/"
-    FORMATION_RESISTIVITY_INDEX: str = "/formationresistivityindexes/"
-
-
 class CommonRelativePathsV2(NamedTuple):
     ROUTINECOREANALYSIS: str = "/data/routinecoreanalysis"
     CCE: str = "/data/constantcompositionexpansion"
@@ -93,7 +67,6 @@ class CommonRelativePathsDev(CommonRelativePathsV2):
 
 
 COMMON_RELATIVE_PATHS = {
-    "v1": CommonRelativePathsV1,
     "v2": CommonRelativePathsV2,
     "dev": CommonRelativePathsDev,
 }

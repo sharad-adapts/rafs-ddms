@@ -18,6 +18,7 @@ import pytest
 from loguru import logger
 
 from tests.integration.config import (
+    CONFIG,
     TEST_DATA_STORE,
     DataFiles,
     DataTemplates,
@@ -43,9 +44,7 @@ def create_parent_records(api, helper, tests_data):
     """Fixture to create parent records with a random id and delete it after a
     test."""
     record_to_create = [
-        (DataTypes.PVT, DataFiles.PVT, DataTemplates.ID_PVT),
-        (DataTypes.SAR, DataFiles.SAR, DataTemplates.ID_SAR),
-        (DataTypes.SAR_V2, DataFiles.SAR_V2, DataTemplates.ID_SAR),
+        (DataTypes.SAR_V2, DataFiles.SAR_V2, DataTemplates.ID_SAR.format(partition=CONFIG["DATA_PARTITION"])),
     ]
     for data_type, data, id_template in record_to_create:
         record_data = copy.deepcopy(tests_data(data))
