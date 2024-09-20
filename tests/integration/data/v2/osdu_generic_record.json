@@ -1,0 +1,22 @@
+{
+    "id": "",
+    "kind": "",
+    "acl": {
+        "viewers": ["{acl_viewers}"],
+        "owners": ["{acl_owners}"]
+    },
+    "legal": {
+        "legaltags": ["{legal_tag}"],
+        "otherRelevantDataCountries": [
+            "US"
+        ],
+        "status": "compliant"
+    },
+    "tags": {
+        "NameOfKey": "String value"
+    },
+    "meta": [],
+    "data": {
+        "dummy": "data"
+    }
+}

@@ -417,7 +417,7 @@
                     "MoleFraction": 0.4
                 },
                 {
-                    "SampleCompositionComponentID": "{data_partition_id}:reference-data--SampleCompositionComponent:PENTANEPLUS:",
+                    "SampleCompositionComponentID": "{data_partition_id}:reference-data--SampleCompositionComponent:METHYLCYCLOPENTANE:",
                     "MassFraction": 0.4,
                     "MoleFraction": 0.5
                 }

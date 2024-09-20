@@ -55,23 +55,37 @@ TEST_RECORD = {
     "kind": "test_kind",
     "data": {
         "NotInTheList": "NotInTheList",
-        "StringID": "StringID",
-        "ListIDs": ["ListID1", "ListID2"],
+        "StringID": "partition:master-data--SomeType:StringID:",
+        "ListIDs": [
+            "partition:reference-data--SomeType:ListID1:",
+            "partition:reference-data--SomeType:ListID2:",
+        ],
         "DictIDs": {
-            "StringID": "DictStringID",
-            "ListIDs": ["DictListID1", "DictListID2"],
+            "StringID": "partition:work-product-component--SomeType:DictStringID:",
+            "ListIDs": [
+                "partition:work-product-component--SomeType:DictListID1:",
+                "partition:work-product-component--SomeType:DictListID2:",
+            ],
         },
         "ListOfDicts": [
             {
-                "ListOfDictsStringID": "ListOfDictsStringID",
+                "ListOfDictsStringID": "partition:master-data--SomeType:ListOfDictsStringID:",
+                "NotIdentifier": "NotIdentifier",
             },
         ],
     },
 }
 
-TEST_IDS_FIELDS = ["StringID", "ListIDs", "DictIDs", "MissingField", "ListOfDicts"]
+TEST_ID_MISSING_FIELD = ["MissingField"]
+
+TEST_IDS_FIELDS = ["StringID", "ListIDs", "DictIDs", "ListOfDicts"]
 
 EXPECTED_IDS_LIST = [
-    "StringID", "ListID1", "ListID2", "DictStringID",
-    "DictListID1", "DictListID2", "ListOfDictsStringID",
+    "partition:master-data--SomeType:StringID",
+    "partition:reference-data--SomeType:ListID1:"
+    "partition:reference-data--SomeType:ListID2:"
+    "partition:work-product-component--SomeType:DictStringID:",
+    "partition:work-product-component--SomeType:DictListID1:",
+    "partition:work-product-component--SomeType:DictListID2:",
+    "partition:master-data--SomeType:ListOfDictsStringID:",
 ]

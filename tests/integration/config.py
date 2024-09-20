@@ -26,6 +26,7 @@ TEST_DATA_STORE = {}
 
 class DataFiles:
     # v2
+    OSDU_GENERIC_RECORD = "v2/osdu_generic_record.json"
     SAMPLE = "v2/sample.json"
     SAMPLE_ANALYSIS = "v2/samplesanalysis.json"
     SAR_V2 = "v2/sar.json"
@@ -56,6 +57,7 @@ class DataTypes:
     SAMPLE_ANALYSIS = "sample_analysis"
     SAR_V2 = "sar_v2"
     PVT_MODEL = "pvtmodel"
+    SAMPLE = "sample"
 
 
 class SamplesAnalysisTypes:  # Custom values

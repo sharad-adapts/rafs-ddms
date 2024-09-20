@@ -434,7 +434,7 @@ async def test_post_samplesanalysis_with_missing_reference(
             )
 
     title = "Request can't be processed due to missing referenced records."
-    detail = f"Fields checked: {checked_fields}. Records not found: ['{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}']"
+    detail = f"Records not found: ['{storage_mock_objects.TEST_SAMPLESANALYSESREPORT_ID}']"
     expected_response = {
         "code": 422,
         "reason": f"{title} {detail}",

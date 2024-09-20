@@ -13,8 +13,9 @@
 #  limitations under the License.
 
 import asyncio
+import copy
 import json
-from typing import Iterable, List, Optional, Tuple, TypeVar
+from typing import Iterable, List, Optional, Set, Tuple, TypeVar
 
 from fastapi import Depends, HTTPException, Query, Request
 from loguru import logger
@@ -27,7 +28,8 @@ from app.api.dependencies.services import (
     get_async_storage_service,
 )
 from app.api.routes.utils.api_version import get_api_version_from_url
-from app.api.routes.utils.records import get_id_version
+from app.api.routes.utils.query import divide_chunks, find_osdu_ids_from_string
+from app.core.config import get_app_settings
 from app.exceptions.exceptions import (
     BadRequestException,
     InvalidDatasetException,
@@ -48,6 +50,7 @@ SAMPLESANALYSIS_PARENT_RECORDS_FIELD = "ParentSamplesAnalysesReports"
 SAMPLESANALYSIS_TYPE_RECORD_FIELD = "SampleAnalysisTypeIDs"
 
 Model = TypeVar("Model", bound=BaseModel)
+settings = get_app_settings()
 
 
 def get_id(id_data):  # noqa: CCR001
@@ -66,26 +69,46 @@ def get_id(id_data):  # noqa: CCR001
             yield from id_data
 
 
-async def get_all_ids_from_records(
+def get_all_ids_from_records(records: List[dict]) -> Set[str]:
+    """Get all referenced ids from the records.
+
+    :param records: records list
+    :type records: List[dict]
+    :return: A set of referenced ids
+    :rtype: Set[str]
+    """
+    all_ids = set()
+    for record in records:
+        record_copy = copy.deepcopy(record)
+        if "id" in record_copy:
+            del record_copy["id"]  # noqa: WPS529
+        all_ids.update(find_osdu_ids_from_string(json.dumps(record_copy)))
+    return all_ids
+
+
+def validate_ids_from_records(
     records: List[dict],
     fields: List[str],
-) -> List[str]:
+):
     """Get the list of all ids in the records fields.
 
     :param records: list of records
     :type records: List[dict]
     :param fields: list of fields to collect
     :type fields: List[str]
-    :return: list of ids
-    :rtype: List[str]
     """
-    ids_list = []
-
-    for record in records:
+    errors = []
+    for index, record in enumerate(records):
         for field in fields:
             field_data = record["data"].get(field, None)
-            ids_list.extend(list(get_id(field_data)))
-    return ids_list
+            mandatory_ids = list(get_id(field_data))
+            if not mandatory_ids:
+                errors.append(f"Missing {field} in index {index}")
+    if errors:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=errors,
+        )
 
 
 async def validate_referential_integrity(
@@ -104,23 +127,27 @@ async def validate_referential_integrity(
     :raises HTTPException: Status 422 if any of the references is not
         found
     """
-    all_test_ids = await get_all_ids_from_records(records, fields)
+    validate_ids_from_records(records, fields)
 
-    all_test_ids = {get_id_version(test_id)[0] for test_id in all_test_ids}
+    all_test_ids = get_all_ids_from_records(records)
+    missing_ids = []
 
-    if all_test_ids:
-        logger.debug(f"The list of ids to check exist on storage: {all_test_ids}")
-        storage_response = await storage_service.query_records(list(all_test_ids))
-        missing_ids = storage_response["invalidRecords"]
-        if missing_ids:
-            error_title = "Request can't be processed due to missing referenced records."
-            error_details = f"Fields checked: {fields}. Records not found: {missing_ids}"
-            reason = f"{error_title} {error_details}"
-            logger.debug(reason)
-            raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-                detail=reason,
-            )
+    logger.debug(f"The list of ids to check exist on storage: {all_test_ids}")
+    for ids_to_check in divide_chunks(list(all_test_ids), settings.storage_query_limit):
+        storage_response = await storage_service.query_records(ids_to_check)
+        missing_ids.extend(storage_response["invalidRecords"])
+
+    logger.debug(missing_ids)
+
+    if missing_ids:
+        error_title = "Request can't be processed due to missing referenced records."
+        error_details = f"Records not found: {missing_ids}"
+        reason = f"{error_title} {error_details}"
+        logger.debug(reason)
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=reason,
+        )
 
 
 def validate_kind(kind: str, valid_kinds: List[str]):
@@ -221,17 +248,21 @@ async def validate_samplesanalysis_records_v2_payload(
 async def validate_master_data_records_payload(
     records_list: List[OsduStorageRecord],
     schema_service: SchemaService,
-    **kwargs,
+    storage_service: StorageService,
 ) -> List[dict]:
-    return await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.MASTER_DATA_KINDS_V2)
+    records = await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.MASTER_DATA_KINDS_V2)
+    await validate_referential_integrity(records, [], storage_service)
+    return records
 
 
 async def validate_pvt_model_records_payload(
     records_list: List[OsduStorageRecord],
     schema_service: SchemaService,
-    **kwargs,
+    storage_service: StorageService,
 ) -> List[dict]:
-    return await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.PVT_MODEL_KINDS)
+    records = await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.PVT_MODEL_KINDS)
+    await validate_referential_integrity(records, [], storage_service)
+    return records
 
 
 def get_content_model_paths(request_path: str, api_version: str) -> tuple:

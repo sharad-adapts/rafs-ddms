@@ -45,6 +45,7 @@ def get_id_version(full_record_id: str) -> Tuple[str, Optional[int]]:
     :return: tuple of id and version
     :rtype: Tuple[str, Optional[str]]
     """
+    logger.debug(f"full record id: {full_record_id}")
     splitted_id = full_record_id.split(":")
     if len(splitted_id) > VERSION_SPLIT_INDEX:  # this means that there is a ":" in id
         record_id, version = (
