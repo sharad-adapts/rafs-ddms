@@ -16,6 +16,7 @@ import copy
 import secrets
 import string
 
+from app.api.routes.utils.query import find_osdu_ids_from_string
 from app.api.routes.utils.records import DATASET_ID_INDEX
 from tests.integration.config import DataTypes
 
@@ -75,3 +76,14 @@ class CommonHelper(object):
             "version": int(full_id[3]),
             "record_without_version": ":".join(full_id[:3]),
         }
+
+    @staticmethod
+    def find_ids_from_string(input_string: str) -> set:
+        """Takes a string and returns the set of ids that match osdu id regex.
+
+        :param input_string: data string
+        :type input_string: str
+        :return: the set of osdu ids present in the string
+        :rtype: set
+        """
+        return find_osdu_ids_from_string(input_string)

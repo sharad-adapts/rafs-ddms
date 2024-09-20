@@ -17,21 +17,35 @@ from fastapi import HTTPException
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
 from app.api.dependencies.validation import (
-    get_all_ids_from_records,
+    validate_ids_from_records,
     validate_referential_integrity,
 )
 from tests.test_api.test_routes.data.data_mock_objects import StorageService
 from tests.test_validation.test_data import (
     EXPECTED_IDS_LIST,
+    TEST_ID_MISSING_FIELD,
     TEST_IDS_FIELDS,
     TEST_RECORD,
 )
 
 
 @pytest.mark.asyncio
-async def test_get_all_ids_from_records():
-    ids_list = await get_all_ids_from_records([TEST_RECORD], TEST_IDS_FIELDS)
-    assert ids_list == EXPECTED_IDS_LIST
+async def test_validate_ids_from_records():
+    assert None is validate_ids_from_records([TEST_RECORD], TEST_IDS_FIELDS)
+
+
+@pytest.mark.asyncio
+async def test_validate_ids_from_records_raises(mocker):
+    with pytest.raises(HTTPException) as exc_info:
+        validate_ids_from_records(
+            [TEST_RECORD],
+            TEST_ID_MISSING_FIELD,
+        )
+
+    assert exc_info.value.status_code == HTTP_422_UNPROCESSABLE_ENTITY
+
+    expected_response_detail = ["Missing MissingField in index 0"]
+    assert exc_info.value.detail == expected_response_detail
 
 
 @pytest.mark.asyncio
@@ -47,7 +61,7 @@ async def test_validate_referential_integrity(mocker):
     assert exc_info.value.status_code == HTTP_422_UNPROCESSABLE_ENTITY
 
     error_title = "Request can't be processed due to missing referenced records."
-    error_details = f"Fields checked: {TEST_IDS_FIELDS}. Records not found: [{EXPECTED_IDS_LIST}]"
+    error_details = f"Records not found: [{EXPECTED_IDS_LIST}]"
     expected_response_detail = f"{error_title} {error_details}"
     assert exc_info.value.detail == expected_response_detail
 
@@ -57,4 +71,4 @@ async def test_validate_referential_integrity(mocker):
         [TEST_RECORD], TEST_IDS_FIELDS, mock_get_storage_service,
     )
 
-    get_all_ids_from_records.assert_called_once_with([TEST_RECORD], TEST_IDS_FIELDS)
+    get_all_ids_from_records.assert_called_once_with([TEST_RECORD])

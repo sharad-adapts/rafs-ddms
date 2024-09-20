@@ -110,7 +110,7 @@ GENERIC_SITE_RECORD = OsduStorageRecord(
     legal=TEST_LEGAL,
     data={
         "Name": "Name",
-        "SiteTypeID": "opendes:reference-data--SiteType:Coal:",
+        "SiteTypeID": "partition:reference-data--SiteType:Coal:",
     },
 )
 
@@ -120,7 +120,7 @@ SAMPLE_RECORD = OsduStorageRecord(
     acl=TEST_ACL,
     legal=TEST_LEGAL,
     data={
-        "ResourceHomeRegionID": "opendes:reference-data--OSDURegion:Region:",
+        "ResourceHomeRegionID": "partition:reference-data--OSDURegion:Region:",
     },
 )
 
@@ -141,8 +141,8 @@ SAMPLE_CHAIN_OF_CUSTODY_EVENT_RECORD = OsduStorageRecord(
     acl=TEST_ACL,
     legal=TEST_LEGAL,
     data={
-        "CustodyEventLocationID": "opendes:master-data--Organisation:Organisation:",
-        "CustodyEventTypeID": "opendes:reference-data--CustodyEventType:SubSampleLive:",
+        "CustodyEventLocationID": "partition:master-data--Organisation:Organisation:",
+        "CustodyEventTypeID": "partition:reference-data--CustodyEventType:SubSampleLive:",
     },
 )
 
@@ -156,9 +156,9 @@ SAMPLE_CONTAINER_RECORD = OsduStorageRecord(
             "Temperature": 1.0,
             "Pressure": 1.0,
         },
-        "SampleContainerServiceTypeIDs": ["opendes:reference-data--SampleContainerServiceType:NonHydrocarbon:"],
-        "ManufacturerID": "opendes:master-data--Organisation:Organisation:",
-        "SampleContainerTypeID": "opendes:reference-data--SampleContainerType:Pressurized.NotPressureCompensated:",
+        "SampleContainerServiceTypeIDs": ["partition:reference-data--SampleContainerServiceType:NonHydrocarbon:"],
+        "ManufacturerID": "partition:master-data--Organisation:Organisation:",
+        "SampleContainerTypeID": "partition:reference-data--SampleContainerType:Pressurized.NotPressureCompensated:",
         "ContainerIdentifier": "BTL-12345",
         "Capacity": 100,
     },
@@ -173,11 +173,11 @@ SAMPLESANALYSESREPORT_RECORD_V2 = OsduStorageRecord(
         "SampleIDs": [f"{PARTITION}:master-data--Sample:sample_test_id:"],
         "ReportSampleIdentifiers": ["45H", "49H"],
         "SampleAnalysisTypeIDs": [
-            "opendes:reference-data--SampleAnalysisType:CapillaryPressureGasOil:",
-            "opendes:reference-data--SampleAnalysisType:CentrifugeDrainageGasOil:",
+            "partition:reference-data--SampleAnalysisType:CapillaryPressureGasOil:",
+            "partition:reference-data--SampleAnalysisType:CentrifugeDrainageGasOil:",
         ],
         "SamplesAnalysisCategoryTagIDs": [
-            "opendes:reference-data--SamplesAnalysisCategoryTag:SCAL:",
+            "partition:reference-data--SamplesAnalysisCategoryTag:SCAL:",
         ],
     },
 )
@@ -193,6 +193,10 @@ SAMPLESANALYSIS_RECORD_V2 = OsduStorageRecord(
             {
                 "ParentSamplesAnalysesReportID": f"{TEST_SAMPLESANALYSESREPORT_ID}:",
             },
+        ],
+        "SampleAnalysisTypeIDs": [
+            "partition:reference-data--SampleAnalysisType:CapillaryPressureGasOil:",
+            "partition:reference-data--SampleAnalysisType:CentrifugeDrainageGasOil:",
         ],
         "Parameters": [],
     },

@@ -23,7 +23,7 @@
     },
     "data": {
         "SampleIDs": [
-            "{data_partition_id}:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc11:"
+            "{data_partition_id}:master-data--Sample:Rafsddms_Integration_Test:"
         ],
         "ReportSampleIdentifiers": [
             "88Y"

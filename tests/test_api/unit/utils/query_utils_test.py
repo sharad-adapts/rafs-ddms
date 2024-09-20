@@ -48,21 +48,21 @@ def test_find_osdu_ids_from_string():
 
 
 JSON_VALUE = {
-    "a": "opendes:reference-data--UnitOfMeasure:mg/L",
-    "b": "opendes:reference-data--UnitOfMeasure:mg/5655656",
+    "a": "opendes:reference-data--UnitOfMeasure:mg%2FL",
+    "b": "opendes:reference-data--UnitOfMeasure:mg%2F5655656",
     "c": "opendes:reference-data--UnitOfMeasure:WrongID51",
-    "d": "opendes:reference-data--UnitOfMeasure:mg/L2:1234",
-    "e": "opendes:reference-data--UnitOfMeasure:mg/56556562:",
+    "d": "opendes:reference-data--UnitOfMeasure:mg%2FL2:1234",
+    "e": "opendes:reference-data--UnitOfMeasure:mg%2F56556562:",
     "f": "opendes:reference-data--UnitOfMeasure:WrongID52:",
     "g": "opendes:reference-data--UnitOfMeasure:WrongID53:1234",
 }
 
 EXPECTED_IDS_FROM_JSON = {
-    "opendes:reference-data--UnitOfMeasure:mg/L",
-    "opendes:reference-data--UnitOfMeasure:mg/5655656",
+    "opendes:reference-data--UnitOfMeasure:mg%2FL",
+    "opendes:reference-data--UnitOfMeasure:mg%2F5655656",
     "opendes:reference-data--UnitOfMeasure:WrongID51",
-    "opendes:reference-data--UnitOfMeasure:mg/L2",
-    "opendes:reference-data--UnitOfMeasure:mg/56556562",
+    "opendes:reference-data--UnitOfMeasure:mg%2FL2",
+    "opendes:reference-data--UnitOfMeasure:mg%2F56556562",
     "opendes:reference-data--UnitOfMeasure:WrongID52",
     "opendes:reference-data--UnitOfMeasure:WrongID53",
 }

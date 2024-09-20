@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 import copy
+import json
 from typing import Optional
 
 import pytest
@@ -40,11 +41,39 @@ def create_legal_tag(api):
 
 
 @pytest.fixture(scope="session", autouse=True)
-def create_parent_records(api, helper, tests_data):
-    """Fixture to create parent records with a random id and delete it after a
-    test."""
+def create_referenced_records(api, helper, tests_data):
+    """Fixture to create referenced records and delete them after a test."""
+    partition = CONFIG["DATA_PARTITION"]
+
+    records_with_references = [
+        copy.deepcopy(tests_data(DataFiles.SAMPLE)),
+        copy.deepcopy(tests_data(DataFiles.PVT_MODEL)),
+        copy.deepcopy(tests_data(DataFiles.SAMPLE_ANALYSIS)),
+        copy.deepcopy(tests_data(DataFiles.SAR_V2)),
+    ]
+
+    storage_dependencies = set()
+    for record in records_with_references:
+        if "id" in record:
+            del record["id"]
+        storage_dependencies.update(helper.find_ids_from_string(json.dumps(record)))
+
+    osdu_generic_record = tests_data(DataFiles.OSDU_GENERIC_RECORD)
+    records_to_store = []
+    for reference_id in storage_dependencies:
+        if "reference-data" in reference_id:  # Don't override reference-data values
+            continue
+        record_to_store = copy.deepcopy(osdu_generic_record)
+        record_to_store["id"] = reference_id
+        record_type = reference_id.split(":")[1]
+        record_to_store["kind"] = f"osdu:wks:{record_type}:1.0.0"
+        records_to_store.append(record_to_store)
+
+    response = api.storage.create_or_update_records(records_to_store)
+    logger.debug(response.json())
+
     record_to_create = [
-        (DataTypes.SAR_V2, DataFiles.SAR_V2, DataTemplates.ID_SAR.format(partition=CONFIG["DATA_PARTITION"])),
+        (DataTypes.SAR_V2, DataFiles.SAR_V2, DataTemplates.ID_SAR.format(partition=partition)),
     ]
     for data_type, data, id_template in record_to_create:
         record_data = copy.deepcopy(tests_data(data))
@@ -56,6 +85,11 @@ def create_parent_records(api, helper, tests_data):
 
     for data_type, _, _ in record_to_create:
         api.storage.purge_record(TEST_DATA_STORE[f"{data_type}_record_id"])
+
+    for reference_id in storage_dependencies:
+        if "reference-data" in reference_id:  # Don't delete reference-data values
+            continue
+        api.storage.purge_record(reference_id)
 
 
 @pytest.fixture

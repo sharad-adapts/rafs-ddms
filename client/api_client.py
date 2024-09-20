@@ -33,6 +33,7 @@ class HTTPMethods(object):
     GET = "get"
     POST = "post"
     DELETE = "delete"
+    PUT = "put"
 
 
 class APIClient(object):
@@ -51,6 +52,9 @@ class APIClient(object):
 
     def post(self, path: str, **kwargs) -> requests.Response:
         return self._send_request(method=HTTPMethods.POST, path=path, **kwargs)
+
+    def put(self, path: str, **kwargs) -> requests.Response:
+        return self._send_request(method=HTTPMethods.PUT, path=path, **kwargs)
 
     def get(self, path: str, **kwargs) -> requests.Response:
         return self._send_request(method=HTTPMethods.GET, path=path, **kwargs)
