@@ -1,299 +1,427 @@
 {
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/CceDataSchema.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CceDataSchema",
+  "description": "CceDataSchema",
   "type": "object",
   "properties": {
-      "SamplesAnalysisID": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "TestNumber": {
+      "title": "Test Number",
+      "type": "string",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "TestTemperature": {
+      "title": "Test Temperature",
+      "description": "The temperature of this test.",
+      "x-osdu-frame-of-reference": "UOM:temperature",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
       },
-      "SampleID": {
+      "additionalProperties": false
+    },
+    "SaturationPressure": {
+      "title": "Saturation Pressure",
+      "description": "The saturation (or bubble point) pressure measured in this test.",
+      "x-osdu-frame-of-reference": "UOM:reciprocal_pressure",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-      },
-      "TestNumber": {
-          "title": "Test Number",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        },
+        "Type": {
           "type": "string",
-          "description": "A number for this test for purposes of e.g., tracking lab sequence."
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "PressureMeasurementType",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
       },
-      "TestTemperature": {
-          "title": "Test Temperature",
-          "description": "The temperature of this test.",
-          "x-osdu-frame-of-reference": "UOM:temperature",
-          "type": "object",
-          "properties": {
-              "Value": {
-                  "type": "number"
-              },
-              "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-              }
+      "additionalProperties": false
+    },
+    "ReservoirPressure": {
+      "title": "Reservoir Pressure",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ConstantCompositionExpansionTestSteps": {
+      "name": "Constant Composition Expansion Test Step",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StepNumber": {
+            "title": "Step Number",
+            "type": "string",
+            "description": "Internal step number which identifies the sequence of step in CCE measurements"
           },
-          "additionalProperties": false
-      },
-      "SaturationPressure": {
-          "title": "Saturation Pressure",
-          "description": "The saturation (or bubble point) pressure measured in this test.",
-          "x-osdu-frame-of-reference": "UOM:reciprocal_pressure",
-          "type": "object",
-          "properties": {
+          "StepPressure": {
+            "title": "Step Pressure",
+            "description": "The pressure applied during the step.",
+            "x-osdu-frame-of-reference": "UOM:psi",
+            "type": "object",
+            "properties": {
               "Value": {
-                  "type": "number"
+                "type": "number"
               },
               "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
               },
               "Type": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PressureMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
               }
+            },
+            "additionalProperties": false
           },
-          "additionalProperties": false
-      },
-      "ReservoirPressure": {
-          "title": "Reservoir Pressure",
-          "type": "object",
-          "properties": {
+          "LiquidFraction": {
+            "title": "Liquid Fraction",
+            "description": "The fraction of liquid by volume for this test step. This is the volume of liquid divided...",
+            "x-osdu-frame-of-reference": "UOM:%",
+            "type": "object",
+            "properties": {
               "Value": {
-                  "type": "number"
+                "type": "number"
               },
               "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
               }
+            },
+            "additionalProperties": false
           },
-          "additionalProperties": false
-      },
-      "ConstantCompositionExpansionTestSteps": {
-          "name": "Constant Composition Expansion Test Step",
-          "type": "array",
-          "items": [
-              {
-                  "type": "object",
-                  "properties": {
-                      "StepNumber": {
-                          "title": "Step Number",
-                          "type": "string",
-                          "description": "Internal step number which identifies the sequence of step in CCE measurements"
-                      },
-                      "StepPressure": {
-                          "title": "Step Pressure",
-                          "description": "The pressure applied during the step.",
-                          "x-osdu-frame-of-reference": "UOM:psi",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              },
-                              "Type": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "LiquidFraction": {
-                          "title": "Liquid Fraction",
-                          "description": "The fraction of liquid by volume for this test step. This is the volume of liquid divided...",
-                          "x-osdu-frame-of-reference": "UOM:%",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "OilDensity": {
-                          "title": "Oil Density",
-                          "description": "The density of the oil for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:kg/m3",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "OilCompressibility": {
-                          "title": "Oil Compressibility",
-                          "description": "The compressibility of the oil for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:psi",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "OilViscosity": {
-                          "value": "Oil Viscosity",
-                          "description": "The dynamic viscosity of the oil for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:g/cm3",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "TotalVolume": {
-                          "title": "Total Volume",
-                          "description": "The total volume for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:bbl/bbl",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "SaturationPressureLiquidVolume": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "IndicatedPressureLiquidVolume": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "RelativeVolumeRatio": {
-                          "value": "Relative Volume Ration",
-                          "description": "The measured relative volume ratio = measured volume/volume at Psat.",
-                          "x-osdu-frame-of-reference": "UOM:bbl/bbl",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "GasDensity": {
-                          "value": "Gas Density",
-                          "description": "The density of the gas for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:kg/m3",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "GasZFactor": {
-                          "title": "GasZFactor",
-                          "type": "number",
-                          "description": "The Z factor of the gas for this test step."
-                      },
-                      "GasCompressibility": {
-                          "title": "Gas Compressibility",
-                          "description": "The compressibility of the gas for this test step.",
-                          "x-osdu-frame-of-reference": "UOM:psi",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "GasViscosity": {
-                          "title": "Gas Viscosity",
-                          "description": "The viscosity of the gas phase at this test step",
-                          "x-osdu-frame-of-reference": "UOM:cP",
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "YFunction": {
-                          "title": "Y Function",
-                          "type": "number",
-                          "description": "The Y function at this test step. See  Standing, M.B.: Volumetric And Phase Behavior Of Oil Field Hydrocarbon Systems, Eighth Edition, SPE Richardson, Texas (1977)."
-                      },
-                      "FluidConditions": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleTestCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      },
-                      "PhasesPresent": {
-                          "type": "string",
-                          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidPhasesPresent:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                      }
-                  },
-                  "additionalProperties": false
+          "OilDensity": {
+            "title": "Oil Density",
+            "description": "The density of the oil for this test step.",
+            "x-osdu-frame-of-reference": "UOM:kg/m3",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
               }
-          ]
+            },
+            "additionalProperties": false
+          },
+          "OilCompressibility": {
+            "title": "Oil Compressibility",
+            "description": "The compressibility of the oil for this test step.",
+            "x-osdu-frame-of-reference": "UOM:psi",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "OilViscosity": {
+            "value": "Oil Viscosity",
+            "description": "The dynamic viscosity of the oil for this test step.",
+            "x-osdu-frame-of-reference": "UOM:g/cm3",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "TotalVolume": {
+            "title": "Total Volume",
+            "description": "The total volume for this test step.",
+            "x-osdu-frame-of-reference": "UOM:bbl/bbl",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "SaturationPressureLiquidVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "IndicatedPressureLiquidVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "RelativeVolumeRatio": {
+            "value": "Relative Volume Ration",
+            "description": "The measured relative volume ratio = measured volume/volume at Psat.",
+            "x-osdu-frame-of-reference": "UOM:bbl/bbl",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "GasDensity": {
+            "value": "Gas Density",
+            "description": "The density of the gas for this test step.",
+            "x-osdu-frame-of-reference": "UOM:kg/m3",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "GasZFactor": {
+            "title": "GasZFactor",
+            "type": "number",
+            "description": "The Z factor of the gas for this test step."
+          },
+          "GasCompressibility": {
+            "title": "Gas Compressibility",
+            "description": "The compressibility of the gas for this test step.",
+            "x-osdu-frame-of-reference": "UOM:psi",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "GasViscosity": {
+            "title": "Gas Viscosity",
+            "description": "The viscosity of the gas phase at this test step",
+            "x-osdu-frame-of-reference": "UOM:cP",
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "YFunction": {
+            "title": "Y Function",
+            "type": "number",
+            "description": "The Y function at this test step. See  Standing, M.B.: Volumetric And Phase Behavior Of Oil Field Hydrocarbon Systems, Eighth Edition, SPE Richardson, Texas (1977)."
+          },
+          "FluidConditions": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleTestCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "EntityType": "SampleTestCondition",
+                "GroupType": "reference-data"
+              }
+            ]
+          },
+          "PhasesPresent": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidPhasesPresent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "EntityType": "FluidPhasesPresent",
+                "GroupType": "reference-data"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
       }
+    }
   },
   "additionalProperties": false,
   "required": [
-      "SamplesAnalysisID",
-      "SampleID"
+    "SamplesAnalysisID",
+    "SampleID"
   ]
 }

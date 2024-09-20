@@ -1,9 +1,9 @@
 {
   "x-osdu-review-status": "Pending",
-  "$id": "https://schema.osdu.opengroup.org/json/content/ExtractionDataSchema.1.0.0.json",
+  "$id": "https://schema.osdu.opengroup.org/json/content/CecDataSchema.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "ExtractionDataSchema",
-  "description": "ExtractionDataSchema",
+  "title": "CecDataSchema",
+  "description": "CecDataSchema",
   "type": "object",
   "properties": {
     "SamplesAnalysisID": {
@@ -26,20 +26,8 @@
         }
       ]
     },
-    "Method": {
-      "type": "string",
-      "description": "The sample analysis method used for this analysis",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-      "x-osdu-relationship": [
-        {
-          "EntityType": "BulkPyrolysisMethod",
-          "GroupType": "reference-data"
-        }
-      ]
-    },
-    "MassOfRockExtracted": {
+    "BrineConcentration": {
       "type": "object",
-      "description": "mass of the rock sample that has been submitted for extraction. note - may be a fraction of the whole rock sample",
       "properties": {
         "Value": {
           "type": "number"
@@ -57,9 +45,8 @@
       },
       "additionalProperties": false
     },
-    "MassOfExtract": {
+    "CeC": {
       "type": "object",
-      "description": "mass of fluid extract obtained from parent rock sample",
       "properties": {
         "Value": {
           "type": "number"
@@ -77,29 +64,9 @@
       },
       "additionalProperties": false
     },
-    "ExtractByRockMass": {
+    "Qv": {
       "type": "object",
-      "description": "extract yield: mass of extract / mass of parent rock sample",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
-    },
-    "ExtractOfTotalOrganicCarbon": {
-      "type": "object",
-      "description": "mass of extract as a percentage of Total Organic Carbon",
+      "Description": "Contribution per unit pore volume",
       "properties": {
         "Value": {
           "type": "number"

@@ -1,19 +1,41 @@
 {
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/RelativePermeabilityDataSchema.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RelativePermeabilityDataSchema",
+  "description": "RelativePermeabilityDataSchema",
   "type": "object",
   "properties": {
     "SamplesAnalysisID": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
     },
     "SampleID": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
     },
     "DesaturationMethod": {
       "type": "string",
       "description": "method of desaturation, e.g. centrifuge gas-water, centrifuge oil-water, flood-gas, pore pressure gas-water, etc",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DesaturationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DesaturationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "DesaturationMethod",
+          "GroupType": "reference-data"
+        }
+      ]
     },
     "TestTemperature": {
       "type": "object",
@@ -23,7 +45,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -36,11 +64,23 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         },
         "PorosityType": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PorosityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PorosityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "PorosityMeasurementType",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -50,94 +90,160 @@
       "properties": {
         "EffectivePermeability": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "PermeabilityType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "PermeabilityType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PermeabilityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
               },
-              "additionalProperties": false
-            }
-          ]
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         },
         "RelativePermeability": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "RelativePermeabilityType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "RelativePermeabilityType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PermeabilityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
               },
-              "additionalProperties": false
-            }
-          ]
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         },
         "Saturation": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "SaturationType": {
-                  "type": "string",
-                  "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "additionalProperties": false
-            }
-          ]
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "SaturationType": {
+                "type": "string",
+                "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "SaturationType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         },
         "LastFlowRate": {
           "type": "object",
@@ -147,7 +253,13 @@
             },
             "UnitOfMeasure": {
               "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
             }
           },
           "additionalProperties": false
@@ -160,94 +272,160 @@
       "properties": {
         "EffectivePermeability": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "PermeabilityType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "PermeabilityType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PermeabilityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
               },
-              "additionalProperties": false
-            }
-          ]
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         },
         "RelativePermeability": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "RelativePermeabilityType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "RelativePermeabilityType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PermeabilityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
               },
-              "additionalProperties": false
-            }
-          ]
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         },
         "Saturation": {
           "type": "array",
-          "items": [
-            {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "FluidType": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "WettabilityPhase": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                },
-                "SaturationType": {
-                  "type": "string",
-                  "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+          "items": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
               },
-              "additionalProperties": false
-            }
-          ]
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "FluidType": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "InjectionFluidType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "WettabilityPhase": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "WettabilityPhaseType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "SaturationType": {
+                "type": "string",
+                "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "SaturationType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
         }
       },
       "additionalProperties": false
@@ -260,7 +438,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -273,7 +457,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -287,7 +477,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         },
         "Type": {
           "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
@@ -297,7 +493,13 @@
     },
     "SaturationProcessMethod": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationProcessMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationProcessMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SaturationProcessMethod",
+          "GroupType": "reference-data"
+        }
+      ]
     },
     "InterfacialTension": {
       "type": "object",
@@ -307,7 +509,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -320,7 +528,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -333,7 +547,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -346,7 +566,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -359,7 +585,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -372,7 +604,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -385,7 +623,13 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -398,22 +642,73 @@
         },
         "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
         }
       },
       "additionalProperties": false
     },
     "FluidSystemAnalysisType": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "FluidSystemAnalysisType",
+          "GroupType": "reference-data"
+        }
+      ]
     },
     "PermeabilityTestSteps": {
       "type": "array",
-      "items": [
-        {
-          "type": "object",
-          "properties": {
-            "NetConfiningStress": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "NetConfiningStress": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "DeltaP": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "InjectionRate": {
+            "type": "array",
+            "items": {
               "type": "object",
               "properties": {
                 "Value": {
@@ -421,171 +716,240 @@
                 },
                 "UnitOfMeasure": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-              },
-              "additionalProperties": false
-            },
-            "DeltaP": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
                 },
-                "UnitOfMeasure": {
+                "FluidType": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "InjectionFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "WettabilityPhase": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "WettabilityPhaseType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
                 }
               },
               "additionalProperties": false
-            },
-            "InjectionRate": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "FluidType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "WettabilityPhase": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "CumulativeProduction": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "FluidType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacedFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "WettabilityPhase": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "EffectivePermeability": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "PermeabilityType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "FluidType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "WettabilityPhase": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "RelativePermeability": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "RelativePermeabilityType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "FluidType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "WettabilityPhase": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              ]
-            },
-            "Saturation": {
-              "type": "array",
-              "items": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "FluidType": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "WettabilityPhase": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "SaturationType": {
-                      "type": "string",
-                      "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    }
-                  },
-                  "additionalProperties": false
-                }
-              ]
             }
           },
-          "additionalProperties": false
-        }
-      ]
+          "CumulativeProduction": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "FluidType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacedFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "DisplacedFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "WettabilityPhase": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "WettabilityPhaseType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "EffectivePermeability": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "PermeabilityType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "PermeabilityMeasurementType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "FluidType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "InjectionFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "WettabilityPhase": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "WettabilityPhaseType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "RelativePermeability": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "RelativePermeabilityType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "PermeabilityMeasurementType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "FluidType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "InjectionFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "WettabilityPhase": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "WettabilityPhaseType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "Saturation": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "FluidType": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "InjectionFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "WettabilityPhase": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WettabilityPhaseType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "WettabilityPhaseType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "SaturationType": {
+                  "type": "string",
+                  "Description": "Identifies the area of focus for this saturation measurement, e.g. 'End Face' or 'Average'",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "SaturationType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
     }
   },
   "additionalProperties": false,

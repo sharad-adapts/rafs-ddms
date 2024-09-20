@@ -1,185 +1,285 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "SamplesAnalysisID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "SampleID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "BrineConcentration": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "FormationResistivityFactor": {
-            "type": "number"
-        },
-        "AdjustedFormationResistivityFactor": {
-            "type": "number"
-        },
-        "CementationExponent": {
-            "type": "number"
-        },
-        "AdjustedCementationExponent": {
-            "type": "number"
-        },
-        "SaturationExponent": {
-            "type": "number"
-        },
-        "AdjustedSaturationExponent": {
-            "type": "number"
-        },
-        "BrineSaturation": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "FormationFactorAtNetOverburdenPressure": {
-            "type": "number"
-        },
-        "AdjustedFormationFactorAtNetOverburnedPressure": {
-            "type": "number"
-        },
-        "BrineSalinity": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "NumberOfElectrodes": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data--NumberOfElectrodes:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "QuantityOfOilInTheVolume": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "FluidSystem": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data--FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "DisplacingFluid": {
-            "type": "string",
-            "description": "Fluid introduced to a sample during electrical properties testing, e.g. Mercury",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "DisplacedFluid": {
-            "type": "string",
-            "description": "Fluid produced or displaced from a sample during electrical properties testing, e.g. Brine, Hexane, or LiveCrudeOil",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacedFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "SaturationProcessMethod": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationProcessMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "DesaturationMethod": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DesaturationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "BrineResistivity": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "WaterSaturationOverResistivityIndex": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "Value": {
-                        "type": "number"
-                    }
-                },
-                "additionalProperties": false
-            }
-        },
-        "Temperature": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "NetConfiningStress": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "Frequency": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/ElectricalPropertiesDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ElectricalPropertiesDataSchema",
+  "description": "ElectricalPropertiesDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
         }
+      ]
     },
-    "additionalProperties": false,
-    "required": [
-        "SamplesAnalysisID",
-        "SampleID"
-    ]
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "BrineConcentration": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FormationResistivityFactor": {
+      "type": "number"
+    },
+    "AdjustedFormationResistivityFactor": {
+      "type": "number"
+    },
+    "CementationExponent": {
+      "type": "number"
+    },
+    "AdjustedCementationExponent": {
+      "type": "number"
+    },
+    "SaturationExponent": {
+      "type": "number"
+    },
+    "AdjustedSaturationExponent": {
+      "type": "number"
+    },
+    "BrineSaturation": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FormationFactorAtNetOverburdenPressure": {
+      "type": "number"
+    },
+    "AdjustedFormationFactorAtNetOverburnedPressure": {
+      "type": "number"
+    },
+    "BrineSalinity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "NumberOfElectrodes": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-NumberOfElectrodes:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "NumberOfElectrodes",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "QuantityOfOilInTheVolume": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FluidSystem": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "FluidSystemAnalysisType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "DisplacingFluid": {
+      "type": "string",
+      "description": "Fluid introduced to a sample during electrical properties testing, e.g. Mercury",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "InjectionFluidType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "DisplacedFluid": {
+      "type": "string",
+      "description": "Fluid produced or displaced from a sample during electrical properties testing, e.g. Brine, Hexane, or LiveCrudeOil",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacedFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "DisplacedFluidType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "SaturationProcessMethod": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationProcessMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SaturationProcessMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "DesaturationMethod": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DesaturationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "DesaturationMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "BrineResistivity": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "WaterSaturationOverResistivityIndex": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Value": {
+            "type": "number"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Temperature": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "NetConfiningStress": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Frequency": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
 }

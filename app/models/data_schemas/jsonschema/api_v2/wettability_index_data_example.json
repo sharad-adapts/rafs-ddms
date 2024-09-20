@@ -62,8 +62,8 @@
         "WettabilityIndex": [
             {
                 "Value": 4.67,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:",
-                "WettabilityIndexType": "opendes:reference-data--WettabilityIndexType:AmottWater:"
+                "UnitOfMeasure": "opendes:reference-data\\-\\-UnitOfMeasure:v%2Fv:",
+                "WettabilityIndexType": "opendes:reference-data\\-\\-WettabilityIndexType:AmottWater:"
             },
             {
                 "Value": 3.2,
