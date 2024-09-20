@@ -1,224 +1,308 @@
 {
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/SwellingTestDataSchema.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SwellingTestDataSchema",
+  "description": "SwellingTestDataSchema",
   "type": "object",
   "properties": {
-      "SamplesAnalysisID": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "TestNumber": {
+      "title": "Test Number",
+      "type": "string",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "TestTemperature": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
           "type": "string",
-          "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-      },
-      "SampleID": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-      },
-      "TestNumber": {
-          "title": "Test Number",
-          "type": "string",
-          "description": "A number for this test for purposes of e.g., tracking lab sequence."
-      },
-      "TestTemperature": {
-          "type": "object",
-          "properties": {
-              "Value": {
-                  "type": "number"
-              },
-              "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-              }
-          },
-          "additionalProperties": false
-      },
-      "SaturationPressure": {
-          "type": "object",
-          "properties": {
-              "Value": {
-                  "type": "number"
-              },
-              "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-              }
-          },
-          "additionalProperties": false
-      },
-      "DensityAtSaturationPressure": {
-          "type": "object",
-          "properties": {
-              "Value": {
-                  "type": "number"
-              },
-              "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-              }
-          },
-          "additionalProperties": false
-      },
-      "SwellingTestSteps": {
-          "type": "array",
-          "items": [
-              {
-                  "type": "object",
-                  "properties": {
-                      "StepNumber": {
-                          "type": "string",
-                          "title": "Step Number",
-                          "description": "Internal step number which identifies the sequence of step in swelling measurements"
-                      },
-                      "SaturationPressure": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "GasPhaseType": {
-                          "type": "string",
-                          "description": "Pb/Pd/2-Ph",
-                          "enum": [
-                              "Pb",
-                              "Pd",
-                              "2-Ph"
-                          ]
-                      },
-                      "RelativeVolume": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "Density": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "GasOilRatio": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "CumulativeMethaneToOriginalFluidMolePCT": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "CumulativeMethaneOfTotalFluidMolePCT": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      }
-                  },
-                  "additionalProperties": false
-              }
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
           ]
+        }
       },
-      "InjectionGasProperties": {
-          "type": "array",
-          "items": [
-              {
-                  "type": "object",
-                  "properties": {
-                      "ComponentName": {
-                          "type": "string",
-                          "title": "Component Name"
-                      },
-                      "ComponentFormula": {
-                          "type": "string",
-                          "title": "Component Name"
-                      },
-                      "MoleWeight": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "TargetMolePct": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      },
-                      "AchieveMolePct": {
-                          "type": "object",
-                          "properties": {
-                              "Value": {
-                                  "type": "number"
-                              },
-                              "UnitOfMeasure": {
-                                  "type": "string",
-                                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+"
-                              }
-                          },
-                          "additionalProperties": false
-                      }
-                  },
-                  "additionalProperties": false
-              }
+      "additionalProperties": false
+    },
+    "SaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
           ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "DensityAtSaturationPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SwellingTestSteps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StepNumber": {
+            "type": "string",
+            "title": "Step Number",
+            "description": "Internal step number which identifies the sequence of step in swelling measurements"
+          },
+          "SaturationPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "GasPhaseType": {
+            "type": "string",
+            "description": "Pb/Pd/2-Ph",
+            "enum": [
+              "Pb",
+              "Pd",
+              "2-Ph"
+            ]
+          },
+          "RelativeVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Density": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "GasOilRatio": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "CumulativeMethaneToOriginalFluidMolePCT": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "CumulativeMethaneOfTotalFluidMolePCT": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
       }
+    },
+    "InjectionGasProperties": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ComponentName": {
+            "type": "string",
+            "title": "Component Name"
+          },
+          "ComponentFormula": {
+            "type": "string",
+            "title": "Component Name"
+          },
+          "MoleWeight": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "TargetMolePct": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "AchieveMolePct": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
   },
   "additionalProperties": false,
   "required": [
-      "SamplesAnalysisID",
-      "SampleID"
+    "SamplesAnalysisID",
+    "SampleID"
   ]
 }

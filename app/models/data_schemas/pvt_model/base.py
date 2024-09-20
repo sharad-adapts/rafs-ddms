@@ -15,10 +15,10 @@
 from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import PVTModelRelativePaths
 
-from app.models.data_schemas.pvt_model.eos_content_model import Model as EoSContentModel
-from app.models.data_schemas.pvt_model.mpfm_calibration_model import Model as MPFMCalibrationModel
-from app.models.data_schemas.pvt_model.component_scenario_model import Model as ComponentScenarioModel
-from app.models.data_schemas.pvt_model.black_oil_table_content_model import Model as BlackOilTableModel
+from app.models.data_schemas.pvt_model.eos_content_model import EosContentSchema as EoSContentModel
+from app.models.data_schemas.pvt_model.mpfm_calibration_content_model import MpfmCalibrationContentSchema as MPFMCalibrationModel
+from app.models.data_schemas.pvt_model.component_scenario_content_model import ComponentScenarioContentSchema as ComponentScenarioModel
+from app.models.data_schemas.pvt_model.black_oil_table_content_model import BlackOilTableContentSchema as BlackOilTableModel
 
 EOS_CONTENT_MODELS = {
     ContentSchemaVersion.V_1_0_0: EoSContentModel,

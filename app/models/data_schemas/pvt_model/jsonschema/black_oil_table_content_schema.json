@@ -1,354 +1,490 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "BlackOilTableID": {
-            "type": "string",
-            "description": "Reference to the OSDU BlackOilTable WPC",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-BlackOilTable:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/BlackOilTableContentSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BlackOilTableContentSchema",
+  "description": "BlackOilTableContentSchema",
+  "type": "object",
+  "properties": {
+    "BlackOilTableID": {
+      "type": "string",
+      "description": "Reference to the OSDU BlackOilTable WPC",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-BlackOilTable:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "BlackOilTable",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "UnitSystem": {
+      "type": "string"
+    },
+    "Temperature": {
+      "type": "object",
+      "description": "The value and unit of measure of the temperature of the sample environment",
+      "properties": {
+        "Value": {
+          "type": "number"
         },
-        "UnitSystem": {
-            "type": "string"
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SaturationPressure": {
+      "type": "object",
+      "description": "The pressure at which a fluid within a sample begins to change from a liquid to a gaseous state",
+      "properties": {
+        "Value": {
+          "type": "number"
         },
-        "Temperature": {
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "Salinity": {
+      "type": "object",
+      "description": "Measure of dissolved salts in a sample",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SalinitySource": {
+      "type": "string"
+    },
+    "SeparatorTrain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Temperature": {
             "type": "object",
             "description": "The value and unit of measure of the temperature of the sample environment",
             "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
             },
             "additionalProperties": false
-        },
-        "SaturationPressure": {
+          },
+          "Pressure": {
             "type": "object",
-            "description": "The pressure at which a fluid within a sample begins to change from a liquid to a gaseous state",
+            "description": "The value and unit of measure of the pressure of the sample environment",
             "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
             },
             "additionalProperties": false
+          }
         },
-        "Salinity": {
-            "type": "object",
-            "description": "Measure of dissolved salts in a sample",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "SalinitySource": {
-            "type": "string"
-        },
-        "SeparatorTrain": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "Temperature": {
-                        "type": "object",
-                        "description": "The value and unit of measure of the temperature of the sample environment",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Pressure": {
-                        "type": "object",
-                        "description": "The value and unit of measure of the pressure of the sample environment",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
-        },
-        "Gas": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "SubTableIndex": {
-                        "type": "string",
-                        "description": "Index number for this element of this subtable"
-                    },
-                    "SurfaceDensity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Pressure": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "SolutionGasOilRatio": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "FormationVolumeFactor": {
-                        "type": "object",
-                        "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Viscosity": {
-                        "type": "object",
-                        "description": "A measure of the internal resistance of a fluid to flow against itself",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
-        },
-        "Oil": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "SubTableIndex": {
-                        "type": "string",
-                        "description": "Index number for this element of this subtable"
-                    },
-                    "SurfaceDensity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Pressure": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "SolutionGasOilRatio": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "FormationVolumeFactor": {
-                        "type": "object",
-                        "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Viscosity": {
-                        "type": "object",
-                        "description": "A measure of the internal resistance of a fluid to flow against itself",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
-        },
-        "Water": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "SubTableIndex": {
-                        "type": "string",
-                        "description": "Index number for this element of this subtable"
-                    },
-                    "SurfaceDensity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Pressure": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "FormationVolumeFactor": {
-                        "type": "object",
-                        "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Viscosity": {
-                        "type": "object",
-                        "description": "A measure of the internal resistance of a fluid to flow against itself",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Compressibility": {
-                        "type": "object",
-                        "description": "Volume change of a sample when pressure is applied",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "ViscosityCompressibility": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
-        }
+        "additionalProperties": false
+      }
     },
-    "additionalProperties": false,
-    "required": [
-        "BlackOilTableID"
-    ]
+    "Gas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "SubTableIndex": {
+            "type": "string",
+            "description": "Index number for this element of this subtable"
+          },
+          "SurfaceDensity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Pressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "SolutionGasOilRatio": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "FormationVolumeFactor": {
+            "type": "object",
+            "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Viscosity": {
+            "type": "object",
+            "description": "A measure of the internal resistance of a fluid to flow against itself",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Oil": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "SubTableIndex": {
+            "type": "string",
+            "description": "Index number for this element of this subtable"
+          },
+          "SurfaceDensity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Pressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "SolutionGasOilRatio": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "FormationVolumeFactor": {
+            "type": "object",
+            "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Viscosity": {
+            "type": "object",
+            "description": "A measure of the internal resistance of a fluid to flow against itself",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Water": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "SubTableIndex": {
+            "type": "string",
+            "description": "Index number for this element of this subtable"
+          },
+          "SurfaceDensity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Pressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "FormationVolumeFactor": {
+            "type": "object",
+            "description": "Ratio of the volume of gas at reservoir conditions of temperature and pressure to the volume at surface conditions",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Viscosity": {
+            "type": "object",
+            "description": "A measure of the internal resistance of a fluid to flow against itself",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Compressibility": {
+            "type": "object",
+            "description": "Volume change of a sample when pressure is applied",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "ViscosityCompressibility": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "BlackOilTableID"
+  ]
 }

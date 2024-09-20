@@ -1,217 +1,316 @@
 {
-    "$id": "RoutineCoreAnalysis.json",
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "definitions": {
-        "Conditions": {
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/RcaDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "RcaDataSchema",
+  "description": "RcaDataSchema",
+  "type": "object",
+  "definitions": {
+    "Conditions": {
+      "type": "object",
+      "properties": {
+        "Pressure": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            },
+            "Type": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          },
+          "additionalProperties": false
+        },
+        "Temperature": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "TestSteps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "NetConfiningStress": {
             "type": "object",
             "properties": {
-                "Pressure": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PressureMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Temperature": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                }
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
             },
             "additionalProperties": false
-        }
-    },
-    "properties": {
-        "SamplesAnalysisID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "SampleID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "TestSteps": {
+          },
+          "Permeability": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Type": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PermeabilityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Orientation": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrientationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "SampleOrientationType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Conditions": {
+                "$ref": "#/definitions/Conditions"
+              }
+            },
+            "additionalProperties": false
+          },
+          "Porosity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Type": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PorosityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "PorosityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Orientation": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrientationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "SampleOrientationType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Conditions": {
+                "$ref": "#/definitions/Conditions"
+              }
+            },
+            "additionalProperties": false
+          },
+          "GrainDensity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Type": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GrainDensityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "GrainDensityMeasurementType",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Conditions": {
+                "$ref": "#/definitions/Conditions"
+              }
+            },
+            "additionalProperties": false
+          },
+          "GrainVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Conditions": {
+                "$ref": "#/definitions/Conditions"
+              }
+            },
+            "additionalProperties": false
+          },
+          "PoreVolume": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "Conditions": {
+                "$ref": "#/definitions/Conditions"
+              }
+            },
+            "additionalProperties": false
+          },
+          "Saturation": {
             "type": "array",
             "items": {
-                "type": "object",
-                "properties": {
-                    "NetConfiningStress": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Permeability": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Type": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Orientation": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrientationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Porosity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Type": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PorosityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Orientation": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrientationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "GrainDensity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Type": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GrainDensityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "GrainVolume": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "PoreVolume": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "Conditions": {
-                                "$ref": "#/definitions/Conditions"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Saturation": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                },
-                                "Type": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                },
-                                "Method": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationMethodType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                },
-                                "Conditions": {
-                                    "$ref": "#/definitions/Conditions"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "LithologyDescription": {
-                        "type": "string"
-                    },
-                    "Remarks": {
-                        "type": "string"
-                    },
-                    "SampleTestRunType": {
-                        "type": "string",
-                        "description": "A qualifier used to distinguish the different RCA runs. Used in conjunction with RCA runs pre and post SCAL analysis to QC the rock sample"
-                    }
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
                 },
-                "additionalProperties": false
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Type": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "SaturationFluidType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Method": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationMethodType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "SaturationMethodType",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Conditions": {
+                  "$ref": "#/definitions/Conditions"
+                }
+              },
+              "additionalProperties": false
             }
-        }
-    },
-    "additionalProperties": false,
-    "required": [
-        "SamplesAnalysisID",
-        "SampleID"
-    ]
+          },
+          "LithologyDescription": {
+            "type": "string"
+          },
+          "Remarks": {
+            "type": "string"
+          },
+          "SampleTestRunType": {
+            "type": "string",
+            "description": "A qualifier used to distinguish the different RCA runs. Used in conjunction with RCA runs pre and post SCAL analysis to QC the rock sample"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
 }

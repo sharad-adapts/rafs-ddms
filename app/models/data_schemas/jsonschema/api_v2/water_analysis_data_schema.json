@@ -1,653 +1,949 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "SamplesAnalysisID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/WaterAnalysisDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "WaterAnalysisDataSchema",
+  "description": "WaterAnalysisDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "TestNumber": {
+      "title": "Test Number",
+      "type": "string",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "Method": {
+      "title": "Method",
+      "type": "string",
+      "description": "The sample analysis method used for this analysis"
+    },
+    "Remark": {
+      "title": "Remark",
+      "type": "string"
+    },
+    "WaterGeneralAnalysis": {
+      "type": "object",
+      "properties": {
+        "AnalysisPressure": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         },
-        "SampleID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
+        "DissolvedCO2": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         },
-        "TestNumber": {
-            "title": "Test Number",
-            "type": "string",
-            "description": "A number for this test for purposes of e.g., tracking lab sequence."
+        "DissolvedH2S": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         },
-        "Method": {
-            "title": "Method",
-            "type": "string",
-            "description": "The sample analysis method used for this analysis"
+        "DissolvedO2": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
         },
-        "Remark": {
-            "title": "Remark",
-            "type": "string"
+        "Resistivity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Method": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidResistivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "FluidResistivityMeasurementMethod",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Temperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
         },
-        "WaterGeneralAnalysis": {
+        "Turbidity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Viscosity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "SolutionGasWaterRatio": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterViscousCompressibility": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterDensity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Temperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterSpecificHeat": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterFormationVolumeFactor": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterHeatCapacity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterIsothermalCompressibility": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterThermalConductivity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterThermalExpansion": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterEnthalpy": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterEntropy": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WaterSpecificVolume": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Salinity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Temperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "TotalDissolvedSolids": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "TotalSuspendedSolids": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "TotalHardness": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "TotalAlkalinity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "TotalSedimentSolids": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Type": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "pH": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "Method": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PHMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "PHMeasurementMethod",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Temperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "Conductivity": {
+          "type": "object",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Method": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConductivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "ConductivityMeasurementMethod",
+                  "GroupType": "reference-data"
+                }
+              ]
+            },
+            "Temperature": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "WaterSampleComponent": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Anions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ComponentName": {
+                  "type": "string"
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Method": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "ElementalMeasurementMethod",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "Cations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ComponentName": {
+                  "type": "string"
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Method": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "ElementalMeasurementMethod",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "DissolvedMetals": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ComponentName": {
+                  "type": "string"
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Method": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "ElementalMeasurementMethod",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "OrganicAcids": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ComponentName": {
+                  "type": "string"
+                },
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "Method": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "ElementalMeasurementMethod",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "IonDifference": {
             "type": "object",
             "properties": {
-                "AnalysisPressure": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "DissolvedCO2": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "DissolvedH2S": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "DissolvedO2": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Resistivity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Method": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidResistivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Temperature": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Turbidity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Viscosity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "SolutionGasWaterRatio": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterViscousCompressibility": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterDensity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Temperature": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterSpecificHeat": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterFormationVolumeFactor": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterHeatCapacity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterIsothermalCompressibility": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterThermalConductivity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterThermalExpansion": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterEnthalpy": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterEntropy": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "WaterSpecificVolume": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Salinity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Temperature": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "TotalDissolvedSolids": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "TotalSuspendedSolids": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "TotalHardness": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "TotalAlkalinity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "TotalSedimentSolids": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Type": {
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "pH": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "Method": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PHMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Temperature": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                },
-                "Conductivity": {
-                    "type": "object",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Method": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConductivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        },
-                        "Temperature": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        }
-                    },
-                    "additionalProperties": false
-                }
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
             },
             "additionalProperties": false
+          },
+          "MolarConcentration": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "VolumeConcentration": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "MassConcentration": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "EquivalentConcentration": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "ConcentrationRelativeToDetectableLimits": {
+            "type": "string"
+          },
+          "Remark": {
+            "title": "Remark",
+            "type": "string"
+          }
         },
-        "WaterSampleComponent": {
-            "type": "array",
-            "items": [
-                {
-                    "type": "object",
-                    "properties": {
-                        "Anions": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "ComponentName": {
-                                        "type": "string"
-                                    },
-                                    "Value": {
-                                        "type": "number"
-                                    },
-                                    "UnitOfMeasure": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    },
-                                    "Method": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    }
-                                },
-                                "additionalProperties": false
-                            }
-                        },
-                        "Cations": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "ComponentName": {
-                                        "type": "string"
-                                    },
-                                    "Value": {
-                                        "type": "number"
-                                    },
-                                    "UnitOfMeasure": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    },
-                                    "Method": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    }
-                                },
-                                "additionalProperties": false
-                            }
-                        },
-                        "DissolvedMetals": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "ComponentName": {
-                                        "type": "string"
-                                    },
-                                    "Value": {
-                                        "type": "number"
-                                    },
-                                    "UnitOfMeasure": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    },
-                                    "Method": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    }
-                                },
-                                "additionalProperties": false
-                            }
-                        },
-                        "OrganicAcids": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "ComponentName": {
-                                        "type": "string"
-                                    },
-                                    "Value": {
-                                        "type": "number"
-                                    },
-                                    "UnitOfMeasure": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    },
-                                    "Method": {
-                                        "type": "string",
-                                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                    }
-                                },
-                                "additionalProperties": false
-                            }
-                        },
-                        "IonDifference": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        },
-                        "MolarConcentration": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        },
-                        "VolumeConcentration": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        },
-                        "MassConcentration": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        },
-                        "EquivalentConcentration": {
-                            "type": "object",
-                            "properties": {
-                                "Value": {
-                                    "type": "number"
-                                },
-                                "UnitOfMeasure": {
-                                    "type": "string",
-                                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                                }
-                            },
-                            "additionalProperties": false
-                        },
-                        "ConcentrationRelativeToDetectableLimits": {
-                            "type": "string"
-                        },
-                        "Remark": {
-                            "title": "Remark",
-                            "type": "string"
-                        }
-                    },
-                    "additionalProperties": false
-                }
-            ]
-        }
-    },
-    "additionalProperties": false,
-    "required": [
-        "SamplesAnalysisID",
-        "SampleID"
-    ]
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
 }

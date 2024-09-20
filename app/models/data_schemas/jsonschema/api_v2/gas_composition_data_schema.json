@@ -1,185 +1,293 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "SamplesAnalysisID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "SampleID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "Method": {
-            "type": "string",
-            "description": "The sample analysis method used for this analysis",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "GasComposition": {
-            "title": "Gas Composition",
-            "description": "The relative abundance of hydrocarbon gases measured using gas chromatography",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "Component": {
-                        "type": "string",
-                        "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GasCompositionComponents:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                    },
-                    "Concentration": {
-                        "type": "object",
-                        "description": "the concentration of the gas component in the overall hydrocarbon gas composition",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "Ratios": {
-            "type": "object",
-            "properties": {
-                "WetnessC5": {
-                    "type": "object",
-                    "description": "Gas Wetness (C2-C5) / (C1-C5)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "WetnessC4": {
-                    "type": "object",
-                    "description": "Gas Wetness (C2-C4) / (C1-C4)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "DrynessC5": {
-                    "type": "object",
-                    "description": "Gas Dryness ratio (C1) / (C1-C5)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "DrynessC4": {
-                    "type": "object",
-                    "description": "Gas Dryness ratio (C1) / (C1-C4)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "Maturity": {
-                    "type": "object",
-                    "description": "Gas Maturity ratio iso-butane / normal-pentane",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "Balance": {
-                    "type": "object",
-                    "description": "Balance ratio C1+C2/C3+C4+C5",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "Character": {
-                    "type": "object",
-                    "description": "Character ratio C4+C5/C3",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "GasIndicator": {
-                    "type": "object",
-                    "description": "Gas Indicator ratio ((C3+C4+C5) * Total Gas) / (C1+C2+C3+C4+C5)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "OilIndicator": {
-                    "type": "object",
-                    "description": "Oil Indicator ratio ((C3+C4)/C1)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                },
-                "Bernard": {
-                    "type": "object",
-                    "description": "Bernard ratio - Methane / Ethane + Propane (%)",
-                    "properties": {
-                        "Value": {
-                            "type": "number"
-                        },
-                        "UnitOfMeasure": {
-                            "type": "string",
-                            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                        }
-                    }
-                }
-            }
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/GasCompositionDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GasCompositionDataSchema",
+  "description": "GasCompositionDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
         }
+      ]
     },
-    "required": [
-        "SamplesAnalysisID",
-        "SampleID"
-    ]
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "Method": {
+      "type": "string",
+      "description": "The sample analysis method used for this analysis",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "BulkPyrolysisMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "GasComposition": {
+      "title": "Gas Composition",
+      "description": "The relative abundance of hydrocarbon gases measured using gas chromatography",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Component": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GasCompositionComponents:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "EntityType": "GasCompositionComponents",
+                "GroupType": "reference-data"
+              }
+            ]
+          },
+          "Concentration": {
+            "type": "object",
+            "description": "the concentration of the gas component in the overall hydrocarbon gas composition",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Ratios": {
+      "type": "object",
+      "properties": {
+        "WetnessC5": {
+          "type": "object",
+          "description": "Gas Wetness (C2-C5) / (C1-C5)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "WetnessC4": {
+          "type": "object",
+          "description": "Gas Wetness (C2-C4) / (C1-C4)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "DrynessC5": {
+          "type": "object",
+          "description": "Gas Dryness ratio (C1) / (C1-C5)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "DrynessC4": {
+          "type": "object",
+          "description": "Gas Dryness ratio (C1) / (C1-C4)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Maturity": {
+          "type": "object",
+          "description": "Gas Maturity ratio iso-butane / normal-pentane",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Balance": {
+          "type": "object",
+          "description": "Balance ratio C1+C2/C3+C4+C5",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Character": {
+          "type": "object",
+          "description": "Character ratio C4+C5/C3",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "GasIndicator": {
+          "type": "object",
+          "description": "Gas Indicator ratio ((C3+C4+C5) * Total Gas) / (C1+C2+C3+C4+C5)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "OilIndicator": {
+          "type": "object",
+          "description": "Oil Indicator ratio ((C3+C4)/C1)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "Bernard": {
+          "type": "object",
+          "description": "Bernard ratio - Methane / Ethane + Propane (%)",
+          "properties": {
+            "Value": {
+              "type": "number"
+            },
+            "UnitOfMeasure": {
+              "type": "string",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "EntityType": "UnitOfMeasure",
+                  "GroupType": "reference-data"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "additionalProperties": false
 }

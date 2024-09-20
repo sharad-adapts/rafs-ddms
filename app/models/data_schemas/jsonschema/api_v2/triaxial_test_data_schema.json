@@ -1,462 +1,682 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "type": "object",
-    "properties": {
-        "SamplesAnalysisID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "SampleID": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "BulkDensityAsReceived": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "TestPorePressure": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "TestConfiningPressure": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "FluidSaturant": {
-            "type": "string",
-            "pattern": "^[\\w\\-\\.]+:reference-data--FluidSaturantType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "IRSCPorePressure": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "IRSCMeanEffectiveStress": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "IRSCDifferentialStress": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "MassAsReceived": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "SaturatedMass": {
-            "type": "object",
-            "properties": {
-                "Value": {
-                    "type": "number"
-                },
-                "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                }
-            },
-            "additionalProperties": false
-        },
-        "CutFluid": {
-            "type": "string",
-            "description": "Cutting Fluid used when preparing this sample for testing",
-            "pattern": "^[\\w\\-\\.]+:reference-data--CutFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "LoadingCondition": {
-            "title": "Loading Condition",
-            "type": "string"
-        },
-        "ConsolidationType": {
-            "type": "string",
-            "description": "Consolidation Type, e.g. Isotropic",
-            "pattern": "^[\\w\\-\\.]+:reference-data--ConsolidationType:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "DrainageCondition": {
-            "type": "string",
-            "description": "Categorization of drainage of the sample, e.g. Drained",
-            "pattern": "^[\\w\\-\\.]+:reference-data--DrainageCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "LoadingMethod": {
-            "type": "string",
-            "description": "Method by which stress is applied, or loaded, onto the sample",
-            "pattern": "^[\\w\\-\\.]+:reference-data--LoadingMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-        },
-        "TestSteps": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "Time": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "PorePressure": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "ConfiningPressure": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "AxialStrain": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "RadialStrain": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "AxialStress": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "DifferentialStress": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "AxialPWaveVelocity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "AxialSWaveVelocity": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
-        },
-        "Interpretation": {
-            "type": "array",
-            "description": "Typically Interpretation will only have one record, though in cases where a sample is tested across multiple fracture stages, it will have more than one",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "StageNumber": {
-                        "type": "object",
-                        "description": "In multifrac stage tests, this identifies each fracture stage.",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "PlugOrientationToBeddingPlaneNormal": {
-                        "type": "object",
-                        "description": "Angle in degrees of plug orientation to bedding plane normal",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "PeakCompressiveStrength": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "EffectiveCompressiveStrength": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "YoungsModulus": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            },
-                            "LoadingStage": {
-                                "type": "string",
-                                "description": "Loading or Unloading stage",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "PoissonsRatio": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "LoadingStage": {
-                                "type": "string",
-                                "description": "Loading or Unloading stage",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "UnconfinedCompressiveStrength": {
-                        "type": "object",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "InferredUnconfinedCompressiveStrength": {
-                        "type": "object",
-                        "description": "Mohr-Coulomb Failure Analysis Unconfined Compressive Strength",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Cohesion": {
-                        "type": "object",
-                        "description": "Mohr-Coulomb Failure Analysis Cohesion",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "InternalFrictionCoefficient": {
-                        "type": "object",
-                        "description": "Mohr-Coulomb Failure Analysis Internal Friction Coefficient",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "InternalFrictionAngle": {
-                        "type": "object",
-                        "description": "Mohr-Coulomb Failure Analysis Internal Friction Angle",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Alpha": {
-                        "type": "object",
-                        "description": "Drucker-Prager Failure Analysis Alpha",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            },
-                            "UnitOfMeasure": {
-                                "type": "string",
-                                "pattern": "^[\\w\\-\\.]+:reference-data--UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$"
-                            }
-                        },
-                        "additionalProperties": false
-                    },
-                    "Beta": {
-                        "type": "object",
-                        "description": "Drucker-Prager Failure Analysis Beta",
-                        "properties": {
-                            "Value": {
-                                "type": "number"
-                            }
-                        },
-                        "additionalProperties": false
-                    }
-                },
-                "additionalProperties": false
-            }
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/TriaxialTestDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TriaxialTestDataSchema",
+  "description": "TriaxialTestDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
         }
+      ]
     },
-    "additionalProperties": false,
-    "required": [
-        "SamplesAnalysisID",
-        "SampleID"
-    ]
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "BulkDensityAsReceived": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TestPorePressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TestConfiningPressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FluidSaturant": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSaturantType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "FluidSaturantType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "IRSCPorePressure": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "IRSCMeanEffectiveStress": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "IRSCDifferentialStress": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MassAsReceived": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "SaturatedMass": {
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "CutFluid": {
+      "type": "string",
+      "description": "Cutting Fluid used when preparing this sample for testing",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CutFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "CutFluidType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "LoadingCondition": {
+      "title": "Loading Condition",
+      "type": "string"
+    },
+    "ConsolidationType": {
+      "type": "string",
+      "description": "Consolidation Type, e.g. Isotropic",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConsolidationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "ConsolidationType",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "DrainageCondition": {
+      "type": "string",
+      "description": "Categorization of drainage of the sample, e.g. Drained",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DrainageCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "DrainageCondition",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "LoadingMethod": {
+      "type": "string",
+      "description": "Method by which stress is applied, or loaded, onto the sample",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "LoadingMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "TestSteps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Time": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "PorePressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "ConfiningPressure": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "AxialStrain": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "RadialStrain": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "AxialStress": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "DifferentialStress": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "AxialPWaveVelocity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "AxialSWaveVelocity": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Interpretation": {
+      "type": "array",
+      "description": "Typically Interpretation will only have one record, though in cases where a sample is tested across multiple fracture stages, it will have more than one",
+      "items": {
+        "type": "object",
+        "properties": {
+          "StageNumber": {
+            "type": "object",
+            "description": "In multifrac stage tests, this identifies each fracture stage.",
+            "properties": {
+              "Value": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          },
+          "PlugOrientationToBeddingPlaneNormal": {
+            "type": "object",
+            "description": "Angle in degrees of plug orientation to bedding plane normal",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "PeakCompressiveStrength": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "EffectiveCompressiveStrength": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "YoungsModulus": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              },
+              "LoadingStage": {
+                "type": "string",
+                "description": "Loading or Unloading stage",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "LoadingStage",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "PoissonsRatio": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "LoadingStage": {
+                "type": "string",
+                "description": "Loading or Unloading stage",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "LoadingStage",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "UnconfinedCompressiveStrength": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "InferredUnconfinedCompressiveStrength": {
+            "type": "object",
+            "description": "Mohr-Coulomb Failure Analysis Unconfined Compressive Strength",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Cohesion": {
+            "type": "object",
+            "description": "Mohr-Coulomb Failure Analysis Cohesion",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "InternalFrictionCoefficient": {
+            "type": "object",
+            "description": "Mohr-Coulomb Failure Analysis Internal Friction Coefficient",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "InternalFrictionAngle": {
+            "type": "object",
+            "description": "Mohr-Coulomb Failure Analysis Internal Friction Angle",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Alpha": {
+            "type": "object",
+            "description": "Drucker-Prager Failure Analysis Alpha",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "Beta": {
+            "type": "object",
+            "description": "Drucker-Prager Failure Analysis Beta",
+            "properties": {
+              "Value": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
 }
