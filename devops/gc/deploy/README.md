@@ -29,6 +29,7 @@ Use any code editor to set variables in the **values.yaml** file. Some of the va
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
+
 **global.domain** | your domain for an external endpoint, ex `example.com` | string | `-` | yes
 **global.onPremEnabled** | whether on-prem is enabled | boolean | `false` | yes
 **global.limitsEnabled** | whether CPU and memory limits are enabled | boolean | `true` | yes
@@ -37,6 +38,7 @@ Use any code editor to set variables in the **values.yaml** file. Some of the va
 
 | Name | Description | Type | Default |Required |
 |------|-------------|------|---------|---------|
+
 **data.cloudProvider** | Cloud Provider | string | `gc` | yes
 **data.openapiPrefix** | OpenAPI prefix | string | `/api/rafs-ddms` | yes
 **data.storageHost** | Storage service host address | string | `http://storage` | yes
