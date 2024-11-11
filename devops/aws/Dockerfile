@@ -37,6 +37,8 @@ RUN /app/venv/bin/python3 -m pip install --upgrade pip \
 COPY ./app /app/
 WORKDIR /app
 
+RUN cp -v /app/venv/bin/uvicorn .
+
 FROM ${amazonlinux_image}
 ARG python_version
 
@@ -47,6 +49,7 @@ RUN dnf update python-setuptools --releasever 2023.5.20240805
 RUN groupadd --system appusers && useradd --system appuser && usermod -a -G appusers appuser
 
 COPY --from=build-env --chown=appuser:appusers /app /app/
+COPY --from=build-env --chown=appuser:appusers /app/ /app/app
 
 WORKDIR /app
 ENV VIRTUAL_ENV /app/venv/
@@ -63,7 +66,7 @@ ENV COMMIT_BRANCH $commit_branch
 ENV COMMIT_MESSAGE=$commit_message
 ENV RELEASE_VERSION=$release_version
 
-RUN python3.11 -m pip install setuptools==70.0.0 --upgrade
+RUN /app/app/venv/bin/python3 -m pip install setuptools==70.0.0 --upgrade
 
 WORKDIR /app
 EXPOSE 8080
