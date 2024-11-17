@@ -75,21 +75,6 @@ gc-test-python:
   # FIXME: should be deleted after int tests are configured correctly for GC implementation
   allow_failure: true
 
-gc-baremetal-deploy:
-  rules:
-    - exists:
-        - never/existing/file.txt
-
-gc-baremetal-osdutest:
-  rules:
-    - exists:
-        - never/existing/file.txt
-
-gc-baremetal-test-python:
-  rules:
-    - exists:
-        - never/existing/file.txt
-
 gc-dev2-osdutest:
   rules:
     - exists:
