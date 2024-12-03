@@ -88,7 +88,7 @@ repos:
           wemake_python_styleguide==0.17.0,
         ]
         args: [--config=setup.cfg]
-        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)"
+        exclude: "(app/models/domain)|(app/models/data_schemas)|(devops/aws)|(scripts)"
 
   - repo: https://github.com/PyCQA/pylint
     rev: v3.0.3
