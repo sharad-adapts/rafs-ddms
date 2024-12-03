@@ -1,208 +1,247 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "DesaturationMethod",
-        "TestTemperature",
-        "Porosity",
-        "InitialConditions",
-        "TerminalConditions",
-        "RelativePermeabilityCrossover",
-        "EndFaceSaturationCrossover",
-        "ReferencePermeability",
-        "SaturationProcessMethod",
-        "InterfacialTension",
-        "BrineSalinity",
-        "OilViscosity",
-        "GasViscosity",
-        "WaterViscosity",
-        "OilDensity",
-        "GasDensity",
-        "WaterDensity",
-        "FluidSystemAnalysisType",
-        "PermeabilityTestSteps"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:dd76cf6c-226f-5636-ad1b-1ca0f8249cc8:",
-            "opendes:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249cc10:",
-            "opendes:reference-data--DesaturationMethod:CentrifugeGasWater:",
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "DesaturationMethodID",
+    "InitialConditions",
+    "TerminalConditions",
+    "RelativePermeabilityCrossover",
+    "EndFaceSaturationCrossover",
+    "ReferencePermeability",
+    "InterfacialTension",
+    "BrineSalinity",
+    "OilViscosity",
+    "GasViscosity",
+    "WaterViscosity",
+    "OilDensity",
+    "GasDensity",
+    "WaterDensity",
+    "OilTypeID",
+    "GasTypeID",
+    "EndTime",
+    "PermeabilityTestSteps"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:RelPermWPC_110:",
+      "opendes:master-data--Sample:Sample_200:",
+      "opendes:reference-data--DesaturationMethod:PorousPlateUnspecified:",
+      {
+        "TestTemperature":130,
+        "NetConfiningStress":207,
+        "OverburdenPressure":509,
+        "PorePressure":302,
+        "FlowDirection":"Vertical from Top (reference data)",
+        "EffectivePermeability":null,
+        "RelativePermeability":null,
+        "Saturation":{
+          "Value":1.51,
+          "FluidTypeID":null,
+          "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+        },
+        "LastFlowRate":0
+      },
+      {
+        "EffectivePermeability":{
+          "PermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Gas:",
+          "Value":29.78,
+          "FluidTypeID":null
+        },
+        "RelativePermeability":{
+          "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Gas:",
+          "Value":0.682,
+          "FluidTypeID":null
+        },
+        "Saturation":{
+          "Value":0.132,
+          "FluidTypeID":null,
+          "SaturationTypeID":"opendes:reference-data--SaturationType:EndFace:"
+        }
+      },
+      0,
+      0,
+      [
+        {
+          "Value":43.7,
+          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+        },
+        {
+          "Value":38.5,
+          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+        },
+        {
+          "Value":33.5,
+          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+        },
+        {
+          "Value":1.133,
+          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+        },
+        {
+          "Value":0.87,
+          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+        }
+      ],
+      null,
+      null,
+      0.246,
+      0.033,
+      null,
+      0.6,
+      0.287,
+      null,
+      "opendes:reference-data--DisplacedFluidType:LiveCrudeOil:",
+      "opendes:reference-data--InjectionFluidType:GasUnspecified:",
+      8968,
+      [
+        {
+          "StartTime":"0",
+          "InjectionRate":[
             {
-                "Value": 68,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
+              "Value":0,
+              "FluidTypeID":"opendes:reference-data--SampleInjectionFluidType:Oil:"
             },
             {
-                "Value": 0.108,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                "PorosityType": "opendes:reference-data--PorosityMeasurementType:BrineSaturation:"
+              "Value":0,
+              "FluidTypeID":"opendes:reference-data--SampleInjectionFluidType:Gas:"
+            }
+          ],
+          "FractionalFlowRate":0,
+          "DifferentialPressure":0,
+          "CumulativeProduction":{
+            "Value":0,
+            "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
+          },
+          "EffectivePermeability":null,
+          "Saturation":{
+            "Value":0,
+            "FluidTypeID":null,
+            "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+          },
+          "RelativePermeability":[
+            {
+              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
+              "Value":1,
+              "FluidTypeID":null
             },
             {
-                "EffectivePermeability": [
-                    {
-                        "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Gas:",
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                    }
-                ],
-                "RelativePermeability": [
-                    {
-                        "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:",
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                    }
-                ],
-                "Saturation": [
-                    {
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
-                        "SaturationType": "opendes:reference-data--SaturationType:Average:"
-                    }
-                ],
-                "LastFlowRate": {
-                    "Value": 123,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
-                }
+              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
+              "Value":0,
+              "FluidTypeID":null
+            }
+          ],
+          "InSituSaturationProfiles":null,
+          "DifferentialPressureProfiles":null,
+          "ProductionProfiles":null
+        },
+        {
+          "StartTime":"8346",
+          "InjectionRate":[
+            {
+              "Value":0,
+              "FluidTypeID":"opendes:reference-data--SampleInjectionFluidType:Oil:"
             },
             {
-                "EffectivePermeability": [
-                    {
-                        "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Water:",
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                    }
-                ],
-                "RelativePermeability": [
-                    {
-                        "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:",
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                    }
-                ],
-                "Saturation": [
-                    {
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                        "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
-                        "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
-                        "SaturationType": "opendes:reference-data--SaturationType:Average:"
-                    }
-                ]
+              "Value":6,
+              "FluidTypeID":"opendes:reference-data--SampleInjectionFluidType:Gas:"
+            }
+          ],
+          "FractionalFlowRate":1,
+          "DifferentialPressure":126,
+          "CumulativeProduction":{
+            "Value":15.8,
+            "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
+          },
+          "EffectivePermeability":null,
+          "Saturation":{
+            "Value":0.717,
+            "FluidTypeID":null,
+            "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+          },
+          "RelativePermeability":[
+            {
+              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
+              "Value":0,
+              "FluidTypeID":null
             },
             {
-                "Value": 123,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
+              "Value":0.682,
+              "FluidTypeID":null
+            }
+          ],
+          "InSituSaturationProfiles":null,
+          "DifferentialPressureProfiles":[
+            {
+              "Time":8350.00075,
+              "DifferentialPressure":141.0350206813
             },
             {
-                "Value": 123,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+              "Time":8540.05075,
+              "DifferentialPressure":131.3504052967
             },
             {
-                "Value": 123,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
-                "Type": "opendes:reference-data--PermeabilityMeasurementType:UnsteadyState:"
-            },
-            "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
-            {
-                "Value": 123,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+              "Time":8545.05075,
+              "DifferentialPressure":131.0350206813
             },
             {
-                "Value": 123,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
+              "Time":8550.05075,
+              "DifferentialPressure":130.842712989
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8555.05075,
+              "DifferentialPressure":130.442712989
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8560.05075,
+              "DifferentialPressure":130.2350206813
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8565.05075,
+              "DifferentialPressure":129.8157899121
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8965.14075,
+              "DifferentialPressure":130.2542514506
+            }
+          ],
+          "ProductionProfiles":[
+            {
+              "Time":8355.01075,
+              "ProductionRate":15.4715969792,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8360.01075,
+              "ProductionRate":15.4715969792,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
             },
             {
-                "Value": 2500,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+              "Time":8365.01075,
+              "ProductionRate":15.4715969792,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
             },
-            "opendes:reference-data--FluidSystemAnalysisType:SolubleCuttingOil:",
-            [
-                {
-                    "NetConfiningStress": {
-                        "Value": 2500,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "DeltaP": {
-                        "Value": 2500,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "InjectionRate": [
-                        {
-                            "Value": 123,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
-                            "FluidType": "opendes:reference-data--InjectionFluidType:Nitrogen:",
-                            "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:NonwettingTotalHydrocarbon:"
-                        }
-                    ],
-                    "CumulativeProduction": [
-                        {
-                            "Value": 123,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:",
-                            "FluidType": "opendes:reference-data--DisplacedFluidType:Nitrogen:",
-                            "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:NonwettingTotalHydrocarbon:"
-                        }
-                    ],
-                    "EffectivePermeability": [
-                        {
-                            "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Gas:",
-                            "Value": 123,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-                            "FluidType": "opendes:reference-data--InjectionFluidType:Gas:",
-                            "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                        }
-                    ],
-                    "RelativePermeability": [
-                        {
-                            "RelativePermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Water:",
-                            "Value": 123,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                            "FluidType": "opendes:reference-data--InjectionFluidType:Water:",
-                            "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:"
-                        }
-                    ],
-                    "Saturation": [
-                        {
-                            "Value": 123,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                            "FluidType": "opendes:reference-data--InjectionFluidType:Liquid:",
-                            "WettabilityPhase": "opendes:reference-data--WettabilityPhaseType:Wetting:",
-                            "SaturationType": "opendes:reference-data--SaturationType:Average:"
-                        }
-                    ]
-                }
-            ]
-        ]
+            {
+              "Time":8370.01075,
+              "ProductionRate":15.4715969792,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
+            },
+            {
+              "Time":8645.07075,
+              "ProductionRate":15.5391187407,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
+            },
+            {
+              "Time":8965.14075,
+              "ProductionRate":15.6533687771,
+              "FluidTypeID":"opendes:reference-data--DisplacedFluidType:Air:"
+            }
+          ]
+        }
+      ]
     ]
+  ]
 }

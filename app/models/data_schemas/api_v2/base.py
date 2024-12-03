@@ -29,7 +29,7 @@ from app.models.data_schemas.api_v2.mcm_data_model import McmDataSchema as MCMMo
 from app.models.data_schemas.api_v2.slimtube_data_model import SlimtubeDataSchema as SlimtubeModel
 from app.models.data_schemas.api_v2.extraction_data_model import ExtractionDataSchema as ExtractionModel
 from app.models.data_schemas.api_v2.fractionation_data_model import FractionationDataSchema as FractionationModel
-from app.models.data_schemas.api_v2.relative_permeability_data_model import RelativePermeabilityDataSchema as RelativePermeabilityModel
+from app.models.data_schemas.api_v2.relative_permeability_data_model_1_0_0 import RelativePermeabilityModel100
 from app.models.data_schemas.api_v2.rock_compressibility_data_model import RockCompressibilityDataSchema as RockCompressibilityModel
 from app.models.data_schemas.api_v2.electrical_properties_data_model import ElectricalPropertiesDataSchema as ElectricalPropertiesModel
 from app.models.data_schemas.api_v2.nmr_data_model import NmrDataSchema as NMRModel
@@ -105,7 +105,7 @@ FRACTIONATION_MODELS = {
     ContentSchemaVersion.V_1_0_0: FractionationModel,
 }
 RELATIVE_PERMEABILITY_MODELS = {
-    ContentSchemaVersion.V_1_0_0: RelativePermeabilityModel,
+    ContentSchemaVersion.V_1_0_0: RelativePermeabilityModel100,
 }
 ROCK_COMPRESSIBILITY_MODELS = {
     ContentSchemaVersion.V_1_0_0: RockCompressibilityModel,
