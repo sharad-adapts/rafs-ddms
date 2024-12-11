@@ -1,92 +1,67 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "TestNumber",
-        "TestTemperature",
-        "SaturationPressure",
-        "ReservoirPressure",
-        "ConstantCompositionExpansionTestSteps"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:CCE_SamplesAnalysis:",
-            "opendes:master-data--Sample:fluid_sample_test:",
-            "A",
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "TestNumber",
+    "TestTemperature",
+    "SaturationPressure",
+    "ReservoirPressure",
+    "TestSteps"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+      "opendes:master-data--Sample:Example_Sample:",
+      1,
+      1.23,
+      1.23,
+      1.23,
+      [
+        {
+          "StepNumber":1,
+          "StepPressure":1.23,
+          "LiquidVolumeRelativeToSaturationPressureVolume":1.23,
+          "OilDensity":1.23,
+          "OilCompressibility":1.23,
+          "OilViscosity":1.23,
+          "TotalVolume":1.23,
+          "RelativeVolumeRatio":1.23,
+          "GasDensity":1.23,
+          "GasZFactor":1.23,
+          "GasCompressibility":1.23,
+          "GasViscosity":1.23,
+          "YFunction":1.23,
+          "SampleTestConditionID":"opendes:reference-data--SampleTestCondition:CurrentReservoir:",
+          "PhasesPresent":"opendes:reference-data--FluidPhasesPresent:Wellstream:",
+          "IsothermalFluidCompressibilityAverage":1.23,
+          "IsothermalFluidCompressibilityInstantaneous":1.23,
+          "VaporComposition":[
             {
-                "Value": 10.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
+              "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:H2O:",
+              "RelativeMoleWeight":1.23,
+              "MolecularWeight":1.23,
+              "MolePercent":1.23,
+              "MassPercent":1.23,
+              "VolumePercent":1.23,
+              "SpecificGravity":1.23
+            }
+          ],
+          "LiquidComposition":[
             {
-                "Value": 10.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                "Type": "opendes:reference-data--PressureMeasurementType:BubblePointPressure:"
-            },
-            {
-                "Value": 1.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-            },
-            [
-                {
-                    "StepNumber": "1",
-                    "StepPressure": {
-                        "Value": 10.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                        "Type": "opendes:reference-data--PressureMeasurementType:SomeType:"
-                    },
-                    "LiquidFraction": {
-                        "Value": 45.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%:"
-                    },
-                    "OilDensity": {
-                        "Value": 0.635,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                    },
-                    "OilCompressibility": {
-                        "Value": 7.41,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "OilViscosity": {
-                        "Value": 15.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-                    },
-                    "TotalVolume": {
-                        "Value": 10.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "SaturationPressureLiquidVolume": {
-                        "Value": 1.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "IndicatedPressureLiquidVolume": {
-                        "Value": 1.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "RelativeVolumeRatio": {
-                        "Value": 0.8825,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "GasDensity": {
-                        "Value": 99.39,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:"
-                    },
-                    "GasZFactor": 3.0,
-                    "GasCompressibility": {
-                        "Value": 7.48,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "GasViscosity": {
-                        "Value": 50.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
-                    },
-                    "YFunction": 3.343,
-                    "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
-                    "PhasesPresent": "opendes:reference-data--FluidPhasesPresent:Wellstream:"
-                }
-            ]
-        ]
+              "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:H2O:",
+              "RelativeMoleWeight":1.23,
+              "MolecularWeight":1.23,
+              "MolePercent":1.23,
+              "MassPercent":1.23,
+              "VolumePercent":1.23,
+              "SpecificGravity":1.23
+            }
+          ]
+        }
+      ]
     ]
+  ]
 }

@@ -15,7 +15,7 @@
 from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import CommonRelativePathsV2
 from app.models.data_schemas.api_v2.rca_data_model import RcaDataSchema as RCAModel
-from app.models.data_schemas.api_v2.cce_data_model import CceDataSchema as CCEModel
+from app.models.data_schemas.api_v2.cce_data_model_1_0_0 import CceModel100
 from app.models.data_schemas.api_v2.diff_lib_data_model import DiffLibDataSchema as DiffLibModel
 from app.models.data_schemas.api_v2.transport_test_data_model import TransportTestDataSchema as TransportTestModel
 from app.models.data_schemas.api_v2.compositionalanalysis_data_model import CompositionalanalysisDataSchema as CompositionalAnalysisModel
@@ -63,7 +63,7 @@ RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RCAModel,
 }
 CCE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CCEModel,
+    ContentSchemaVersion.V_1_0_0: CceModel100,
 }
 DIFF_LIB_MODELS = {
     ContentSchemaVersion.V_1_0_0: DiffLibModel,
