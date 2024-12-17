@@ -48,11 +48,11 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "ConstantCompositionExpansionTestSteps,count",
+    "columns_aggregation": "TestSteps,count",
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:CCE_SamplesAnalysis:",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:Example_WPC:",
 }
 
 with open(f"{dir_path}/cce_orient_split.json") as fp:
@@ -60,7 +60,7 @@ with open(f"{dir_path}/cce_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "ConstantCompositionExpansionTestSteps",
+        "TestSteps",
     ],
     "index": [
         "count",
@@ -82,8 +82,8 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:CCE_SamplesAnalysis:",
-            "opendes:master-data--Sample:fluid_sample_test:",
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            "opendes:master-data--Sample:Example_Sample:",
         ],
     ],
 }
@@ -93,7 +93,7 @@ INCORRECT_SCHEMA_TEST_DATA = {
         # "id",  # Missing mandatory field
         "WrongField",  # Wrong field
         "data",
-        "ConstantCompositionExpansionTestSteps",
+        "TestSteps",
     ],
     "index": [0],
     "data": [

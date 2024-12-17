@@ -1,0 +1,323 @@
+{
+  "x-osdu-license": "Copyright 2024, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/CceDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--CceDataSchema:1.0.0",
+  "title": "Constant Composition Expansion",
+  "description": "A constant composition expansion (CCE) is an isothermal test that establishes the pressure/volume relationship for a fluid system as it may be depleted in a reservoir. Measurements of this test include saturation pressure, relative volume, single-phase densities, and other details depending on fluid type, for example, compressibility (oil), deviation factors (gas), and liquid dropout (condensates) as a fluid sample is progressively allowed to expand with decreasing pressure without removing any of the sample.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "The OSDU Identifier for this SamplesAnalysis.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "The OSDU Identifier for the Sample associated with this analysis.",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "TestNumber": {
+      "type": "string",
+      "title": "Test Number",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "TestTemperature": {
+      "type": "number",
+      "title": "Test Temperature",
+      "description": "The temperature of this test.",
+      "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
+    },
+    "SaturationPressure": {
+      "type": "number",
+      "title": "Saturation Pressure",
+      "description": "The saturation (or bubble point) pressure measured in this test.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
+    },
+    "ReservoirPressure": {
+      "type": "number",
+      "title": "Reservoir Pressure",
+      "description": "The pressure conditions of the reservoir where the sample was collected.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
+    },
+    "TestSteps": {
+      "type": "array",
+      "title": "Test Steps",
+      "description": "An array object capturing the CCE test steps.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Test Steps",
+        "description": "An array object capturing the CCE test steps.",
+        "properties": {
+          "StepNumber": {
+            "type": "number",
+            "title": "Step Number",
+            "description": "Internal step number which identifies the sequence of step in CCE measurements.",
+            "x-osdu-frame-of-reference": "UOM:non-dimensional"
+          },
+          "StepPressure": {
+            "type": "number",
+            "title": "Step Pressure",
+            "description": "The pressure applied during the step.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
+          },
+          "LiquidVolumeRelativeToSaturationPressureVolume": {
+            "type": "number",
+            "title": "Liquid Volume Relative To Saturation Pressure Volume",
+            "description": "Volume of liquid relative to the volume at saturation pressure.",
+            "x-osdu-frame-of-reference": "UOM:volume per volume"
+          },
+          "OilDensity": {
+            "type": "number",
+            "title": "Oil Density",
+            "description": "The density of the oil for this test step.",
+            "x-osdu-frame-of-reference": "UOM:mass per volume"
+          },
+          "OilCompressibility": {
+            "type": "number",
+            "title": "Oil Compressibility",
+            "description": "The compressibility of the oil for this test step.  Compressibility is a measure of how much a substance can be compressed under pressure.",
+            "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
+          },
+          "OilViscosity": {
+            "type": "number",
+            "title": "Oil Viscosity",
+            "description": "The dynamic viscosity of the oil for this test step.",
+            "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
+          },
+          "TotalVolume": {
+            "type": "number",
+            "title": "TotalVolume",
+            "description": "The total volume for this test step.",
+            "x-osdu-frame-of-reference": "UOM:volume"
+          },
+          "RelativeVolumeRatio": {
+            "type": "number",
+            "title": "Relative Volume Ratio",
+            "description": "The measured relative volume ratio = measured volume/volume at Psat.",
+            "x-osdu-frame-of-reference": "UOM:volume per volume"
+          },
+          "GasDensity": {
+            "type": "number",
+            "title": "Gas Density",
+            "description": "The density of the gas for this test step.",
+            "x-osdu-frame-of-reference": "UOM:mass per volume"
+          },
+          "GasZFactor": {
+            "type": "number",
+            "title": "Gas Z Factor",
+            "description": "The Z factor of the gas for this test step estimated for quality assurance of the laboratory data.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "GasCompressibility": {
+            "type": "number",
+            "title": "Gas Compressibility",
+            "description": "The compressibility of the gas for this test step.",
+            "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
+          },
+          "GasViscosity": {
+            "type": "number",
+            "title": "Gas Viscosity",
+            "description": "The viscosity of the gas phase at this test step.",
+            "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
+          },
+          "YFunction": {
+            "type": "number",
+            "title": "Y Function",
+            "description": "The Y-Function acts as a consistency check for CCE experiments of black oil.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "SampleTestConditionID": {
+            "type": "string",
+            "title": "Sample Test Condition ID",
+            "description": "Identifies the testing condition of the sample fluid, e.g. InitialReservoir, CurrentReservoir, StockTank, InitialSaturation.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleTestCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleTestCondition"
+              }
+            ]
+          },
+          "PhasesPresent": {
+            "type": "string",
+            "title": "Phases Present",
+            "description": "Identifies the phases of fluid present in the sample, e.g. SeparatorLiquid, FlashedOil, OilWithMud, Gas, ReservoirFluid (references FluidPhasesPresent).",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidPhasesPresent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "FluidPhasesPresent"
+              }
+            ]
+          },
+          "IsothermalFluidCompressibilityAverage": {
+            "type": "number",
+            "title": "Isothermal Fluid Compressibility Average",
+            "description": "The compressibility of the fluid based on two discrete pressure points.",
+            "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
+          },
+          "IsothermalFluidCompressibilityInstantaneous": {
+            "type": "number",
+            "title": "Isothermal Fluid Compressibility Instantaneous",
+            "description": "Instantaneous Compressibility is the fluid compressibility at one pressure point calculated using the continuous nature of pressure-volume relation.",
+            "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
+          },
+          "VaporComposition": {
+            "type": "array",
+            "title": "Vapor Composition",
+            "description": "Array object capturing the composition of the vapor component of the sample at this test step.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
+            "items": {
+              "type": "object",
+              "title": "Vapor Composition",
+              "description": "An array object capturing the composition of the vapor.",
+              "properties": {
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "Name of the component in the liquid.",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "GroupType": "reference-data",
+                      "EntityType": "SampleCompositionComponent"
+                    }
+                  ]
+                },
+                "RelativeMoleWeight": {
+                  "type": "number",
+                  "title": "Relative Mole Weight",
+                  "description": "Molar mass relative to other components.",
+                  "x-osdu-frame-of-reference": "UOM:dimensionless"
+                },
+                "MolecularWeight": {
+                  "type": "number",
+                  "title": "Molecular Weight",
+                  "description": "The molecular weight of the component.",
+                  "x-osdu-frame-of-reference": "UOM:molecular weight"
+                },
+                "MolePercent": {
+                  "type": "number",
+                  "title": "Mole Percent",
+                  "description": "The molar percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:amount of substance per amount of substance"
+                },
+                "MassPercent": {
+                  "type": "number",
+                  "title": "Mass Percent",
+                  "description": "The mass percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:mass per mass"
+                },
+                "VolumePercent": {
+                  "type": "number",
+                  "title": "Volume Percent",
+                  "description": "The volume percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:volume per volume"
+                },
+                "SpecificGravity": {
+                  "type": "number",
+                  "title": "Specific Gravity",
+                  "description": "The specific gravity of the component.",
+                  "x-osdu-frame-of-reference": "UOM:dimensionless"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "LiquidComposition": {
+            "type": "array",
+            "title": "Liquid Composition",
+            "description": "Array object capturing the composition of the liquid component of the sample at this test step.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
+            "items": {
+              "type": "object",
+              "title": "Liquid Composition",
+              "description": "An array object capturing the composition of the liquid.",
+              "properties": {
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "Name of the component in the liquid.",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "GroupType": "reference-data",
+                      "EntityType": "SampleCompositionComponent"
+                    }
+                  ]
+                },
+                "RelativeMoleWeight": {
+                  "type": "number",
+                  "title": "Relative Mole Weight",
+                  "description": "Molar mass relative to other components.",
+                  "x-osdu-frame-of-reference": "UOM:dimensionless"
+                },
+                "MolecularWeight": {
+                  "type": "number",
+                  "title": "Molecular Weight",
+                  "description": "The molecular weight of the component.",
+                  "x-osdu-frame-of-reference": "UOM:molecular weight"
+                },
+                "MolePercent": {
+                  "type": "number",
+                  "title": "Mole Percent",
+                  "description": "The molar percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:amount of substance per amount of substance"
+                },
+                "MassPercent": {
+                  "type": "number",
+                  "title": "Mass Percent",
+                  "description": "The mass percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:mass per mass"
+                },
+                "VolumePercent": {
+                  "type": "number",
+                  "title": "Volume Percent",
+                  "description": "The volume percentage of the component, if available.",
+                  "x-osdu-frame-of-reference": "UOM:volume per volume"
+                },
+                "SpecificGravity": {
+                  "type": "number",
+                  "title": "Specific Gravity",
+                  "description": "The specific gravity of the component.",
+                  "x-osdu-frame-of-reference": "UOM:dimensionless"
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "x-osdu-inheriting-from-kind": [],
+  "additionalProperties": false
+}
