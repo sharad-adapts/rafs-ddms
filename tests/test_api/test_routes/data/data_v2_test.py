@@ -5170,7 +5170,6 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
                 content=json.dumps(test_data),
             )
             body = response.json()
-
     assert body["ddms_urn"] == test_ddms_urn
 
 
