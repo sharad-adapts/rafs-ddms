@@ -54,15 +54,15 @@
           "title": "Effective Permeability",
           "description": "A measure of how easily fluids can flow through a porous sample, taking into consideration the saturation, presence of other fluids, and the interactions between those fluids into account.",
           "properties": {
-            "PermeabilityTypeID": {
+            "PermeabilityMeasurementMethodID": {
               "type": "string",
-              "title": "Permeability Type ID",
+              "title": "Permeability Measurement Method ID",
               "description": "The type of permeability being measured, e.g. Gas, PulseDecay, Klinkenberg.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
                   "GroupType": "reference-data",
-                  "EntityType": "PermeabilityMeasurementType"
+                  "EntityType": "PermeabilityMeasurementMethod"
                 }
               ]
             },
@@ -92,33 +92,21 @@
           "title": "Relative Permeability",
           "description": "Relative permeability is a measure of how easily a particular fluid can flow through a porous medium when other fluids are also present.",
           "properties": {
-            "RelativePermeabilityTypeID": {
-              "type": "string",
-              "title": "Relative PermeabilityType ID",
-              "description": "The type of relative permeability.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "GroupType": "reference-data",
-                  "EntityType": "PermeabilityMeasurementType"
-                }
-              ]
-            },
             "Value": {
               "type": "number",
               "title": "Value",
               "description": "The relative permeability value.",
-              "x-osdu-frame-of-reference": "UOM:permeability rock"
+              "x-osdu-frame-of-reference": "UOM:dimensionless"
             },
-            "FluidTypeID": {
+            "FluidSystemAnalysisTypeID": {
               "type": "string",
-              "title": "Fluid Type ID",
-              "description": "The fluid type used in determining relative permeability.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "title": "Fluid System Analysis Type ID",
+              "description": "The fluid system used in determining relative permeability.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
                   "GroupType": "reference-data",
-                  "EntityType": "SampleInjectionFluidType"
+                  "EntityType": "FluidSystemAnalysisType"
                 }
               ]
             }
@@ -211,15 +199,15 @@
           "title": "Effective Permeability",
           "description": "A measure of how easily fluids can flow through a porous sample, taking into consideration the saturation, presence of other fluids, and the interactions between those fluids into account.",
           "properties": {
-            "PermeabilityTypeID": {
+            "PermeabilityMeasurementMethodID": {
               "type": "string",
-              "title": "Permeability Type ID",
+              "title": "Permeability Measurement Method ID",
               "description": "The type of permeability being measured, e.g. Gas, PulseDecay, Klinkenberg.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
                   "GroupType": "reference-data",
-                  "EntityType": "PermeabilityMeasurementType"
+                  "EntityType": "PermeabilityMeasurementMethod"
                 }
               ]
             },
@@ -249,33 +237,21 @@
           "title": "Relative Permeability",
           "description": "Relative permeability is a measure of how easily a particular fluid can flow through a porous medium when other fluids are also present.",
           "properties": {
-            "RelativePermeabilityTypeID": {
-              "type": "string",
-              "title": "Relative PermeabilityType ID",
-              "description": "The type of relative permeability.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "GroupType": "reference-data",
-                  "EntityType": "PermeabilityMeasurementType"
-                }
-              ]
-            },
             "Value": {
               "type": "number",
               "title": "Value",
               "description": "The relative permeability value.",
-              "x-osdu-frame-of-reference": "UOM:permeability rock"
+              "x-osdu-frame-of-reference": "UOM:dimensionless"
             },
-            "FluidTypeID": {
+            "FluidSystemAnalysisTypeID": {
               "type": "string",
-              "title": "Fluid Type ID",
-              "description": "The fluid type used in determining relative permeability.",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "title": "Fluid System Analysis Type ID",
+              "description": "The fluid system used in determining relative permeability.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
                   "GroupType": "reference-data",
-                  "EntityType": "SampleInjectionFluidType"
+                  "EntityType": "FluidSystemAnalysisType"
                 }
               ]
             }
@@ -353,15 +329,15 @@
             "description": "The permeability value acting as a reference for this experiment.",
             "x-osdu-frame-of-reference": "UOM:permeability rock"
           },
-          "PermeabilityMeasurementTypeID": {
+          "PermeabilityMeasurementMethodID": {
             "type": "string",
-            "title": "Permeability Measurement Type ID",
-            "description": "The type of permeability measurement being used as a reference value for this experiment.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "title": "Permeability Measurement Method ID",
+            "description": "The type of permeability being measured, e.g. Gas, PulseDecay, Klinkenberg.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "PermeabilityMeasurementType"
+                "EntityType": "PermeabilityMeasurementMethod"
               }
             ]
           }
@@ -396,19 +372,19 @@
     "OilViscosity": {
       "type": "number",
       "title": "Oil Viscosity",
-      "description": "A measure of a fluid\u2019s internal resistance to flow.",
+      "description": "A measure of a fluid’s internal resistance to flow.",
       "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
     },
     "GasViscosity": {
       "type": "number",
       "title": "Gas Viscosity",
-      "description": "A measure of a fluid\u2019s internal resistance to flow.",
+      "description": "A measure of a fluid’s internal resistance to flow.",
       "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
     },
     "WaterViscosity": {
       "type": "number",
       "title": "Water Viscosity",
-      "description": "A measure of a fluid\u2019s internal resistance to flow.",
+      "description": "A measure of a fluid’s internal resistance to flow.",
       "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
     },
     "OilDensity": {
@@ -537,15 +513,15 @@
               "title": "Effective Permeability",
               "description": "A measure of how easily fluids can flow through a porous sample, taking into consideration the saturation, presence of other fluids, and the interactions between those fluids into account.",
               "properties": {
-                "PermeabilityTypeID": {
+                "PermeabilityMeasurementMethodID": {
                   "type": "string",
-                  "title": "Permeability Type ID",
+                  "title": "Permeability Measurement Method ID",
                   "description": "The type of permeability being measured, e.g. Gas, PulseDecay, Klinkenberg.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "PermeabilityMeasurementType"
+                      "EntityType": "PermeabilityMeasurementMethod"
                     }
                   ]
                 },
@@ -583,33 +559,21 @@
               "title": "Relative Permeability",
               "description": "Relative permeability is a measure of how easily a particular fluid can flow through a porous medium when other fluids are also present.",
               "properties": {
-                "RelativePermeabilityTypeID": {
-                  "type": "string",
-                  "title": "Relative PermeabilityType ID",
-                  "description": "The type of relative permeability.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PermeabilityMeasurementType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "GroupType": "reference-data",
-                      "EntityType": "PermeabilityMeasurementType"
-                    }
-                  ]
-                },
                 "Value": {
                   "type": "number",
                   "title": "Value",
                   "description": "The relative permeability value.",
-                  "x-osdu-frame-of-reference": "UOM:permeability rock"
+                  "x-osdu-frame-of-reference": "UOM:dimensionless"
                 },
-                "FluidTypeID": {
+                "FluidSystemAnalysisTypeID": {
                   "type": "string",
-                  "title": "Fluid Type ID",
-                  "description": "The fluid type used in determining relative permeability.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "title": "Fluid System Analysis Type ID",
+                  "description": "The fluid system used in determining relative permeability.",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSystemAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "SampleInjectionFluidType"
+                      "EntityType": "FluidSystemAnalysisType"
                     }
                   ]
                 }
@@ -789,11 +753,11 @@
       "type": "string",
       "title": "Gas Type ID",
       "description": "Identifies the type of gas used in the experiment.",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
           "GroupType": "reference-data",
-          "EntityType": "InjectionFluidType"
+          "EntityType": "SampleInjectionFluidType"
         }
       ]
     },
@@ -801,11 +765,11 @@
       "type": "string",
       "title": "Water Type ID",
       "description": "Identifies the type of gas used in the experiment.",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
           "GroupType": "reference-data",
-          "EntityType": "InjectionFluidType"
+          "EntityType": "SampleInjectionFluidType"
         }
       ]
     },
