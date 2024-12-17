@@ -2254,8 +2254,7 @@ async def test_get_data_json_data(
                 headers=TEST_HEADERS_JSON,
                 params=params,
             )
-    from loguru import logger
-    logger.warning(response.json())
+
     assert response.status_code == status.HTTP_200_OK
     assert response.json()["index"] == returned_data["index"]
     assert set(response.json()["columns"]) == set(returned_data["columns"])
