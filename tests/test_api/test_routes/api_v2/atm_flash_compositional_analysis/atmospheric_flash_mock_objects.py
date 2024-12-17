@@ -1,4 +1,4 @@
-#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#  Copyright 2024 ExxonMobil Technology and Engineering Company
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -22,17 +22,11 @@ from tests.test_api.test_routes.osdu.storage_mock_objects import (
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
 
-TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:compositionalanalysis-123:1234"
-TEST_DDMS_URN = f"urn://rafs-v2/compositionalanalysisdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
+TEST_DATASET_RECORD_ID = "opendes:dataset--File.Generic:atmosphericflash-123:1234"
+TEST_DDMS_URN = f"urn://rafs-v2/atmosphericflashdata/partition:work-product-component--SamplesAnalysis:samplesanalysis_test/{TEST_DATASET_RECORD_ID}"
 TEST_SCHEMA_VERSION = "1.0.0"
 TEST_DDMS_URN_WITH_VERSION = f"{TEST_DDMS_URN}/{TEST_SCHEMA_VERSION}"
-RECORD_DATA = {
-    **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
-        "data": {
-            "DDMSDatasets": [TEST_DDMS_URN],
-        },
-    },
-}
+
 RECORD_DATA_WITH_SCHEMA_VERSION = {
     **OSDU_GENERIC_RECORD.dict(exclude_none=True), **{
         "data": {
@@ -52,10 +46,10 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:CA_SamplesAnalysis:",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:Example_WPC:",
 }
 
-with open(f"{dir_path}/compositional_analysis_orient_split.json") as fp:
+with open(f"{dir_path}/atm_flash_compositional_analysis_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -81,7 +75,7 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:CA_SamplesAnalysis:",
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
         ],
     ],
 }

@@ -18,7 +18,7 @@ from app.models.data_schemas.api_v2.rca_data_model import RcaDataSchema as RCAMo
 from app.models.data_schemas.api_v2.cce_data_model import CceDataSchema as CCEModel
 from app.models.data_schemas.api_v2.diff_lib_data_model import DiffLibDataSchema as DiffLibModel
 from app.models.data_schemas.api_v2.transport_test_data_model import TransportTestDataSchema as TransportTestModel
-from app.models.data_schemas.api_v2.compositionalanalysis_data_model import CompositionalanalysisDataSchema as CompositionalAnalysisModel
+from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
 from app.models.data_schemas.api_v2.mss_data_model import MssDataSchema as MSSModel
 from app.models.data_schemas.api_v2.swelling_test_data_model import SwellingTestDataSchema as SwellingTestModel
 from app.models.data_schemas.api_v2.cvd_data_model import CvdDataSchema as CVDModel
@@ -72,7 +72,10 @@ TRANSPORT_TEST_MODELS = {
     ContentSchemaVersion.V_1_0_0: TransportTestModel,
 }
 COMPOSITIONAL_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CompositionalAnalysisModel,
+    ContentSchemaVersion.V_1_0_0: AtmosphericFlashAndCompositionalAnalysisModel100,
+}
+ATMOSPHERIC_FLASH_MODELS = {
+    ContentSchemaVersion.V_1_0_0: AtmosphericFlashAndCompositionalAnalysisModel100,
 }
 MSS_MODELS = {
     ContentSchemaVersion.V_1_0_0: MSSModel,
@@ -199,6 +202,7 @@ PATH_TO_DATA_MODEL_VERSIONS_API_V2 = {
     common_relative_paths_api_v2.DIFF_LIB: DIFF_LIB_MODELS,
     common_relative_paths_api_v2.TRANSPORT_TEST: TRANSPORT_TEST_MODELS,
     common_relative_paths_api_v2.COMPOSITIONAL_ANALYSIS: COMPOSITIONAL_ANALYSIS_MODELS,
+    common_relative_paths_api_v2.ATMOSPHERIC_FLASH: ATMOSPHERIC_FLASH_MODELS,
     common_relative_paths_api_v2.MSS: MSS_MODELS,
     common_relative_paths_api_v2.SWELLING: SWELLING_MODELS,
     common_relative_paths_api_v2.CVD: CVD_MODELS,

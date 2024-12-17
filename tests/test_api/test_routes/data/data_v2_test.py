@@ -31,6 +31,10 @@ from app.api.routes.utils.query import find_osdu_ids_from_string
 from app.main import app
 from app.services import dataset, storage
 from tests.test_api.test_routes import dependencies
+from tests.test_api.test_routes.api_v2.atm_flash_compositional_analysis import (
+    atmospheric_flash_mock_objects,
+    compositional_analysis_mock_objects,
+)
 from tests.test_api.test_routes.api_v2.bulk_pyrolysis import (
     bulk_pyrolysis_mock_objects,
 )
@@ -40,9 +44,6 @@ from tests.test_api.test_routes.api_v2.cappressure import (
 from tests.test_api.test_routes.api_v2.cce import cce_mock_objects
 from tests.test_api.test_routes.api_v2.cec_content import (
     cec_content_mock_objects,
-)
-from tests.test_api.test_routes.api_v2.compositionalanalysis import (
-    compositional_analysis_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.constantvolumedepletion import (
     cvd_mock_objects,
@@ -235,6 +236,7 @@ def post_overrides(record_data=None, test_dataset_record_id=data_mock_objects.TE
         (TestContentPathsApiV2.DIFF_LIB, BulkDatasetIdV2.DIFF_LIB),
         (TestContentPathsApiV2.TRANSPORT_TEST, BulkDatasetIdV2.TRANSPORT_TEST),
         (TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, BulkDatasetIdV2.COMPOSITIONAL_ANALYSIS),
+        (TestContentPathsApiV2.ATMOSPHERIC_FLASH, BulkDatasetIdV2.ATMOSPHERIC_FLASH),
         (TestContentPathsApiV2.MSS, BulkDatasetIdV2.MSS),
         (TestContentPathsApiV2.SWELLING, BulkDatasetIdV2.SWELLING),
         (TestContentPathsApiV2.CVD, BulkDatasetIdV2.CVD),
@@ -302,6 +304,7 @@ async def test_get_content_data_no_data(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.DIFF_LIB, BulkDatasetIdV2.DIFF_LIB),
         (TestContentPathsApiV2.TRANSPORT_TEST, BulkDatasetIdV2.TRANSPORT_TEST),
         (TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, BulkDatasetIdV2.COMPOSITIONAL_ANALYSIS),
+        (TestContentPathsApiV2.ATMOSPHERIC_FLASH, BulkDatasetIdV2.ATMOSPHERIC_FLASH),
         (TestContentPathsApiV2.MSS, BulkDatasetIdV2.MSS),
         (TestContentPathsApiV2.SWELLING, BulkDatasetIdV2.SWELLING),
         (TestContentPathsApiV2.CVD, BulkDatasetIdV2.CVD),
@@ -368,6 +371,7 @@ async def test_get_data_no_content_header(data_endpoint_path, dataset_id):
         (TestContentPathsApiV2.DIFF_LIB, BulkDatasetIdV2.DIFF_LIB),
         (TestContentPathsApiV2.TRANSPORT_TEST, BulkDatasetIdV2.TRANSPORT_TEST),
         (TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, BulkDatasetIdV2.COMPOSITIONAL_ANALYSIS),
+        (TestContentPathsApiV2.ATMOSPHERIC_FLASH, BulkDatasetIdV2.ATMOSPHERIC_FLASH),
         (TestContentPathsApiV2.MSS, BulkDatasetIdV2.MSS),
         (TestContentPathsApiV2.SWELLING, BulkDatasetIdV2.SWELLING),
         (TestContentPathsApiV2.CVD, BulkDatasetIdV2.CVD),
@@ -482,6 +486,16 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
             ],
             "download_file",
             [build_get_test_data("x-parquet", compositional_analysis_mock_objects.TEST_DATA)],
+        ),
+        (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+            "get_record",
+            [
+                atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            ],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
         ),
         (
             TestContentPathsApiV2.MSS,
@@ -984,6 +998,15 @@ async def test_get_content_parquet_data(
             compositional_analysis_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            None,
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
@@ -1326,6 +1349,15 @@ async def test_get_content_parquet_data(
             compositional_analysis_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            atmospheric_flash_mock_objects.TEST_PARAMS_AGGREGATION,
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_AGGREGATED_DATA,
+        ),
+        (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
             mss_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
@@ -1666,6 +1698,15 @@ async def test_get_content_parquet_data(
             "download_file",
             [build_get_test_data("x-parquet", compositional_analysis_mock_objects.TEST_DATA)],
             compositional_analysis_mock_objects.TEST_FILTERED_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            atmospheric_flash_mock_objects.TEST_PARAMS_FILTERS,
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2304,6 +2345,14 @@ async def test_get_data_json_data(
             compositional_analysis_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [mss_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
@@ -2707,6 +2756,14 @@ async def test_get_data_json_data_no_content_schema_version(
             "download_file",
             [build_get_test_data("x-parquet", compositional_analysis_mock_objects.TEST_DATA)],
             compositional_analysis_mock_objects.TEST_DATA,
+        ),
+        (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3122,6 +3179,14 @@ async def test_get_data_json_data_improper_schema_version(
             compositional_analysis_mock_objects.TEST_DATA,
         ),
         (
+            f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
+            "get_record",
+            [atmospheric_flash_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            "download_file",
+            [build_get_test_data("x-parquet", atmospheric_flash_mock_objects.TEST_DATA)],
+            atmospheric_flash_mock_objects.TEST_DATA,
+        ),
+        (
             f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
             [mss_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
@@ -3523,6 +3588,13 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
             compositional_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            atmospheric_flash_mock_objects.TEST_DATA,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+            atmospheric_flash_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsApiV2.MSS,
             mss_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mss_mock_objects.TEST_DATA,
@@ -3880,6 +3952,13 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
             compositional_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            atmospheric_flash_mock_objects.TEST_DATA,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+            atmospheric_flash_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsApiV2.MSS,
             mss_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mss_mock_objects.TEST_DATA,
@@ -4230,6 +4309,11 @@ async def test_post_data_json_no_ddmsdatasets_field(
             compositional_analysis_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+        ),
+        (
             TestContentPathsApiV2.MSS,
             mss_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mss_mock_objects.TEST_DATASET_RECORD_ID,
@@ -4496,6 +4580,13 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
             compositional_analysis_mock_objects.TEST_DATA,
             compositional_analysis_mock_objects.TEST_DATASET_RECORD_ID,
             compositional_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            atmospheric_flash_mock_objects.TEST_DATA,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+            atmospheric_flash_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.MSS,
@@ -4857,6 +4948,13 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
             compositional_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            atmospheric_flash_mock_objects.TEST_DATA,
+            atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID,
+            atmospheric_flash_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+        ),
+        (
             TestContentPathsApiV2.MSS,
             mss_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             mss_mock_objects.TEST_DATA,
@@ -5180,6 +5278,7 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.DIFF_LIB, diff_lib_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.TRANSPORT_TEST, transport_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, compositional_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.ATMOSPHERIC_FLASH, atmospheric_flash_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.MSS, mss_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.SWELLING, swelling_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.CVD, cvd_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
@@ -5266,6 +5365,11 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
             TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS,
             compositional_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
             compositional_analysis_mock_objects.EXPECTED_ERROR_REASON,
+        ),
+        (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH,
+            atmospheric_flash_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            atmospheric_flash_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
             TestContentPathsApiV2.MSS,
@@ -5506,6 +5610,7 @@ async def test_post_invalid_df_error(data_endpoint_path, incorrect_dataframe_dat
         f"{TestContentPathsApiV2.DIFF_LIB}/{diff_lib_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.TRANSPORT_TEST}/{transport_test_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS}/{compositional_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.ATMOSPHERIC_FLASH}/{atmospheric_flash_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.MSS}/{mss_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.SWELLING}/{swelling_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.CVD}/{cvd_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -5569,6 +5674,7 @@ async def test_get_403(data_endpoint_path):
         TestContentPathsApiV2.DIFF_LIB,
         TestContentPathsApiV2.TRANSPORT_TEST,
         TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS,
+        TestContentPathsApiV2.ATMOSPHERIC_FLASH,
         TestContentPathsApiV2.MSS,
         TestContentPathsApiV2.SWELLING,
         TestContentPathsApiV2.CVD,
@@ -5650,6 +5756,11 @@ async def test_post_403(data_endpoint_path):
         (
             TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, compositional_analysis_mock_objects.TEST_DATA, list(
                 find_osdu_ids_from_string(json.dumps(compositional_analysis_mock_objects.TEST_DATA)),
+            ),
+        ),
+        (
+            TestContentPathsApiV2.ATMOSPHERIC_FLASH, atmospheric_flash_mock_objects.TEST_DATA, list(
+                find_osdu_ids_from_string(json.dumps(atmospheric_flash_mock_objects.TEST_DATA)),
             ),
         ),
         (
@@ -5740,6 +5851,7 @@ async def test_post_integrity_error(data_endpoint_path, integrity_error_datafram
         TestContentPathsApiV2.DIFF_LIB,
         TestContentPathsApiV2.TRANSPORT_TEST,
         TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS,
+        TestContentPathsApiV2.ATMOSPHERIC_FLASH,
         TestContentPathsApiV2.MSS,
         TestContentPathsApiV2.SWELLING,
         TestContentPathsApiV2.CVD,
@@ -5809,6 +5921,7 @@ async def test_invalid_data_with_nan(path):
         (TestContentPathsApiV2.DIFF_LIB, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.TRANSPORT_TEST, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.COMPOSITIONAL_ANALYSIS, ORIENT_SPLIT_400_PAYLOADS),
+        (TestContentPathsApiV2.ATMOSPHERIC_FLASH, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.MSS, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.SWELLING, ORIENT_SPLIT_400_PAYLOADS),
         (TestContentPathsApiV2.CVD, ORIENT_SPLIT_400_PAYLOADS),
