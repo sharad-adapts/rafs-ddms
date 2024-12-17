@@ -21,7 +21,7 @@ from app.models.data_schemas.api_v2.transport_test_data_model import TransportTe
 from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
 from app.models.data_schemas.api_v2.mss_data_model import MssDataSchema as MSSModel
 from app.models.data_schemas.api_v2.swelling_test_data_model import SwellingTestDataSchema as SwellingTestModel
-from app.models.data_schemas.api_v2.cvd_data_model import CvdDataSchema as CVDModel
+from app.models.data_schemas.api_v2.cvd_data_model_1_0_0 import CvdModel100
 from app.models.data_schemas.api_v2.water_analysis_data_model import WaterAnalysisDataSchema as WaterAnalysisModel
 from app.models.data_schemas.api_v2.interfacial_tension_data_model import InterfacialTensionDataSchema as InterfacialTensionModel
 from app.models.data_schemas.api_v2.vle_data_model import VleDataSchema as VLEModel
@@ -84,7 +84,7 @@ SWELLING_MODELS = {
     ContentSchemaVersion.V_1_0_0: SwellingTestModel,
 }
 CVD_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CVDModel,
+    ContentSchemaVersion.V_1_0_0: CvdModel100,
 }
 WATER_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: WaterAnalysisModel,
