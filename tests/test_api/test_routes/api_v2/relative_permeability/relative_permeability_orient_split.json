@@ -46,14 +46,13 @@
       },
       {
         "EffectivePermeability":{
-          "PermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Gas:",
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Gas:",
           "Value":29.78,
           "FluidTypeID":null
         },
         "RelativePermeability":{
-          "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Gas:",
           "Value":0.682,
-          "FluidTypeID":null
+          "FluidSystemAnalysisTypeID":"opendes:reference-data--FluidSystemAnalysisType:Gas:"
         },
         "Saturation":{
           "Value":0.132,
@@ -66,23 +65,23 @@
       [
         {
           "Value":43.7,
-          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Klinkenberg:"
         },
         {
           "Value":38.5,
-          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Klinkenberg:"
         },
         {
           "Value":33.5,
-          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Klinkenberg:"
         },
         {
           "Value":1.133,
-          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Klinkenberg:"
         },
         {
           "Value":0.87,
-          "PermeabilityMeasurementTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:"
+          "PermeabilityMeasurementMethodID":"opendes:reference-data--PermeabilityMeasurementMethod:Klinkenberg:"
         }
       ],
       null,
@@ -94,7 +93,7 @@
       0.287,
       null,
       "opendes:reference-data--DisplacedFluidType:LiveCrudeOil:",
-      "opendes:reference-data--InjectionFluidType:GasUnspecified:",
+      "opendes:reference-data--SampleInjectionFluidType:GasUnspecified:",
       8968,
       [
         {
@@ -123,14 +122,12 @@
           },
           "RelativePermeability":[
             {
-              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
-              "Value":1,
-              "FluidTypeID":null
+              "Value":0.682,
+              "FluidSystemAnalysisTypeID":"opendes:reference-data--FluidSystemAnalysisType:Gas:"
             },
             {
-              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
-              "Value":0,
-              "FluidTypeID":null
+              "Value":0.682,
+              "FluidSystemAnalysisTypeID":"opendes:reference-data--FluidSystemAnalysisType:Gas:"
             }
           ],
           "InSituSaturationProfiles":null,
@@ -163,14 +160,12 @@
           },
           "RelativePermeability":[
             {
-              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
-              "Value":0,
-              "FluidTypeID":null
+              "Value":0.682,
+              "FluidSystemAnalysisTypeID":"opendes:reference-data--FluidSystemAnalysisType:Gas:"
             },
             {
-              "RelativePermeabilityTypeID":"opendes:reference-data--PermeabilityMeasurementType:Klinkenberg:",
               "Value":0.682,
-              "FluidTypeID":null
+              "FluidSystemAnalysisTypeID":"opendes:reference-data--FluidSystemAnalysisType:Gas:"
             }
           ],
           "InSituSaturationProfiles":null,
