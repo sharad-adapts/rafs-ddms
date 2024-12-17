@@ -430,10 +430,10 @@
               },
               "InjectedFluid": {
                 "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-InjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                 "x-osdu-relationship": [
                   {
-                    "EntityType": "InjectionFluidType",
+                    "EntityType": "SampleInjectionFluidType",
                     "GroupType": "reference-data"
                   }
                 ]

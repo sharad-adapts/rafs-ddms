@@ -116,7 +116,7 @@ The following software have components provided under the terms of this license:
 - jsonref (from https://pypi.org/project/jsonref/, https://pypi.org/project/jsonref/1.1.0/)
 - jsonschema
 - jsonschema-specifications (from https://pypi.org/project/jsonschema-specifications/, https://pypi.org/project/jsonschema-specifications/2023.11.2/, https://pypi.org/project/jsonschema-specifications/2023.7.1/)
-- loguru (from https://github.com/Delgan/loguru)
+- loguru (from https://pypi.org/project/loguru/)
 - mypy-extensions (from https://github.com/python/mypy_extensions)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)

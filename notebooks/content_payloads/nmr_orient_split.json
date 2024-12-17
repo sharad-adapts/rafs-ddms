@@ -142,7 +142,7 @@
                             "Value": 1.0,
                             "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
                         },
-                        "InjectedFluid": "{data_partition_id}:reference-data--InjectionFluidType:DeadCrudeOil:",
+                        "InjectedFluid": "{data_partition_id}:reference-data--SampleInjectionFluidType:DeadCrudeOil:",
                         "Porosity": [
                             {
                                 "Value": 1.0,

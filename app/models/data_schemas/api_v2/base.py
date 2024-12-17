@@ -50,7 +50,7 @@ from app.models.data_schemas.api_v2.wettability_index_data_model import Wettabil
 from app.models.data_schemas.api_v2.tec_data_model import TecDataSchema as TECModel
 from app.models.data_schemas.api_v2.eds_mapping_data_model import EdsMappingDataSchema as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import XrfDataSchema as XRFModel
-from app.models.data_schemas.api_v2.cap_pressure_data_model import CapPressureDataSchema as CapPressureModel
+from app.models.data_schemas.api_v2.capillary_pressure_data_model_1_0_0 import CapillaryPressureModel100
 from app.models.data_schemas.api_v2.sto_data_model import StoDataSchema as StoModel
 from app.models.data_schemas.api_v2.tensile_strength_data_model import TensileStrengthDataSchema as TensileStrengthModel
 from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import VitriniteReflectanceDataSchema as VitriniteReflectanceModel
@@ -156,7 +156,7 @@ TRIAXIAL_TEST_MODELS = {
     ContentSchemaVersion.V_1_0_0: TriaxialTestModel
 }
 CAP_PRESSURE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CapPressureModel
+    ContentSchemaVersion.V_1_0_0: CapillaryPressureModel100
 }
 WETTABILITY_INDEX_MODELS = {
     ContentSchemaVersion.V_1_0_0: WettabilityIndexModel

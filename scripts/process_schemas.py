@@ -64,8 +64,8 @@ def process_schema_file(file_path):
             schema["additionalProperties"] = False
 
     # Write the updated schema back to the file
-    with open(file_path, "w") as file:
-        json.dump(schema, file, indent=2)
+    with open(file_path, "w", encoding="utf-8") as file:
+        json.dump(schema, file, indent=2, ensure_ascii=False)
 
 
 def process_directory(directory_path: str, end_filter: str = "Schema.1.0.0.json"):
