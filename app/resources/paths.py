@@ -21,6 +21,7 @@ class CommonRelativePathsV2(NamedTuple):
     DIFF_LIB: str = "/data/differentialliberation"
     TRANSPORT_TEST: str = "/data/transport"
     COMPOSITIONAL_ANALYSIS: str = "/data/compositionalanalysis"
+    ATMOSPHERIC_FLASH: str = "/data/atmosphericflash"
     MSS: str = "/data/multistageseparator"
     SWELLING: str = "/data/swelling"
     CVD: str = "/data/constantvolumedepletion"
@@ -85,6 +86,7 @@ SAMPLESANALYSIS_TYPE_MAPPING = {
     "differentialliberation": ["PVT.DifferentialLiberation"],
     "transport": ["PVT.TransportProperties"],
     "compositionalanalysis": ["PVT.CompositionalAnalysis"],
+    "atmosphericflash": ["PVT.SingleStageFlash"],
     "multistageseparator": ["PVT.MultiStageSeparatorTest"],
     "swelling": ["PVT.SolubilitySwelling"],
     "constantvolumedepletion": ["PVT.ConstantVolumeDepletion"],
