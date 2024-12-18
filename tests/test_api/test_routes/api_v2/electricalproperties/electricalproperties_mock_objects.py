@@ -54,7 +54,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID,BrineConcentration,FormationResistivityFactor",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:ElectricalProperties_WPC:",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:Example_WPC:",
 }
 
 with open(f"{dir_path}/electricalproperties_test_data_orient_split.json") as fp:
@@ -86,13 +86,10 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:ElectricalProperties_WPC:",
-            "opendes:master-data--Sample:ElectricalProperties_Sample:",
-            {
-                "Value": 22000,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:",
-            },
-            6.87,
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            "opendes:master-data--Sample:Example_Sample:",
+            1.23,
+            1.23,
         ],
     ],
 }
@@ -114,4 +111,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Frequency in index row 0
-EXPECTED_ERROR_REASON = "Data error: 25 columns passed, passed data had 24 columns"
+EXPECTED_ERROR_REASON = "Data error: 26 columns passed, passed data had 25 columns"

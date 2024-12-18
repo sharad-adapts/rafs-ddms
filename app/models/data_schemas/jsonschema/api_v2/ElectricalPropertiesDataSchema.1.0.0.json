@@ -1,0 +1,327 @@
+{
+  "x-osdu-license": "Copyright 2024, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/ElectricalPropertiesDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--ElectricalPropertiesDataSchema:1.0.0",
+  "title": "Electrical Properties Data Schema",
+  "description": "Measurements of the electrical properties of rock provide fundamental input to calibrate and interpret resistivity log measurements for water saturation interpretation. These data are applied in fluid saturation models. This content schema includes formation resistivity factor (F or FRF) and resistivity index (I). Note that the electrical property categories of CoCw (multiple salinity, Qv) and CEC (wet chemistry cation exchange capacity) are not handled by this specific content schema.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "OSDU Identifier for this SamplesAnalysis",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "OSDU Identifier for the Sample associated with this analysis",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "BrineConcentration": {
+      "type": "number",
+      "title": "Brine Concentration",
+      "description": "The salinity level of the brine used in the test, sometimes represented as CoCw or the Concentration of Conductive Water), affecting the rock's electrical resistivity properties.",
+      "x-osdu-frame-of-reference": "UOM:mass per volume"
+    },
+    "FormationResistivityFactor": {
+      "type": "number",
+      "title": "Formation Resistivity Factor",
+      "description": "The ratio of the resistivity of the rock fully saturated with brine to the resistivity of the brine itself, used in determining water saturation. Also called FRF.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "AdjustedFormationResistivityFactor": {
+      "type": "number",
+      "title": "Adjusted Formation Resistivity Factor",
+      "description": "A modified value of the formation resistivity factor adjusted for specific experimental conditions or data corrections.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "CementationExponent": {
+      "type": "number",
+      "title": "Cementation Exponent",
+      "description": "A parameter in Archie’s law representing the rock’s pore structure and its influence on resistivity, affecting saturation calculations.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "AdjustedCementationExponent": {
+      "type": "number",
+      "title": "Adjusted Cementation Exponent",
+      "description": "A modified value of the cementation exponent, accounting for specific experimental conditions or data corrections.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "AverageSaturationExponent": {
+      "type": "number",
+      "title": "Average Saturation Exponent",
+      "description": "A factor describing the relationship between water saturation and resistivity, crucial for interpreting reservoir fluid saturation.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "AdjustedAverageSaturationExponent": {
+      "type": "number",
+      "title": "Adjusted Average Saturation Exponent",
+      "description": "A modified value of the saturation exponent, accounting for experimental conditions or measurement adjustments.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "FormationFactorAtNetOverburdenPressure": {
+      "type": "number",
+      "title": "Formation Factor At Net Overburden Pressure",
+      "description": "The formation resistivity factor (FRF) measured under the net confining pressure that simulates in-situ reservoir conditions.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "AdjustedFormationFactorAtNetOverburdenPressure": {
+      "type": "number",
+      "title": "Adjusted Formation Factor At Net Overburden Pressure",
+      "description": "The formation factor adjusted for experimental conditions under net overburden pressure.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "NumberOfElectrodes": {
+      "type": "number",
+      "title": "Number Of Electrodes",
+      "description": "The number of electrodes used in the experimental setup to measure electrical properties in the sample.",
+      "x-osdu-frame-of-reference": "UOM:non-dimensional"
+    },
+    "QuantityOfOilInTheVolume": {
+      "type": "number",
+      "title": "Quantity Of Oil In The Volume",
+      "description": "The volume fraction of oil present in the rock sample during the electrical property measurement.",
+      "x-osdu-frame-of-reference": "UOM:volume"
+    },
+    "InjectionFluidID": {
+      "type": "string",
+      "title": "Injection Fluid Type ID",
+      "description": "The type of fluid injected into a sample to displace other fluids during the experiment.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "SampleInjectionFluidType"
+        }
+      ]
+    },
+    "DisplacedFluidTypeID": {
+      "type": "string",
+      "title": "Displaced Fluid Type ID",
+      "description": "The type of fluid being displaced from the rock sample during saturation or desaturation measurements.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DisplacedFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "DisplacedFluidType"
+        }
+      ]
+    },
+    "SaturationProcessMethodID": {
+      "type": "string",
+      "title": "Saturation Process Method ID",
+      "description": "The method used to saturate the rock sample with a particular fluid in the experiment.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationProcessMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "SaturationProcessMethod"
+        }
+      ]
+    },
+    "DesaturationMethodID": {
+      "type": "string",
+      "title": "Desaturation Method ID",
+      "description": "The technique used to reduce the saturation of the rock sample, important for measuring electrical properties under varying saturations.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DesaturationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "DesaturationMethod"
+        }
+      ]
+    },
+    "BrineResistivity": {
+      "type": "number",
+      "title": "Brine Resistivity",
+      "description": "The resistivity of the brine solution, which influences the resistivity index calculations.",
+      "x-osdu-frame-of-reference": "UOM:electrical resistivity"
+    },
+    "Temperature": {
+      "type": "number",
+      "title": "Temperature",
+      "description": "The temperature at which the electrical properties measurements are conducted, affecting fluid behavior and resistivity.",
+      "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
+    },
+    "Frequency": {
+      "type": "number",
+      "title": "Frequency",
+      "description": "The frequency of the electrical current used in the measurements, impacting the resistivity response of the rock.",
+      "x-osdu-frame-of-reference": "UOM:frequency"
+    },
+    "FormationResistivity": {
+      "type": "number",
+      "title": "Formation Resistivity",
+      "description": "This could also be Formation Conductivity.",
+      "x-osdu-frame-of-reference": "UOM:electrical resistivity"
+    },
+    "FormationDiaelectricPermittivity": {
+      "type": "number",
+      "title": "Formation Diaelectric Permittivity",
+      "description": "A measure of how easily the formation's materials (rock, fluid, and any pore spaces) can polarize in response to an applied electric field.",
+      "x-osdu-frame-of-reference": "UOM:permittivity"
+    },
+    "PorosityAtNetConfiningStress": {
+      "type": "number",
+      "title": "Porosity At Net Confining Stress",
+      "description": "The amount of pore space relative to the volume of a sample at net confining stress.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "CapillaryPressureAnalysisID": {
+      "type": "string",
+      "title": "Capillary Pressure Analysis ID",
+      "description": "Identifier of the specific capillary pressure analysis related to this electrical properties analysis, if provided.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "WOGnCycleNotationID": {
+      "type": "string",
+      "title": "Water Oil Gas Number ID",
+      "description": "The WOGn notation description of the capillary pressure cycle.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-WOGnCycleNotation:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "WOGnCycleNotation"
+        }
+      ]
+    },
+    "TestSteps": {
+      "type": "array",
+      "title": "Test Steps",
+      "description": "The array of test data.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Test Steps",
+        "description": "The array of test data.",
+        "properties": {
+          "StepNumber": {
+            "type": "number",
+            "title": "Step Number",
+            "description": "Internal step number which identifies the sequence of steps in this analysis.",
+            "x-osdu-frame-of-reference": "UOM:non-dimensional"
+          },
+          "IsPressureIncreasing": {
+            "type": "boolean",
+            "title": "Is Pressure Increasing",
+            "description": "Identifies whether the pressure is increasing or decreasing during this test step.  A value of True indicates an increasing pressure cycle.  False indicates a decreasing pressure cycle."
+          },
+          "WaterSaturationOverResistivityIndex": {
+            "type": "number",
+            "title": "Water Saturation Over Resistivity Index",
+            "description": "The relationship between water saturation and resistivity index, used to interpret fluid saturations in the rock.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "BrineSaturation": {
+            "type": "number",
+            "title": "Brine Saturation",
+            "description": "The fraction of pore space in the rock that is filled with brine, a key input for water saturation models.",
+            "x-osdu-frame-of-reference": "UOM:volume per volume"
+          },
+          "ResistivityIndex": {
+            "type": "number",
+            "title": "Resistivity Index",
+            "description": "The index of resistivity used to relate resistivity measurements to water saturation in the sample.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "AdjustedResistivityIndex": {
+            "type": "number",
+            "title": "Adjusted Resistivity Index",
+            "description": "The resistivity index value adjusted or corrected for specific conditions.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "CapillaryPressure": {
+            "type": "number",
+            "title": "Capillary Pressure",
+            "description": "Reported capillary pressure, if provided.",
+            "x-osdu-frame-of-reference": "UOM:Pressure"
+          },
+          "SaturationExponent": {
+            "type": "number",
+            "title": "Saturation Exponent",
+            "description": "A factor describing the relationship between water saturation and resistivity, crucial for interpreting reservoir fluid saturation.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "AdjustedSaturationExponent": {
+            "type": "number",
+            "title": "Adjusted Saturation Exponent",
+            "description": "A modified value of the saturation exponent, accounting for experimental conditions or measurement adjustments.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "FormationResistivityFactor": {
+            "type": "number",
+            "title": "Formation Resistivity Factor",
+            "description": "The ratio of the resistivity of the rock fully saturated with brine to the resistivity of the brine itself, used in determining water saturation. Also called FRF.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "NetConfiningStress": {
+            "type": "number",
+            "title": "Net Confining Stress",
+            "description": "The pressure exerted on a sample from its environment, minus the pore pressure within the sample",
+            "x-osdu-frame-of-reference": "UOM:pressure"
+          },
+          "Porosity": {
+            "type": "number",
+            "title": "Porosity",
+            "description": "The amount of pore space relative to the volume of a sample.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "PorosityFractionOfOriginalAmbient": {
+            "type": "number",
+            "title": "Porosity Fraction Of Original Ambient",
+            "description": "The porosity of the sample at this test step as a fraction of the original porosity at ambient conditions.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "PorosityFractionOfOriginalStandard": {
+            "type": "number",
+            "title": "Porosity Fraction Of Original Standard",
+            "description": "The porosity of the sample at this test step as a fraction of the original porosity at standard conditions.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "BrinePermeability": {
+            "type": "number",
+            "title": "Brine Permeability",
+            "description": "Quantifies the ability for brine to flow through a sample.",
+            "x-osdu-frame-of-reference": "UOM:permeability rock"
+          },
+          "BrinePermeabilityFractionOfOriginal": {
+            "type": "number",
+            "title": "Brine Permeability Fraction Of Original",
+            "description": "The permeability of the sample to brine at this test step as a fraction of the original permeability.",
+            "x-osdu-frame-of-reference": "UOM:permeability rock"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "x-osdu-inheriting-from-kind": [],
+  "additionalProperties": false
+}

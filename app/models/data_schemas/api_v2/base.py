@@ -31,7 +31,7 @@ from app.models.data_schemas.api_v2.extraction_data_model import ExtractionDataS
 from app.models.data_schemas.api_v2.fractionation_data_model import FractionationDataSchema as FractionationModel
 from app.models.data_schemas.api_v2.relative_permeability_data_model_1_0_0 import RelativePermeabilityModel100
 from app.models.data_schemas.api_v2.rock_compressibility_data_model import RockCompressibilityDataSchema as RockCompressibilityModel
-from app.models.data_schemas.api_v2.electrical_properties_data_model import ElectricalPropertiesDataSchema as ElectricalPropertiesModel
+from app.models.data_schemas.api_v2.electrical_properties_data_model_1_0_0 import ElectricalPropertiesModel100
 from app.models.data_schemas.api_v2.nmr_data_model import NmrDataSchema as NMRModel
 from app.models.data_schemas.api_v2.multiple_salinity_data_model import MultipleSalinityDataSchema as MultipleSalinityModel
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import GcmsAlkanesDataSchema as GCMSAlkanesModel
@@ -114,7 +114,7 @@ ROCK_COMPRESSIBILITY_MODELS = {
     ContentSchemaVersion.V_1_0_0: RockCompressibilityModel,
 }
 ELECTRICAL_PROPERTIES_MODELS = {
-    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel,
+    ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel100,
 }
 NMR_MODELS = {
     ContentSchemaVersion.V_1_0_0: NMRModel,
