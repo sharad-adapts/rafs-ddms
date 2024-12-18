@@ -14,7 +14,7 @@
 
 from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import CommonRelativePathsV2
-from app.models.data_schemas.api_v2.rca_data_model import RcaDataSchema as RCAModel
+from app.models.data_schemas.api_v2.rca_data_model_1_0_0 import RcaModel100
 from app.models.data_schemas.api_v2.cce_data_model_1_0_0 import CceModel100
 from app.models.data_schemas.api_v2.diff_lib_data_model import DiffLibDataSchema as DiffLibModel
 from app.models.data_schemas.api_v2.transport_test_data_model import TransportTestDataSchema as TransportTestModel
@@ -60,7 +60,7 @@ from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model import Crus
 from app.models.data_schemas.api_v2.mining_geotech_logging_data_model import MiningGeotechLoggingDataSchema as MiningGeotechLoggingModel
 
 RCA_MODELS = {
-    ContentSchemaVersion.V_1_0_0: RCAModel,
+    ContentSchemaVersion.V_1_0_0: RcaModel100,
 }
 CCE_MODELS = {
     ContentSchemaVersion.V_1_0_0: CceModel100,
