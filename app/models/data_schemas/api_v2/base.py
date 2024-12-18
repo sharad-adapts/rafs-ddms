@@ -20,7 +20,7 @@ from app.models.data_schemas.api_v2.diff_lib_data_model import DiffLibDataSchema
 from app.models.data_schemas.api_v2.transport_test_data_model import TransportTestDataSchema as TransportTestModel
 from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
 from app.models.data_schemas.api_v2.mss_data_model import MssDataSchema as MSSModel
-from app.models.data_schemas.api_v2.swelling_test_data_model import SwellingTestDataSchema as SwellingTestModel
+from app.models.data_schemas.api_v2.swelling_test_data_model_1_0_0 import SwellingTestModel100
 from app.models.data_schemas.api_v2.cvd_data_model_1_0_0 import CvdModel100
 from app.models.data_schemas.api_v2.water_analysis_data_model import WaterAnalysisDataSchema as WaterAnalysisModel
 from app.models.data_schemas.api_v2.interfacial_tension_data_model import InterfacialTensionDataSchema as InterfacialTensionModel
@@ -81,7 +81,7 @@ MSS_MODELS = {
     ContentSchemaVersion.V_1_0_0: MSSModel,
 }
 SWELLING_MODELS = {
-    ContentSchemaVersion.V_1_0_0: SwellingTestModel,
+    ContentSchemaVersion.V_1_0_0: SwellingTestModel100,
 }
 CVD_MODELS = {
     ContentSchemaVersion.V_1_0_0: CvdModel100,
