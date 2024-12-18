@@ -54,7 +54,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:Sample_200:",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:Example_Sample:",
 }
 
 with open(f"{dir_path}/rca_orient_split.json") as fp:
@@ -85,8 +85,8 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:RCA_SamplesAnalysis:",
-            "opendes:master-data--Sample:Sample_200:",
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            "opendes:master-data--Sample:Example_Sample:",
         ],
     ],
 }
@@ -110,4 +110,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+EXPECTED_ERROR_REASON = "Data error: 15 columns passed, passed data had 14 columns"

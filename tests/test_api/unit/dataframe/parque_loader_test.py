@@ -25,7 +25,7 @@ from httpx import AsyncClient
 from app.dataframe.filter_processor import DFFilterProcessor
 from app.dataframe.parquet_filter import DataFrameFilterValidator
 from app.dataframe.parquet_loader import ParquetLoader
-from app.models.data_schemas.api_v2.base import RCAModel
+from app.models.data_schemas.api_v2.base import RcaModel100
 
 ORIENT_SPLIT_TEST = {
     "columns": [
@@ -95,7 +95,7 @@ async def test_read_parquet_files_successful(parquet_loader):
 async def test_read_parquet_files_with_filter_successful(parquet_loader):
     signed_urls = [("dataset_id1", "http://example.com/parquet1"), ("dataset_id2", "http://example.com/parquet2")]
     mock_content = pd.read_json(io.StringIO(json.dumps(ORIENT_SPLIT_TEST)), orient="split").to_parquet()
-    df_filter = DataFrameFilterValidator(RCAModel)
+    df_filter = DataFrameFilterValidator(RcaModel100)
     df_filter_processor = DFFilterProcessor(df_filter)
 
     with patch.object(AsyncClient, "stream", return_value=AsyncContextManager(mock_content)):
