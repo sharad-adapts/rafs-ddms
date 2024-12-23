@@ -87,12 +87,10 @@ phases:
       - safety check -r requirements.txt -r requirements_dev.txt -o text > safety_check.txt; EXITCODE=$?
       # override docker file with aws dockerfile
       - cp ./devops/aws/Dockerfile ./
-      - echo "Building docker image..."
-      - docker build -f Dockerfile -t ${ECR_IMAGE} .
-      - docker tag  ${ECR_IMAGE} ${ECR_IMAGE_BRANCH_LATEST}
-      - echo "Pushing docker image..."
-      - docker push ${ECR_IMAGE}
-      - docker push ${ECR_IMAGE_BRANCH_LATEST}
+      - echo "Build and push docker image..."
+      - docker buildx create --driver docker-container --use
+      - docker buildx inspect --bootstrap
+      - docker buildx build --platform linux/arm64/v8,linux/amd64 --pull --push -f Dockerfile -t ${ECR_IMAGE} -t ${ECR_IMAGE_BRANCH_LATEST} .
 
       - echo "Building docker integration test image..."
       - docker build -f Dockerfile.tests -t ${ECR_IMAGE_TEST} .
