@@ -4,20 +4,6 @@ include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/aws-global.yml"
 
-aws-containerize:
-  extends:
-    - .aws
-    - .aws_common_variables
-    - .aws_variables
-  stage: containerize
-  script:
-    - docker build -f Dockerfile -t $LOCAL_IMAGE_TAG .
-    - $(aws ecr get-login --no-include-email --region $AWS_ECR_REGION)
-    - docker tag $LOCAL_IMAGE_TAG $AWS_IMAGE_TAG_BASE:$CI_COMMIT_SHA
-    - docker tag $LOCAL_IMAGE_TAG $AWS_IMAGE_TAG_BASE:latest
-    - docker push $AWS_IMAGE_TAG_BASE:$CI_COMMIT_SHA
-    - docker push $AWS_IMAGE_TAG_BASE:latest
-
 
 aws_test_py:
   extends:

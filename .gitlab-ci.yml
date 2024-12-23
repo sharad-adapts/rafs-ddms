@@ -8,6 +8,7 @@ variables:
   AZURE_SKIP_COVERAGE: "true"
 
   # AWS specific
+  AWS_BUILD_SUBDIR: ./
   AWS_SERVICE: rafs-ddms
   AWS_DEPLOY_TARGET: TF
   AWS_SERVICE_NAMESPACE_SUFFIX: rafs-ddms
