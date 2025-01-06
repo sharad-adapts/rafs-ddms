@@ -1,52 +1,44 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "TestNumber",
-        "TestTemperature",
-        "SaturationPressure",
-        "ReservoirPressure",
-        "Method",
-        "ViscosityTestSteps"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "opendes:master-data--Sample:fluid_sample_test:",
-            "test_number",
-            {
-                "Value": 273,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
-            {
-                "Value": 4634,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
-            },
-            {
-                "Value": 4434,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
-            },
-            "opendes:reference-data--ViscosityMethod:VibrationalViscometer:",
-            [
-                {
-                    "StepNumber": "1",
-                    "StepPressure": {
-                        "Value": 4634,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia:"
-                    },
-                    "OilViscosity": {
-                        "Value": 15,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
-                    },
-                    "GasViscosity": {
-                        "Value": 20,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
-                    }
-                }
-            ]
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "TestNumber",
+    "ReservoirPressure",
+    "ViscosityMethodID",
+    "TestSteps",
+    "AssociatedAnalysisTypeID"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+      "opendes:master-data--Sample:Example_Sample:",
+      "1A",
+      1.23,
+      "opendes:reference-data--ViscosityMethod:CambridgeElectromagneticViscometer:",
+      [
+        {
+          "StepNumber":"1A",
+          "StepPressure":1.23,
+          "StepTemperature":1.23,
+          "OilViscosity":1.23,
+          "GasViscosity":1.23,
+          "FluidPhasesPresentID":"opendes:reference-data--FluidPhasesPresent:Water:",
+          "SaturationPressure":1.23
+        },
+        {
+          "StepNumber":"2A",
+          "StepPressure":1.23,
+          "StepTemperature":1.23,
+          "OilViscosity":1.23,
+          "GasViscosity":1.23,
+          "FluidPhasesPresentID":"opendes:reference-data--FluidPhasesPresent:Wellstream:",
+          "SaturationPressure":1.23
+        }
+      ],
+      "opendes:reference-data--SampleAnalysisType:BasicRockProperties.CrushedRockAnalysis:"
     ]
+  ]
 }

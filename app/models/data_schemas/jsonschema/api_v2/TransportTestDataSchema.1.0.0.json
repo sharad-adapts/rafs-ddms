@@ -1,0 +1,140 @@
+{
+  "x-osdu-license": "Copyright 2024, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/TransportTestDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--TransportTestDataSchema:1.0.0",
+  "title": "Transport Test Data Schema",
+  "description": "The Transport Test is to assess the properties of the fluid relevant to transportation. A series of test steps for properties (such as viscosity, density, etc.) can be defined.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "The OSDU Identifier for this SamplesAnalysis.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "The OSDU Identifier for the Sample associated with this analysis.",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "TestNumber": {
+      "type": "string",
+      "title": "Test Number",
+      "description": "A number for this test for purposes of e.g., tracking lab sequence."
+    },
+    "ReservoirPressure": {
+      "type": "number",
+      "title": "Reservoir Pressure",
+      "description": "The pressure conditions of the reservoir where the sample was collected.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
+    },
+    "ViscosityMethodID": {
+      "type": "string",
+      "title": "Viscosity Method ID",
+      "description": "Identifier for the method by which viscosity was measured or calculated.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ViscosityMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "ViscosityMethod"
+        }
+      ]
+    },
+    "TestSteps": {
+      "type": "array",
+      "title": "Test Steps",
+      "description": "The test steps for this viscosity test.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Test Steps",
+        "description": "The test steps for this viscosity test.",
+        "properties": {
+          "StepNumber": {
+            "type": "string",
+            "title": "Step Number",
+            "description": "Internal step number which identifies the sequence of step in transport test measurements."
+          },
+          "StepPressure": {
+            "type": "number",
+            "title": "Step Pressure",
+            "description": "The pressure condition recorded at this test step.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
+          },
+          "StepTemperature": {
+            "type": "number",
+            "title": "Step Temperature",
+            "description": "The temperature recorded at this test step.",
+            "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
+          },
+          "OilViscosity": {
+            "type": "number",
+            "title": "Oil Viscosity",
+            "description": "A measure of a fluid’s internal resistance to flow.",
+            "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
+          },
+          "GasViscosity": {
+            "type": "number",
+            "title": "Gas Viscosity",
+            "description": "A measure of a fluid’s internal resistance to flow.",
+            "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
+          },
+          "FluidPhasesPresentID": {
+            "type": "string",
+            "title": "Fluid Phases Present ID",
+            "description": "Identifies the phases of fluid present in the sample, e.g. SeparatorLiquid, FlashedOil, OilWithMud, Gas, ReservoirFluid (references FluidPhasesPresent).",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidPhasesPresent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "FluidPhasesPresent"
+              }
+            ]
+          },
+          "SaturationPressure": {
+            "type": "number",
+            "title": "Saturation Pressure",
+            "description": "The saturation (or bubble point) pressure at the Step Temperature in this test step.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "AssociatedAnalysisTypeID": {
+      "type": "string",
+      "title": "Associated Analysis Type ID",
+      "description": "The type of flash process through which the gas and liquid phases are separated, e.g. Differential Liberation, Constant Composition Expansion, Constant Volume Depletion, Atmospheric Flash.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleAnalysisType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "SampleAnalysisType"
+        }
+      ]
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "x-osdu-inheriting-from-kind": [],
+  "additionalProperties": false
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+    "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "TestNumber": "1A",
+    "ReservoirPressure": 1.23,
+    "ViscosityMethodID": "opendes:reference-data--ViscosityMethod:CambridgeElectromagneticViscometer:",
+    "TestSteps": [
+      {
+        "StepNumber": "1A",
+        "StepPressure": 1.23,
+        "StepTemperature": 1.23,
+        "OilViscosity": 1.23,
+        "GasViscosity": 1.23,
+        "FluidPhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Water:",
+        "SaturationPressure": 1.23
+      },
+      {
+        "StepNumber": "2A",
+        "StepPressure": 1.23,
+        "StepTemperature": 1.23,
+        "OilViscosity": 1.23,
+        "GasViscosity": 1.23,
+        "FluidPhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+        "SaturationPressure": 1.23
+      }
+    ],
+    "AssociatedAnalysisTypeID": "opendes:reference-data--SampleAnalysisType:BasicRockProperties.CrushedRockAnalysis:"
+  }
+]
