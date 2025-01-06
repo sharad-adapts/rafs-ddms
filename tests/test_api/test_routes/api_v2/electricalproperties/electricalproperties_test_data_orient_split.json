@@ -1,92 +1,100 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "BrineConcentration",
-        "FormationResistivityFactor",
-        "AdjustedFormationResistivityFactor",
-        "CementationExponent",
-        "AdjustedCementationExponent",
-        "SaturationExponent",
-        "AdjustedSaturationExponent",
-        "BrineSaturation",
-        "FormationFactorAtNetOverburdenPressure",
-        "AdjustedFormationFactorAtNetOverburnedPressure",
-        "BrineSalinity",
-        "NumberOfElectrodes",
-        "QuantityOfOilInTheVolume",
-        "FluidSystem",
-        "DisplacingFluid",
-        "DisplacedFluid",
-        "SaturationProcessMethod",
-        "DesaturationMethod",
-        "BrineResistivity",
-        "WaterSaturationOverResistivityIndex",
-        "Temperature",
-        "NetConfiningStress",
-        "Frequency"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:ElectricalProperties_WPC:",
-            "opendes:master-data--Sample:ElectricalProperties_Sample:",
-            {
-                "Value": 22000,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
-            },
-            6.87,
-            7.27,
-            1.72,
-            1.78,
-            2.03,
-            5.22,
-            {
-                "Value": 986,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mm:"
-            },
-            2.53,
-            2.34,
-            {
-                "Value": 235,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
-            },
-            "opendes:reference-data--NumberOfElectrodes:2_Electrodes:",
-            {
-                "Value": 4.25,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm:"
-            },
-            "opendes:reference-data--FluidSystemAnalysisType:SolubleCuttingOil:",
-            "opendes:reference-data--InjectionFluidType:Mercury:",
-            "opendes:reference-data--DisplacedFluidType:Hexane:",
-            "opendes:reference-data--SaturationProcessMethod:DrainageTwoPhase:",
-            "opendes:reference-data--DesaturationMethod:PorousPlateGasWaterOil:",
-            {
-                "Value": 125,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm%2Fcm:"
-            },
-            [
-                {
-                    "Value": 2
-                },
-                {
-                    "Value": 4
-                }
-            ],
-            {
-                "Value": 90,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
-            {
-                "Value": 1000,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-            },
-            {
-                "Value": 100,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Hz:"
-            }
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "BrineConcentration",
+    "FormationResistivityFactor",
+    "AdjustedFormationResistivityFactor",
+    "CementationExponent",
+    "AdjustedCementationExponent",
+    "AverageSaturationExponent",
+    "AdjustedAverageSaturationExponent",
+    "FormationFactorAtNetOverburdenPressure",
+    "AdjustedFormationFactorAtNetOverburdenPressure",
+    "NumberOfElectrodes",
+    "QuantityOfOilInTheVolume",
+    "InjectionFluidID",
+    "DisplacedFluidTypeID",
+    "SaturationProcessMethodID",
+    "DesaturationMethodID",
+    "BrineResistivity",
+    "Temperature",
+    "Frequency",
+    "FormationResistivity",
+    "FormationDiaelectricPermittivity",
+    "PorosityAtNetConfiningStress",
+    "CapillaryPressureAnalysisID",
+    "WOGnCycleNotationID",
+    "TestSteps"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+      "opendes:master-data--Sample:Example_Sample:",
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      "opendes:reference-data--SampleInjectionFluidType:Brine:",
+      "opendes:reference-data--DisplacedFluidType:Brine:",
+      "opendes:reference-data--SaturationProcessMethod:PrimaryDrainage:",
+      "opendes:reference-data--DesaturationMethod:CentrifugeGasWater:",
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+      "opendes:reference-data--WOGnCycleNotation:CDI1:",
+      [
+        {
+          "StepNumber":1,
+          "IsPressureIncreasing":false,
+          "WaterSaturationOverResistivityIndex":1.23,
+          "BrineSaturation":1.23,
+          "ResistivityIndex":1.23,
+          "AdjustedResistivityIndex":1.23,
+          "CapillaryPressure":1.23,
+          "SaturationExponent":1.23,
+          "AdjustedSaturationExponent":1.23,
+          "FormationResistivityFactor":1.23,
+          "NetConfiningStress":1.23,
+          "Porosity":1.23,
+          "PorosityFractionOfOriginalAmbient":1.23,
+          "PorosityFractionOfOriginalStandard":1.23,
+          "BrinePermeability":1.23,
+          "BrinePermeabilityFractionOfOriginal":1.23
+        },
+        {
+          "StepNumber":2,
+          "IsPressureIncreasing":false,
+          "WaterSaturationOverResistivityIndex":1.23,
+          "BrineSaturation":1.23,
+          "ResistivityIndex":1.23,
+          "AdjustedResistivityIndex":1.23,
+          "CapillaryPressure":1.23,
+          "SaturationExponent":1.23,
+          "AdjustedSaturationExponent":1.23,
+          "FormationResistivityFactor":1.23,
+          "NetConfiningStress":1.23,
+          "Porosity":1.23,
+          "PorosityFractionOfOriginalAmbient":1.23,
+          "PorosityFractionOfOriginalStandard":1.23,
+          "BrinePermeability":1.23,
+          "BrinePermeabilityFractionOfOriginal":1.23
+        }
+      ]
     ]
+  ]
 }
