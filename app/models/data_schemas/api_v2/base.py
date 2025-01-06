@@ -51,7 +51,7 @@ from app.models.data_schemas.api_v2.tec_data_model import TecDataSchema as TECMo
 from app.models.data_schemas.api_v2.eds_mapping_data_model import EdsMappingDataSchema as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import XrfDataSchema as XRFModel
 from app.models.data_schemas.api_v2.capillary_pressure_data_model_1_0_0 import CapillaryPressureModel100
-from app.models.data_schemas.api_v2.sto_data_model import StoDataSchema as StoModel
+from app.models.data_schemas.api_v2.sto_data_model_1_0_0 import StoModel100
 from app.models.data_schemas.api_v2.tensile_strength_data_model import TensileStrengthDataSchema as TensileStrengthModel
 from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import VitriniteReflectanceDataSchema as VitriniteReflectanceModel
 from app.models.data_schemas.api_v2.xrd_data_model import XrdDataSchema as XRDModel
@@ -186,7 +186,7 @@ PDP_MODELS = {
     ContentSchemaVersion.V_1_0_0: PdpModel,
 }
 STO_MODELS = {
-    ContentSchemaVersion.V_1_0_0: StoModel,
+    ContentSchemaVersion.V_1_0_0: StoModel100,
 }
 CRUSHED_ROCK_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel,
