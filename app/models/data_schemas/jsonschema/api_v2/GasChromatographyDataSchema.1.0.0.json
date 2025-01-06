@@ -1,0 +1,171 @@
+{
+  "x-osdu-license": "Copyright 2024, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/GasChromatographyDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--GasChromatographyDataSchema:1.0.0",
+  "title": "Gas Chromatography Data Schema",
+  "description": "Gas chromatography (GC) is the process of separating compounds in a mixture by injecting a gaseous or liquid sample into a mobile phase, typically called the carrier gas, and passing the gas through a stationary phase. The mobile phase is usually an inert gas or unreactive gas such as helium, argon, nitrogen or hydrogen. The stationary phase is contained inside of a separation column. Today, most GC columns are fused silica capillaries with an inner diameter of 100-320 μm and a length of 5-60 m. The GC column is located inside an oven where the temperature of the gas can be controlled and the effluent coming off the column is monitored by a suitable detector as a function of retention time.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "OSDU Identifier for this SamplesAnalysis.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "OSDU Identifier for the Sample associated with this analysis.",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "SampleMass": {
+      "type": "number",
+      "title": "Sample Mass",
+      "description": "Reported mass of the analyzed sample.",
+      "x-osdu-frame-of-reference": "UOM:mass"
+    },
+    "Method": {
+      "type": "string",
+      "title": "Method",
+      "description": "Free string object to account for any particular methods or lab-specific analysis details."
+    },
+    "GasChromatographyAnalysis": {
+      "type": "array",
+      "title": "Gas Chromatography Analysis",
+      "description": "Hydrocarbon abundance measured by gas chromatography, e.g. Aromatic,Gasoline,HighTemperature,Pyrolysis,Saturate,SimulatedDistillation,SulfurDetection,ThermalExtraction,WholeOil",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Gas Chromatography Analysis",
+        "description": "Hydrocarbon abundance measured by gas chromatography, e.g. Aromatic,Gasoline,HighTemperature,Pyrolysis,Saturate,SimulatedDistillation,SulfurDetection,ThermalExtraction,WholeOil.",
+        "properties": {
+          "ComponentNameID": {
+            "type": "string",
+            "title": "Component Name ID",
+            "description": "Name of the component in this analysis.  In the case of internal standard compounds, the name of the actual compound should be used in lieu of, e.g. 'STD1', if it is known.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleCompositionComponent"
+              }
+            ]
+          },
+          "RetentionTime": {
+            "type": "number",
+            "title": "Retention Time",
+            "description": "The time it takes for a compound to pass through the GC column and be detected, providing a reference point for comparing other compounds.",
+            "x-osdu-frame-of-reference": "UOM:time"
+          },
+          "Peak": {
+            "type": "object",
+            "title": "Peak",
+            "description": "A graphical representation of the highest point (peak) of a detected signal for a compound in the chromatogram graph, a signal which represents to the compound's concentration as a function of time.",
+            "properties": {
+              "AreaValue": {
+                "type": "number",
+                "title": "Area Value",
+                "description": "Captures the value of the area under the peak.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              },
+              "AreaConcentration": {
+                "type": "number",
+                "title": "Area Concentration",
+                "description": "Concentration of a compound measured using area under the peak for both the compound of interest and the standard compound, along with the known concentration of the standard.",
+                "x-osdu-frame-of-reference": "UOM:mass per mass"
+              },
+              "HeightValue": {
+                "type": "number",
+                "title": "Height Value",
+                "description": "Captures the value of the peak's height.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              },
+              "HeightConcentration": {
+                "type": "number",
+                "title": "Height Concentration",
+                "description": "Concentration of a compound measured using height under the peak for both the compound of interest and the standard compound, along with the known concentration of the standard.",
+                "x-osdu-frame-of-reference": "UOM:mass per mass"
+              },
+              "PeakValueTypeUnknown": {
+                "type": "number",
+                "title": "Peak Value Type Unknown",
+                "description": "Captures the value of a peak reported without area or height specified.  If the height or area is specified, HeightValue or AreaValue should be used, respectively.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              }
+            },
+            "additionalProperties": false
+          },
+          "IsInternalStandard": {
+            "type": "boolean",
+            "title": "Is Internal Standard",
+            "description": "Identifies whether the component is an internal standard."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "InternalStandardCompound": {
+      "type": "array",
+      "title": "Internal Standard Compound",
+      "description": "One or more compounds added to a sample in a known quantity before the analysis begins; Also known as an internal standard. Used for accurate identification and quantification.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Internal Standard Compound",
+        "description": "A compound that is added to a sample in a known quantity before the analysis begins; Also known as an internal standard. Used for accurate identification and quantification.",
+        "properties": {
+          "ComponentNameID": {
+            "type": "string",
+            "title": "Component Name ID",
+            "description": "Name of the component in this analysis.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleCompositionComponent"
+              }
+            ]
+          },
+          "Mass": {
+            "type": "number",
+            "title": "Mass",
+            "description": "The mass of the standard compound.",
+            "x-osdu-frame-of-reference": "UOM:mass"
+          },
+          "Concentration": {
+            "type": "number",
+            "title": "Concentration",
+            "description": "The concentration of the standard compound.",
+            "x-osdu-frame-of-reference": "UOM:mass per mass"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID",
+    "SampleMass"
+  ],
+  "x-osdu-inheriting-from-kind": [],
+  "additionalProperties": false
+}
