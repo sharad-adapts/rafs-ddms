@@ -16,7 +16,7 @@ from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import CommonRelativePathsV2
 from app.models.data_schemas.api_v2.rca_data_model_1_0_0 import RcaModel100
 from app.models.data_schemas.api_v2.cce_data_model_1_0_0 import CceModel100
-from app.models.data_schemas.api_v2.diff_lib_data_model import DiffLibDataSchema as DiffLibModel
+from app.models.data_schemas.api_v2.diff_lib_data_model_1_0_0 import DiffLibModel100
 from app.models.data_schemas.api_v2.transport_test_data_model_1_0_0 import TransportTestModel100
 from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
 from app.models.data_schemas.api_v2.mss_data_model import MssDataSchema as MSSModel
@@ -66,7 +66,7 @@ CCE_MODELS = {
     ContentSchemaVersion.V_1_0_0: CceModel100,
 }
 DIFF_LIB_MODELS = {
-    ContentSchemaVersion.V_1_0_0: DiffLibModel,
+    ContentSchemaVersion.V_1_0_0: DiffLibModel100,
 }
 TRANSPORT_TEST_MODELS = {
     ContentSchemaVersion.V_1_0_0: TransportTestModel100,
