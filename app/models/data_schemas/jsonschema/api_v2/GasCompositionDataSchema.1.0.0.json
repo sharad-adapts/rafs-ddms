@@ -1,0 +1,115 @@
+{
+  "x-osdu-license": "Copyright 2024, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "https://schema.osdu.opengroup.org/json/content/GasCompositionDataSchema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--GasCompositionDataSchema:1.0.0",
+  "title": "GasComposition Data Schema",
+  "description": "Gas composition analysis involves determining the proportions of various gases, such as methane, ethane, propane, and others, within a natural gas sample to evaluate its quality, energy content, and suitability for specific applications.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "OSDU Identifier for this SamplesAnalysis.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "OSDU Identifier for the Sample associated with this analysis.",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "Method": {
+      "type": "string",
+      "title": "Method",
+      "description": "The sample analysis method used for this analysis."
+    },
+    "GasComposition": {
+      "type": "array",
+      "title": "Gas Composition",
+      "description": "The relative abundance of gases measured using gas chromatography.  If NormalisingFactor is populated and/or IsNormalised set, then the GasComposition has been normalised to that set of components.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Gas Composition",
+        "description": "The relative abundance of gases measured using gas chromatography.",
+        "properties": {
+          "ComponentID": {
+            "type": "string",
+            "title": "Component ID",
+            "description": "The specific hydrocarbon or non-hydrocarbon gas (e.g., methane, ethane, carbon dioxide) identified in the gas composition analysis.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleCompositionComponent"
+              }
+            ]
+          },
+          "VolumeFraction": {
+            "type": "number",
+            "title": "Volume Fraction",
+            "description": "The concentration of the gas component in the overall hydrocarbon gas composition as a fraction of volume.",
+            "x-osdu-frame-of-reference": "UOM:volume per volume"
+          },
+          "MassFraction": {
+            "type": "number",
+            "title": "Mass Fraction",
+            "description": "The concentration of the gas component in the overall hydrocarbon gas composition as a fraction of mass.",
+            "x-osdu-frame-of-reference": "UOM:mass per mass"
+          },
+          "MoleFraction": {
+            "type": "number",
+            "title": "Mole Fraction",
+            "description": "The concentration of the gas component in the overall hydrocarbon gas composition as a mole fraction.",
+            "x-osdu-frame-of-reference": "UOM:amount of substance per amount of substance"
+          },
+          "UnknownFraction": {
+            "type": "number",
+            "title": "Unknown Fraction",
+            "description": "The concentration of the gas component in the overall hydrocarbon gas composition, where the type of fraction is not known, e.g. legacy data.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          },
+          "SpecificGravity": {
+            "type": "number",
+            "title": "Specific Gravity",
+            "description": "The specific gravity of the component.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "NormalisingFactor": {
+      "type": "string",
+      "title": "Normalising Factor",
+      "description": "A description of the set of normalising components used when the gas composition is normalised, e.g. C1-C5.  If this is populated, IsNormalised should also be set."
+    },
+    "IsNormalised": {
+      "type": "boolean",
+      "title": "IsNormalised",
+      "description": "Specifies whether the Gas Composition array object values have been normalized to a set of components provided in Normalising Factor."
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "x-osdu-inheriting-from-kind": [],
+  "additionalProperties": false
+}

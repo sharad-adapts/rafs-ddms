@@ -37,6 +37,8 @@ from app.models.data_schemas.api_v2.multiple_salinity_data_model import Multiple
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import GcmsAlkanesDataSchema as GCMSAlkanesModel
 from app.models.data_schemas.api_v2.gcms_aromatics_data_model import GcmsAromaticsDataSchema as GCMSAromaticsModel
 from app.models.data_schemas.api_v2.gcms_ratios_data_model import GcmsRatiosDataSchema as GCMSRatiosModel
+from app.models.data_schemas.api_v2.gas_chromatography_data_model_1_0_0 import GasChromatographyModel100 as GasChromatographyModel
+from app.models.data_schemas.api_v2.gas_composition_data_model_1_0_0 import GasCompositionModel100
 from app.models.data_schemas.api_v2.gas_chromatography_data_model_1_0_0 import GasChromatographyModel100
 from app.models.data_schemas.api_v2.gas_composition_data_model import GasCompositionDataSchema as GasCompositionModel
 from app.models.data_schemas.api_v2.isotope_analysis_data_model import IsotopeAnalysisDataSchema as IsotopeAnalysisModel
@@ -135,7 +137,7 @@ GAS_CHROMATOGRAPHY_MODELS = {
     ContentSchemaVersion.V_1_0_0: GasChromatographyModel100,
 }
 GAS_COMPOSITION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GasCompositionModel,
+    ContentSchemaVersion.V_1_0_0: GasCompositionModel100,
 }
 ISOTOPE_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: IsotopeAnalysisModel,
