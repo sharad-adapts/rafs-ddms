@@ -1,241 +1,82 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "TestNumber",
-        "TestTemperature",
-        "ResidualOilDensity",
-        "ResidualAPIGravity",
-        "SaturationPressure",
-        "ReservoirPressure",
-        "TestName",
-        "DifferentialLiberationTestSteps",
-        "VaporCompositionalAnalysis",
-        "LiquidCompositionalAnalysis",
-        "CalculatedProperties"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:DIFFLIB_SamplesAnalysis:",
-            "opendes:master-data--Sample:fluid_sample_test:",
-            "125",
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "TestNumber",
+    "TestTemperature",
+    "SaturationPressure",
+    "ReservoirPressure",
+    "TestName",
+    "DifferentialLiberationTestSteps",
+    "MultiStageSeparatorTestID"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+      "opendes:master-data--Sample:Example_Sample:",
+      "1A",
+      1.23,
+      1.23,
+      1.23,
+      "ABCDE",
+      [
+        {
+          "StepNumber":"1A",
+          "StepPressure":1.23,
+          "StepTemperature":1.23,
+          "OilDensity":1.23,
+          "OilFormationVolumeFactor":1.23,
+          "OilFormationVolumeFactorCorrected":1.23,
+          "OilCompressibility":1.23,
+          "OilViscosity":1.23,
+          "APIGravity":1.23,
+          "GasMolecularWeight":1.23,
+          "GasGravity":1.23,
+          "GasDensity":1.23,
+          "GasFormationVolumeFactor":1.23,
+          "GasZFactor":1.23,
+          "GasViscosity":1.23,
+          "TotalFormationVolumeFactor":1.23,
+          "SolutionGOR":1.23,
+          "SolutionGORCorrected":1.23,
+          "CumulativeProducedGOR":1.23,
+          "CumulativeProducedGORCorrected":1.23,
+          "FluidConditionID":"opendes:reference-data--SampleTestCondition:CurrentReservoir:",
+          "FluidPhasesPresentID":"opendes:reference-data--FluidPhasesPresent:Wellstream:",
+          "VaporComposition":[
             {
-                "Value": 60.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
-            {
-                "Value": 124.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-            },
-            {
-                "Value": 13.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
-            },
-            {
-                "Value": 100.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-            },
-            {
-                "Value": 19.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-            },
-            "Differential Liberation Test for Exxon",
-            [
-                {
-                    "StepNumber": "1",
-                    "StepPressure": {
-                        "Value": 4000.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "StepTemperature": {
-                        "Value": 60.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-                    },
-                    "OilDensity": {
-                        "Value": 0.599,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:"
-                    },
-                    "OilFormationVolumeFactor": {
-                        "Value": 2.018,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "OilCompressibility": {
-                        "Value": 250.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "OilViscosity": {
-                        "Value": 0.05,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-                    },
-                    "GasMolecularWeight": {
-                        "Value": 50.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mol:"
-                    },
-                    "GasGravity": {
-                        "Value": 0.849,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
-                    },
-                    "GasDensity": {
-                        "Value": 90.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:"
-                    },
-                    "GasFormationVolumeFactor": {
-                        "Value": 0.0004582,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "GasZFactor": 0.911,
-                    "GasViscosity": {
-                        "Value": 156.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2Fm3:"
-                    },
-                    "TotalFormationVolumeFactor": {
-                        "Value": 0.19,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "SolutionGasOilRatioMeasured": {
-                        "Value": 1689.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "SolutionGasOilRatioCorrected": {
-                        "Value": 1500.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ft3%2Fbbl:"
-                    },
-                    "CumulativeStockTankGasOilRatio": {
-                        "Value": 1900.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ft3%2Fbbl:"
-                    },
-                    "OilFormationVolumeFactorCorrected": {
-                        "Value": 150.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bbl%2Fbbl:"
-                    },
-                    "ResidualAPIGravity": {
-                        "Value": 34.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
-                    },
-                    "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
-                    "PhasesPresent": "opendes:reference-data--FluidPhasesPresent:Wellstream:"
-                }
-            ],
-            [
-                {
-                    "StepNumber": "1",
-                    "StepPressure": {
-                        "Value": 1500.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                    },
-                    "StepTemperature": {
-                        "Value": 150.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-                    },
-                    "GasGravity": {
-                        "Value": 0.849,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fmol:"
-                    },
-                    "Remark": "Remark",
-                    "VaporComposition": [
-                        {
-                            "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C30:",
-                            "ComponentName": "Methane",
-                            "RelativeMolarWeight": {
-                                "Value": 5,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                            }
-                        },
-                        {
-                            "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C7:",
-                            "ComponentName": "Hexane",
-                            "RelativeMolarWeight": {
-                                "Value": 10,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                            }
-                        }
-                    ]
-                }
-            ],
-            [
-                {
-                    "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C20:",
-                    "ComponentName": "Methane",
-                    "FlashedLiquidRelativeMolarWeight": {
-                        "Value": 5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "FlashedLiquidRelativeMass": {
-                        "Value": 0.8,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    },
-                    "FlashedGasRelativeMolarWeight": {
-                        "Value": 5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    }
-                },
-                {
-                    "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C7:",
-                    "ComponentName": "Hexane",
-                    "FlashedLiquidRelativeMolarWeight": {
-                        "Value": 5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "FlashedLiquidRelativeMass": {
-                        "Value": 0.8,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    },
-                    "FlashedGasRelativeMolarWeight": {
-                        "Value": 5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    }
-                }
-            ],
-            {
-                "AvgMoleWeight": {
-                    "Value": 1.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mol:"
-                },
-                "ResidueDensity": {
-                    "Value": 1500.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-                },
-                "ResidueAPI": {
-                    "Value": 1700.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dAPI:"
-                },
-                "Remark": "Remark",
-                "LiquidCalculatedProperties": [
-                    {
-                        "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C7PLUS:",
-                        "FlashedLiquidRelativeMolarWeight": {
-                            "Value": 5,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                        },
-                        "FlashedLiquidRelativeMass": {
-                            "Value": 0.8,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                        },
-                        "FlashedLiquidDensity": {
-                            "Value": 5,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-                        }
-                    },
-                    {
-                        "ComponentFormula": "opendes:reference-data--SampleCompositionComponent:C36PLUS:",
-                        "FlashedLiquidRelativeMolarWeight": {
-                            "Value": 5,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                        },
-                        "FlashedLiquidRelativeMass": {
-                            "Value": 0.8,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                        },
-                        "FlashedLiquidDensity": {
-                            "Value": 5,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-                        }
-                    }
-                ]
+              "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:H2O:",
+              "RelativeMoleWeight":1.23,
+              "MolecularWeight":1.23,
+              "MolePercent":1.23,
+              "MassPercent":1.23,
+              "VolumePercent":1.23,
+              "SpecificGravity":1.23
             }
-        ]
+          ],
+          "LiquidComposition":[
+            {
+              "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:H2O:",
+              "RelativeMoleWeight":1.23,
+              "MolecularWeight":1.23,
+              "MolePercent":1.23,
+              "MassPercent":1.23,
+              "VolumePercent":1.23,
+              "SpecificGravity":1.23
+            }
+          ],
+          "Remark":{
+            "RemarkSequenceNumber":1.23,
+            "Remark":"ABCDEFGHIJKL",
+            "RemarkSource":"ABCDEFGHIJKLMNOPQR",
+            "RemarkDate":"2024-10-10"
+          }
+        }
+      ],
+      "opendes:work-product-component--SamplesAnalysis:Example_WPC:"
     ]
+  ]
 }
