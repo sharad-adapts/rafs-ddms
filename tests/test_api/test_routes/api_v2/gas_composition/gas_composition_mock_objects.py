@@ -54,7 +54,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:GasCompositionSample:",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:Sample_200:",
 }
 
 with open(f"{dir_path}/gas_composition_orient_split.json") as fp:
@@ -84,8 +84,8 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:GasComposition_WPC:",
-            "opendes:master-data--Sample:GasCompositionSample:",
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            "opendes:master-data--Sample:Sample_200:",
         ],
     ],
 }
