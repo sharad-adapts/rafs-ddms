@@ -1,4 +1,0 @@
-{{- template "common.destinationrule" (list . "os-rafs-ddms.destinationrule") -}}
-{{- define "os-rafs-ddms.destinationrule" -}}
-## Define overrides for the service destination rule resource here
-{{- end -}}

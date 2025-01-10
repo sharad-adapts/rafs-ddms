@@ -1,4 +1,0 @@
-{{- template "common.serviceparameters" (list . "os-rafs-ddms.serviceparameters") -}}
-{{- define "os-rafs-ddms.serviceparameters" -}}
-## Define overrides for the service parameters here
-{{- end -}}
