@@ -1,4 +1,0 @@
-{{- template "common.deployment" (list . "os-rafs-ddms.deployment") -}}
-{{- define "os-rafs-ddms.deployment" -}}
-## Define overrides for the service deployment resource here
-{{- end -}}
