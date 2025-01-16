@@ -22,7 +22,7 @@ RUN dnf update python-setuptools --releasever 2023.5.20240805
 
 RUN dnf -y install python3.11 python3.11-pip
 
-COPY requirements.txt /app/requirements.txt
+ADD requirements.txt /app/requirements.txt
 
 RUN python3.11 -m venv "/app/venv/" --system-site-packages
 ENV PYTHONUNBUFFERED=1

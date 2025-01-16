@@ -90,7 +90,7 @@ phases:
       - echo "Build and push docker image..."
       - docker buildx create --driver docker-container --use
       - docker buildx inspect --bootstrap
-      - docker buildx build --platform linux/arm64/v8,linux/amd64 --pull --push -f Dockerfile -t ${ECR_IMAGE} -t ${ECR_IMAGE_BRANCH_LATEST} .
+      - docker buildx build --platform linux/arm64/v8,linux/amd64 --pull --push -f Dockerfile -t ${ECR_IMAGE} -t ${ECR_IMAGE_BRANCH_LATEST} --cache-to type=registry,ref=${ECR_REGISTRY}:cache,mode=max,image-manifest=true,oci-mediatypes=true --cache-from type=registry,ref=${ECR_REGISTRY}:cache .
 
       - echo "Building docker integration test image..."
       - docker build -f Dockerfile.tests -t ${ECR_IMAGE_TEST} .
