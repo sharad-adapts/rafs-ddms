@@ -84,11 +84,8 @@ TEST_FILTERED_DATA = {
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "752156",
-            {
-                "Value": 75,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-            },
+            752156,
+            8,
         ],
     ],
 }
@@ -110,4 +107,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting MultiStageSeparatorTestSteps
-EXPECTED_ERROR_REASON = "Data error: 15 columns passed, passed data had 14 columns"
+EXPECTED_ERROR_REASON = "Data error: 13 columns passed, passed data had 12 columns"

@@ -1,0 +1,668 @@
+[{
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:sample_test:",
+    "Meta": [
+                {
+                      "kind": "Unit",
+                      "name": "ft[US]",
+                      "persistableReference": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}",
+                      "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                      "propertyNames": [
+                        "HorizontalDeflection.EastWest",
+                        "HorizontalDeflection.NorthSouth"
+                      ]
+                    }
+    ],
+    "TestNumber": "752156",
+    "ReservoirTemperature": 8.0,
+    "SaturationPressure": 9.0,
+    "ReservoirPressure": 6.0,
+    "SaturatedOilFormationVolumeFactor": 6.0,
+    "SaturatedOilDensity": 10.0,
+    "SeparatorTestGasOilRatio": 10.0,
+    "OverallGasGravity": 1.0,
+    "Remarks": {
+        "RemarkSequenceNumber": 7.0,
+        "Remark": "ABCDEFGHIJ",
+        "RemarkSource": "ABCDEFGHIJKL",
+        "RemarkDate": "2018-11-13"
+    },
+    "TestSteps": [
+        {
+            "StepNumber": 1.0,
+            "StepPressure": 9.0,
+            "StepTemperature": 9.0,
+            "OilDensity": 9.0,
+            "OilSpecificGravity": 8.0,
+            "ResidualOilAPIGravity": 6.0,
+            "OilMolecularWeight": 9.0,
+            "OilViscosity": 1.0,
+            "OilFormationVolumeFactor": 3.0,
+            "OilShrinkageFactor": 6.0,
+            "GasDensity": 8.0,
+            "GasGravity": 10.0,
+            "GasMolecularWeight": 1.0,
+            "GasViscosity": 9.0,
+            "GasZFactor": 2.0,
+            "GasFormationVolumeFactor": 10.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 1.0,
+            "GasOilRatioStandardConditions": 7.0,
+            "GasOilRatioStepConditions": 8.0,
+            "GasOilRatioLiberatedStandardConditions": 6.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 4.0,
+                    "MolecularWeight": 5.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 8.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 9.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 3.0,
+                    "MassPercent": 7.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 8.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 1.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 9.0,
+                    "MassPercent": 1.0,
+                    "VolumePercent": 9.0,
+                    "SpecificGravity": 6.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 8.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 8.0,
+                    "MassPercent": 3.0,
+                    "VolumePercent": 3.0,
+                    "SpecificGravity": 10.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 2.0,
+                    "MolePercent": 10.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 10.0,
+                    "SpecificGravity": 6.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 5.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 7.0,
+                    "MolecularWeight": 2.0,
+                    "MolePercent": 10.0,
+                    "MassPercent": 3.0,
+                    "VolumePercent": 4.0,
+                    "SpecificGravity": 1.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 6.0,
+                    "MolecularWeight": 9.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 4.0,
+                    "SpecificGravity": 2.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 4.0,
+                "Remark": "ABCDEFG",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 3.0,
+            "StepPressure": 4.0,
+            "StepTemperature": 3.0,
+            "OilDensity": 5.0,
+            "OilSpecificGravity": 8.0,
+            "ResidualOilAPIGravity": 8.0,
+            "OilMolecularWeight": 2.0,
+            "OilViscosity": 10.0,
+            "OilFormationVolumeFactor": 7.0,
+            "OilShrinkageFactor": 7.0,
+            "GasDensity": 5.0,
+            "GasGravity": 5.0,
+            "GasMolecularWeight": 10.0,
+            "GasViscosity": 8.0,
+            "GasZFactor": 2.0,
+            "GasFormationVolumeFactor": 5.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 1.0,
+            "GasOilRatioStandardConditions": 9.0,
+            "GasOilRatioStepConditions": 2.0,
+            "GasOilRatioLiberatedStandardConditions": 3.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 8.0,
+                    "MolecularWeight": 10.0,
+                    "MolePercent": 5.0,
+                    "MassPercent": 1.0,
+                    "VolumePercent": 2.0,
+                    "SpecificGravity": 5.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 3.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 1.0,
+                    "MassPercent": 5.0,
+                    "VolumePercent": 4.0,
+                    "SpecificGravity": 6.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 9.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRSTUV",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 8.0,
+            "StepPressure": 10.0,
+            "StepTemperature": 3.0,
+            "OilDensity": 9.0,
+            "OilSpecificGravity": 4.0,
+            "ResidualOilAPIGravity": 9.0,
+            "OilMolecularWeight": 1.0,
+            "OilViscosity": 6.0,
+            "OilFormationVolumeFactor": 10.0,
+            "OilShrinkageFactor": 10.0,
+            "GasDensity": 9.0,
+            "GasGravity": 10.0,
+            "GasMolecularWeight": 2.0,
+            "GasViscosity": 10.0,
+            "GasZFactor": 6.0,
+            "GasFormationVolumeFactor": 4.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 10.0,
+            "GasOilRatioStandardConditions": 2.0,
+            "GasOilRatioStepConditions": 1.0,
+            "GasOilRatioLiberatedStandardConditions": 4.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 1.0,
+                    "MolecularWeight": 1.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 7.0,
+                    "VolumePercent": 10.0,
+                    "SpecificGravity": 2.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 2.0,
+                    "MolecularWeight": 8.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 6.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 9.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 2.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 3.0,
+                    "SpecificGravity": 1.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 2.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 3.0,
+                    "MassPercent": 6.0,
+                    "VolumePercent": 10.0,
+                    "SpecificGravity": 7.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 4.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRSTUVWXYZABC",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRS",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 10.0,
+            "StepPressure": 4.0,
+            "StepTemperature": 8.0,
+            "OilDensity": 3.0,
+            "OilSpecificGravity": 1.0,
+            "ResidualOilAPIGravity": 4.0,
+            "OilMolecularWeight": 6.0,
+            "OilViscosity": 9.0,
+            "OilFormationVolumeFactor": 6.0,
+            "OilShrinkageFactor": 8.0,
+            "GasDensity": 4.0,
+            "GasGravity": 8.0,
+            "GasMolecularWeight": 2.0,
+            "GasViscosity": 4.0,
+            "GasZFactor": 5.0,
+            "GasFormationVolumeFactor": 6.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 3.0,
+            "GasOilRatioStandardConditions": 1.0,
+            "GasOilRatioStepConditions": 5.0,
+            "GasOilRatioLiberatedStandardConditions": 2.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 8.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 3.0,
+                    "VolumePercent": 8.0,
+                    "SpecificGravity": 3.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 9.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 5.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 1.0,
+                    "SpecificGravity": 6.0
+                }
+            ],
+            "LiquidComposition": [],
+            "Remarks": {
+                "RemarkSequenceNumber": 10.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRSTUVWXYZAB",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 8.0,
+            "StepPressure": 2.0,
+            "StepTemperature": 9.0,
+            "OilDensity": 8.0,
+            "OilSpecificGravity": 8.0,
+            "ResidualOilAPIGravity": 1.0,
+            "OilMolecularWeight": 10.0,
+            "OilViscosity": 8.0,
+            "OilFormationVolumeFactor": 3.0,
+            "OilShrinkageFactor": 7.0,
+            "GasDensity": 1.0,
+            "GasGravity": 10.0,
+            "GasMolecularWeight": 10.0,
+            "GasViscosity": 4.0,
+            "GasZFactor": 10.0,
+            "GasFormationVolumeFactor": 8.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 1.0,
+            "GasOilRatioStandardConditions": 8.0,
+            "GasOilRatioStepConditions": 9.0,
+            "GasOilRatioLiberatedStandardConditions": 4.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 6.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 3.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 1.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 10.0,
+                    "MolecularWeight": 8.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 7.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 4.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 8.0,
+                    "MolecularWeight": 1.0,
+                    "MolePercent": 3.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 3.0,
+                    "SpecificGravity": 5.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 5.0,
+                    "MassPercent": 6.0,
+                    "VolumePercent": 1.0,
+                    "SpecificGravity": 10.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 9.0,
+                    "MolecularWeight": 1.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 6.0,
+                    "VolumePercent": 9.0,
+                    "SpecificGravity": 1.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 2.0,
+                    "MolecularWeight": 5.0,
+                    "MolePercent": 5.0,
+                    "MassPercent": 3.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 10.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 9.0,
+                    "MolecularWeight": 9.0,
+                    "MolePercent": 9.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 2.0,
+                    "SpecificGravity": 1.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 1.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRST",
+                "RemarkSource": "ABCDEF",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 3.0,
+            "StepPressure": 3.0,
+            "StepTemperature": 6.0,
+            "OilDensity": 5.0,
+            "OilSpecificGravity": 2.0,
+            "ResidualOilAPIGravity": 1.0,
+            "OilMolecularWeight": 4.0,
+            "OilViscosity": 8.0,
+            "OilFormationVolumeFactor": 3.0,
+            "OilShrinkageFactor": 5.0,
+            "GasDensity": 4.0,
+            "GasGravity": 3.0,
+            "GasMolecularWeight": 10.0,
+            "GasViscosity": 10.0,
+            "GasZFactor": 5.0,
+            "GasFormationVolumeFactor": 4.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 1.0,
+            "GasOilRatioStandardConditions": 9.0,
+            "GasOilRatioStepConditions": 8.0,
+            "GasOilRatioLiberatedStandardConditions": 7.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 2.0,
+                    "MolecularWeight": 3.0,
+                    "MolePercent": 3.0,
+                    "MassPercent": 1.0,
+                    "VolumePercent": 7.0,
+                    "SpecificGravity": 5.0
+                }
+            ],
+            "LiquidComposition": [],
+            "Remarks": {
+                "RemarkSequenceNumber": 2.0,
+                "Remark": "ABCDEFGHIJ",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 6.0,
+            "StepPressure": 8.0,
+            "StepTemperature": 8.0,
+            "OilDensity": 4.0,
+            "OilSpecificGravity": 10.0,
+            "ResidualOilAPIGravity": 2.0,
+            "OilMolecularWeight": 7.0,
+            "OilViscosity": 4.0,
+            "OilFormationVolumeFactor": 6.0,
+            "OilShrinkageFactor": 3.0,
+            "GasDensity": 3.0,
+            "GasGravity": 3.0,
+            "GasMolecularWeight": 6.0,
+            "GasViscosity": 2.0,
+            "GasZFactor": 8.0,
+            "GasFormationVolumeFactor": 10.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 1.0,
+            "GasOilRatioStandardConditions": 3.0,
+            "GasOilRatioStepConditions": 6.0,
+            "GasOilRatioLiberatedStandardConditions": 9.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 7.0,
+                    "MolecularWeight": 5.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 1.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 7.0,
+                    "MolecularWeight": 2.0,
+                    "MolePercent": 8.0,
+                    "MassPercent": 5.0,
+                    "VolumePercent": 2.0,
+                    "SpecificGravity": 6.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 6.0,
+                    "MassPercent": 7.0,
+                    "VolumePercent": 9.0,
+                    "SpecificGravity": 7.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 9.0,
+                    "MolePercent": 6.0,
+                    "MassPercent": 1.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 2.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 3.0,
+                    "MolecularWeight": 8.0,
+                    "MolePercent": 2.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 9.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 1.0,
+                    "MolecularWeight": 5.0,
+                    "MolePercent": 5.0,
+                    "MassPercent": 9.0,
+                    "VolumePercent": 10.0,
+                    "SpecificGravity": 2.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 4.0,
+                    "MolecularWeight": 9.0,
+                    "MolePercent": 10.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 2.0,
+                    "SpecificGravity": 2.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 2.0,
+                "Remark": "ABCDEFGHI",
+                "RemarkSource": "ABCD",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 5.0,
+            "StepPressure": 5.0,
+            "StepTemperature": 5.0,
+            "OilDensity": 3.0,
+            "OilSpecificGravity": 7.0,
+            "ResidualOilAPIGravity": 1.0,
+            "OilMolecularWeight": 2.0,
+            "OilViscosity": 7.0,
+            "OilFormationVolumeFactor": 6.0,
+            "OilShrinkageFactor": 8.0,
+            "GasDensity": 7.0,
+            "GasGravity": 8.0,
+            "GasMolecularWeight": 6.0,
+            "GasViscosity": 4.0,
+            "GasZFactor": 5.0,
+            "GasFormationVolumeFactor": 2.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 2.0,
+            "GasOilRatioStandardConditions": 6.0,
+            "GasOilRatioStepConditions": 7.0,
+            "GasOilRatioLiberatedStandardConditions": 1.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 1.0,
+                    "MolecularWeight": 1.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 8.0,
+                    "SpecificGravity": 7.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 9.0,
+                    "MolecularWeight": 5.0,
+                    "MolePercent": 2.0,
+                    "MassPercent": 3.0,
+                    "VolumePercent": 9.0,
+                    "SpecificGravity": 8.0
+                }
+            ],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 1.0,
+                    "MolecularWeight": 2.0,
+                    "MolePercent": 2.0,
+                    "MassPercent": 6.0,
+                    "VolumePercent": 2.0,
+                    "SpecificGravity": 3.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 4.0,
+                    "MolecularWeight": 8.0,
+                    "MolePercent": 7.0,
+                    "MassPercent": 7.0,
+                    "VolumePercent": 10.0,
+                    "SpecificGravity": 2.0
+                },
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 2.0,
+                    "MolecularWeight": 1.0,
+                    "MolePercent": 4.0,
+                    "MassPercent": 10.0,
+                    "VolumePercent": 6.0,
+                    "SpecificGravity": 1.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 6.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRSTU",
+                "RemarkSource": "ABCDEF",
+                "RemarkDate": "2018-11-13"
+            }
+        },
+        {
+            "StepNumber": 9.0,
+            "StepPressure": 9.0,
+            "StepTemperature": 8.0,
+            "OilDensity": 2.0,
+            "OilSpecificGravity": 5.0,
+            "ResidualOilAPIGravity": 3.0,
+            "OilMolecularWeight": 8.0,
+            "OilViscosity": 2.0,
+            "OilFormationVolumeFactor": 10.0,
+            "OilShrinkageFactor": 2.0,
+            "GasDensity": 2.0,
+            "GasGravity": 8.0,
+            "GasMolecularWeight": 9.0,
+            "GasViscosity": 4.0,
+            "GasZFactor": 3.0,
+            "GasFormationVolumeFactor": 2.0,
+            "CumulativeGasOilRatioLiberatedStandardConditions": 3.0,
+            "GasOilRatioStandardConditions": 2.0,
+            "GasOilRatioStepConditions": 8.0,
+            "GasOilRatioLiberatedStandardConditions": 6.0,
+            "FluidConditions": "opendes:reference-data--SampleTestCondition:InitialReservoir:",
+            "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
+            "VaporComposition": [],
+            "LiquidComposition": [
+                {
+                    "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+                    "RelativeMoleWeight": 5.0,
+                    "MolecularWeight": 6.0,
+                    "MolePercent": 8.0,
+                    "MassPercent": 8.0,
+                    "VolumePercent": 1.0,
+                    "SpecificGravity": 5.0
+                }
+            ],
+            "Remarks": {
+                "RemarkSequenceNumber": 5.0,
+                "Remark": "ABCDEFGHIJKLMNOPQRST",
+                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTU",
+                "RemarkDate": "2018-11-13"
+            }
+        }
+    ]
+}]
