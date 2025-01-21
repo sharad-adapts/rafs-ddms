@@ -19,7 +19,7 @@ from app.models.data_schemas.api_v2.cce_data_model_1_0_0 import CceModel100
 from app.models.data_schemas.api_v2.diff_lib_data_model_1_0_0 import DiffLibModel100
 from app.models.data_schemas.api_v2.transport_test_data_model_1_0_0 import TransportTestModel100
 from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
-from app.models.data_schemas.api_v2.mss_data_model import MssDataSchema as MSSModel
+from app.models.data_schemas.api_v2.mss_data_model_1_0_0 import MssModel100
 from app.models.data_schemas.api_v2.swelling_test_data_model_1_0_0 import SwellingTestModel100
 from app.models.data_schemas.api_v2.cvd_data_model_1_0_0 import CvdModel100
 from app.models.data_schemas.api_v2.water_analysis_data_model import WaterAnalysisDataSchema as WaterAnalysisModel
@@ -37,10 +37,8 @@ from app.models.data_schemas.api_v2.multiple_salinity_data_model import Multiple
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import GcmsAlkanesDataSchema as GCMSAlkanesModel
 from app.models.data_schemas.api_v2.gcms_aromatics_data_model import GcmsAromaticsDataSchema as GCMSAromaticsModel
 from app.models.data_schemas.api_v2.gcms_ratios_data_model import GcmsRatiosDataSchema as GCMSRatiosModel
-from app.models.data_schemas.api_v2.gas_chromatography_data_model_1_0_0 import GasChromatographyModel100 as GasChromatographyModel
 from app.models.data_schemas.api_v2.gas_composition_data_model_1_0_0 import GasCompositionModel100
 from app.models.data_schemas.api_v2.gas_chromatography_data_model_1_0_0 import GasChromatographyModel100
-from app.models.data_schemas.api_v2.gas_composition_data_model import GasCompositionDataSchema as GasCompositionModel
 from app.models.data_schemas.api_v2.isotope_analysis_data_model import IsotopeAnalysisDataSchema as IsotopeAnalysisModel
 from app.models.data_schemas.api_v2.bulk_pyrolysis_data_model import BulkPyrolysisDataSchema as BulkPyrolysisModel
 from app.models.data_schemas.api_v2.core_gamma_data_model import CoreGammaDataSchema as CoreGammaModel
@@ -80,7 +78,7 @@ ATMOSPHERIC_FLASH_MODELS = {
     ContentSchemaVersion.V_1_0_0: AtmosphericFlashAndCompositionalAnalysisModel100,
 }
 MSS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MSSModel,
+    ContentSchemaVersion.V_1_0_0: MssModel100,
 }
 SWELLING_MODELS = {
     ContentSchemaVersion.V_1_0_0: SwellingTestModel100,
