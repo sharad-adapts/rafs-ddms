@@ -2297,7 +2297,6 @@ async def test_get_data_json_data(
             )
 
     assert response.status_code == status.HTTP_200_OK
-    print(response.json())
     assert response.json()["index"] == returned_data["index"]
     assert set(response.json()["columns"]) == set(returned_data["columns"])
     assert all(i in response.json()["data"][0] for i in returned_data["data"][0])
