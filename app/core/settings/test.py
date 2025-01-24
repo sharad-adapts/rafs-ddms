@@ -25,3 +25,5 @@ class TestAppSettings(AppSettings):
     service_host_storage: str = "http://test-url"
     service_host_dataset: str = "http://test-url"
     service_host_schema: str = "http://test-url"
+    service_host_partition: str = "http://test-url"
+    use_blob_storage: bool = False

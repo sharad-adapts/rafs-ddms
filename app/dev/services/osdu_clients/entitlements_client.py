@@ -22,7 +22,7 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
-from app.services.osdu_clients.conf import RETRIES, TIMEOUT
+from app.services.osdu_clients.conf import DEFAULT_RETRIES, TIMEOUT
 
 
 class EntitlementsServicePaths(NamedTuple):
@@ -69,7 +69,7 @@ class EntitlementsServiceApiClient(object):
             response.raise_for_status()
             return response.json()
 
-    def _transport(self, retries: int = RETRIES, **kwargs) -> httpx.AsyncHTTPTransport:
+    def _transport(self, retries: int = DEFAULT_RETRIES, **kwargs) -> httpx.AsyncHTTPTransport:
         """Create a new transport object.
 
         :param retries: the number of retries, defaults to RETRIES

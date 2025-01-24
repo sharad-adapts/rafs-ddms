@@ -12,6 +12,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import uuid
 
 from fastapi import APIRouter, Depends, Path, Request, Response
 from fastapi.responses import JSONResponse
@@ -27,18 +28,27 @@ from app.api.dependencies.request import (
 from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_storage_service,
+    get_blob_storage_service,
 )
 from app.api.dependencies.validation import get_data_model
 from app.api.routes.data.api import BaseDataView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.api_version import get_api_version_from_url
-from app.api.routes.utils.records import dataset_id_exist, get_id_version
+from app.api.routes.utils.ddms_datasets import upsert_parquet_data
+from app.api.routes.utils.records import (
+    get_family_type_from_url,
+    get_id_version,
+)
+from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
+from app.core.settings.app import AppSettings
 from app.dev.api.dependencies.validation import (
     validate_multiple_nested_filters,
 )
+from app.dev.api.routes.utils.ddms_datasets import get_parquet_data
+from app.dev.api.routes.utils.records import find_dataset_id_from_type
 from app.dev.dataframe.multiple_nested_filter_processor import (
     DFMultipleNestedFilterProcessor,
 )
@@ -46,6 +56,11 @@ from app.dev.resources.multiple_nested_filters import (
     DFMultipleNestedFilterValidator,
 )
 from app.exceptions import exceptions
+from app.providers.dependencies.blob_storage import (
+    Blob,
+    BlobMetadata,
+    IBlobStorage,
+)
 from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset, storage
 
@@ -76,7 +91,6 @@ class BaseDataViewDev(BaseDataView):
             The  `columns_filter`, `rows_filter`, and  `columns_aggregation` \
                 query parameters can be used to manage data in response.",
         )
-        self.bulk_dataset_regex = r"[\w\-\.]+:dataset--File.Generic:[\w\-\d\.]+:?[\w\-\.\:\%]*"
         self.prepare_api_routes()
         if kwargs:
             self.__dict__.update(kwargs)
@@ -87,9 +101,9 @@ class BaseDataViewDev(BaseDataView):
         request: Request,
         record_id: str,
         analysis_type: str,
-        dataset_id: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         df_filter: DFMultipleNestedFilterValidator = Depends(validate_multiple_nested_filters),
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> Response:
@@ -101,12 +115,12 @@ class BaseDataViewDev(BaseDataView):
         :type record_id: str
         :param analysis_type: the samples analysis type
         :type analysis_type: str
-        :param dataset_id: dataset id,
-        :type dataset_id: str
         :param dataset_service: dataset service
         :type dataset_service: dataset.DatasetService
         :param storage_service: storage service
         :type storage_service: storage.StorageService
+        :param blob_storage_service: blob storage service
+        :type blob_storage_service: IBlobService
         :param df_filter: df multiple nested filter validator
         :type df_filter: DFMultipleNestedFilterValidator
         :param content_schema_version: the version used for content
@@ -116,16 +130,35 @@ class BaseDataViewDev(BaseDataView):
         :rtype: Response
         """
         logger.info(f"Get data for type {analysis_type}")
+        settings: AppSettings = get_app_settings()
 
-        return await self._get_data(
-            request,
-            record_id,
-            dataset_id,
-            dataset_service,
-            storage_service,
-            df_filter,
-            content_schema_version,
-        )
+        if settings.use_blob_storage:
+            blob_metadata = BlobMetadata(
+                analysis_family=get_family_type_from_url(request.url.path),
+                analysis_type=analysis_type,
+                version=content_schema_version,
+                uuid="unused_uuid",
+                content_type=SupportedMimeTypes.PARQUET.mime_type,
+            )
+            response = await get_parquet_data(
+                request=request,
+                record_id=record_id,
+                blob_metadata=blob_metadata,
+                blob_storage_service=blob_storage_service,
+                storage_service=storage_service,
+                df_filter=df_filter,
+            )
+        else:
+            response = await self._get_data(
+                request,
+                record_id,
+                analysis_type,
+                dataset_service,
+                storage_service,
+                df_filter,
+                content_schema_version,
+            )
+        return response
 
     async def post_data_dev(
         self,
@@ -134,6 +167,7 @@ class BaseDataViewDev(BaseDataView):
         analysis_type: str,
         storage_service: storage.StorageService = Depends(get_async_storage_service),
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         model: BaseModel = Depends(get_data_model),
         content_schema_version: str = Depends(get_content_schema_version),
     ) -> dict:
@@ -151,6 +185,8 @@ class BaseDataViewDev(BaseDataView):
         :type storage_service: storage.StorageService
         :param dataset_service: dataset service
         :type dataset_service: dataset.DatasetService
+        :param blob_storage_service: blob storage service
+        :type blob_storage_service: IBlobStorage
         :param model: pydantic model for validation
         :type model: BaseModel
         :param content_schema_version: the version used for content
@@ -168,19 +204,40 @@ class BaseDataViewDev(BaseDataView):
         api_version = get_api_version_from_url(request.url.path)
         logger.info(f"Post data for api version: {api_version}")
 
+        settings: AppSettings = get_app_settings()
+        analysis_family = get_family_type_from_url(request.url.path)
+
         parquet_file = await self._get_validated_payload(request, model, storage_service)
+        blob_metadata = BlobMetadata(
+            analysis_family=analysis_family,
+            analysis_type=analysis_type,
+            version=content_schema_version,
+            uuid=uuid.uuid4(),
+            content_type=SupportedMimeTypes.PARQUET,
+        )
+        blob = Blob(blob_data=parquet_file, blob_metadata=blob_metadata)
 
         logger.info(f"Post data for type {analysis_type}")
-        return await self._upsert_dataset(
-            request,
-            record_id,
-            parquet_file,
-            analysis_type,
-            content_schema_version,
-            api_version,
-            dataset_service,
-            storage_service,
-        )
+
+        if settings.use_blob_storage:
+            response = await upsert_parquet_data(
+                blob,
+                record_id,
+                blob_storage_service,
+                storage_service,
+            )
+        else:
+            response = await self._upsert_dataset(
+                request,
+                record_id,
+                parquet_file,
+                analysis_type,
+                content_schema_version,
+                api_version,
+                dataset_service,
+                storage_service,
+            )
+        return response
 
     def prepare_api_routes(self) -> None:
         """Prepare and add api routes."""
@@ -191,7 +248,7 @@ class BaseDataViewDev(BaseDataView):
         self,
         request: Request,
         record_id: str,
-        dataset_id: str,
+        analysis_type: str,
         dataset_service: dataset.DatasetService,
         storage_service: storage.StorageService,
         df_filter: DFMultipleNestedFilterValidator,
@@ -203,8 +260,8 @@ class BaseDataViewDev(BaseDataView):
         :type request: Request
         :param record_id: record id,
         :type record_id: str
-        :param dataset_id: dataset id,
-        :type dataset_id: str
+        :param analysis_type: analysis type
+        :type analysis_type: str
         :param dataset_service: dataset service
         :type dataset_service: dataset.DatasetService
         :param storage_service: storage service
@@ -219,12 +276,12 @@ class BaseDataViewDev(BaseDataView):
         record = await storage_service.get_record(record_id)
         mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
 
-        dataset_id, _ = get_id_version(dataset_id)
         ddms_datasets = record["data"].get("DDMSDatasets", [])
+        dataset_id = find_dataset_id_from_type(ddms_datasets, analysis_type, content_schema_version)
 
-        if dataset_id_exist(ddms_datasets, dataset_id):
+        if dataset_id:
+            dataset_id, _ = get_id_version(dataset_id)
             logger.debug(f"Retrieving dataset: {dataset_id}")
-            self._check_content_schema_version(content_schema_version, ddms_datasets, dataset_id)
             parquet_bytes = await dataset_service.download_file(dataset_id)
 
             if not parquet_bytes:
@@ -247,8 +304,9 @@ class BaseDataViewDev(BaseDataView):
                     media_type=SupportedMimeTypes.JSON.mime_type,
                 )
         else:
+            error_msg = f"No dataset found for test {analysis_type} with version {content_schema_version} in record."
             response = JSONResponse(
-                {"message": f"{dataset_id} does not exist in current record.", "reason": "Not found."},
+                {"message": error_msg, "reason": "Not found."},
                 status_code=status.HTTP_404_NOT_FOUND,
             )
 
@@ -266,25 +324,14 @@ class BaseDataViewDev(BaseDataView):
             """
             return record_id
 
-        async def validate_dataset_id(dataset_id: str = Path(default=..., pattern=self.bulk_dataset_regex)) -> str:
-            """Validate if dataset id matches regex.
-
-            :param dataset_id: dataset id
-            :type dataset_id: str
-            :return: dataset id
-            :rtype: str
-            """
-            return dataset_id
-
         self._router.add_api_route(
-            path="/{record_id}/data/{analysis_type}/{dataset_id}",
+            path="/{record_id}/data/{analysis_type}",
             endpoint=self.get_data_dev,
             methods=["GET"],
             status_code=status.HTTP_200_OK,
             description=self.description_template_get_data,
             dependencies=[
                 Depends(validate_record_id),
-                Depends(validate_dataset_id),
                 Depends(validate_bulkdata_content_type),
             ],
         )

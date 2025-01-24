@@ -1,4 +1,4 @@
-#  Copyright 2023 ExxonMobil Technology and Engineering Company
+#  Copyright 2024 ExxonMobil Technology and Engineering Company
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -11,16 +11,3 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-
-import httpx
-
-from app.core.config import get_app_settings
-
-settings = get_app_settings()
-
-# reques timeoit, default = 15, configurable via env_var REQUEST_TIMEOUT
-TIMEOUT = httpx.Timeout(settings.request_timeout)
-
-# number of http request retries
-DEFAULT_RETRIES = 3
-TRANSPORT = httpx.AsyncHTTPTransport(retries=DEFAULT_RETRIES)

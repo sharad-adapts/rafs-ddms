@@ -36,6 +36,11 @@ DATASET_ID_INDEX = -2
 FULLID_ID_INDEX = 0
 FULLID_VERSION_INDEX = 1
 
+# Blob id
+URN_OBJECT_NAME_INDEX = -4
+ANALYSIS_TYPE_INDEX = 1
+VERSION_INDEX = 2
+
 
 def get_id_version(full_record_id: str) -> Tuple[str, Optional[int]]:
     """Separately get id and version part from record id.
@@ -253,3 +258,85 @@ def get_info_from_urn(urn: str) -> dict:
         "dataset_id": dataset_id,
         "content_schema_version": urn_parts[schema_version_index],
     }
+
+
+def get_family_type_from_url(url: str) -> str:
+    logger.info("URL:")
+    logger.info(url)
+    analysis_family_position = 4  # api/rafs/<version>/<analysis_family>/etc.
+    return url.split("/")[analysis_family_position]
+
+
+def generate_blob_urn(
+    ddms_id: str,
+    wpc_id: str,
+    object_name: str,
+) -> str:
+    """Generate parquet blob urn.
+
+    :param ddms_id: ddms is
+    :type ddms_id: str
+    :param wpc_id: wpc id
+    :type wpc_id: str
+    :param object_name: blob object name
+    :type object_name: str
+    :return: dataset urn
+    :rtype: str
+    """
+    return f"urn://{ddms_id}/{wpc_id}/{object_name}"
+
+
+def find_object_name_index(ddms_datasets: List[str], object_name: str) -> Optional[int]:
+    """Find object name index in ddms datasets.
+
+    :param ddms_datasets: ddms datasets
+    :type ddms_datasets: List[str]
+    :param object_name: object name
+    :type object_name: str
+    :return: index of the object name or -1 if not found
+    :rtype: Optional[int]
+    """
+    for index, ddms_dataset in enumerate(ddms_datasets):
+        try:
+            ddms_dataset_object_name = "/".join(ddms_dataset.split("/")[URN_OBJECT_NAME_INDEX:])
+            if ddms_dataset_object_name == object_name:
+                return index
+        except IndexError:
+            logger.error(f"The object name {ddms_dataset_object_name} is invalid")
+
+
+def find_object_name_from_type(ddms_datasets: List[str], full_analysis_type: str) -> Optional[str]:
+    """Find object name from type.
+
+    :param ddms_datasets: ddms datasets
+    :type ddms_datasets: List[str]
+    :param full_analysis_type: analysis_family/analysis_type/version
+    :type full_analysis_type: str
+    :return: object name
+    :rtype: Optional[str]
+    """
+    full_analysis_type_parts = full_analysis_type.split("/")
+    for ddms_dataset in ddms_datasets:
+        object_name_parts = ddms_dataset.split("/")[URN_OBJECT_NAME_INDEX:]
+
+        if full_analysis_type_parts == object_name_parts[:-1]:
+            return "/".join(object_name_parts)
+
+
+def find_schema_versions_for_object_name(ddms_datasets: List[str], object_name: str) -> set:
+    """Find schema versions for object name.
+
+    :param ddms_datasets: ddms datasets list
+    :type ddms_datasets: List[str]
+    :param object_name: object name
+    :type object name: str
+    :return: set of schema versions
+    :rtype: set
+    """
+    schema_versions = []
+    for ddms_dataset in ddms_datasets:
+        object_name_parts = ddms_dataset.split("/")[URN_OBJECT_NAME_INDEX:]
+        ddms_datasets_object_name = "/".join(object_name_parts)
+        if object_name == ddms_datasets_object_name:
+            schema_versions.append(object_name_parts[VERSION_INDEX])
+    return set(schema_versions)

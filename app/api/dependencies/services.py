@@ -13,15 +13,17 @@
 #  limitations under the License.
 
 from fastapi import Depends
+from pydantic import BaseSettings
 
 from app.api.dependencies.auth import require_authorized_user
 from app.api.dependencies.request import (
     get_correlation_id,
     get_data_partition_id,
 )
-from app.core.config import get_app_settings
+from app.core.config import get_app_settings, get_provider_config
 from app.core.settings.app import AppSettings
 from app.models.schemas.user import User
+from app.providers.dependencies.blob_storage import get_blob_storage
 from app.resources.common_headers import CORRELATION_ID
 from app.services import dataset, schema, search, storage
 
@@ -80,3 +82,16 @@ async def get_async_schema_service(
         user=user,
         extra_headers={CORRELATION_ID: correlation_id},
     )
+
+
+async def get_blob_storage_service(
+    data_partition_id: str = Depends(get_data_partition_id),
+    settings: AppSettings = Depends(get_app_settings),
+    cloud_provider_config: BaseSettings = Depends(get_provider_config),
+):
+    if settings.use_blob_storage:
+        return await get_blob_storage(
+            data_partition_id=data_partition_id,
+            settings=settings,
+            cloud_provider_config=cloud_provider_config,
+        )
