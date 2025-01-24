@@ -58,6 +58,8 @@ configuration:
     REDIS_HOSTNAME: redis-rafs-service
     REDIS_PASSWORD: redispass
     REDIS_INDEX_ENABLE: "True"
+    AZ_KEYVAULT_URL: "https://{{ .Values.azure.keyvault.name }}.vault.azure.net/"
+    USE_BLOB_STORAGE: "True"
 
   secrets:
   - name: REDIS_EXTERNAL_PASSWORD

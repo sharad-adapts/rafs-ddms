@@ -20,13 +20,17 @@ from pydantic import BaseSettings
 class AzureConfig(BaseSettings):
     service_name: str = None
 
-    keyvault_url: str = None
+    az_keyvault_url: str = None
 
-    use_partition_service: str = None
+    az_use_partition_service: bool = True
 
     az_logger_level: str = None
 
     az_ai_instrumentation_key: str = None
+
+    az_container_name: str = "rafs-ddms"
+
+    az_aad_client_id_key: str = "aad-client-id"
 
     class Config:
         env_file = ".env"

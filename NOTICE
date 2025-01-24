@@ -56,7 +56,7 @@ BSD-3-Clause
 ========================================================================
 The following software have components provided under the terms of this license:
 
-- click (from https://palletsprojects.com/p/click/)
+- click (from https://palletsprojects.com/p/click/, https://pypi.org/project/click/)
 - cryptography (from https://github.com/pyca/cryptography)
 - httpcore (from https://github.com/encode/httpcore, https://pypi.org/project/httpcore/, https://pypi.org/project/httpcore/0.18.0/)
 - httpx (from https://pypi.org/project/httpx/, https://pypi.org/project/httpx/0.23.1/)
@@ -101,15 +101,21 @@ MIT
 ========================================================================
 The following software have components provided under the terms of this license:
 
+- PyJWT (from http://github.com/jpadilla/pyjwt, https://pypi.org/project/PyJWT/)
 - aiohttp (from https://github.com/aio-libs/aiohttp, https://github.com/aio-libs/aiohttp/)
 - anyio (from https://pypi.org/project/anyio/, https://pypi.org/project/anyio/3.3.0/)
 - async-lru (from https://github.com/aio-libs/async-lru)
 - attrs (from https://attrs.readthedocs.io/, https://pypi.org/project/attrs/, https://www.attrs.org/)
 - azure-core (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/core/azure-core)
+- azure-identity (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/identity/azure-identity)
+- azure-keyvault (from https://github.com/Azure/azure-sdk-for-python, https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/keyvault/azure-keyvault)
+- azure-keyvault-certificates (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/keyvault/azure-keyvault-certificates)
+- azure-keyvault-keys (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/keyvault/azure-keyvault-keys)
+- azure-keyvault-secrets (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/keyvault/azure-keyvault-secrets)
 - azure-storage-blob (from https://github.com/Azure/azure-sdk-for-python/tree/main/sdk/storage/azure-storage-blob)
 - botocore (from https://github.com/boto/botocore)
 - cffi
-- charset-normalizer (from https://github.com/Ousret/charset_normalizer)
+- charset-normalizer (from https://github.com/Ousret/charset_normalizer, https://pypi.org/project/charset-normalizer/)
 - fastapi (from https://pypi.org/project/fastapi/, https://pypi.org/project/fastapi/0.86.0/)
 - h11
 - jmespath (from https://github.com/jmespath/jmespath.py)
@@ -117,6 +123,8 @@ The following software have components provided under the terms of this license:
 - jsonschema
 - jsonschema-specifications (from https://pypi.org/project/jsonschema-specifications/, https://pypi.org/project/jsonschema-specifications/2023.11.2/, https://pypi.org/project/jsonschema-specifications/2023.7.1/)
 - loguru (from https://pypi.org/project/loguru/)
+- msal (from https://github.com/AzureAD/microsoft-authentication-library-for-python)
+- msal-extensions (from https://pypi.org/project/msal-extensions/1.0.0/)
 - mypy-extensions (from https://github.com/python/mypy_extensions)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
@@ -165,6 +173,7 @@ The following software have components provided under the terms of this license:
 - cryptography (from https://github.com/pyca/cryptography)
 - numpy
 - pandas (from http://pandas.pydata.org, https://pandas.pydata.org)
+- portalocker (from https://github.com/WoLpH/portalocker)
 - typing-extensions (from https://pypi.org/project/typing-extensions/4.2.0/, https://pypi.org/project/typing-extensions/4.4.0/)
 
 ========================================================================

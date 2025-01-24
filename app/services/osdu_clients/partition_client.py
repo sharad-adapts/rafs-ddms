@@ -22,12 +22,11 @@ from app.resources.common_headers import (
     CONTENT_TYPE,
     DATA_PARTITION_ID,
 )
-from app.services.osdu_clients.conf import DEFAULT_RETRIES, TIMEOUT
+from app.services.osdu_clients.conf import TIMEOUT, TRANSPORT
 
 
 class PartitionServicePaths(NamedTuple):
     PARTITIONS = "/partitions"
-    PARTITION = "/partition/{partition}"
 
 
 class PartitionServiceApiClient(object):
@@ -56,44 +55,35 @@ class PartitionServiceApiClient(object):
         """
         self.headers = {**self.headers, **headers}
 
-    async def list_partitions(self) -> list:
-        """List the partitions.
+    async def get_partition_info(self, data_partition_id: str) -> dict:
+        """Get partition info.
 
-        :return: the list of partition names
-        :rtype: list
-        """
-        async with httpx.AsyncClient(
-            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
-        ) as client:
-            response = await client.get(PartitionServicePaths.PARTITIONS, headers=self.headers)
-            logger.debug(f"{self.name}: partitions response: {response}")
-            response.raise_for_status()
-            return response.json()
-
-    async def get_partition(self, partition: str) -> dict:
-        """Get the partition info.
-
-        :param partition: partition name
-        :type partition: str
-        :return: dict with info of the partition
+        :param data_partition_id: data partition id
+        :type data_partition_id: str
+        :return: partition info
         :rtype: dict
         """
         async with httpx.AsyncClient(
-            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=self._transport(),
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=TRANSPORT,
         ) as client:
             response = await client.get(
-                PartitionServicePaths.PARTITION.format(partition=partition), headers=self.headers,
+                f"{PartitionServicePaths.PARTITIONS}/{data_partition_id}",
+                headers=self.headers,
             )
-            logger.debug(f"{self.name}: partition response: {response}")
+            logger.debug(f"{self.name}: partition info response: {response}")
             response.raise_for_status()
             return response.json()
 
-    def _transport(self, retries: int = DEFAULT_RETRIES, **kwargs) -> httpx.AsyncHTTPTransport:
-        """Create a new transport object.
+    async def list_partitions(self) -> list:
+        """List all available partitions.
 
-        :param retries: the number of retries, defaults to RETRIES
-        :type retries: int, optional
-        :return: A new transport object
-        :rtype: httpx.AsyncHTTPTransport
+        :return: list of partitions
+        :rtype: list
         """
-        return httpx.AsyncHTTPTransport(retries=retries, **kwargs)
+        async with httpx.AsyncClient(
+            base_url=self.base_url, headers=self.headers, timeout=TIMEOUT, transport=TRANSPORT,
+        ) as client:
+            response = await client.get(PartitionServicePaths.PARTITIONS, headers=self.headers)
+            logger.debug(f"{self.name}: list partitions response: {response}")
+            response.raise_for_status()
+            return response.json()

@@ -19,3 +19,5 @@ uvicorn==0.23.2
 urllib3==1.26.18
 # azure deps
 azure-storage-blob==12.19.0
+azure-keyvault==4.2.0
+azure-identity==1.19.0

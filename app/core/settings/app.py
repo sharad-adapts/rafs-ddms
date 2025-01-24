@@ -67,6 +67,8 @@ class AppSettings(BaseAppSettings):
 
     redis_index_enable: bool = False
 
+    use_blob_storage: bool = False
+
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {

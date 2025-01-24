@@ -15,3 +15,4 @@
 import os
 
 CACHE_DEFAULT_TTL = int(os.environ.get("CACHE_DEFAULT_TTL", default="60"))  # ttl in seconds
+STORAGE_ACCOUNT_INFO_CACHE_DEFAULT_TTL = 24 * 60 * 60  # ttl in seconds
