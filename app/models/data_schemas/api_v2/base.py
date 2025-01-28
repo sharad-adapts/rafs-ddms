@@ -46,7 +46,7 @@ from app.models.data_schemas.api_v2.uniaxial_test_data_model import UniaxialTest
 from app.models.data_schemas.api_v2.gcmsms_data_model import GcmsmsDataSchema as GCMSMS_Model
 from app.models.data_schemas.api_v2.cec_data_model import CecDataSchema as CECContentModel
 from app.models.data_schemas.api_v2.triaxial_test_data_model import TriaxialTestDataSchema as TriaxialTestModel
-from app.models.data_schemas.api_v2.wettability_index_data_model import WettabilityIndexDataSchema as WettabilityIndexModel
+from app.models.data_schemas.api_v2.wettability_index_data_model_1_0_0 import WettabilityIndexModel100
 from app.models.data_schemas.api_v2.tec_data_model import TecDataSchema as TECModel
 from app.models.data_schemas.api_v2.eds_mapping_data_model import EdsMappingDataSchema as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import XrfDataSchema as XRFModel
@@ -162,7 +162,7 @@ CAP_PRESSURE_MODELS = {
     ContentSchemaVersion.V_1_0_0: CapillaryPressureModel100
 }
 WETTABILITY_INDEX_MODELS = {
-    ContentSchemaVersion.V_1_0_0: WettabilityIndexModel
+    ContentSchemaVersion.V_1_0_0: WettabilityIndexModel100
 }
 TEC_MODELS = {
     ContentSchemaVersion.V_1_0_0: TECModel

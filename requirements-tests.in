@@ -42,3 +42,4 @@ flake8==4.0.1
 flake8-fixme==1.1.1
 flake8-functions==0.0.8
 flake8-cognitive-complexity==0.1.0
+multimethod==1.11.2
