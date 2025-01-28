@@ -1,111 +1,77 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "WettabilityIndexData"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:WettabilityIndex_WPC:",
-            "opendes:master-data--Sample:WettabilityIndex_Sample:",
-            {
-                "CapillaryPressureAnalysisID": "opendes:work-product-component--SamplesAnalysis:CapillaryPressure_WPC:",
-                "ForcedImbibedBrineVolume": {
-                    "Value": 12,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "ForcedImbibedOilVolume": {
-                    "Value": 32,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "Temperature": {
-                    "Value": 1.0,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-                },
-                "InitialBrineSaturation": {
-                    "Value": 0.457,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "InitialOilSaturation": {
-                    "Value": 0.98,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "SpontaneousImbibedBrineVolume": {
-                    "Value": 6,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "DisplacedOilVolume": {
-                    "Value": 0.7768,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "BrineImbibitionBrineSaturation": {
-                    "Value": 7,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "BrineDisplacementOilSaturation": {
-                    "Value": 0.36,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "SpontaneousImbibedOilVolume": {
-                    "Value": 0.7768,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "OilImbibitionBrineSaturation": {
-                    "Value": 3.98,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "DisplacedBrineVolume": {
-                    "Value": 0.24234,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-                },
-                "DisplacementRatio": {
-                    "Value": 5,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3%2Fcm3:"
-                },
-                "OilImbibitionOilSaturation": {
-                    "Value": 8.1,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "WettabilityIndex": [
-                    {
-                        "Value": 4.67,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:",
-                        "WettabilityIndexType": "opendes:reference-data--WettabilityIndexType:AmottWater:"
-                    },
-                    {
-                        "Value": 3.2,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:",
-                        "WettabilityIndexType": "opendes:reference-data--WettabilityIndexType:AmottOil:"
-                    }
-                ],
-                "ConfiningPressure": {
-                    "Value": 0.453,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                },
-                "DesaturationMethod": "opendes:reference-data--DesaturationMethod:CentrifugeOilWater:",
-                "DisplacingFluid": "opendes:reference-data--InjectionFluidType:Decane:",
-                "DisplacedFluid": "opendes:reference-data--DisplacedFluidType:Carnation:",
-                "FluidSystem": "opendes:reference-data--FluidSystemAnalysisType:GasOil:",
-                "InitialWaterSaturation": {
-                    "Value": 32,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppk:"
-                },
-                "InitialCapillaryPressure": {
-                    "Value": 65,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bar:"
-                },
-                "ForcedWaterImbibition": {
-                    "Value": 12,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                },
-                "ForcedOilImbibition": {
-                    "Value": 5.9,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:v%2Fv:"
-                }
-            }
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "WettabilityIndexData"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:WettabilityIndex_WPC:",
+      "opendes:master-data--Sample:WettabilityIndex_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"ft[US]",
+          "persistableReference":"{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "HorizontalDeflection.EastWest",
+            "HorizontalDeflection.NorthSouth"
+          ]
+        }
+      ],
+      {
+        "CapillaryPressureAnalysisID":"opendes:work-product-component--SamplesAnalysis:CapillaryPressure_WPC:",
+        "ForcedImbibedBrineVolume":6.0,
+        "ForcedImbibedOilVolume":10.0,
+        "Temperature":8.0,
+        "InitialBrineSaturation":5.0,
+        "InitialOilSaturation":9.0,
+        "SpontaneousImbibedBrineVolume":4.0,
+        "DisplacedOilVolume":2.0,
+        "BrineImbibitionBrineSaturation":1.0,
+        "BrineDisplacementOilSaturation":10.0,
+        "SpontaneousImbibedOilVolume":7.0,
+        "OilImbibitionBrineSaturation":6.0,
+        "DisplacedBrineVolume":4.0,
+        "DisplacementRatio":5.0,
+        "OilImbibitionOilSaturation":9.0,
+        "WettabilityIndex":[
+          {
+            "Value":9.0,
+            "WettabilityIndexTypeID":"opendes:reference-data--WettabilityIndexType:AmottWater:"
+          },
+          {
+            "Value":9.0,
+            "WettabilityIndexTypeID":"opendes:reference-data--WettabilityIndexType:AmottWater:"
+          },
+          {
+            "Value":9.0,
+            "WettabilityIndexTypeID":"opendes:reference-data--WettabilityIndexType:AmottWater:"
+          }
+        ],
+        "ConfiningPressure":9.0,
+        "DesaturationMethod":"opendes:reference-data--DesaturationMethod:AmottOil:",
+        "InjectionFluidID":"opendes:reference-data--SampleInjectionFluidType:GasUnspecified:",
+        "DisplacedFluidID":"opendes:reference-data--DisplacedFluidType:Brine:",
+        "FluidSystem":"opendes:reference-data--FluidSystemAnalysisType:Gas:",
+        "InitialWaterSaturation":7.0,
+        "InitialCapillaryPressure":8.0,
+        "ForcedWaterImbibition":9.0,
+        "ForcedOilImbibition":3.0,
+        "Remarks":[
+          {
+            "RemarkSequenceNumber":6.0,
+            "Remark":"ABCDEFGHIJKLMNOPQRSTUVW",
+            "RemarkSource":"ABCDEFGHIJKLMNOPQRSTUVWXY",
+            "RemarkDate":"2024-10-10"
+          }
         ]
+      }
     ]
+  ]
 }
