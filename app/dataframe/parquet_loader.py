@@ -30,7 +30,7 @@ RETRIES = 3
 
 
 class DFPayload(NamedTuple):
-    dataset_id: str
+    content_id: str
     df: pd.DataFrame
     error_msg: Optional[str]
 

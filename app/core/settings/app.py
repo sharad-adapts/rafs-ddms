@@ -69,6 +69,10 @@ class AppSettings(BaseAppSettings):
 
     use_blob_storage: bool = False
 
+    local_dev_mode: bool = False
+
+    allow_indexing_by_end_user: bool = False
+
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {

@@ -22,7 +22,6 @@ from fastapi_cache.decorator import cache
 from loguru import logger
 from starlette import status
 
-from app.api.dependencies.parquet import get_parquet_loader
 from app.api.dependencies.request import (
     get_content_schema_version,
     validate_bulkdata_content_type,
@@ -32,6 +31,7 @@ from app.api.dependencies.services import (
     get_async_dataset_service,
     get_async_search_service,
     get_async_storage_service,
+    get_blob_storage_service,
 )
 from app.api.dependencies.validation import (
     get_search_data_pagination_parameters,
@@ -40,25 +40,28 @@ from app.api.dependencies.validation import (
 )
 from app.api.routes.osdu.storage_records import BaseStorageRecordView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
-from app.api.routes.utils.records import get_info_from_urn
+from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
+from app.dataframe.blob_parquet_loader import BlobParquetLoader
 from app.dataframe.filter_processor import DFFilterProcessor
 from app.dataframe.parquet_loader import DFPayload, ParquetLoader
 from app.models.data_schemas.base import (
     ALL_PATHS_TO_DATA_MODEL,
     ENDPOINT_PATTERNS,
 )
-from app.models.domain.osdu.base import SAMPLESANALYSIS_KIND
 from app.models.schemas.osdu_storage import (
     OsduStorageRecord,
     StorageUpsertResponse,
 )
+from app.providers.dependencies.blob_storage import IBlobStorage
 from app.resources.filters import DataFrameFilterValidator
 from app.resources.load_model_example import load_data_example
 from app.resources.mime_types import SupportedMimeTypes
-from app.resources.paths import SAMPLESANALYSIS_TYPE_MAPPING
+from app.search.analysis_type_ids_fetcher import (
+    SearchServiceSamplesAnalysisTypeIdsFetcher,
+)
 from app.services import dataset, search, storage
 
 SAMPLESANALYSIS_ID_REGEX_STR = r"^[\w\-\.]+:work-product-component--SamplesAnalysis:[\w\-\.\:\%]+$"
@@ -231,10 +234,10 @@ class SamplesAnalysisSearchDataView:
         request: Request,
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         search_service: search.SearchService = Depends(get_async_search_service),
         df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
-        parquet_loader: ParquetLoader = Depends(get_parquet_loader),
         pagination_parameters: Tuple[int, int] = Depends(get_search_data_pagination_parameters),
     ) -> Response:
         """Search Data Endpoint.
@@ -246,6 +249,9 @@ class SamplesAnalysisSearchDataView:
         :param dataset_service: dataset service instance, defaults to
             Depends(get_async_dataset_service)
         :type dataset_service: dataset.DatasetService, optional
+        :param blob_storage_service: blob storage service instance,
+            defaults to Depends(get_blob_storage_service)
+        :type blob_storage_service: IBlobStorage, optional
         :param search_service: search service instance, defaults to
             Depends(get_async_search_service)
         :type search_service: search.SearchService, optional
@@ -255,9 +261,6 @@ class SamplesAnalysisSearchDataView:
         :param content_schema_version: content schema version, defaults
             to Depends(get_content_schema_version)
         :type content_schema_version: str, optional
-        :param parquet_loader: parquet loader instance, defaults to
-            Depends(get_parquet_loader)
-        :type parquet_loader: ParquetLoader, optional
         :param pagination_parameters: oagination parameters, defaults to
             Depends(get_pagination_parameters)
         :type pagination_parameters: Tuple[int, int], optional
@@ -269,17 +272,21 @@ class SamplesAnalysisSearchDataView:
         mime_type = SupportedMimeTypes.find_by_mime_type(request.headers["content-type"])
         offset, page_limit = pagination_parameters
 
-        analysis_type_ids = await self._find_analysis_type_ids(
-            data_partition_id, analysis_type, content_schema_version, search_service,
+        analysis_type_ids_fetcher = SearchServiceSamplesAnalysisTypeIdsFetcher(
+            search_service=search_service,
         )
+        analysis_type_ids = await analysis_type_ids_fetcher.get_ids(
+            data_partition_id, analysis_type, content_schema_version,
+        )
+        analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
         logger.debug("Found analysis types and datasets: ")
         logger.debug(analysis_type_ids)
 
-        df_triplets_gen = self._get_search_data(
-            analysis_type_ids,
-            dataset_service,
-            df_filter,
-            parquet_loader,
+        df_triplets_gen = await self._get_search_data(
+            analysis_type_ids=analysis_type_ids,
+            dataset_service=dataset_service,
+            blob_storage_service=blob_storage_service,
+            df_filter=df_filter,
         )
 
         result_df, total_size = await self._build_result_df(
@@ -313,10 +320,10 @@ class SamplesAnalysisSearchDataView:
         request: Request,
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         search_service: search.SearchService = Depends(get_async_search_service),
         df_filter: DataFrameFilterValidator = Depends(validate_filters),
         content_schema_version: str = Depends(get_content_schema_version),
-        parquet_loader: ParquetLoader = Depends(get_parquet_loader),
         pagination_parameters: Tuple[int, int] = Depends(get_search_pagination_parameters),
     ) -> JSONResponse:
         """Search Endpoint.
@@ -328,6 +335,9 @@ class SamplesAnalysisSearchDataView:
         :param dataset_service: dataset service instance, defaults to
             Depends(get_async_dataset_service)
         :type dataset_service: dataset.DatasetService, optional
+        :param blob_storage_service: blob storage service instance,
+            defaults to Depends(get_blob_storage_service)
+        :type blob_storage_service: IBlobStorage, optional
         :param search_service: search service instance, defaults to
             Depends(get_async_search_service)
         :type search_service: search.SearchService, optional
@@ -337,9 +347,6 @@ class SamplesAnalysisSearchDataView:
         :param content_schema_version: content schema version, defaults
             to Depends(get_content_schema_version)
         :type content_schema_version: str, optional
-        :param parquet_loader: parquet loader instance, defaults to
-            Depends(get_parquet_loader)
-        :type parquet_loader: ParquetLoader, optional
         :param pagination_parameters: oagination parameters, defaults to
             Depends(get_pagination_parameters)
         :type pagination_parameters: Tuple[int, int], optional
@@ -349,15 +356,19 @@ class SamplesAnalysisSearchDataView:
         data_partition_id = request.headers.get("data-partition-id")
         offset, page_limit = pagination_parameters
 
-        analysis_type_ids = await self._find_analysis_type_ids(
-            data_partition_id, analysis_type, content_schema_version, search_service,
+        analysis_type_ids_fetcher = SearchServiceSamplesAnalysisTypeIdsFetcher(
+            search_service=search_service,
         )
+        analysis_type_ids = await analysis_type_ids_fetcher.get_ids(
+            data_partition_id, analysis_type, content_schema_version,
+        )
+        analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
 
-        df_triplets_gen = self._get_search_data(
-            analysis_type_ids,
-            dataset_service,
-            df_filter,
-            parquet_loader,
+        df_triplets_gen = await self._get_search_data(
+            analysis_type_ids=analysis_type_ids,
+            dataset_service=dataset_service,
+            blob_storage_service=blob_storage_service,
+            df_filter=df_filter,
         )
 
         result_set = []
@@ -390,14 +401,59 @@ class SamplesAnalysisSearchDataView:
         self,
         analysis_type_ids: List[Tuple[str, str]],
         dataset_service: dataset.DatasetService,
+        blob_storage_service: IBlobStorage,
         df_filter: DataFrameFilterValidator,
-        parquet_loader: ParquetLoader,
     ) -> AsyncGenerator[List[DFPayload], None]:
         """Fetches parquet files from a given result list obtained from search
         service."""
-        analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
+        settings = get_app_settings()
+        if settings.use_blob_storage:
+            df_payload_gen = self._get_search_data_for_blobs(
+                analysis_type_ids=analysis_type_ids,
+                blob_storage_service=blob_storage_service,
+                df_filter=df_filter,
+            )
+        else:
+            df_payload_gen = self._get_search_data_for_datasets(
+                analysis_type_ids=analysis_type_ids,
+                dataset_service=dataset_service,
+                df_filter=df_filter,
+            )
+        return df_payload_gen
+
+    async def _get_search_data_for_blobs(  # noqa: WPS234
+        self,
+        analysis_type_ids: List[Tuple[str, str]],
+        blob_storage_service: IBlobStorage,
+        df_filter: DataFrameFilterValidator,
+    ) -> AsyncGenerator[List[DFPayload], None]:
+        """Fetches parquet files from a given result list obtained from search
+        service."""
+        blob_ids = [result_id[0] for result_id in analysis_type_ids]
+        df_filter_processor = DFFilterProcessor(df_filter=df_filter)
+        parquet_loader = BlobParquetLoader()
+
+        for n_batch in range((len(blob_ids) // self._batch_size) + 1):
+            batch_offset = self._batch_size * n_batch
+            blob_ids_batch = blob_ids[batch_offset:batch_offset + self._batch_size]
+            df_triplets = await parquet_loader.read_parquet_files(
+                blob_ids=blob_ids_batch,
+                blob_storage_service=blob_storage_service,
+                df_filter_processor=df_filter_processor,
+            )
+            yield df_triplets
+
+    async def _get_search_data_for_datasets(  # noqa: WPS234
+        self,
+        analysis_type_ids: List[Tuple[str, str]],
+        dataset_service: dataset.DatasetService,
+        df_filter: DataFrameFilterValidator,
+    ) -> AsyncGenerator[List[DFPayload], None]:
+        """Fetches parquet files from a given result list obtained from search
+        service."""
         dataset_ids = [result_id[0] for result_id in analysis_type_ids]
         df_filter_processor = DFFilterProcessor(df_filter=df_filter)
+        parquet_loader = ParquetLoader()
 
         for n_batch in range((len(dataset_ids) // self._batch_size) + 1):
             batch_offset = self._batch_size * n_batch
@@ -407,37 +463,6 @@ class SamplesAnalysisSearchDataView:
                 signed_urls_for_datasets, df_filter_processor,
             )
             yield df_triplets
-
-    async def _find_analysis_type_ids(
-        self,
-        data_partition_id: str,
-        analysis_type: str,
-        target_schema_version: str,
-        search_service: search.SearchService,
-    ) -> List[Tuple[str, str]]:
-        """Performs a query to search service to build a list of tuples
-        dataset_id, samples_analysis_id."""
-        query = self._build_sampleanalysistype_query(data_partition_id, SAMPLESANALYSIS_TYPE_MAPPING[analysis_type])
-        query_offset = 0
-        search_response = await search_service.find_records(
-            kind=SAMPLESANALYSIS_KIND,
-            query=query,
-            offset=query_offset,
-            limit=search.QUERY_LIMIT,
-        )
-
-        result_records = []
-        while search_response and search_response.get("results"):
-            result_records.extend(search_response.get("results"))
-            query_offset += search.QUERY_LIMIT
-            search_response = await search_service.find_records(
-                kind=SAMPLESANALYSIS_KIND,
-                query=query,
-                offset=query_offset,
-                limit=search.QUERY_LIMIT,
-            )
-
-        return self._build_result_ids(result_records, target_schema_version, analysis_type)
 
     async def _paginate_dfs(  # noqa: WPS234
         self,
@@ -497,59 +522,6 @@ class SamplesAnalysisSearchDataView:
             for dataset_id, df, error_msg in batch_df_triplets:
                 if not (df.empty and error_msg is None):
                     yield dataset_id, df, error_msg
-
-    def _verify_target_schema(
-        self,
-        dataset_id: str,
-        analysis_type: str,
-        current_schema: str,
-        target_schema: str,
-    ) -> bool:
-        """Verify the dataset matches the correct target schema."""
-
-        schema_match = False
-        if current_schema == target_schema:
-            schema_match = True
-
-        dataset_type_match = False
-        if f":{analysis_type}-" in dataset_id:
-            dataset_type_match = True
-
-        return schema_match and dataset_type_match
-
-    def _build_result_ids(  # noqa: CCR001
-        self,
-        result_records: list,
-        target_schema_version: str,
-        analysis_type: str,
-    ) -> List[Tuple[str, str]]:
-        """Build a list of tuples dataset_id, samples_analysis_id."""
-
-        result_ids = []
-        for record in result_records:
-            if ddms_datasets := record.get("data", {}).get("DDMSDatasets"):  # noqa: WPS332
-                for urn in ddms_datasets:
-                    urn_info = get_info_from_urn(urn)
-                    if self._verify_target_schema(  # noqa: WPS337
-                        dataset_id=urn_info["dataset_id"],
-                        analysis_type=analysis_type,
-                        current_schema=urn_info["content_schema_version"],
-                        target_schema=target_schema_version,
-                    ):
-                        result_ids.append((urn_info["dataset_id"], urn_info["samples_analysis_id"]))  # noqa: WPS220
-
-        return result_ids
-
-    def _build_sampleanalysistype_query(self, data_partition_id: str, analysis_types: List[str]) -> str:
-        """Build a query to be used within search service for
-        SamplesAnalysisType."""
-
-        analysis_types = [
-            f'"{data_partition_id}:reference-data--SampleAnalysisType:{analysis_type}"'
-            for analysis_type in analysis_types
-        ]
-        analysis_types_str = " OR ".join(analysis_types)
-        return f"data.SampleAnalysisTypeIDs:({analysis_types_str})"
 
     def _handle_errors(self, analysis_type_ids: List[Tuple[str, str]], errors: List[Tuple[str, str]]):
         """Handle errors."""

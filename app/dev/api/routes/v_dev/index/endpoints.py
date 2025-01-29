@@ -51,9 +51,9 @@ class RedisIndexView:
         search_service: search.SearchService = Depends(get_async_search_service),
         storage_service: storage.StorageService = Depends(get_async_storage_service),
     ) -> str:
-        """_summary_
+        """Index records.
 
-        :param index_initialized: _description_, defaults to
+        :param index_initialized: index init flag, defaults to
             Depends(init_index)
         :type index_initialized: bool, optional
         :param partition: _description_, defaults to
@@ -195,8 +195,9 @@ class RedisIndexView:
 
     def _prepare_records_index_route(self) -> None:
         self._router.add_api_route(
-            path="/sa_records_index",
+            path="/trigger-sa-indexer",
             endpoint=self.index_records,
             methods=["GET"],
             status_code=status.HTTP_200_OK,
+            include_in_schema=False,
         )

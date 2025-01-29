@@ -22,23 +22,27 @@ from fastapi_cache.decorator import cache
 from loguru import logger
 from starlette import status
 
-from app.api.dependencies.parquet import get_parquet_loader
 from app.api.dependencies.request import (
     get_content_schema_version,
     validate_bulkdata_content_type,
 )
-from app.api.dependencies.services import get_async_dataset_service
+from app.api.dependencies.services import (
+    get_async_dataset_service,
+    get_blob_storage_service,
+)
 from app.api.dependencies.validation import (
     get_search_data_pagination_parameters,
     get_search_pagination_parameters,
 )
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
+from app.core.config import get_app_settings
 from app.core.helpers.cache.coder import ResponseCoder
 from app.core.helpers.cache.key_builder import key_builder_using_token
 from app.core.helpers.cache.settings import CACHE_DEFAULT_TTL
-from app.dataframe.parquet_loader import DFPayload
+from app.dataframe.blob_parquet_loader import BlobParquetLoader
+from app.dataframe.parquet_loader import DFPayload, ParquetLoader
 from app.dev.api.dependencies.search import (
-    AnalysisTypeIdsFetcher,
+    SamplesAnalysisTypeIdsFetcher,
     get_analysis_type_ids_fetcher,
 )
 from app.dev.api.dependencies.validation import (
@@ -51,6 +55,7 @@ from app.dev.dataframe.multiple_nested_filter_processor import (
 from app.dev.resources.multiple_nested_filters import (
     DFMultipleNestedFilterValidator,
 )
+from app.providers.dependencies.blob_storage import IBlobStorage
 from app.resources.mime_types import SupportedMimeTypes
 from app.services import dataset
 
@@ -94,11 +99,12 @@ class SamplesAnalysisSearchDataView:
         request: Request,
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         df_filter: DFMultipleNestedFilterValidator = Depends(validate_multiple_nested_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         pagination_parameters: Tuple[int, int] = Depends(get_search_data_pagination_parameters),
         wks_parameters: Optional[dict] = Depends(get_search_wks_parameters),
-        analysis_type_ids_fetcher: AnalysisTypeIdsFetcher = Depends(get_analysis_type_ids_fetcher),
+        analysis_type_ids_fetcher: SamplesAnalysisTypeIdsFetcher = Depends(get_analysis_type_ids_fetcher),
     ) -> Response:
         """Search Data Endpoint.
 
@@ -109,6 +115,9 @@ class SamplesAnalysisSearchDataView:
         :param dataset_service: dataset service instance, defaults to
             Depends(get_async_dataset_service)
         :type dataset_service: dataset.DatasetService, optional
+        :param blob_storage_service: blob storage service instance,
+            defaults to Depends(get_blob_storage_service)
+        :type blob_storage_service: IBlobStorage, optional
         :param df_filter: dataframe filter, defaults to
             Depends(validate_multiple_nested_filters)
         :type df_filter: DFMultipleNestedFilterValidator, optional
@@ -135,20 +144,22 @@ class SamplesAnalysisSearchDataView:
         analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
 
         if self._is_non_empty_filter(df_filter):
-            df_triplets_gen = self._get_search_data(
-                analysis_type_ids,
-                dataset_service,
-                df_filter,
+            df_triplets_gen = await self._get_search_data(
+                analysis_type_ids=analysis_type_ids,
+                dataset_service=dataset_service,
+                blob_storage_service=blob_storage_service,
+                df_filter=df_filter,
             )
 
             result_df, total_size = await self._build_result_df(
                 df_triplets_gen, df_filter, offset, page_limit, analysis_type_ids,
             )
         else:
-            df_triplets_gen = self._get_search_data(
-                analysis_type_ids[offset:offset + page_limit],
-                dataset_service,
-                df_filter,
+            df_triplets_gen = await self._get_search_data(
+                analysis_type_ids=analysis_type_ids[offset:offset + page_limit],
+                dataset_service=dataset_service,
+                blob_storage_service=blob_storage_service,
+                df_filter=df_filter,
             )
             total_size = len(analysis_type_ids)
             result_df, _ = await self._build_result_df(
@@ -182,11 +193,12 @@ class SamplesAnalysisSearchDataView:
         request: Request,
         analysis_type: str,
         dataset_service: dataset.DatasetService = Depends(get_async_dataset_service),
+        blob_storage_service: IBlobStorage = Depends(get_blob_storage_service),
         df_filter: DFMultipleNestedFilterValidator = Depends(validate_multiple_nested_filters),
         content_schema_version: str = Depends(get_content_schema_version),
         pagination_parameters: Tuple[int, int] = Depends(get_search_pagination_parameters),
         wks_parameters: Optional[dict] = Depends(get_search_wks_parameters),
-        analysis_type_ids_fetcher: AnalysisTypeIdsFetcher = Depends(get_analysis_type_ids_fetcher),
+        analysis_type_ids_fetcher: SamplesAnalysisTypeIdsFetcher = Depends(get_analysis_type_ids_fetcher),
     ) -> JSONResponse:
         """Search Endpoint.
 
@@ -197,9 +209,9 @@ class SamplesAnalysisSearchDataView:
         :param dataset_service: dataset service instance, defaults to
             Depends(get_async_dataset_service)
         :type dataset_service: dataset.DatasetService, optional
-        :param search_service: search service instance, defaults to
-            Depends(get_async_search_service)
-        :type search_service: search.SearchService, optional
+        :param blob_storage_service: blob storage service instance,
+            defaults to Depends(get_blob_storage_service)
+        :type blob_storage_service: IBlobStorage, optional
         :param df_filter: dataframe filter, defaults to
             Depends(validate_multiple_nested_filters)
         :type df_filter: DFMultipleNestedFilterValidator, optional
@@ -224,10 +236,11 @@ class SamplesAnalysisSearchDataView:
         analysis_type_ids.sort(key=lambda analysis_type_id: analysis_type_id[1])
 
         if self._is_non_empty_filter(df_filter):
-            df_triplets_gen = self._get_search_data(
-                analysis_type_ids,
-                dataset_service,
-                df_filter,
+            df_triplets_gen = await self._get_search_data(
+                analysis_type_ids=analysis_type_ids,
+                dataset_service=dataset_service,
+                blob_storage_service=blob_storage_service,
+                df_filter=df_filter,
             )
 
             result_set = []
@@ -257,13 +270,59 @@ class SamplesAnalysisSearchDataView:
         self,
         analysis_type_ids: List[Tuple[str, str]],
         dataset_service: dataset.DatasetService,
+        blob_storage_service: IBlobStorage,
+        df_filter: DFMultipleNestedFilterValidator,
+    ) -> AsyncGenerator[List[DFPayload], None]:
+        """Fetches parquet files from a given result list obtained from search
+        service."""
+        settings = get_app_settings()
+        if settings.use_blob_storage:
+            df_payload_gen = self._get_search_data_for_blobs(
+                analysis_type_ids=analysis_type_ids,
+                blob_storage_service=blob_storage_service,
+                df_filter=df_filter,
+            )
+        else:
+            df_payload_gen = self._get_search_data_for_datasets(
+                analysis_type_ids=analysis_type_ids,
+                dataset_service=dataset_service,
+                df_filter=df_filter,
+            )
+        return df_payload_gen
+
+    async def _get_search_data_for_blobs(  # noqa: WPS234
+        self,
+        analysis_type_ids: List[Tuple[str, str]],
+        blob_storage_service: IBlobStorage,
+        df_filter: DFMultipleNestedFilterValidator,
+    ) -> AsyncGenerator[List[DFPayload], None]:
+        """Fetches parquet files from a given result list obtained from search
+        service."""
+        blob_ids = [result_id[0] for result_id in analysis_type_ids]
+        df_filter_processor = DFMultipleNestedFilterProcessor(df_filter=df_filter)
+        parquet_loader = BlobParquetLoader()
+
+        for n_batch in range((len(blob_ids) // self._batch_size) + 1):
+            batch_offset = self._batch_size * n_batch
+            blob_ids_batch = blob_ids[batch_offset:batch_offset + self._batch_size]
+            df_triplets = await parquet_loader.read_parquet_files(
+                blob_ids=blob_ids_batch,
+                blob_storage_service=blob_storage_service,
+                df_filter_processor=df_filter_processor,
+            )
+            yield df_triplets
+
+    async def _get_search_data_for_datasets(  # noqa: WPS234
+        self,
+        analysis_type_ids: List[Tuple[str, str]],
+        dataset_service: dataset.DatasetService,
         df_filter: DFMultipleNestedFilterValidator,
     ) -> AsyncGenerator[List[DFPayload], None]:
         """Fetches parquet files from a given result list obtained from search
         service."""
         dataset_ids = [result_id[0] for result_id in analysis_type_ids]
         df_filter_processor = DFMultipleNestedFilterProcessor(df_filter=df_filter)
-        parquet_loader = await get_parquet_loader()
+        parquet_loader = ParquetLoader()
 
         for n_batch in range((len(dataset_ids) // self._batch_size) + 1):
             batch_offset = self._batch_size * n_batch

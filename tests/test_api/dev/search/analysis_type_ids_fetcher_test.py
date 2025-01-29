@@ -18,11 +18,13 @@ from unittest.mock import AsyncMock, MagicMock, Mock
 
 import pytest
 
-from app.dev.search.analysis_type_ids_fetcher import (
-    OsduAnalysisTypeIdsFetcher,
-    RedisAnalysisTypeIdsFetcher,
+from app.dev.search.redis_analysis_type_ids_fetcher import (
+    RedisSamplesAnalysisTypeIdsFetcher,
 )
 from app.resources.paths import SAMPLESANALYSIS_TYPE_MAPPING
+from app.search.analysis_type_ids_fetcher import (
+    SearchServiceSamplesAnalysisTypeIdsFetcher,
+)
 
 ANALYSIS_TYPE = random.choice(list(SAMPLESANALYSIS_TYPE_MAPPING.keys()))
 
@@ -69,12 +71,12 @@ def mock_entitlements_service():
 
 @pytest.fixture
 def osdu_fetcher(mock_search_service):
-    return OsduAnalysisTypeIdsFetcher(mock_search_service)
+    return SearchServiceSamplesAnalysisTypeIdsFetcher(mock_search_service)
 
 
 @pytest.fixture
 def redis_fetcher(mock_redis_client, mock_entitlements_service):
-    return RedisAnalysisTypeIdsFetcher(mock_redis_client, mock_entitlements_service)
+    return RedisSamplesAnalysisTypeIdsFetcher(mock_redis_client, mock_entitlements_service)
 
 
 class TestOsduAnalysisTypeIdsFetcher:

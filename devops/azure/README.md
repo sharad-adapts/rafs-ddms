@@ -84,3 +84,7 @@ helm upgrade -i ${ddms}-services "oci://msosdu.azurecr.io/helm/standard-ddms" --
   --set configuration[0].container.image=rafsddms \
   --set configuration[0].container.tag=latest --debug
 ```
+
+## Azure Container
+
+A [Merge Request !973](https://community.opengroup.org/osdu/platform/deployment-and-operations/infra-azure-provisioning/-/merge_requests/973/diffs) has been merged into the **infra-azure-provisioning** repository. However, assurance is needed to confirm that the container `rafs-ddms` has been successfully created.

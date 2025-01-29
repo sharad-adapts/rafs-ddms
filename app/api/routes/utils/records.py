@@ -229,35 +229,37 @@ def get_info_from_urn(urn: str) -> dict:
 
     :param urn: the ddms urn
     :type urn: str
-    :raises ValueError: if the urn is malformed
-    :return: a dictionary with proper information
+    :return: a dictionary with proper information or None
     :rtype: dict
     """
     urn_start = 6  # trims out 'urn://'
     urn_parts = urn[urn_start:].split("/")
 
     urn_sections = 5
-    if len(urn_parts) != urn_sections:
-        raise ValueError(
-            f"Malformed URN: {urn}. Should be of the form 'urn://rafs_version/entity_type/wpc_id/dataset_id/content_schema_version'",  # noqa: E501
-        )
 
-    rafs_version_index = 0
-    test_type_index = 1
-    samples_analysis_index = 2
-    dataset_index = 3
-    schema_version_index = 4
+    if len(urn_parts) == urn_sections:
+        rafs_version_index = 0
+        test_type_index = 1
+        samples_analysis_index = 2
+        dataset_index = 3
+        schema_version_index = 4
 
-    dataset_id = urn_parts[dataset_index]
-    # dataset api does not allow retrieve dataset with version
-    dataset_id = get_id(dataset_id)
-    return {
-        "rafs_version": urn_parts[rafs_version_index],
-        "test_type": urn_parts[test_type_index],
-        "samples_analysis_id": urn_parts[samples_analysis_index],
-        "dataset_id": dataset_id,
-        "content_schema_version": urn_parts[schema_version_index],
-    }
+        dataset_id = urn_parts[dataset_index]
+        # dataset api does not allow retrieve dataset with version
+        dataset_id = get_id(dataset_id)
+        urn_info = {
+            "rafs_version": urn_parts[rafs_version_index],
+            "test_type": urn_parts[test_type_index],
+            "samples_analysis_id": urn_parts[samples_analysis_index],
+            "dataset_id": dataset_id,
+            "content_schema_version": urn_parts[schema_version_index],
+        }
+    else:
+        valid_urn_format = "urn://rafs_version/entity_type/wpc_id/dataset_id/content_schema_version"
+        logger.warning(f"Skipping this urn: {urn}. Since the right urn format is: '{valid_urn_format}'")
+        urn_info = {}
+
+    return urn_info
 
 
 def get_family_type_from_url(url: str) -> str:
@@ -340,3 +342,40 @@ def find_schema_versions_for_object_name(ddms_datasets: List[str], object_name: 
         if object_name == ddms_datasets_object_name:
             schema_versions.append(object_name_parts[VERSION_INDEX])
     return set(schema_versions)
+
+
+def get_info_from_blob_urn(urn: str) -> dict:
+    """Obtain blob information from the ddms_urn.
+
+    :param urn: the ddms urn
+    :type urn: str
+    :return: a dictionary with proper information or None
+    :rtype: dict
+    """
+    urn_start = 6  # trims out 'urn://'
+    urn_parts = urn[urn_start:].split("/")
+
+    urn_num_sections = 6
+    if len(urn_parts) == urn_num_sections:
+        rafs_version_index = 0
+        wpc_id_index = 1
+        analysis_family_index = 2
+        analysis_type_index = 3
+        schema_version_index = 4
+        uuid_index = 5
+
+        urn_info = {
+            "rafs_version": urn_parts[rafs_version_index],
+            "wpc_id": urn_parts[wpc_id_index],
+            "analysis_family": urn_parts[analysis_family_index],
+            "analysis_type": urn_parts[analysis_type_index],
+            "version": urn_parts[schema_version_index],
+            "uuid": urn_parts[uuid_index],
+            "blob_id": "/".join(urn_parts[analysis_family_index:]),
+        }
+    else:
+        valid_urn_format = "urn://rafs_version/wpc_id/analysis_family/analysis_type/version/uuid"
+        logger.warning(f"Skipping this urn: {urn}. Since the right urn format is: '{valid_urn_format}'")
+        urn_info = {}
+
+    return urn_info

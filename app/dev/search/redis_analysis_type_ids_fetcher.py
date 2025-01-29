@@ -13,97 +13,20 @@
 #  limitations under the License.
 
 import json
-from abc import ABC, abstractmethod
 from typing import List, Optional, Tuple
 
 from loguru import logger
 from redis.asyncio.client import Redis
 from redis.commands.search.query import Query as RedisQuery
 
+from app.api.routes.utils.search import get_valid_ids_from_ddms_datasets
 from app.dev.core.helpers.redis_index import SAMPLESANALYSIS_IX
-from app.dev.search.utils import get_valid_ids_from_ddms_datasets
 from app.dev.services import entitlements
-from app.models.domain.osdu.base import SAMPLESANALYSIS_KIND
 from app.resources.paths import SAMPLESANALYSIS_TYPE_MAPPING
-from app.services import search
+from app.search.analysis_type_ids_fetcher import SamplesAnalysisTypeIdsFetcher
 
 
-class AnalysisTypeIdsFetcher(ABC):
-
-    @abstractmethod
-    async def get_ids(
-        self,
-        data_partition_id: str,
-        analysis_type: str,
-        target_schema_version: str,
-        wks_parameters: Optional[dict] = None,
-    ):
-        raise NotImplementedError()
-
-
-class OsduAnalysisTypeIdsFetcher(AnalysisTypeIdsFetcher):
-
-    def __init__(self, search_service: search.SearchService):
-        self._search_service = search_service
-
-    async def get_ids(
-        self,
-        data_partition_id: str,
-        analysis_type: str,
-        target_schema_version: str,
-        wks_parameters: Optional[dict] = None,
-    ):
-        """Performs a query to search service to build a list of tuples
-        dataset_id, samples_analysis_id."""
-        query = self._build_sampleanalysistype_query(data_partition_id, SAMPLESANALYSIS_TYPE_MAPPING[analysis_type])
-        query_offset = 0
-
-        result_records = []
-        while True:
-            search_response = await self._search_service.find_records(
-                kind=SAMPLESANALYSIS_KIND,
-                query=query,
-                offset=query_offset,
-                limit=search.QUERY_LIMIT,
-            )
-            records = search_response.get("results", [])
-            if not records:
-                break
-            result_records.extend(records)
-            query_offset += search.QUERY_LIMIT
-
-        return self._build_result_ids(result_records, target_schema_version, analysis_type)
-
-    def _build_sampleanalysistype_query(self, data_partition_id: str, analysis_types: List[str]) -> str:
-        """Build a query to be used within search service for
-        SamplesAnalysisType."""
-
-        analysis_types = [
-            f'"{data_partition_id}:reference-data--SampleAnalysisType:{analysis_type}"'
-            for analysis_type in analysis_types
-        ]
-        analysis_types_str = " OR ".join(analysis_types)
-        return f"data.SampleAnalysisTypeIDs:({analysis_types_str})"
-
-    def _build_result_ids(  # noqa: CCR001
-        self,
-        result_records: list,
-        target_schema_version: str,
-        analysis_type: str,
-    ) -> List[Tuple[str, str]]:
-        """Build a list of tuples dataset_id, samples_analysis_id."""
-
-        result_ids = []
-        for record in result_records:
-            if ddms_datasets := record.get("data", {}).get("DDMSDatasets"):  # noqa: WPS332
-                result_ids.extend(
-                    get_valid_ids_from_ddms_datasets(ddms_datasets, analysis_type, target_schema_version),
-                )
-
-        return result_ids
-
-
-class RedisAnalysisTypeIdsFetcher(AnalysisTypeIdsFetcher):
+class RedisSamplesAnalysisTypeIdsFetcher(SamplesAnalysisTypeIdsFetcher):
 
     def __init__(self, redis_client: Redis, entitlements_service: entitlements.EntitlementsService):
         self._redis_client = redis_client
@@ -197,13 +120,18 @@ class RedisAnalysisTypeIdsFetcher(AnalysisTypeIdsFetcher):
         target_schema_version: str,
         analysis_type: str,
     ) -> List[Tuple[str, str]]:
-        """Build a list of tuples dataset_id, samples_analysis_id."""
+        """Build a list of tuples content_id, samples_analysis_id."""
         result_ids = []
         for record in result_records:
             if ddms_datasets := record.get("DDMSDatasets", ""):  # noqa: WPS332
                 ddms_datasets = ddms_datasets.split(",")
                 result_ids.extend(
-                    get_valid_ids_from_ddms_datasets(ddms_datasets, analysis_type, target_schema_version),
+                    get_valid_ids_from_ddms_datasets(
+                        ddms_datasets=ddms_datasets,
+                        analysis_family="samplesanalysis",
+                        analysis_type=analysis_type,
+                        target_schema_version=target_schema_version,
+                    ),
                 )
 
         return result_ids

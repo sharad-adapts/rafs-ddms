@@ -15,7 +15,6 @@
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from azure.core.exceptions import ResourceNotFoundError
 
 from app.exceptions.exceptions import UnprocessableContentException
 from app.providers.dependencies.az.blob_storage import (

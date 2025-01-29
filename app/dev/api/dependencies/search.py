@@ -23,12 +23,14 @@ from app.dev.core.helpers.redis_index import (
     get_redis_client,
     is_index_initialized,
 )
-from app.dev.search.analysis_type_ids_fetcher import (
-    AnalysisTypeIdsFetcher,
-    OsduAnalysisTypeIdsFetcher,
-    RedisAnalysisTypeIdsFetcher,
+from app.dev.search.redis_analysis_type_ids_fetcher import (
+    RedisSamplesAnalysisTypeIdsFetcher,
 )
 from app.dev.services import entitlements
+from app.search.analysis_type_ids_fetcher import (
+    SamplesAnalysisTypeIdsFetcher,
+    SearchServiceSamplesAnalysisTypeIdsFetcher,
+)
 from app.services import search
 
 
@@ -36,12 +38,12 @@ async def get_analysis_type_ids_fetcher(
     search_service: search.SearchService = Depends(get_async_search_service),
     partition: str = Depends(require_data_partition_id),
     entitlements_service: entitlements.EntitlementsService = Depends(get_async_entitlements_service),
-) -> AnalysisTypeIdsFetcher:
+) -> SamplesAnalysisTypeIdsFetcher:
     is_index_initialized_flag = await is_index_initialized(SAMPLESANALYSIS_IX.format(partition=partition))
     if get_app_settings().redis_index_enable and is_index_initialized_flag:
         logger.info("Using redis index to fetch ids")
-        fetcher = RedisAnalysisTypeIdsFetcher(await get_redis_client(), entitlements_service)
+        fetcher = RedisSamplesAnalysisTypeIdsFetcher(await get_redis_client(), entitlements_service)
     else:
         logger.info("Using search service to fetch ids")
-        fetcher = OsduAnalysisTypeIdsFetcher(search_service)
+        fetcher = SearchServiceSamplesAnalysisTypeIdsFetcher(search_service)
     return fetcher

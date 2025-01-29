@@ -338,5 +338,27 @@ In other cases, all checks run automatically on commit.
 ### Google
 * [Google Deployment Instructions](./devops/gc/deploy)
 
+
+## Dedicated Blob Storage for Parquet Files
+
+A change request is underway to transition from using the Dataset service for storing Parquet files to a **dedicated blob storage** (bucket or container). This change is being rolled out in phases, with implementation details varying by cloud service provider (CSP). 
+
+Once the implementation is ready for a specific CSP, the feature can be enabled using the following environment variable:  
+```bash
+USE_BLOB_STORAGE=True
+```
+
+### Local Filesystem Support
+
+In addition to the CSP implementations, a class called [`LocalFilesystemBlobStorage`](./app/providers/dependencies/blob_storage.py?ref_type=heads#L148) has been implemented for use with a local filesystem as an alternative to CSP storage. To enable this feature, set the following environment variable:  
+```bash
+LOCAL_DEV_MODE=True
+```
+
+This setup provides flexibility for development and testing environments where CSP integration is not required.
+
+### Azure
+* [Blob Storage Docs](./docs/providers/az/readme.md)
+
 ## License
 Licensed under Apache License Version 2.0; details can be found in [LICENSE](./LICENSE).
