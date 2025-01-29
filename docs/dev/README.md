@@ -206,10 +206,38 @@ Retrieve all multistageseparator tests where the SaturationPressure is greater t
 Examples can be found in the [Search_and_Filters](../../notebooks/Search_and_Filters.ipynb) notebook.
 
 ### Metadata Filtering
-
 In addition to filtering within content schemas, the result set of an analysis can be further refined using the metadata filter.
 
-#### Available Fields
+#### Redis Indexing Feature
+
+Metadata filtering is available **only if the REDIS index is enabled and indexing has been performed**.
+
+To enable the REDIS index, set the following environment variable:  
+```bash
+REDIS_INDEX_ENABLE=True
+```
+
+For additional REDIS environment variables, please refer to the [README - Cache Settings](../../README.md?ref_type=heads#cache-settings).
+
+#### Triggering the Indexer  
+
+The indexer can be triggered using the following endpoint:  
+```bash
+api/rafs-ddms/dev/trigger-sa-indexer
+```  
+
+For example, the Azure CSP has implemented a [cron job](../../devops/azure/cronjob/main.go) to automate the indexing process.
+
+#### Privileged Access  
+
+The indexer endpoint requires a **privileged user** to execute the request. However, for local development, you can bypass the call to the Partition service by enabling the following environment variable:  
+```bash
+ALLOW_INDEXING_BY_END_USER=True
+```
+
+This setting allows end users to perform indexing during development but should not be used in production environments for security reasons.
+
+#### Available Metadata Fields
 The following fields are available for filtering, based on the defined [SamplesAnalysis schema](../../app/dev/core/helpers/redis_index.py):
 - "SampleIDs"
 - "SampleTypeIDs"

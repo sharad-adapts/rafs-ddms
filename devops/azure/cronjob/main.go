@@ -44,7 +44,7 @@ const (
 	azure_oauth_client_password_secret = "app-dev-sp-password"
 	azure_oauth_tenant_secret          = "tenant-id"
 	// Rafs endpoints
-	record_index_endpoint = "api/rafs-ddms/dev/sa_records_index"
+	record_index_endpoint = "api/rafs-ddms/dev/trigger-sa-indexer"
 	expected_code         = 200
 )
 

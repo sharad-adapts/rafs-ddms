@@ -12,13 +12,19 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
+import os
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
+import aiofiles
 from pydantic import BaseSettings
 
 from app.core.settings.app import AppSettings
+from app.exceptions.exceptions import (
+    NotFoundException,
+    UnprocessableContentException,
+)
 from app.resources.mime_types import MimeType
 
 
@@ -70,6 +76,8 @@ class IBlobStorage(ABC):
 
         :param blob: the blob to upload
         :type blob: Blob
+        :raises UnprocessableContentException: when unable to create the
+            blob
         :return: the uploaded blob metadata
         :rtype: BlobMetadata
         """
@@ -84,6 +92,7 @@ class IBlobStorage(ABC):
 
         :param blob_metadata: the blob metadata
         :type blob_metadata: BlobMetadata
+        :raises NotFoundException: when blob is not found
         :return: True if success
         :rtype: bool
         """
@@ -98,6 +107,8 @@ class IBlobStorage(ABC):
 
         :param blob: the blob to upload
         :type blob: Blob
+        :raises UnprocessableContentException: when unable to update the
+            blob
         :return: the uploaded blob metadata
         :rtype: BlobMetadata
         """
@@ -112,6 +123,7 @@ class IBlobStorage(ABC):
 
         :param blob_metadata: the blob metadata
         :type blob_metadata: BlobMetadata
+        :raises NotFoundException: when blob is not found
         :return: the blob with content
         :rtype: Blob
         """
@@ -133,12 +145,67 @@ class IBlobStorage(ABC):
         raise NotImplementedError
 
 
+class LocalFilesystemBlobStorage(IBlobStorage):
+    def __init__(self, base_path: str):
+        self.base_path = base_path
+        os.makedirs(self.base_path, exist_ok=True)
+
+    async def create_blob(self, blob: Blob) -> BlobMetadata:
+        blob_path = os.path.join(self.base_path, blob.blob_metadata.object_name)
+        os.makedirs(os.path.dirname(blob_path), exist_ok=True)
+
+        async with aiofiles.open(blob_path, "wb") as fp:
+            await fp.write(blob.blob_data)
+
+        return blob.blob_metadata
+
+    async def delete_blob(self, blob_metadata: BlobMetadata) -> bool:
+        blob_path = os.path.join(self.base_path, blob_metadata.object_name)
+        if os.path.exists(blob_path):
+            os.remove(blob_path)
+            return True
+        raise NotFoundException(detail=f"Blob not found: {blob_metadata.object_name}")
+
+    async def update_blob(self, blob: Blob) -> BlobMetadata:
+        try:
+            await self.delete_blob(blob.blob_metadata)
+        except NotFoundException as exc:
+            error_msg = exc.detail
+            raise UnprocessableContentException(detail=f"Unable to process: {error_msg}")
+        return await self.create_blob(blob)
+
+    async def get_blob(self, blob_metadata: BlobMetadata) -> Blob:
+        blob_path = os.path.join(self.base_path, blob_metadata.object_name)
+        if not os.path.exists(blob_path):
+            raise NotFoundException(detail=f"Blob not found: {blob_metadata.object_name}")
+
+        async with aiofiles.open(blob_path, "rb") as fp:
+            blob_data = await fp.read()
+
+        return Blob(blob_data=blob_data, blob_metadata=blob_metadata)
+
+    async def list_blobs(self, subpath: str) -> List[str]:
+        full_path = os.path.join(self.base_path, subpath)
+        if not os.path.exists(full_path):
+            return []
+
+        return [
+            os.path.relpath(os.path.join(root, blob_file), self.base_path)
+            for root, _, blob_files in os.walk(full_path)
+            for blob_file in blob_files
+        ]
+
+
 async def get_blob_storage(
     data_partition_id: str,
     settings: AppSettings,
     cloud_provider_config: Optional[BaseSettings],
     **kwargs,
 ) -> IBlobStorage:
+
+    if settings.local_dev_mode:
+        return LocalFilesystemBlobStorage("./blobdata")
+
     match settings.cloud_provider:
         case "azure":
             from app.providers.dependencies.az.blob_storage import (

@@ -110,7 +110,7 @@ configuration:
     image: rafs/cronjob
     tag: latest
   cronjobEnabled: true
-  schedule: "* */12 * * *"
+  schedule: "0 * * * *"
   backOffLimit: "2"
   activeDeadlineSeconds: "300"
   successfulJobsHistoryLimit: "1"

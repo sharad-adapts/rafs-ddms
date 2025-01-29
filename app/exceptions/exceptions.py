@@ -68,3 +68,12 @@ class DataValidationException(UnprocessableContentException):
 
 class OsduApiException(HTTPException):
     pass
+
+
+class NotFoundException(HTTPException):
+    def __init__(
+        self,
+        detail: Any = None,
+        headers: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        super().__init__(status_code=404, detail=detail, headers=headers)

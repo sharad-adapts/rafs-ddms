@@ -24,7 +24,10 @@ from azure.storage.blob import BlobType, ContentSettings
 from azure.storage.blob.aio import BlobServiceClient
 from loguru import logger
 
-from app.exceptions.exceptions import UnprocessableContentException
+from app.exceptions.exceptions import (
+    NotFoundException,
+    UnprocessableContentException,
+)
 from app.providers.dependencies.az.storage_account_info import (
     STORAGE_ACCOUNT_KEY,
     STORAGE_ACCOUNT_NAME,
@@ -71,7 +74,7 @@ class AzureBlobStorage(IBlobStorage):
                 object_name = blob_metadata.object_name
                 error_msg = f"Unable to get the blob {object_name}: {exc_msg}"
                 logger.error(error_msg)
-                raise UnprocessableContentException(detail=error_msg)
+                raise NotFoundException(detail=error_msg)
 
     async def list_blobs(self, subpath: str) -> List[str]:
         async with BlobServiceClient(
@@ -100,7 +103,7 @@ class AzureBlobStorage(IBlobStorage):
             except ResourceNotFoundError:
                 error_msg = f"Blob not found: {object_name}"
                 logger.error(error_msg)
-                raise UnprocessableContentException(detail=error_msg)
+                raise NotFoundException(detail=error_msg)
 
         return resource_deleted
 

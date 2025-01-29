@@ -128,9 +128,12 @@ async def get_search_wks_parameters(
 
 
 async def get_validated_partition(
+    settings: AppSettings = Depends(get_app_settings),
     partition: str = Depends(require_data_partition_id),
     partition_service: partition.PartitionService = Depends(get_async_partition_service),
 ) -> str:
+    if settings.local_dev_mode or settings.allow_indexing_by_end_user:
+        return partition
     if not await partition_service.partition_exist(partition):
         err_msg = f"Partition '{partition}' does not exist"
         logger.error(err_msg)
