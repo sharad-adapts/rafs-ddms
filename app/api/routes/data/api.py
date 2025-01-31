@@ -41,6 +41,7 @@ from app.api.dependencies.validation import (
 from app.api.routes.osdu.wpc_dataset_source import WPCDatasetSourceView
 from app.api.routes.utils.api_description_helper import APIDescriptionHelper
 from app.api.routes.utils.api_version import get_api_version_from_url
+from app.api.routes.utils.gc_collector import with_gc_collect
 from app.api.routes.utils.records import (
     dataset_id_exist,
     find_dataset_id,
@@ -248,6 +249,7 @@ class BaseDataView:
                     content=df.to_json(orient="split"),
                     media_type=SupportedMimeTypes.JSON.mime_type,
                 )
+            del df
         else:
             response = JSONResponse(
                 {"message": f"{dataset_id} does not exist in current record.", "reason": "Not found."},
@@ -256,6 +258,7 @@ class BaseDataView:
 
         return response
 
+    @with_gc_collect
     async def _get_validated_payload(
         self,
         request: Request,
@@ -317,7 +320,7 @@ class BaseDataView:
                 reason = f"Parquet conversion error: {exc}"
                 logger.debug(reason)
                 raise exceptions.InvalidDatasetException(detail=reason)
-
+        del df
         return parquet_file
 
     async def _upsert_dataset(

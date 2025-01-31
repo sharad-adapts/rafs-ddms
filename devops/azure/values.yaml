@@ -67,11 +67,12 @@ configuration:
   # About 800m of consumption with 4 uvloop workers and integration test run
   # Initialization will take longer if this is not correctly setup
   request:
-    cpu: 0.5
-    memory: 2Gi
+    cpu: "1"
+    memory: 8Gi
   limit:
-    cpu: 2
-    memory: 4Gi
+    cpu: "2"
+    memory: 10Gi
+
 
 #####################################
 ## Redis stack needed for analytics

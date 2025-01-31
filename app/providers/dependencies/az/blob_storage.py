@@ -19,6 +19,8 @@ from azure.core.exceptions import (
     ResourceExistsError,
     ResourceModifiedError,
     ResourceNotFoundError,
+    ServiceRequestError,
+    ServiceResponseError,
 )
 from azure.storage.blob import BlobType, ContentSettings
 from azure.storage.blob.aio import BlobServiceClient
@@ -39,7 +41,14 @@ from app.providers.dependencies.blob_storage import (
     StoragePartitionInfo,
 )
 
-ALL_AZURE_CORE_ERRORS = (HttpResponseError, ResourceModifiedError, ResourceExistsError, ResourceNotFoundError)
+ALL_AZURE_CORE_ERRORS = (
+    HttpResponseError,
+    ResourceModifiedError,
+    ResourceExistsError,
+    ResourceNotFoundError,
+    ServiceRequestError,
+    ServiceResponseError,
+)
 
 
 class AzureBlobStorage(IBlobStorage):

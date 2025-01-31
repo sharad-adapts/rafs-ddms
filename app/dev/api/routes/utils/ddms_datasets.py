@@ -93,6 +93,7 @@ async def get_parquet_data(
                 content=df.to_json(orient="split"),
                 media_type=SupportedMimeTypes.JSON.mime_type,
             )
+        del df
     else:
         response = JSONResponse(
             {"message": f"{object_name} does not exist in current record.", "reason": "Not found."},

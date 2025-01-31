@@ -73,6 +73,8 @@ class AppSettings(BaseAppSettings):
 
     allow_indexing_by_end_user: bool = False
 
+    enable_gc_collect: bool = True
+
     @property
     def fastapi_kwargs(self) -> Dict[str, Any]:
         return {
