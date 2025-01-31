@@ -1,6 +1,16 @@
 [{
-    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GasComposition_WPC:",
-    "SampleID": "opendes:master-data--Sample:GasCompositionSample:",
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+    "SampleID": "opendes:master-data--Sample:Sample_200:",
+    "Meta": [
+                {
+                      "kind": "Unit",
+                      "name": "cm3/m3",
+                      "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:cm3/m3:",
+                      "propertyNames": [
+                        "GasComposition.MassFraction"
+                      ]
+                }
+    ],
     "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
     "GasComposition": [
         {

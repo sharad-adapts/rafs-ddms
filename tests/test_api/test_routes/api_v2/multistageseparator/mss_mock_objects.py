@@ -107,4 +107,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting MultiStageSeparatorTestSteps
-EXPECTED_ERROR_REASON = "Data error: 13 columns passed, passed data had 12 columns"
+EXPECTED_ERROR_REASON = "Data error: 12 columns passed, passed data had 11 columns"

@@ -2,6 +2,16 @@
     {
         "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
         "SampleID": "opendes:master-data--Sample:ed952b3b-7e6c-4224-b229-758d46ce5161:",
+        "Meta": [
+            {
+              "kind": "Unit",
+              "name": "degree Fahrenheit",
+              "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+              "propertyNames": [
+                "TestTemperature"
+              ]
+            }
+        ],
         "TestNumber": "LBA1579",
         "TestTemperature": 4.0,
         "SaturationPressure": 9.0,
@@ -17,12 +27,6 @@
                 "GasMoleWeight": 9.0,
                 "GasViscosity": 1.0,
                 "GasFormationVolumeFactor": 10.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 10.0,
-                    "Remark": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
-                    "RemarkSource": "ABCDEFGHIJKLMNOPQRST",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 3.0,
                 "ReservoirFluidDisplaced": 6.0,
                 "ReservoirLiquidVolume": 9.0,
@@ -157,12 +161,6 @@
                 "GasMoleWeight": 4.0,
                 "GasViscosity": 5.0,
                 "GasFormationVolumeFactor": 8.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 6.0,
-                    "Remark": "ABCDEFGHIJKLMNOPQ",
-                    "RemarkSource": "ABCDEFGHIJKLMNOPQRST",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 7.0,
                 "ReservoirFluidDisplaced": 7.0,
                 "ReservoirLiquidVolume": 5.0,
@@ -224,12 +222,6 @@
                 "GasMoleWeight": 7.0,
                 "GasViscosity": 1.0,
                 "GasFormationVolumeFactor": 6.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 8.0,
-                    "Remark": "ABCDEFG",
-                    "RemarkSource": "ABCDEFGHI",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 10.0,
                 "ReservoirFluidDisplaced": 5.0,
                 "ReservoirLiquidVolume": 3.0,
@@ -310,12 +302,6 @@
                 "GasMoleWeight": 4.0,
                 "GasViscosity": 7.0,
                 "GasFormationVolumeFactor": 5.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 6.0,
-                    "Remark": "ABCDEFGHIJKLMNOPQ",
-                    "RemarkSource": "ABCDEFGHIJKLMN",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 10.0,
                 "ReservoirFluidDisplaced": 6.0,
                 "ReservoirLiquidVolume": 5.0,
@@ -395,12 +381,6 @@
                 "GasMoleWeight": 3.0,
                 "GasViscosity": 9.0,
                 "GasFormationVolumeFactor": 3.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 1.0,
-                    "Remark": "ABCDEFGHIJKLMNOPQ",
-                    "RemarkSource": "ABCDEFGHIJKL",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 9.0,
                 "ReservoirFluidDisplaced": 9.0,
                 "ReservoirLiquidVolume": 7.0,
@@ -454,12 +434,6 @@
                 "GasMoleWeight": 6.0,
                 "GasViscosity": 3.0,
                 "GasFormationVolumeFactor": 1.0,
-                "Remarks": {
-                    "RemarkSequenceNumber": 1.0,
-                    "Remark": "ABCDEFGHIJKLMNO",
-                    "RemarkSource": "ABCDEFGHIJKLMNOPQRST",
-                    "RemarkDate": "2018-11-13"
-                },
                 "MolesProduced": 4.0,
                 "ReservoirFluidDisplaced": 6.0,
                 "ReservoirLiquidVolume": 10.0,

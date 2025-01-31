@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "TestNumber",
     "TestTemperature",
     "SaturationPressure",
@@ -17,6 +18,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
       "opendes:master-data--Sample:Example_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "TestTemperature"
+          ]
+        }
+      ],
       "1A",
       1.23,
       1.23,
@@ -67,13 +78,7 @@
               "VolumePercent":1.23,
               "SpecificGravity":1.23
             }
-          ],
-          "Remark":{
-            "RemarkSequenceNumber":1.23,
-            "Remark":"ABCDEFGHIJKL",
-            "RemarkSource":"ABCDEFGHIJKLMNOPQR",
-            "RemarkDate":"2024-10-10"
-          }
+          ]
         }
       ],
       "opendes:work-product-component--SamplesAnalysis:Example_WPC:"

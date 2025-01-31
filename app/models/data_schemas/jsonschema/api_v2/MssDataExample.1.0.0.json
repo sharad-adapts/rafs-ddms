@@ -2,16 +2,14 @@
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
     "SampleID": "opendes:master-data--Sample:sample_test:",
     "Meta": [
-                {
-                      "kind": "Unit",
-                      "name": "ft[US]",
-                      "persistableReference": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}",
-                      "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
-                      "propertyNames": [
-                        "HorizontalDeflection.EastWest",
-                        "HorizontalDeflection.NorthSouth"
-                      ]
-                    }
+        {
+                "kind": "Unit",
+                "name": "degree Fahrenheit",
+                "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                "propertyNames": [
+                "ReservoirTemperature"
+                ]
+        }
     ],
     "TestNumber": "752156",
     "ReservoirTemperature": 8.0,
@@ -21,12 +19,6 @@
     "SaturatedOilDensity": 10.0,
     "SeparatorTestGasOilRatio": 10.0,
     "OverallGasGravity": 1.0,
-    "Remarks": {
-        "RemarkSequenceNumber": 7.0,
-        "Remark": "ABCDEFGHIJ",
-        "RemarkSource": "ABCDEFGHIJKL",
-        "RemarkDate": "2018-11-13"
-    },
     "TestSteps": [
         {
             "StepNumber": 1.0,
@@ -126,13 +118,7 @@
                     "VolumePercent": 4.0,
                     "SpecificGravity": 2.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 4.0,
-                "Remark": "ABCDEFG",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 3.0,
@@ -178,13 +164,7 @@
                     "VolumePercent": 4.0,
                     "SpecificGravity": 6.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 9.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRSTUV",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZA",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 8.0,
@@ -248,13 +228,7 @@
                     "VolumePercent": 10.0,
                     "SpecificGravity": 7.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 4.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRSTUVWXYZABC",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRS",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 10.0,
@@ -299,13 +273,7 @@
                     "SpecificGravity": 6.0
                 }
             ],
-            "LiquidComposition": [],
-            "Remarks": {
-                "RemarkSequenceNumber": 10.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRSTUVWXYZAB",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "RemarkDate": "2018-11-13"
-            }
+            "LiquidComposition": []
         },
         {
             "StepNumber": 8.0,
@@ -396,13 +364,7 @@
                     "VolumePercent": 2.0,
                     "SpecificGravity": 1.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 1.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRST",
-                "RemarkSource": "ABCDEF",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 3.0,
@@ -438,13 +400,7 @@
                     "SpecificGravity": 5.0
                 }
             ],
-            "LiquidComposition": [],
-            "Remarks": {
-                "RemarkSequenceNumber": 2.0,
-                "Remark": "ABCDEFGHIJ",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                "RemarkDate": "2018-11-13"
-            }
+            "LiquidComposition": []
         },
         {
             "StepNumber": 6.0,
@@ -535,13 +491,7 @@
                     "VolumePercent": 2.0,
                     "SpecificGravity": 2.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 2.0,
-                "Remark": "ABCDEFGHI",
-                "RemarkSource": "ABCD",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 5.0,
@@ -614,13 +564,7 @@
                     "VolumePercent": 6.0,
                     "SpecificGravity": 1.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 6.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRSTU",
-                "RemarkSource": "ABCDEF",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         },
         {
             "StepNumber": 9.0,
@@ -656,13 +600,7 @@
                     "VolumePercent": 1.0,
                     "SpecificGravity": 5.0
                 }
-            ],
-            "Remarks": {
-                "RemarkSequenceNumber": 5.0,
-                "Remark": "ABCDEFGHIJKLMNOPQRST",
-                "RemarkSource": "ABCDEFGHIJKLMNOPQRSTU",
-                "RemarkDate": "2018-11-13"
-            }
+            ]
         }
     ]
 }]

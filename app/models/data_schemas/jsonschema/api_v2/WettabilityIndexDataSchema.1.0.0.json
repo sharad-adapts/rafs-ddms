@@ -93,8 +93,7 @@
               }
             },
             "required": [
-              "kind",
-              "persistableReference"
+              "kind"
             ]
           },
           {

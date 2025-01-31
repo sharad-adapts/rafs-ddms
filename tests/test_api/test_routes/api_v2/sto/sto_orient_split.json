@@ -2,10 +2,11 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "FluidConditionsID",
     "PhasesPresentID",
-    "Stock Tank Pressure",
-    "Stock Tank Temperature",
+    "StockTankPressure",
+    "StockTankTemperature",
     "MolecularWeight",
     "DensityAtTemperature",
     "OilAPIGravity",
@@ -44,6 +45,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:STO_SamplesAnalysis:",
       "opendes:master-data--Sample:Sample-33F:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "Stock Tank Temperature "
+          ]
+        }
+      ],
       "opendes:reference-data--SampleTestCondition:InitialReservoir:1",
       "opendes:reference-data--FluidPhasesPresent:Wellstream:",
       8,
