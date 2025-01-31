@@ -2,6 +2,16 @@
   {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
     "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+          {
+                  "kind": "Unit",
+                  "name": "degree Fahrenheit",
+                  "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                  "propertyNames": [
+                    "Conditions.Temperature "
+                  ]
+          }
+    ],
     "LithologyDescription": "Lithology",
     "Conditions": {
       "Pressure": 1.23,
@@ -73,8 +83,8 @@
     "Saturation": [
       {
         "Value": 1.23,
-        "SaturationFluidTypeID": "opendes:reference-data--SaturationFluidType::%-:",
-        "SaturationMethodTypeID": "opendes:reference-data--SaturationMethodType:-w-:ww:%w:.:%www-%:%:w:-:",
+        "SaturationFluidTypeID": "opendes:reference-data--SaturationFluidType:1:",
+        "SaturationMethodTypeID": "opendes:reference-data--SaturationMethodType:Retort:",
         "Conditions": {
           "Pressure": 1.23,
           "Temperature": 1.23,
@@ -83,12 +93,6 @@
         }
       }
     ],
-    "Remarks": {
-      "RemarkSequenceNumber": 1.23,
-      "Remark": "ABCDEFGHIJKL",
-      "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXYZAB",
-      "RemarkDate": "2024-01-01"
-    },
     "SaltWeight": 1.23,
     "BrineVolume": 0
   }

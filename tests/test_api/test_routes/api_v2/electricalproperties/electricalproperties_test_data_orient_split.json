@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "BrineConcentration",
     "FormationResistivityFactor",
     "AdjustedFormationResistivityFactor",
@@ -34,6 +35,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
       "opendes:master-data--Sample:Example_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "Temperature"
+          ]
+        }
+      ],
       1.23,
       1.23,
       1.23,

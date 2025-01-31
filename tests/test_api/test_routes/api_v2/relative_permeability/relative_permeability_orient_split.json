@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "DesaturationMethodID",
     "InitialConditions",
     "TerminalConditions",
@@ -28,6 +29,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:RelPermWPC_110:",
       "opendes:master-data--Sample:Sample_200:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "InitialConditions.TestTemperature"
+          ]
+        }
+      ],
       "opendes:reference-data--DesaturationMethod:PorousPlateUnspecified:",
       {
         "TestTemperature":130,

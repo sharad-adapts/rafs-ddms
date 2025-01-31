@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "TestNumber",
     "TestTemperature",
     "TestSteps",
@@ -14,6 +15,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
       "opendes:master-data--Sample:Example_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "TestTemperature"
+          ]
+        }
+      ],
       "1A",
       1.23,
       [

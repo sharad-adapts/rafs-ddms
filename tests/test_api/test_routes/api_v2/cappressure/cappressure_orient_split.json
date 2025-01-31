@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "DesaturationMethodID",
     "MeanDistanceImbibition",
     "MeanDistanceDrainage",
@@ -31,6 +32,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:CapillaryPressure_WPC:",
       "opendes:master-data--Sample:CapillaryPressure_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"metre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:m:",
+          "propertyNames":[
+            "MeanDistanceImbibition"
+          ]
+        }
+      ],
       "opendes:reference-data--DesaturationMethod:Centrifuge:",
       13.924,
       7.134,
@@ -118,8 +129,7 @@
                 "ProductionProfile":0.823899971
               }
             ],
-            "CumulativeIntrusion":null,
-            "Remark":null
+            "CumulativeIntrusion":null
           },
           {
             "StepNumber":2,
@@ -149,8 +159,7 @@
                 "ProductionProfile":5.4880963432
               }
             ],
-            "CumulativeIntrusion":null,
-            "Remark":null
+            "CumulativeIntrusion":null
           }
         ],
         "EndTime":"60268"
@@ -198,8 +207,7 @@
                 "ProductionProfile":3.3980767001
               }
             ],
-            "CumulativeIntrusion":null,
-            "Remark":null
+            "CumulativeIntrusion":null
           },
           {
             "StepNumber":2,
@@ -229,8 +237,7 @@
                 "ProductionProfile":5.7105554911
               }
             ],
-            "CumulativeIntrusion":null,
-            "Remark":null
+            "CumulativeIntrusion":null
           }
         ],
         "EndTime":"60268"

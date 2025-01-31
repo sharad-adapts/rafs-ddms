@@ -2,6 +2,7 @@
   "columns":[
     "SamplesAnalysisID",
     "SampleID",
+    "Meta",
     "LithologyDescription",
     "Conditions",
     "NetConfiningStress",
@@ -12,7 +13,6 @@
     "GrainVolume",
     "PoreVolume",
     "Saturation",
-    "Remarks",
     "SaltWeight",
     "BrineVolume"
   ],
@@ -23,6 +23,16 @@
     [
       "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
       "opendes:master-data--Sample:Example_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "Conditions.Temperature "
+          ]
+        }
+      ],
       "Lithology",
       {
         "Pressure":1.23,
@@ -63,7 +73,7 @@
       [
         {
           "Value":1.23,
-          "GrainDensityMeasurementTypeID":"opendes:reference-data--GrainDensityMeasurementType:BoylesLaw:",
+          "GrainDensityMeasurementTypeID":"opendes:reference-data--GrainDensityMeasurementType:ww-ww%w%w:%:.w%.w.-.:w::",
           "Conditions":{
             "Pressure":1.23,
             "Temperature":1.23,
@@ -94,8 +104,8 @@
       [
         {
           "Value":1.23,
-          "SaturationFluidTypeID":"opendes:reference-data--SaturationFluidType:Oil:",
-          "SaturationMethodTypeID":"opendes:reference-data--SaturationMethodType:DeanStark:",
+          "SaturationFluidTypeID":"opendes:reference-data--SaturationFluidType:1:",
+          "SaturationMethodTypeID":"opendes:reference-data--SaturationMethodType:Retort:",
           "Conditions":{
             "Pressure":1.23,
             "Temperature":1.23,
@@ -104,12 +114,6 @@
           }
         }
       ],
-      {
-        "RemarkSequenceNumber":1.23,
-        "Remark":"ABCDEFGHIJKL",
-        "RemarkSource":"ABCDEFGHIJKLMNOPQRSTUVWXYZAB",
-        "RemarkDate":"2024-01-01"
-      },
       1.23,
       0
     ]

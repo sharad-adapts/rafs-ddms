@@ -2,6 +2,16 @@
   {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
     "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+                {
+                      "kind": "Unit",
+                      "name": "degree Fahrenheit",
+                      "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                      "propertyNames": [
+                        "FlashTemperature"
+                      ]
+                }
+    ],
     "TestNumber": "1",
     "FlashPressure": 1626,
     "FlashTemperature": 100,

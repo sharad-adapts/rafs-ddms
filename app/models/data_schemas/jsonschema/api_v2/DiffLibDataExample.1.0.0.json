@@ -2,6 +2,16 @@
   {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
     "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+        {
+                "kind": "Unit",
+                "name": "degree Fahrenheit",
+                "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                "propertyNames": [
+                "TestTemperature"
+                ]
+        }
+    ],
     "TestNumber": "1A",
     "TestTemperature": 1.23,
     "SaturationPressure": 1.23,
@@ -52,13 +62,7 @@
             "VolumePercent": 1.23,
             "SpecificGravity": 1.23
           }
-        ],
-        "Remark": {
-          "RemarkSequenceNumber": 1.23,
-          "Remark": "ABCDEFGHIJKL",
-          "RemarkSource": "ABCDEFGHIJKLMNOPQR",
-          "RemarkDate": "2024-10-10"
-        }
+        ]
       }
     ],
     "MultiStageSeparatorTestID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:"

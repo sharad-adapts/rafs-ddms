@@ -2,6 +2,16 @@
   {
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
     "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+          {
+                  "kind": "Unit",
+                  "name": "pound-force per square inch",
+                  "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:psi:",
+                  "propertyNames": [
+                      "ReservoirPressure"
+                  ]
+          }
+    ],
     "TestNumber": "1A",
     "ReservoirPressure": 1.23,
     "ViscosityMethodID": "opendes:reference-data--ViscosityMethod:CambridgeElectromagneticViscometer:",

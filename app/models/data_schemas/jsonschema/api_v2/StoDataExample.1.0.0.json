@@ -1,10 +1,20 @@
 [{
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:STO_SamplesAnalysis:",
     "SampleID": "opendes:master-data--Sample:Sample-33F:",
+    "Meta": [
+        {
+                "kind": "Unit",
+                "name": "degree Fahrenheit",
+                "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                "propertyNames": [
+                    "Stock Tank Temperature "
+                ]
+        }
+    ],
     "FluidConditionsID": "opendes:reference-data--SampleTestCondition:InitialReservoir:1",
     "PhasesPresentID": "opendes:reference-data--FluidPhasesPresent:Wellstream:",
-    "Stock Tank Pressure": 8.0,
-    "Stock Tank Temperature": 5.0,
+    "StockTankPressure": 8.0,
+    "StockTankTemperature": 5.0,
     "MolecularWeight": 5.0,
     "DensityAtTemperature": [
         {

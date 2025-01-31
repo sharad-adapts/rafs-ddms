@@ -2,6 +2,16 @@
     "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GasChromatography_WPC:",
     "SampleID": "opendes:master-data--Sample:GasChromatography_Sample:",
     "SampleMass": 7.0,
+    "Meta": [
+                {
+                      "kind": "Unit",
+                      "name": "pg",
+                      "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:pg:",
+                      "propertyNames": [
+                        "SampleMass"
+                      ]
+                    }
+    ],
     "Method": "opendes:reference-data--BulkPyrolysisMethod:LECO:",
     "GasChromatographyAnalysis": [
         {

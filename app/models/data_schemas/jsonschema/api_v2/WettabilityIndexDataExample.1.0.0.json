@@ -3,16 +3,14 @@
         "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:WettabilityIndex_WPC:",
         "SampleID": "opendes:master-data--Sample:WettabilityIndex_Sample:",
         "Meta": [
-                  {
-                        "kind": "Unit",
-                        "name": "ft[US]",
-                        "persistableReference": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}",
-                        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
-                        "propertyNames": [
-                          "HorizontalDeflection.EastWest",
-                          "HorizontalDeflection.NorthSouth"
-                        ]
-                      }
+            {
+                    "kind": "Unit",
+                    "name": "degree Fahrenheit",
+                    "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+                    "propertyNames": [
+                        "WettabilityIndexData.Temperature"
+                    ]
+            }
         ],
         "WettabilityIndexData": {
             "CapillaryPressureAnalysisID": "opendes:work-product-component--SamplesAnalysis:CapillaryPressure_WPC:",
