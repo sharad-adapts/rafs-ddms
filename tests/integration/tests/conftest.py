@@ -47,7 +47,6 @@ def create_referenced_records(api, helper, tests_data):
 
     records_with_references = [
         copy.deepcopy(tests_data(DataFiles.SAMPLE)),
-        copy.deepcopy(tests_data(DataFiles.PVT_MODEL)),
         copy.deepcopy(tests_data(DataFiles.SAMPLE_ANALYSIS)),
         copy.deepcopy(tests_data(DataFiles.SAR_V2)),
     ]

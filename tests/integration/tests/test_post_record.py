@@ -57,21 +57,6 @@ def test_post_record_v2_masterdata_sample(api, tests_data, delete_record):
 
 @pytest.mark.smoke
 @pytest.mark.v2
-def test_post_record_v2_pvt_model(api, tests_data, delete_record):
-    data_file_name = DataFiles.PVT_MODEL
-    api_path = DataTypes.PVT_MODEL
-
-    test_data = tests_data(data_file_name)
-    full_record_id = getattr(api, api_path).post_record([test_data])["recordIdVersions"][0]
-
-    assert full_record_id.startswith(test_data["id"])
-
-    delete_record["record_id"].append(test_data["id"])
-    delete_record["api_path"] = api_path
-
-
-@pytest.mark.smoke
-@pytest.mark.v2
 def test_update_record_v2_sample_analysis(api, tests_data, helper, create_record):
     data_file_name = DataFiles.SAMPLE_ANALYSIS
     api_path = DataTypes.SAMPLE_ANALYSIS

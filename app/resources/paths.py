@@ -73,13 +73,6 @@ COMMON_RELATIVE_PATHS = {
 }
 
 
-class PVTModelRelativePaths(NamedTuple):
-    EOS: str = "/data/equationofstate"
-    MPFM_CALIBRATION: str = "/data/mpfmcalibration"
-    COMPONENT_SCENARIO: str = "/data/componentscenario"
-    BLACK_OIL_TABLE: str = "/data/blackoiltable"
-
-
 SAMPLESANALYSIS_TYPE_MAPPING = {
     "routinecoreanalysis": ["BasicRockProperties.RoutineCoreAnalysis"],
     "constantcompositionexpansion": ["PVT.ConstantCompositionExpansion"],
