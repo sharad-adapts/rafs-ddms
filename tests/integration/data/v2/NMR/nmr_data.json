@@ -10,7 +10,7 @@
     "data": [
         [
             "{data_partition_id}:work-product-component--SamplesAnalysis:{record_id}:",
-            "{data_partition_id}:master-data--Sample:88Y:",
+            "{data_partition_id}:master-data--Sample:Rafsddms_Integration_Test:",
             [
                 {
                     "TestCondition": "{data_partition_id}:reference-data--NMRTestCondition:FullySaturated:",
@@ -142,7 +142,7 @@
                             "Value": 1.0,
                             "UnitOfMeasure": "{data_partition_id}:reference-data--UnitOfMeasure:%25:"
                         },
-                        "InjectedFluid": "{data_partition_id}:reference-data--InjectionFluidType:DeadCrudeOil:",
+                        "InjectedFluid": "{data_partition_id}:reference-data--SampleInjectionFluidType:DeadCrudeOil:",
                         "Porosity": [
                             {
                                 "Value": 1.0,

@@ -137,7 +137,7 @@ class IBlobStorage(ABC):
         """List the blobs given a subpath.
 
         :param subpath: subpatht of the , e.g.,
-            samplesanalysis/nmr/1.0.0/ or pvt/eos/1.0.0
+            samplesanalysis/nmr/1.0.0/
         :type analysis_type: str
         :return: list of blobs
         :rtype: List[str]

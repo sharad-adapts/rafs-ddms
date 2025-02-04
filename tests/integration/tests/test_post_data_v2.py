@@ -51,7 +51,7 @@ def test_post_measurements(
     test_data["data"][0][0] = f'{record_data["id"]}:'
 
     response = api.sample_analysis.post_measurements(record_data["id"], test_data, analysis_type)
-    assert f"dataset--File.Generic:{dataset_prefix}" in response["ddms_urn"]
+    assert f"samplesanalysis/{dataset_prefix}" in response["ddms_urn"]
 
     record = api.sample_analysis.get_record(record_data["id"])
     assert "DDMSDatasets" in record["data"]

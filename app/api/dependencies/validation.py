@@ -36,13 +36,12 @@ from app.exceptions.exceptions import (
     RecordValidationException,
 )
 from app.models.data_schemas.base import PATHS_TO_DATA_MODEL
-from app.models.data_schemas.pvt_model.base import PATHS_TO_CONTENT_PVT_MODELS
 from app.models.domain.osdu import base as osdu_models_base
 from app.models.schemas.osdu_storage import OsduStorageRecord
 from app.models.schemas.pandas_dataframe import OrientSplit
 from app.resources.errors import FilterValidationError
 from app.resources.filters import DataFrameFilterValidator
-from app.resources.paths import COMMON_RELATIVE_PATHS, PVTModelRelativePaths
+from app.resources.paths import COMMON_RELATIVE_PATHS
 from app.services.schema import SchemaService
 from app.services.storage import StorageService
 
@@ -255,16 +254,6 @@ async def validate_master_data_records_payload(
     return records
 
 
-async def validate_pvt_model_records_payload(
-    records_list: List[OsduStorageRecord],
-    schema_service: SchemaService,
-    storage_service: StorageService,
-) -> List[dict]:
-    records = await validate_osdu_wks_records(records_list, schema_service, osdu_models_base.PVT_MODEL_KINDS)
-    await validate_referential_integrity(records, [], storage_service)
-    return records
-
-
 def get_content_model_paths(request_path: str, api_version: str) -> tuple:
     """Get the paths to search for the appropriate content model.
 
@@ -275,21 +264,17 @@ def get_content_model_paths(request_path: str, api_version: str) -> tuple:
     :return: appropiate paths to retrieve content models
     :rtype: tuple
     """
-    if "pvtmodel" in request_path:
-        relative_paths = PVTModelRelativePaths()
-        paths_to_content_models = PATHS_TO_CONTENT_PVT_MODELS
-    else:
-        relative_paths = COMMON_RELATIVE_PATHS[api_version]()
-        paths_to_content_models = PATHS_TO_DATA_MODEL[api_version]
+    relative_paths = COMMON_RELATIVE_PATHS[api_version]()
+    paths_to_content_models = PATHS_TO_DATA_MODEL[api_version]
 
-        if api_version in {"v2", "dev"} and "search" in request_path:
-            start_index = 5  # skip '/data'
-            relative_paths = [f"{path[start_index:]}/search" for path in relative_paths]  # noqa: WPS237
-            search_path_to_content_models = {}
-            for path, model in paths_to_content_models.items():
-                search_path_to_content_models[f"{path[start_index:]}/search"] = model  # noqa: WPS237
+    if api_version in {"v2", "dev"} and "search" in request_path:
+        start_index = 5  # skip '/data'
+        relative_paths = [f"{path[start_index:]}/search" for path in relative_paths]  # noqa: WPS237
+        search_path_to_content_models = {}
+        for path, model in paths_to_content_models.items():
+            search_path_to_content_models[f"{path[start_index:]}/search"] = model  # noqa: WPS237
 
-            paths_to_content_models = search_path_to_content_models
+        paths_to_content_models = search_path_to_content_models
 
     return (relative_paths, paths_to_content_models)
 

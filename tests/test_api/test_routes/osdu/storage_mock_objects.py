@@ -17,7 +17,7 @@ import os
 from typing import NamedTuple
 
 from app.models.schemas.osdu_storage import Acl, Legal, OsduStorageRecord
-from app.resources.paths import CommonRelativePathsV2, PVTModelRelativePaths
+from app.resources.paths import CommonRelativePathsV2
 from tests.test_api.api_version import API_VERSION_V2
 
 dir_path = os.path.dirname(os.path.abspath(__file__))
@@ -80,12 +80,6 @@ TEST_SAMPLESANALYSIS_KIND_V2 = f"{SCHEMA_AUTHORITY}:wks:{SAMPLESANALYSIS_TYPE}:{
 TEST_ACL = Acl(viewers=["viewers@domain.com"], owners=["owners@domain.com"])
 TEST_LEGAL = Legal(legaltags=["legaltag"], otherRelevantDataCountries=["US"], status="compliant")
 TEST_WRONG_ID = "partition:entity-type:id"
-
-# PVTModel
-TEST_MPFM_CALIBRATION_ID = f"{PARTITION}:work-product-component--MultiPhaseFlowMeterCalibration:{KindVersion.V_1_0_0}"
-TEST_PVT_MODEL_ID = f"{PARTITION}:work-product-component--PVTModel:{KindVersion.V_1_0_0}"
-TEST_COMPONENT_SCENARIO_ID = f"{PARTITION}:work-product-component--ComponentScenario:{KindVersion.V_1_0_0}"
-TEST_BLACK_OIL_TABLE_ID = f"{PARTITION}:work-product-component--BlackOilTable:{KindVersion.V_1_0_0}"
 
 OSDU_GENERIC_RECORD = OsduStorageRecord(
     id="partition:type:identifier",
@@ -382,26 +376,3 @@ with open(f"{dir_path}/schemas/sample_chain_of_custody_event.json") as fp:
 with open(f"{dir_path}/schemas/sample_container.json") as fp:
     SAMPLE_CONTAINER_SCHEMA = json.load(fp)
     SAMPLE_CONTAINER_SCHEMA["definitions"] = MD_DEFINITIONS
-
-# PVT Model
-PVT_MODEL_ENDPOINT_PATH = f"{BASE_V2_PATH}/pvtmodel"
-BASE_MPFM_CALIBRATION_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_MPFM_CALIBRATION_ID}"
-BASE_PVT_MODEL_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_PVT_MODEL_ID}"
-BASE_COMPONENT_SCENARIO_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_COMPONENT_SCENARIO_ID}"
-BASE_BLACK_OIL_TABLE_CONTENT_PATH = f"{PVT_MODEL_ENDPOINT_PATH}/{TEST_BLACK_OIL_TABLE_ID}"
-
-pvt_model_relative_paths = PVTModelRelativePaths()
-
-
-class TestContentPathsPVTModel:
-    MPFM_CALIBRATION = f"{BASE_MPFM_CALIBRATION_CONTENT_PATH}{pvt_model_relative_paths.MPFM_CALIBRATION}"
-    EOS = f"{BASE_PVT_MODEL_CONTENT_PATH}{pvt_model_relative_paths.EOS}"
-    COMPONENT_SCENARIO = f"{BASE_COMPONENT_SCENARIO_CONTENT_PATH}{pvt_model_relative_paths.COMPONENT_SCENARIO}"
-    BLACK_OIL_TABLE = f"{BASE_BLACK_OIL_TABLE_CONTENT_PATH}{pvt_model_relative_paths.BLACK_OIL_TABLE}"
-
-
-class BulkDatasetIdPVTModel(NamedTuple):
-    MPFM_CALIBRATION = f"{PARTITION}:{FILE_GENERIC_TYPE}:mpfmcalibrationdata-{TEST_DATASET_UID}"
-    EOS = f"{PARTITION}:{FILE_GENERIC_TYPE}:equationofstatedata-{TEST_DATASET_UID}"
-    COMPONENT_SCENARIO = f"{PARTITION}:{FILE_GENERIC_TYPE}:componentscenariodata-{TEST_DATASET_UID}"
-    BLACK_OIL_TABLE = f"{PARTITION}:{FILE_GENERIC_TYPE}:blackoiltabledata-{TEST_DATASET_UID}"

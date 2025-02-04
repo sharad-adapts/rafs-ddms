@@ -17,7 +17,6 @@ import secrets
 import string
 
 from app.api.routes.utils.query import find_osdu_ids_from_string
-from app.api.routes.utils.records import DATASET_ID_INDEX
 from tests.integration.config import DataTypes
 
 
@@ -49,10 +48,9 @@ class CommonHelper(object):
         return copies
 
     @staticmethod
-    def get_dataset_id_from_ddms_urn(ddms_urn: str) -> str:
-        """Gets the dataset_id part from full urn."""
-        full_id = ddms_urn.split("/")[DATASET_ID_INDEX]
-        return full_id.rsplit(":", 1)[0]
+    def get_content_id_from_ddms_urn(ddms_urn: str) -> str:
+        """Gets the content_id part from full urn."""
+        return ddms_urn.split("/")[-1]
 
     @staticmethod
     def parse_full_record_id(record_urn: str) -> dict:

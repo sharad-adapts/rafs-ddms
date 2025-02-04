@@ -12,7 +12,6 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 from client.api.core.v2.master_data import MasterDataV2Core
-from client.api.core.v2.pvt_model import PVTModelV2Core
 from client.api.core.v2.sample_analysis import SamplesAnalysis
 from client.api.core.v2.samples_analyses_report import (
     SamplesAnalysesReportV2Core,
@@ -29,5 +28,4 @@ class ApiWorker(object):
         self.legal = APILegal(data_partition, token)
         self.sar_v2 = SamplesAnalysesReportV2Core(host, url_prefix, data_partition, token)
         self.masterdata = MasterDataV2Core(host, url_prefix, data_partition, token)
-        self.pvtmodel = PVTModelV2Core(host, url_prefix, data_partition, token)
         self.sample_analysis = SamplesAnalysis(host, url_prefix, data_partition, token)
