@@ -22,42 +22,42 @@ from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis
 from app.models.data_schemas.api_v2.multi_stage_separator_data_model_1_0_0 import MultiStageSeparatorModel100
 from app.models.data_schemas.api_v2.swelling_data_model_1_0_0 import SwellingModel100
 from app.models.data_schemas.api_v2.constant_volume_depletion_data_model_1_0_0 import ConstantVolumeDepletionModel100
-from app.models.data_schemas.api_v2.water_analysis_data_model import WaterAnalysisDataSchema as WaterAnalysisModel
-from app.models.data_schemas.api_v2.interfacial_tension_data_model import InterfacialTensionDataSchema as InterfacialTensionModel
-from app.models.data_schemas.api_v2.vle_data_model import VleDataSchema as VLEModel
-from app.models.data_schemas.api_v2.mcm_data_model import McmDataSchema as MCMModel
-from app.models.data_schemas.api_v2.slimtube_data_model import SlimtubeDataSchema as SlimtubeModel
-from app.models.data_schemas.api_v2.extraction_data_model import ExtractionDataSchema as ExtractionModel
-from app.models.data_schemas.api_v2.fractionation_data_model import FractionationDataSchema as FractionationModel
+from app.models.data_schemas.api_v2.water_analysis_data_model_1_0_0 import WaterAnalysisModel100
+from app.models.data_schemas.api_v2.interfacial_tension_data_model_1_0_0 import InterfacialTensionModel100
+from app.models.data_schemas.api_v2.vapor_liquid_equilibrium_data_model_1_0_0 import VaporLiquidEquilibriumModel100
+from app.models.data_schemas.api_v2.multiple_contact_miscibility_data_model_1_0_0 import MultipleContactMiscibilityModel100
+from app.models.data_schemas.api_v2.slimtube_data_model_1_0_0 import SlimtubeModel100
+from app.models.data_schemas.api_v2.extraction_data_model_1_0_0 import ExtractionModel100
+from app.models.data_schemas.api_v2.fractionation_data_model_1_0_0 import FractionationModel100
 from app.models.data_schemas.api_v2.relative_permeability_data_model_1_0_0 import RelativePermeabilityModel100
-from app.models.data_schemas.api_v2.rock_compressibility_data_model import RockCompressibilityDataSchema as RockCompressibilityModel
+from app.models.data_schemas.api_v2.rock_compressibility_data_model_1_0_0 import RockCompressibilityModel100
 from app.models.data_schemas.api_v2.electrical_properties_data_model_1_0_0 import ElectricalPropertiesModel100
-from app.models.data_schemas.api_v2.nmr_data_model import NmrDataSchema as NMRModel
-from app.models.data_schemas.api_v2.multiple_salinity_data_model import MultipleSalinityDataSchema as MultipleSalinityModel
-from app.models.data_schemas.api_v2.gcms_alkanes_data_model import GcmsAlkanesDataSchema as GCMSAlkanesModel
-from app.models.data_schemas.api_v2.gcms_aromatics_data_model import GcmsAromaticsDataSchema as GCMSAromaticsModel
-from app.models.data_schemas.api_v2.gcms_ratios_data_model import GcmsRatiosDataSchema as GCMSRatiosModel
+from app.models.data_schemas.api_v2.nmr_data_model_1_0_0 import NmrModel100
+from app.models.data_schemas.api_v2.multiple_salinity_tests_data_model_1_0_0 import MultipleSalinityTestsModel100
+from app.models.data_schemas.api_v2.gcms_alkanes_data_model_1_0_0 import GcmsAlkanesModel100
+from app.models.data_schemas.api_v2.gcms_aromatics_data_model_1_0_0 import GcmsAromaticsModel100
+from app.models.data_schemas.api_v2.gcms_ratios_data_model_1_0_0 import GcmsRatiosModel100
 from app.models.data_schemas.api_v2.gas_composition_analyses_data_model_1_0_0 import GasCompositionAnalysesModel100
 from app.models.data_schemas.api_v2.gas_chromatography_analyses_data_model_1_0_0 import GasChromatographyAnalysesModel100
-from app.models.data_schemas.api_v2.isotope_analysis_data_model import IsotopeAnalysisDataSchema as IsotopeAnalysisModel
-from app.models.data_schemas.api_v2.bulk_pyrolysis_data_model import BulkPyrolysisDataSchema as BulkPyrolysisModel
-from app.models.data_schemas.api_v2.core_gamma_data_model import CoreGammaDataSchema as CoreGammaModel
-from app.models.data_schemas.api_v2.uniaxial_test_data_model import UniaxialTestDataSchema as UniaxialTestModel
-from app.models.data_schemas.api_v2.gcmsms_data_model import GcmsmsDataSchema as GCMSMS_Model
-from app.models.data_schemas.api_v2.cec_data_model import CecDataSchema as CECContentModel
-from app.models.data_schemas.api_v2.triaxial_test_data_model import TriaxialTestDataSchema as TriaxialTestModel
+from app.models.data_schemas.api_v2.isotopes_data_model_1_0_0 import IsotopesModel100
+from app.models.data_schemas.api_v2.bulk_pyrolysis_analyses_data_model_1_0_0 import BulkPyrolysisAnalysesModel100
+from app.models.data_schemas.api_v2.core_gamma_data_model_1_0_0 import CoreGammaModel100
+from app.models.data_schemas.api_v2.uniaxial_data_model_1_0_0 import UniaxialModel100
+from app.models.data_schemas.api_v2.gcmsms_data_model_1_0_0 import GcmsmsModel100
+from app.models.data_schemas.api_v2.cec_data_model_1_0_0 import CecModel100
+from app.models.data_schemas.api_v2.triaxial_data_model_1_0_0 import TriaxialModel100
 from app.models.data_schemas.api_v2.wettability_index_data_model_1_0_0 import WettabilityIndexModel100
-from app.models.data_schemas.api_v2.tec_data_model import TecDataSchema as TECModel
-from app.models.data_schemas.api_v2.eds_mapping_data_model import EdsMappingDataSchema as EDSMappingModel
-from app.models.data_schemas.api_v2.xrf_data_model import XrfDataSchema as XRFModel
+from app.models.data_schemas.api_v2.tec_data_model_1_0_0 import TecModel100
+from app.models.data_schemas.api_v2.eds_mapping_data_model_1_0_0 import EdsMappingModel100
+from app.models.data_schemas.api_v2.xrf_data_model_1_0_0 import XrfModel100
 from app.models.data_schemas.api_v2.capillary_pressure_data_model_1_0_0 import CapillaryPressureModel100
 from app.models.data_schemas.api_v2.stock_tank_oil_analysis_data_model_1_0_0 import StockTankOilAnalysisModel100
-from app.models.data_schemas.api_v2.tensile_strength_data_model import TensileStrengthDataSchema as TensileStrengthModel
-from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import VitriniteReflectanceDataSchema as VitriniteReflectanceModel
-from app.models.data_schemas.api_v2.xrd_data_model import XrdDataSchema as XRDModel
-from app.models.data_schemas.api_v2.pdp_data_model import PdpDataSchema as PdpModel
-from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model import CrushedRockAnalysisDataSchema as CrushedRockAnalysisModel
-from app.models.data_schemas.api_v2.mining_geotech_logging_data_model import MiningGeotechLoggingDataSchema as MiningGeotechLoggingModel
+from app.models.data_schemas.api_v2.tensile_strength_data_model_1_0_0 import TensileStrengthModel100
+from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model_1_0_0 import VitriniteReflectanceModel100
+from app.models.data_schemas.api_v2.xrd_data_model_1_0_0 import XrdModel100
+from app.models.data_schemas.api_v2.pdp_data_model_1_0_0 import PdpModel100
+from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model_1_0_0 import CrushedRockAnalysisModel100
+from app.models.data_schemas.api_v2.mining_geotech_logging_data_model_1_0_0 import MiningGeotechLoggingModel100
 
 RCA_MODELS = {
     ContentSchemaVersion.V_1_0_0: RoutineCoreAnalysisModel100,
@@ -87,49 +87,49 @@ CVD_MODELS = {
     ContentSchemaVersion.V_1_0_0: ConstantVolumeDepletionModel100,
 }
 WATER_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel,
+    ContentSchemaVersion.V_1_0_0: WaterAnalysisModel100,
 }
 INTERFACIAL_TENSION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: InterfacialTensionModel,
+    ContentSchemaVersion.V_1_0_0: InterfacialTensionModel100,
 }
 VLE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: VLEModel,
+    ContentSchemaVersion.V_1_0_0: VaporLiquidEquilibriumModel100,
 }
 MCM_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MCMModel,
+    ContentSchemaVersion.V_1_0_0: MultipleContactMiscibilityModel100,
 }
 SLIMTUBE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: SlimtubeModel,
+    ContentSchemaVersion.V_1_0_0: SlimtubeModel100,
 }
 EXTRACTION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: ExtractionModel,
+    ContentSchemaVersion.V_1_0_0: ExtractionModel100,
 }
 FRACTIONATION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: FractionationModel,
+    ContentSchemaVersion.V_1_0_0: FractionationModel100,
 }
 RELATIVE_PERMEABILITY_MODELS = {
     ContentSchemaVersion.V_1_0_0: RelativePermeabilityModel100,
 }
 ROCK_COMPRESSIBILITY_MODELS = {
-    ContentSchemaVersion.V_1_0_0: RockCompressibilityModel,
+    ContentSchemaVersion.V_1_0_0: RockCompressibilityModel100,
 }
 ELECTRICAL_PROPERTIES_MODELS = {
     ContentSchemaVersion.V_1_0_0: ElectricalPropertiesModel100,
 }
 NMR_MODELS = {
-    ContentSchemaVersion.V_1_0_0: NMRModel,
+    ContentSchemaVersion.V_1_0_0: NmrModel100,
 }
 MULTIPLE_SALINITY_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MultipleSalinityModel,
+    ContentSchemaVersion.V_1_0_0: MultipleSalinityTestsModel100,
 }
 GCMS_ALKANES_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GCMSAlkanesModel,
+    ContentSchemaVersion.V_1_0_0: GcmsAlkanesModel100,
 }
 GCMS_AROMATICS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GCMSAromaticsModel,
+    ContentSchemaVersion.V_1_0_0: GcmsAromaticsModel100,
 }
 GCMS_RATIOS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GCMSRatiosModel,
+    ContentSchemaVersion.V_1_0_0: GcmsRatiosModel100,
 }
 GAS_CHROMATOGRAPHY_MODELS = {
     ContentSchemaVersion.V_1_0_0: GasChromatographyAnalysesModel100,
@@ -138,25 +138,25 @@ GAS_COMPOSITION_MODELS = {
     ContentSchemaVersion.V_1_0_0: GasCompositionAnalysesModel100,
 }
 ISOTOPE_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: IsotopeAnalysisModel,
+    ContentSchemaVersion.V_1_0_0: IsotopesModel100,
 }
 BULK_PYROLYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: BulkPyrolysisModel,
+    ContentSchemaVersion.V_1_0_0: BulkPyrolysisAnalysesModel100,
 }
 CORE_GAMMA_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CoreGammaModel,
+    ContentSchemaVersion.V_1_0_0: CoreGammaModel100,
 }
 UNIAXIAL_TEST_MODELS = {
-    ContentSchemaVersion.V_1_0_0: UniaxialTestModel,
+    ContentSchemaVersion.V_1_0_0: UniaxialModel100,
 }
 GCMSMS_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GCMSMS_Model,
+    ContentSchemaVersion.V_1_0_0: GcmsmsModel100,
 }
 CEC_CONTENT_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CECContentModel
+    ContentSchemaVersion.V_1_0_0: CecModel100
 }
 TRIAXIAL_TEST_MODELS = {
-    ContentSchemaVersion.V_1_0_0: TriaxialTestModel
+    ContentSchemaVersion.V_1_0_0: TriaxialModel100
 }
 CAP_PRESSURE_MODELS = {
     ContentSchemaVersion.V_1_0_0: CapillaryPressureModel100
@@ -165,34 +165,34 @@ WETTABILITY_INDEX_MODELS = {
     ContentSchemaVersion.V_1_0_0: WettabilityIndexModel100
 }
 TEC_MODELS = {
-    ContentSchemaVersion.V_1_0_0: TECModel
+    ContentSchemaVersion.V_1_0_0: TecModel100
 }
 EDS_MAPPING_MODELS = {
-    ContentSchemaVersion.V_1_0_0: EDSMappingModel
+    ContentSchemaVersion.V_1_0_0: EdsMappingModel100
 }
 XRF_MODELS = {
-    ContentSchemaVersion.V_1_0_0: XRFModel
+    ContentSchemaVersion.V_1_0_0: XrfModel100
 }
 TENSILE_STRENGTH_MODELS = {
-    ContentSchemaVersion.V_1_0_0: TensileStrengthModel
+    ContentSchemaVersion.V_1_0_0: TensileStrengthModel100
 }
 VITRINITE_REFLECTANCE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: VitriniteReflectanceModel,
+    ContentSchemaVersion.V_1_0_0: VitriniteReflectanceModel100,
 }
 XRD_MODELS = {
-    ContentSchemaVersion.V_1_0_0: XRDModel,
+    ContentSchemaVersion.V_1_0_0: XrdModel100,
 }
 PDP_MODELS = {
-    ContentSchemaVersion.V_1_0_0: PdpModel,
+    ContentSchemaVersion.V_1_0_0: PdpModel100,
 }
 STO_MODELS = {
     ContentSchemaVersion.V_1_0_0: StockTankOilAnalysisModel100,
 }
 CRUSHED_ROCK_ANALYSIS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel,
+    ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel100,
 }
 MINING_GEOTECH_LOGGING_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MiningGeotechLoggingModel,
+    ContentSchemaVersion.V_1_0_0: MiningGeotechLoggingModel100,
 }
 
 common_relative_paths_api_v2 = CommonRelativePathsV2()
