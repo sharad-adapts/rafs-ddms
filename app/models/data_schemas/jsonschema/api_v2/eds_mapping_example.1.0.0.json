@@ -1,0 +1,29 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:EDS_Mapping_WPC:",
+  "SampleID": "opendes:master-data--Sample:EDS_Mapping_Sample:",
+  "ElementalComposition": [
+    {
+      "Element": "opendes:reference-data--Elements:Ag:",
+      "Concentration": {
+        "PeakPosition": {
+          "XCoordinate": 4,
+          "YCoordinate": 2
+        },
+        "Value": 6.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+      }
+    },
+    {
+      "Element": "opendes:reference-data--Elements:V:",
+      "Concentration": {
+        "PeakPosition": {
+          "XCoordinate": 3,
+          "YCoordinate": 8
+        },
+        "Value": 13.6,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+      }
+    }
+  ],
+  "$id": "eds_mapping_example.1.0.0.json"
+}

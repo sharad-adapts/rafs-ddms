@@ -1,0 +1,98 @@
+{
+  "$id": "gcms_ratios.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GcmsRatiosDataSchema",
+  "description": "GcmsRatiosDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "Method": {
+      "type": "string",
+      "description": "The sample analysis method used for this analysis",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "BulkPyrolysisMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "GCMSCompoundsRatios": {
+      "title": "Aromatic Gas Chromatography Mass Spectrometry Compounds",
+      "description": "The list of ratios of saturate and aromatic compounds in Gas Chromatography Mass Spectrometry (GCMS) analysis",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "RatioCode": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-GCMSCompoundsRatios:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "EntityType": "GCMSCompoundsRatios",
+                "GroupType": "reference-data"
+              }
+            ]
+          },
+          "Ratio": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Value": {
+                  "type": "number"
+                },
+                "UnitOfMeasure": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "UnitOfMeasure",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                },
+                "AreaHeightQualifier": {
+                  "type": "string",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CompoundsAreaHeight:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "x-osdu-relationship": [
+                    {
+                      "EntityType": "CompoundsAreaHeight",
+                      "GroupType": "reference-data"
+                    }
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ],
+  "additionalProperties": false
+}

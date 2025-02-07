@@ -14,14 +14,14 @@
 
 from app.models.data_schemas.version import ContentSchemaVersion
 from app.resources.paths import CommonRelativePathsV2
-from app.models.data_schemas.api_v2.rca_data_model_1_0_0 import RcaModel100
-from app.models.data_schemas.api_v2.cce_data_model_1_0_0 import CceModel100
-from app.models.data_schemas.api_v2.diff_lib_data_model_1_0_0 import DiffLibModel100
-from app.models.data_schemas.api_v2.transport_test_data_model_1_0_0 import TransportTestModel100
+from app.models.data_schemas.api_v2.routine_core_analysis_data_model_1_0_0 import RoutineCoreAnalysisModel100
+from app.models.data_schemas.api_v2.constant_composition_expansion_data_model_1_0_0 import ConstantCompositionExpansionModel100
+from app.models.data_schemas.api_v2.differential_liberation_data_model_1_0_0 import DifferentialLiberationModel100
+from app.models.data_schemas.api_v2.transport_data_model_1_0_0 import TransportModel100
 from app.models.data_schemas.api_v2.atmospheric_flash_and_compositional_analysis_data_model_1_0_0 import AtmosphericFlashAndCompositionalAnalysisModel100
-from app.models.data_schemas.api_v2.mss_data_model_1_0_0 import MssModel100
-from app.models.data_schemas.api_v2.swelling_test_data_model_1_0_0 import SwellingTestModel100
-from app.models.data_schemas.api_v2.cvd_data_model_1_0_0 import CvdModel100
+from app.models.data_schemas.api_v2.multi_stage_separator_data_model_1_0_0 import MultiStageSeparatorModel100
+from app.models.data_schemas.api_v2.swelling_data_model_1_0_0 import SwellingModel100
+from app.models.data_schemas.api_v2.constant_volume_depletion_data_model_1_0_0 import ConstantVolumeDepletionModel100
 from app.models.data_schemas.api_v2.water_analysis_data_model import WaterAnalysisDataSchema as WaterAnalysisModel
 from app.models.data_schemas.api_v2.interfacial_tension_data_model import InterfacialTensionDataSchema as InterfacialTensionModel
 from app.models.data_schemas.api_v2.vle_data_model import VleDataSchema as VLEModel
@@ -37,8 +37,8 @@ from app.models.data_schemas.api_v2.multiple_salinity_data_model import Multiple
 from app.models.data_schemas.api_v2.gcms_alkanes_data_model import GcmsAlkanesDataSchema as GCMSAlkanesModel
 from app.models.data_schemas.api_v2.gcms_aromatics_data_model import GcmsAromaticsDataSchema as GCMSAromaticsModel
 from app.models.data_schemas.api_v2.gcms_ratios_data_model import GcmsRatiosDataSchema as GCMSRatiosModel
-from app.models.data_schemas.api_v2.gas_composition_data_model_1_0_0 import GasCompositionModel100
-from app.models.data_schemas.api_v2.gas_chromatography_data_model_1_0_0 import GasChromatographyModel100
+from app.models.data_schemas.api_v2.gas_composition_analyses_data_model_1_0_0 import GasCompositionAnalysesModel100
+from app.models.data_schemas.api_v2.gas_chromatography_analyses_data_model_1_0_0 import GasChromatographyAnalysesModel100
 from app.models.data_schemas.api_v2.isotope_analysis_data_model import IsotopeAnalysisDataSchema as IsotopeAnalysisModel
 from app.models.data_schemas.api_v2.bulk_pyrolysis_data_model import BulkPyrolysisDataSchema as BulkPyrolysisModel
 from app.models.data_schemas.api_v2.core_gamma_data_model import CoreGammaDataSchema as CoreGammaModel
@@ -51,7 +51,7 @@ from app.models.data_schemas.api_v2.tec_data_model import TecDataSchema as TECMo
 from app.models.data_schemas.api_v2.eds_mapping_data_model import EdsMappingDataSchema as EDSMappingModel
 from app.models.data_schemas.api_v2.xrf_data_model import XrfDataSchema as XRFModel
 from app.models.data_schemas.api_v2.capillary_pressure_data_model_1_0_0 import CapillaryPressureModel100
-from app.models.data_schemas.api_v2.sto_data_model_1_0_0 import StoModel100
+from app.models.data_schemas.api_v2.stock_tank_oil_analysis_data_model_1_0_0 import StockTankOilAnalysisModel100
 from app.models.data_schemas.api_v2.tensile_strength_data_model import TensileStrengthDataSchema as TensileStrengthModel
 from app.models.data_schemas.api_v2.vitrinite_reflectance_data_model import VitriniteReflectanceDataSchema as VitriniteReflectanceModel
 from app.models.data_schemas.api_v2.xrd_data_model import XrdDataSchema as XRDModel
@@ -60,16 +60,16 @@ from app.models.data_schemas.api_v2.crushed_rock_analysis_data_model import Crus
 from app.models.data_schemas.api_v2.mining_geotech_logging_data_model import MiningGeotechLoggingDataSchema as MiningGeotechLoggingModel
 
 RCA_MODELS = {
-    ContentSchemaVersion.V_1_0_0: RcaModel100,
+    ContentSchemaVersion.V_1_0_0: RoutineCoreAnalysisModel100,
 }
 CCE_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CceModel100,
+    ContentSchemaVersion.V_1_0_0: ConstantCompositionExpansionModel100,
 }
 DIFF_LIB_MODELS = {
-    ContentSchemaVersion.V_1_0_0: DiffLibModel100,
+    ContentSchemaVersion.V_1_0_0: DifferentialLiberationModel100,
 }
 TRANSPORT_TEST_MODELS = {
-    ContentSchemaVersion.V_1_0_0: TransportTestModel100,
+    ContentSchemaVersion.V_1_0_0: TransportModel100,
 }
 COMPOSITIONAL_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: AtmosphericFlashAndCompositionalAnalysisModel100,
@@ -78,13 +78,13 @@ ATMOSPHERIC_FLASH_MODELS = {
     ContentSchemaVersion.V_1_0_0: AtmosphericFlashAndCompositionalAnalysisModel100,
 }
 MSS_MODELS = {
-    ContentSchemaVersion.V_1_0_0: MssModel100,
+    ContentSchemaVersion.V_1_0_0: MultiStageSeparatorModel100,
 }
 SWELLING_MODELS = {
-    ContentSchemaVersion.V_1_0_0: SwellingTestModel100,
+    ContentSchemaVersion.V_1_0_0: SwellingModel100,
 }
 CVD_MODELS = {
-    ContentSchemaVersion.V_1_0_0: CvdModel100,
+    ContentSchemaVersion.V_1_0_0: ConstantVolumeDepletionModel100,
 }
 WATER_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: WaterAnalysisModel,
@@ -132,10 +132,10 @@ GCMS_RATIOS_MODELS = {
     ContentSchemaVersion.V_1_0_0: GCMSRatiosModel,
 }
 GAS_CHROMATOGRAPHY_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GasChromatographyModel100,
+    ContentSchemaVersion.V_1_0_0: GasChromatographyAnalysesModel100,
 }
 GAS_COMPOSITION_MODELS = {
-    ContentSchemaVersion.V_1_0_0: GasCompositionModel100,
+    ContentSchemaVersion.V_1_0_0: GasCompositionAnalysesModel100,
 }
 ISOTOPE_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: IsotopeAnalysisModel,
@@ -186,7 +186,7 @@ PDP_MODELS = {
     ContentSchemaVersion.V_1_0_0: PdpModel,
 }
 STO_MODELS = {
-    ContentSchemaVersion.V_1_0_0: StoModel100,
+    ContentSchemaVersion.V_1_0_0: StockTankOilAnalysisModel100,
 }
 CRUSHED_ROCK_ANALYSIS_MODELS = {
     ContentSchemaVersion.V_1_0_0: CrushedRockAnalysisModel,

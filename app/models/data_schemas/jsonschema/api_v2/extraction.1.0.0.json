@@ -1,0 +1,125 @@
+{
+  "$id": "extraction.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExtractionDataSchema",
+  "description": "ExtractionDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "Method": {
+      "type": "string",
+      "description": "The sample analysis method used for this analysis",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "BulkPyrolysisMethod",
+          "GroupType": "reference-data"
+        }
+      ]
+    },
+    "MassOfRockExtracted": {
+      "type": "object",
+      "description": "mass of the rock sample that has been submitted for extraction. note - may be a fraction of the whole rock sample",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MassOfExtract": {
+      "type": "object",
+      "description": "mass of fluid extract obtained from parent rock sample",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExtractByRockMass": {
+      "type": "object",
+      "description": "extract yield: mass of extract / mass of parent rock sample",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "ExtractOfTotalOrganicCarbon": {
+      "type": "object",
+      "description": "mass of extract as a percentage of Total Organic Carbon",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
+}

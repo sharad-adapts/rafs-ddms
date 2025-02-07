@@ -65,23 +65,22 @@ def run_datamodel_codegen(source_directory: str, target_directory: str, end_filt
     # Iterate over each file in the specified directory
     for filename in os.listdir(source_directory):
 
-        # Assumes `AnalysisTypeDataSchema.Major.Minor.Patch.json` naming convention
-        if not re.match("^[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*\.\d+\.\d+\.\d+\.json$", filename):  # noqa: W605
+        # Assumes `analysis_type.major.minor.patch.json` naming convention
+        if not re.match(r"^[a-z_]+(?:\.[0-9]+\.[0-9]+\.[0-9]+)?\.json$", filename):  # noqa: W605
             continue
 
         if filename.endswith(end_filter):
             # Extract the schema name to build model name
             schema_name, major, minor, patch, *_ = filename.split(".")
-            analysis_type_name = "_".join(re.findall("[A-Z][^A-Z]*", schema_name)[:-2])
-            py_model_name = f"{analysis_type_name.lower()}_data_model_{major}_{minor}_{patch}.py"
+            py_model_name = f"{schema_name}_data_model_{major}_{minor}_{patch}.py"
 
             # Define the input and output paths
             input_path = os.path.join(source_directory, filename)
             output_path = os.path.join(target_directory, py_model_name)
 
             # define the content model class name
-            analysis_type_name = "".join(analysis_type_name.split("_"))
-            model_class_name = f"{analysis_type_name}Model{major}{minor}{patch}"
+            schema_name = "".join([name.capitalize() for name in schema_name.split("_")])
+            model_class_name = f"{schema_name}Model{major}{minor}{patch}"
 
             # Construct the command
             command = [  # noqa: WPS317
@@ -108,8 +107,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process JSON schema files in a specified directory.")
     parser.add_argument("source_directory", type=str, help="Path to the directory containing JSON schema files.")
     parser.add_argument("target_directory", type=str, help="Pydantic models directory")
-    parser.add_argument("end_filter", type=str, default="DataSchema.1.0.0.json")
+    parser.add_argument("end_filter", type=str, default="1.0.0.json")
     args = parser.parse_args()
 
-    process_schemas.process_directory(args.source_directory, end_filter=args.end_filter)
     run_datamodel_codegen(args.source_directory, args.target_directory, args.end_filter)
