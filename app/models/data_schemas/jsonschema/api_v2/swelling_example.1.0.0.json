@@ -1,0 +1,46 @@
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+    "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "degree Fahrenheit",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+        "propertyNames": [
+          "TestTemperature"
+        ]
+      }
+    ],
+    "TestNumber": "1A",
+    "TestTemperature": 1.23,
+    "TestSteps": [
+      {
+        "StepNumber": "ABCDEFGHIJKLMN",
+        "SaturationPressure": 1.23,
+        "SaturationPressureTypeID": "opendes:reference-data--SaturationPressureType:BubblePoint:",
+        "SwellingFactor": 1.23,
+        "DensityAtSaturationPressure": 1.23,
+        "GasOilRatio": 1.23,
+        "CumulativeGasToOriginalFluidMolePercent": 1.23,
+        "CumulativeGasOfTotalFluidMolePercent": 1.23,
+        "IsothermalCompressibilityAtSaturationPressure": 1.23,
+        "ViscosityAtSaturationPressure": 1.23,
+        "TransportTestID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+        "ConstantCompositionExpansionID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+        "AtmosphericFlashAndCompositionalAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:"
+      }
+    ],
+    "InjectedGas": [
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+        "RelativeMoleWeight": 1.23,
+        "MolecularWeight": 1.23,
+        "MolePercent": 1.23,
+        "MassPercent": 1.23,
+        "VolumePercent": 1.23,
+        "SpecificGravity": 1.23
+      }
+    ]
+  }
+]

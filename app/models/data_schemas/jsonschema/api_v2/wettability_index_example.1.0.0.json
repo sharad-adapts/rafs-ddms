@@ -1,0 +1,64 @@
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:WettabilityIndex_WPC:",
+    "SampleID": "opendes:master-data--Sample:WettabilityIndex_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "degree Fahrenheit",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+        "propertyNames": [
+          "WettabilityIndexData.Temperature"
+        ]
+      }
+    ],
+    "WettabilityIndexData": {
+      "CapillaryPressureAnalysisID": "opendes:work-product-component--SamplesAnalysis:CapillaryPressure_WPC:",
+      "ForcedImbibedBrineVolume": 6,
+      "ForcedImbibedOilVolume": 10,
+      "Temperature": 8,
+      "InitialBrineSaturation": 5,
+      "InitialOilSaturation": 9,
+      "SpontaneousImbibedBrineVolume": 4,
+      "DisplacedOilVolume": 2,
+      "BrineImbibitionBrineSaturation": 1,
+      "BrineDisplacementOilSaturation": 10,
+      "SpontaneousImbibedOilVolume": 7,
+      "OilImbibitionBrineSaturation": 6,
+      "DisplacedBrineVolume": 4,
+      "DisplacementRatio": 5,
+      "OilImbibitionOilSaturation": 9,
+      "WettabilityIndex": [
+        {
+          "Value": 9,
+          "WettabilityIndexTypeID": "opendes:reference-data--WettabilityIndexType:AmottWater:"
+        },
+        {
+          "Value": 9,
+          "WettabilityIndexTypeID": "opendes:reference-data--WettabilityIndexType:AmottWater:"
+        },
+        {
+          "Value": 9,
+          "WettabilityIndexTypeID": "opendes:reference-data--WettabilityIndexType:AmottWater:"
+        }
+      ],
+      "ConfiningPressure": 9,
+      "DesaturationMethod": "opendes:reference-data--DesaturationMethod:AmottOil:",
+      "InjectionFluidID": "opendes:reference-data--SampleInjectionFluidType:GasUnspecified:",
+      "DisplacedFluidID": "opendes:reference-data--DisplacedFluidType:Brine:",
+      "FluidSystem": "opendes:reference-data--FluidSystemAnalysisType:Gas:",
+      "InitialWaterSaturation": 7,
+      "InitialCapillaryPressure": 8,
+      "ForcedWaterImbibition": 9,
+      "ForcedOilImbibition": 3,
+      "Remarks": [
+        {
+          "RemarkSequenceNumber": 6,
+          "Remark": "ABCDEFGHIJKLMNOPQRSTUVW",
+          "RemarkSource": "ABCDEFGHIJKLMNOPQRSTUVWXY",
+          "RemarkDate": "2024-10-10"
+        }
+      ]
+    }
+  }
+]

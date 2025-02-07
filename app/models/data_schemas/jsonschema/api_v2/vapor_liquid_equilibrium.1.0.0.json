@@ -1,0 +1,415 @@
+{
+  "$id": "vapor_liquid_equilibrium.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VleDataSchema",
+  "description": "VleDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "TestNumber": {
+      "type": "string"
+    },
+    "TestTemperature": {
+      "title": "Test Temperature",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TestPressure": {
+      "title": "Test Pressure",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "GasSolventAdded": {
+      "title": "Gas Solvent Added",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MixtureVolume": {
+      "title": "Mixture Volume",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MixtureGasSolventMoleFraction": {
+      "title": "Mixture Gas Solvent Mole Fraction",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MixtureGOR": {
+      "title": "Mixture GOR",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MixturePsatTestTemperature": {
+      "title": "Mixture Psat Test Temperature",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "MixtureRelativeVolumeRelativeToPsat": {
+      "title": "Mixture Relative Volume Relative To Psat",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "AtmosphericFlashTestReference": {
+      "type": "string"
+    },
+    "InjectedGasAdded": {
+      "type": "string"
+    },
+    "CumulativeGasAdded": {
+      "type": "string"
+    },
+    "VaporPhaseVolume": {
+      "title": "Vapor Phase Volume",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "VaporPhaseViscosity": {
+      "title": "Vapor Phase Viscosity",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "VaporPhaseDensity": {
+      "title": "Vapor Phase Density",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "LiquidPhaseVolume": {
+      "title": "Liquid Phase Volume",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "LiquidPhaseDensity": {
+      "title": "Liquid Phase Density",
+      "type": "object",
+      "properties": {
+        "Value": {
+          "type": "number"
+        },
+        "UnitOfMeasure": {
+          "type": "string",
+          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+          "x-osdu-relationship": [
+            {
+              "EntityType": "UnitOfMeasure",
+              "GroupType": "reference-data"
+            }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "VaporComposition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ComponentName": {
+            "type": "string"
+          },
+          "MoleFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "MassFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "VaporTransportTestReference": {
+      "type": "string"
+    },
+    "LiquidTransportTestReference": {
+      "type": "string"
+    },
+    "LiquidComposition": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ComponentName": {
+            "type": "string"
+          },
+          "MoleFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "MassFraction": {
+            "type": "object",
+            "properties": {
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Remark": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
+}

@@ -1,0 +1,413 @@
+{
+  "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "$id": "gas_chromatography_analyses.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Gas Chromatography Data Schema",
+  "description": "Gas chromatography (GC) is the process of separating compounds in a mixture by injecting a gaseous or liquid sample into a mobile phase, typically called the carrier gas, and passing the gas through a stationary phase. The mobile phase is usually an inert gas or unreactive gas such as helium, argon, nitrogen or hydrogen. The stationary phase is contained inside of a separation column. Today, most GC columns are fused silica capillaries with an inner diameter of 100-320 μm and a length of 5-60 m. The GC column is located inside an oven where the temperature of the gas can be controlled and the effluent coming off the column is monitored by a suitable detector as a function of retention time.",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "OSDU Identifier for this SamplesAnalysis.",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "title": "Sample ID",
+      "description": "OSDU Identifier for the Sample associated with this analysis.",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "master-data",
+          "EntityType": "Sample"
+        }
+      ]
+    },
+    "Meta": {
+      "type": "array",
+      "title": "Meta",
+      "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+      "example": "",
+      "items": {
+        "x-osdu-license": "Copyright 2022, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractMetaItem.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractMetaItem:1.0.0",
+        "title": "Frame of Reference Meta Data Item",
+        "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+        "oneOf": [
+          {
+            "title": "FrameOfReferenceUOM",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "UOM Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, 'Unit' for FrameOfReferenceUOM.",
+                "const": "Unit"
+              },
+              "name": {
+                "title": "UOM Unit Symbol",
+                "description": "The unit symbol or name of the unit.",
+                "type": "string",
+                "example": "ft[US]"
+              },
+              "persistableReference": {
+                "title": "UOM Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the Unit.",
+                "type": "string",
+                "example": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}"
+              },
+              "unitOfMeasureID": {
+                "description": "SRN to unit of measure reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--UnitOfMeasure:ftUS:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "UnitOfMeasure"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "UOM Property Names",
+                "description": "The list of property names, to which this meta data item provides Unit context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "HorizontalDeflection.EastWest",
+                  "HorizontalDeflection.NorthSouth"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceCRS",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "CRS Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'CRS' for FrameOfReferenceCRS.",
+                "const": "CRS"
+              },
+              "name": {
+                "title": "CRS Name",
+                "description": "The name of the CRS.",
+                "type": "string",
+                "example": "WGS 84 / UTM zone 15N"
+              },
+              "persistableReference": {
+                "title": "CRS Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the CRS.",
+                "type": "string",
+                "example": "{\"authCode\":{\"auth\":\"EPSG\",\"code\":\"32615\"},\"name\":\"WGS_1984_UTM_Zone_15N\",\"type\":\"LBC\",\"ver\":\"PE_10_9_1\",\"wkt\":\"PROJCS[\\\"WGS_1984_UTM_Zone_15N\\\",GEOGCS[\\\"GCS_WGS_1984\\\",DATUM[\\\"D_WGS_1984\\\",SPHEROID[\\\"WGS_1984\\\",6378137.0,298.257223563]],PRIMEM[\\\"Greenwich\\\",0.0],UNIT[\\\"Degree\\\",0.0174532925199433]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"False_Easting\\\",500000.0],PARAMETER[\\\"False_Northing\\\",0.0],PARAMETER[\\\"Central_Meridian\\\",-93.0],PARAMETER[\\\"Scale_Factor\\\",0.9996],PARAMETER[\\\"Latitude_Of_Origin\\\",0.0],UNIT[\\\"Meter\\\",1.0],AUTHORITY[\\\"EPSG\\\",32615]]\"}"
+              },
+              "coordinateReferenceSystemID": {
+                "description": "SRN to CRS reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CoordinateReferenceSystem:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--CoordinateReferenceSystem:Projected:EPSG::32615:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "CoordinateReferenceSystem"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "CRS Property Names",
+                "description": "The list of property names, to which this meta data item provides CRS context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "KickOffPosition.X",
+                  "KickOffPosition.Y"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceDateTime",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "DateTime Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'DateTime', for FrameOfReferenceDateTime.",
+                "const": "DateTime"
+              },
+              "name": {
+                "title": "DateTime Name",
+                "description": "The name of the DateTime format and reference.",
+                "type": "string",
+                "example": "UTC"
+              },
+              "persistableReference": {
+                "title": "DateTime Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying DateTime reference.",
+                "type": "string",
+                "example": "{\"format\":\"yyyy-MM-ddTHH:mm:ssZ\",\"timeZone\":\"UTC\",\"type\":\"DTM\"}"
+              },
+              "propertyNames": {
+                "title": "DateTime Property Names",
+                "description": "The list of property names, to which this meta data item provides DateTime context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Acquisition.StartTime",
+                  "Acquisition.EndTime"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceAzimuthReference",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "AzimuthReference Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'AzimuthReference', for FrameOfReferenceAzimuthReference.",
+                "const": "AzimuthReference"
+              },
+              "name": {
+                "title": "AzimuthReference Name",
+                "description": "The name of the CRS or the symbol/name of the unit.",
+                "type": "string",
+                "example": "TrueNorth"
+              },
+              "persistableReference": {
+                "title": "AzimuthReference Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying AzimuthReference.",
+                "type": "string",
+                "example": "{\"code\":\"TrueNorth\",\"type\":\"AZR\"}"
+              },
+              "propertyNames": {
+                "title": "AzimuthReference Property Names",
+                "description": "The list of property names, to which this meta data item provides AzimuthReference context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Bearing"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          }
+        ],
+        "x-osdu-inheriting-from-kind": []
+      }
+    },
+    "SampleMass": {
+      "type": "number",
+      "title": "Sample Mass",
+      "description": "Reported mass of the analyzed sample.",
+      "x-osdu-frame-of-reference": "UOM:mass"
+    },
+    "Method": {
+      "type": "string",
+      "title": "Method",
+      "description": "Free string object to account for any particular methods or lab-specific analysis details."
+    },
+    "GasChromatographyAnalysis": {
+      "type": "array",
+      "title": "Gas Chromatography Analysis",
+      "description": "Hydrocarbon abundance measured by gas chromatography, e.g. Aromatic,Gasoline,HighTemperature,Pyrolysis,Saturate,SimulatedDistillation,SulfurDetection,ThermalExtraction,WholeOil",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Gas Chromatography Analysis",
+        "description": "Hydrocarbon abundance measured by gas chromatography, e.g. Aromatic,Gasoline,HighTemperature,Pyrolysis,Saturate,SimulatedDistillation,SulfurDetection,ThermalExtraction,WholeOil.",
+        "properties": {
+          "ComponentNameID": {
+            "type": "string",
+            "title": "Component Name ID",
+            "description": "Name of the component in this analysis.  In the case of internal standard compounds, the name of the actual compound should be used in lieu of, e.g. 'STD1', if it is known.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleCompositionComponent"
+              }
+            ]
+          },
+          "RetentionTime": {
+            "type": "number",
+            "title": "Retention Time",
+            "description": "The time it takes for a compound to pass through the GC column and be detected, providing a reference point for comparing other compounds.",
+            "x-osdu-frame-of-reference": "UOM:time"
+          },
+          "Peak": {
+            "type": "object",
+            "title": "Peak",
+            "description": "A graphical representation of the highest point (peak) of a detected signal for a compound in the chromatogram graph, a signal which represents to the compound's concentration as a function of time.",
+            "properties": {
+              "AreaValue": {
+                "type": "number",
+                "title": "Area Value",
+                "description": "Captures the value of the area under the peak.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              },
+              "AreaConcentration": {
+                "type": "number",
+                "title": "Area Concentration",
+                "description": "Concentration of a compound measured using area under the peak for both the compound of interest and the standard compound, along with the known concentration of the standard.",
+                "x-osdu-frame-of-reference": "UOM:mass per mass"
+              },
+              "HeightValue": {
+                "type": "number",
+                "title": "Height Value",
+                "description": "Captures the value of the peak's height.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              },
+              "HeightConcentration": {
+                "type": "number",
+                "title": "Height Concentration",
+                "description": "Concentration of a compound measured using height under the peak for both the compound of interest and the standard compound, along with the known concentration of the standard.",
+                "x-osdu-frame-of-reference": "UOM:mass per mass"
+              },
+              "PeakValueTypeUnknown": {
+                "type": "number",
+                "title": "Peak Value Type Unknown",
+                "description": "Captures the value of a peak reported without area or height specified.  If the height or area is specified, HeightValue or AreaValue should be used, respectively.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              }
+            },
+            "additionalProperties": false
+          },
+          "IsInternalStandard": {
+            "type": "boolean",
+            "title": "Is Internal Standard",
+            "description": "Identifies whether the component is an internal standard."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "InternalStandardCompound": {
+      "type": "array",
+      "title": "Internal Standard Compound",
+      "description": "One or more compounds added to a sample in a known quantity before the analysis begins; Also known as an internal standard. Used for accurate identification and quantification.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Internal Standard Compound",
+        "description": "A compound that is added to a sample in a known quantity before the analysis begins; Also known as an internal standard. Used for accurate identification and quantification.",
+        "properties": {
+          "ComponentNameID": {
+            "type": "string",
+            "title": "Component Name ID",
+            "description": "Name of the component in this analysis.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "SampleCompositionComponent"
+              }
+            ]
+          },
+          "Mass": {
+            "type": "number",
+            "title": "Mass",
+            "description": "The mass of the standard compound.",
+            "x-osdu-frame-of-reference": "UOM:mass"
+          },
+          "Concentration": {
+            "type": "number",
+            "title": "Concentration",
+            "description": "The concentration of the standard compound.",
+            "x-osdu-frame-of-reference": "UOM:mass per mass"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "Remarks": {
+      "type": "array",
+      "title": "Remarks",
+      "description": "Array object capturing remarks or additional information for this test step.  Remarks for the analysis as a whole should be captured in the associated SamplesAnalysis work product component.",
+      "example": "",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "x-osdu-license": "Copyright 2023, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "x-osdu-review-status": "Accepted",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractRemark.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractRemark:1.0.0",
+        "title": "AbstractRemark",
+        "description": "A remark object, pairing a remark text with a source, e.g. an author, and a date, which is typically included in an array. The RemarkSequenceNumber acts as unique key in this case.",
+        "type": "object",
+        "properties": {
+          "RemarkSequenceNumber": {
+            "type": "integer",
+            "title": "Remark Sequence Number",
+            "description": "A unique identifier for each remark record. This identifier is used to uniquely identify a member in an array of remarks.",
+            "example": 1
+          },
+          "Remark": {
+            "type": "string",
+            "title": "Remark",
+            "description": "A descriptive comment for this remark."
+          },
+          "RemarkSource": {
+            "type": "string",
+            "title": "Remark Source",
+            "description": "The person, vendor, interpreter or other provider of information."
+          },
+          "RemarkDate": {
+            "type": "string",
+            "title": "Remark Date",
+            "description": "The date the remark was issued.",
+            "format": "date",
+            "x-osdu-frame-of-reference": "DateTime"
+          }
+        },
+        "x-osdu-inheriting-from-kind": [],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "SampleMass"
+  ],
+  "additionalProperties": false
+}

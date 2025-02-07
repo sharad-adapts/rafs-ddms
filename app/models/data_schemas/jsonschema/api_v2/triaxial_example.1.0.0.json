@@ -1,0 +1,138 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:TriaxialTest_WPC:",
+  "SampleID": "opendes:master-data--Sample:TriaxialTest_Sample:",
+  "BulkDensityAsReceived": {
+    "Value": 0.47,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
+  },
+  "TestPorePressure": {
+    "Value": 23,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+  },
+  "TestConfiningPressure": {
+    "Value": 17,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+  },
+  "FluidSaturant": "opendes:reference-data--FluidSaturantType:LabOil:",
+  "IRSCPorePressure": {
+    "Value": 312,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+  },
+  "IRSCMeanEffectiveStress": {
+    "Value": 0.32,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+  },
+  "IRSCDifferentialStress": {
+    "Value": 11,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+  },
+  "MassAsReceived": {
+    "Value": 3.21,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg:"
+  },
+  "SaturatedMass": {
+    "Value": 4.67,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg:"
+  },
+  "CutFluid": "opendes:reference-data--CutFluidType:Synthetic:",
+  "LoadingCondition": "Test Condition",
+  "ConsolidationType": "opendes:reference-data--ConsolidationType:Isotropic:",
+  "DrainageCondition": "opendes:reference-data--DrainageCondition:ConsolidatedUndrained:",
+  "LoadingMethod": "opendes:reference-data--LoadingMethod:SingleFracStage:",
+  "TestSteps": [
+    {
+      "Time": {
+        "Value": 65,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "PorePressure": {
+        "Value": 32,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "ConfiningPressure": {
+        "Value": 44,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "AxialStrain": {
+        "Value": 65,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "RadialStrain": {
+        "Value": 87,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "AxialStress": {
+        "Value": 122,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "DifferentialStress": {
+        "Value": 21,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "AxialPWaveVelocity": {
+        "Value": 5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m%2Fs:"
+      },
+      "AxialSWaveVelocity": {
+        "Value": 3,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m%2Fs:"
+      }
+    }
+  ],
+  "Interpretation": [
+    {
+      "StageNumber": {
+        "Value": 1
+      },
+      "PlugOrientationToBeddingPlaneNormal": {
+        "Value": 45,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+      },
+      "PeakCompressiveStrength": {
+        "Value": 32,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:N:"
+      },
+      "EffectiveCompressiveStrength": {
+        "Value": 12,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:N:"
+      },
+      "YoungsModulus": {
+        "Value": 5.1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa:",
+        "LoadingStage": "opendes:reference-data--LoadingStage:Unloading:"
+      },
+      "PoissonsRatio": {
+        "Value": 6,
+        "LoadingStage": "opendes:reference-data--LoadingStage:Loading:"
+      },
+      "UnconfinedCompressiveStrength": {
+        "Value": 23,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:N:"
+      },
+      "InferredUnconfinedCompressiveStrength": {
+        "Value": 65,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:N:"
+      },
+      "Cohesion": {
+        "Value": 9,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kPa:"
+      },
+      "InternalFrictionCoefficient": {
+        "Value": 6,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf%2Flbf:"
+      },
+      "InternalFrictionAngle": {
+        "Value": 32,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
+      },
+      "Alpha": {
+        "Value": 122,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "Beta": {
+        "Value": 18
+      }
+    }
+  ],
+  "$id": "triaxial_test_example.1.0.0.json"
+}

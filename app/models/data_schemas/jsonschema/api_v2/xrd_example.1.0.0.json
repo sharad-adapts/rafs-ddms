@@ -1,0 +1,18 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
+  "SampleID": "opendes:master-data--Sample:XRD_Sample:",
+  "QuartzCrystallinityIndex": {
+    "Value": 8.9,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "MineralContent": [
+    {
+      "Mineral": "opendes:reference-data--Minerals:actinolite:",
+      "Content": {
+        "Value": 123,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+      }
+    }
+  ],
+  "$id": "xrd_example.1.0.0.json"
+}

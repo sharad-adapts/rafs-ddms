@@ -1,0 +1,86 @@
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GasChromatography_WPC:",
+    "SampleID": "opendes:master-data--Sample:GasChromatography_Sample:",
+    "SampleMass": 7,
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "pg",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:pg:",
+        "propertyNames": [
+          "SampleMass"
+        ]
+      }
+    ],
+    "Method": "opendes:reference-data--BulkPyrolysisMethod:LECO:",
+    "GasChromatographyAnalysis": [
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "RetentionTime": 9,
+        "Peak": {
+          "AreaValue": 10,
+          "AreaConcentration": 4,
+          "HeightValue": 10,
+          "HeightConcentration": 8,
+          "PeakValueTypeUnknown": 10
+        },
+        "IsInternalStandard": true
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "RetentionTime": 5,
+        "Peak": {
+          "AreaValue": 8,
+          "AreaConcentration": 8,
+          "HeightValue": 10,
+          "HeightConcentration": 5,
+          "PeakValueTypeUnknown": 8
+        },
+        "IsInternalStandard": true
+      }
+    ],
+    "InternalStandardCompound": [
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 5,
+        "Concentration": 9
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 3,
+        "Concentration": 5
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 9,
+        "Concentration": 6
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 9,
+        "Concentration": 6
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 6,
+        "Concentration": 9
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 5,
+        "Concentration": 10
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 5,
+        "Concentration": 5
+      },
+      {
+        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "Mass": 2,
+        "Concentration": 5
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+{
+  "$id": "eds_mapping.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EdsMappingDataSchema",
+  "description": "EdsMappingDataSchema",
+  "type": "object",
+  "properties": {
+    "SamplesAnalysisID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "SamplesAnalysis",
+          "GroupType": "work-product-component"
+        }
+      ]
+    },
+    "SampleID": {
+      "type": "string",
+      "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "EntityType": "Sample",
+          "GroupType": "master-data"
+        }
+      ]
+    },
+    "ElementalComposition": {
+      "title": "Elemental Composition",
+      "description": "Elemental Composition in a rock sample determined by Energy-dispersive spectroscopy EDS-Mapping",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Element": {
+            "type": "string",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-Elements:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "EntityType": "Elements",
+                "GroupType": "reference-data"
+              }
+            ]
+          },
+          "Concentration": {
+            "type": "object",
+            "properties": {
+              "PeakPosition": {
+                "type": "object",
+                "properties": {
+                  "XCoordinate": {
+                    "type": "number"
+                  },
+                  "YCoordinate": {
+                    "type": "number"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "Value": {
+                "type": "number"
+              },
+              "UnitOfMeasure": {
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "EntityType": "UnitOfMeasure",
+                    "GroupType": "reference-data"
+                  }
+                ]
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "SamplesAnalysisID",
+    "SampleID"
+  ]
+}

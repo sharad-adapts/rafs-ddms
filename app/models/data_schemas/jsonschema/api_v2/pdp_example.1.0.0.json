@@ -1,0 +1,37 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:PDP_SamplesAnalysis:",
+  "SampleID": "osdu:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249c787845c8",
+  "PDPSteps": [
+    {
+      "NetConfiningStress": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+      },
+      "Permeability": {
+        "Value": 1.0,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
+      }
+    }
+  ],
+  "GammaDrawdown": {
+    "Value": 1.0,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "GammaBuildUp": {
+    "Value": 1.0,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "Log10GammaDrawdown": {
+    "Value": 1.0,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "Log10GammaBuildUp": {
+    "Value": 1.0,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "Formation": {
+    "Value": 1.0,
+    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+  },
+  "$id": "pdp_example.1.0.0.json"
+}

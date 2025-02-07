@@ -1,0 +1,132 @@
+{
+  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Alkanes_Example:",
+  "SampleID": "opendes:master-data--Sample:TestSample:",
+  "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
+  "SaturateGCMSCompounds": [
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:chol5b:",
+      "RetentionTime": {
+        "Value": 1.1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHI",
+      "Peak": [
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:gcar:",
+      "RetentionTime": {
+        "Value": 3.3,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+      "Peak": [
+        {
+          "Value": 4.4,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t22:",
+      "RetentionTime": {
+        "Value": 9.9,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKLMNOPQR",
+      "Peak": [
+        {
+          "Value": 1.1,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+        },
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t24:",
+      "RetentionTime": {
+        "Value": 5.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJ",
+      "Peak": [
+        {
+          "Value": 6.6,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t24o:",
+      "RetentionTime": {
+        "Value": 9.9,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": [
+        {
+          "Value": 1.1,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+        },
+        {
+          "Value": 2.2,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+        }
+      ]
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:c24delup:",
+      "RetentionTime": {
+        "Value": 4.4,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": []
+    },
+    {
+      "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:t25:",
+      "RetentionTime": {
+        "Value": 5.5,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+      },
+      "Ion": "ABCDEFGHIJKL",
+      "Peak": [
+        {
+          "Value": 6.6,
+          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+        }
+      ]
+    }
+  ],
+  "StdCompound": {
+    "CompoundCode": "opendes:reference-data--SaturateGCMSCompounds:c24deurs:",
+    "RetentionTime": {
+      "Value": 8.8,
+      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
+    },
+    "Ion": "ABCDEFGHI",
+    "Peak": [
+      {
+        "Value": 1.1,
+        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
+        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+      }
+    ]
+  },
+  "$id": "gcms_alkanes_example.1.0.0.json"
+}
