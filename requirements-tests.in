@@ -14,7 +14,7 @@ pytest-xdist==3.0.2
 
 # dependencies for checks
 # NOT USED BY RAFS-DDMS but for code quality checks
-pre-commit
+pre-commit==3.8.0
 flake8-async==22.11.14
 flake8-bandit==3.0.0
 flake8-blind-except==0.2.1
