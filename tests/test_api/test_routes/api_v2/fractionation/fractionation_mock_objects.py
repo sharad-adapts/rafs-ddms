@@ -49,11 +49,11 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "FractionationSum.Value,sum",
+    "columns_aggregation": "FractionationSum,sum",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,FractionationSum,AsphaltenePctOfExtract",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:FractionationDevTest:",
+    "columns_filter": "SamplesAnalysisID,FractionationSum,TotalFluidInitialMass",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:Example_WPC:",
 }
 
 with open(f"{dir_path}/fractionation_orient_split.json") as fp:
@@ -68,7 +68,7 @@ TEST_AGGREGATED_DATA = {
     ],
     "data": [
         [
-            0.169,
+            1.23,
         ],
     ],
 }
@@ -77,22 +77,16 @@ TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
         "FractionationSum",
-        "AsphaltenePctOfExtract",
+        "TotalFluidInitialMass",
     ],
     "index": [
         0,
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:FractionationDevTest:",
-            {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-                "Value": 0.169,
-            },
-            {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                "Value": 0.756,
-            },
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            1.23,
+            1.23,
         ],
     ],
 }
@@ -114,4 +108,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Permeability in index row 0
-EXPECTED_ERROR_REASON = "Data error: 36 columns passed, passed data had 35 columns"
+EXPECTED_ERROR_REASON = "Data error: 13 columns passed, passed data had 12 columns"
