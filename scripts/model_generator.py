@@ -16,10 +16,9 @@ import argparse
 import os
 import re
 import subprocess
+from datetime import date
 
-import process_schemas
-
-COPYRIGHT = """#  Copyright 2024 ExxonMobil Technology and Engineering Company
+COPYRIGHT = f"""#  Copyright {date.today().year} ExxonMobil Technology and Engineering Company
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
