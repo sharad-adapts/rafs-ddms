@@ -36,7 +36,6 @@ def update_id(schema, filename):
     schema["$id"] = filename
     try:
         del schema["x-osdu-schema-source"]
-        del schema["x-osdu-review-status"]
         del schema["x-osdu-inheriting-from-kind"]
     except KeyError:
         pass
