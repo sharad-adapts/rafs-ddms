@@ -1,415 +1,413 @@
 {
-  "$id": "triaxial.1.0.0.json",
+  "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
+  "$id": "triaxial_test.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "TriaxialTestDataSchema",
-  "description": "TriaxialTestDataSchema",
+  "title": "Triaxial Test Data Schema",
+  "description": "The triaxial test in the oil and gas industry is a laboratory technique used to measure the mechanical properties of rock or soil samples under controlled confining pressure and axial stress, providing critical data on strength, deformability, and potential failure conditions of subsurface formations.",
   "type": "object",
   "properties": {
     "SamplesAnalysisID": {
       "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "OSDU Identifier for this SamplesAnalysis.",
       "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "SamplesAnalysis",
-          "GroupType": "work-product-component"
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
         }
       ]
     },
     "SampleID": {
       "type": "string",
+      "title": "Sample ID",
+      "description": "OSDU Identifier for the Sample associated with this analysis.",
       "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "Sample",
-          "GroupType": "master-data"
+          "GroupType": "master-data",
+          "EntityType": "Sample"
         }
       ]
     },
+    "Meta": {
+      "type": "array",
+      "title": "Meta",
+      "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+      "example": "",
+      "items": {
+        "x-osdu-license": "Copyright 2022, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractMetaItem.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractMetaItem:1.0.0",
+        "title": "Frame of Reference Meta Data Item",
+        "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+        "oneOf": [
+          {
+            "title": "FrameOfReferenceUOM",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "UOM Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, 'Unit' for FrameOfReferenceUOM.",
+                "const": "Unit"
+              },
+              "name": {
+                "title": "UOM Unit Symbol",
+                "description": "The unit symbol or name of the unit.",
+                "type": "string",
+                "example": "ft[US]"
+              },
+              "persistableReference": {
+                "title": "UOM Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the Unit.",
+                "type": "string",
+                "example": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}"
+              },
+              "unitOfMeasureID": {
+                "description": "SRN to unit of measure reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--UnitOfMeasure:ftUS:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "UnitOfMeasure"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "UOM Property Names",
+                "description": "The list of property names, to which this meta data item provides Unit context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "HorizontalDeflection.EastWest",
+                  "HorizontalDeflection.NorthSouth"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceCRS",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "CRS Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'CRS' for FrameOfReferenceCRS.",
+                "const": "CRS"
+              },
+              "name": {
+                "title": "CRS Name",
+                "description": "The name of the CRS.",
+                "type": "string",
+                "example": "WGS 84 / UTM zone 15N"
+              },
+              "persistableReference": {
+                "title": "CRS Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the CRS.",
+                "type": "string",
+                "example": "{\"authCode\":{\"auth\":\"EPSG\",\"code\":\"32615\"},\"name\":\"WGS_1984_UTM_Zone_15N\",\"type\":\"LBC\",\"ver\":\"PE_10_9_1\",\"wkt\":\"PROJCS[\\\"WGS_1984_UTM_Zone_15N\\\",GEOGCS[\\\"GCS_WGS_1984\\\",DATUM[\\\"D_WGS_1984\\\",SPHEROID[\\\"WGS_1984\\\",6378137.0,298.257223563]],PRIMEM[\\\"Greenwich\\\",0.0],UNIT[\\\"Degree\\\",0.0174532925199433]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"False_Easting\\\",500000.0],PARAMETER[\\\"False_Northing\\\",0.0],PARAMETER[\\\"Central_Meridian\\\",-93.0],PARAMETER[\\\"Scale_Factor\\\",0.9996],PARAMETER[\\\"Latitude_Of_Origin\\\",0.0],UNIT[\\\"Meter\\\",1.0],AUTHORITY[\\\"EPSG\\\",32615]]\"}"
+              },
+              "coordinateReferenceSystemID": {
+                "description": "SRN to CRS reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CoordinateReferenceSystem:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--CoordinateReferenceSystem:Projected:EPSG::32615:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "CoordinateReferenceSystem"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "CRS Property Names",
+                "description": "The list of property names, to which this meta data item provides CRS context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "KickOffPosition.X",
+                  "KickOffPosition.Y"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceDateTime",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "DateTime Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'DateTime', for FrameOfReferenceDateTime.",
+                "const": "DateTime"
+              },
+              "name": {
+                "title": "DateTime Name",
+                "description": "The name of the DateTime format and reference.",
+                "type": "string",
+                "example": "UTC"
+              },
+              "persistableReference": {
+                "title": "DateTime Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying DateTime reference.",
+                "type": "string",
+                "example": "{\"format\":\"yyyy-MM-ddTHH:mm:ssZ\",\"timeZone\":\"UTC\",\"type\":\"DTM\"}"
+              },
+              "propertyNames": {
+                "title": "DateTime Property Names",
+                "description": "The list of property names, to which this meta data item provides DateTime context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Acquisition.StartTime",
+                  "Acquisition.EndTime"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceAzimuthReference",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "AzimuthReference Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'AzimuthReference', for FrameOfReferenceAzimuthReference.",
+                "const": "AzimuthReference"
+              },
+              "name": {
+                "title": "AzimuthReference Name",
+                "description": "The name of the CRS or the symbol/name of the unit.",
+                "type": "string",
+                "example": "TrueNorth"
+              },
+              "persistableReference": {
+                "title": "AzimuthReference Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying AzimuthReference.",
+                "type": "string",
+                "example": "{\"code\":\"TrueNorth\",\"type\":\"AZR\"}"
+              },
+              "propertyNames": {
+                "title": "AzimuthReference Property Names",
+                "description": "The list of property names, to which this meta data item provides AzimuthReference context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Bearing"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          }
+        ],
+        "x-osdu-inheriting-from-kind": []
+      }
+    },
     "BulkDensityAsReceived": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "Bulk Density As Received",
+      "description": "The bulk density of the sample as it was received by the laboratory.",
+      "x-osdu-frame-of-reference": "UOM:mass per volume"
     },
     "TestPorePressure": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "Test Pore Pressure",
+      "description": "The pore pressure of the sample.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
     },
     "TestConfiningPressure": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "Test Confining Pressure",
+      "description": "The confining pressure applied to the sample.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
     },
     "FluidSaturant": {
       "type": "string",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidSaturantType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "title": "Fluid Saturant",
+      "description": "The fluid used to saturate the sample.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleInjectionFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "FluidSaturantType",
-          "GroupType": "reference-data"
+          "GroupType": "reference-data",
+          "EntityType": "SampleInjectionFluidType"
         }
       ]
     },
     "IRSCPorePressure": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "IRSC Pore Pressure",
+      "description": "Pore pressure as recorded at initial reservoir stress conditions.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
     },
     "IRSCMeanEffectiveStress": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "IRSC Mean Effective Stress",
+      "description": "Mean effective stress as recorded at initial reservoir stress conditions.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
     },
     "IRSCDifferentialStress": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "IRSC Differentia Stress",
+      "description": "Differential stress as recorded at initial reservoir stress conditions.",
+      "x-osdu-frame-of-reference": "UOM:pressure"
     },
     "MassAsReceived": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "Mass As Received",
+      "description": "The mass of the sample as it was received by the laboratory.",
+      "x-osdu-frame-of-reference": "UOM:mass"
     },
     "SaturatedMass": {
-      "type": "object",
-      "properties": {
-        "Value": {
-          "type": "number"
-        },
-        "UnitOfMeasure": {
-          "type": "string",
-          "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-          "x-osdu-relationship": [
-            {
-              "EntityType": "UnitOfMeasure",
-              "GroupType": "reference-data"
-            }
-          ]
-        }
-      },
-      "additionalProperties": false
+      "type": "number",
+      "title": "Saturated Mass",
+      "description": "The mass of the sample when saturated with the fluid saturant.",
+      "x-osdu-frame-of-reference": "UOM:mass"
     },
     "CutFluid": {
       "type": "string",
-      "description": "Cutting Fluid used when preparing this sample for testing",
+      "title": "Cut Fluid",
+      "description": "Cutting Fluid used when preparing this sample for testing.",
       "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CutFluidType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "CutFluidType",
-          "GroupType": "reference-data"
+          "GroupType": "reference-data",
+          "EntityType": "CutFluidType"
         }
       ]
     },
     "LoadingCondition": {
+      "type": "string",
       "title": "Loading Condition",
-      "type": "string"
+      "description": "String defining the loading conditions of the sample."
     },
     "ConsolidationType": {
       "type": "string",
-      "description": "Consolidation Type, e.g. Isotropic",
+      "title": "Consolidation Type",
+      "description": "Consolidation Type, e.g. Isotropic.",
       "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConsolidationType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "ConsolidationType",
-          "GroupType": "reference-data"
+          "GroupType": "reference-data",
+          "EntityType": "ConsolidationType"
         }
       ]
     },
     "DrainageCondition": {
       "type": "string",
-      "description": "Categorization of drainage of the sample, e.g. Drained",
+      "title": "Drainage Condition",
+      "description": "Categorization of drainage of the sample, e.g. Drained.",
       "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-DrainageCondition:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "DrainageCondition",
-          "GroupType": "reference-data"
+          "GroupType": "reference-data",
+          "EntityType": "DrainageCondition"
         }
       ]
     },
-    "LoadingMethod": {
+    "SampleStressLoadingMethodID": {
       "type": "string",
-      "description": "Method by which stress is applied, or loaded, onto the sample",
-      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "title": "Sample Stress Loading Method ID",
+      "description": "Method by which stress is applied, or loaded, onto the sample.",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleStressLoadingMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "LoadingMethod",
-          "GroupType": "reference-data"
+          "GroupType": "reference-data",
+          "EntityType": "SampleStressLoadingMethod"
         }
       ]
     },
     "TestSteps": {
       "type": "array",
+      "title": "Test Steps",
+      "description": "Array that captures the individual test steps of this triaxial test.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
       "items": {
         "type": "object",
+        "title": "Test Steps",
+        "description": "One object representing the step and measurements observed within it.",
         "properties": {
           "Time": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Time",
+            "description": "Time recorded at this test step.",
+            "x-osdu-frame-of-reference": "UOM:time"
           },
           "PorePressure": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Pore Pressure",
+            "description": "Pore pressure of the sample at this test step.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "ConfiningPressure": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Confining Pressure",
+            "description": "Confining stress applied to the sample for this test step.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "AxialStrain": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Axial Strain",
+            "description": "Axial strain is a measure of how much a material deforms along its length when subjected to an axial load or force.",
+            "x-osdu-frame-of-reference": "UOM:length per length"
           },
           "RadialStrain": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Radial Strain",
+            "description": "This is the strain measured in the direction perpendicular to the axis of the cylindrical sample.",
+            "x-osdu-frame-of-reference": "UOM:length per length"
           },
           "AxialStress": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Axial Stress",
+            "description": "Axial stress is the internal force per unit area within a material that results from an axial load or force applied along its length.",
+            "x-osdu-frame-of-reference": "UOM:length per length"
           },
           "DifferentialStress": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Differential Stress",
+            "description": "The difference between the axial and confining stress applied to the sample.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "AxialPWaveVelocity": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Axial P Wave Velocity",
+            "description": "A measure of how fast compressional (P) waves travel through a material when the material is subjected to axial stress.",
+            "x-osdu-frame-of-reference": "UOM:length per time"
           },
           "AxialSWaveVelocity": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Axial S Wave Velocity",
+            "description": "A measure of how fast shear waves (also known as secondary or S-waves) propagate through a core sample.",
+            "x-osdu-frame-of-reference": "UOM:length per time"
           }
         },
         "additionalProperties": false
@@ -417,102 +415,61 @@
     },
     "Interpretation": {
       "type": "array",
-      "description": "Typically Interpretation will only have one record, though in cases where a sample is tested across multiple fracture stages, it will have more than one",
+      "title": "Interpretation",
+      "description": "Typically Interpretation will only have one record, though in cases where a sample is tested across multiple fracture stages, it will have more than one.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
       "items": {
         "type": "object",
+        "title": "Interpretation",
+        "description": "Typically Interpretation will only have one record, though in cases where a sample is tested across multiple fracture stages, it will have more than one.",
         "properties": {
           "StageNumber": {
-            "type": "object",
+            "type": "number",
+            "title": "Stage Number",
             "description": "In multifrac stage tests, this identifies each fracture stage.",
-            "properties": {
-              "Value": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
+            "x-osdu-frame-of-reference": "UOM:non-dimensional"
           },
           "PlugOrientationToBeddingPlaneNormal": {
-            "type": "object",
-            "description": "Angle in degrees of plug orientation to bedding plane normal",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Plug Orientation To Bedding Plane Normal",
+            "description": "The angle in degrees of plug orientation to bedding plane normal.",
+            "x-osdu-frame-of-reference": "UOM:plane angle"
           },
           "PeakCompressiveStrength": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Peak Compressive Strength",
+            "description": "The highest value of axial stress reached during a triaxial compression test, corresponding to the point at which the material fails.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "EffectiveCompressiveStrength": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Effective Compressive Strength",
+            "description": "The compressive strength of a material, adjusted for the effects of pore pressure and effective stress conditions.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "YoungsModulus": {
             "type": "object",
+            "title": "Young's Modulus",
+            "description": "Young's modulus defines the ratio of tensile stress (force per unit area) to tensile strain (proportional deformation) in the linear elastic region of the material's stress-strain curve.",
+            "x-osdu-frame-of-reference": "UOM:pressure",
             "properties": {
               "Value": {
-                "type": "number"
+                "type": "number",
+                "title": "Value",
+                "description": "The value of Young's Modulus.",
+                "x-osdu-frame-of-reference": "UOM:pressure"
               },
-              "UnitOfMeasure": {
+              "SampleStressLoadingStageID": {
                 "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "title": "Sample Stress Loading Stage ID",
+                "description": "Identifies whether this ratio was set during the loading or unloading stage.",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleStressLoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                 "x-osdu-relationship": [
                   {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              },
-              "LoadingStage": {
-                "type": "string",
-                "description": "Loading or Unloading stage",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "LoadingStage",
-                    "GroupType": "reference-data"
+                    "GroupType": "reference-data",
+                    "EntityType": "SampleStressLoadingStage"
                   }
                 ]
               }
@@ -521,18 +478,25 @@
           },
           "PoissonsRatio": {
             "type": "object",
+            "title": "Poisson's Ratio",
+            "description": "A measure of the proportional decrease in diameter (or lateral strain) to the proportional increase in length (or longitudinal strain) when a material is subjected to uniaxial stress.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless",
             "properties": {
               "Value": {
-                "type": "number"
+                "type": "number",
+                "title": "Value",
+                "description": "The value of Poisson's Ratio.",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
               },
-              "LoadingStage": {
+              "SampleStressLoadingStageID": {
                 "type": "string",
-                "description": "Loading or Unloading stage",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-LoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "title": "Sample Stress Loading Stage",
+                "description": "Identifies whether this ratio was set during the loading or unloading stage.",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleStressLoadingStage:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                 "x-osdu-relationship": [
                   {
-                    "EntityType": "LoadingStage",
-                    "GroupType": "reference-data"
+                    "GroupType": "reference-data",
+                    "EntityType": "SampleStressLoadingStage"
                   }
                 ]
               }
@@ -540,142 +504,56 @@
             "additionalProperties": false
           },
           "UnconfinedCompressiveStrength": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Unconfined Compressive Strength",
+            "description": "The maximum compressive stress that a material can bear before failure when it is subjected to an axial load but no lateral or confining stress.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "InferredUnconfinedCompressiveStrength": {
-            "type": "object",
-            "description": "Mohr-Coulomb Failure Analysis Unconfined Compressive Strength",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Inferred Unconfined Compressive Strength",
+            "description": "Mohr-Coulomb Failure Analysis Unconfined Compressive Strength.",
+            "x-osdu-frame-of-reference": "UOM:pressure"
           },
           "Cohesion": {
-            "type": "object",
-            "description": "Mohr-Coulomb Failure Analysis Cohesion",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Cohesion",
+            "description": "Mohr-Coulomb Failure Analysis Cohesion.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
           },
           "InternalFrictionCoefficient": {
-            "type": "object",
-            "description": "Mohr-Coulomb Failure Analysis Internal Friction Coefficient",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Internal Friction Coefficient",
+            "description": "Mohr-Coulomb Failure Analysis Internal Friction Coefficient.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
           },
           "InternalFrictionAngle": {
-            "type": "object",
-            "description": "Mohr-Coulomb Failure Analysis Internal Friction Angle",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Internal Friction Angle",
+            "description": "Mohr-Coulomb Failure Analysis Internal Friction Angle.",
+            "x-osdu-frame-of-reference": "UOM:plane angle"
           },
           "Alpha": {
-            "type": "object",
-            "description": "Drucker-Prager Failure Analysis Alpha",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Alpha",
+            "description": "Drucker-Prager Failure Analysis Alpha.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
           },
           "Beta": {
-            "type": "object",
-            "description": "Drucker-Prager Failure Analysis Beta",
-            "properties": {
-              "Value": {
-                "type": "number"
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Beta",
+            "description": "Drucker-Prager Failure Analysis Beta.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
           }
         },
         "additionalProperties": false
       }
     }
   },
-  "additionalProperties": false,
   "required": [
     "SamplesAnalysisID",
-    "SampleID"
-  ]
+    "SampleID",
+    "Meta"
+  ],
+  "additionalProperties": false
 }

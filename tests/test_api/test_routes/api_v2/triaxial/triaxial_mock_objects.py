@@ -52,11 +52,11 @@ TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "SamplesAnalysisID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,SampleID,BulkDensityAsReceived,TestPorePressure,MassAsReceived,TestSteps",
+    "columns_filter": "SamplesAnalysisID,SampleID,BulkDensityAsReceived,TestPorePressure,MassAsReceived",
     "rows_filter": "SampleID,eq,opendes:master-data--Sample:TriaxialTest_Sample:",
 }
 
-with open(f"{dir_path}/triaxial_test_orient_split.json") as fp:
+with open(f"{dir_path}/triaxial_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -80,7 +80,6 @@ TEST_FILTERED_DATA = {
         "BulkDensityAsReceived",
         "TestPorePressure",
         "MassAsReceived",
-        "TestSteps",
     ],
     "index": [
         0,
@@ -89,58 +88,9 @@ TEST_FILTERED_DATA = {
         [
             "opendes:work-product-component--SamplesAnalysis:TriaxialTest_WPC:",
             "opendes:master-data--Sample:TriaxialTest_Sample:",
-            {
-                "Value": 0.47,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
-            },
-            {
-                "Value": 23,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-            },
-            {
-                "Value": 3.21,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg:",
-            },
-            [
-                {
-                    "Time": {
-                        "Value": 65,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
-                    },
-                    "PorePressure": {
-                        "Value": 32,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "ConfiningPressure": {
-                        "Value": 44,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "AxialStrain": {
-                        "Value": 65,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "RadialStrain": {
-                        "Value": 87,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "AxialStress": {
-                        "Value": 122,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "DifferentialStress": {
-                        "Value": 21,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "AxialPWaveVelocity": {
-                        "Value": 5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m%2Fs:",
-                    },
-                    "AxialSWaveVelocity": {
-                        "Value": 3,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m%2Fs:",
-                    },
-                },
-            ],
+            1.23,
+            1.23,
+            1.23,
         ],
     ],
 }
@@ -162,4 +112,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting Interpretation in index row 0
-EXPECTED_ERROR_REASON = "Data error: 18 columns passed, passed data had 17 columns"
+EXPECTED_ERROR_REASON = "Data error: 19 columns passed, passed data had 18 columns"
