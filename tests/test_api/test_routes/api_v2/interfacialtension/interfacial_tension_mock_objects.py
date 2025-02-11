@@ -52,7 +52,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,TestNumber,SampleID",
-    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:Example_WPC:",
 }
 with open(f"{dir_path}/interfacial_tension_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
@@ -82,9 +82,9 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "test_number",
-            "opendes:master-data--Sample:fluid_sample_test:",
+            "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+            "1A",
+            "opendes:master-data--Sample:Example_Sample:",
         ],
     ],
 }
@@ -106,4 +106,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting InterfacialTensionTestSteps
-EXPECTED_ERROR_REASON = "Data error: 8 columns passed, passed data had 7 columns"
+EXPECTED_ERROR_REASON = "Data error: 9 columns passed, passed data had 8 columns"

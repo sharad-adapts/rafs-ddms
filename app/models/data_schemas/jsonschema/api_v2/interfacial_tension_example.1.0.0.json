@@ -1,45 +1,62 @@
-{
-  "SamplesAnalysisID": "rafsddms:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-  "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
-  "TestNumber": "test_number",
-  "WettingPhase": "opendes:reference-data--WettabilityPhaseType:WettingOleic:",
-  "NonWettingPhase": "opendes:reference-data--WettabilityPhaseType:NonwettingOleic:",
-  "Surfactants": [
-    {
-      "ComponentName": "CH3(CH2)11OSO3Na",
-      "ComponentMassFraction": {
-        "Value": 15,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg"
-      },
-      "ComponentMoleFraction": {
-        "Value": 15,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:Example_WPC:",
+    "SampleID": "opendes:master-data--Sample:Example_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "degree Fahrenheit",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+        "propertyNames": [
+          "TestSteps[*].StepPressure"
+        ]
       }
-    }
-  ],
-  "Remark": "Test was successfully executed this monday on sample #2475",
-  "InterfacialTensionTestSteps": [
-    {
-      "StepNumber": "1",
-      "StepPressure": {
-        "Value": 1500,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psia"
+    ],
+    "TestNumber": "1A",
+    "WettingPhaseTypeID": "opendes:reference-data--WettabilityPhaseType:WettabilityPhaseType:",
+    "NonWettingPhaseTypeID": "opendes:reference-data--WettabilityPhaseType:WettabilityPhaseType:",
+    "Surfactants": [
+      {
+        "SurfactantName": "Surfactant",
+        "MassFraction": 1.23,
+        "MoleFraction": 1.23
+      }
+    ],
+    "Remarks": {
+      "RemarkSequenceNumber": 1,
+      "Remark": "Remark",
+      "RemarkSource": "RemarkSource",
+      "RemarkDate": "2025-01-01"
+    },
+    "TestSteps": [
+      {
+        "StepNumber": "1A",
+        "StepPressure": 1.23,
+        "StepTemperature": 1.23,
+        "WettingPhaseSaturation": 1.23,
+        "SurfactantConcentration": 1.23,
+        "InterfacialTension": 1.23,
+        "Remarks": {
+          "RemarkSequenceNumber": 1,
+          "Remark": "Remark",
+          "RemarkSource": "RemarkSource",
+          "RemarkDate": "2025-01-01"
+        }
       },
-      "StepTemperature": {
-        "Value": 150,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF"
-      },
-      "WettingPhaseSaturation": 150,
-      "SurfactantConcentration": {
-        "Value": 195,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ppm"
-      },
-      "InterfacialTension": {
-        "Value": 1,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:lbf/ft"
-      },
-      "Remark": "There were problems in observing the results of this step, we try again in step 2"
-    }
-  ],
-  "$id": "interfacial_tension_example.1.0.0.json"
-}
+      {
+        "StepNumber": "2A",
+        "StepPressure": 1.23,
+        "StepTemperature": 1.23,
+        "WettingPhaseSaturation": 1.23,
+        "SurfactantConcentration": 1.23,
+        "InterfacialTension": 1.23,
+        "Remarks": {
+          "RemarkSequenceNumber": 1,
+          "Remark": "Remark",
+          "RemarkSource": "RemarkSource",
+          "RemarkDate": "2025-01-01"
+        }
+      }
+    ]
+  }
+]
