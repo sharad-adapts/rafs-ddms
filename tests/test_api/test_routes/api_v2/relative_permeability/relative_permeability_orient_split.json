@@ -51,7 +51,7 @@
         "Saturation":{
           "Value":1.51,
           "FluidTypeID":null,
-          "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+          "SaturationMeasurementLocationID":"opendes:reference-data--SaturationMeasurementLocation:Average:"
         },
         "LastFlowRate":0
       },
@@ -68,7 +68,7 @@
         "Saturation":{
           "Value":0.132,
           "FluidTypeID":null,
-          "SaturationTypeID":"opendes:reference-data--SaturationType:EndFace:"
+          "SaturationMeasurementLocationID":"opendes:reference-data--SaturationMeasurementLocation:EndFace:"
         }
       },
       0,
@@ -129,7 +129,7 @@
           "Saturation":{
             "Value":0,
             "FluidTypeID":null,
-            "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+            "SaturationMeasurementLocationID":"opendes:reference-data--SaturationMeasurementLocation:Average:"
           },
           "RelativePermeability":[
             {
@@ -167,7 +167,7 @@
           "Saturation":{
             "Value":0.717,
             "FluidTypeID":null,
-            "SaturationTypeID":"opendes:reference-data--SaturationType:Average:"
+            "SaturationMeasurementLocationID":"opendes:reference-data--SaturationMeasurementLocation:Average:"
           },
           "RelativePermeability":[
             {
