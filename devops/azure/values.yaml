@@ -13,6 +13,9 @@ azure:
     - key: redis-pass
       obj: redis-password
 
+podDisruptionBudget:
+  enabled: false
+
 configuration:
 - service: rafs-ddms
   container:
