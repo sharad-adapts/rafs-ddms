@@ -157,10 +157,6 @@
             {
                 "PlayID": "{data_partition_id}:master-data--Play:SomeUniquePlayID:",
                 "GeoTypeID": "{data_partition_id}:reference-data--PlayType:CarbonCaptureAndStorage:"
-            },
-            {
-                "ProspectID": "{data_partition_id}:master-data--Prospect:SomeUniqueProspectID:",
-                "GeoTypeID": "{data_partition_id}:reference-data--ProspectType:Structural.Anticline:"
             }
         ],
         "SpatialLocation": {

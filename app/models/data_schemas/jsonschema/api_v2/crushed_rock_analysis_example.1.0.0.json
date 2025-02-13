@@ -1,40 +1,51 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:SamplesAnalysis_Example:",
-  "SampleID": "opendes:master-data--Sample:Sample_Example:",
-  "GrainDensity": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-  },
-  "BulkDensity": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-  },
-  "Measurements": [
-    {
-      "SamplePreparation": "opendes:reference-data--SamplePreparationMethod:AsReceived:",
-      "Permeability": {
-        "Value": 1.0,
-        "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Probe:",
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:SamplesAnalysis_Example:",
+    "SampleID": "opendes:master-data--Sample:Sample_Example:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "density",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+        "propertyNames": [
+          "GrainDensity",
+          "BulkDensity"
+        ]
       },
-      "Porosity": {
-        "Value": 1.0,
-        "PorosityType": "opendes:reference-data--PorosityMeasurementType:Other:",
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-      },
-      "GasSaturation": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-      },
-      "OilSaturation": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-      },
-      "WaterSaturation": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+      {
+        "kind": "Unit",
+        "name": "volume per volume",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:mol%2Fmol:",
+        "propertyNames": [
+          "Permeability",
+          "Porosity",
+          "GasSaturation",
+          "OilSaturation",
+          "WaterSaturation"
+        ]
       }
-    }
-  ],
-  "$id": "crushed_rock_analysis_example.1.0.0.json"
-}
+    ],
+    "GrainDensity": {
+      "Value": 1
+    },
+    "BulkDensity": {
+      "Value": 1
+    },
+    "Measurements": [
+      {
+        "SamplePreparationMethodID": "opendes:reference-data--SamplePreparationMethod:AsReceived:",
+        "Permeability": {
+          "Value": 1,
+          "PermeabilityMeasurementTypeID": "opendes:reference-data--PermeabilityMeasurementType:Probe:"
+        },
+        "Porosity": {
+          "Value": 2,
+          "PorosityMeasurementTypeID": "opendes:reference-data--PorosityMeasurementType:Other:"
+        },
+        "GasSaturation": 3,
+        "OilSaturation": 4,
+        "WaterSaturation": 5
+      }
+    ]
+  }
+]

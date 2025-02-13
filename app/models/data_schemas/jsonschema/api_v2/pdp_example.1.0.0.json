@@ -1,37 +1,50 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:PDP_SamplesAnalysis:",
-  "SampleID": "osdu:master-data--Sample:dd76cf6c-226f-5636-ad1b-1ca0f8249c787845c8",
-  "PDPSteps": [
-    {
-      "NetConfiningStress": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:PDP_SamplesAnalysis:",
+    "SampleID": "opendes:master-data--Sample:PDP_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "euclid",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:Euc:",
+        "propertyNames": [
+          "GammaDrawdown",
+          "GammaBuildUp",
+          "Log10GammaDrawdown",
+          "Log10GammaBuildUp"
+        ]
       },
-      "Permeability": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:"
+      {
+        "kind": "Unit",
+        "name": "pound-force per square inch",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:psi:",
+        "propertyNames": [
+          "PDPSteps[*].NetConfiningStress"
+        ]
+      },
+      {
+        "kind": "Unit",
+        "name": "millidarcy",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:mD:",
+        "propertyNames": [
+          "PDPSteps[*].Permeability"
+        ]
       }
-    }
-  ],
-  "GammaDrawdown": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "GammaBuildUp": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "Log10GammaDrawdown": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "Log10GammaBuildUp": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "Formation": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "$id": "pdp_example.1.0.0.json"
-}
+    ],
+    "PDPSteps": [
+      {
+        "NetConfiningStress": 1.23,
+        "Permeability": 1.23
+      },
+      {
+        "NetConfiningStress": 1.23,
+        "Permeability": 1.23
+      }
+    ],
+    "GammaDrawdown": 1.23,
+    "GammaBuildUp": 1.23,
+    "Log10GammaDrawdown": 1.23,
+    "Log10GammaBuildUp": 1.23,
+    "Formation": "Formation"
+  }
+]

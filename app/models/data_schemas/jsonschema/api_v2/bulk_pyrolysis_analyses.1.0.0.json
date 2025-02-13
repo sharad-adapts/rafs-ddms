@@ -1,769 +1,629 @@
 {
+  "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
   "$id": "bulk_pyrolysis_analyses.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "BulkPyrolysisDataSchema",
-  "description": "BulkPyrolysisDataSchema",
+  "title": "Bulk Pyrolysis Data Schema",
+  "description": "Pyrolysis is the thermal decomposition of materials at elevated temperatures, often in an inert atmosphere.  Pyrolysis bulk methods include HAWK and RockEval. The goal is to screen rocks for organic richness. Typical results include S1, S2, S3, and Tmax measurements. The output could also include total organic carbon (TOC).",
   "type": "object",
   "properties": {
     "SamplesAnalysisID": {
       "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "The OSDU Identifier for this SamplesAnalysis.",
       "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "SamplesAnalysis",
-          "GroupType": "work-product-component"
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
         }
       ]
     },
     "SampleID": {
       "type": "string",
+      "title": "Sample ID",
+      "description": "The OSDU Identifier for the Sample associated with this analysis.",
       "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "Sample",
-          "GroupType": "master-data"
+          "GroupType": "master-data",
+          "EntityType": "Sample"
         }
       ]
     },
-    "BulkPyrolysisAnalysis": {
-      "title": "Bulk Pyrolysis Analysis",
-      "description": "",
+    "Meta": {
       "type": "array",
+      "title": "Meta",
+      "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
       "items": {
-        "type": "object",
-        "properties": {
-          "Prep": {
-            "type": "string",
-            "description": "Sample preparation method",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SamplesPreparationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-            "x-osdu-relationship": [
-              {
-                "EntityType": "SamplesPreparationMethod",
-                "GroupType": "reference-data"
+        "x-osdu-license": "Copyright 2022, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractMetaItem.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractMetaItem:1.0.0",
+        "title": "Frame of Reference Meta Data Item",
+        "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+        "oneOf": [
+          {
+            "title": "FrameOfReferenceUOM",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "UOM Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, 'Unit' for FrameOfReferenceUOM.",
+                "const": "Unit"
+              },
+              "name": {
+                "title": "UOM Unit Symbol",
+                "description": "The unit symbol or name of the unit.",
+                "type": "string",
+                "example": "ft[US]"
+              },
+              "persistableReference": {
+                "title": "UOM Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the Unit.",
+                "type": "string",
+                "example": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}"
+              },
+              "unitOfMeasureID": {
+                "description": "SRN to unit of measure reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--UnitOfMeasure:ftUS:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "UnitOfMeasure"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "UOM Property Names",
+                "description": "The list of property names, to which this meta data item provides Unit context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "HorizontalDeflection.EastWest",
+                  "HorizontalDeflection.NorthSouth"
+                ],
+                "items": {
+                  "type": "string"
+                }
               }
+            },
+            "required": [
+              "kind"
             ]
           },
-          "TOC": {
-            "type": "array",
-            "description": "Total organic carbon content",
-            "items": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "BulkPyrolysisMethod",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "S1": {
+          {
+            "title": "FrameOfReferenceCRS",
             "type": "object",
-            "description": "Pyrolysis S1. Free hydrocarbons generated at lower temperatures",
             "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
+              "kind": {
+                "title": "CRS Reference Kind",
                 "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "description": "The kind of reference, constant 'CRS' for FrameOfReferenceCRS.",
+                "const": "CRS"
+              },
+              "name": {
+                "title": "CRS Name",
+                "description": "The name of the CRS.",
+                "type": "string",
+                "example": "WGS 84 / UTM zone 15N"
+              },
+              "persistableReference": {
+                "title": "CRS Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the CRS.",
+                "type": "string",
+                "example": "{\"authCode\":{\"auth\":\"EPSG\",\"code\":\"32615\"},\"name\":\"WGS_1984_UTM_Zone_15N\",\"type\":\"LBC\",\"ver\":\"PE_10_9_1\",\"wkt\":\"PROJCS[\\\"WGS_1984_UTM_Zone_15N\\\",GEOGCS[\\\"GCS_WGS_1984\\\",DATUM[\\\"D_WGS_1984\\\",SPHEROID[\\\"WGS_1984\\\",6378137.0,298.257223563]],PRIMEM[\\\"Greenwich\\\",0.0],UNIT[\\\"Degree\\\",0.0174532925199433]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"False_Easting\\\",500000.0],PARAMETER[\\\"False_Northing\\\",0.0],PARAMETER[\\\"Central_Meridian\\\",-93.0],PARAMETER[\\\"Scale_Factor\\\",0.9996],PARAMETER[\\\"Latitude_Of_Origin\\\",0.0],UNIT[\\\"Meter\\\",1.0],AUTHORITY[\\\"EPSG\\\",32615]]\"}"
+              },
+              "coordinateReferenceSystemID": {
+                "description": "SRN to CRS reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CoordinateReferenceSystem:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--CoordinateReferenceSystem:Projected:EPSG::32615:",
                 "x-osdu-relationship": [
                   {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
+                    "GroupType": "reference-data",
+                    "EntityType": "CoordinateReferenceSystem"
                   }
                 ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S2": {
-            "type": "object",
-            "description": "Pyrolysis S2. Hydrocarbon potential generated at higher temperatures",
-            "properties": {
-              "Value": {
-                "type": "number"
               },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S3Org": {
-            "type": "object",
-            "description": "Pyrolysis S3, carbon dioxide generated from pyrolsis below 400degC. Thought to relate to organic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S3InOrg": {
-            "type": "object",
-            "description": "Pyrolysis S3, carbon dioxide generated from pyrolsis below 400degC. Thought to relate to inorganic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "TMAX": {
-            "type": "object",
-            "description": "The temperature at which the maximum rate of hydrocarbon generation occurs in a kerogen sample during pyrolysis analysis",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "RawTMAX": {
-            "type": "object",
-            "description": "The temperature at the maximum S2 value",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S5": {
-            "type": "object",
-            "description": "Pyrolysis S5, carbon dioxide generated from oxidation above 650degC. Thought to relate to inorganic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "TotalSulfurContent": {
-            "type": "array",
-            "description": "Total Sulfur content",
-            "items": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "BulkPyrolysisMethod",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "S3COOrg": {
-            "type": "object",
-            "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to organic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S3COInOrg": {
-            "type": "object",
-            "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to inorganic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S4CO": {
-            "type": "object",
-            "description": "Pyrolysis S4CO, carbon monoxide generated from oxidation below 650degC. Thought to relate to organic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "S4CO2": {
-            "type": "object",
-            "description": "Pyrolysis S4CO2, carbon dioxide generated from oxidation below 650degC. Thought to relate to organic carbon",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "PyrolysisCarbon": {
-            "type": "object",
-            "description": "Pyrolysable organic carbon content",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "ResidualCarbon": {
-            "type": "object",
-            "description": "Residual organic carbon content",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "MineralCarbon": {
-            "type": "object",
-            "description": "Mineral carbon content",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
-          },
-          "MultiHeatingPeaks": {
-            "type": "object",
-            "description": "Mineral carbon content",
-            "properties": {
-              "q0": {
-                "type": "object",
-                "description": "multi-heating peak 0",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  },
-                  "Method": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "BulkPyrolysisMethod",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "q1": {
-                "type": "object",
-                "description": "multi-heating peak 1",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  },
-                  "Method": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "BulkPyrolysisMethod",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "q2": {
-                "type": "object",
-                "description": "multi-heating peak 2",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  },
-                  "Method": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "BulkPyrolysisMethod",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "q3": {
-                "type": "object",
-                "description": "multi-heating peak 3",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  },
-                  "Method": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "BulkPyrolysisMethod",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "q4": {
-                "type": "object",
-                "description": "multi-heating peak 4",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  },
-                  "Method": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "BulkPyrolysisMethod",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              }
-            },
-            "additionalProperties": false
-          },
-          "CalculatedProperties": {
-            "type": "object",
-            "properties": {
-              "HI": {
-                "type": "object",
-                "description": "Hydrogen Index: S2/TOC",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "OI": {
-                "type": "object",
-                "description": "Oxygen Index: S3/TOC",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "PI": {
-                "type": "object",
-                "description": "Production Index: S1/(S1+S2))",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "S1TOCRatio": {
-                "type": "object",
-                "description": "Ratio of pyrolysis S1 to the total organic carbon %",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "PP": {
-                "type": "object",
-                "description": "PP (Petroleum Potential): S1+S2",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "S2S3Ratio": {
-                "type": "object",
-                "description": "Ratio Pyrolysis S2/S3",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
-              },
-              "VRE": {
+              "propertyNames": {
+                "title": "CRS Property Names",
+                "description": "The list of property names, to which this meta data item provides CRS context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
                 "type": "array",
-                "description": "Vitrinite Reflectance Equivalent (VRE) using Tmax",
+                "example": [
+                  "KickOffPosition.X",
+                  "KickOffPosition.Y"
+                ],
                 "items": {
-                  "type": "object",
-                  "properties": {
-                    "Value": {
-                      "type": "number"
-                    },
-                    "UnitOfMeasure": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                      "x-osdu-relationship": [
-                        {
-                          "EntityType": "UnitOfMeasure",
-                          "GroupType": "reference-data"
-                        }
-                      ]
-                    },
-                    "Method": {
-                      "type": "string",
-                      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                      "x-osdu-relationship": [
-                        {
-                          "EntityType": "BulkPyrolysisMethod",
-                          "GroupType": "reference-data"
-                        }
-                      ]
-                    }
-                  },
-                  "additionalProperties": false
+                  "type": "string"
                 }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceDateTime",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "DateTime Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'DateTime', for FrameOfReferenceDateTime.",
+                "const": "DateTime"
               },
-              "TransformationRatio": {
-                "type": "object",
-                "description": "Calculated transformation ratio using the calculated VRE, assuming organofacies B",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
+              "name": {
+                "title": "DateTime Name",
+                "description": "The name of the DateTime format and reference.",
+                "type": "string",
+                "example": "UTC"
               },
-              "TOCOriginal": {
-                "type": "object",
-                "description": "TOC original (TOCo) back-calculated using present day TOC and a calculated VRE, to account for maturity",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
-                  }
-                },
-                "additionalProperties": false
+              "persistableReference": {
+                "title": "DateTime Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying DateTime reference.",
+                "type": "string",
+                "example": "{\"format\":\"yyyy-MM-ddTHH:mm:ssZ\",\"timeZone\":\"UTC\",\"type\":\"DTM\"}"
               },
-              "HIOriginal": {
-                "type": "object",
-                "description": "HI original (HIo) back-calculated using present day TOC and a calculated VRE, to account for maturity",
-                "properties": {
-                  "Value": {
-                    "type": "number"
-                  },
-                  "UnitOfMeasure": {
-                    "type": "string",
-                    "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                    "x-osdu-relationship": [
-                      {
-                        "EntityType": "UnitOfMeasure",
-                        "GroupType": "reference-data"
-                      }
-                    ]
+              "propertyNames": {
+                "title": "DateTime Property Names",
+                "description": "The list of property names, to which this meta data item provides DateTime context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Acquisition.StartTime",
+                  "Acquisition.EndTime"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceAzimuthReference",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "AzimuthReference Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'AzimuthReference', for FrameOfReferenceAzimuthReference.",
+                "const": "AzimuthReference"
+              },
+              "name": {
+                "title": "AzimuthReference Name",
+                "description": "The name of the CRS or the symbol/name of the unit.",
+                "type": "string",
+                "example": "TrueNorth"
+              },
+              "persistableReference": {
+                "title": "AzimuthReference Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying AzimuthReference.",
+                "type": "string",
+                "example": "{\"code\":\"TrueNorth\",\"type\":\"AZR\"}"
+              },
+              "propertyNames": {
+                "title": "AzimuthReference Property Names",
+                "description": "The list of property names, to which this meta data item provides AzimuthReference context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Bearing"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          }
+        ],
+        "x-osdu-inheriting-from-kind": []
+      }
+    },
+    "SamplePreparationID": {
+      "type": "string",
+      "title": "Sample Preparation ID",
+      "description": "Sample preparation method",
+      "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SamplePreparationMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+      "x-osdu-relationship": [
+        {
+          "GroupType": "reference-data",
+          "EntityType": "SamplePreparationMethod"
+        }
+      ]
+    },
+    "TOC": {
+      "type": "array",
+      "title": "Total Organic Carbon",
+      "description": "Total organic carbon content.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Total Organic Carbon",
+        "description": "Total organic carbon content",
+        "properties": {
+          "Value": {
+            "type": "number",
+            "title": "Value",
+            "x-osdu-frame-of-reference": "UOM:mass per mass"
+          },
+          "BulkPyrolysisMethodID": {
+            "type": "string",
+            "title": "Bulk Pyrolysis Method ID",
+            "description": "The method used to determine the Total Organic Carbon (TOC) content in the sample, indicating the quantity of organic material present.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "BulkPyrolysisMethod"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "S1": {
+      "type": "number",
+      "title": "S1",
+      "description": "The amount of free hydrocarbons (oil and gas) present in a rock sample before it undergoes pyrolysis--volatilized at a moderate temperature and measured as the S1 peak.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S2": {
+      "type": "number",
+      "title": "S2",
+      "description": "In Rock-Eval pyrolysis, S2 measures the hydrocarbons produced when the rock’s organic matter, called kerogen, is heated and breaks down. This process happens at higher temperatures, releasing hydrocarbons that weren’t initially present in the rock. So, S2 shows how much more hydrocarbon the rock can still generate.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S3": {
+      "type": "number",
+      "title": "S3",
+      "description": "In Rock-Eval pyrolysis, S3 measures the amount of carbon dioxide (CO₂) released when the rock’s organic matter is heated. This CO₂ comes from the breakdown of kerogen and other organic materials in the rock. Essentially, S3 indicates the amount of oxygen-rich organic matter present in the rock.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S3Org": {
+      "type": "number",
+      "title": "S3 Organic",
+      "description": "S3 Organic: This helps you specifically assess the amount of CO₂ from organic matter, which is crucial for calculating the Oxygen Index (OI) and understanding the type and maturity of the organic material.\n\nThis refers to the CO₂ released from the decomposition of organic matter, such as kerogen, within the rock. It typically occurs at temperatures between 300 and 400°C12.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S3InOrg": {
+      "type": "number",
+      "title": "S3 Inorganic",
+      "description": "S3 Inorganic quantifies the CO₂ from carbonate minerals, providing insights into the mineralogical composition of the rock.\n\nThis refers to the CO₂ released from the decomposition of carbonate minerals, like calcite or dolomite, within the rock. This can happen at higher temperatures, often above 400°C23.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "TMAX": {
+      "type": "number",
+      "title": "Temperature Maximum",
+      "description": "This accounts for any adjustments or calibrations needed to correct for factors like sample heterogeneity, weight, or the presence of contaminants. Tmax offers a more accurate representation of the thermal maturity of the organic matter.",
+      "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
+    },
+    "RawTMAX": {
+      "type": "number",
+      "title": "Raw Temperature Maximum",
+      "description": "Raw Tmax in Rock-Eval pyrolysis refers to the initial temperature at which the maximum rate of hydrocarbon generation occurs from the thermal cracking of kerogen, as observed directly from the pyrolysis data without any corrections or adjustments12. This raw value is crucial for assessing the thermal maturity of the organic matter in the rock sample.",
+      "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
+    },
+    "S5": {
+      "type": "number",
+      "title": "S5",
+      "description": "Pyrolysis S5, carbon dioxide generated from oxidation above 650degC. Thought to relate to inorganic carbon",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S0": {
+      "type": "number",
+      "title": "S0",
+      "description": "In older Rock-Eval data, the S0 peak represents the amount of very light hydrocarbons (typically C1-C5) that are volatilized at the beginning of the pyrolysis process, before the main S1 peak12. These light hydrocarbons are often referred to as “free hydrocarbons” and can provide additional information about the presence of very light oil or gas in the rock sample2.\n\nThe S0 peak is less commonly used in modern Rock-Eval analysis, as advancements in technology and methodology have led to more precise measurements and interpretations of hydrocarbon content. However, it can still be valuable for understanding the initial hydrocarbon content in older datasets.",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S3COOrg": {
+      "type": "number",
+      "title": "S3CO Organic",
+      "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to organic carbon",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S3COInOrg": {
+      "type": "number",
+      "title": "S3CO Inorganic",
+      "description": "Pyrolysis S3CO, carbon monoxide generated from pyrolsis below 550degC. Thought to relate to inorganic carbon",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S4CO": {
+      "type": "number",
+      "title": "S4CO",
+      "description": "Pyrolysis S4CO, carbon monoxide generated from oxidation below 650degC. Thought to relate to organic carbon",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "S4CO2": {
+      "type": "number",
+      "title": "S4CO2",
+      "description": "Pyrolysis S4CO2, carbon dioxide generated from oxidation below 650degC. Thought to relate to organic carbon",
+      "x-osdu-frame-of-reference": "UOM:mass per mass"
+    },
+    "PyrolysisCarbon": {
+      "type": "number",
+      "title": "Pyrolysis Carbon",
+      "description": "Pyrolysable organic carbon content of the sample.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "ResidualCarbon": {
+      "type": "number",
+      "title": "Residual Carbon",
+      "description": "Residual organic carbon content of the sample.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "MineralCarbon": {
+      "type": "number",
+      "title": "Mineral Carbon",
+      "description": "Mineral carbon content of the sample.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless"
+    },
+    "MultiHeatingPeaks": {
+      "type": "object",
+      "title": "Multi Heating Peaks",
+      "description": "Records the peak hydrocarbon yields during multple stages of pyrolysis.",
+      "x-osdu-frame-of-reference": "UOM:dimensionless",
+      "properties": {
+        "q0": {
+          "type": "object",
+          "title": "q0",
+          "description": "Multi-heating peak 0, the initial hydrocarbon yield in the pyrolysis process.",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:energy per time"
+            },
+            "Method": {
+              "type": "string",
+              "title": "Method",
+              "description": "The method used to determine the q0 parameter, which represents the initial hydrocarbon yield in the pyrolysis process.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "GroupType": "reference-data",
+                  "EntityType": "BulkPyrolysisMethod"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "q1": {
+          "type": "object",
+          "title": "q1",
+          "description": "Multi-heating peak 1, the amount of hydrocarbons released during the initial stages of pyrolysis.",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:energy per time"
+            },
+            "Method": {
+              "type": "string",
+              "title": "Method",
+              "description": "The method used to determine the q1 parameter, reflecting the amount of hydrocarbons released during the initial stages of pyrolysis.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "GroupType": "reference-data",
+                  "EntityType": "BulkPyrolysisMethod"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "q2": {
+          "type": "object",
+          "title": "q2",
+          "description": "Multi-heating peak 2, the quantity of hydrocarbons released at intermediate pyrolysis temperatures.",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:energy per time"
+            },
+            "Method": {
+              "type": "string",
+              "title": "Method",
+              "description": "The method used to determine the q2 parameter, indicating the quantity of hydrocarbons released at intermediate pyrolysis temperatures.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "GroupType": "reference-data",
+                  "EntityType": "BulkPyrolysisMethod"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "q3": {
+          "type": "object",
+          "title": "q3",
+          "description": "Multi-heating peak 3 - the hydrocarbon yield during the later stages of pyrolysis.",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:energy per time"
+            },
+            "Method": {
+              "type": "string",
+              "title": "Method",
+              "description": "The method used to determine the q3 parameter, related to the hydrocarbon yield during the later stages of pyrolysis.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "GroupType": "reference-data",
+                  "EntityType": "BulkPyrolysisMethod"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "q4": {
+          "type": "object",
+          "title": "q4",
+          "description": "Multi-heating peak 4 - the hydrocarbon release at high temperatures during the pyrolysis process.",
+          "properties": {
+            "Value": {
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:energy per time"
+            },
+            "Method": {
+              "type": "string",
+              "title": "Method",
+              "description": "The method used to determine the q4 parameter, which reflects the hydrocarbon release at high temperatures during the pyrolysis process.",
+              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+              "x-osdu-relationship": [
+                {
+                  "GroupType": "reference-data",
+                  "EntityType": "BulkPyrolysisMethod"
+                }
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "CalculatedProperties": {
+      "type": "object",
+      "title": "Calculated Properties",
+      "description": "Properties derived from the pyrolysis data, such as S1, S2, S3, Tmax, and other calculated values indicating the organic richness and thermal characteristics of the sample.",
+      "properties": {
+        "HI": {
+          "type": "number",
+          "title": "Hydrogen Index",
+          "description": "Hydrogen Index: S2/TOC",
+          "x-osdu-frame-of-reference": "UOM:mass per mass"
+        },
+        "OI": {
+          "type": "number",
+          "title": "Oxygen Index",
+          "description": "Oxygen Index: S3/TOC",
+          "x-osdu-frame-of-reference": "UOM:mass per mass"
+        },
+        "PI": {
+          "type": "number",
+          "title": "Production Index",
+          "description": "Production Index: S1/(S1+S2))",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
+        },
+        "S1TOCRatio": {
+          "type": "number",
+          "title": "S1 TOC Ratio",
+          "description": "Ratio of pyrolysis S1 to the total organic carbon %\n\nAlso known as the oil saturation index (OSI)",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
+        },
+        "PP": {
+          "type": "number",
+          "title": "Petroleum Potential",
+          "description": "PP (Petroleum Potential): S1+S2",
+          "x-osdu-frame-of-reference": "UOM:mass per mass"
+        },
+        "S2S3Ratio": {
+          "type": "number",
+          "title": "S2S3 Ratio",
+          "description": "Ratio Pyrolysis S2/S3",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
+        },
+        "VRE": {
+          "type": "array",
+          "title": "Vitrinite Reflectance Equivalent",
+          "description": "Vitrinite Reflectance Equivalent (VRE) using Tmax",
+          "items": {
+            "type": "object",
+            "title": "Vitrinite Reflectance Equivalent",
+            "description": "Vitrinite Reflectance Equivalent (VRE) using maximum temperature (TMAX)",
+            "properties": {
+              "Value": {
+                "type": "number",
+                "title": "Value",
+                "x-osdu-frame-of-reference": "UOM:dimensionless"
+              },
+              "BulkPyrolysisMethodID": {
+                "type": "string",
+                "title": "Bulk Pyrolysis Method ID",
+                "description": "The method used to measure the Vitrinite Reflectance Equivalent (VRE), providing information about the thermal maturity of the sample.",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "BulkPyrolysisMethod"
                   }
-                },
-                "additionalProperties": false
+                ]
               }
             },
             "additionalProperties": false
+          }
+        },
+        "TransformationRatio": {
+          "type": "number",
+          "title": "Transformation Ratio",
+          "description": "Calculated transformation ratio using the calculated VRE, assuming organofacies B",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
+        },
+        "TOCOriginal": {
+          "type": "number",
+          "title": "TOC Original",
+          "description": "TOC original (TOCo) back-calculated using present day TOC and a calculated VRE, to account for maturity",
+          "x-osdu-frame-of-reference": "UOM:mass per mass"
+        },
+        "HIOriginal": {
+          "type": "number",
+          "title": "Hydrogen Index Original",
+          "description": "HI original (HIo) back-calculated using present day TOC and a calculated VRE, to account for maturity.",
+          "x-osdu-frame-of-reference": "UOM:mass per mass"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TotalSulfurContent": {
+      "type": "array",
+      "title": "Total Sulfur Content",
+      "description": "The total sulfur content in the sample, measured during the pyrolysis test, providing insights into sulfur-rich organic compounds.\n\nHere’s how sulfur measurements are integrated into Rock-Eval analysis, particularly with the Rock-Eval 7 Sulfur analyzer:\nSample Preparation:\nA small amount of rock sample (typically less than 100 mg) is prepared for analysis.\nPyrolysis Phase:\nThe sample is heated in an inert atmosphere (usually helium or nitrogen) to volatilize hydrocarbons and organic sulfur compounds. This phase measures the S1 and S2 peaks, as well as the initial sulfur content.\nOxidation Phase:\nAfter pyrolysis, the sample undergoes an oxidation phase where it is heated in the presence of oxygen. This phase measures the remaining carbon and sulfur compounds, including inorganic sulfur.\nDetection:\nThe gases released during both phases are analyzed using detectors calibrated for sulfur dioxide (SO₂), carbon monoxide (CO), and carbon dioxide (CO₂). An infrared detector is commonly used for SO₂ detection12.\nData Interpretation:\nThe SO₂ signal is analyzed to differentiate between various forms of sulfur:\nOrganic Sulfur: Released during the pyrolysis phase.\nInorganic Sulfur: Released during the oxidation phase, including sulfur from pyrite and sulfates.\nThe data can be used to quantify the total sulfur content and distinguish between different sulfur sources.\nApplications:\nUnderstanding sulfur content is crucial for evaluating the quality of hydrocarbons and assessing the potential for sour gas production.\nIt also helps in identifying the presence of sulfur-bearing minerals, which can impact reservoir quality and production strategies12.\nBy integrating sulfur measurements into Rock-Eval analysis, you gain a comprehensive understanding of both the organic and inorganic sulfur content in your rock samples, enhancing your ability to evaluate their hydrocarbon potential and associated risks.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "type": "object",
+        "title": "Total Sulfur Content",
+        "description": "The total sulfur content in the sample, measured during the pyrolysis test, providing insights into sulfur-rich organic compounds.",
+        "properties": {
+          "Value": {
+            "type": "number",
+            "title": "Value",
+            "x-osdu-frame-of-reference": "UOM:mass per mass"
+          },
+          "BulkPyrolysisMethodID": {
+            "type": "string",
+            "title": "Bulk Pyrolysis Method ID",
+            "description": "The method used to measure the total sulfur content, which affects the accuracy and interpretation of the sulfur data.",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-BulkPyrolysisMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "x-osdu-relationship": [
+              {
+                "GroupType": "reference-data",
+                "EntityType": "BulkPyrolysisMethod"
+              }
+            ]
           }
         },
         "additionalProperties": false
@@ -772,7 +632,8 @@
   },
   "required": [
     "SamplesAnalysisID",
-    "SampleID"
+    "SampleID",
+    "Meta"
   ],
   "additionalProperties": false
 }

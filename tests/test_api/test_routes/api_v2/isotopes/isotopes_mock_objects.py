@@ -57,7 +57,7 @@ TEST_PARAMS_FILTERS = {
     "rows_filter": "SampleID,eq,opendes:master-data--Sample:IsotopeAnalysis_Sample:",
 }
 
-with open(f"{dir_path}/isotope_analysis_orient_split.json") as fp:
+with open(f"{dir_path}/isotopes_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -107,4 +107,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting IsotopeAnalysisData in index row 0
-EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

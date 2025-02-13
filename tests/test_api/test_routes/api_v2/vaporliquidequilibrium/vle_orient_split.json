@@ -1,144 +1,170 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "TestNumber",
-        "TestTemperature",
-        "TestPressure",
-        "GasSolventAdded",
-        "MixtureVolume",
-        "MixtureGasSolventMoleFraction",
-        "MixtureGOR",
-        "MixturePsatTestTemperature",
-        "MixtureRelativeVolumeRelativeToPsat",
-        "AtmosphericFlashTestReference",
-        "InjectedGasAdded",
-        "CumulativeGasAdded",
-        "VaporPhaseVolume",
-        "VaporPhaseViscosity",
-        "VaporPhaseDensity",
-        "LiquidPhaseVolume",
-        "LiquidPhaseDensity",
-        "VaporComposition",
-        "VaporTransportTestReference",
-        "LiquidTransportTestReference",
-        "LiquidComposition",
-        "Remark"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "opendes:master-data--Sample:fluid_sample_test:",
-            "test_number",
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "TestNumber",
+    "TestTemperature",
+    "TestPressure",
+    "GasSolventAdded",
+    "MixtureVolume",
+    "MixtureGasSolventMoleFraction",
+    "MixtureGOR",
+    "MixturePsatTestTemperature",
+    "MixtureRelativeVolumeRelativeToPsat",
+    "AtmosphericFlashTestReference",
+    "InjectedGasAdded",
+    "CumulativeGasAdded",
+    "VaporPhaseVolume",
+    "VaporPhaseViscosity",
+    "VaporPhaseDensity",
+    "LiquidPhaseVolume",
+    "LiquidPhaseDensity",
+    "VaporComposition",
+    "VaporTransportTestReference",
+    "LiquidTransportTestReference",
+    "LiquidComposition"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+      "opendes:master-data--Sample:fluid_sample_test:",
+      [
+        {
+          "kind":"Unit",
+          "name":"degree Fahrenheit",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "propertyNames":[
+            "TestTemperature",
+            "MixturePsatTestTemperature"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"pound-force per square inch",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:psi:",
+          "propertyNames":[
+            "TestPressure"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"cubic metre per cubic metre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:m3%2Fm3:",
+          "propertyNames":[
+            "GasSolventAdded",
+            "MixtureGOR",
+            "MixtureRelativeVolumeRelativeToPsat"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"cubic foot",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:ft3:",
+          "propertyNames":[
+            "MixtureVolume",
+            "InjectedGasAdded",
+            "CumulativeGasAdded",
+            "VaporPhaseVolume",
+            "LiquidPhaseVolume"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"mole per mole",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:mol%2Fmol:",
+          "propertyNames":[
+            "MixtureGasSolventMoleFraction"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"poise",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:P:",
+          "propertyNames":[
+            "VaporPhaseViscosity"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"pound-mass per cubic foot",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:lbm%2Fft3:",
+          "propertyNames":[
+            "VaporPhaseDensity",
+            "LiquidPhaseDensity"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"percent [molar basis]",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:",
+          "propertyNames":[
+            "VaporComposition[*].MoleFraction",
+            "LiquidComposition[*].MoleFraction"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"percent [mass basis]",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:",
+          "propertyNames":[
+            "VaporComposition[*].MassFraction",
+            "LiquidComposition[*].MassFraction"
+          ]
+        }
+      ],
+      "test_number",
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      "CCE_157",
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      [
+        {
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:H2S:",
+          "MoleFraction":1.23,
+          "MassFraction":1.23,
+          "Remarks":[
             {
-                "Value": 155,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
+              "RemarkSequenceNumber":1,
+              "Remark":"Remark",
+              "RemarkSource":"Remark Source",
+              "RemarkDate":"2025-01-01"
+            }
+          ]
+        }
+      ],
+      "Transport Test #55",
+      "Transport Test #55",
+      [
+        {
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
+          "MoleFraction":1.23,
+          "MassFraction":1.23,
+          "Remarks":[
             {
-                "Value": 15000,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-            },
-            {
-                "Value": 0.005,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m3%2Fm3:"
-            },
-            {
-                "Value": 0.795,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm3:"
-            },
-            {
-                "Value": 0.005,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mol%2Fmol:"
-            },
-            {
-                "Value": 0.005,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m3%2Fm3:"
-            },
-            {
-                "Value": 188,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-            },
-            {
-                "Value": 0.067,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m3%2Fm3:"
-            },
-            "CCE_157",
-            "CO2",
-            "CH4",
-            {
-                "Value": 0.88,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m3%2Fm3:"
-            },
-            {
-                "Value": 0.0008,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:P:"
-            },
-            {
-                "Value": 0.00678,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
-            },
-            {
-                "Value": 0.035,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m3%2Fm3:"
-            },
-            {
-                "Value": 0.0985,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cP:"
-            },
-            [
-                {
-                    "ComponentName": "h2s",
-                    "MoleFraction": {
-                        "Value": 1.65,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "MassFraction": {
-                        "Value": 0.55,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    }
-                },
-                {
-                    "ComponentName": "n1",
-                    "MoleFraction": {
-                        "Value": 79.42,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "MassFraction": {
-                        "Value": 0.55,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    }
-                }
-            ],
-            "Transport Test #55",
-            "Transport Test #55",
-            [
-                {
-                    "ComponentName": "h2s",
-                    "MoleFraction": {
-                        "Value": 1.65,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "MassFraction": {
-                        "Value": 0.55,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    }
-                },
-                {
-                    "ComponentName": "n1",
-                    "MoleFraction": {
-                        "Value": 79.42,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmolar%5D:"
-                    },
-                    "MassFraction": {
-                        "Value": 0.65,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25%5Bmass%5D:"
-                    }
-                }
-            ],
-            "Test Executed Successfully"
-        ]
+              "RemarkSequenceNumber":1.23,
+              "Remark":"Remark",
+              "RemarkSource":"Remark Source",
+              "RemarkDate":"2025-01-01"
+            }
+          ]
+        }
+      ]
     ]
+  ]
 }

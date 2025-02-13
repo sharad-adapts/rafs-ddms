@@ -54,7 +54,7 @@ TEST_PARAMS_AGGREGATION = {
 }
 TEST_PARAMS_FILTERS = {
     "columns_filter": "SamplesAnalysisID,SampleID",
-    "rows_filter": "SampleID,eq,opendes:master-data--Sample:Sample_200:",
+    "rows_filter": "SampleID,eq,opendes:master-data--Sample:88Y:",
 }
 
 with open(f"{dir_path}/nmr_orient_split.json") as fp:
@@ -84,8 +84,8 @@ TEST_FILTERED_DATA = {
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:NMR_SamplesAnalysis:",
-            "opendes:master-data--Sample:Sample_200:",
+            "opendes:work-product-component--SamplesAnalysis:NMR_Test_Example:",
+            "opendes:master-data--Sample:88Y:",
         ],
     ],
 }
@@ -107,4 +107,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting NMRTest in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

@@ -1,18 +1,33 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
-  "SampleID": "opendes:master-data--Sample:XRD_Sample:",
-  "QuartzCrystallinityIndex": {
-    "Value": 8.9,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-  },
-  "MineralContent": [
-    {
-      "Mineral": "opendes:reference-data--Minerals:actinolite:",
-      "Content": {
-        "Value": 123,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
+    "SampleID": "opendes:master-data--Sample:XRD_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "euclid",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:Euc:",
+        "propertyNames": [
+          "QuartzCrystallinityIndex"
+        ]
+      },
+      {
+        "kind": "Unit",
+        "name": "percent",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:%25:",
+        "propertyNames": [
+          "MineralContent[*].WeightPercent",
+          "MineralContent[*].VolumePercent"
+        ]
       }
-    }
-  ],
-  "$id": "xrd_example.1.0.0.json"
-}
+    ],
+    "QuartzCrystallinityIndex": 1.23,
+    "MineralContent": [
+      {
+        "MineralID": "opendes:reference-data--Minerals:actinolite:",
+        "WeightPercent": 1.23,
+        "VolumePercent": 1.23
+      }
+    ]
+  }
+]

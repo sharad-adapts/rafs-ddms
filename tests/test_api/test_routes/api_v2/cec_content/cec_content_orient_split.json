@@ -1,30 +1,32 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "BrineConcentration",
-        "CeC",
-        "Qv"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:CEC_Content_WPC:",
-            "opendes:master-data--Sample:CEC_Content_Sample:",
-            {
-                "Value": 1.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mas:"
-            },
-            {
-                "Value": 0.563,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ert:"
-            },
-            {
-                "Value": 0.975,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cvb:"
-            }
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "BrineConcentration",
+    "CeC",
+    "Qv"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:CEC_Content_WPC:",
+      "opendes:master-data--Sample:CEC_Content_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"percentage",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:%:",
+          "propertyNames":[
+            "CeC"
+          ]
+        }
+      ],
+      1,
+      0.563,
+      0.975
     ]
+  ]
 }

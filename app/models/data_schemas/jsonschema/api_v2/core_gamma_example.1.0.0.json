@@ -1,29 +1,34 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:CoreGamma_WPC:",
-  "SampleID": "opendes:master-data--Sample:CoreGamma_Sample:",
-  "CoreGammaData": [
-    {
-      "Depth": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:CoreGamma_WPC:",
+    "SampleID": "opendes:master-data--Sample:CoreGamma_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "metre",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:m:",
+        "propertyNames": [
+          "Depth"
+        ]
       },
-      "Uranium": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-      },
-      "Thorium": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
-      },
-      "Potassium": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-      },
-      "TotalGamma": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2Fg:"
+      {
+        "kind": "Unit",
+        "name": "mole per mole",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:mol%2Fmol:",
+        "propertyNames": [
+          "Uranium",
+          "Thorium"
+        ]
       }
-    }
-  ],
-  "$id": "core_gamma_example.1.0.0.json"
-}
+    ],
+    "CoreGammaData": [
+      {
+        "Depth": 1,
+        "Uranium": 2,
+        "Thorium": 3,
+        "Potassium": 4,
+        "TotalGamma": 5
+      }
+    ]
+  }
+]

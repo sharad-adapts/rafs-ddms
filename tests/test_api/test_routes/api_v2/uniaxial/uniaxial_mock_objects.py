@@ -56,7 +56,7 @@ TEST_PARAMS_FILTERS = {
     "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:UniaxialTest123:",
 }
 
-with open(f"{dir_path}/uniaxial_test_orient_split.json") as fp:
+with open(f"{dir_path}/uniaxial_orient_split.json") as fp:
     TEST_DATA = json.load(fp)
 
 TEST_AGGREGATED_DATA = {
@@ -104,4 +104,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting data in index row 0
-EXPECTED_ERROR_REASON = "Data error: 20 columns passed, passed data had 19 columns"
+EXPECTED_ERROR_REASON = "Data error: 21 columns passed, passed data had 20 columns"

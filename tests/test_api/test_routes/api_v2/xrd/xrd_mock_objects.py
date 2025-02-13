@@ -87,13 +87,11 @@ TEST_FILTERED_DATA = {
             "opendes:work-product-component--SamplesAnalysis:XRD_SamplesAnalysis:",
             "opendes:master-data--Sample:XRD_Sample:",
             [
-                {
-                    "Mineral": "opendes:reference-data--Minerals:actinolite:",
-                    "Content": {
-                        "Value": 123,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-                    },
-                },
+        {
+          "MineralID":"opendes:reference-data--Minerals:actinolite:",
+          "WeightPercent":1.23,
+          "VolumePercent":1.23,
+        },
             ],
         ],
     ],
@@ -116,4 +114,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting MineralContent in index row 0
-EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

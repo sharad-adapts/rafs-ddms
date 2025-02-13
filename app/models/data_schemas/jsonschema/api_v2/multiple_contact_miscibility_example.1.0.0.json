@@ -1,18 +1,39 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-  "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
-  "TestNumber": "test_number",
-  "TestTemperature": {
-    "Value": 243,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:"
-  },
-  "TypeOfInjectedGas": "Regular",
-  "TypeOfMultiContactTest": "Miscibility Test",
-  "MolePctOfInjectedGas": {
-    "Value": 22,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-  },
-  "GasSolventCompositionReference": "CO2",
-  "MixRatio": 235,
-  "$id": "mcm_example.1.0.0.json"
-}
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+    "SampleID": "opendes:master-data--Sample:fluid_sample_test:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "degree Fahrenheit",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+        "propertyNames": [
+          "TestTemperature"
+        ]
+      },
+      {
+        "kind": "Unit",
+        "name": "percent",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:%25:",
+        "propertyNames": [
+          "MolePercentOfInjectedGas"
+        ]
+      }
+    ],
+    "TestNumber": "test_number",
+    "TestTemperature": 1.23,
+    "TypeOfInjectedGas": "Regular",
+    "TypeOfMultiContactTest": "Miscibility Test",
+    "MolePercentOfInjectedGas": 1.23,
+    "GasSolventCompositionReference": "CO2",
+    "MixRatio": 1.23,
+    "Remarks": [
+      {
+        "RemarkSequenceNumber": 1.23,
+        "Remark": "Remark",
+        "RemarkSource": "Remark Source",
+        "RemarkDate": "2025-01-01"
+      }
+    ]
+  }
+]

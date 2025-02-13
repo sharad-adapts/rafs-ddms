@@ -1,50 +1,57 @@
 {
-  "columns": [
-      "SamplesAnalysisID",
-      "SampleID",
-      "Method",
-      "GCMSCompoundsRatios"
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "MethodID",
+    "GCMSCompoundsRatios"
   ],
-  "index": [
-      0
+  "index":[
+    0
   ],
-  "data": [
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:GCMS_Ratios_Example:",
+      "opendes:master-data--Sample:GCMS_Sample:",
       [
-          "opendes:work-product-component--SamplesAnalysis:GCMS_Ratios_Example:",
-          "opendes:master-data--Sample:GCMS_Sample:",
-          "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
-          [
-              {
-                  "RatioCode": "opendes:reference-data--GCMSCompoundsRatios:iprbenz_e1m3benzene:",
-                  "Ratio": [
-                      {
-                          "Value": 0.0,
-                          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
-                      },
-                      {
-                          "Value": 0.0,
-                          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
-                      },
-                      {
-                          "Value": 0.0,
-                          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
-                      }
-                  ]
-              },
-              {
-                  "RatioCode": "opendes:reference-data--GCMSCompoundsRatios:m_pyxl_oxyl:",
-                  "Ratio": [
-                      {
-                          "Value": 0.0,
-                          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:UNKNOWN:"
-                      }
-                  ]
-              }
+        {
+          "kind":"Unit",
+          "name":"dimensionless",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:%:",
+          "propertyNames":[
+            "GCMSCompoundsRatios.Ratio[*].AreaValue"
           ]
+        }
+      ],
+      "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
+      [
+        {
+          "GCMSCompoundRatioID":"opendes:reference-data--GCMSCompoundsRatios:iprbenz_e1m3benzene:",
+          "Ratio":[
+            {
+              "AreaValue":0.0,
+              "HeightValue":"opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+            },
+            {
+              "AreaValue":0.0,
+              "HeightValue":"opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+            },
+            {
+              "AreaValue":0.0,
+              "HeightValue":"opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+            }
+          ]
+        },
+        {
+          "GCMSCompoundRatioID":"opendes:reference-data--GCMSCompoundsRatios:m_pyxl_oxyl:",
+          "Ratio":[
+            {
+              "AreaValue":0.0,
+              "HeightValue":"opendes:reference-data--CompoundsAreaHeight:UNKNOWN:"
+            }
+          ]
+        }
       ]
+    ]
   ]
 }

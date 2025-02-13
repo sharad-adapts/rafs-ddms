@@ -107,4 +107,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting BulkPyrolysisAnalysis in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+EXPECTED_ERROR_REASON = "Data error: 24 columns passed, passed data had 23 columns"

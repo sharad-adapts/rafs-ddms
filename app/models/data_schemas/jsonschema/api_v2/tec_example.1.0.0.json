@@ -1,106 +1,80 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:TEC_WPC:",
-  "SampleID": "opendes:master-data--Sample:TEC_Sample:",
-  "TestFluid": "Test",
-  "BulkDensity": {
-    "Value": 3.56,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-  },
-  "Pressure": [
-    {
-      "PressureMeasurementType": "opendes:reference-data--PressureMeasurementType:Ambient:",
-      "Value": 300,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-    },
-    {
-      "PressureMeasurementType": "opendes:reference-data--PressureMeasurementType:Overburden:",
-      "Value": 248,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-    }
-  ],
-  "TestData": [
-    {
-      "TimeStamp": "hours",
-      "TestTime": 5,
-      "Temperature": {
-        "Value": 30,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-      },
-      "AxialStrain": {
-        "Value": 120,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-      }
-    },
-    {
-      "TimeStamp": "hours",
-      "TestTime": 12,
-      "Temperature": {
-        "Value": 52,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-      },
-      "AxialStrain": {
-        "Value": 340,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-      }
-    }
-  ],
-  "CoefficientData": {
-    "RunNumber": [
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:TEC_WPC:",
+    "SampleID": "opendes:master-data--Sample:TEC_Sample:",
+    "Meta": [
       {
-        "TECMeasured": {
-          "Value": 12,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TECCorrectionFactor": {
-          "Value": 23,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TECCorrected": {
-          "Value": 7,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TemperatureMean": {
-          "Value": 15,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "TemperatureMinimum": {
-          "Value": -5,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "TemperatureMaximum": {
-          "Value": 250,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "Spacer": "opendes:reference-data--Elements:He:"
+        "kind": "Unit",
+        "name": "gram per cubic centimetre",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+        "propertyNames": [
+          "BulkDensity"
+        ]
       },
       {
-        "TECMeasured": {
-          "Value": 32,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TECCorrectionFactor": {
-          "Value": 23,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TECCorrected": {
-          "Value": 6,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:"
-        },
-        "TemperatureMean": {
-          "Value": 12,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "TemperatureMinimum": {
-          "Value": -10,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "TemperatureMaximum": {
-          "Value": 140,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degC:"
-        },
-        "Spacer": "opendes:reference-data--Elements:Ba:"
+        "kind": "Unit",
+        "name": "pound-force per square inch",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:psi:",
+        "propertyNames": [
+          "Pressure.Value",
+          "TestData[*].AxialStrain"
+        ]
+      },
+      {
+        "kind": "Unit",
+        "name": "degree Celsius",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degC:",
+        "propertyNames": [
+          "TestData[*].Temperature",
+          "CoefficientData[*].TemperatureMean",
+          "CoefficientData[*].TemperatureMinimum",
+          "CoefficientData[*].TemperatureMaximum"
+        ]
+      },
+      {
+        "kind": "Unit",
+        "name": "per delta Celsius",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:1%2FdeltaC:",
+        "propertyNames": [
+          "CoefficientData[*].TECMeasured",
+          "CoefficientData[*].TECCorrectionFactor",
+          "CoefficientData[*].TECCorrected"
+        ]
+      }
+    ],
+    "TestFluid": "Test Fluid",
+    "BulkDensity": 1.23,
+    "Pressure": [
+      {
+        "PressureMeasurementTypeID": "opendes:reference-data--PressureMeasurementType:Ambient:",
+        "Value": 1.23
+      }
+    ],
+    "TestData": [
+      {
+        "TimeStamp": "hours",
+        "TestTime": 1.23,
+        "Temperature": 1.23,
+        "AxialStrain": 1.23
+      },
+      {
+        "TimeStamp": "hours",
+        "TestTime": 1.23,
+        "Temperature": 1.23,
+        "AxialStrain": 1.23
+      }
+    ],
+    "CoefficientData": [
+      {
+        "RunNumber": 1.23,
+        "TECMeasured": 1.23,
+        "TECCorrectionFactor": 1.23,
+        "TECCorrected": 1.23,
+        "TemperatureMean": 1.23,
+        "TemperatureMinimum": 1.23,
+        "TemperatureMaximum": 1.23,
+        "SpacerID": "opendes:reference-data--Elements:He:"
       }
     ]
-  },
-  "$id": "tec_example.1.0.0.json"
-}
+  }
+]
