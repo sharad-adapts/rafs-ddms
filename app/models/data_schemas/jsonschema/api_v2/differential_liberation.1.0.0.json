@@ -431,11 +431,11 @@
                   "type": "string",
                   "title": "Component Name ID",
                   "description": "Name of the component in the liquid.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "SampleCompositionComponent"
+                      "EntityType": "SampleOrganicCompositionComponent"
                     }
                   ]
                 },
@@ -495,11 +495,11 @@
                   "type": "string",
                   "title": "Component Name ID",
                   "description": "Name of the component in the liquid.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "SampleCompositionComponent"
+                      "EntityType": "SampleOrganicCompositionComponent"
                     }
                   ]
                 },

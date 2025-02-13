@@ -16,7 +16,7 @@
     "Method": "opendes:reference-data--BulkPyrolysisMethod:LECO:",
     "GasChromatographyAnalysis": [
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "RetentionTime": 9,
         "Peak": {
           "AreaValue": 10,
@@ -28,7 +28,7 @@
         "IsInternalStandard": true
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "RetentionTime": 5,
         "Peak": {
           "AreaValue": 8,
@@ -42,42 +42,42 @@
     ],
     "InternalStandardCompound": [
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 5,
         "Concentration": 9
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 3,
         "Concentration": 5
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 9,
         "Concentration": 6
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 9,
         "Concentration": 6
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 6,
         "Concentration": 9
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 5,
         "Concentration": 10
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 5,
         "Concentration": 5
       },
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "Mass": 2,
         "Concentration": 5
       }
