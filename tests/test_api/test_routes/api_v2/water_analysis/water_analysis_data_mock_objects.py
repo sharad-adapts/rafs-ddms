@@ -52,7 +52,7 @@ TEST_PARAMS_AGGREGATION = {
     "columns_aggregation": "SampleID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,SampleID,TestNumber,Method,Remark,WaterSampleComponent",
+    "columns_filter": "SamplesAnalysisID,SampleID,TestNumber,WaterSampleComponent",
     "rows_filter": "SampleID,eq,opendes:master-data--Sample:WaterAnalysis_Sample:",
 }
 
@@ -78,8 +78,6 @@ TEST_FILTERED_DATA = {
         "SamplesAnalysisID",
         "SampleID",
         "TestNumber",
-        "Method",
-        "Remark",
         "WaterSampleComponent",
     ],
     "index": [
@@ -90,89 +88,63 @@ TEST_FILTERED_DATA = {
             "opendes:work-product-component--SamplesAnalysis:WaterAnalysis_WPC:",
             "opendes:master-data--Sample:WaterAnalysis_Sample:",
             "17. Water Analysis",
-            "Firstly, sample cylinder opening pressures were measured upon sample bottle receipt followed by 24 hours of thermal restoration at reservoir temperature and 15,000 psia.",
-            "Depth: 5070 m MD",
             [
                 {
                     "Anions": [
                         {
-                            "ComponentName": "C032-",
+                            "ComponentNameID": "C032-",
                             "Value": 11,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:IonChromatography:",
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:IonChromatography:"
                         },
                         {
-                            "ComponentName": "HCO3",
+                            "ComponentNameID": "HCO3",
                             "Value": 427,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:",
-                        },
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:"
+                        }
                     ],
                     "Cations": [
                         {
-                            "ComponentName": "Na+",
+                            "ComponentNameID": "Na+",
                             "Value": 89,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:",
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:"
                         },
                         {
-                            "ComponentName": "K+",
+                            "ComponentNameID": "K+",
                             "Value": 112,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:",
-                        },
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:"
+                        }
                     ],
                     "DissolvedMetals": [
                         {
-                            "ComponentName": "Fe",
+                            "ComponentNameID": "Fe",
                             "Value": 0.198,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:",
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:"
                         },
                         {
-                            "ComponentName": "Sr2+",
+                            "ComponentNameID": "Sr2+",
                             "Value": 18.1,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:IonChromatography:",
-                        },
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:IonChromatography:"
+                        }
                     ],
                     "OrganicAcids": [
                         {
-                            "ComponentName": "Fe",
+                            "ComponentNameID": "Fe",
                             "Value": 0.198,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:",
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-OES:"
                         },
                         {
-                            "ComponentName": "Sr2+",
+                            "ComponentNameID": "Sr2+",
                             "Value": 18.1,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mg%2FL:",
-                            "Method": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:",
-                        },
+                            "ElementalMeasurementMethodID": "opendes:reference-data--ElementalMeasurementMethod:ICP-MS:"
+                        }
                     ],
-                    "IonDifference": {
-                        "Value": 0.22,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                    },
-                    "MolarConcentration": {
-                        "Value": 0.1,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mol%2FL:",
-                    },
-                    "VolumeConcentration": {
-                        "Value": 0.853,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:vol%25%2Fvol:",
-                    },
-                    "MassConcentration": {
-                        "Value": 0.176,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2FL:",
-                    },
-                    "EquivalentConcentration": {
-                        "Value": 0.095,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2FL:",
-                    },
-                    "ConcentrationRelativeToDetectableLimits": "ADL",
-                    "Remark": "That's the full water analysis",
-                },
+                    "IonDifference": 0.22,
+                    "MolarConcentration": 0.1,
+                    "VolumeConcentration": 0.853,
+                    "MassConcentration": 0.176,
+                    "EquivalentConcentration": 0.095,
+                    "ConcentrationRelativeToDetectableLimits": 0.066
+                }
             ],
         ],
     ],

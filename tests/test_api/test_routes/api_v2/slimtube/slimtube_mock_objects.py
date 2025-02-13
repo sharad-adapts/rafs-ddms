@@ -86,11 +86,8 @@ TEST_FILTERED_DATA = {
         [
             "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
             "opendes:master-data--Sample:fluid_sample_test:",
-            "SlimTube_123",
-            {
-                "Value": 524.8,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:bar:",
-            },
+            "1A",
+            1.23,
         ],
     ],
 }
@@ -112,4 +109,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting SlimTubeTestID
-EXPECTED_ERROR_REASON = "Data error: 15 columns passed, passed data had 14 columns"
+EXPECTED_ERROR_REASON = "Data error: 16 columns passed, passed data had 15 columns"

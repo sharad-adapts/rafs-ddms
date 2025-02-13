@@ -1,45 +1,44 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "Method",
-        "VitriniteReflectanceReadings",
-        "VitriniteMountTechnique",
-        "VitriniteReflectanceHistogramPopulations"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
-            "opendes:master-data--Sample:sample_test:",
-            "Method",
-            [
-                {
-                    "Value": 1.0,
-                    "ReadingOrder": 1,
-                    "Frequency": 10
-                },
-                {
-                    "Value": 1.0,
-                    "ReadingOrder": 2,
-                    "Frequency": 12
-                }
-            ],
-            "opendes:reference-data--VitriniteMountTechnique:EpoxyResin:",
-            [
-                {
-                    "PopulationType": "opendes:reference-data--VitriniteReflectancePopulationType:UnalteredIndigenous:",
-                    "PopulationTypeValue": 1.0,
-                    "PopulationMean": 1.0,
-                    "PopulationStDv": 1.0,
-                    "PopulationQualifier": "Population qualifier",
-                    "TotalPopulationReadings": 1.0,
-                    "MinimumReading": 1.0,
-                    "MaximumReading": 1.0
-                }
-            ]
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "Method",
+    "VitriniteReflectanceReadings",
+    "VitriniteMountTechniqueID",
+    "VitriniteReflectanceHistogramPopulations"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
+      "opendes:master-data--Sample:sample_test:",
+      [
+
+      ],
+      "Method",
+      [
+        {
+          "Value":1.23,
+          "ReadingOrder":1.23,
+          "Frequency":1
+        }
+      ],
+      "opendes:reference-data--VitriniteMountTechnique:EpoxyResin:",
+      [
+        {
+          "PopulationTypeID":"opendes:reference-data--VitriniteReflectancePopulationType:UnalteredIndigenous:",
+          "PopulationTypeValue":1.23,
+          "PopulationMean":1.23,
+          "PopulationStDv":1.23,
+          "PopulationQualifier":"Population qualifier",
+          "TotalPopulationReadings":1.23,
+          "MinimumReading":1.23,
+          "MaximumReading":1.23
+        }
+      ]
     ]
+  ]
 }

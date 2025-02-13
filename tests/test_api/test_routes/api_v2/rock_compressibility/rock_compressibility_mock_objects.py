@@ -86,25 +86,25 @@ TEST_FILTERED_DATA = {
             "opendes:work-product-component--SamplesAnalysis:RockCompressibilityDevTest:",
             [
                 {
-                    "StepNumber": 1,
-                    "ConfiningStress": {
-                        "Value": 400,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                    },
-                    "Porosity": {
-                        "Value": 33.4,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-                    },
-                    "Compressibility": [
+                    "StepNumber":1,
+                    "ConfiningStress":1.23,
+                    "Porosity":1.23,
+                    "Compressibility":[
                         {
-                            "CompressibilityType": "opendes:reference-data--CompressibilityMeasurementType:Hydrostatic:",
-                            "Value": 0.0000384,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:",
+                        "CompressibilityMeasurementTypeID":"opendes:reference-data--CompressibilityMeasurementType:Hydrostatic:",
+                        "Value":1.23,
                         },
                         {
-                            "CompressibilityType": "opendes:reference-data--CompressibilityMeasurementType:Uniaxial:",
-                            "Value": 0.0000234,
-                            "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:",
+                        "CompressibilityMeasurementTypeID":"opendes:reference-data--CompressibilityMeasurementType:Hydrostatic:",
+                        "Value":1.23,
+                        },
+                    ],
+                    "Remarks":[
+                        {
+                        "RemarkSequenceNumber":1,
+                        "Remark":"Remark",
+                        "RemarkSource":"Remark Source",
+                        "RemarkDate":"2025-01-01",
                         },
                     ],
                 },

@@ -85,10 +85,7 @@ TEST_FILTERED_DATA = {
         [
             "opendes:work-product-component--SamplesAnalysis:samplesanalysis_test:",
             "test_number",
-            {
-                "Value": 243,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:degF:",
-            },
+            1.23,
         ],
     ],
 }
@@ -109,4 +106,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting MixRatio
-EXPECTED_ERROR_REASON = "Data error: 9 columns passed, passed data had 8 columns"
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

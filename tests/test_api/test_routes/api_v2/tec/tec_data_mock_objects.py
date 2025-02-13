@@ -89,20 +89,11 @@ TEST_FILTERED_DATA = {
             "opendes:work-product-component--SamplesAnalysis:TEC_WPC:",
             "opendes:master-data--Sample:TEC_Sample:",
             "Test Fluid",
-            {
-                "Value": 3.56,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
-            },
+            1.23,
             [
                 {
-                    "PressureMeasurementType": "opendes:reference-data--PressureMeasurementType:Ambient:",
-                    "Value": 300,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
-                },
-                {
-                    "PressureMeasurementType": "opendes:reference-data--PressureMeasurementType:Overburden:",
-                    "Value": 248,
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:",
+                    "PressureMeasurementTypeID":"opendes:reference-data--PressureMeasurementType:Ambient:",
+                    "Value":1.23,
                 },
             ],
         ],
@@ -126,4 +117,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting CoefficientData in index row 0
-EXPECTED_ERROR_REASON = "Data error: 7 columns passed, passed data had 6 columns"
+EXPECTED_ERROR_REASON = "Data error: 8 columns passed, passed data had 7 columns"

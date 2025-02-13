@@ -50,11 +50,11 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "TestMethod,count",
+    "columns_aggregation": "TestMethodID,count",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,TestMethod",
-    "rows_filter": "TestMethod,eq,TestMethod",
+    "columns_filter": "SamplesAnalysisID,TestMethodID",
+    "rows_filter": "TestMethodID,eq,TestMethod",
 }
 
 with open(f"{dir_path}/multiple_salinity_orient_split.json") as fp:
@@ -62,7 +62,7 @@ with open(f"{dir_path}/multiple_salinity_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "TestMethod",
+        "TestMethodID",
     ],
     "index": [
         "count",
@@ -77,14 +77,14 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
-        "TestMethod",
+        "TestMethodID",
     ],
     "index": [
         0,
     ],
     "data": [
         [
-            "opendes:work-product-component--SamplesAnalysis:MultipleSalinity_Test_WPC:",
+            "opendes:work-product-component--SamplesAnalysis:Multiple_Salinity_Example:",
             "TestMethod",
         ],
     ],
@@ -107,4 +107,5 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting SalinityTestSteps in index row 0
-EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"
+TEST_DATA_COLUMNS = len(TEST_DATA["data"][0])
+EXPECTED_ERROR_REASON = f"Data error: {TEST_DATA_COLUMNS} columns passed, passed data had {TEST_DATA_COLUMNS - 1} columns"

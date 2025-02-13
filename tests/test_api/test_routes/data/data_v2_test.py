@@ -90,9 +90,7 @@ from tests.test_api.test_routes.api_v2.gcmsms_analysis import (
 from tests.test_api.test_routes.api_v2.interfacialtension import (
     interfacial_tension_mock_objects,
 )
-from tests.test_api.test_routes.api_v2.isotope_analysis import (
-    isotope_analysis_mock_objects,
-)
+from tests.test_api.test_routes.api_v2.isotopes import isotopes_mock_objects
 from tests.test_api.test_routes.api_v2.mininggeotechlogging import (
     mining_geotech_logging_mock_objects,
 )
@@ -127,9 +125,7 @@ from tests.test_api.test_routes.api_v2.transport import (
     transport_test_mock_objects,
 )
 from tests.test_api.test_routes.api_v2.triaxial import triaxial_mock_objects
-from tests.test_api.test_routes.api_v2.uniaxial_test import (
-    uniaxial_test_mock_objects,
-)
+from tests.test_api.test_routes.api_v2.uniaxial import uniaxial_mock_objects
 from tests.test_api.test_routes.api_v2.vaporliquidequilibrium import (
     vle_mock_objects,
 )
@@ -667,13 +663,13 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
             "get_record",
             [
-                isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+                isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -707,13 +703,13 @@ async def test_get_data_wrong_content_header(data_endpoint_path, dataset_id):
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
             "get_record",
             [
-                uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+                uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
             ],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -1116,13 +1112,13 @@ async def test_get_content_parquet_data(
             gas_composition_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1152,13 +1148,13 @@ async def test_get_content_parquet_data(
             mining_geotech_logging_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
             None,
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1467,13 +1463,13 @@ async def test_get_content_parquet_data(
             gas_composition_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
-            isotope_analysis_mock_objects.TEST_PARAMS_AGGREGATION,
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
+            isotopes_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_AGGREGATED_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1503,13 +1499,13 @@ async def test_get_content_parquet_data(
             mining_geotech_logging_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
-            uniaxial_test_mock_objects.TEST_PARAMS_AGGREGATION,
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
+            uniaxial_mock_objects.TEST_PARAMS_AGGREGATION,
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_AGGREGATED_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_AGGREGATED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1818,13 +1814,13 @@ async def test_get_content_parquet_data(
             gas_composition_mock_objects.TEST_FILTERED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
-            isotope_analysis_mock_objects.TEST_PARAMS_FILTERS,
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
+            isotopes_mock_objects.TEST_PARAMS_FILTERS,
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_FILTERED_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -1854,13 +1850,13 @@ async def test_get_content_parquet_data(
             mining_geotech_logging_mock_objects.TEST_FILTERED_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
-            uniaxial_test_mock_objects.TEST_PARAMS_FILTERS,
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
+            uniaxial_mock_objects.TEST_PARAMS_FILTERS,
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_FILTERED_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_FILTERED_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2335,12 +2331,12 @@ async def test_get_data_json_data(
             gas_composition_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2367,12 +2363,12 @@ async def test_get_data_json_data(
             mining_geotech_logging_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2716,12 +2712,12 @@ async def test_get_data_json_data_no_content_schema_version(
             gas_composition_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -2748,12 +2744,12 @@ async def test_get_data_json_data_no_content_schema_version(
             mining_geotech_logging_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3105,12 +3101,12 @@ async def test_get_data_json_data_improper_schema_version(
             gas_composition_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [isotope_analysis_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            [isotopes_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", isotope_analysis_mock_objects.TEST_DATA)],
-            isotope_analysis_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", isotopes_mock_objects.TEST_DATA)],
+            isotopes_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3137,12 +3133,12 @@ async def test_get_data_json_data_improper_schema_version(
             mining_geotech_logging_mock_objects.TEST_DATA,
         ),
         (
-            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+            f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
             "get_record",
-            [uniaxial_test_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
+            [uniaxial_mock_objects.RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION],
             "download_file",
-            [build_get_test_data("x-parquet", uniaxial_test_mock_objects.TEST_DATA)],
-            uniaxial_test_mock_objects.TEST_DATA,
+            [build_get_test_data("x-parquet", uniaxial_mock_objects.TEST_DATA)],
+            uniaxial_mock_objects.TEST_DATA,
         ),
         (
             f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
@@ -3463,10 +3459,10 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            isotope_analysis_mock_objects.TEST_DATA,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
-            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotopes_mock_objects.TEST_DATA,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -3491,10 +3487,10 @@ async def test_get_data_json_data_no_schema_version_for_dataset(
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            uniaxial_test_mock_objects.TEST_DATA,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
-            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_mock_objects.TEST_DATA,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -3799,10 +3795,10 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            isotope_analysis_mock_objects.TEST_DATA,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
-            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotopes_mock_objects.TEST_DATA,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -3827,10 +3823,10 @@ async def test_post_data_json(data_endpoint_path, record_data, test_data, test_d
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            uniaxial_test_mock_objects.TEST_DATA,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
-            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_mock_objects.TEST_DATA,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -4088,8 +4084,8 @@ async def test_post_data_json_no_ddmsdatasets_field(
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -4108,8 +4104,8 @@ async def test_post_data_json_no_ddmsdatasets_field(
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -4381,10 +4377,10 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            isotope_analysis_mock_objects.TEST_DATA,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
-            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotopes_mock_objects.TEST_DATA,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -4409,10 +4405,10 @@ async def test_post_data_parquet_empty(data_endpoint_path, record_data, test_dat
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            uniaxial_test_mock_objects.TEST_DATA,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
-            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_mock_objects.TEST_DATA,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -4719,10 +4715,10 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            isotope_analysis_mock_objects.TEST_DATA,
-            isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID,
-            isotope_analysis_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            isotopes_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            isotopes_mock_objects.TEST_DATA,
+            isotopes_mock_objects.TEST_DATASET_RECORD_ID,
+            isotopes_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -4747,10 +4743,10 @@ async def test_post_data_parquet(data_endpoint_path, record_data, test_data, tes
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
-            uniaxial_test_mock_objects.TEST_DATA,
-            uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID,
-            uniaxial_test_mock_objects.TEST_DDMS_URN_WITH_VERSION,
+            uniaxial_mock_objects.RECORD_DATA_WITH_SCHEMA_VERSION,
+            uniaxial_mock_objects.TEST_DATA,
+            uniaxial_mock_objects.TEST_DATASET_RECORD_ID,
+            uniaxial_mock_objects.TEST_DDMS_URN_WITH_VERSION,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -4899,11 +4895,11 @@ async def test_post_data_new_dataset(data_endpoint_path, record_data, test_data,
         (TestContentPathsApiV2.GCMS_RATIOS, gcms_ratios_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GAS_CHROMATOGRAPHY, gas_chromatography_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GAS_COMPOSITION, gas_composition_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
-        (TestContentPathsApiV2.ISOTOPE_ANALYSIS, isotope_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.ISOTOPE_ANALYSIS, isotopes_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.BULK_PYROLYSIS, bulk_pyrolysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.CORE_GAMMA, core_gamma_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.MINING_GEOTECH_LOGGING, mining_geotech_logging_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
-        (TestContentPathsApiV2.UNIAXIAL_TEST, uniaxial_test_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
+        (TestContentPathsApiV2.UNIAXIAL_TEST, uniaxial_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.GCMSMS_ANALYSIS, gcmsms_analysis_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.CEC_CONTENT, cec_content_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
         (TestContentPathsApiV2.ELECTRICAL_PROPERTIES, electricalproperties_mock_objects.INCORRECT_SCHEMA_TEST_DATA),
@@ -5069,8 +5065,8 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
         ),
         (
             TestContentPathsApiV2.ISOTOPE_ANALYSIS,
-            isotope_analysis_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
-            isotope_analysis_mock_objects.EXPECTED_ERROR_REASON,
+            isotopes_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            isotopes_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
             TestContentPathsApiV2.BULK_PYROLYSIS,
@@ -5089,8 +5085,8 @@ async def test_post_data_validation_error(data_endpoint_path, incorrect_schema_t
         ),
         (
             TestContentPathsApiV2.UNIAXIAL_TEST,
-            uniaxial_test_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
-            uniaxial_test_mock_objects.EXPECTED_ERROR_REASON,
+            uniaxial_mock_objects.INCORRECT_DATAFRAME_TEST_DATA,
+            uniaxial_mock_objects.EXPECTED_ERROR_REASON,
         ),
         (
             TestContentPathsApiV2.GCMSMS_ANALYSIS,
@@ -5211,11 +5207,11 @@ async def test_post_invalid_df_error(data_endpoint_path, incorrect_dataframe_dat
         f"{TestContentPathsApiV2.GCMS_RATIOS}/{gcms_ratios_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GAS_CHROMATOGRAPHY}/{gas_chromatography_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GAS_COMPOSITION}/{gas_composition_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotope_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.ISOTOPE_ANALYSIS}/{isotopes_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.BULK_PYROLYSIS}/{bulk_pyrolysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.CORE_GAMMA}/{core_gamma_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.MINING_GEOTECH_LOGGING}/{mining_geotech_logging_mock_objects.TEST_DATASET_RECORD_ID}",
-        f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_test_mock_objects.TEST_DATASET_RECORD_ID}",
+        f"{TestContentPathsApiV2.UNIAXIAL_TEST}/{uniaxial_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.GCMSMS_ANALYSIS}/{gcmsms_analysis_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.CEC_CONTENT}/{cec_content_mock_objects.TEST_DATASET_RECORD_ID}",
         f"{TestContentPathsApiV2.ELECTRICAL_PROPERTIES}/{electricalproperties_mock_objects.TEST_DATASET_RECORD_ID}",

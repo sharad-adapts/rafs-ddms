@@ -49,10 +49,10 @@ RECORD_DATA_WITH_IMPROPER_SCHEMA_VERSION = {
     },
 }
 TEST_PARAMS_AGGREGATION = {
-    "columns_aggregation": "MassOfRockExtracted.Value,sum",
+    "columns_aggregation": "MassOfSampleExtracted,sum",
 }
 TEST_PARAMS_FILTERS = {
-    "columns_filter": "SamplesAnalysisID,MassOfRockExtracted,MassOfExtract",
+    "columns_filter": "SamplesAnalysisID,MassOfSampleExtracted,MassOfExtract",
     "rows_filter": "SamplesAnalysisID,eq,opendes:work-product-component--SamplesAnalysis:extraction-test:",
 }
 
@@ -61,7 +61,7 @@ with open(f"{dir_path}/extraction_orient_split.json") as fp:
 
 TEST_AGGREGATED_DATA = {
     "columns": [
-        "MassOfRockExtracted",
+        "MassOfSampleExtracted",
     ],
     "index": [
         "sum",
@@ -76,7 +76,7 @@ TEST_AGGREGATED_DATA = {
 TEST_FILTERED_DATA = {
     "columns": [
         "SamplesAnalysisID",
-        "MassOfRockExtracted",
+        "MassOfSampleExtracted",
         "MassOfExtract",
     ],
     "index": [
@@ -85,14 +85,8 @@ TEST_FILTERED_DATA = {
     "data": [
         [
             "opendes:work-product-component--SamplesAnalysis:extraction-test:",
-            {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-                "Value": 3.005,
-            },
-            {
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-                "Value": 2.981,
-            },
+            3.005,
+            2.981,
         ],
     ],
 }

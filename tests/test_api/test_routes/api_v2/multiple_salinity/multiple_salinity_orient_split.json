@@ -1,87 +1,75 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "TestMethod",
-        "SalinityTestResults",
-        "SalinityTestSteps"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:MultipleSalinity_Test_WPC:",
-            "TestMethod",
-            [
-                {
-                    "SampleID": "opendes:master-data--Sample:88Y:",
-                    "BQv": {
-                        "Value": 3.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "Qv": {
-                        "Value": 3.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "BrineResistivity": {
-                        "Value": 12,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
-                    },
-                    "AdjustedFormationResistivityFactor": 12,
-                    "AdjustedSaturationExponent": 12,
-                    "WaterSaturationOverResistivity": [
-                        {
-                            "ResistivityIndex": 15,
-                            "WaterSaturation": {
-                                "Value": 12,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                            }
-                        }
-                    ]
-                },
-                {
-                    "SampleID": "opendes:master-data--Sample:88Y:",
-                    "BQv": {
-                        "Value": 4.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "Qv": {
-                        "Value": 4.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "BrineResistivity": {
-                        "Value": 13,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:ohm.m:"
-                    },
-                    "AdjustedFormationResistivityFactor": 13,
-                    "AdjustedSaturationExponent": 13,
-                    "WaterSaturationOverResistivity": [
-                        {
-                            "ResistivityIndex": 15,
-                            "WaterSaturation": {
-                                "Value": 28,
-                                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                            }
-                        }
-                    ]
-                }
-            ],
-            [
-                {
-                    "BrineSalinity": {
-                        "Value": 3.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "BrineConductivity": {
-                        "Value": 3.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    },
-                    "CoreConductivity": {
-                        "Value": 3.5,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:"
-                    }
-                }
-            ]
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "Meta",
+    "TestMethodID",
+    "SalinityTestResults",
+    "SalinityTestSteps"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:Multiple_Salinity_Example:",
+      [
+        {
+          "kind":"Unit",
+          "name":"percent",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:%25:",
+          "propertyNames":[
+            "SalinityTestResults[*].BQv",
+            "SalinityTestResults[*],.Qv",
+            "SalinityTestResults[*].WaterSaturationOverResistivity[*].WaterSaturation",
+            "SalinityTestSteps[*].BrineSalinity"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"ohm metre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:ohm.m:",
+          "propertyNames":[
+            "SalinityTestResults[*].BrineResistivity"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"siemens per metre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:S%2Fm:",
+          "propertyNames":[
+            "SalinityTestSteps[*].BrineConductivity",
+            "SalinityTestSteps[*].CoreConductivity"
+          ]
+        }
+      ],
+      "TestMethod",
+      [
+        {
+          "SampleID":"opendes:master-data--Sample:88Y:",
+          "BQv":1.23,
+          "Qv":1.23,
+          "BrineResistivity":1.23,
+          "AdjustedFormationResistivityFactor":1.23,
+          "AdjustedSaturationExponent":1.23,
+          "WaterSaturationOverResistivity":[
+            {
+              "ResistivityIndex":1.23,
+              "WaterSaturation":1.23
+            },
+            {
+              "ResistivityIndex":1.23,
+              "WaterSaturation":1.23
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "BrineSalinity":1.23,
+          "BrineConductivity":1.23,
+          "CoreConductivity":1.23
+        }
+      ]
     ]
+  ]
 }

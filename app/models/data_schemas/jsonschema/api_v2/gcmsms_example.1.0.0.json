@@ -1,47 +1,49 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMSMS_SamplesAnalysis:",
-  "SampleID": "opendes:master-data--Sample:GCMSMS_Sample:",
-  "GasChromatographyTandemMassSpectrometryAnalysis": [
-    {
-      "CompoundCode": "opendes:reference-data--GCMSMSCompounds:Abietane:",
-      "RetentionTime": {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
-      },
-      "Ions": [
-        "ABCDEFGHIJKL"
-      ],
-      "Peak": [
-        {
-          "Value": 1.0,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
-          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
-        }
-      ]
-    }
-  ],
-  "StdCompound": {
-    "CompoundCode": "opendes:reference-data--GCMSMSCompounds:Beyerane:",
-    "RetentionTime": {
-      "Value": 1.0,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
-    },
-    "Ions": [
-      "ABCD",
-      "ABCDEFGHIJKLMN"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMSMS_SamplesAnalysis:",
+    "SampleID": "opendes:master-data--Sample:GCMSMS_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "time",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:s:",
+        "propertyNames": [
+          "GasChromatographyTandemMassSpectrometryAnalysis[*].RetentionTime"
+        ]
+      }
     ],
-    "Peak": [
+    "GasChromatographyTandemMassSpectrometryAnalysis": [
       {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
-        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
-      },
+        "CompoundID": "opendes:reference-data--GCMSMSCompounds:Abietane:",
+        "RetentionTime": 1,
+        "Ions": [
+          "ABCDEFGHIJKL"
+        ],
+        "Peak": {
+          "AreaValue": 1,
+          "HeightValue": "opendes:reference-data--CompoundsAreaHeight:Height:"
+        }
+      }
+    ],
+    "StandardCompound": [
       {
-        "Value": 1.0,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:",
-        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:Height:"
+        "CompoundID": "opendes:reference-data--GCMSMSCompounds:Beyerane:",
+        "RetentionTime": 1,
+        "Ions": [
+          "ABCD",
+          "ABCDEFGHIJKLMN"
+        ],
+        "Peak": [
+          {
+            "AreaValue": 1,
+            "HeightValue": "opendes:reference-data--CompoundsAreaHeight:Height:"
+          },
+          {
+            "AreaValue": 1,
+            "HeightValue": "opendes:reference-data--CompoundsAreaHeight:Height:"
+          }
+        ]
       }
     ]
-  },
-  "$id": "gcmsms_example.1.0.0.json"
-}
+  }
+]

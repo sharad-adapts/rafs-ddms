@@ -1,67 +1,102 @@
 {
-    "columns": [
-        "SamplesAnalysisID",
-        "SampleID",
-        "TVD",
-        "TensileStrengthOrientationToBedding",
-        "BulkDensityAsReceived",
-        "PeakLoad",
-        "TensileStrength",
-        "ReservoirUnit",
-        "TestSteps"
-    ],
-    "index": [
-        0
-    ],
-    "data": [
-        [
-            "opendes:work-product-component--SamplesAnalysis:TensileStrength_SamplesAnalysis:",
-            "opendes:master-data--Sample:TensileStrength_Sample:",
-            {
-                "Value": 1000.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:m:"
-            },
-            {
-                "Value": 10.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:dega:"
-            },
-            {
-                "Value": 2.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g%2Fcm3:"
-            },
-            {
-                "Value": 1000.0,
-                "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kgf:"
-            },
-            [
-                {
-                    "Value": 22.08,
-                    "Type": "opendes:reference-data--TensileStrengthMethod:ASTM:",
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                },
-                {
-                    "Value": 26.7,
-                    "Type": "opendes:reference-data--TensileStrengthMethod:YongYu:",
-                    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-                }
-            ],
-            "ReservoirUnit",
-            [
-                {
-                    "DataAquisitionTime": {
-                        "Value": 1.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
-                    },
-                    "AxialForce": {
-                        "Value": 10.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kgf:"
-                    },
-                    "AxialDisplacement": {
-                        "Value": 0.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:cm:"
-                    }
-                }
-            ]
-        ]
+  "columns":[
+    "SamplesAnalysisID",
+    "SampleID",
+    "Meta",
+    "TVD",
+    "TensileStrengthOrientationToBedding",
+    "BulkDensityAsReceived",
+    "PeakLoad",
+    "TensileStrength",
+    "ReservoirUnit",
+    "TestSteps"
+  ],
+  "index":[
+    0
+  ],
+  "data":[
+    [
+      "opendes:work-product-component--SamplesAnalysis:TensileStrength_SamplesAnalysis:",
+      "opendes:master-data--Sample:TensileStrength_Sample:",
+      [
+        {
+          "kind":"Unit",
+          "name":"metre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:m:",
+          "propertyNames":[
+            "TVD",
+            "TestSteps[*].AxialDisplacement"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"second",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:s:",
+          "propertyNames":[
+            "TestSteps[*].DataAcquisitionTime"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"angular degree",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:dega:",
+          "propertyNames":[
+            "TensileStrengthOrientationToBedding"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"gram per cubic centimetre",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:g%2Fcm3:",
+          "propertyNames":[
+            "BulkDensityAsReceived"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"pound-force per square inch",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:psi:",
+          "propertyNames":[
+            "TensileStrength[*].Value"
+          ]
+        },
+        {
+          "kind":"Unit",
+          "name":"thousand gram-force",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:kgf:",
+          "propertyNames":[
+            "PeakLoad",
+            "TestSteps[*].AxialForce"
+          ]
+        }
+      ],
+      1.23,
+      1.23,
+      1.23,
+      1.23,
+      [
+        {
+          "Value":1.23,
+          "TensileStrengthMethodID":"opendes:reference-data--TensileStrengthMethod:ASTM:"
+        },
+        {
+          "Value":1.23,
+          "TensileStrengthMethodID":"opendes:reference-data--TensileStrengthMethod:YongYu:"
+        }
+      ],
+      "Reservoir Unit",
+      [
+        {
+          "DataAcquisitionTime":1.23,
+          "AxialForce":1.23,
+          "AxialDisplacement":1.23
+        },
+        {
+          "DataAcquisitionTime":1.23,
+          "AxialForce":1.23,
+          "AxialDisplacement":1.23
+        }
+      ]
     ]
+  ]
 }

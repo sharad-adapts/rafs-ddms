@@ -1,686 +1,611 @@
 {
+  "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
   "$id": "water_analysis.1.0.0.json",
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "WaterAnalysisDataSchema",
-  "description": "WaterAnalysisDataSchema",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Water Analysis Data Schema",
+  "description": "Water analysis includes properties captured in the DDMS like: Color, TDS (Total Dissolved Solids), TSS (Total Suspended Solids), Salinity, Resistivity, FreeChlorine, WeakBases, Bicarbonate, SulfurTotal, abundance of individual anions and cations. Note that this analysis represents water analyses historically captured in the geochemistry databases and water analyses reported in PVT reports. (Note that water isotopes are captured in a separate Isotope.Non-Gas category.)",
   "type": "object",
   "properties": {
     "SamplesAnalysisID": {
       "type": "string",
+      "title": "Samples Analysis ID",
+      "description": "The OSDU Identifier for this SamplesAnalysis.",
       "pattern": "^[\\w\\-\\.]+:work-product-component\\-\\-SamplesAnalysis:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "SamplesAnalysis",
-          "GroupType": "work-product-component"
+          "GroupType": "work-product-component",
+          "EntityType": "SamplesAnalysis"
         }
       ]
     },
     "SampleID": {
       "type": "string",
+      "title": "Sample ID",
+      "description": "The OSDU Identifier for the Sample associated with this analysis.",
       "pattern": "^[\\w\\-\\.]+:master-data\\-\\-Sample:[\\w\\-\\.\\:\\%]+:[0-9]*$",
       "x-osdu-relationship": [
         {
-          "EntityType": "Sample",
-          "GroupType": "master-data"
+          "GroupType": "master-data",
+          "EntityType": "Sample"
         }
       ]
     },
+    "Meta": {
+      "type": "array",
+      "title": "Meta",
+      "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+      "example": "",
+      "items": {
+        "x-osdu-license": "Copyright 2022, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractMetaItem.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractMetaItem:1.0.0",
+        "title": "Frame of Reference Meta Data Item",
+        "description": "A meta data item, which allows the association of named properties or property values to a Unit/Measurement/CRS/Azimuth/Time context.",
+        "oneOf": [
+          {
+            "title": "FrameOfReferenceUOM",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "UOM Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, 'Unit' for FrameOfReferenceUOM.",
+                "const": "Unit"
+              },
+              "name": {
+                "title": "UOM Unit Symbol",
+                "description": "The unit symbol or name of the unit.",
+                "type": "string",
+                "example": "ft[US]"
+              },
+              "persistableReference": {
+                "title": "UOM Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the Unit.",
+                "type": "string",
+                "example": "{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}"
+              },
+              "unitOfMeasureID": {
+                "description": "SRN to unit of measure reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--UnitOfMeasure:ftUS:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "UnitOfMeasure"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "UOM Property Names",
+                "description": "The list of property names, to which this meta data item provides Unit context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "HorizontalDeflection.EastWest",
+                  "HorizontalDeflection.NorthSouth"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceCRS",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "CRS Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'CRS' for FrameOfReferenceCRS.",
+                "const": "CRS"
+              },
+              "name": {
+                "title": "CRS Name",
+                "description": "The name of the CRS.",
+                "type": "string",
+                "example": "WGS 84 / UTM zone 15N"
+              },
+              "persistableReference": {
+                "title": "CRS Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying the CRS.",
+                "type": "string",
+                "example": "{\"authCode\":{\"auth\":\"EPSG\",\"code\":\"32615\"},\"name\":\"WGS_1984_UTM_Zone_15N\",\"type\":\"LBC\",\"ver\":\"PE_10_9_1\",\"wkt\":\"PROJCS[\\\"WGS_1984_UTM_Zone_15N\\\",GEOGCS[\\\"GCS_WGS_1984\\\",DATUM[\\\"D_WGS_1984\\\",SPHEROID[\\\"WGS_1984\\\",6378137.0,298.257223563]],PRIMEM[\\\"Greenwich\\\",0.0],UNIT[\\\"Degree\\\",0.0174532925199433]],PROJECTION[\\\"Transverse_Mercator\\\"],PARAMETER[\\\"False_Easting\\\",500000.0],PARAMETER[\\\"False_Northing\\\",0.0],PARAMETER[\\\"Central_Meridian\\\",-93.0],PARAMETER[\\\"Scale_Factor\\\",0.9996],PARAMETER[\\\"Latitude_Of_Origin\\\",0.0],UNIT[\\\"Meter\\\",1.0],AUTHORITY[\\\"EPSG\\\",32615]]\"}"
+              },
+              "coordinateReferenceSystemID": {
+                "description": "SRN to CRS reference.",
+                "type": "string",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-CoordinateReferenceSystem:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "example": "namespace:reference-data--CoordinateReferenceSystem:Projected:EPSG::32615:",
+                "x-osdu-relationship": [
+                  {
+                    "GroupType": "reference-data",
+                    "EntityType": "CoordinateReferenceSystem"
+                  }
+                ]
+              },
+              "propertyNames": {
+                "title": "CRS Property Names",
+                "description": "The list of property names, to which this meta data item provides CRS context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "KickOffPosition.X",
+                  "KickOffPosition.Y"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceDateTime",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "DateTime Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'DateTime', for FrameOfReferenceDateTime.",
+                "const": "DateTime"
+              },
+              "name": {
+                "title": "DateTime Name",
+                "description": "The name of the DateTime format and reference.",
+                "type": "string",
+                "example": "UTC"
+              },
+              "persistableReference": {
+                "title": "DateTime Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying DateTime reference.",
+                "type": "string",
+                "example": "{\"format\":\"yyyy-MM-ddTHH:mm:ssZ\",\"timeZone\":\"UTC\",\"type\":\"DTM\"}"
+              },
+              "propertyNames": {
+                "title": "DateTime Property Names",
+                "description": "The list of property names, to which this meta data item provides DateTime context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Acquisition.StartTime",
+                  "Acquisition.EndTime"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          },
+          {
+            "title": "FrameOfReferenceAzimuthReference",
+            "type": "object",
+            "properties": {
+              "kind": {
+                "title": "AzimuthReference Reference Kind",
+                "type": "string",
+                "description": "The kind of reference, constant 'AzimuthReference', for FrameOfReferenceAzimuthReference.",
+                "const": "AzimuthReference"
+              },
+              "name": {
+                "title": "AzimuthReference Name",
+                "description": "The name of the CRS or the symbol/name of the unit.",
+                "type": "string",
+                "example": "TrueNorth"
+              },
+              "persistableReference": {
+                "title": "AzimuthReference Persistable Reference",
+                "description": "The self-contained, persistable reference string uniquely identifying AzimuthReference.",
+                "type": "string",
+                "example": "{\"code\":\"TrueNorth\",\"type\":\"AZR\"}"
+              },
+              "propertyNames": {
+                "title": "AzimuthReference Property Names",
+                "description": "The list of property names, to which this meta data item provides AzimuthReference context to. A full path like \"StructureA.PropertyB\" is required to define a unique context; \"data\" is omitted since frame-of reference normalization only applies to the data block.",
+                "type": "array",
+                "example": [
+                  "Bearing"
+                ],
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "kind",
+              "persistableReference"
+            ]
+          }
+        ],
+        "x-osdu-inheriting-from-kind": []
+      }
+    },
     "TestNumber": {
-      "title": "Test Number",
       "type": "string",
+      "title": "Test Number",
       "description": "A number for this test for purposes of e.g., tracking lab sequence."
     },
-    "Method": {
-      "title": "Method",
+    "WaterAnalysisMethodID": {
       "type": "string",
-      "description": "The sample analysis method used for this analysis"
+      "title": "Water Analysis Method ID",
+      "description": "The method used for this analysis."
     },
-    "Remark": {
-      "title": "Remark",
-      "type": "string"
+    "Remarks": {
+      "type": "array",
+      "title": "Remarks",
+      "description": "Array object capturing remarks or additional information for this test step.  Remarks for the analysis as a whole should be captured in the associated SamplesAnalysis work product component.",
+      "example": "",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
+      "items": {
+        "x-osdu-license": "Copyright 2023, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+        "x-osdu-review-status": "Accepted",
+        "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractRemark.1.0.0.json",
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "x-osdu-schema-source": "osdu:wks:AbstractRemark:1.0.0",
+        "title": "AbstractRemark",
+        "description": "A remark object, pairing a remark text with a source, e.g. an author, and a date, which is typically included in an array. The RemarkSequenceNumber acts as unique key in this case.",
+        "type": "object",
+        "properties": {
+          "RemarkSequenceNumber": {
+            "type": "integer",
+            "title": "Remark Sequence Number",
+            "description": "A unique identifier for each remark record. This identifier is used to uniquely identify a member in an array of remarks.",
+            "example": 1
+          },
+          "Remark": {
+            "type": "string",
+            "title": "Remark",
+            "description": "A descriptive comment for this remark."
+          },
+          "RemarkSource": {
+            "type": "string",
+            "title": "Remark Source",
+            "description": "The person, vendor, interpreter or other provider of information."
+          },
+          "RemarkDate": {
+            "type": "string",
+            "title": "Remark Date",
+            "description": "The date the remark was issued.",
+            "format": "date",
+            "x-osdu-frame-of-reference": "DateTime"
+          }
+        },
+        "x-osdu-inheriting-from-kind": [],
+        "additionalProperties": false
+      }
     },
     "WaterGeneralAnalysis": {
       "type": "object",
+      "title": "Water General Analysis",
+      "description": "Object containing general analysis properties.",
       "properties": {
         "AnalysisPressure": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Analysis Pressure",
+          "description": "The pressure at which the water sample is analyzed to determine its various properties and dissolved gases content.",
+          "x-osdu-frame-of-reference": "UOM:pressure"
         },
         "DissolvedCO2": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Dissolved CO2",
+          "description": "The concentration of carbon dioxide gas dissolved in the water sample.",
+          "x-osdu-frame-of-reference": "UOM:mass per volume"
         },
         "DissolvedH2S": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Dissolved H2S",
+          "description": "The concentration of hydrogen sulfide gas dissolved in the water sample.",
+          "x-osdu-frame-of-reference": "UOM:mass per volume"
         },
         "DissolvedO2": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Dissolved O2",
+          "description": "The concentration of oxygen gas dissolved in the water sample.",
+          "x-osdu-frame-of-reference": "UOM:mass per volume"
         },
         "Resistivity": {
           "type": "object",
+          "title": "Resistivity",
+          "description": "The electrical resistance of the water sample, often used to infer ion concentration.",
           "properties": {
             "Value": {
-              "type": "number"
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:electrical resistivity"
             },
-            "UnitOfMeasure": {
+            "FluidResistivityMeasurementMethodID": {
               "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            },
-            "Method": {
-              "type": "string",
+              "title": "Fluid Resistivity Measurement Method ID",
+              "description": "Method by which the resistivity of the fluid sample was measured.",
               "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-FluidResistivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
-                  "EntityType": "FluidResistivityMeasurementMethod",
-                  "GroupType": "reference-data"
+                  "GroupType": "reference-data",
+                  "EntityType": "FluidResistivityMeasurementMethod"
                 }
               ]
             },
             "Temperature": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
-            }
-          },
-          "additionalProperties": false
-        },
-        "Turbidity": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Temperature",
+              "description": "The temperature at which resistivity was measured.",
+              "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
             }
           },
           "additionalProperties": false
         },
         "Viscosity": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Viscosity",
+          "description": "The measure of the water sample's resistance to flow or deformation.",
+          "x-osdu-frame-of-reference": "UOM:dynamic viscosity"
         },
         "SolutionGasWaterRatio": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Solution Gas Water Ratio",
+          "description": "The ratio of the volume of gas dissolved in the water to the volume of the water sample.",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
         },
         "WaterViscousCompressibility": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Viscous Compressibility",
+          "description": "The measure of the change in water viscosity under varying pressure conditions.",
+          "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
         },
         "WaterDensity": {
           "type": "object",
+          "title": "Water Density",
+          "description": "The mass per unit volume of the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Temperature": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
+              "type": "number",
+              "title": "Temperature",
+              "description": "The temperature at which Water Density was recorded.",
+              "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
             }
           },
           "additionalProperties": false
         },
         "WaterSpecificHeat": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Specific Heat",
+          "description": "The amount of heat required to raise the temperature of a unit mass of water by one degree Celsius.",
+          "x-osdu-frame-of-reference": "UOM:specific heat capacity"
         },
         "WaterFormationVolumeFactor": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Formation Volume Factor",
+          "description": "The ratio of the volume of water in reservoir conditions to its volume at surface conditions.",
+          "x-osdu-frame-of-reference": "UOM:dimensionless"
         },
         "WaterHeatCapacity": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Heat Capacity",
+          "description": "The total amount of heat required to raise the temperature of the water sample by one degree Celsius.",
+          "x-osdu-frame-of-reference": "UOM:specific heat capacity"
         },
         "WaterIsothermalCompressibility": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Isothermal Compressibility",
+          "description": "The measure of the relative change in the volume of the water with respect to changes in pressure at constant temperature.",
+          "x-osdu-frame-of-reference": "UOM:reciprocal pressure"
         },
         "WaterThermalConductivity": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Thermal Conductivity",
+          "description": "The ability of the water sample to conduct heat.",
+          "x-osdu-frame-of-reference": "UOM:thermal conductivity"
         },
         "WaterThermalExpansion": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Thermal Expansion",
+          "description": "The measure of the change in volume of the water sample as a result of a temperature change.",
+          "x-osdu-frame-of-reference": "UOM:volumetric thermal expansion"
         },
         "WaterEnthalpy": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Enthalpy",
+          "description": "The total heat content of the water sample.",
+          "x-osdu-frame-of-reference": "UOM:energy per mass"
         },
         "WaterEntropy": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Entropy",
+          "description": "The amount of energy in the water sample that is not available for doing work.",
+          "x-osdu-frame-of-reference": "UOM:specific heat capacity"
         },
         "WaterSpecificVolume": {
-          "type": "object",
-          "properties": {
-            "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            }
-          },
-          "additionalProperties": false
+          "type": "number",
+          "title": "Water Specific Volume",
+          "description": "The inverse of water density, indicating the volume occupied by a unit mass of water.",
+          "x-osdu-frame-of-reference": "UOM:mass per volume"
         },
         "Salinity": {
           "type": "object",
+          "title": "Salinity",
+          "description": "The total concentration of dissolved salts in the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Temperature": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
+              "type": "number",
+              "title": "Temperature",
+              "description": "The temperature at which salinity was measured.",
+              "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
             }
           },
           "additionalProperties": false
         },
         "TotalDissolvedSolids": {
           "type": "object",
+          "title": "Total Dissolved Solids",
+          "description": "The total concentration of solid substances dissolved in the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Type": {
-              "type": "string"
+              "type": "string",
+              "title": "Type",
+              "description": "A classification that identifies the various types of inorganic and organic substances dissolved in water, including salts, minerals, metals, cations, anions, and small organic molecules, which contribute to the overall concentration of total dissolved solids (TDS) in the water sample."
             }
           },
           "additionalProperties": false
         },
         "TotalSuspendedSolids": {
           "type": "object",
+          "title": "Total Suspended Solids",
+          "description": "The total concentration of particles suspended in the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Type": {
-              "type": "string"
+              "type": "string",
+              "title": "Type",
+              "description": "A classification that identifies the various particles and solid substances suspended in water, which contribute to the overall concentration of total suspended solids (TSS); these include silt, clay, organic matter, algae, and microorganisms, which can affect water clarity and quality."
             }
           },
           "additionalProperties": false
         },
         "TotalHardness": {
           "type": "object",
+          "title": "Total Hardness",
+          "description": "The concentration of multivalent cations, primarily calcium and magnesium ions, in the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Type": {
-              "type": "string"
+              "type": "string",
+              "title": "Type",
+              "description": "A classification that identifies the various sources and types of hardness-causing ions in the water sample, primarily focusing on divalent metal cations such as calcium and magnesium, which contribute to the overall hardness of the water."
             }
           },
           "additionalProperties": false
         },
         "TotalAlkalinity": {
           "type": "object",
+          "title": "Total Alkalinity",
+          "description": "The capacity of the water sample to neutralize acids, primarily due to the presence of bicarbonates, carbonates, and hydroxides.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Type": {
-              "type": "string"
+              "type": "string",
+              "title": "Type",
+              "description": "A classification that identifies the various sources and types of alkalinity in the water sample, primarily focusing on bicarbonates, carbonates, and hydroxides, which contribute to the overall buffering capacity of the water."
             }
           },
           "additionalProperties": false
         },
         "TotalSedimentSolids": {
           "type": "object",
+          "title": "Total Sediment Solids",
+          "description": "The total concentration of sediment particles within the water sample.",
           "properties": {
             "Value": {
-              "type": "number"
-            },
-            "UnitOfMeasure": {
-              "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:mass per volume"
             },
             "Type": {
-              "type": "string"
+              "type": "string",
+              "title": "Type",
+              "description": "A classification that identifies the various particles and solid substances suspended in the water sample, including organic matter, silt, clay, and other inorganic materials, which contribute to the overall concentration of total sediment solids (TSS) and affect the clarity and quality of the water."
             }
           },
           "additionalProperties": false
         },
         "pH": {
           "type": "object",
+          "title": "pH",
+          "description": "A measure of the acidity or alkalinity of the water sample, based on the concentration of hydrogen ions.",
           "properties": {
             "Value": {
-              "type": "number"
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:dimensionless"
             },
-            "Method": {
+            "PHMeasurementMethodID": {
               "type": "string",
+              "title": "PH Measurement Method ID",
+              "description": "The method by which pH was measured.",
               "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-PHMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
-                  "EntityType": "PHMeasurementMethod",
-                  "GroupType": "reference-data"
+                  "GroupType": "reference-data",
+                  "EntityType": "PHMeasurementMethod"
                 }
               ]
             },
             "Temperature": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
+              "type": "number",
+              "title": "Temperature",
+              "description": "The temperature at which pH was measured.",
+              "additionalProperties": false,
+              "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
             }
           },
           "additionalProperties": false
         },
         "Conductivity": {
           "type": "object",
+          "title": "Conductivity",
+          "description": "The measure of the water sample’s ability to conduct electrical current, related to the concentration of ions in the water.",
           "properties": {
             "Value": {
-              "type": "number"
+              "type": "number",
+              "title": "Value",
+              "x-osdu-frame-of-reference": "UOM:electrical conductivity"
             },
-            "UnitOfMeasure": {
+            "ConductivityMeasurementMethodID": {
               "type": "string",
-              "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-              "x-osdu-relationship": [
-                {
-                  "EntityType": "UnitOfMeasure",
-                  "GroupType": "reference-data"
-                }
-              ]
-            },
-            "Method": {
-              "type": "string",
+              "title": "Conductivity Measurement Method ID",
+              "description": "The method by which Conductivity was measured.",
               "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ConductivityMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
               "x-osdu-relationship": [
                 {
-                  "EntityType": "ConductivityMeasurementMethod",
-                  "GroupType": "reference-data"
+                  "GroupType": "reference-data",
+                  "EntityType": "ConductivityMeasurementMethod"
                 }
               ]
             },
             "Temperature": {
-              "type": "object",
-              "properties": {
-                "Value": {
-                  "type": "number"
-                },
-                "UnitOfMeasure": {
-                  "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                }
-              },
-              "additionalProperties": false
+              "type": "number",
+              "title": "Temperature",
+              "description": "The temperature at which Conductivity was recorded.",
+              "additionalProperties": false,
+              "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
             }
           },
           "additionalProperties": false
@@ -690,37 +615,47 @@
     },
     "WaterSampleComponent": {
       "type": "array",
+      "title": "Water Sample Component",
+      "description": "Array capturing the components and concentrations from the water sample during the analysis.",
+      "x-osdu-indexing": {
+        "type": "nested"
+      },
       "items": {
         "type": "object",
+        "title": "Water Sample Component",
+        "description": "Array capturing the components and concentrations from the water sample during the analysis.",
         "properties": {
           "Anions": {
             "type": "array",
+            "title": "Anions",
+            "description": "Array capturing the name and measurement method of the anions in the sample.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
             "items": {
               "type": "object",
+              "title": "Anions",
+              "description": "Array capturing the name and measurement method of the anions in the sample.",
               "properties": {
-                "ComponentName": {
-                  "type": "string"
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "The name of this anion."
                 },
                 "Value": {
-                  "type": "number"
+                  "type": "number",
+                  "title": "Value",
+                  "x-osdu-frame-of-reference": "UOM:mass per volume"
                 },
-                "UnitOfMeasure": {
+                "ElementalMeasurementMethodID": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
+                  "title": "Elemental Measurement Method ID",
+                  "description": "Method of measurement for this component.",
                   "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
-                      "EntityType": "ElementalMeasurementMethod",
-                      "GroupType": "reference-data"
+                      "GroupType": "reference-data",
+                      "EntityType": "ElementalMeasurementMethod"
                     }
                   ]
                 }
@@ -730,32 +665,35 @@
           },
           "Cations": {
             "type": "array",
+            "title": "Cations",
+            "description": "Array capturing the name and measurement method of the cations in the sample.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
             "items": {
               "type": "object",
+              "title": "Cations",
+              "description": "Array capturing the name and measurement method of the cations in the sample.",
               "properties": {
-                "ComponentName": {
-                  "type": "string"
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "The name of this cation."
                 },
                 "Value": {
-                  "type": "number"
+                  "type": "number",
+                  "title": "Value",
+                  "x-osdu-frame-of-reference": "UOM:mass per volume"
                 },
-                "UnitOfMeasure": {
+                "ElementalMeasurementMethodID": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
+                  "title": "Elemental Measurement Method ID",
+                  "description": "Method of measurement for this component.",
                   "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
-                      "EntityType": "ElementalMeasurementMethod",
-                      "GroupType": "reference-data"
+                      "GroupType": "reference-data",
+                      "EntityType": "ElementalMeasurementMethod"
                     }
                   ]
                 }
@@ -765,32 +703,35 @@
           },
           "DissolvedMetals": {
             "type": "array",
+            "title": "Dissolved Metals",
+            "description": "Array capturing the name and measurement method of the dissolved metals in the sample.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
             "items": {
               "type": "object",
+              "title": "Dissolved Metals",
+              "description": "Array capturing the name and measurement method of the dissolved metals in the sample.",
               "properties": {
-                "ComponentName": {
-                  "type": "string"
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "The name of this cation."
                 },
                 "Value": {
-                  "type": "number"
+                  "type": "number",
+                  "title": "Value",
+                  "x-osdu-frame-of-reference": "UOM:mass per volume"
                 },
-                "UnitOfMeasure": {
+                "ElementalMeasurementMethodID": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
+                  "title": "Elemental Measurement Method ID",
+                  "description": "Method of measurement for this component.",
                   "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
-                      "EntityType": "ElementalMeasurementMethod",
-                      "GroupType": "reference-data"
+                      "GroupType": "reference-data",
+                      "EntityType": "ElementalMeasurementMethod"
                     }
                   ]
                 }
@@ -800,32 +741,35 @@
           },
           "OrganicAcids": {
             "type": "array",
+            "title": "Organic Acids",
+            "description": "Array capturing the name and measurement method of the organic acids in the sample.",
+            "x-osdu-indexing": {
+              "type": "nested"
+            },
             "items": {
               "type": "object",
+              "title": "Organic Acids",
+              "description": "Array capturing the name and measurement method of the organic acids in the sample.",
               "properties": {
-                "ComponentName": {
-                  "type": "string"
+                "ComponentNameID": {
+                  "type": "string",
+                  "title": "Component Name ID",
+                  "description": "The name of this cation."
                 },
                 "Value": {
-                  "type": "number"
+                  "type": "number",
+                  "title": "Value",
+                  "x-osdu-frame-of-reference": "UOM:mass per volume"
                 },
-                "UnitOfMeasure": {
+                "ElementalMeasurementMethodID": {
                   "type": "string",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                  "x-osdu-relationship": [
-                    {
-                      "EntityType": "UnitOfMeasure",
-                      "GroupType": "reference-data"
-                    }
-                  ]
-                },
-                "Method": {
-                  "type": "string",
+                  "title": "Elemental Measurement Method ID",
+                  "description": "Method of measurement for this component.",
                   "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-ElementalMeasurementMethod:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
-                      "EntityType": "ElementalMeasurementMethod",
-                      "GroupType": "reference-data"
+                      "GroupType": "reference-data",
+                      "EntityType": "ElementalMeasurementMethod"
                     }
                   ]
                 }
@@ -834,115 +778,87 @@
             }
           },
           "IonDifference": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Ion Difference",
+            "description": "The ion difference of this component.",
+            "x-osdu-frame-of-reference": "UOM:dimensionless"
           },
           "MolarConcentration": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Molar Concentration",
+            "description": "The molar concentration of this component",
+            "x-osdu-frame-of-reference": "UOM:mole per volume"
           },
           "VolumeConcentration": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Volume Concentration",
+            "description": "The volume concentration of this component.",
+            "x-osdu-frame-of-reference": "UOM:volume per volume"
           },
           "MassConcentration": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Mass Concentration",
+            "description": "The mass concentration of this component.",
+            "x-osdu-frame-of-reference": "UOM:mass per volume"
           },
           "EquivalentConcentration": {
-            "type": "object",
-            "properties": {
-              "Value": {
-                "type": "number"
-              },
-              "UnitOfMeasure": {
-                "type": "string",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-UnitOfMeasure:[\\w\\-\\.\\:\\%]+:[0-9]*$",
-                "x-osdu-relationship": [
-                  {
-                    "EntityType": "UnitOfMeasure",
-                    "GroupType": "reference-data"
-                  }
-                ]
-              }
-            },
-            "additionalProperties": false
+            "type": "number",
+            "title": "Equivalent Concentration",
+            "description": "The equivalent concentration of this component.",
+            "x-osdu-frame-of-reference": "UOM:amount of substance per amount of substance"
           },
           "ConcentrationRelativeToDetectableLimits": {
-            "type": "string"
+            "type": "number",
+            "title": "Concentration Relative To Detectable Limits",
+            "description": "The concentration of this component relative to the detectable limits of the experiment.",
+            "x-osdu-frame-of-reference": "UOM:amount of substance per amount of substance"
           },
-          "Remark": {
-            "title": "Remark",
-            "type": "string"
+          "Remarks": {
+            "x-osdu-license": "Copyright 2023, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+            "x-osdu-review-status": "Accepted",
+            "$id": "https://schema.osdu.opengroup.org/json/abstract/AbstractRemark.1.0.0.json",
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "x-osdu-schema-source": "osdu:wks:AbstractRemark:1.0.0",
+            "title": "Remarks",
+            "description": "Additional notes or observations regarding the test, conditions, or results that may be relevant for interpretation.",
+            "type": "object",
+            "properties": {
+              "RemarkSequenceNumber": {
+                "type": "integer",
+                "title": "Remark Sequence Number",
+                "description": "A unique identifier for each remark record. This identifier is used to uniquely identify a member in an array of remarks.",
+                "example": 1
+              },
+              "Remark": {
+                "type": "string",
+                "title": "Remark",
+                "description": "A descriptive comment for this remark."
+              },
+              "RemarkSource": {
+                "type": "string",
+                "title": "Remark Source",
+                "description": "The person, vendor, interpreter or other provider of information."
+              },
+              "RemarkDate": {
+                "type": "string",
+                "title": "Remark Date",
+                "description": "The date the remark was issued.",
+                "format": "date",
+                "x-osdu-frame-of-reference": "DateTime"
+              }
+            },
+            "x-osdu-inheriting-from-kind": [],
+            "additionalProperties": false
           }
         },
         "additionalProperties": false
       }
     }
   },
-  "additionalProperties": false,
   "required": [
     "SamplesAnalysisID",
-    "SampleID"
-  ]
+    "SampleID",
+    "Meta"
+  ],
+  "additionalProperties": false
 }

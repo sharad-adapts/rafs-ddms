@@ -88,25 +88,23 @@ TEST_FILTERED_DATA = {
             "opendes:master-data--Sample:EDS_Mapping_Sample:",
             [
                 {
-                    "Element": "opendes:reference-data--Elements:Ag:",
+                    "ElementID": "opendes:reference-data--Elements:Ag:",
                     "Concentration": {
                         "PeakPosition": {
                             "XCoordinate": 4,
                             "YCoordinate": 2,
                         },
-                        "Value": 6.0,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
+                        "Value": 6.0
                     },
                 },
                 {
-                    "Element": "opendes:reference-data--Elements:V:",
+                    "ElementID": "opendes:reference-data--Elements:V:",
                     "Concentration": {
                         "PeakPosition": {
                             "XCoordinate": 3,
                             "YCoordinate": 8,
                         },
-                        "Value": 13.6,
-                        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
+                        "Value": 13.6
                     },
                 },
             ],
@@ -131,4 +129,4 @@ INCORRECT_SCHEMA_TEST_DATA = {
 
 INCORRECT_DATAFRAME_TEST_DATA = copy.deepcopy(TEST_DATA)
 INCORRECT_DATAFRAME_TEST_DATA["data"][0].pop()  # deleting ElementalComposition in index row 0
-EXPECTED_ERROR_REASON = "Data error: 3 columns passed, passed data had 2 columns"
+EXPECTED_ERROR_REASON = "Data error: 4 columns passed, passed data had 3 columns"

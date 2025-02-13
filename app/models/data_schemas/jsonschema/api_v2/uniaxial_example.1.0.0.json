@@ -1,214 +1,204 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:UniaxialTest123:",
-  "SampleID": "opendes:master-data--Sample:Uniaxial75FR:",
-  "LabSampleIdentifier": "75FR",
-  "Remarks": "Successfully Checked",
-  "Lithology": "Interbedded",
-  "Porosity": {
-    "Value": 1.93,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-    "PorosityType": "opendes:reference-data--PorosityMeasurementType:BrineSaturation:"
-  },
-  "BulkDensityAsReceived": {
-    "Value": 1.0,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kg%2FL:"
-  },
-  "GrainCompressibility": {
-    "Value": 2.03,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:C13:"
-  },
-  "FluidSaturant": "opendes:reference-data--FluidSaturantType:LabOil:",
-  "SaturantViscosity": {
-    "Value": 0.835,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa.s:"
-  },
-  "IRSCPorePressure": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
-  },
-  "IRSCMeanEffectiveStress": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:"
-  },
-  "IRSCDifferentialStress": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:"
-  },
-  "IRSCLabEffectiveMeanStress": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:"
-  },
-  "IRSCLabDifferentialStress": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:"
-  },
-  "MassAsReceived": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
-  },
-  "SaturatedMass": {
-    "Value": 0.28,
-    "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:"
-  },
-  "Interpretation": [
-    {
-      "PorePressure": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:psi:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:UniaxialTest123:",
+    "SampleID": "opendes:master-data--Sample:Uniaxial75FR:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "percent",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:%25:",
+        "propertyNames": [
+          "Porosity.Value",
+          "Interpretation[*].Porosity.Value",
+          "Endpoints.MaxSimulatedDepletion",
+          "Endpoints.PorosityAtMaxDepletion",
+          "Endpoints.DepletionAtPoreCollapse",
+          "Endpoints.IRSCEEstimatedPorosity",
+          "Endpoints.BackToIRSCEstimatedPorosity"
+        ]
       },
-      "1DBulkCompressibility": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
+      {
+        "kind": "Unit",
+        "name": "kilogram per litre",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:kg%2FL:",
+        "propertyNames": [
+          "BulkDensityAsReceived"
+        ]
       },
-      "1DPoreCompressibility": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
+      {
+        "kind": "Unit",
+        "name": "per pascal",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:1%2FPa:",
+        "propertyNames": [
+          "GrainCompressibility",
+          "Endpoints.BulkCompressibilityAtMaxDepletion"
+        ]
       },
-      "Permeability": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:mD:",
-        "PermeabilityType": "opendes:reference-data--PermeabilityMeasurementType:Gas:"
+      {
+        "kind": "Unit",
+        "name": "pascal per second",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:Pa%2Fs:",
+        "propertyNames": [
+          "SaturantViscosity",
+          "Interpretation[*].1DBulkCompressibility",
+          "Interpretation[*].1DPoreCompressibility",
+          "Endpoints.IRSCPoreCompressibility",
+          "Endpoints.IRSCBulkCompressibility",
+          "Endpoints.BackToIRSCPoreCompressibility",
+          "Endpoints.BackToIRSCBulkCompressibility"
+        ]
       },
-      "Porosity": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:%25:",
-        "PorosityType": "opendes:reference-data--PorosityMeasurementType:BrineSaturation:"
+      {
+        "kind": "Unit",
+        "name": "kilonewton per square metre",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:",
+        "propertyNames": [
+          "IRSCMeanEffectiveStress",
+          "IRSCDifferentialStress",
+          "IRSCLabEffectiveMeanStress",
+          "IRSCLabDifferentialStress",
+          "TestSteps[*].AxialStress"
+        ]
       },
-      "YoungsModulus": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa:"
+      {
+        "kind": "Unit",
+        "name": "gram",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:g:",
+        "propertyNames": [
+          "MassAsReceived",
+          "SaturatedMass"
+        ]
       },
-      "BiotsCoefficient": 0.28,
-      "PoissonsRatio": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+      {
+        "kind": "Unit",
+        "name": "pascal",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:Pa:",
+        "propertyNames": [
+          "IRSCPorePressure",
+          "Interpretation[*].PorePressure",
+          "Interpretation[*].YoungsModulus",
+          "Endpoints.IRSCYoungsModulus",
+          "Endpoints.BackToIRSCYoungsModulus",
+          "TestSteps[*].ConfiningPressure",
+          "TestSteps[*].PorePressure"
+        ]
       },
-      "UniaxialCycleType": "opendes:reference-data--UniaxialCycleType:MiniLoading:"
-    }
-  ],
-  "Endpoints": {
-    "MaxSimulatedDepletion": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "PorosityAtMaxDepletion": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BulkCompressibilityAtMaxDepletion": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "DepletionAtPoreCollapse": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCEEstimatedPorosity": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCBiotsCoefficient": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "PermeabilityAtMaxDepletion": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCPermeability": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCPoreCompressibility": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCBulkCompressibility": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCBiotsCoefficient": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCYoungModulus": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "IRSCPoissonsRatio": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCEstimatedPorosity": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCPermeability": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCPoreCompressibility": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCBulkCompressibility": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCYoungModulus": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    },
-    "BackToIRSCPoissonsRatio": {
-      "Value": 0.28,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:"
-    }
-  },
-  "TestSteps": [
-    {
-      "UniaxialCycleType": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:",
-        "Type": "opendes:reference-data--UniaxialCycleType:MiniLoading:"
+      {
+        "kind": "Unit",
+        "name": "millidarcy",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:mD:",
+        "propertyNames": [
+          "Interpretation[*].Permeability.Value",
+          "Endpoints.PermeabilityAtMaxDepletion",
+          "Endpoints.IRSCPermeability",
+          "Endpoints.BackToIRSCPermeability"
+        ]
       },
-      "UniaxialTestControl": {
-        "Value": 0.28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:1%2Fpsi:",
-        "UniaxialTestControlType": "opendes:reference-data--UniaxialTestControlType:ConstantPorePressure:"
+      {
+        "kind": "Unit",
+        "name": "euclid",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:Euc:",
+        "propertyNames": [
+          "Interpretation[*].PoissonsRatio",
+          "Endpoints.BackToIRSCBiotsCoefficient",
+          "Endpoints.IRSCPoissonsRatio",
+          "Endpoints.BackToIRSCPoissonsRatio",
+          "TestSteps[*].AxialStrain",
+          "TestSteps[*].RadialStrain",
+          "TestSteps[*].DeltaP"
+        ]
       },
-      "Time": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:s:"
-      },
-      "ConfiningPressure": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa:"
-      },
-      "PorePressure": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Pa:"
-      },
-      "AxialStress": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:kN%2Fm2:"
-      },
-      "AxialStrain": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-      },
-      "RadialStrain": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-      },
-      "FlowRate": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
-      },
-      "DeltaP": {
-        "Value": 28,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:Euc:"
+      {
+        "kind": "Unit",
+        "name": "second",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:s:",
+        "propertyNames": [
+          "TestSteps[*].Time"
+        ]
       }
-    }
-  ],
-  "$id": "uniaxial_test_example.1.0.0.json"
-}
+    ],
+    "LabSampleIdentifier": "75FR",
+    "Remarks": {
+      "RemarkSequenceNumber": 1,
+      "Remark": "Remark",
+      "RemarkSource": "Remark Source",
+      "RemarkDate": "2025-01-01"
+    },
+    "Lithology": "Interbedded",
+    "Porosity": {
+      "Value": 1.23,
+      "PorosityMeasurementTypeID": "opendes:reference-data--PorosityMeasurementType:BrineSaturation:"
+    },
+    "BulkDensityAsReceived": 1.23,
+    "GrainCompressibility": 1.23,
+    "FluidSaturantID": "opendes:reference-data--FluidSaturantType:LabOil:",
+    "SaturantViscosity": 1.23,
+    "IRSCPorePressure": 1.23,
+    "IRSCMeanEffectiveStress": 1.23,
+    "IRSCDifferentialStress": 1.23,
+    "IRSCLabEffectiveMeanStress": 1.23,
+    "IRSCLabDifferentialStress": 1.23,
+    "MassAsReceived": 1.23,
+    "SaturatedMass": 1.23,
+    "Interpretation": [
+      {
+        "PorePressure": 1.23,
+        "1DBulkCompressibility": 1.23,
+        "1DPoreCompressibility": 1.23,
+        "Permeability": {
+          "PermeabilityTypeID": "opendes:reference-data--PermeabilityMeasurementType:Gas:",
+          "Value": 1.23
+        },
+        "Porosity": {
+          "Value": 1.23,
+          "PorosityMeasurementTypeID": "opendes:reference-data--PorosityMeasurementType:BrineSaturation:"
+        },
+        "YoungsModulus": 1.23,
+        "BiotsCoefficient": 1.23,
+        "PoissonsRatio": 1.23,
+        "UniaxialCycleType": "opendes:reference-data--UniaxialCycleType:MiniLoading:"
+      }
+    ],
+    "Endpoints": {
+      "MaxSimulatedDepletion": 1.23,
+      "PorosityAtMaxDepletion": 1.23,
+      "BulkCompressibilityAtMaxDepletion": 1.23,
+      "DepletionAtPoreCollapse": 1.23,
+      "IRSCEEstimatedPorosity": 1.23,
+      "BackToIRSCBiotsCoefficient": 1.23,
+      "PermeabilityAtMaxDepletion": 1.23,
+      "IRSCPermeability": 1.23,
+      "IRSCPoreCompressibility": 1.23,
+      "IRSCBulkCompressibility": 1.23,
+      "IRSCBiotsCoefficient": 1.23,
+      "IRSCYoungsModulus": 1.23,
+      "IRSCPoissonsRatio": 1.23,
+      "BackToIRSCEstimatedPorosity": 1.23,
+      "BackToIRSCPermeability": 1.23,
+      "BackToIRSCPoreCompressibility": 1.23,
+      "BackToIRSCBulkCompressibility": 1.23,
+      "BackToIRSCYoungsModulus": 1.23,
+      "BackToIRSCPoissonsRatio": 0
+    },
+    "TestSteps": [
+      {
+        "UniaxialCycleType": {
+          "Value": 1.23,
+          "UniaxialCycleTypeID": "opendes:reference-data--UniaxialCycleType:MiniLoading:"
+        },
+        "UniaxialTestControl": {
+          "Value": 1.23,
+          "UniaxialTestControlTypeID": "opendes:reference-data--UniaxialTestControlType:ConstantPorePressure:"
+        },
+        "Time": 1.23,
+        "ConfiningPressure": 1.23,
+        "PorePressure": 1.23,
+        "AxialStress": 1.23,
+        "AxialStrain": 1.23,
+        "RadialStrain": 1.23,
+        "FlowRate": 1.23,
+        "DeltaP": 1.23
+      }
+    ]
+  }
+]

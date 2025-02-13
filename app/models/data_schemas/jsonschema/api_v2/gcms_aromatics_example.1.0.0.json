@@ -1,48 +1,41 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:GCMS_Aromatics_Example:",
-  "SampleID": "opendes:master-data--Sample:test:",
-  "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
-  "AromaticGCMSCompounds": [
-    {
-      "CompoundCode": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
-      "RetentionTime": {
-        "Value": 12.34,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
-      },
-      "Ion": "K+",
-      "Peak": [
-        {
-          "Value": 56.78,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
-        },
-        {
-          "Value": 90.12,
-          "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-          "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+[
+  {
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:test:",
+    "SampleID": "opendes:master-data--Sample:test:",
+    "MethodID": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "picogram",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:pg:",
+        "propertyNames": [
+          "StandardCompound.Mass"
+        ]
+      }
+    ],
+    "AromaticGCMSCompounds": [
+      {
+        "CompoundID": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
+        "RetentionTime": 12.34,
+        "Ion": "K+",
+        "Peak": {
+          "AreaValue": 56.78,
+          "HeightValue": "opendes:reference-data--CompoundsAreaHeight:AREA:"
         }
-      ]
-    }
-  ],
-  "StdCompound": {
-    "CompoundCode": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
-    "RetentionTime": {
-      "Value": 45.67,
-      "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:min:"
-    },
-    "Ion": "Mg2+",
-    "Peak": [
+      }
+    ],
+    "StandardCompound": [
       {
-        "Value": 78.9,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
-      },
-      {
-        "Value": 12.34,
-        "UnitOfMeasure": "opendes:reference-data--UnitOfMeasure:g:",
-        "AreaHeightQualifier": "opendes:reference-data--CompoundsAreaHeight:HEIGHT:"
+        "CompoundID": "opendes:reference-data--AromaticGCMSCompounds:mn1:",
+        "RetentionTime": 45.67,
+        "Ion": "Mg2+",
+        "Peak": {
+          "AreaValue": 56.78,
+          "HeightValue": "opendes:reference-data--CompoundsAreaHeight:AREA:"
+        },
+        "Mass": -123,
+        "Concentration": -123
       }
     ]
-  },
-  "$id": "gcms_aromatics_example.1.0.0.json"
-}
+  }
+]
