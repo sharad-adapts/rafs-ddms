@@ -18,88 +18,86 @@
       [
         {
           "kind":"Unit",
-          "name":"ft[US]",
-          "persistableReference":"{\"abcd\":{\"a\":0.0,\"b\":1200.0,\"c\":3937.0,\"d\":0.0},\"symbol\":\"ft[US]\",\"baseMeasurement\":{\"ancestry\":\"L\",\"type\":\"UM\"},\"type\":\"UAD\"}",
-          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:degF:",
+          "name":"cm3\/m3",
+          "unitOfMeasureID":"opendes:reference-data--UnitOfMeasure:cm3:",
           "propertyNames":[
-            "HorizontalDeflection.EastWest",
-            "HorizontalDeflection.NorthSouth"
+            "GasComposition.MassFraction"
           ]
         }
       ],
       "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
       [
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":5.0,
-          "MassFraction":5.0,
-          "MoleFraction":7.0,
-          "UnknownFraction":8.0,
-          "SpecificGravity":4.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":5,
+          "MassFraction":5,
+          "MoleFraction":7,
+          "UnknownFraction":8,
+          "SpecificGravity":4
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":4.0,
-          "MassFraction":5.0,
-          "MoleFraction":2.0,
-          "UnknownFraction":6.0,
-          "SpecificGravity":5.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":4,
+          "MassFraction":5,
+          "MoleFraction":2,
+          "UnknownFraction":6,
+          "SpecificGravity":5
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":6.0,
-          "MassFraction":1.0,
-          "MoleFraction":7.0,
-          "UnknownFraction":1.0,
-          "SpecificGravity":9.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":6,
+          "MassFraction":1,
+          "MoleFraction":7,
+          "UnknownFraction":1,
+          "SpecificGravity":9
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":10.0,
-          "MassFraction":8.0,
-          "MoleFraction":3.0,
-          "UnknownFraction":8.0,
-          "SpecificGravity":10.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":10,
+          "MassFraction":8,
+          "MoleFraction":3,
+          "UnknownFraction":8,
+          "SpecificGravity":10
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":4.0,
-          "MassFraction":5.0,
-          "MoleFraction":8.0,
-          "UnknownFraction":6.0,
-          "SpecificGravity":6.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":4,
+          "MassFraction":5,
+          "MoleFraction":8,
+          "UnknownFraction":6,
+          "SpecificGravity":6
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":8.0,
-          "MassFraction":3.0,
-          "MoleFraction":1.0,
-          "UnknownFraction":3.0,
-          "SpecificGravity":5.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":8,
+          "MassFraction":3,
+          "MoleFraction":1,
+          "UnknownFraction":3,
+          "SpecificGravity":5
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":7.0,
-          "MassFraction":8.0,
-          "MoleFraction":3.0,
-          "UnknownFraction":1.0,
-          "SpecificGravity":9.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":7,
+          "MassFraction":8,
+          "MoleFraction":3,
+          "UnknownFraction":1,
+          "SpecificGravity":9
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":5.0,
-          "MassFraction":7.0,
-          "MoleFraction":3.0,
-          "UnknownFraction":4.0,
-          "SpecificGravity":8.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":5,
+          "MassFraction":7,
+          "MoleFraction":3,
+          "UnknownFraction":4,
+          "SpecificGravity":8
         },
         {
-          "ComponentID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "VolumeFraction":8.0,
-          "MassFraction":8.0,
-          "MoleFraction":6.0,
-          "UnknownFraction":7.0,
-          "SpecificGravity":2.0
+          "ComponentID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "VolumeFraction":8,
+          "MassFraction":8,
+          "MoleFraction":6,
+          "UnknownFraction":7,
+          "SpecificGravity":2
         }
       ],
       "ABCDEFGHIJKLMNOPQRSTU",

@@ -6,7 +6,7 @@
       {
         "kind": "Unit",
         "name": "cm3/m3",
-        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:cm3/m3:",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:cm3:",
         "propertyNames": [
           "GasComposition.MassFraction"
         ]
@@ -15,7 +15,7 @@
     "Method": "opendes:reference-data--BulkPyrolysisMethod:HAWK:",
     "GasComposition": [
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 5,
         "MassFraction": 5,
         "MoleFraction": 7,
@@ -23,7 +23,7 @@
         "SpecificGravity": 4
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 4,
         "MassFraction": 5,
         "MoleFraction": 2,
@@ -31,7 +31,7 @@
         "SpecificGravity": 5
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 6,
         "MassFraction": 1,
         "MoleFraction": 7,
@@ -39,7 +39,7 @@
         "SpecificGravity": 9
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 10,
         "MassFraction": 8,
         "MoleFraction": 3,
@@ -47,7 +47,7 @@
         "SpecificGravity": 10
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 4,
         "MassFraction": 5,
         "MoleFraction": 8,
@@ -55,7 +55,7 @@
         "SpecificGravity": 6
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 8,
         "MassFraction": 3,
         "MoleFraction": 1,
@@ -63,7 +63,7 @@
         "SpecificGravity": 5
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 7,
         "MassFraction": 8,
         "MoleFraction": 3,
@@ -71,7 +71,7 @@
         "SpecificGravity": 9
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 5,
         "MassFraction": 7,
         "MoleFraction": 3,
@@ -79,7 +79,7 @@
         "SpecificGravity": 8
       },
       {
-        "ComponentID": "opendes:reference-data--SampleCompositionComponent:N2:",
+        "ComponentID": "opendes:reference-data--SampleOrganicCompositionComponent:N2:",
         "VolumeFraction": 8,
         "MassFraction": 8,
         "MoleFraction": 6,

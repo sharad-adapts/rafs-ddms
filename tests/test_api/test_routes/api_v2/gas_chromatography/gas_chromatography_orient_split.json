@@ -29,70 +29,70 @@
       "opendes:reference-data--BulkPyrolysisMethod:LECO:",
       [
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "RetentionTime":9.0,
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "RetentionTime":9,
           "Peak":{
-            "AreaValue":10.0,
-            "AreaConcentration":4.0,
-            "HeightValue":10.0,
-            "HeightConcentration":8.0,
-            "PeakValueTypeUnknown":10.0
+            "AreaValue":10,
+            "AreaConcentration":4,
+            "HeightValue":10,
+            "HeightConcentration":8,
+            "PeakValueTypeUnknown":10
           },
           "IsInternalStandard":true
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "RetentionTime":5.0,
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "RetentionTime":5,
           "Peak":{
-            "AreaValue":8.0,
-            "AreaConcentration":8.0,
-            "HeightValue":10.0,
-            "HeightConcentration":5.0,
-            "PeakValueTypeUnknown":8.0
+            "AreaValue":8,
+            "AreaConcentration":8,
+            "HeightValue":10,
+            "HeightConcentration":5,
+            "PeakValueTypeUnknown":8
           },
           "IsInternalStandard":true
         }
       ],
       [
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":5.0,
-          "Concentration":9.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":5,
+          "Concentration":9
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":3.0,
-          "Concentration":5.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":3,
+          "Concentration":5
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":9.0,
-          "Concentration":6.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":9,
+          "Concentration":6
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":9.0,
-          "Concentration":6.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":9,
+          "Concentration":6
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":6.0,
-          "Concentration":9.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":6,
+          "Concentration":9
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":5.0,
-          "Concentration":10.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":5,
+          "Concentration":10
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":5.0,
-          "Concentration":5.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":5,
+          "Concentration":5
         },
         {
-          "ComponentNameID":"opendes:reference-data--SampleCompositionComponent:N2:",
-          "Mass":2.0,
-          "Concentration":5.0
+          "ComponentNameID":"opendes:reference-data--SampleOrganicCompositionComponent:N2:",
+          "Mass":2,
+          "Concentration":5
         }
       ]
     ]

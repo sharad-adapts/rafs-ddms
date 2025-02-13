@@ -35,7 +35,7 @@
         "LiquidVolumeFraction": 1,
         "VaporComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 7,
             "MolecularWeight": 2,
             "MolePercent": 3,
@@ -44,7 +44,7 @@
             "SpecificGravity": 8
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 5,
             "MolecularWeight": 9,
             "MolePercent": 2,
@@ -53,7 +53,7 @@
             "SpecificGravity": 7
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 1,
             "MolecularWeight": 8,
             "MolePercent": 5,
@@ -62,7 +62,7 @@
             "SpecificGravity": 3
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 9,
             "MolecularWeight": 4,
             "MolePercent": 3,
@@ -71,7 +71,7 @@
             "SpecificGravity": 4
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 2,
             "MolecularWeight": 8,
             "MolePercent": 6,
@@ -82,7 +82,7 @@
         ],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 10,
             "MolecularWeight": 7,
             "MolePercent": 1,
@@ -91,7 +91,7 @@
             "SpecificGravity": 3
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 10,
             "MolecularWeight": 8,
             "MolePercent": 10,
@@ -100,7 +100,7 @@
             "SpecificGravity": 1
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 5,
             "MolecularWeight": 2,
             "MolePercent": 2,
@@ -109,7 +109,7 @@
             "SpecificGravity": 4
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 7,
             "MolecularWeight": 6,
             "MolePercent": 3,
@@ -118,7 +118,7 @@
             "SpecificGravity": 5
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 5,
             "MolecularWeight": 9,
             "MolePercent": 2,
@@ -127,7 +127,7 @@
             "SpecificGravity": 10
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 7,
             "MolecularWeight": 9,
             "MolePercent": 3,
@@ -136,7 +136,7 @@
             "SpecificGravity": 3
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 10,
             "MolecularWeight": 1,
             "MolePercent": 9,
@@ -169,7 +169,7 @@
         "LiquidVolumeFraction": 6,
         "VaporComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 7,
             "MolecularWeight": 7,
             "MolePercent": 7,
@@ -178,7 +178,7 @@
             "SpecificGravity": 7
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 3,
             "MolecularWeight": 6,
             "MolePercent": 2,
@@ -187,7 +187,7 @@
             "SpecificGravity": 9
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 6,
             "MolecularWeight": 5,
             "MolePercent": 2,
@@ -196,7 +196,7 @@
             "SpecificGravity": 7
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 4,
             "MolecularWeight": 9,
             "MolePercent": 3,
@@ -230,7 +230,7 @@
         "LiquidVolumeFraction": 3,
         "VaporComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 6,
             "MolecularWeight": 10,
             "MolePercent": 4,
@@ -241,7 +241,7 @@
         ],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 10,
             "MolecularWeight": 10,
             "MolePercent": 5,
@@ -250,7 +250,7 @@
             "SpecificGravity": 10
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 9,
             "MolecularWeight": 2,
             "MolePercent": 10,
@@ -259,7 +259,7 @@
             "SpecificGravity": 1
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 2,
             "MolecularWeight": 9,
             "MolePercent": 1,
@@ -268,7 +268,7 @@
             "SpecificGravity": 1
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 5,
             "MolecularWeight": 1,
             "MolePercent": 8,
@@ -277,7 +277,7 @@
             "SpecificGravity": 3
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 8,
             "MolecularWeight": 3,
             "MolePercent": 6,
@@ -311,7 +311,7 @@
         "VaporComposition": [],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 2,
             "MolecularWeight": 2,
             "MolePercent": 2,
@@ -320,7 +320,7 @@
             "SpecificGravity": 9
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 10,
             "MolecularWeight": 2,
             "MolePercent": 4,
@@ -329,7 +329,7 @@
             "SpecificGravity": 1
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 4,
             "MolecularWeight": 10,
             "MolePercent": 2,
@@ -338,7 +338,7 @@
             "SpecificGravity": 2
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 4,
             "MolecularWeight": 1,
             "MolePercent": 4,
@@ -347,7 +347,7 @@
             "SpecificGravity": 6
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 2,
             "MolecularWeight": 10,
             "MolePercent": 6,
@@ -356,7 +356,7 @@
             "SpecificGravity": 8
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 8,
             "MolecularWeight": 10,
             "MolePercent": 9,
@@ -389,7 +389,7 @@
         "LiquidVolumeFraction": 5,
         "VaporComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 9,
             "MolecularWeight": 2,
             "MolePercent": 6,
@@ -400,7 +400,7 @@
         ],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 4,
             "MolecularWeight": 6,
             "MolePercent": 10,
@@ -409,7 +409,7 @@
             "SpecificGravity": 9
           },
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 1,
             "MolecularWeight": 3,
             "MolePercent": 6,
@@ -443,7 +443,7 @@
         "VaporComposition": [],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 8,
             "MolecularWeight": 1,
             "MolePercent": 4,

@@ -221,7 +221,8 @@
               }
             },
             "required": [
-              "kind"
+              "kind",
+              "persistableReference"
             ]
           }
         ],
@@ -255,11 +256,11 @@
             "type": "string",
             "title": "Component Name ID",
             "description": "Name of the component in this analysis.  In the case of internal standard compounds, the name of the actual compound should be used in lieu of, e.g. 'STD1', if it is known.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "SampleCompositionComponent"
+                "EntityType": "SampleOrganicCompositionComponent"
               }
             ]
           },
@@ -332,11 +333,11 @@
             "type": "string",
             "title": "Component Name ID",
             "description": "Name of the component in this analysis.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "SampleCompositionComponent"
+                "EntityType": "SampleOrganicCompositionComponent"
               }
             ]
           },

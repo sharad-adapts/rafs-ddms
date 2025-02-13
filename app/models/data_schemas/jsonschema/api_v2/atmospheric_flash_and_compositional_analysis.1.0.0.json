@@ -2,7 +2,6 @@
   "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
   "$id": "atmospheric_flash_and_compositional_analysis.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "x-osdu-schema-source": "osdu:wks:content--atmospheric_flash_and_compositional_analysis:1.0.0",
   "title": "Atmospheric Flash And Compositional Analysis",
   "description": "Compositional Analysis contains properties that generally include mole and mass percents of: total fluid, flashed gas and flashed liquid, and individual components (e.g., C1, C2, C3…).",
   "type": "object",
@@ -243,7 +242,7 @@
     "FlashTemperature": {
       "type": "number",
       "title": "Flash Temperature",
-      "description": "Temperature at which the sample is flashed.",
+      "description": "Temperature at which the sampleis flashed.",
       "x-osdu-frame-of-reference": "UOM:thermodynamic temperature"
     },
     "CompositionalAnalysis": {
@@ -262,11 +261,11 @@
             "type": "string",
             "title": "Component Name ID",
             "description": "The name of the component.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "SampleCompositionComponent"
+                "EntityType": "SampleOrganicCompositionComponent"
               }
             ]
           },
@@ -459,11 +458,11 @@
                 "type": "string",
                 "title": "Component Name ID",
                 "description": "The name of the component.",
-                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                 "x-osdu-relationship": [
                   {
                     "GroupType": "reference-data",
-                    "EntityType": "SampleCompositionComponent"
+                    "EntityType": "SampleOrganicCompositionComponent"
                   }
                 ]
               },
@@ -580,11 +579,11 @@
             "type": "string",
             "title": "Component Name ID",
             "description": "The name of the component.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "SampleCompositionComponent"
+                "EntityType": "SampleOrganicCompositionComponent"
               }
             ]
           },
@@ -620,11 +619,11 @@
             "type": "string",
             "title": "Component Name ID",
             "description": "The name of the component.",
-            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+            "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {
                 "GroupType": "reference-data",
-                "EntityType": "SampleCompositionComponent"
+                "EntityType": "SampleOrganicCompositionComponent"
               }
             ]
           },

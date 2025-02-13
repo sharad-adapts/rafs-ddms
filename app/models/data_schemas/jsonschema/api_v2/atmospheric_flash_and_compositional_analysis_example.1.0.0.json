@@ -17,7 +17,7 @@
     "FlashTemperature": 100,
     "CompositionalAnalysis": [
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
         "FlashedGasRelativeMass": 6731,
         "OverallFluidRelativeMass": 5799,
         "FlashedLiquidRelativeMole": 6575,
@@ -71,14 +71,14 @@
     },
     "GasCompositionalCalculations": [
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
         "MolecularWeight": 383,
         "Density": 2124
       }
     ],
     "OilCompositionalCalculations": [
       {
-        "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+        "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
         "MolecularWeight": 6075,
         "Density": 2183
       }

@@ -268,7 +268,7 @@
           "SaturationPressureTypeID": {
             "type": "string",
             "title": "Saturation Pressure Type ID",
-            "description": "Pb (Bubble Point)/Pd (Dew Point)/2-Ph (Two Phase)\n\nConvert to reference list SaturationPressureType",
+            "description": "The type of saturation pressure measured in this test step, e.g. Pb (Bubble Point), Pd (Dew Point), or 2-Ph (Two Phase).",
             "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SaturationPressureType:[\\w\\-\\.\\:\\%]+:[0-9]*$",
             "x-osdu-relationship": [
               {

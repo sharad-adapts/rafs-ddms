@@ -37,7 +37,7 @@
         "IsothermalFluidCompressibilityInstantaneous": 1.23,
         "VaporComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 1.23,
             "MolecularWeight": 1.23,
             "MolePercent": 1.23,
@@ -48,7 +48,7 @@
         ],
         "LiquidComposition": [
           {
-            "ComponentNameID": "opendes:reference-data--SampleCompositionComponent:H2O:",
+            "ComponentNameID": "opendes:reference-data--SampleOrganicCompositionComponent:H2O:",
             "RelativeMoleWeight": 1.23,
             "MolecularWeight": 1.23,
             "MolePercent": 1.23,

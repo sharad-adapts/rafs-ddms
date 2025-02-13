@@ -1,7 +1,9 @@
 {
   "x-osdu-license": "Copyright 2025, The Open Group \\nLicensed under the Apache License, Version 2.0 (the \"License\"); you may not use this file except in compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 . Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.",
+  "x-osdu-review-status": "Pending",
   "$id": "constant_composition_expansion.1.0.0.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-osdu-schema-source": "osdu:wks:content--CceDataSchema:1.0.0",
   "title": "Constant Composition Expansion",
   "description": "A constant composition expansion (CCE) is an isothermal test that establishes the pressure/volume relationship for a fluid system as it may be depleted in a reservoir. Measurements of this test include saturation pressure, relative volume, single-phase densities, and other details depending on fluid type, for example, compressibility (oil), deviation factors (gas), and liquid dropout (condensates) as a fluid sample is progressively allowed to expand with decreasing pressure without removing any of the sample.",
   "type": "object",
@@ -394,11 +396,11 @@
                   "type": "string",
                   "title": "Component Name ID",
                   "description": "Name of the component in the liquid.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "SampleCompositionComponent"
+                      "EntityType": "SampleOrganicCompositionComponent"
                     }
                   ]
                 },
@@ -438,8 +440,7 @@
                   "description": "The specific gravity of the component.",
                   "x-osdu-frame-of-reference": "UOM:dimensionless"
                 }
-              },
-              "additionalProperties": false
+              }
             }
           },
           "LiquidComposition": {
@@ -458,11 +459,11 @@
                   "type": "string",
                   "title": "Component Name ID",
                   "description": "Name of the component in the liquid.",
-                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
+                  "pattern": "^[\\w\\-\\.]+:reference-data\\-\\-SampleOrganicCompositionComponent:[\\w\\-\\.\\:\\%]+:[0-9]*$",
                   "x-osdu-relationship": [
                     {
                       "GroupType": "reference-data",
-                      "EntityType": "SampleCompositionComponent"
+                      "EntityType": "SampleOrganicCompositionComponent"
                     }
                   ]
                 },
@@ -502,8 +503,7 @@
                   "description": "The specific gravity of the component.",
                   "x-osdu-frame-of-reference": "UOM:dimensionless"
                 }
-              },
-              "additionalProperties": false
+              }
             }
           },
           "Remarks": {
@@ -547,12 +547,10 @@
                   "x-osdu-frame-of-reference": "DateTime"
                 }
               },
-              "x-osdu-inheriting-from-kind": [],
-              "additionalProperties": false
+              "x-osdu-inheriting-from-kind": []
             }
           }
-        },
-        "additionalProperties": false
+        }
       }
     }
   },
