@@ -61,9 +61,7 @@ configuration:
     AZ_KEYVAULT_URL: "https://{{ .Values.azure.keyvault.name }}.vault.azure.net/"
     USE_BLOB_STORAGE: "True"
 
-  secrets:
-  - name: REDIS_EXTERNAL_PASSWORD
-    key: redis-pass
+
   # About 800m of consumption with 4 uvloop workers and integration test run
   # Initialization will take longer if this is not correctly setup
   request:
@@ -94,13 +92,19 @@ configuration:
   - name: REDISCLI_AUTH
     key: redis-pass
   request:
-    cpu: 64m
-    memory: 500Mi
+    cpu: 128m
+    memory: 4Gi
   limit:
     cpu: 300m
-    memory: 1Gi
+    memory: 6Gi
   servicePort: 6379
   serviceName: redis
+  volumes:
+  - name: redis-data
+    emptyDir: {}
+  volumeMounts:
+  - mountPath: /data
+    name: redis-data
 
 #####################################
 ## Cronjob to re-index rafs
