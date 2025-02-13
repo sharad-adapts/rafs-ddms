@@ -47,7 +47,7 @@ azure_containerize:
   after_script:
     - docker buildx rm
 
-azure_containerize:cronjob:
+azure_containerize_cronjob:
   stage: containerize
   needs: ["compile-and-unit-test"]
   tags: ["osdu-medium"]
