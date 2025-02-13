@@ -81,3 +81,14 @@ python scripts/test_data_validator.py /path/to/example.json /path/to/test_data_o
 ```
 
 This will generate Pydantic models from all files ending in `DataSchema.1.0.0.json` in the `/path/to/schemas` directory and write them to the `/path/to/models` directory, incorporating the version information into the model class name.
+
+## DDMSFootprint Generator
+
+The `footprint_generator.py` parses the data model and reference types models to generate an actual list of supported types that are then put into the DDMSFootprint.
+
+**Example run:**
+```bash
+python scripts/footprint_generator.py
+```
+
+This will update the appropriate footprint file [here](../docs).

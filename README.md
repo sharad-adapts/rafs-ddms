@@ -32,6 +32,12 @@ Instructions and payload examples are presented on [the tutorial page](./docs/tu
 
 Compiled REST API documentation is presented in the [openapi.json](./docs/spec/openapi.json) file.
 
+## DDMS Footprint
+
+The DDMS Footprint lists of the OSDU `group-type--EntityType` and `content types` handled by the DDMS.
+
+RAFS DDMS Footpring is presented in the [file](./docs/rafs_ddms_footprint_v0.28.json).
+
 ## OSDU Well Known Schemas Disclaimer
 
 Note regarding OSDU Well Known Schema interaction: Currently (April 2023), OSDU Data Definitions "Fluid Samples" and "Samples & Petrophysics" Project teams are re-working the data model for both rock and fluid samples in a way that there will be a unified way to handle both. That means that today there are no FluidSample, FluidSampleAnalysis, or FluidSampleAcquisition schemas published by OSDU Data Definitions, which can be used by the DDMS. Similarly, it is likely that RockSample, RockSampleAnalysis, and Coring schemas will be changed by the Forum or even be deprecated and replaced in the near future. In light of this: 1) With regard to PVT, the RAFS DDMS currently uses custom WPC and Master schemas 2) With regard to RCA, the DDMS does have relationship to the existing rock-related schemas mentioned above. In both cases, the DDMS will need to be updated when the revised OSDU Data Definitions data model is published. 

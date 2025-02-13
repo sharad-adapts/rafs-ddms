@@ -1,0 +1,443 @@
+{
+    "SchemaKind": "osdu:wks:content--DdmsFootprint:1.0.0",
+    "Name": "Rock and Fluid Sample (RAFS) DDMS",
+    "Description": "The data footprint declared by the RAFS DDMS as capability.",
+    "DdmsVersion": "v0.28",
+    "DocumentationURL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/README.md",
+    "CoveredItems": [
+        {
+            "WKS": "osdu:wks:reference-data--AromaticGCCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--AromaticGCMSCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--BulkPyrolysisMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--CapillaryPressureMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--CompoundSpecificIsotopeComponents:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--CompoundsAreaHeight:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--CompressibilityMeasurementType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--ConductivityMeasurementMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--ConsolidationType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--CutFluidType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--DesaturationMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--DisplacedFluidType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--DrainageCondition:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--ElementalAnalysisMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--ElementalMeasurementMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--Elements:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--EndFaceEstimationMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--FluidPhasesPresent:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--FluidResistivityMeasurementMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--FluidSaturantType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--FluidSystemAnalysisType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--GCMSCompoundsRatios:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--GCMSMSCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--GasCompositionComponents:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--GasIsotopeComponents:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--GasolineGCCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--IsotopeRatioElements:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--LoadingMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--LoadingStage:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--Minerals:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--MudContaminationCorrectionStatus:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--NMRTestCondition:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--NonGasIsotopeComponents:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--NumberOfElectrodes:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--PHMeasurementMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--PermeabilityMeasurementMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--PyrolysisGCCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SampleCompositionComponent:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SampleInjectionFluidType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SampleTestCondition:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SampleTestRunType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SamplesPreparationMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturateGCCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturateGCMSCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturationFluidType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturationPressureType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturationProcessMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--SaturationType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--TensileStrengthMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--UniaxialCycleType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--UniaxialTestControlType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--ViscosityMethod:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--VitriniteMountTechnique:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--VitriniteReflectancePopulationType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--WOGnCycleNotation:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--WettabilityIndexType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--WettabilityPhaseType:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:reference-data--WholeOilGCCompounds:*.*.*"
+        },
+        {
+            "WKS": "osdu:wks:master-data--GenericFacility:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--GenericSite:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--Sample:2.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--SampleAcquisitionJob:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--SampleChainOfCustodyEvent:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--SampleContainer:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:work-product-component--SamplesAnalysesReport:1.0.0"
+        },
+        {
+            "WKS": "osdu:wks:work-product-component--SamplesAnalysis:1.0.0",
+            "ContentTypes": [
+                "atmosphericflash",
+                "bulkpyrolysisanalyses",
+                "capillarypressure",
+                "cec",
+                "compositionalanalysis",
+                "constantcompositionexpansion",
+                "constantvolumedepletion",
+                "coregamma",
+                "crushedrockanalysis",
+                "differentialliberation",
+                "edsmapping",
+                "electricalproperties",
+                "extraction",
+                "fractionation",
+                "gaschromatographyanalyses",
+                "gascompositionanalyses",
+                "gcmsalkanes",
+                "gcmsaromatics",
+                "gcmsms",
+                "gcmsratios",
+                "interfacialtension",
+                "isotopes",
+                "mininggeotechlogging",
+                "multiplecontactmiscibility",
+                "multiplesalinitytests",
+                "multistageseparator",
+                "nmr",
+                "pdp",
+                "relativepermeability",
+                "rockcompressibility",
+                "routinecoreanalysis",
+                "slimtube",
+                "stocktankoilanalysis",
+                "swelling",
+                "tec",
+                "tensilestrength",
+                "transport",
+                "triaxial",
+                "uniaxial",
+                "vaporliquidequilibrium",
+                "vitrinitereflectance",
+                "wateranalysis",
+                "wettabilityindex",
+                "xrd",
+                "xrf"
+            ]
+        }
+    ],
+    "AuthorityToContentTypes": [
+        {
+            "Authority": "OSDU",
+            "Description": "RAFS Content Types",
+            "AuthorityURL": "https://gitlab.opengroup.org/osdu/subcommittees/data-def/projects/Petrophysics",
+            "ContentTypeURLs": [
+                {
+                    "ContentType": "routinecoreanalysis",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/routine_core_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "constantcompositionexpansion",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/constant_composition_expansion.1.0.0.json"
+                },
+                {
+                    "ContentType": "differentialliberation",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/differential_liberation.1.0.0.json"
+                },
+                {
+                    "ContentType": "transport",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/transport.1.0.0.json"
+                },
+                {
+                    "ContentType": "compositionalanalysis",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/atmospheric_flash_and_compositional_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "atmosphericflash",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/atmospheric_flash_and_compositional_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "multistageseparator",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/multi_stage_separator.1.0.0.json"
+                },
+                {
+                    "ContentType": "swelling",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/swelling.1.0.0.json"
+                },
+                {
+                    "ContentType": "constantvolumedepletion",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/constant_volume_depletion.1.0.0.json"
+                },
+                {
+                    "ContentType": "wateranalysis",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/water_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "interfacialtension",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/interfacial_tension.1.0.0.json"
+                },
+                {
+                    "ContentType": "vaporliquidequilibrium",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/vapor_liquid_equilibrium.1.0.0.json"
+                },
+                {
+                    "ContentType": "multiplecontactmiscibility",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/multiple_contact_miscibility.1.0.0.json"
+                },
+                {
+                    "ContentType": "slimtube",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/slimtube.1.0.0.json"
+                },
+                {
+                    "ContentType": "extraction",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/extraction.1.0.0.json"
+                },
+                {
+                    "ContentType": "fractionation",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/fractionation.1.0.0.json"
+                },
+                {
+                    "ContentType": "relativepermeability",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/relative_permeability.1.0.0.json"
+                },
+                {
+                    "ContentType": "rockcompressibility",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/rock_compressibility.1.0.0.json"
+                },
+                {
+                    "ContentType": "electricalproperties",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/electrical_properties.1.0.0.json"
+                },
+                {
+                    "ContentType": "nmr",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/nmr.1.0.0.json"
+                },
+                {
+                    "ContentType": "multiplesalinitytests",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/multiple_salinity_tests.1.0.0.json"
+                },
+                {
+                    "ContentType": "gcmsalkanes",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gcms_alkanes.1.0.0.json"
+                },
+                {
+                    "ContentType": "gcmsaromatics",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gcms_aromatics.1.0.0.json"
+                },
+                {
+                    "ContentType": "gcmsratios",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gcms_ratios.1.0.0.json"
+                },
+                {
+                    "ContentType": "gaschromatographyanalyses",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gas_chromatography_analyses.1.0.0.json"
+                },
+                {
+                    "ContentType": "gascompositionanalyses",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gas_composition_analyses.1.0.0.json"
+                },
+                {
+                    "ContentType": "isotopes",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/isotopes.1.0.0.json"
+                },
+                {
+                    "ContentType": "bulkpyrolysisanalyses",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/bulk_pyrolysis_analyses.1.0.0.json"
+                },
+                {
+                    "ContentType": "coregamma",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/core_gamma.1.0.0.json"
+                },
+                {
+                    "ContentType": "uniaxial",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/uniaxial.1.0.0.json"
+                },
+                {
+                    "ContentType": "gcmsms",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/gcmsms.1.0.0.json"
+                },
+                {
+                    "ContentType": "cec",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/cec.1.0.0.json"
+                },
+                {
+                    "ContentType": "triaxial",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/triaxial.1.0.0.json"
+                },
+                {
+                    "ContentType": "capillarypressure",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/capillary_pressure.1.0.0.json"
+                },
+                {
+                    "ContentType": "wettabilityindex",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/wettability_index.1.0.0.json"
+                },
+                {
+                    "ContentType": "tec",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/tec.1.0.0.json"
+                },
+                {
+                    "ContentType": "edsmapping",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/eds_mapping.1.0.0.json"
+                },
+                {
+                    "ContentType": "xrf",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/xrf.1.0.0.json"
+                },
+                {
+                    "ContentType": "tensilestrength",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/tensile_strength.1.0.0.json"
+                },
+                {
+                    "ContentType": "vitrinitereflectance",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/vitrinite_reflectance.1.0.0.json"
+                },
+                {
+                    "ContentType": "xrd",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/xrd.1.0.0.json"
+                },
+                {
+                    "ContentType": "pdp",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/pdp.1.0.0.json"
+                },
+                {
+                    "ContentType": "stocktankoilanalysis",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/stock_tank_oil_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "crushedrockanalysis",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/crushed_rock_analysis.1.0.0.json"
+                },
+                {
+                    "ContentType": "mininggeotechlogging",
+                    "URL": "https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/blob/main/app/models/data_schemas/jsonschema/api_v2/mining_geotech_logging.1.0.0.json"
+                }
+            ]
+        }
+    ]
+}
