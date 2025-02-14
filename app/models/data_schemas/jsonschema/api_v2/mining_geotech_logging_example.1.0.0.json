@@ -1,32 +1,46 @@
-{
-  "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:MiningGeotechLogging_WPC:",
-  "SampleID": "opendes:master-data--Sample:MiningGeotechLogging_Sample:",
-  "MiningGeotechData": [
+ [
     {
-      "GeolFrom": {
-        "Value": 70,
-        "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:degF:"
+    "SamplesAnalysisID": "opendes:work-product-component--SamplesAnalysis:MiningGeotechLogging_WPC:",
+    "SampleID": "opendes:master-data--Sample:MiningGeotechLogging_Sample:",
+    "Meta": [
+      {
+        "kind": "Unit",
+        "name": "degree Fahrenheit",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:degF:",
+        "propertyNames": [
+          "MiningGeotechData[*].GeolFrom[*]"
+        ]
       },
-      "GeolTo": {
-        "Value": 90,
-        "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
-      },
-      "RecoveredLength": {
-        "Value": 100,
-        "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
-      },
-      "RQD": {
-        "Value": 80,
-        "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
-      },
-      "FractureCount": {
-        "Value": 110,
-        "UnitOfMeasure": "{{data-partition-id}}:reference-data--UnitOfMeasure:%25:"
-      },
-      "Description": "Geotech Description",
-      "LoggedBy": "John Doe",
-      "LogDate": "2023-02-01T00:00:00Z"
-    }
-  ],
-  "$id": "mining_geotech_logging_example.1.0.0.json"
-}
+      {
+        "kind": "Unit",
+        "name": "percent",
+        "unitOfMeasureID": "opendes:reference-data--UnitOfMeasure:%25:",
+        "propertyNames": [
+          "MiningGeotechData[*].IsotopeRatio[*]"
+        ]
+      }
+    ],
+    "MiningGeotechData": [
+      {
+        "GeolFrom": {
+          "Value": 90
+        },
+        "GeolTo": {
+          "Value": 90
+        },
+        "RecoveredLength": {
+          "Value": 100
+        },
+        "RQD": {
+          "Value": 80
+        },
+        "FractureCount": {
+          "Value": 110
+        },
+        "Description": "Geotech Description",
+        "LoggedBy": "John Doe",
+        "LogDate": "2023-02-01T00:00:00Z"
+      }
+    ]
+  }
+]
