@@ -123,6 +123,9 @@
             "WKS": "osdu:wks:reference-data--SampleInjectionFluidType:*.*.*"
         },
         {
+            "WKS": "osdu:wks:reference-data--SampleOrganicCompositionComponent:*.*.*"
+        },
+        {
             "WKS": "osdu:wks:reference-data--SampleTestCondition:*.*.*"
         },
         {
@@ -187,6 +190,9 @@
         },
         {
             "WKS": "osdu:wks:master-data--Sample:2.0.0"
+        },
+        {
+            "WKS": "osdu:wks:master-data--Sample:2.1.0"
         },
         {
             "WKS": "osdu:wks:master-data--SampleAcquisitionJob:1.0.0"
