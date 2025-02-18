@@ -26,7 +26,7 @@ The `model_generator.py` script generates Pydantic models from JSON schemas with
 
 2. Run the script:
 
-   If there is an unproccesed schema with format `AnalysisTypeDataSchema.1.0.0.json` please first run
+   If there is an unprocessed schema with format `AnalysisTypeDataSchema.1.0.0.json` please first run
    ```bash
    python process_schemas.py <source_directory> <end_filter>
    ```
@@ -92,3 +92,17 @@ python scripts/footprint_generator.py
 ```
 
 This will update the appropriate footprint file [here](../docs).
+
+## JSON Model Generation from XLS files 
+
+1. Clone the Open Subsurface Data Universe JSON Schema [repository](https://gitlab.opengroup.org/osdu/subcommittees/data-def/work-products/schema) 
+2. Place the XLS file containing the new schema in the path "Proposals/content" relative to the root of the project
+3. Launch the User interface with the command: 
+```python OsduSchemaComposer.py -app```
+4. Click the "Run Schema Generation", the Examples and Documentation options can be disabled for a quicker schema generation.
+5. The schema generation is automated, and it pops a status message when done.
+6. The JSON schema files are located in the route "Generated/content" relative to the root of the project
+7. For the References expansion place the ref_expander python script on the project root (attached in this guide)
+8. Run it manually with the command: ```python refs_expander.py Generated/content```
+9. The JSON file would be overwritten in place, that file must be placed in the RAFS repository folder structure, in the
+`app/models/data_schemas/jsonschema/api_v2/` folder
