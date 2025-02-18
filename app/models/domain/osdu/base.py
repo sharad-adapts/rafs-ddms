@@ -23,11 +23,12 @@ SAMPLE_210_KIND = f"{settings.schema_authority}:wks:master-data--Sample:2.1.0"
 SAMPLE_ACQUISITION_JOB_100_KIND = f"{settings.schema_authority}:wks:master-data--SampleAcquisitionJob:1.0.0"
 SAMPLE_CHAIN_OF_CUSTODY_EVENT_100_KIND = f"{settings.schema_authority}:wks:master-data--SampleChainOfCustodyEvent:1.0.0"
 SAMPLE_CONTAINER_100_KIND = f"{settings.schema_authority}:wks:master-data--SampleContainer:1.0.0"
-ROCKSAMPLE_100_KIND = f"{settings.schema_authority}:wks:master-data--RockSample:1.0.0"
+
 MASTER_DATA_KINDS_V2 = (
     GENERIC_FACILITY_100_KIND,
     GENERIC_SITE_100_KIND,
     SAMPLE_200_KIND,
+    SAMPLE_210_KIND,
     SAMPLE_ACQUISITION_JOB_100_KIND,
     SAMPLE_CHAIN_OF_CUSTODY_EVENT_100_KIND,
     SAMPLE_CONTAINER_100_KIND,
