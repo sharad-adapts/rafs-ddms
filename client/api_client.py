@@ -68,7 +68,7 @@ class APIClient(object):
             "Content-Type": "application/json",
             DATA_PARTITION_ID: self.data_partition,
             "Cache-Control": "no-store",
-            CORRELATION_ID: f"rafs-ddms/autotest/{uuid.uuid4()}",
+            CORRELATION_ID: f"rafs-ddms-autotest-{uuid.uuid4()}",
         }
 
         if kwargs.get("headers") is not None:
