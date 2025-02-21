@@ -49,21 +49,21 @@ class SearchServiceSamplesAnalysisTypeIdsFetcher(SamplesAnalysisTypeIdsFetcher):
         """Performs a query to search service to build a list of tuples
         dataset_id, samples_analysis_id."""
         query = self._build_sampleanalysistype_query(data_partition_id, SAMPLESANALYSIS_TYPE_MAPPING[analysis_type])
-        query_offset = 0
 
         result_records = []
+        cursor = None
         while True:
             search_response = await self._search_service.find_records(
                 kind=SAMPLESANALYSIS_KIND,
                 query=query,
-                offset=query_offset,
                 limit=search.QUERY_LIMIT,
+                cursor=cursor,
             )
             records = search_response.get("results", [])
+            cursor = search_response.get("cursor", None)
             if not records:
                 break
             result_records.extend(records)
-            query_offset += search.QUERY_LIMIT
 
         return self._build_result_ids(result_records, target_schema_version, analysis_type)
 
