@@ -2,6 +2,8 @@
 
 ## Available Schemas Information
 
+This page cross-references content schema versions with API versions. For more on content schemas, see [Supported Data Types](https://community.opengroup.org/osdu/platform/domain-data-mgmt-services/rock-and-fluid-sample/rafs-ddms-services/-/wikis/Rock-&-Fluid-Sample-Services/Supported-Data-Types) in the RAFS DDMS wiki.
+
 |Schema name|Status|Schema Version|API Version|Schema's JSON File|
 |:-:|:-:|:-:|:-:|:-:|
 |Atmospheric Flash and Compositional Analysis|Mature|1.0.0|2|[File](app/models/data_schemas/jsonschema/api_v2/atmospheric_flash_and_compositional_analysis.1.0.0.json)
