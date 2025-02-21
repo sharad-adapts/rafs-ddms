@@ -18,11 +18,10 @@ from tests.integration.config import SamplesAnalysisTypes
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [SamplesAnalysisTypes.NMR],
+    "analysis_type", [SamplesAnalysisTypes.CCE],
 )
 @pytest.mark.smoke
 @pytest.mark.v2
-@pytest.mark.skip(reason="Policy Service issue")
 def test_search_data(
     api, analysis_type,
 ):
@@ -30,21 +29,22 @@ def test_search_data(
 
     assert isinstance(search, dict)
 
-    assert "columns" in search and search["columns"]
-    assert "index" in search and search["index"]
-    assert "data" in search and search["data"]
+    assert "columns" in search["result"]
+    assert "index" in search["result"]
+    assert "data" in search["result"]
 
 
 @pytest.mark.parametrize(
-    "analysis_type", [SamplesAnalysisTypes.NMR],
+    "analysis_type", [SamplesAnalysisTypes.CCE],
 )
 @pytest.mark.smoke
 @pytest.mark.v2
-@pytest.mark.skip(reason="Policy Service issue")
 def test_search(
     api, analysis_type,
 ):
     search = api.sample_analysis.search(analysis_type)
 
-    assert isinstance(search, list)
-    assert len(search) > 0
+    assert isinstance(search, dict)
+
+    assert isinstance(search["result"], list)
+    assert len(search["result"]) > 0
